@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html>  
+    <head>
+        <meta charset="UTF-8">    
+        <title>Simulation de l'impôt</title>  
+
+        <!-- Two libraries must be included (+ jQuery): jChartFX and dhtmlxSlider <script  src="https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_LY3VmbyiEbsUsJd"></script>
+        <script  src="https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_svTPNkfS2YJUNER"></script> -->
+         <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+   <script src="dependencies/jquery.min.js"></script>
+    <script>    var $j = jQuery.noConflict(); </script>
+    <script src="dependencies/jchartfx.js" type="text/javascript" > </script>
+    <script src="dependencies/dhtmlxSlider.js" type="text/javascript" ></script>
+
+    <link rel="STYLESHEET" type="text/css" href="dependencies/reform.css"> <!--https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_aFFsz1rLNuQ9xCE-->
+
+    <script src="reforme_perso_p.js" type="text/javascript" ></script>
+</head>  
+<body> 
+Nous vous proposons donc ici de choisir vous-mêmes les paramètres d'une redistribution. Vous avez à votre disposition sous le graphique 3 curseurs qui font varier la répartition des revenus après impôts (courbe verte). Les deux premiers curseurs à régler sont la proportion de français à avantager par la réforme ainsi que la proportion de français à désavantager (la partie où la courbe verte et la courbe rouge sont superposées). Enfin, le dernier curseur permet de choisir l'importance de la redistribution par un chiffre entre 0 et 10 : 0 signifie un&nbsp;transfert faible (une situation où les hauts revenus ne baissent pas tellement par rapport à la situation actuelle) ; 10 signifie un transfert important (ce qui avantage davantage les bas et moyens revenus).&nbsp;
+<div><strong>Il faut que vous déplaciez les curseurs</strong> (en maintenant la souris appuyée sur les&nbsp;petits carrés et en allant sur le côté) pour voir la courbe verte évoluer avant de répondre : l'idée est de déplacer les curseurs <strong>jusqu'à obtenir une courbe verte qui vous satisfasse</strong>.<br>
+La valeur des curseurs n'est pas enregistrée, vous devez donc <strong>reporter les trois valeurs que vous aurez choisies dans les champs ci-dessous</strong>. Si vous ne souhaitez pas répondre à cette question, ne remplissez pas ces champs.
+&nbsp;<br>
+
+<div style="width:640px;height:550px;display: inline-block;" id="graphe">&nbsp;</div> 
+<div style="width:640px;height:550px;display: inline-block;" id="graphe_top">&nbsp;</div>
+&nbsp;<br>
+
+Votre revenu après impôts est estimé à&nbsp;<span id="rev_actuel">[calculé]</span>€/mois.<br>
+Si cette réforme était mise en place, votre revenu après impôt passerait à <span id="rev_futur">[calculé]</span>€/mois.
+
+<div style="width:20px; height:50px">&nbsp;</div>
+
+<div id="Slider_N_q_">&nbsp;</div>
+
+<div id="Slider_N_q">&nbsp;</div>
+&nbsp;
+
+<div id="Slider_transfert_">&nbsp;</div>
+
+<div id="Slider_transfert">&nbsp;</div>
+
+<div style="width:20px; height:50px">&nbsp;</div>
+</div>
+
+
+<div id="out"></div>
+</body>
+</html>
