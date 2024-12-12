@@ -3,14 +3,14 @@
 $j(document).ready(function($j){	
 	
 	var Nd_q, Nd_r, Na_q, Na_r, max;
-	Nd_q = 90*10;
-	Na_q = 50*10;
+	Nd_q = 95*10;
+	Na_q = 33*10;
 	max = 100000*12;
-	var X = 1.43;
+	var X = 0;
 	var aid = 0 * 201938;
 	
 	$j.ajax({
-		url:'../data/world_thousandile.csv',
+		url:'../data/world_disposable_inc.csv',
 		success: function(data){
 			var actuel = charge(data);
 			correct_parameters(actuel);
@@ -95,13 +95,11 @@ $j(document).ready(function($j){
 				graph.getAxisY().setMax(8000);
 				graph.getSeries().getItem(0).setMarkerShape(cfx.MarkerShape.None);
 				graph.getSeries().getItem(1).setMarkerShape(cfx.MarkerShape.None);
-				graph.getSeries().getItem(1).setColor("#FF0000");
-				graph.getSeries().getItem(0).setColor("#00FF00");
 				graph.getSeries().getItem(1).setText("revenus mensuels actuels    (en €)");
 				graph.getSeries().getItem(0).setText("revenus mensuels après la réforme proposée");
 				graph.getLegendBox().setDock(cfx.DockArea.Top);
 				titreX = new cfx.TitleDockable();
-				titreX.setText("Revenus après impôts et transferts des adultes français, du plus pauvre au plus riche");
+				titreX.setText("Revenus après impôts et transferts des humains adultes, du plus pauvre au plus riche");
 				titreX.setTextColor("#555555");
 				graph.getAxisX().setTitle(titreX);
 				graph.getAxisX().setStep(10000);
@@ -123,13 +121,11 @@ $j(document).ready(function($j){
 				graph.getAxisY().setMax(30000);
 				graph.getSeries().getItem(0).setMarkerShape(cfx.MarkerShape.None);
 				graph.getSeries().getItem(1).setMarkerShape(cfx.MarkerShape.None);
-				graph.getSeries().getItem(1).setColor("#FF0000");
-				graph.getSeries().getItem(0).setColor("#00FF00");
 				graph.getSeries().getItem(1).setText("revenus mensuels actuels    (en €)");
 				graph.getSeries().getItem(0).setText("revenus mensuels après la réforme proposée");
 				graph.getLegendBox().setDock(cfx.DockArea.Top);
 				titreX = new cfx.TitleDockable();
-				titreX.setText("Revenus après impôts et transferts des adultes français, du plus pauvre au plus riche");
+				titreX.setText("Revenus après impôts et transferts des humains adultes, du plus pauvre au plus riche");
 				titreX.setTextColor("#555555");
 				graph.getAxisX().setTitle(titreX);
 				graph.getAxisX().setStep(10000);
@@ -256,7 +252,7 @@ $j(document).ready(function($j){
 				for (i=0; i<Na_q; i++) { futur[i] -= Math.min(aid, econ) * (futur[i] - avant[i]) / econ ; }
 				for (i=Nd_q; i<1001; i++) { futur[i] -= Math.min(aid, econ) * (futur[i] - futur[Nd_q]) / econ ; }
 				// $j('#out').html((integrale(avant,0,1000)-integrale(futur,0,1000))/integrale(avant,0,1000)+"  "+G/R+"  "+futur[0]/12);
-				$j('#out').html(Math.round(1000*(integrale(futur,0,Na_q)-integrale(avant,0,Na_q))/integrale(avant,0,1000))/10+"  "+Math.round(1000*(integrale(avant,Nd_q,1000)-integrale(futur,Nd_q,1000))/integrale(avant,0,1000))/10+"  "+Math.round(futur[0]/12)+"  "+(futur[20]-avant[20])+"   "+(futur[21]-avant[21]));
+				$j('#out').html(Math.round(1000*(integrale(futur,0,Na_q)-integrale(avant,0,Na_q))/integrale(avant,0,1000))/10+"  "+Math.round(1000*(integrale(avant,Nd_q,1000)-integrale(futur,Nd_q,1000))/integrale(avant,0,1000))/10+"  "+Math.round(futur[0]/12));
 				// Qualtrics.SurveyEngine.setEmbeddedData("advantage", Na_q);
 				// Qualtrics.SurveyEngine.setEmbeddedData("disadvantage", Nd_q);
 				// Qualtrics.SurveyEngine.setEmbeddedData("transfer", X);

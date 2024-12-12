@@ -43,9 +43,9 @@ package <- function(p, version = NULL, remove = FALSE, github = '') {
 #'
 #' chooseCRANmirror(ind = 1)
 #' package("plyr")
-# package('tidyverse')
+package('tidyverse')
 package("dplyr")
-# package("tidyr")
+package("tidyr") # replace_na, no.na, decrit
 # package("expss") # fre (for weighted frequency table)
 # package("GDAtools") # wtable (for weighted frequency crosstable)
 # package("beepr") # beep() makes sound
@@ -171,7 +171,7 @@ package("readstata13") # read.dta13
 # package("dplR") # latexify, used in table_mean_lines_save
 # package("tm") # must be loaded before memisc; used for wordcloud
 # package("wordcloud")
-# package("Hmisc")
+package("Hmisc") # describe, decrit
 # package("readxl")
 #' package("ggpubr")
 #' package("RStata")
@@ -366,42 +366,42 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
 #'   else if (return %in% c("levels", "labels")) return(levels)
 #'   else if (return == "values") return(values)
 #' }
-#' no.na <- function(vec, num_as_char = T, rep = "na") {
-#'   if (num_as_char) {
-#'     if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
-#'     else return(replace_na(as.vector(vec), rep))
-#'   } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
-#'   } else return(vec)
-#' }
-#' decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
-#'   # if (!missing(data)) variable <- data[[variable]]
-#'   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
-#'   if (!missing(which)) variable <- variable[which]
-#'   if (weight) {
-#'     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
-#'     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
-#'     if (!missing(which)) weights <- weights[which]
-#'     if (length(weights)!=length(variable)) {
-#'       warning("Lengths of weight and variable differ, non-weighted results are provided")
-#'       weights <- NULL
-#'     } }
-#'   if (length(memisc::annotation(variable))>0 & !numbers) {
-#'     if (!miss) {
-#'       # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#'       # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#'       if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[no.na(variable)!=""]), weights = weights[no.na(variable)!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#'       else { describe(as.numeric(as.vector(variable[no.na(variable)!=""])), weights = weights[no.na(variable)!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
-#'     }
-#'     else {
-#'       if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[no.na(variable)!="" & !is.na(variable)]), weights = weights[no.na(variable)!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#'       else describe(as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), weights = weights[no.na(include.missings(variable))!="" & !is.na(variable)], descript=Label(variable)) }
-#'   }
-#'   else {
-#'     if (length(memisc::annotation(variable))>0) {
-#'       if (miss) describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""], descript=Label(variable))
-#'       else describe(variable[no.na(variable)!="" & !is.missing(variable)], weights = weights[no.na(variable)!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
-#'     } else describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""])  }
-#' }
+no.na <- function(vec, num_as_char = T, rep = "na") {
+  if (num_as_char) {
+    if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
+    else return(replace_na(as.vector(vec), rep))
+  } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
+  } else return(vec)
+}
+decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
+  # if (!missing(data)) variable <- data[[variable]]
+  if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
+  if (!missing(which)) variable <- variable[which]
+  if (weight) {
+    # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
+    if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
+    if (!missing(which)) weights <- weights[which]
+    if (length(weights)!=length(variable)) {
+      warning("Lengths of weight and variable differ, non-weighted results are provided")
+      weights <- NULL
+    } }
+  if (length(memisc::annotation(variable))>0 & !numbers) {
+    if (!miss) {
+      # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+      # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+      if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[no.na(variable)!=""]), weights = weights[no.na(variable)!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+      else { describe(as.numeric(as.vector(variable[no.na(variable)!=""])), weights = weights[no.na(variable)!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
+    }
+    else {
+      if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[no.na(variable)!="" & !is.na(variable)]), weights = weights[no.na(variable)!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+      else describe(as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), weights = weights[no.na(include.missings(variable))!="" & !is.na(variable)], descript=Label(variable)) }
+  }
+  else {
+    if (length(memisc::annotation(variable))>0) {
+      if (miss) describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""], descript=Label(variable))
+      else describe(variable[no.na(variable)!="" & !is.missing(variable)], weights = weights[no.na(variable)!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
+    } else describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""])  }
+}
 #' # Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
 #' #   if (setequal(levels(var), c(T, F))) levels <- c(T) # before: not this line
 #' #   else if (is.null(annotation(var))) levels <- levels(var)

@@ -17,8 +17,9 @@ gethin <- read.csv("../data/fisher-gethin-redistribution-2024-06-27.csv")
 View(gethin) # edp: education distributed proportionally (to posttax inc, like in WID, instead of school attendance)
 # 174 countries, not missing any important one (~2M people missing in total)
 
-gethin$disposable_inc_mean <- gethin$a_pdi / (gethin$xppp_us * gethin$defl) # convert into constant $ (xppp_us is the PPP deflator and defl the inflation/LCU deflator)
+gethin$disposable_inc <- gethin$a_pdi / (gethin$xppp_us * gethin$defl) # convert into constant $ (xppp_us is the LCU/ PPP$ conversion and defl the inflation until 2022)
 gethin$post_transfer_inc <- (gethin$a_pre + gethin$gov_soc) / (gethin$xppp_us * gethin$defl) 
+gethin$pretax_inc <- gethin$a_pre / (gethin$xppp_us * gethin$defl) 
 
 # Compute world distribution
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
@@ -40,10 +41,55 @@ compute_world_distrib_from_gethin <- function(var, year = 2019) {
 }
 world_post_transfer_inc <- compute_world_distrib_from_gethin("post_transfer_inc")
 View(world_post_transfer_inc)
-world_thousandile <- c(quadratic_interpolations(world_post_transfer_inc$post_transfer_inc_mean, world_post_transfer_inc$post_transfer_inc_thre, 
+thousandile_world_post_transfer_inc <- c(quadratic_interpolations(world_post_transfer_inc$post_transfer_inc_mean, world_post_transfer_inc$post_transfer_inc_thre, 
                                                                    c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_post_transfer_inc$post_transfer_inc_mean[101:102] %*% c(.9, .1))
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data/world_thousandile.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_post_transfer_inc)), file = "../data/world_post_transfer_inc.csv", row.names = F)
+
+world_disposable_inc <- compute_world_distrib_from_gethin("disposable_inc")
+thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_disposable_inc$disposable_inc_mean), pmax(0, world_disposable_inc$disposable_inc_thre), 
+                                                                  c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc$disposable_inc_mean[101:102] %*% c(.9, .1))
+# /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data/world_disposable_inc.csv", row.names = F)
+
+tax_revenue <- function(distr = thousandile_world_disposable_inc, weight = NULL, rate = .1, threshold = 48e3) {
+  if (is.null(weight)) return(sum(pmax(0, rate*(distr - threshold)))/sum(distr)) 
+  else return(sum(pmax(0, rate*(distr - threshold)) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
+tax_cost <- function(distr = thousandile_world_disposable_inc, weight = NULL, threshold = 2555) {
+  if (is.null(weight)) return(sum(pmax(0, threshold - distr))/sum(distr)) 
+  else return(sum(pmax(0, threshold - distr) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
+tax_revenue() # 2.33% world GNI
+tax_cost() # 2.33%
+tax_revenue(rate = .2) # 4.66%
+tax_cost(threshold = 3650) # 4.66%
+tax_revenue(rate = .1, threshold = 1e5) # 1.38%
+.5*(3831102-1e6)*1e-4/mean(thousandile_world_disposable_inc) # .92%
+# A tax of 10% above 48k can finance a $7/day floor and, topped with an extra tax of 10% above 100k and 50% above 1M can finance, a floor of $10/day can be financed
+
+thousandile_world_disposable_inc_reform_simple <- pmax(thousandile_world_disposable_inc, 2555) - .1*pmax(0, thousandile_world_disposable_inc - 48e3)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_reform_simple)), file = "../data/world_disposable_inc_reform_simple.csv", row.names = F)
+
+world_pretax_inc <- compute_world_distrib_from_gethin("pretax_inc")
+thousandile_world_pretax_inc <- c(quadratic_interpolations(world_pretax_inc$pretax_inc_mean, world_pretax_inc$pretax_inc_thre, 
+                                                                  c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_pretax_inc$pretax_inc_mean[101:102] %*% c(.9, .1))
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_pretax_inc)), file = "../data/world_pretax_inc.csv", row.names = F)
+
+national_disposable_inc_by_country <- sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))
+tax_revenue_by_country <- sapply(unique(gethin$iso), function(c) tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c]))
+transfer_by_country <- round(sapply(unique(gethin$isoname), function(c) tax_cost(gethin$disposable_inc[gethin$isoname == c], gethin$weight[gethin$isoname == c])) - tax_revenue_by_country, 3)
+sort(transfer_by_country) # Pb: Brazil, Russia, Turkey would lose ~2% GNI, Mexico ~1%, China 0.2%
+View(gethin[gethin$iso == "RU", c("p", 'disposable_inc', "weight")])
+
+countries <- c("FR", "DE", "IT", "PL", "CH", "GB", "JP", "RU", "SA", "US")
+for (c in countries) print(paste(c, round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c]), 1)))
+for (c in countries) print(paste(c, round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .25, 1e5), 1) + 
+                                   round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .25, 1e5), 1)))
+
+HICs <- c("AD", "AT", "BE", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MT", "MC", "NL", "NO", 
+          "PL", "PT", "SM", "SK", "SI", "ES", "SE", "CH", "GB", "CA", "US", "BS", "BB", "CL", "PA", "TT", "UY", "AU", "BN", "HK", "JP", "MO", "NZ", 
+          "SG", "KR", "TW", "BH", "IL", "KW", "OM", "QA", "SA", "AE", "SC", "MV")
+sum(national_disposable_inc_by_country[names(national_disposable_inc_by_country) %in% HICs])/sum(national_disposable_inc_by_country) # 43% of income is in HICs
+sum((transfer_by_country*national_disposable_inc_by_country)[names(national_disposable_inc_by_country) %in% HICs])/sum(national_disposable_inc_by_country[names(national_disposable_inc_by_country) %in% HICs]) # 2.9% of HIC income redistributed
 
 plot(c((0:99)/100, .999, 1), world_post_transfer_inc$post_transfer_inc_thre, type = 'l', ylim = c(0, 1e5))
 lines(c(1:1000)/1000, world_thousandile)
@@ -105,14 +151,17 @@ mean(world_post_transfer_inc$post_transfer_inc_mean[1:11])
 # world_inc_averages[2:3]
 
 
+# n=7.84*.25/(MDE^2*p*(1-p))
+# MDE=1.4/sqrt(n*p*(1-p))
+# n=2500, p=.2, .16
+# n=3000, p=.1/3, .2222
+# n=2000, p=.5, .25
+# n=1000, p=.5, .25
 
-
-
-
-
-
-
-
+plot(1:1000, thousandile_world_disposable_inc, type = 'l', ylim = c(0, 8000*12), col = "red")
+lines(1:1000, thousandile_world_post_transfer_inc, type = 'l', col = "blue")
+# lines(1:1000, thousandile_world_pretax_inc, type = 'l', col = "blue")
+lines(1:1000, thousandile_world_disposable_inc_post_simple_reform, type = 'l', col = "green")
 
 
 
