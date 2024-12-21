@@ -20,16 +20,18 @@ View(gethin) # edp: education distributed proportionally (to posttax inc, like i
 inflation <- read.xlsx("../data/inflation_imf.xlsx")
 # Inflation from data/inflation_worldbank.xslx. Accessed 12/21/24. Sources: 2020-2023: Ha et al. (2023), https://www.worldbank.org/en/research/brief/inflation-database; 2024: IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
 gethin <- merge(gethin, inflation, all.x = T)
-for (y in 2019:2024) gethin[[paste0("inflation_", y)]][is.na(gethin[[paste0("inflation_", y)]]) | gethin[[paste0("inflation_", y)]] == "no data"] <- 1
-for (y in 2019:2024) gethin[[paste0("inflation_", y)]] <- as.numeric(gethin[[paste0("inflation_", y)]])
+for (y in 2018:2024) gethin[[paste0("inflation_", y)]][is.na(gethin[[paste0("inflation_", y)]]) | gethin[[paste0("inflation_", y)]] == "no data"] <- 1
+for (y in 2018:2024) gethin[[paste0("inflation_", y)]] <- as.numeric(gethin[[paste0("inflation_", y)]])
 gethin$inflation_2020_2022 <- (1+gethin$inflation_2020/100)*(1+gethin$inflation_2021/100)*(1+gethin$inflation_2022/100)
 gethin$inflation_2023_2024 <- (1+gethin$inflation_2023/100)*(1+gethin$inflation_2024/100)
+gethin$inflation_2018_2024 <- gethin$inflation_2023_2024*gethin$inflation_2020_2022*(1+gethin$inflation_2019/100)*(1+gethin$inflation_2018/100)
 
 mer <- read.csv2("../data/LCU_USD_2023_wid.csv") # Market exchange rate, LCU per USD, 2023, xlcusx_999_i_2023, Fetched from https://wid.world/data/ on 12/21/2024.
 gethin <- merge(gethin, mer, all.x = T)
 gethin$lcu_usd <- as.numeric(gethin$lcu_usd)
 gethin$lcu19_mer23 <- gethin$lcu_usd * gethin$defl / (1+gethin$inflation_2023/100)
 gethin$lcu19_mer23[is.na(gethin$lcu19_mer23)] <- 1
+gethin$lcu19_mer23[gethin$isoname %in% c("Venezuela", "Zimbabwe", "Sierra Leone")] <- (gethin$xppp_us * gethin$defl)[gethin$isoname %in% c("Venezuela", "Zimbabwe", "Sierra Leone")]
 
 growth <- read.xlsx("../data/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
 gethin <- merge(gethin, growth, all.x = T)
@@ -37,14 +39,23 @@ gethin$growth_2020_2024 <- (1+gethin$growth_2020/100)*(1+gethin$growth_2021/100)
 gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
 sapply(countries, function(c) mean(gethin$growth_2020_2024[gethin$iso == c], na.rm = T))
 
-# Variables are in MER $ 2023
-gethin$disposable_inc <- gethin$a_pdi * gethin$growth_2020_2024 / gethin$lcu19_mer23
-gethin$post_transfer_inc <- (gethin$a_pre + gethin$gov_soc) * gethin$growth_2020_2024 / gethin$lcu19_mer23
-gethin$pretax_inc <- gethin$a_pre * gethin$growth_2020_2024 / gethin$lcu19_mer23
+# Variables are in PPP $ 2024
+gethin$lcu19_growth_ppp24 <- gethin$growth_2020_2024 * mean(gethin$inflation_2023_2024[gethin$iso == "US"], na.rm = T) / (gethin$xppp_us * gethin$defl) 
+gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24
+gethin$post_transfer_inc <- (gethin$a_pre + gethin$gov_soc) * gethin$lcu19_growth_ppp24
+gethin$pretax_inc <- gethin$a_pre * gethin$lcu19_growth_ppp24
+
+# # Variables are in MER $ 2023
+# gethin$disposable_inc <- gethin$a_pdi * gethin$growth_2020_2024 / gethin$lcu19_mer23
+# gethin$post_transfer_inc <- (gethin$a_pre + gethin$gov_soc) * gethin$growth_2020_2024 / gethin$lcu19_mer23
+# gethin$pretax_inc <- gethin$a_pre * gethin$growth_2020_2024 / gethin$lcu19_mer23
 
 gethin$disposable_inc_ppp22 <- gethin$a_pdi / (gethin$xppp_us * gethin$defl) # convert into constant $ (xppp_us is the LCU/ PPP$ conversion and defl the local inflation until 2022)
 gethin$post_transfer_inc_ppp22 <- (gethin$a_pre + gethin$gov_soc) / (gethin$xppp_us * gethin$defl)
 gethin$pretax_inc_ppp22 <- gethin$a_pre / (gethin$xppp_us * gethin$defl)
+
+decrit((gethin$growth_2020_2024 / gethin$lcu19_mer23) / (gethin$xppp_us * gethin$defl))
+decrit(gethin$isoname[(gethin$growth_2020_2024 / gethin$lcu19_mer23) / (gethin$xppp_us * gethin$defl) < 1e-4])
 
 # Compute world distribution
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
@@ -86,27 +97,43 @@ write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_wo
 tax_revenue <- function(distr = thousandile_world_disposable_inc, weight = NULL, rate = .1, threshold = 48e3) {
   if (is.null(weight)) return(sum(pmax(0, rate*(distr - threshold)))/sum(distr)) 
   else return(sum(pmax(0, rate*(distr - threshold)) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
-tax_cost <- function(distr = thousandile_world_disposable_inc, weight = NULL, threshold = 2555) {
+tax_cost <- function(threshold = 2555, distr = thousandile_world_disposable_inc, weight = NULL) {
   if (is.null(weight)) return(sum(pmax(0, threshold - distr))/sum(distr)) 
   else return(sum(pmax(0, threshold - distr) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
 tax_revenue() # 2.33% world GNI
-tax_cost() # 2.33%
+tax_cost(threshold = 365*7.5*mean(gethin$inflation_2018_2024[gethin$iso == "US"], na.rm = T)) # 2.33%
 tax_revenue(rate = .12, threshold = 60e3) # 2.37%
-tax_revenue(rate = .13, threshold = 70e3) # 2.30%
+tax_revenue(rate = .1, threshold = 70e3) # 2%
+tax_revenue(rate = .1, threshold = 84e3) # 1.75%
+tax_revenue(rate = .1, threshold = 100e3) # 1.55%
+tax_revenue(rate = .1, threshold = 120e3) # 1.37%
+tax_revenue(rate = .15, threshold = 70e3) # 3%
+tax_revenue(rate = .15, threshold = 80e3) # 3.5%
+tax_revenue(rate = .15, threshold = 100e3) # 2.3%
+tax_revenue(rate = .15, threshold = 120e3) # 2.06%
+# tax_revenue(rate = .1, threshold = 1e6) # .1%
+.1*(world_disposable_inc$disposable_inc_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc) # .2%
 tax_revenue(rate = .2) # 4.66%
 tax_cost(threshold = 3650) # 4.66%
 tax_revenue(rate = .1, threshold = 1e5) # 1.38%
-.5*(3831102-1e6)*1e-4/mean(thousandile_world_disposable_inc) # .92%
+.5*(world_disposable_inc_ppp22$disposable_inc_ppp22_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc_ppp22) # .92%
 tax_revenue(rate = .15, threshold = 1e5) # 2.07%
-.15*(3831102-1e6)*1e-4/mean(thousandile_world_disposable_inc) # .28%
+.15*(world_disposable_inc_ppp22$disposable_inc_ppp22_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc_ppp22) # .28%
 # A tax of 10% above 48k (or 12%>60k or 13%>70k) can finance a $7/day floor and, topped with an extra tax of 10% above 100k and 60% above 1M (or 15%/30%) can finance, a floor of $10/day can be financed
+7.5*mean(gethin$inflation_2018_2024[gethin$iso == "US"], na.rm = T) # 9.46
 
-mean(thousandile_world_disposable_inc < 200*12)*8
+tax_cost(4800)
+mean(thousandile_world_disposable_inc < 3000)*8
+mean(thousandile_world_disposable_inc < 4800)*8
+mean(thousandile_world_disposable_inc < 10*365)*8
+mean(thousandile_world_disposable_inc < 9.46*365)*8
 mean(thousandile_world_disposable_inc < 10*365)*8
 1-mean(thousandile_world_disposable_inc < 48e3) # 6%
 1-mean(thousandile_world_disposable_inc < 60e3) # 4%
 1-mean(thousandile_world_disposable_inc < 70e3) # 3%
+1-mean(thousandile_world_disposable_inc < 80e3) # 3%
 1-mean(thousandile_world_disposable_inc < 100e3) # 1.4%
+1-mean(thousandile_world_disposable_inc < 120e3) # 1.4%
 
 
 thousandile_world_disposable_inc_reform_simple <- pmax(thousandile_world_disposable_inc, 2555) - .1*pmax(0, thousandile_world_disposable_inc - 48e3)
@@ -129,21 +156,56 @@ countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 pop <- sapply(countries, function(c) mean(gethin$npop[gethin$iso == c], na.rm = T))
 # Inflation from data/inflation_worldbank.xslx. Accessed 12/21/24. Sources: 2020-2023: Ha et al. (2023), https://www.worldbank.org/en/research/brief/inflation-database; 2024: IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
 # inflation_2020_2024 <- setNames(c(1.150747862, 1.202690072, 1.116885611, 1.391244653, 1.173488108, 1.239791209, 1.060266139, 1.062257972, 1.536277679, 1.179800076, 1.203010226), countries)
-# inflation_2023_2024 <- setNames(c(1.078921112, 1.091929123, 1.06660698, 1.153200023, 1.08926421, 1.111155701, 1.022893177, 1.05928959, 1.125419714, 0.970416154, 1.067604188), countries)
+(inflation_2023_2024 <- sapply(countries, function(c) mean(gethin$inflation_2023_2024[gethin$iso == c], na.rm = T)))
 (inflation_2024 <- 1+sapply(countries, function(c) mean(gethin$inflation_2024[gethin$iso == c], na.rm = T))/100)
 (lcu_usd_2023 <- sapply(countries, function(c) mean(gethin$lcu_usd[gethin$iso == c], na.rm = T)))
+(xppp_us <- sapply(countries, function(c) mean(gethin$xppp_us[gethin$iso == c], na.rm = T)))
 # lcu_usd_2024 <- setNames(c(0.92316, 0.92316, 0.92316, 3.976265, 0.92316, 0.782297, 0.880159, 151.179433, 94, 3.752279, 1), countries) # Average MER over 2024, Accessed 12/21/2024, https://www.ofx.com/en-ie/forex-news/historical-exchange-rates/yearly-average-rates/
 lcu_usd_2024 <- setNames(c(0.96, 0.96, 0.96, 4.09, 0.96, 0.80, 0.89, 156, 103, 3.75, 1), countries) # MER at 12/21/2024, Accessed from xe.com
 lcu_usd_2023 * inflation_2024 / lcu_usd_2024
+round(70e3*usd_lcu)
+round(84e3*usd_lcu)
+round(100e3*usd_lcu)
+round(120e3*usd_lcu)
 for (c in countries) print(paste(c, round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c]), 1)))
 for (c in countries) print(paste(c, round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .25, 1e5), 1) + 
                                    round(100*tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .25, 1e5), 1)))
-# Share top income affected by new tax (in %)
-(share_affected_new_tax <- sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc >= 70e3], na.rm = T)))
-wtd.mean(share_affected_new_tax, pop) # 10%
-(share_affected_new_tax <- sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc >= 100e3], na.rm = T)))
-wtd.mean(share_affected_new_tax, pop) # 5%
+(share_affected_new_tax_simple <- sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc_ppp22 >= 70e3], na.rm = T)))
+wtd.mean(share_affected_new_tax_simple, pop) # 10%
+(share_affected_new_tax_double <- sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc_ppp22 >= 100e3], na.rm = T)))
+wtd.mean(share_affected_new_tax_double, pop) # 5%
 
+# Share top income affected by new tax (in %)
+(share_affected_new_tax_simple <- round(sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc >= 70e3], na.rm = T))))
+wtd.mean(share_affected_new_tax_simple, pop) # 10%
+(share_affected_new_tax_simple <- round(sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc >= 80e3], na.rm = T))))
+wtd.mean(share_affected_new_tax_simple, pop) # 10%
+(share_affected_new_tax_double <- round(sapply(countries, function(c) 100 - 1e-3*min(gethin$p[gethin$iso == c & gethin$disposable_inc >= 120e3], na.rm = T))))
+wtd.mean(share_affected_new_tax_double, pop) # 5%
+
+tax_cost(3000) # 2.08%: .15 > 120k
+tax_cost(4800) # 5.1%: .2 > 84k + .1 > 120k + .15 > 1M OR .15 > 84k + .15 > 120k + .2 > 1M
+
+usd_lcu <- xppp_us * inflation_2023_2024 / inflation_2023_2024["US"]
+84e3*usd_lcu
+120e3*usd_lcu
+1e6*usd_lcu
+
+(gdp_transferred_new_tax_simple <- sapply(countries, function(c) round(100*(tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)
+                                                                - tax_cost(3000, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])), 1) )) 
+wtd.mean(gdp_transferred_new_tax_simple, pop) # 2.1%
+(gdp_transferred_new_tax_double <- sapply(countries, function(c) round(100*(tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 80e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 1e6)
+                                                                     - tax_cost(4800, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])), 2) ))
+wtd.mean(gdp_transferred_new_tax_double, pop) # 5.5%
+
+# USA (8% of its GDP), Russia (5%), Japan (4%), Brazil (2%), China (1%), Lebanon (1%), Argentina (.8%), Iran (.5%) contribute 
+# Indonesia (3%), India (10%), Pakistan (25%), Nigeria (25%), DR Congo (240%), South Sudan (730%) receive
+(gdp_transferred_new_tax_double_all <- sort(sapply(unique(gethin$isoname), function(c) round(100*(tax_revenue(gethin$disposable_inc[gethin$isoname == c], gethin$weight[gethin$isoname == c], .15, 80e3)
+                                                                       + tax_revenue(gethin$disposable_inc[gethin$isoname == c], gethin$weight[gethin$isoname == c], .15, 120e3)
+                                                                       + tax_revenue(gethin$disposable_inc[gethin$isoname == c], gethin$weight[gethin$isoname == c], .15, 1e6)
+                                                                       - tax_cost(4800, gethin$disposable_inc[gethin$isoname == c], gethin$weight[gethin$isoname == c])), 1) )))
 
 HICs <- c("AD", "AT", "BE", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MT", "MC", "NL", "NO", 
           "PL", "PT", "SM", "SK", "SI", "ES", "SE", "CH", "GB", "CA", "US", "BS", "BB", "CL", "PA", "TT", "UY", "AU", "BN", "HK", "JP", "MO", "NZ", 
