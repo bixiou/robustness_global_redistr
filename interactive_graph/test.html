@@ -14,37 +14,15 @@
 
     <link rel="STYLESHEET" type="text/css" href="dependencies/reform.css"> <!--https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_aFFsz1rLNuQ9xCE-->
 
-    <script src="reforme_perso_3.js" type="text/javascript" ></script>
+    <script src="reforme_perso.js" type="text/javascript" ></script>
 </head>  
 <body> 
-Nous vous proposons donc ici de choisir vous-mêmes les paramètres d'une redistribution. Vous avez à votre disposition sous le graphique 3 curseurs qui font varier la répartition des revenus après impôts (courbe verte). Les deux premiers curseurs à régler sont la proportion d'humains à avantager par la réforme ainsi que la proportion humains à désavantager (la partie où la courbe verte et la courbe rouge sont superposées). Enfin, le dernier curseur permet de choisir l'importance de la redistribution par un chiffre entre 0 et 10 : 0 signifie un&nbsp;transfert faible (une situation où les hauts revenus ne baissent pas tellement par rapport à la situation actuelle) ; 10 signifie un transfert important (ce qui avantage davantage les bas et moyens revenus).&nbsp;
-<div><strong>Il faut que vous déplaciez les curseurs</strong> (en maintenant la souris appuyée sur les&nbsp;petits carrés et en allant sur le côté) pour voir la courbe verte évoluer avant de répondre : l'idée est de déplacer les curseurs <strong>jusqu'à obtenir une courbe verte qui vous satisfasse</strong>.<br>
+    If you could redistribute income at the global level, what would you do? In this question, we let you choose your preferred parameters for a redistribution of income at the world level.&nbsp;If you prefer to skip this question, check the box at the bottom of the page.<br><br>The worldwide redistribution of income would take the form of additional policies, taxes, and transfers, on top of existing ones, that would lower the after-tax income of the richest and increase the income of the poorest.&nbsp;<br><br>Below the graph, you'll find 3 sliders that vary the world distribution of after-tax income. The current distribution is in red, and your custom one is in green.&nbsp;<br>The first two sliders&nbsp;control the proportion of people (with the lowest incomes) to benefit from the reform, and the proportion of people (with the highest incomes) to lose out. The third slider controls the degree of redistribution from the richest to the poorest.&nbsp;<br>If you do not want new policies to reduce global inequality, you can set the third slider at zero.&nbsp;<br><br><b>You need to move the sliders</b> (by holding the mouse down on the little squares and moving to the side) to see the green curve evolve: the idea is to move the sliders <b>until you get a green curve you're happy with</b>. 
+ 
+
+<div style="width:800px;height:688px;display: inline-block;" id="graphe">&nbsp;</div> 
+<!-- <div style="width:640px;height:550px;display: inline-block;" id="graphe_top">&nbsp;</div> -->
 &nbsp;<br>
-
-<div style="width:640px;height:550px;display: inline-block;" id="graphe">&nbsp;</div> 
-<div style="width:640px;height:550px;display: inline-block;" id="graphe_top">&nbsp;</div>
-&nbsp;<br>
-
-<!--Votre revenu après impôts est estimé à&nbsp;<span id="rev_actuel">[calculé]</span>€/mois.<br>
-Si cette réforme était mise en place, votre revenu après impôt passerait à <span id="rev_futur">[calculé]</span>€/mois.
-
-
-Le graphique ci-dessous représente la répartition actuelle des revenus des Français. 
-
-La courbe bleue correspond aux revenus avant impôts et prestations sociales, tandis que la courbe rouge représente les revenus après impôts et prestations.
-
-Imaginez une réforme fiscale qui aurait les caractéristiques suivantes : la répartition actuelle des revenus (en rouge) serait remplacée par une distribution plus égalitaire (en vert) ; cette réforme instaurerait un revenu de base garanti à chaque personne de 840€/mois, désavantagerait les 10 % les plus riches par rapport à la situation actuelle mais avantagerait les 50 % les plus pauvres.
-
-Pour bien comprendre cette réforme, voyons sur des exemples comment elle ferait changer le revenu d'une personne seule :
-- Quelqu'un gagnant 800€/mois avant la réforme (après impôts et prestations) gagnerait =>  950€/mois après la réforme (après impôts et prestations) ;
-- 1 100€/mois avant la réforme =>  1 130€/mois après la réforme ;
-- 1 500€/mois avant la réforme =>  1 500€/mois après la réforme ;
-- 2 800€/mois avant la réforme =>  2 800€/mois après la réforme ;
-- 3 000€/mois avant la réforme =>  2 950€/mois après la réforme ;
-- 4 000€/mois avant la réforme =>  3 700€/mois après la réforme ;
-- 5 000€/mois avant la réforme =>  4 500€/mois après la réforme ;
-- 20 000€/mois avant la réforme =>  16 000€/mois après la réforme.  -->
-
 
 <div style="width:20px; height:50px">&nbsp;</div>
 
@@ -56,6 +34,15 @@ Pour bien comprendre cette réforme, voyons sur des exemples comment elle ferait
 <div id="Slider_transfert_">&nbsp;</div>
 
 <div id="Slider_transfert">&nbsp;</div>
+
+<br>Below are examples of how after-tax incomes would change after your proposed redistribution:<br>
+&#8226; Someone earning 0&nbsp;€/year now would earn =&gt; <span id="after_0">0</span>&nbsp;€/year after your custom redistribution;
+<br>&#8226; 10&nbsp;000&nbsp;€/year now =&gt; <span id="after_10k">10&nbsp;000</span>&nbsp;€/year after;<br>
+&#8226; 60&nbsp;000&nbsp;€/year now =&gt; <span id="after_60k">60&nbsp;000</span>&nbsp;€/year after;<br>
+&#8226; 100&nbsp;000&nbsp;€/year now  =&gt; <span id="after_100k">100&nbsp;000</span>&nbsp;€/year after.<br><br>
+Your individual income according to the previous question:<br>
+&#8226; <span id="own">40&nbsp;000</span>&nbsp;€/year now =&gt; <span id="after_own">3&nbsp;000</span>&nbsp;€/year after the redistribution;<br>
+<br>
 
 <div style="width:20px; height:50px">&nbsp;</div>
 </div>
