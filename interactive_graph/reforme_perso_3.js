@@ -46,7 +46,7 @@ $j(document).ready(function($j){
 			var graphe_top = new cfx.Chart();
 
 			$j.ajax({
-				url:'../data/world_pretax_inc.csv', // world_post_transfer_inc world_pretax_inc
+				url:'../data/world_disposable_inc_ppp22.csv', // world_post_transfer_inc world_pretax_inc  world_disposable_inc_reform_double
 				success: function(data){
 					futur = courbe_reference(actuel, max);
 
