@@ -158,3 +158,7 @@ for (l in languages) {
   write(ldat, paste0("../conjoint_analysis/", l, ".dat"))
 }
 
+
+##### Export examples_custom in .csv #####
+examples_custom <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "examples_custom", colNames = F))
+write.table(examples_custom, "../questionnaire/examples_custom.csv", sep=";",  col.names=FALSE, row.names = F, quote = F, na = "")
