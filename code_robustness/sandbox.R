@@ -288,6 +288,3 @@ lines(1:1000, thousandile_world_disposable_inc_post_simple_reform, type = 'l', c
 
 
 
-
-
-

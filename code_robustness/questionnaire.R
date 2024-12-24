@@ -115,3 +115,46 @@ round(1e6*usd_lcu/1e3)*1e3
 round(80e3*usd_lcu/1e2/12)*1e2
 round(120e3*usd_lcu/1e2/12)*1e2
 round(1e6*usd_lcu/1e4/12)*1e4
+
+
+##### Conjoint analysis: Extract policies from sources.xlsx and export to JSON #####
+# /!\ Assumes "-" ends each policy domain.
+policies_names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies")) # , rowNames = T, rows = c(1, 16:41), cols = 1:6
+languages <- colnames(policies_names)[!grepl("_|[a-z]", colnames(policies_names))]
+json <- "{"
+j <- 1
+for (j in 1:length(languages)) {
+  c <- languages[j]
+  json <- paste0(json, '\n\t"', c, '": {')
+  policies_c <- policies_names[, c]
+  policies_c <- policies_c[!is.na(policies_c)]
+  new_domain <- T
+  i <- 1
+  while (i <= length(policies_c)) {
+    # if (no.na(policies_c[i], rep = "") != "") {
+    if (new_domain) json <- paste0(json, '\n\t\t"', policies_c[i], '": [')
+    else json <- paste0(json, '\n\t\t\t"', policies_c[i], '"') # Change this if we need to exclude some policies e.g. '-'
+    if (policies_c[i] == "-") { # /!\ Assumes "-" ends all domains.
+      json <- if (i == length(policies_c)) paste(json, '\n\t\t]') else paste(json, '\n\t\t],') 
+    } else if (!new_domain) json <- paste0(json, ',')
+    # } 
+    new_domain <- policies_c[i] == "-"
+    i <- i+1
+  }
+  json <- paste(json, if (j == length(languages)) '\n\t}' else '\n\t},')
+} 
+json <- paste0(json, '\n}')
+
+write(json, "../conjoint_analysis/policies.json")
+policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
+
+# Export .dat required to process conjoint analysis results
+for (l in languages) {
+  ldat <- "Attributes\n"
+  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(gsub(",", ";", policies_conjoint[[l]][[d]]), collapse = ','), "\n")
+  ldat <- paste0(ldat, "Weights\n") # /!\ Assumes equal weight for each policy in a given domain
+  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(rep(1/length(policies_conjoint[[l]][[d]]), length(policies_conjoint[[l]][[d]])), collapse = ','), "\n")
+  ldat <- paste0(ldat, "Restrictions\n") # /!\ Assumes no restrictions, i.e. no incompatibility between policies
+  write(ldat, paste0("../conjoint_analysis/", l, ".dat"))
+}
+

@@ -1,0 +1,65 @@
+{
+	"SA": {
+		"Économie": [
+			"Versement du RSA aux 18-25 ans sans emploi",
+			"SMIC à 1600€ net par mois",
+			"Recul de l'âge légal de départ à la retraite à 65 ans",
+			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
+			"-" 
+		],
+		"Démocratie": [
+			"Élection des députés à la proportionnelle",
+			"Référendum d'Initiative Citoyenne (RIC)",
+			"-" 
+		],
+		"Climat": [
+			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
+			"Plan pour l'isolation thermique",
+			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
+			"-" 
+		],
+		"Fiscalité": [
+			"Plan de redistribution nationale",
+			"Rétablissement de l'impôt sur la fortune (ISF)",
+			"-" 
+		],
+		"Politique étrangère": [
+			"Plan mondial pour le climat",
+			"Taxe mondiale sur les millionaires",
+			"Assemblée démocratique mondiale sur le changement climatique",
+			"Doubler l'aide au développement des pays à faibles revenus",
+			"-" 
+		] 
+	},
+	"US": {
+		"Wirtschaftspolitik": [
+			"Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat",
+			"Bürgerversicherung als gerechtere Sozialversicherung",
+			"Staatsschuldenquote auf unter 60% reduzieren",
+			"Investitionen für Gigabit-Netzwerke bereitstellen",
+			"-" 
+		],
+		"Gesellschaft": [
+			"Cannabis-Legalisierung",
+			"-" 
+		],
+		"Klimaschutz": [
+			"Verpflichtende Solaranlagen auf allen geeigneten Dächern",
+			"Plan zur Wärmedämmung",
+			"Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030",
+			"-" 
+		],
+		"Steuerpolitik": [
+			"Nationales Umverteilungsprogramm",
+			"Die Vermögenssteuer wieder in Kraft setzen",
+			"-" 
+		],
+		"Außenpolitik": [
+			"Globales Klimaprogramm",
+			"Globale Steuer auf Millionäre",
+			"Globale demokratische Versammlung zum Klimawandel",
+			"Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern",
+			"-" 
+		] 
+	}
+}

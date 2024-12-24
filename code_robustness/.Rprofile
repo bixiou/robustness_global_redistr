@@ -50,6 +50,7 @@ package("tidyr") # replace_na, no.na, decrit
 # package("GDAtools") # wtable (for weighted frequency crosstable)
 # package("beepr") # beep() makes sound
 package("openxlsx") # read.xlsx
+package("jsonlite") # fromJSON
 # package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
