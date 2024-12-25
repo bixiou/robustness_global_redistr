@@ -159,6 +159,6 @@ for (l in languages) {
 }
 
 
-##### Export examples_custom in .csv #####
-examples_custom <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "examples_custom", colNames = F))
-write.table(examples_custom, "../questionnaire/examples_custom.csv", sep=";",  col.names=FALSE, row.names = F, quote = F, na = "")
+##### Export features in .csv #####
+features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", colNames = F))
+write.table(features, "../questionnaire/features.csv", sep=";",  col.names=FALSE, row.names = F, quote = F, na = "")

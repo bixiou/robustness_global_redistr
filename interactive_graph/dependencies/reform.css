@@ -130,7 +130,7 @@
 }
 
 .jchartfx .Attribute2Line {
-	stroke: #0000FF;
+	stroke: #B65145;
 	stroke-width: 3;
 }
 
@@ -411,7 +411,7 @@
 	/*
 	fill: #57ACDA;
 	*/
-    font-size: 11pt;
+    font-size: 15pt;
 }
 
 .jchartfx .LegendBox {
@@ -422,6 +422,7 @@
 
 .jchartfx .LegendItem {
 	fill: #666666;
+    font-size: 13pt;
 }
 
 .jchartfx .ScrollBar {
