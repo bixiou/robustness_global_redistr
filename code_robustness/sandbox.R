@@ -273,12 +273,30 @@ mean(world_post_transfer_inc$post_transfer_inc_mean[1:11])
 # world_inc_averages[2:3]
 
 
-# n=7.84*.25/(MDE^2*p*(1-p))
-# MDE=1.4/sqrt(n*p*(1-p))
-# n=2500, p=.2, .16
-# n=3000, p=.1/3, .2222
-# n=2000, p=.5, .25
-# n=1000, p=.5, .25
+# n=7.84/MDE^2
+# MDE=2.8/sqrt(n)
+# MDE in a regression  btw 2 dummies. n is the total sample sample size (assuming 2 subsamples), y is the average outcome between subsamples
+mde <- function(n, alpha = .05, beta = .8, y = .5) return((qnorm(1 - alpha/2) + qnorm(beta))*sqrt(4*y*(1-y))/sqrt(n))
+mde(12000) # .025
+mde(6000) # .036
+mde(3000) # .05
+mde(2000) # .06
+mde(1000) # .09
+mde(666) # .11
+mde(500) # .125 # MDE for SA, RU (n=1k) with 4 branches: .13. That's fine.
+mde(333) # .15
+mde(250) # .18
+
+# 1-alpha confidence that true value is in y +/- me
+me <- function(n, alpha = .05, y = .5) return(qnorm(1 - alpha/2)*sqrt(y*(1-y)/n))
+me(12000) # .01
+me(3000) # .018
+me(2000) # .022
+me(1000) # .031
+me(666) # .038
+me(500) # .044 
+me(333) # .054
+me(250) # .062 # ME for SA, RU (n=1k) with 4 branches: .06. That's fine.
 
 plot(1:1000, thousandile_world_disposable_inc, type = 'l', ylim = c(0, 8000*12), col = "red")
 lines(1:1000, thousandile_world_post_transfer_inc, type = 'l', col = "blue")
