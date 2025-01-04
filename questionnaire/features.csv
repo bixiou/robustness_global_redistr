@@ -4,47 +4,58 @@ now_40k;40000;40000;40000;40000;40000;40000;40000;40000;40000;40000;40000;40000;
 now_60k;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000;60000
 now_100k;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000;100000
 unit;1;0.25;1;1;1;1;1;1;1;0.25;1;1;1;1;1
-text_unit;€/year;€/year;€/year;zł/rok;€/year;£/year;€/year;€/year;€/year;$/year;$/year;$/year;$/year;$/year;$/year
-text_current;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income
-text_after;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution
-text_title;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest
-text_benefit;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:
-text_lose;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:
-text_degree;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:
+text_unit;€/an;€/Jahr;€/year;zł/rok;€/year;£/year;€/year;€/year;€/year;$/year;$/year;$/year;$/year;$/year;$/year
+text_current;Revenu actuel;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income;Current income
+text_after;Revenu après la redistribution mondiale;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution;Income after global redistribution
+text_title;Revenu après impôts et transferts des adultes humains, du plus pauvre au plus riche;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest;Income after taxes and transfers of human adults, from the poorest to the richest
+text_benefit;Proportion avantagée&nbsp;:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:;Share who benefit:
+text_lose;Proportion désavantagée&nbsp;:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:;Share who lose out:
+text_degree;Degré de redistribution&nbsp;:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:;Degree of redistribution:
 step_major;10000;50000;10000;10000;10000;10000;10000;10000;10000;10000;10000;10000;10000;10000;10000
 step_minor;2500;10000;2500;2500;2500;2500;2500;2500;2500;2500;2500;2500;2500;2500;2500
-periodicity; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month; per month
-amount_bi;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30
-amount_lost;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10
-amount_expenses;40;40;40;40;40;40;40;40;40;40;40;40;40;40;40
-amount_lottery;100;100;100;100;100;100;100;100;100;100;100;100;100;100;100
-map_append;EU;EU;EU;EU;EU;GB;CH;JP;RU;SA;US;CH;CH;CH;US
-country_name;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France
+periodicity; par mois; per month; per month; per month; per month; per month; per month; per month; per month; per month; per year; per month; per month; per month; per month
+amount_bi;30&nbsp;€;€30;€30;€30;€30;€30;€30;€30;€30;€30;$30;€30;€30;€30;€30
+amount_lost;10&nbsp;€;€10;€10;€10;€10;€10;€10;€10;€10;€10;$85;€10;€10;€10;€10
+amount_expenses;40&nbsp;€;€40;€40;€40;€40;€40;€40;€40;€40;€40;$115;€40;€40;€40;€40
+amount_lottery;100&nbsp;€;€100;€100;€100;€100;€100;€100;€100;€100;€100;$100;€100;€100;€100;€100
+country_name;la France;la France;la France;la France;la France;la France;la France;la France;la France;la France;the United States;la France;la France;la France;la France
 emissions_with;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;TRUE
-emissions_low_with;33;33;33;33;33;33;33;33;33;33;33;33;33;33;33
-emissions_mid_with;63;63;63;63;63;63;63;63;63;63;63;63;63;63;63
-emissions_high_with;71;71;71;71;71;71;71;71;71;71;71;71;71;71;71
-periodicity_tax; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year
-affected_top3;18;18;18;18;18;18;18;18;18;18;18;18;18;18;18
-transfer_top3;8;8;8;8;8;8;8;8;8;8;8;8;8;8;8
-affected_top1;8;8;8;8;8;8;8;8;8;8;8;8;8;8;8
-transfer_top1;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3
-lcu_1500;$1,500;$1,501;$1,502;$1,503;$1,504;$1,505;$1,506;$1,507;$1,508;$1,509;$1,510;$1,511;$1,512;$1,513;$1,514
-lcu_1500_top3;$1,500;$1,501;$1,502;$1,503;$1,504;$1,505;$1,506;$1,507;$1,508;$1,509;$1,510;$1,511;$1,512;$1,513;$1,514
-lcu_10k;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000
-lcu_10k_top3;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000
-lcu_75k;$75,000;$75,001;$75,002;$75,003;$75,004;$75,005;$75,006;$75,007;$75,008;$75,009;$75,010;$75,011;$75,012;$75,013;$75,014
-lcu_80k;$80,000;$80,001;$80,002;$80,003;$80,004;$80,005;$80,006;$80,007;$80,008;$80,009;$80,010;$80,011;$80,012;$80,013;$80,014
-lcu_90k;$90,000;$90,001;$90,002;$90,003;$90,004;$90,005;$90,006;$90,007;$90,008;$90,009;$90,010;$90,011;$90,012;$90,013;$90,014
-lcu_100k;$100,000;$100,001;$100,002;$100,003;$100,004;$100,005;$100,006;$100,007;$100,008;$100,009;$100,010;$100,011;$100,012;$100,013;$100,014
-lcu_120k;$120,000;$120,001;$120,002;$120,003;$120,004;$120,005;$120,006;$120,007;$120,008;$120,009;$120,010;$120,011;$120,012;$120,013;$120,014
-lcu_130k;$130,000;$130,001;$130,002;$130,003;$130,004;$130,005;$130,006;$130,007;$130,008;$130,009;$130,010;$130,011;$130,012;$130,013;$130,014
-lcu_150k;$150,000;$150,001;$150,002;$150,003;$150,004;$150,005;$150,006;$150,007;$150,008;$150,009;$150,010;$150,011;$150,012;$150,013;$150,014
-lcu_200k;$200,000;$200,001;$200,002;$200,003;$200,004;$200,005;$200,006;$200,007;$200,008;$200,009;$200,010;$200,011;$200,012;$200,013;$200,014
-lcu_1M;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million
+emissions_low_with;33;33;33;33;33;33;33;33;33;33;40;33;33;33;33
+emissions_mid_with;63;63;63;63;63;63;63;63;63;63;70;63;63;63;63
+emissions_high_without;66;71;71;71;71;71;71;71;71;71;72;71;71;71;71
+emissions_high_with;72;71;71;71;71;71;71;71;71;71;87;71;71;71;71
+nb_countries_high;153;153;153;153;153;153;153;153;153;153;153;153;153;153;153
+periodicity_tax; par mois; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year; per year
+affected_top3;5;18;18;18;18;18;18;18;18;18;18;18;18;18;18
+transfer_top3;2;8;8;8;8;8;8;8;8;8;8;8;8;8;8
+affected_top1;2;8;8;8;8;8;8;8;8;8;8;8;8;8;8
+transfer_top1;1;3;3;3;3;3;3;3;3;3;3;3;3;3;3
+lcu_1500;150&nbsp;;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500
+lcu_1500_top3;150&nbsp;;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500;$1,500
+lcu_10k;1&nbsp;000&nbsp;€;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000
+lcu_10k_top3;1&nbsp;000&nbsp;€;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000;$10,000
+lcu_75k;4&nbsp;500&nbsp;€;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000;$75,000
+lcu_80k;5&nbsp;000&nbsp;€;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000;$80,000
+lcu_90k;6&nbsp;000&nbsp;€;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000;$90,000
+lcu_100k;7&nbsp;000&nbsp;€;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000;$100,000
+lcu_120k;7&nbsp;500&nbsp;€;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000;$120,000
+lcu_130k;8&nbsp;500&nbsp;€;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000;$130,000
+lcu_150k;9&nbsp;000&nbsp;€;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000;$150,000
+lcu_200k;14&nbsp;000&nbsp;€;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000;$200,000
+lcu_1M;60&nbsp;000&nbsp;€;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million
 tax_country_name;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France;En France
-tax_country_gdp;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP
-tax_revenue;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion
-tax_revenue_gdp;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2
-tax_threshold;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million
-wealth_threshold;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million
+tax_country_gdp;PIB Français;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP;U.S. GDP
+tax_revenue;16 milliards d'euros;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion;$430 billion
+tax_revenue_gdp;1;1;1;1;1;1;1;1;1;1;2;1;1;1;2
+tax_threshold;5 millions d'euros;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million;$5 million
+wealth_threshold;1 million d'euros;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million;$1 million
+gcs_high_legend;Gain ou perte par adulte\nsuite au\nPlan mondial pour le climat\nen 2030\n(en % du PIB);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP);Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)
+na_label;Non Participant;Non Parties;Non Parties;Non Parties;Non Parties;Non Parties;Non Parties;Non Parties;Non Parties;Non Parties;Non Participant;Non Parties;Non Parties;Non Parties;Non Parties
+nationality;Français;American people;American people;American people;American people;American people;American people;American people;American people;American people;American people;American people;American people;American people;American people
+country_adjective;Français;American;American;American;American;American;American;American;American;American;American;American;American;American;American
+country_adjective_plural;Français;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans
+ics_country;l'Union Européenne;the European Union;the European Union;the European Union;the European Union;the United Kingdom;Switzerland;Japan;the Russian federation;Saudia Arabia;the United States;Switzerland;Switzerland;Switzerland;the United States
+developed_note;;;;(Note that Poland is classified as a developed country.);;;;;(Note that we consider the Russian federation NOT to be a developed country in this question.);(Note that we consider Saudi Arabia to be a developed country in this question.);;;;;
+developed_note_long;;;;(As some items refer to "developed countries", note that Poland is among the developed countries.);;;;;(As some items refer to "developed countries", note that we consider the Russian federation NOT to be a developed country in this question.);(As some items refer to "developed countries", note that we consider Saudi Arabia to be a developed country in this question.);;;;;
+election;élections européennes de 2024;2024 European Parliament election;2024 European Parliament election;2024 European Parliament election;2024 European Parliament election;2024 UK general election;2023 Swiss federal election;2024 Japanese general election;2024 Russian presidential election;none;2024 presidential election;2023 Swiss federal election;2023 Swiss federal election;2023 Swiss federal election;2024 presidential election
+belief_nationality;Américains;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Americans;Europeans;Americans;Americans;Americans;Europeans
