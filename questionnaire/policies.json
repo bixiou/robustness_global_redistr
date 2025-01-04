@@ -1,50 +1,75 @@
 {
-    "US" : {
-        "Economic issues" : [
+    "US": {
+        "Economic issues": [
             "£150 billion to upgrade schools, hospitals, care homes and council houses",
             "Real Living Wage of £11 per hour for all workers aged 16 and over",
             "Reduce the average full-time weekly working hours to 32",
             "Re-establish neighbourhood policing and recruit 2,000 more frontline officers",
             "-"
         ],
-            "Societal issues" : [
-                "Strict enforcement of immigration and border legislation",
-                "Legalization of cannabis",
-                "-"
-        ],  
-            "Climate policy" : [
-                "Ban of most polluting vehicles in city centers (low-emission zones)",
-                "Thermal insulation plan",
-                "Ban the sale of new combustion-engine cars by 2030",
-                "-"
+        "Societal issues": [
+            "Strict enforcement of immigration and border legislation",
+            "Legalization of cannabis",
+            "-"
         ],
-            "Tax system" : [
-                "National redistribution scheme",
-                "Wealth tax AND National redistribution scheme"
+        "Climate policy": [
+            "Ban of most polluting vehicles in city centers (low-emission zones)",
+            "Thermal insulation plan",
+            "Ban the sale of new combustion-engine cars by 2030",
+            "-"
+        ],
+        "Tax system": [
+            "National redistribution scheme",
+            "Wealth tax AND National redistribution scheme"
+        ]
+    },
+    "SA": {
+        "Economic issues": [
+            "£150 billion to upgrade schools, hospitals, care homes and council houses",
+            "Real Living Wage of £11 per hour for all workers aged 16 and over",
+            "Reduce the average full-time weekly working hours to 32",
+            "Re-establish neighbourhood policing and recruit 2,000 more frontline officers",
+            "-"
+        ],
+        "Societal issues": [
+            "Strict enforcement of immigration and border legislation",
+            "Legalization of cannabis",
+            "-"
+        ],
+        "Climate policy": [
+            "Ban of most polluting vehicles in city centers (low-emission zones)",
+            "Thermal insulation plan",
+            "Ban the sale of new combustion-engine cars by 2030",
+            "-"
+        ],
+        "Tax system": [
+            "National redistribution scheme",
+            "Wealth tax AND National redistribution scheme"
+        ]
+    },
+    "FR": {
+        "Économie": [
+            "Versement du RSA aux 18-25 ans sans emploi",
+            "SMIC à 1600€ net par mois",
+            "Recul de l'âge légal de départ à la retraite à 65 ans",
+            "Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
+            "-"
+        ],
+        "Démocratie": [
+            "Élection des députés à la proportionnelle",
+            "Référendum d'Initiative Citoyenne (RIC)",
+            "-"
+        ],
+        "Climat": [
+            "Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
+            "Plan pour l'isolation thermique",
+            "Interdiction de la vente de voitures thermiques neuves d'ici 2030",
+            "-"
+        ],
+        "Fiscalité": [
+            "Plan de redistribution nationale",
+            "Rétablissement de l'impôt sur la fortune (ISF) ET Plan de redistribution nationale"
         ]
     }, 
-    "SA" : {
-        "Economic issues" : [
-            "£150 billion to upgrade schools, hospitals, care homes and council houses",
-            "Real Living Wage of £11 per hour for all workers aged 16 and over",
-            "Reduce the average full-time weekly working hours to 32",
-            "Re-establish neighbourhood policing and recruit 2,000 more frontline officers",
-            "-"
-        ],
-            "Societal issues" : [
-                "Strict enforcement of immigration and border legislation",
-                "Legalization of cannabis",
-                "-"
-        ],  
-            "Climate policy" : [
-                "Ban of most polluting vehicles in city centers (low-emission zones)",
-                "Thermal insulation plan",
-                "Ban the sale of new combustion-engine cars by 2030",
-                "-"
-        ],
-            "Tax system" : [
-                "National redistribution scheme",
-                "Wealth tax AND National redistribution scheme"
-        ]
-    }  
+    "DE": {"Wirtschaftspolitik" : ["Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat","Bürgerversicherung als gerechtere Sozialversicherung","Staatsschuldenquote auf unter 60% reduzieren","Investitionen für Gigabit-Netzwerke bereitstellen","-"],"Gesellschaft" : ["Volksentscheid auf Bundesebene","Cannabis-Legalisierung","-"],"Klimaschutz" : ["Verpflichtende Solaranlagen auf allen geeigneten Dächern","Plan zur Wärmedämmung","Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030","-"],"Steuerpolitik" : ["Nationales Umverteilungsprogramm","Die Vermögenssteuer wieder in Kraft setzen UND Nationales Umverteilungsprogramm"]}
 }
