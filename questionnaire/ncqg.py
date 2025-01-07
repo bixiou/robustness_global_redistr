@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 # Create figure and axis
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(10, 10))
 
 translate = 200
 
@@ -63,7 +63,7 @@ for rect in rectangles:
 
 # Set axis limits and hide axes
 ax.set_xlim(0, 401)
-ax.set_ylim(-1, 351)
+ax.set_ylim(-17, 351)
 ax.axis('off')
 
 # Show the plot

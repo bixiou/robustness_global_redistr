@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="432pt" viewBox="0 0 720 432" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="720pt" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2025-01-07T23:27:16.132078</dc:date>
+    <dc:date>2025-01-07T23:29:54.810075</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,8 +21,8 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 432 
-L 720 432 
+   <path d="M 0 720 
+L 720 720 
 L 720 0 
 L 0 0 
 z
@@ -30,16 +30,16 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 375.714074 392.076741 
-L 707.540866 392.076741 
-L 707.540866 11.886259 
-L 375.714074 11.886259 
+    <path d="M 375.714074 674.792721 
+L 707.540866 674.792721 
+L 707.540866 12.691717 
+L 375.714074 12.691717 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #808080; stroke: #000000; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #808080; stroke: #000000; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <!-- $70,000 billion: GDP of developed countries -->
-    <g transform="translate(431.411845 123.271486)scale(0.1 -0.1)">
+    <g transform="translate(431.411845 204.622808)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-24" d="M 2163 -941 
 L 1850 -941 
@@ -556,25 +556,25 @@ z
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 375.714074 392.076741 
-L 458.670772 392.076741 
-L 458.670772 283.450889 
-L 375.714074 283.450889 
+    <path d="M 375.714074 674.792721 
+L 458.670772 674.792721 
+L 458.670772 485.621006 
+L 375.714074 485.621006 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #ffff00; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #ffff00; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 223.344993 208.935022 
-Q 297.829549 251.131149 371.341324 292.776188 
+    <path d="M 223.344993 419.159725 
+Q 297.829549 461.355852 371.341324 503.000891 
 " style="fill: none; stroke: #ffff00; stroke-linecap: round"/>
-    <path d="M 368.846815 289.064392 
-L 371.341324 292.776188 
-L 366.875182 292.544717 
+    <path d="M 368.846815 499.289095 
+L 371.341324 503.000891 
+L 366.875182 502.76942 
 " style="fill: none; stroke: #ffff00; stroke-linecap: round"/>
    </g>
    <g id="text_2">
     <!-- $5,000 billion -->
-    <g transform="translate(64.05494 170.276131)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 380.500834)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-35" d="M 691 4666 
 L 3169 4666 
@@ -618,7 +618,7 @@ z
      <use xlink:href="#DejaVuSans-6e" x="617.480469"/>
     </g>
     <!-- The goal called for by Demand Climate Justice -->
-    <g transform="translate(64.05494 181.473943)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 391.698646)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-54" d="M -19 4666 
 L 3928 4666 
@@ -846,7 +846,7 @@ z
      <use xlink:href="#DejaVuSans-65" x="2255.029297"/>
     </g>
     <!-- (a network of NGOs including 350.org and -->
-    <g transform="translate(64.05494 192.671756)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 402.896459)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-28" d="M 1984 4856 
 Q 1566 4138 1362 3434 
@@ -1007,7 +1007,7 @@ z
      <use xlink:href="#DejaVuSans-64" x="2043.367188"/>
     </g>
     <!-- the World Council of Churches) -->
-    <g transform="translate(64.05494 203.869568)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 414.094271)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-57" d="M 213 4666 
 L 850 4666 
@@ -1072,25 +1072,25 @@ z
     </g>
    </g>
    <g id="patch_5">
-    <path d="M 375.714074 392.076741 
-L 408.896753 392.076741 
-L 408.896753 337.763815 
-L 375.714074 337.763815 
+    <path d="M 375.714074 674.792721 
+L 408.896753 674.792721 
+L 408.896753 580.206864 
+L 375.714074 580.206864 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #ffa500; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #ffa500; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
-    <path d="M 251.011218 272.232511 
-Q 311.667552 307.214637 371.355379 341.638199 
+    <path d="M 251.011218 518.702853 
+Q 311.667552 553.684979 371.355379 588.108541 
 " style="fill: none; stroke: #ffa500; stroke-linecap: round"/>
-    <path d="M 368.889532 337.907302 
-L 371.355379 341.638199 
-L 366.891153 341.372339 
+    <path d="M 368.889532 584.377643 
+L 371.355379 588.108541 
+L 366.891153 587.84268 
 " style="fill: none; stroke: #ffa500; stroke-linecap: round"/>
    </g>
    <g id="text_3">
     <!-- $1,000 billion -->
-    <g transform="translate(64.05494 244.75667)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 491.227012)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-31" d="M 794 531 
 L 1825 531 
@@ -1123,7 +1123,7 @@ z
      <use xlink:href="#DejaVuSans-6e" x="617.480469"/>
     </g>
     <!-- The goal called for by Climate Action Network -->
-    <g transform="translate(64.05494 255.954483)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 502.424824)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-41" d="M 2188 4044 
 L 1331 1722 
@@ -1189,7 +1189,7 @@ z
      <use xlink:href="#DejaVuSans-6b" x="2236.824219"/>
     </g>
     <!-- (a network of NGOs including Greenpeace, Oxfam, and WWF) -->
-    <g transform="translate(64.05494 267.152295)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 513.622637)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-78" d="M 3513 3500 
 L 2247 1797 
@@ -1279,25 +1279,25 @@ z
     </g>
    </g>
    <g id="patch_7">
-    <path d="M 375.714074 392.076741 
-L 400.601083 392.076741 
-L 400.601083 348.626401 
-L 375.714074 348.626401 
+    <path d="M 375.714074 674.792721 
+L 400.601083 674.792721 
+L 400.601083 599.124035 
+L 375.714074 599.124035 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #ff4500; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #ff4500; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
-    <path d="M 242.331718 315.95132 
-Q 307.238609 336.334083 371.078825 356.381877 
+    <path d="M 242.331718 572.892624 
+Q 307.238609 593.275387 371.078825 613.323181 
 " style="fill: none; stroke: #ff4500; stroke-linecap: round"/>
-    <path d="M 367.861782 353.275329 
-L 371.078825 356.381877 
-L 366.663361 357.091582 
+    <path d="M 367.861782 610.216633 
+L 371.078825 613.323181 
+L 366.663361 614.032886 
 " style="fill: none; stroke: #ff4500; stroke-linecap: round"/>
    </g>
    <g id="text_4">
     <!-- $600 billion -->
-    <g transform="translate(64.05494 288.878031)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 545.819335)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-36" d="M 2113 2584 
 Q 1688 2584 1439 2293 
@@ -1344,7 +1344,7 @@ z
      <use xlink:href="#DejaVuSans-6e" x="522.070312"/>
     </g>
     <!-- The goal called for by India, -->
-    <g transform="translate(64.05494 300.075844)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 557.017147)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-49" d="M 628 4666 
 L 1259 4666 
@@ -1385,7 +1385,7 @@ z
      <use xlink:href="#DejaVuSans-2c" x="1361.035156"/>
     </g>
     <!-- a position shared by most developing countries -->
-    <g transform="translate(64.05494 311.273656)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 568.21496)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-61"/>
      <use xlink:href="#DejaVuSans-20" x="61.279297"/>
      <use xlink:href="#DejaVuSans-70" x="93.066406"/>
@@ -1435,25 +1435,25 @@ z
     </g>
    </g>
    <g id="patch_9">
-    <path d="M 375.714074 392.076741 
-L 395.623681 392.076741 
-L 395.623681 364.920278 
-L 375.714074 364.920278 
+    <path d="M 375.714074 674.792721 
+L 395.623681 674.792721 
+L 395.623681 627.499793 
+L 375.714074 627.499793 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #ff0000; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #ff0000; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
-    <path d="M 272.543531 351.474225 
-Q 322.321854 362.329153 371.007813 372.945874 
+    <path d="M 272.543531 620.497409 
+Q 322.321854 631.352336 371.007813 641.969057 
 " style="fill: none; stroke: #ff0000; stroke-linecap: round"/>
-    <path d="M 367.525772 370.139561 
-L 371.007813 372.945874 
-L 366.673538 374.047719 
+    <path d="M 367.525772 639.162744 
+L 371.007813 641.969057 
+L 366.673538 643.070902 
 " style="fill: none; stroke: #ff0000; stroke-linecap: round"/>
    </g>
    <g id="text_5">
     <!-- $300 billion -->
-    <g transform="translate(64.05494 335.770815)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 604.793999)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-24"/>
      <use xlink:href="#DejaVuSans-33" x="63.623047"/>
      <use xlink:href="#DejaVuSans-30" x="127.246094"/>
@@ -1468,7 +1468,7 @@ L 366.673538 374.047719
      <use xlink:href="#DejaVuSans-6e" x="522.070312"/>
     </g>
     <!-- The new goal, if all climate finance were provided as grants -->
-    <g transform="translate(64.05494 346.968628)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 615.991811)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-54"/>
      <use xlink:href="#DejaVuSans-68" x="61.083984"/>
      <use xlink:href="#DejaVuSans-65" x="124.462891"/>
@@ -1532,25 +1532,25 @@ L 366.673538 374.047719
     </g>
    </g>
    <g id="patch_11">
-    <path d="M 375.714074 392.076741 
-L 392.305414 392.076741 
-L 392.305414 381.214156 
-L 375.714074 381.214156 
+    <path d="M 375.714074 674.792721 
+L 392.305414 674.792721 
+L 392.305414 655.87555 
+L 375.714074 655.87555 
 z
-" clip-path="url(#pd4f8892f67)" style="fill: #8b0000; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="fill: #8b0000; stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
-    <path d="M 361.622744 383.711221 
-Q 366.841777 384.030987 370.94487 384.28238 
+    <path d="M 361.622744 660.78899 
+Q 366.841777 661.108756 370.94487 661.36015 
 " style="fill: none; stroke: #8b0000; stroke-linecap: round"/>
-    <path d="M 367.074665 382.041505 
-L 370.94487 384.28238 
-L 366.830047 386.034019 
+    <path d="M 367.074665 659.119275 
+L 370.94487 661.36015 
+L 366.830047 663.111788 
 " style="fill: none; stroke: #8b0000; stroke-linecap: round"/>
    </g>
    <g id="text_6">
     <!-- $100 billion -->
-    <g transform="translate(64.05494 371.633401)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 648.71117)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-24"/>
      <use xlink:href="#DejaVuSans-31" x="63.623047"/>
      <use xlink:href="#DejaVuSans-30" x="127.246094"/>
@@ -1565,7 +1565,7 @@ L 366.830047 386.034019
      <use xlink:href="#DejaVuSans-6e" x="522.070312"/>
     </g>
     <!-- The old goal, if all climate finance were provided as grants -->
-    <g transform="translate(64.05494 382.831213)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 659.908983)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-54"/>
      <use xlink:href="#DejaVuSans-68" x="61.083984"/>
      <use xlink:href="#DejaVuSans-65" x="124.462891"/>
@@ -1629,25 +1629,25 @@ L 366.830047 386.034019
     </g>
    </g>
    <g id="patch_13">
-    <path d="M 375.714074 392.076741 
-L 384.009744 392.076741 
-L 384.009744 386.645449 
-L 375.714074 386.645449 
+    <path d="M 375.714074 674.792721 
+L 384.009744 674.792721 
+L 384.009744 665.334136 
+L 375.714074 665.334136 
 z
-" clip-path="url(#pd4f8892f67)" style="stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p45f0a14613)" style="stroke: #000000; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_14">
-    <path d="M 305.037773 397.254326 
-Q 338.550106 393.685373 370.950693 390.234817 
+    <path d="M 305.037773 678.359389 
+Q 338.550106 674.790435 370.950693 671.339879 
 " style="fill: none; stroke: #000000; stroke-linecap: round"/>
-    <path d="M 366.761389 388.669654 
-L 370.950693 390.234817 
-L 367.18498 392.647162 
+    <path d="M 366.761389 669.774717 
+L 370.950693 671.339879 
+L 367.18498 673.752225 
 " style="fill: none; stroke: #000000; stroke-linecap: round"/>
    </g>
    <g id="text_7">
     <!-- $26 billion -->
-    <g transform="translate(64.05494 407.064693)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 688.169756)scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-32" d="M 1228 531 
 L 3431 531 
@@ -1687,7 +1687,7 @@ z
      <use xlink:href="#DejaVuSans-6e" x="458.447266"/>
     </g>
     <!-- The current amount, consistent with the old goal -->
-    <g transform="translate(64.05494 418.262506)scale(0.1 -0.1)">
+    <g transform="translate(64.05494 699.367568)scale(0.1 -0.1)">
      <use xlink:href="#DejaVuSans-54"/>
      <use xlink:href="#DejaVuSans-68" x="61.083984"/>
      <use xlink:href="#DejaVuSans-65" x="124.462891"/>
@@ -1741,8 +1741,8 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pd4f8892f67">
-   <rect x="43.887282" y="10.8" width="665.312718" height="382.363"/>
+  <clipPath id="p45f0a14613">
+   <rect x="43.887282" y="10.8" width="665.312718" height="696.151913"/>
   </clipPath>
  </defs>
 </svg>
