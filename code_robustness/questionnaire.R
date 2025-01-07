@@ -161,4 +161,4 @@ for (l in languages) {
 
 ##### Export features in .csv #####
 features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", colNames = F))
-write.table(features, "../questionnaire/features.csv", sep=";",  col.names=FALSE, row.names = F, quote = F, na = "")
+write.table(features, "../questionnaire/features.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")

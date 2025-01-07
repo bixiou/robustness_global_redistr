@@ -28,6 +28,9 @@ $j(document).ready(function($j){
 			futur = courbe_reference(actuel);
 			ajuste(actuel);
 			trace(graphe, actuel, futur);
+
+			var size_slider = 430;
+			if (window.innerWidth < 500) { size_slider = window.innerWidth - 30; }
 			
 			var slider_transfert, slider_N_q;
 			slider_N_q = new dhtmlXSlider({
@@ -38,7 +41,7 @@ $j(document).ready(function($j){
 				value: [winners/10, non_losers/10],
 				range: true,
 				tooltip: true,
-				size: 430,
+				size: size_slider,
 				vertical: false,
 				skin: "dhx_skyblue"
 			});
@@ -48,7 +51,7 @@ $j(document).ready(function($j){
 					min: 0,
 					max: 10,
 					step: 1,
-					size: 430,
+					size: size_slider,
 					tooltip: true,
 					vertical: false,
 					value: degree
@@ -150,7 +153,11 @@ $j(document).ready(function($j){
 			function correct_parameters(avant) {
 				Na_r = revenu(avant, winners);
 				Nd_r = revenu(avant, non_losers);
-				$j('#Slider_N_q_').html("Share who benefit: " + Math.round(winners/10) + "% &emsp;&emsp;&emsp; Share who lose out: " + Math.round(100 - non_losers/10) + "%");
+				if (window.innerWidth < 500) { 
+					$j('#Slider_N_q_').html("Share who benefit: " + Math.round(winners/10) + "% <br>Share who lose out: " + Math.round(100 - non_losers/10) + "%");
+				} else {
+					$j('#Slider_N_q_').html("Share who benefit: " + Math.round(winners/10) + "% &emsp;&emsp;&emsp; Share who lose out: " + Math.round(100 - non_losers/10) + "%");
+				}
 				// $j('#Slider_winners_').html("Proportion avantagée : " + winners/10 + "%");
 				// $j('#Slider_non_losers_').html("Proportion désavantagée : " + (100 - non_losers/10) + "%");
 				$j('#Slider_transfert_').html("Degree of redistribution: " + Math.round(degree));

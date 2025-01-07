@@ -8,7 +8,8 @@ Qualtrics.SurveyEngine.addOnload(function()
 				
 			const language = Qualtrics.SurveyEngine.getEmbeddedData("Q_Language"); 
 				
-			const rows = csv.split('\n').map(row => row.split(';'));
+		 // /!\ Beware, separator is | here
+			const rows = csv.split('\n').map(row => row.split('|'));
 			const headers = rows[0];
 			const col = headers.indexOf(language);
 
