@@ -16,6 +16,7 @@ gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
 # Constants
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 countries_iso3 <- c("FRA", "DEU", "ITA", "POL", "ESP", "GBR", "CHE", "JPN", "RUS", "SAU", "USA")
+lcu_per_dollar <- setNames(c(0.97, 0.97, 0.97, 4.15, 0.97, 0.809, 0.912, 158, 105, 3.75, 1), countries)
 pop <- sapply(countries, function(c) mean(gethin$npop[gethin$iso == c], na.rm = T))
 world_population <- 8231613070 # UN, 2025, Accessed 12/21/2024, https://population.un.org/dataportal/data/indicators/49/locations/900/start/2024/end/2025/table/pivotbylocation?df=e5e54b33-f396-4e7a-a2e6-938af4215c20
 (inflation_2023_2024 <- sapply(countries, function(c) mean(gethin$inflation_2023_2024[gethin$iso == c], na.rm = T)))
@@ -116,6 +117,23 @@ round(1e6*usd_lcu/1e3)*1e3
 round(80e3*usd_lcu/1e2/12)*1e2
 round(120e3*usd_lcu/1e2/12)*1e2
 round(1e6*usd_lcu/1e4/12)*1e4
+
+
+##### Wealth tax revenue by country #####
+## 2% tax above 5M, assuming 30% evasion/depreciation
+# Data from WID, for 2022 (courtesy of bajard.felix@laposte.net), in current USD. 
+wealth <- read.csv("../data/wealth_tax_wid.csv") # /!\ wealth_above_threshold is total, not marginal wealth. E.g. someone with 150M will have wealth_above_threshold = 150M, not 50M, for threshold = 100M.
+names(wealth) <- c("n", "code", "year", "threshold", "gdp", "national_wealth", "wealth_above_threshold", "headcount_above_threshold", "threshold_constant_2023", "headcount_at_bracket", "wealth_at_bracket")
+wealth_tax_revenue <- sapply(countries, function(c) .02 * (1-.3) * (wealth$wealth_above_threshold[wealth$threshold == 5e6 & wealth$year == 2022 & wealth$code == c] - 
+  5e6 * wealth$headcount_above_threshold[wealth$threshold == 5e6 & wealth$year == 2022 & wealth$code == c]))
+round(wealth_tax_revenue*lcu_per_dollar/1e9)
+# For revenue estimates of LICs, cf. Sub-Saharan Africa on https://wid.world/world-wealth-tax-simulator/: a 2% tax above 5M would collect 0.16% of LICs' GDP
+#    LICs GDP = 664 G$ in 2023 according to https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2023&locations=XM&start=2023 (fetched 08/01/2025)
+(lic_revenue <- round(0.0016*664*lcu_per_dollar)) # $1 billion: revenue in LICs
+gni <- WDI(indicator = "NY.GNP.ATLS.CD", latest = 1) 
+# wealth_tax_revenue_over_gdp <- wealth_tax_revenue/sapply(countries, function(c) median(wealth$gdp[wealth$code == c & wealth$year == 2022]))
+wealth_tax_revenue_over_gdp <- wealth_tax_revenue/sapply(countries, function(c) gni$NY.GNP.ATLS.CD[gni$iso2c == c & gni$year == 2023])
+round(100*wealth_tax_revenue_over_gdp, 1)
 
 
 ##### Conjoint analysis: Extract policies from sources.xlsx and export to JSON #####

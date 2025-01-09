@@ -184,7 +184,7 @@ package("Hmisc") # describe, decrit
 # package("knitr") # plot_crop, representativeness_table
 # options(knitr.kable.NA = '')
 # package("kableExtra") # add_header_above in 
-# package("WDI") # World Development Indicators
+package("WDI") # World Development Indicators, WDI()
 # package("wbstats") # World Bank
 # package("rootSolve")
 #' # One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
