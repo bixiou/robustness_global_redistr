@@ -15,6 +15,7 @@ gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
 
 # Constants
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
+countries_names <- c("France", "Germany", "Italy", "Poland", "Spain", "UK", "Switzerland", "Japan", "Russia", "Saudia Arabia"," U.S.") # France, Germany, Italy, Poland, Spain, UK, Switzerland, Japan, Russia, Saudia Arabia, U.S.
 countries_iso3 <- c("FRA", "DEU", "ITA", "POL", "ESP", "GBR", "CHE", "JPN", "RUS", "SAU", "USA")
 lcu_per_dollar <- setNames(c(0.97, 0.97, 0.97, 4.15, 0.97, 0.809, 0.912, 158, 105, 3.75, 1), countries)
 pop <- sapply(countries, function(c) mean(gethin$npop[gethin$iso == c], na.rm = T))
