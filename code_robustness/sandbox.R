@@ -9,13 +9,14 @@ world_thousandile <- as.numeric(c(quadratic_interpolations(as.numeric(sapply(1:9
 write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data/world_thousandile.csv", row.names = F)
 
 # View(world)
-sort(unique(world$variable)) # a: average, t: threshold / pt: pre-tax, di: post-tax, ca: disposable / inc: income, pfcar: carbon footprint / 992: all above 20, 999: all age / j: Equal-split adults,	i: individual
+sort(unique(world$variable)) # a: average, t: threshold / pt: pre-tax (but post social contrib), di: post-tax, ca: disposable / inc: income, pfcar: carbon footprint / 992: all above 20, 999: all age / j: Equal-split adults,	i: individual
 # gethin <- read.dta13("../data/fisher-gethin-redistribution-2024-06-27.dta") # pdi: disposable (pretax - direct taxes + gov_soc: social assistance transfers), pni = diinc: posttax (pretax - all taxes + all transfers), pni_edp, dina_: venant de DINA existantes, pre: pretax, cons: conso imputée à partir de pretax
 # gethin <- gethin[gethin$year == 2019,]
 # write.csv(gethin, "../data/fisher-gethin-redistribution-2024-06-27.csv", row.names = F) # Fisher-Post & Gethin (2023) https://www.dropbox.com/scl/fi/yseottljqpzom1lrqga5c?e=1
 gethin <- read.csv("../data/fisher-gethin-redistribution-2024-06-27.csv")
 View(gethin) # edp: education distributed proportionally (to posttax inc, like in WID, instead of school attendance)
-# 174 countries, not missing any important one (~2M people missing in total)
+# 174 countries, not missing any important one (~2M people missing in total); data from 2019
+# View(gethin[gethin$iso %in% c("FR", "DE", "IT", "ES") & gethin$p %in% c(9000, 74000, 89000),])
 
 inflation <- read.xlsx("../data/inflation_imf.xlsx")
 # Inflation from data/inflation_worldbank.xslx. Accessed 12/21/24. Sources: 2020-2023: Ha et al. (2023), https://www.worldbank.org/en/research/brief/inflation-database; 2024: IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
