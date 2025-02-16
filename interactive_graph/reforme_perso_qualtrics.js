@@ -20,12 +20,12 @@ $j(document).ready(function($j){
 	
 	
 	$j.ajax({
-		url:"https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_yuKEs6pwxsAid44",
+		url:"https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_yuKEs6pwxsAid44", // in PPP 2024 $
 		success: function(params){
 			
 		const language = Qualtrics.SurveyEngine.getEmbeddedData("Q_Language"); 
-			
-		const rows = params.split('\n').map(row => row.split(';'));
+		
+		const rows = params.split('\n').map(row => row.split('|'));
         const headers = rows[0];
         const col = headers.indexOf(language);
 
@@ -41,6 +41,7 @@ $j(document).ready(function($j){
             window[name] = value; 
             console.log(`Variable ${name} created with value: ${value}`);
         }
+		
 			/*
 		const rows = params.split("\n").map(row => row.split(";"));
 
@@ -64,13 +65,23 @@ $j(document).ready(function($j){
 	$j.ajax({
 		url:"https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
 		success: function(data){
+			var graph_width = $j('#graphe').width();
+			var graph_height = $j('#graphe').height();
+			if (window.innerWidth < 500) {
+				graph_height = graph_width*1.4;
+				size_slider = window.innerWidth - 30;
+				$j('#graphe').height(graph_height);
+			}
+			
 			var actuel = charge(data);
 			income = Math.min(income, actuel[1000]);
 			correct_parameters(actuel);
 			var graphe = new cfx.Chart();
 			futur = courbe_reference(actuel);
 			ajuste(actuel);
-			trace(graphe, actuel, futur);
+			trace(graphe, actuel, futur);		
+			
+			var size_slider = 430;		
 			
 			var slider_transfert, slider_N_q;
 			slider_N_q = new dhtmlXSlider({
@@ -81,7 +92,7 @@ $j(document).ready(function($j){
 				value: [winners/10, non_losers/10],
 				range: true,
 				tooltip: true,
-				size: 430,
+				size: size_slider,
 				vertical: false,
 				skin: "dhx_skyblue"
 			});
@@ -91,7 +102,7 @@ $j(document).ready(function($j){
 					min: 0,
 					max: 10,
 					step: 1,
-					size: 430,
+					size: size_slider,
 					tooltip: true,
 					vertical: false,
 					value: degree
@@ -142,18 +153,33 @@ $j(document).ready(function($j){
 				graph.getSeries().getItem(1).setText(text_current.trim() + " (" + text_unit +")");
 				graph.getSeries().getItem(0).setText(text_after.trim());
 				graph.getLegendBox().setDock(cfx.DockArea.Top);
+				//graph.getLegendBox().setFont("32px Arial");
 				titreX = new cfx.TitleDockable();
 				// titreX.setText("Revenus après impôts et transferts des humains adultes, du plus pauvre au plus riche");
-				titreX.setText(text_title.trim());
+				titreX.setText(text_title_short.trim());
 				titreX.setTextColor("#555555");
+				//titreX.setFont("60px Arial");
 				graph.getAxisX().setTitle(titreX);
 				graph.getAxisX().setStep(10000);
-				graph.getAxisY().setStep(step_major);
 				graph.getAxisX().setMinorStep(100);
+				graph.getAxisX().getGrids().getMinor().setVisible(true);
+				
+				if (window.innerWidth < 500) { 
+					titreX.setText(text_title_short.trim());	
+					titreX.setDock(cfx.DockArea.Left);
+					graph.getLegendBox().setPlotAreaOnly(false);
+				}
+				
+				graph.getAxisY().setStep(step_major);
 				graph.getAxisY().setMinorStep(step_minor);
 				graph.getAxisY().getGrids().getMinor().setStyle(cfx.DashStyle.Dot);
-				graph.getAxisX().getGrids().getMinor().setVisible(true);
 				graph.getAxisY().getGrids().getMinor().setVisible(true);
+				/*
+				graph.getPlotAreaMargin().setTop(1);
+				graph.getPlotAreaMargin().setBottom(1);
+				graph.getPlotAreaMargin().setRight(1);
+				graph.getPlotAreaMargin().setLeft(1);
+				*/
 				var divHolder = document.getElementById("graphe");
 				graph.create(divHolder);
 			}
@@ -175,7 +201,14 @@ $j(document).ready(function($j){
 			function maj(graph, avant, apres) {
 				var courbes = new Array(1001);
 				for (i=0; i<1001; i++) { courbes[i] = { apres: apres[i]/unit, avant: avant[i]/unit };	}
-				graph.setDataSource(courbes);		
+				graph.setDataSource(courbes);									
+				if (window.innerWidth < 500) {
+					$j('#graphe').width(graph_width);
+					$j('#graphe').height(graph_height);	
+				} else {					
+					$j('#graphe').width(graph_width);
+					$j('#graphe').height(graph_width/1.19);
+				}
 				graph.getSeries().getItem(1).setText(text_current.trim() + " (" + text_unit +")");
 				graph.getSeries().getItem(0).setText(text_after.trim());
 			}
@@ -193,7 +226,11 @@ $j(document).ready(function($j){
 			function correct_parameters(avant) {
 				Na_r = revenu(avant, winners);
 				Nd_r = revenu(avant, non_losers);
-				$j('#Slider_N_q_').html(text_benefit.trim() + " " + Math.round(winners/10) + "% &emsp;&emsp;&emsp; " + text_lose.trim() + " " + Math.round(100 - non_losers/10) + "%");
+				if (window.innerWidth < 500) { 
+					$j('#Slider_N_q_').html(text_benefit.trim() + " " + Math.round(winners/10) + "% <br>" + text_lose.trim() + " " + Math.round(100 - non_losers/10) + "%");
+				} else {
+					$j('#Slider_N_q_').html(text_benefit.trim() + " " + Math.round(winners/10) + "% &emsp;&emsp;&emsp; " + text_lose.trim() + " " + Math.round(100 - non_losers/10) + "%");
+				}
 				// $j('#Slider_winners_').html("Proportion avantagée : " + winners/10 + "%");
 				// $j('#Slider_non_losers_').html("Proportion désavantagée : " + (100 - non_losers/10) + "%");
 				$j('#Slider_transfert_').html(text_degree.trim() + " " + Math.round(degree));
@@ -244,11 +281,12 @@ $j(document).ready(function($j){
 				$j('#own').html(Math.round(income).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));
 				$j('#after_own').html(Math.round(interpole(income, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));
 				$j('.text_unit').html(text_unit);
-				// $j('#out').html(1000-non_losers);
-
+				//$j('#out').html(window.innerWidth);
+				
 				Qualtrics.SurveyEngine.setEmbeddedData("custom_redistr_winners", winners);
 				Qualtrics.SurveyEngine.setEmbeddedData("custom_redistr_non_losers", 1000-non_losers);
 				Qualtrics.SurveyEngine.setEmbeddedData("custom_redistr_degree", degree);
+
 			}
 			
 		},

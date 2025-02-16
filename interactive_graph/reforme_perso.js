@@ -21,6 +21,14 @@ $j(document).ready(function($j){
 	$j.ajax({
 		url:'../data/world_disposable_inc.csv', // "https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
 		success: function(data){
+			var graph_width = $j('#graphe').width();
+			var graph_height = $j('#graphe').height();
+			if (window.innerWidth < 500) {
+				graph_height = graph_width*1.4;
+				size_slider = window.innerWidth - 30;
+				$j('#graphe').height(graph_height);
+			}
+
 			var actuel = charge(data);
 			income = Math.min(income, actuel[1000]);
 			correct_parameters(actuel);
@@ -30,7 +38,6 @@ $j(document).ready(function($j){
 			trace(graphe, actuel, futur);
 
 			var size_slider = 430;
-			if (window.innerWidth < 500) { size_slider = window.innerWidth - 30; }
 			
 			var slider_transfert, slider_N_q;
 			slider_N_q = new dhtmlXSlider({
@@ -135,7 +142,14 @@ $j(document).ready(function($j){
 			function maj(graph, avant, apres) {
 				var courbes = new Array(1001);
 				for (i=0; i<1001; i++) { courbes[i] = { apres: apres[i]/unit, avant: avant[i]/unit };	}
-				graph.setDataSource(courbes);		
+				graph.setDataSource(courbes);					
+				if (window.innerWidth < 500) {
+					$j('#graphe').width(graph_width);
+					$j('#graphe').height(graph_height);	
+				} else {					
+					$j('#graphe').width(graph_width);
+					$j('#graphe').height(graph_width/1.235);
+				}
 				graph.getSeries().getItem(1).setText("Current income (in € per year)");
 				graph.getSeries().getItem(0).setText("Income after global redistribution");
 			}
