@@ -19,18 +19,19 @@ step_minor|2500|2500|2500|10000|2500|2500|2500|500000|250000|10000|2500|2500|250
 income_type|net|Netto|netto|netto|neto|gross|gross|総|чистый|صافي|gross|brut|Brutto|lordo|bruto
 income_type_long|après impôts et transferts|nach Steuern und Transfers|dopo le imposte e i trasferimenti|po opodatkowaniu i transferach|después de impuestos y transferencias|before taxes|before taxes|税引前|после уплаты налогов и трансфертов|قبل الضرائب|before taxes|avant impôts|vor Steuern|prima delle imposte|antes de impuestos
 periodicity_text|mensuel|monatliche|mensile|miesięczny|mensual|yearly|yearly|年|ежемесячный|الشهري|yearly|annuel|Jahrliche|annuale|anual
-amount_bi|30&nbsp;€|€30|€30|30&nbsp;EUR|€30|£30|€30|€30|€30|€30|$30|€30|€30|€30|€30
-amount_lost|10&nbsp;€|€10|€10|10&nbsp;EUR|€10|£10|€10|€10|€10|€10|$85|€10|€10|€10|€10
-amount_expenses|40&nbsp;€|40|40|40&nbsp;EUR|40|£40|40|40|40|40|$115|40|40|40|40
+amount_bi|20&nbsp;€|€20|€20|90&nbsp;PLN|€20|£20|CHF&nbsp;20|3,500円|4&nbsp;000&nbsp;руб.|130 ريال|$35|CHF&nbsp;20|CHF&nbsp;20|CHF&nbsp;20|$35
+amount_lost|15&nbsp;€|€45|€15|160&nbsp;PLN|€15|£40|CHF&nbsp;15|7,500円|3&nbsp;000&nbsp;руб.|400 ريال|$105|CHF&nbsp;15|CHF&nbsp;15|CHF&nbsp;15|$105
+price_increase|1&nbsp;|2|1|2|1|1|1|2|2|3|2|1|1|1|2
 amount_lottery|100&nbsp;€|100&nbsp;€|100&nbsp;€|500&nbsp;PLN|100&nbsp;€|£100|CHF&nbsp;100|20,000円|10&nbsp;000&nbsp;руб.|500 ريال|$100|100&nbsp;CHF|100&nbsp;CHF|100&nbsp;franchi|$100
 country_name|la France|Deutschland|Italia|Polska|España|the UK|Switzerland|日本|Россия|المملكة العربية السعودية|the United States|la Suisse|die Schweiz|Svizzera|Los Estados Unidos
 emissions_with|TRUE|TRUE|TRUE|TRUE|TRUE|TRUE|FALSE|TRUE|TRUE|FALSE|TRUE|FALSE|FALSE|FALSE|TRUE
-emissions_low_with|33|33|33|33|33|33|25|28|30|26|40|33|33|33|40
-emissions_mid_with|63|63|63|63|63|56|55|58|60|56|70|63|63|63|70
-emissions_high_without|63|63|63|63|63|70|71|68|71|71|71|71|71|71|71
-emissions_high_with|71|71|71|71|71|71|71|71|76|73|86|71|71|71|71
-nb_countries_high|128|128|128|128|128|154|154|154|155|155|155|155|155|155|155
-nb_countries_low|118|118|118|118|118|144|144|144|145|145|145|145|145|145|145
+emissions_low_with|33|33|33|33|33|33|33|36|38|35|48|33|33|33|48
+emissions_low_without|25|25|25|25|25|33|33|33|33|33|33|33|33|33|33
+emissions_mid_with|64|64|64|64|64|57|56|59|60|58|71|56|56|56|71
+emissions_high_without|64|64|64|64|64|71|72|69|72|72|72|72|72|72|72
+emissions_high_with|72|72|72|72|72|72|72|72|77|74|87|72|72|72|87
+nb_countries_high|128|128|128|128|128|154|154|154|155|155|155|154|154|154|155
+nb_countries_low|118|118|118|118|118|145|145|145|145|145|145|145|145|145|145
 text_countries_high|le Japon, le Royaume-Uni|Japan, das Vereinigte Königreich|Giappone, Regno Unito|Japonia, Wielka Brytania|Japón, Reino Unido|the European Union, Japan|the European Union, Japan, the United Kingdom|欧州連合, 英国|Европейский союз, Япония, Великобритания|الاتحاد الأوروبي واليابان والمملكة المتحدة واليابان|the European Union, Japan, the United Kingdom|l'Union européenne, le Japon, le Royaume-Uni|die Europäische Union, Japan, das Vereinigte Königreich|l'Unione Europea, il Giappone, il Regno Unito|la Unión Europea, Japón, el Reino Unido
 periodicity|par mois|pro Monat|al mese|miesięcznie|al mes|per year|per year|per year|в месяц|في الشهر|per year|par mois|pro Monat|al mese|al mes
 periodicity_tax|par mois|pro Monat|al mese|miesięcznie|al mes|per year|per year|per year|в месяц|في الشهر|per year|par mois|pro Monat|al mese|al mes
