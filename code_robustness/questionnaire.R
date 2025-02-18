@@ -167,6 +167,7 @@ json <- paste0(json, '\n}')
 
 write(json, "../conjoint_analysis/policies.json")
 policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
+policies_conjoint <- fromJSON("../questionnaire/policies.json")
 
 # Export .dat required to process conjoint analysis results
 for (l in languages) {
@@ -179,6 +180,9 @@ for (l in languages) {
 }
 
 
-##### Export features in .csv #####
+##### Export in .csv #####
 features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", colNames = F))
 write.table(features, "../questionnaire/features.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
+
+features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", colNames = F))
+write.table(features, "../questionnaire/income.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")

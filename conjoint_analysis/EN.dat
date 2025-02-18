@@ -1,0 +1,14 @@
+Attributes
+Wirtschaftspolitik:Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat,Bürgerversicherung als gerechtere Sozialversicherung,Staatsschuldenquote auf unter 60% reduzieren,Investitionen für Gigabit-Netzwerke bereitstellen,-
+Gesellschaft:Cannabis-Legalisierung,-
+Klimaschutz:Verpflichtende Solaranlagen auf allen geeigneten Dächern,Plan zur Wärmedämmung,Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030,-
+Steuerpolitik:Nationales Umverteilungsprogramm,Die Vermögenssteuer wieder in Kraft setzen,-
+Außenpolitik:Globales Klimaprogramm,Globale Steuer auf Millionäre,Globale demokratische Versammlung zum Klimawandel,Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern,-
+Weights
+Wirtschaftspolitik:0.2,0.2,0.2,0.2,0.2
+Gesellschaft:0.5,0.5
+Klimaschutz:0.25,0.25,0.25,0.25
+Steuerpolitik:0.333333333333333,0.333333333333333,0.333333333333333
+Außenpolitik:0.2,0.2,0.2,0.2,0.2
+Restrictions
+

@@ -1,75 +1,129 @@
 {
-    "US": {
-        "Economic issues": [
-            "£150 billion to upgrade schools, hospitals, care homes and council houses",
-            "Real Living Wage of £11 per hour for all workers aged 16 and over",
-            "Reduce the average full-time weekly working hours to 32",
-            "Re-establish neighbourhood policing and recruit 2,000 more frontline officers",
-            "-"
-        ],
-        "Societal issues": [
-            "Strict enforcement of immigration and border legislation",
-            "Legalization of cannabis",
-            "-"
-        ],
-        "Climate policy": [
-            "Ban of most polluting vehicles in city centers (low-emission zones)",
-            "Thermal insulation plan",
-            "Ban the sale of new combustion-engine cars by 2030",
-            "-"
-        ],
-        "Tax system": [
-            "National redistribution scheme",
-            "Wealth tax AND National redistribution scheme"
-        ]
-    },
-    "SA": {
-        "Economic issues": [
-            "£150 billion to upgrade schools, hospitals, care homes and council houses",
-            "Real Living Wage of £11 per hour for all workers aged 16 and over",
-            "Reduce the average full-time weekly working hours to 32",
-            "Re-establish neighbourhood policing and recruit 2,000 more frontline officers",
-            "-"
-        ],
-        "Societal issues": [
-            "Strict enforcement of immigration and border legislation",
-            "Legalization of cannabis",
-            "-"
-        ],
-        "Climate policy": [
-            "Ban of most polluting vehicles in city centers (low-emission zones)",
-            "Thermal insulation plan",
-            "Ban the sale of new combustion-engine cars by 2030",
-            "-"
-        ],
-        "Tax system": [
-            "National redistribution scheme",
-            "Wealth tax AND National redistribution scheme"
-        ]
-    },
-    "FR": {
-        "Économie": [
-            "Versement du RSA aux 18-25 ans sans emploi",
-            "SMIC à 1600€ net par mois",
-            "Recul de l'âge légal de départ à la retraite à 65 ans",
-            "Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
-            "-"
-        ],
-        "Démocratie": [
-            "Élection des députés à la proportionnelle",
-            "Référendum d'Initiative Citoyenne (RIC)",
-            "-"
-        ],
-        "Climat": [
-            "Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
-            "Plan pour l'isolation thermique",
-            "Interdiction de la vente de voitures thermiques neuves d'ici 2030",
-            "-"
-        ],
-        "Fiscalité": [
-            "Plan de redistribution nationale",
-            "Rétablissement de l'impôt sur la fortune (ISF) ET Plan de redistribution nationale"
-        ]
-    }, 
-    "DE": {"Wirtschaftspolitik" : ["Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat","Bürgerversicherung als gerechtere Sozialversicherung","Staatsschuldenquote auf unter 60% reduzieren","Investitionen für Gigabit-Netzwerke bereitstellen","-"],"Gesellschaft" : ["Volksentscheid auf Bundesebene","Cannabis-Legalisierung","-"],"Klimaschutz" : ["Verpflichtende Solaranlagen auf allen geeigneten Dächern","Plan zur Wärmedämmung","Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030","-"],"Steuerpolitik" : ["Nationales Umverteilungsprogramm","Die Vermögenssteuer wieder in Kraft setzen UND Nationales Umverteilungsprogramm"]}
+	"PL": {
+		"Économie": [
+			"Versement du RSA aux 18-25 ans sans emploi",
+			"SMIC à 1600€ net par mois",
+			"Recul de l'âge légal de départ à la retraite à 65 ans",
+			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
+			"-" 
+		],
+		"Démocratie": [
+			"Élection des députés à la proportionnelle",
+			"Référendum d'Initiative Citoyenne (RIC)",
+			"-" 
+		],
+		"Climat": [
+			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
+			"Plan pour l'isolation thermique",
+			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
+			"-" 
+		],
+		"Fiscalité": [
+			"Plan de redistribution nationale",
+			"Rétablissement de l'impôt sur la fortune (ISF)",
+			"-" 
+		],
+		"Politique étrangère": [
+			"Plan mondial pour le climat",
+			"Taxe mondiale sur les millionaires",
+			"Assemblée démocratique mondiale sur le changement climatique",
+			"Doubler l'aide au développement des pays à faibles revenus",
+			"-" 
+		] 
+	},
+	"EN-GB": {
+		"Economic issues": [
+			"Welfare (RSA) payment to unemployed 18-25 year olds",
+			"Minimum wage (SMIC) at 1600€/month net",
+			"Raising the legal retirement age to 65",
+			"20% increase in funding for public hospitals and National Education",
+			"-" 
+		],
+		"Institutions": [
+			"Proportional election of MPs",
+			"Citizens' Initiative Referendum (RIC)",
+			"-" 
+		],
+		"Climate policy": [
+			"Prohibition of the most polluting vehicles in city centers (ZFE)",
+			"Plan for thermal insulation",
+			"Ban on the sale of new thermal cars by 2030",
+			"-" 
+		],
+		"Tax system": [
+			"National redistribution plan",
+			"Reinstatement of the wealth tax (ISF)",
+			"-" 
+		],
+		"Foreign policy": [
+			"Global Climate Plan",
+			"Global Millionaire Tax",
+			"Global Democratic Assembly on Climate Change",
+			"Double foreign aid to low-income countries",
+			"-" 
+		] 
+	},
+	"EN": {
+		"Wirtschaftspolitik": [
+			"Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat",
+			"Bürgerversicherung als gerechtere Sozialversicherung",
+			"Staatsschuldenquote auf unter 60% reduzieren",
+			"Investitionen für Gigabit-Netzwerke bereitstellen",
+			"-" 
+		],
+		"Gesellschaft": [
+			"Cannabis-Legalisierung",
+			"-" 
+		],
+		"Klimaschutz": [
+			"Verpflichtende Solaranlagen auf allen geeigneten Dächern",
+			"Plan zur Wärmedämmung",
+			"Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030",
+			"-" 
+		],
+		"Steuerpolitik": [
+			"Nationales Umverteilungsprogramm",
+			"Die Vermögenssteuer wieder in Kraft setzen",
+			"-" 
+		],
+		"Außenpolitik": [
+			"Globales Klimaprogramm",
+			"Globale Steuer auf Millionäre",
+			"Globale demokratische Versammlung zum Klimawandel",
+			"Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern",
+			"-" 
+		] 
+	},
+	"FR": {
+		"Asuntos económicos": [
+			"Más necesidades sanitarias dentro del sistema público (cuidado dental, gafas, salud mental)",
+			"Ingreso Básico Garantizado de 600€ al mes",
+			"Jornada laboral de 34 horas semanales",
+			"Inversión en el sistema educativo y universalización de la educación preescolar",
+			"-" 
+		],
+		"Asuntos sociales": [
+			"Reformar la ley electoral para hacer el Senado más proporcional",
+			"Abolición de la prostitución",
+			"-" 
+		],
+		"Política climática": [
+			"100% de electricidad producida con energías renovables en 2040",
+			"Plan de aislamiento térmico",
+			"Prohibir la venta de coches nuevos con motor de combustión para 2030",
+			"-" 
+		],
+		"Sistema fiscal": [
+			"Plan de redistribución nacional",
+			"Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales",
+			"-" 
+		],
+		"Política exterior": [
+			"Plan climático global",
+			"Impuesto mundial a los millonarios",
+			"Asamblea democrática mundial sobre el cambio climático",
+			"Duplicar la ayuda exterior a los países de renta baja",
+			"-" 
+		] 
+	}
 }

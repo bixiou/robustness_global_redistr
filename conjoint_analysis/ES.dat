@@ -1,0 +1,14 @@
+Attributes
+Asuntos económicos:Más necesidades sanitarias dentro del sistema público (cuidado dental; gafas; salud mental),Ingreso Básico Garantizado de 600€ al mes,Jornada laboral de 34 horas semanales,Inversión en el sistema educativo y universalización de la educación preescolar,-
+Asuntos sociales:Reformar la ley electoral para hacer el Senado más proporcional,Abolición de la prostitución,-
+Política climática:100% de electricidad producida con energías renovables en 2040,Plan de aislamiento térmico,Prohibir la venta de coches nuevos con motor de combustión para 2030,-
+Sistema fiscal:Plan de redistribución nacional,Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales,-
+Política exterior:Plan climático global,Impuesto mundial a los millonarios,Asamblea democrática mundial sobre el cambio climático,Duplicar la ayuda exterior a los países de renta baja,-
+Weights
+Asuntos económicos:0.2,0.2,0.2,0.2,0.2
+Asuntos sociales:0.333333333333333,0.333333333333333,0.333333333333333
+Política climática:0.25,0.25,0.25,0.25
+Sistema fiscal:0.333333333333333,0.333333333333333,0.333333333333333
+Política exterior:0.2,0.2,0.2,0.2,0.2
+Restrictions
+
