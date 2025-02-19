@@ -184,5 +184,5 @@ for (l in languages) {
 features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", colNames = F))
 write.table(features, "../questionnaire/features.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
 
-features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", colNames = F))
-write.table(features, "../questionnaire/income.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
+features_inc <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", colNames = F))
+write.table(features_inc, "../questionnaire/income.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
