@@ -1,5 +1,5 @@
 {
-	"PL": {
+	"FR": {
 		"Économie": [
 			"Versement du RSA aux 18-25 ans sans emploi",
 			"SMIC à 1600€ net par mois",
@@ -63,7 +63,7 @@
 			"-" 
 		] 
 	},
-	"EN": {
+	"DE": {
 		"Wirtschaftspolitik": [
 			"Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat",
 			"Bürgerversicherung als gerechtere Sozialversicherung",
@@ -94,7 +94,7 @@
 			"-" 
 		] 
 	},
-	"FR": {
+	"ES": {
 		"Asuntos económicos": [
 			"Más necesidades sanitarias dentro del sistema público (cuidado dental, gafas, salud mental)",
 			"Ingreso Básico Garantizado de 600€ al mes",
@@ -123,6 +123,248 @@
 			"Impuesto mundial a los millonarios",
 			"Asamblea democrática mundial sobre el cambio climático",
 			"Duplicar la ayuda exterior a los países de renta baja",
+			"-" 
+		] 
+	},
+	"IT": {
+		"IT1": [
+			"bla",
+			"-" 
+		],
+		"IT2": [
+			"bla",
+			"-" 
+		],
+		"IT3": [
+			"bla",
+			"-" 
+		],
+		"IT4": [
+			"bla",
+			"-" 
+		],
+		"IT5": [
+			"bla",
+			"-" 
+		],
+		"IT6": [
+			"bla",
+			"-" 
+		] 
+	},
+	"PL": {
+		"PL1": [
+			"bla",
+			"-" 
+		],
+		"PL2": [
+			"bla",
+			"-" 
+		],
+		"PL3": [
+			"bla",
+			"-" 
+		],
+		"PL4": [
+			"bla",
+			"-" 
+		],
+		"PL5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"CH": {
+		"CH1": [
+			"bla",
+			"-" 
+		],
+		"CH2": [
+			"bla",
+			"-" 
+		],
+		"CH3": [
+			"bla",
+			"-" 
+		],
+		"CH4": [
+			"bla",
+			"-" 
+		],
+		"CH5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"JA": {
+		"JA1": [
+			"bla",
+			"-" 
+		],
+		"JA2": [
+			"bla",
+			"-" 
+		],
+		"JA3": [
+			"bla",
+			"-" 
+		],
+		"JA4": [
+			"bla",
+			"-" 
+		],
+		"JA5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"RU": {
+		"RU1": [
+			"bla",
+			"-" 
+		],
+		"RU2": [
+			"bla",
+			"-" 
+		],
+		"RU3": [
+			"bla",
+			"-" 
+		],
+		"RU4": [
+			"bla",
+			"-" 
+		],
+		"RU5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"AR": {
+		"AR1": [
+			"bla",
+			"-" 
+		],
+		"AR2": [
+			"bla",
+			"-" 
+		],
+		"AR3": [
+			"bla",
+			"-" 
+		],
+		"AR4": [
+			"bla",
+			"-" 
+		] 
+	},
+	"EN": {
+		"EN1": [
+			"bla",
+			"-" 
+		],
+		"EN2": [
+			"bla",
+			"-" 
+		],
+		"EN3": [
+			"bla",
+			"-" 
+		],
+		"EN4": [
+			"bla",
+			"-" 
+		],
+		"EN5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"FR-CH": {
+		"FRCH1": [
+			"bla",
+			"-" 
+		],
+		"FRCH2": [
+			"bla",
+			"-" 
+		],
+		"FRCH3": [
+			"bla",
+			"-" 
+		],
+		"FRCH4": [
+			"bla",
+			"-" 
+		],
+		"FRCH5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"DE-CH": {
+		"DECH1": [
+			"bla",
+			"-" 
+		],
+		"DECH2": [
+			"bla",
+			"-" 
+		],
+		"DECH3": [
+			"bla",
+			"-" 
+		],
+		"DECH4": [
+			"bla",
+			"-" 
+		],
+		"DECH5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"IT-CH": {
+		"ITCH1": [
+			"bla",
+			"-" 
+		],
+		"ITCH2": [
+			"bla",
+			"-" 
+		],
+		"ITCH3": [
+			"bla",
+			"-" 
+		],
+		"ITCH4": [
+			"bla",
+			"-" 
+		],
+		"ITCH5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"ES-US": {
+		"ESUS1": [
+			"bla",
+			"-" 
+		],
+		"ESUS2": [
+			"bla",
+			"-" 
+		],
+		"ESUS3": [
+			"bla",
+			"-" 
+		],
+		"ESUS4": [
+			"bla",
+			"-" 
+		],
+		"ESUS5": [
+			"bla",
 			"-" 
 		] 
 	}

@@ -166,8 +166,8 @@ for (j in 1:length(languages)) {
 json <- paste0(json, '\n}')
 
 write(json, "../conjoint_analysis/policies.json")
+write(json, "../questionnaire/policies.json")
 policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
-policies_conjoint <- fromJSON("../questionnaire/policies.json")
 
 # Export .dat required to process conjoint analysis results
 for (l in languages) {
