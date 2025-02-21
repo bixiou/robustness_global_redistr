@@ -137,6 +137,26 @@ wealth_tax_revenue_over_gdp <- wealth_tax_revenue/sapply(countries, function(c) 
 round(100*wealth_tax_revenue_over_gdp, 1)
 
 
+##### Russian Statistical Survey of Income and Participation in Social Programs 2023 #####
+# Rosstat disposable income is ~20% lower than LIS', itself lower than GDP pc (WID matches GDP pc)
+ru_hh <- read.dta13("../data/RU_hh.dta") # Data and doc here: https://rosstat.gov.ru/free_doc/new_site/vndn-2023/index.html
+ru_hh$hh_size <- as.numeric(substr(ru_hh$R_2_0, 1, 2))
+ru_hh$uc <- 1 + 0.5 * pmax(0, ru_hh$hh_size - 1) - 0.2 * ru_hh$CH_0_15  # I count 15-16 yrs as below 15 as there is no hh data on below_15
+# R_H_DOXOD_RASP: disposable cash income (I don't get the difference with R_H_DOX_RASPOL_BEZ, which is 4% higher) 
+# R_H_DOXOD_DEN: total cash income / R_H_DOX_SOVK_BEZ: total income (incl. non-cash except imputed rent) / KVZV: weighing coefficient 
+# FED_OKR: Federal district. 30: Central; 31: Northwest; 33: Volga; 34: Ural; 35: Siberian; 36: Far Eastern; 37: Southern; 38: North Caucasus (H00_02: <100 territories but unrelated to zipcode)
+# Urban: H00_04 == 1 / H00_07 === R_1_1_1: town_size: 7: <200; 8: 201-1000; 9: 1001-5k; 10: rural >5k; 1: urban <50k; 2: 50-100k; 3: 100k-250k; 4: 250k-500k; 5: 500k-1M; 6: >1M
+# R_10_1 == 1: working (2: not working)
+# Marital status: https://rosstat.gov.ru/free_doc/new_site/vndn-2023/Stats/IND_OSN/H01_04.html
+# H01_01: gender (only indiv) / R_3_1: age group (only indiv) / CH_0_17: children below 18 (only in indiv) / 	CH_0_15: nb people below 16 / H00_06: hh number
+# R_5_1 === I01_10: education level https://rosstat.gov.ru/free_doc/new_site/vndn-2023/Stats/IND_OSN/R_5_1.html
+ru_hh$disp_inc <- ru_hh$R_H_DOXOD_RASP/ru_hh$uc 
+ru_hh$tot_inc_pc <- ru_hh$R_H_DOXOD_DEN/ru_hh$hh_size 
+round(wtd.quantile(ru_hh$disp_inc, weights = ru_hh$KVZV, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
+wtd.mean(ru_hh$tot_inc_pc, weights = ru_hh$KVZV)
+round(wtd.quantile(ru_hh$tot_inc_pc/1200, weights = ru_hh$KVZV, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
+
+
 ##### Conjoint analysis: Extract policies from sources.xlsx and export to JSON #####
 # /!\ Assumes "-" ends each policy domain.
 policies_names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies")) # , rowNames = T, rows = c(1, 16:41), cols = 1:6
