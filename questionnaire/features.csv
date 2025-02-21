@@ -19,6 +19,7 @@ step_minor|2500|2500|2500|10000|2500|2500|2500|500000|250000|10000|2500|2500|250
 income_type|net|Netto|netto|netto|neto|gross|gross|総|чистый|صافي|gross|brut|Brutto|lordo|bruto
 income_type_long|après impôts et transferts|nach Steuern und Transfers|dopo le imposte e i trasferimenti|po opodatkowaniu i transferach|después de impuestos y transferencias|before taxes|before taxes|税引前|после уплаты налогов и трансфертов|قبل الضرائب|before taxes|avant impôts|vor Steuern|prima delle imposte|antes de impuestos
 periodicity_text|mensuel|monatliche|mensile|miesięczny|mensual|yearly|yearly|年|ежемесячный|الشهري|yearly|annuel|Jahrliche|annuale|anual
+national|Français|Deutsche|italiano|Polacy|español|British person|Swiss person|日本人|Русский народ|الشعب السعودي|American|Suisse|Schweizer|Svizzere|estadounidense
 amount_bi|20&nbsp;€|€20|€20|90&nbsp;PLN|€20|£20|CHF&nbsp;20|3,500円|4&nbsp;000&nbsp;руб.|130 ريال|$35|CHF&nbsp;20|CHF&nbsp;20|CHF&nbsp;20|$35
 amount_lost|15&nbsp;€|€45|€15|160&nbsp;PLN|€15|£40|CHF&nbsp;15|7,500円|3&nbsp;000&nbsp;руб.|400 ريال|$105|CHF&nbsp;15|CHF&nbsp;15|CHF&nbsp;15|$105
 price_increase|1&nbsp;|2|1|2|1|1|1|2|2|3|2|1|1|1|2
@@ -40,6 +41,8 @@ affected_top3|5|10|5|4|5|5|18|10|4|16|18|18|18|18|18
 transfer_top3|2|4|3|4|3|3|3|4|5|12|8|3|3|3|8
 affected_top1|2|4|2|2|2|4|4|4|2|11|8|4|4|4|8
 transfer_top1|1|2|1|1|1|1|1|1|2|5|3|1|1|1|3
+lcu_400|400&nbsp;€|400&nbsp;€|400&nbsp;€|1700&nbsp;PLN|400&nbsp;€|£300|400&nbsp;CHF|6万円|40&nbsp;000&nbsp;руб.|1,500 ريال|$400|400&nbsp;CHF|400&nbsp;CHF|400&nbsp;CHF|$400
+lcu_250|250&nbsp;€|250&nbsp;€|250&nbsp;€|1000&nbsp;PLN|250&nbsp;€|£200|250&nbsp;CHF|4万円|25&nbsp;000&nbsp;руб.|1,000 ريال|$250|250&nbsp;CHF|250&nbsp;CHF|250&nbsp;CHF|$250
 lcu_1500|150&nbsp;€|150&nbsp;€|150&nbsp;€|1500&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.|1,500 ريال|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
 lcu_1500_top3|150&nbsp;€|150&nbsp;€|150&nbsp;€|1500&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.|1,500 ريال|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
 lcu_10k|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|10&nbsp;000&nbsp;PLN|1&nbsp;000&nbsp;€|£10,000|10,000&nbsp;CHF|100万円|100&nbsp;000&nbsp;руб.|10,000 ريال|$10,000|10,000&nbsp;CHF|10,000&nbsp;CHF|10,000&nbsp;CHF|$10,000
@@ -84,3 +87,6 @@ educ_6|Bac +2 (BTS, DUT, DEUG…)|Zweitausbildung oder Hochschulreife|Diploma di
 educ_7|Bac +3 (licence…)|Bachelor oder Fachhochschulabschluss|Laurea triennale o equivalente (AFAM…)|Wyższe licencjackie lub równorzędne|Grado universitario|Bachelor's Degree (BA, BSc, BEng, etc.)|Bachelor's degree or equivalent (HF, professional examination, federal certificate)|学士|Бакалавр|درجة البكالوريوس أو ما يعادلها|Bachelor's degree (for example: BA, BS)|Bachelor ou équivalent (ES, examen professionnel, certificat fédéral de capacité)|Bachelor oder gleichwertig (HF, Berufsprüfung, eidg. Fauchausweis)|Laurea triennale o equivalente (HF, esame professionale, attestato federale)|Licenciatura (por ejemplo: BA, BS)
 educ_8|Bac +5 ou plus (master, école d'ingénieur ou de commerce, doctorat, médecine, maîtrise, DEA, DESS...)|Master-Abschluss oder höher|Laurea magistrale o più|Wyższe magisterskie lub więcej|Máster o doctorado|Postgraduate diploma or certificate, Master's Degree (MSc, MA, MBA, etc.) or Ph.D.|Master's degree or more|修士以上|Магистр или более|ماجستير أو أعلى|Master’s degree or above (MA, MS, MEng, MEd, MSW, MBA, MD, DDS, DVM, LLB, JD, PhD)|Master ou plus|Master oder mehr|Laurea specialistica o superiore|Máster o superior (MA, MS, MEng, MEd, MSW, MBA, MD, DDS, DVM, LLB, JD, PhD)
 sample_size|1&nbsp;000|1&nbsp;000|1&nbsp;000|500|500|1,000|500|2&nbsp;000|1&nbsp;000|1,000|3,000|500|500|500|3,000
+name_gcs|Plan mondial pour le climat|||Globalny Program Klimatyczny||Global Climate Scheme|||||Global Climate Scheme|Plan mondial pour le climat|||
+participating|Pays participant|||Kraj uczestniczący||Participating country|||||Participating country|Pays participant|||
+potential_party|Pays participant potentiel|||Potencjalny kraj uczestniczący||Potential participating country|||||Potential participating country|Pays participant potentiel|||
