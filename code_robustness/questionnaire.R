@@ -137,12 +137,30 @@ wealth_tax_revenue_over_gdp <- wealth_tax_revenue/sapply(countries, function(c) 
 round(100*wealth_tax_revenue_over_gdp, 1)
 
 
+##### revenue_split_many #####
+# Probas with 5 items
+dhyper(0, 4, 9, 5) # 10% chances to get 0 global policy
+dhyper(1, 4, 9, 5) # 39% chances to get exactly 1 global policy
+dhyper(3, 4, 9, 5) + dhyper(4, 4, 9, 5) # 12% chances to get more global than national policies
+
+# Probas with 6 items
+dhyper(0, 4, 9, 6) # 5% chances to get 0 global policy
+dhyper(1, 4, 9, 6) # 29% chances to get exactly 1 global policy
+dhyper(4, 4, 9, 6) # 2% chances to get more global than national policies
+
+# Probas with 4 items
+dhyper(0, 4, 9, 4) # 18% chances to get 0 global policy
+dhyper(1, 4, 9, 4) # 47% chances to get exactly 1 global policy
+dhyper(3, 4, 9, 4) + dhyper(4, 4, 9, 4) # 5% chances to get more global than national policies
+dhyper(4, 4, 9, 4) # 1% chance to get only global policies
+
+
 ##### Russian Statistical Survey of Income and Participation in Social Programs 2023 #####
 # Rosstat disposable income is ~20% lower than LIS', itself lower than GDP pc (WID matches GDP pc)
 ru_hh <- read.dta13("../data/RU_hh.dta") # Data and doc here: https://rosstat.gov.ru/free_doc/new_site/vndn-2023/index.html
 ru_hh$hh_size <- as.numeric(substr(ru_hh$R_2_0, 1, 2))
 ru_hh$uc <- 1 + 0.5 * pmax(0, ru_hh$hh_size - 1) - 0.2 * ru_hh$CH_0_15  # I count 15-16 yrs as below 15 as there is no hh data on below_15
-# R_H_DOXOD_RASP: disposable cash income (I don't get the difference with R_H_DOX_RASPOL_BEZ, which is 4% higher) 
+# R_H_DOXOD_RASP: disposable cash income / R_H_DOX_RASPOL_BEZ: total disposable income (incl. non-cash except imputed rent)
 # R_H_DOXOD_DEN: total cash income / R_H_DOX_SOVK_BEZ: total income (incl. non-cash except imputed rent) / KVZV: weighing coefficient 
 # FED_OKR: Federal district. 30: Central; 31: Northwest; 33: Volga; 34: Ural; 35: Siberian; 36: Far Eastern; 37: Southern; 38: North Caucasus (H00_02: <100 territories but unrelated to zipcode)
 # Urban: H00_04 == 1 / H00_07 === R_1_1_1: town_size: 7: <200; 8: 201-1000; 9: 1001-5k; 10: rural >5k; 1: urban <50k; 2: 50-100k; 3: 100k-250k; 4: 250k-500k; 5: 500k-1M; 6: >1M
