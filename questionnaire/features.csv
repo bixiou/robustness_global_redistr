@@ -20,11 +20,11 @@ step_minor|2500|2500|2500|10000|2500|2500|2500|500000|250000|10000|2500|2500|250
 income_type|net|Netto|netto|netto|neto|gross|gross|総|чистый|صافي|gross|brut|Brutto|lordo|bruto
 income_type_long|après impôts et transferts|nach Steuern und Transfers|dopo le imposte e i trasferimenti|po opodatkowaniu i pomocy społecznej|después de impuestos y transferencias|before taxes|before taxes|税引前|после уплаты налогов и трансфертов|قبل الضرائب|before taxes|avant impôts|vor Steuern|prima delle imposte|antes de impuestos
 periodicity_text|mensuel|monatliche|mensile|miesięczny|mensual|yearly|yearly|年|ежемесячный|الشهري|yearly|annuel|Jahrliche|annuale|anual
-national|Français|Deutsche|italiano|Polacy|español|British person|Swiss person|日本人|Русский народ|الشعب السعودي|American|Suisse|Schweizer|Svizzere|estadounidense
+national|Français|Deutsche|italiano|4.5k|español|4k|Swiss person|日本人|8M|200k monthly|American|Suisse|Schweizer|Svizzere|estadounidense
 amount_bi|20&nbsp;€|€20|€20|90&nbsp;PLN|€20|£20|CHF&nbsp;20|3,500円|4&nbsp;000&nbsp;руб.|130 ريال|$35|CHF&nbsp;20|CHF&nbsp;20|CHF&nbsp;20|$35
-amount_lost|15&nbsp;€|€45|€15|160&nbsp;PLN|€15|£40|CHF&nbsp;15|7,500円|3&nbsp;000&nbsp;руб.|400 ريال|$105|CHF&nbsp;15|CHF&nbsp;15|CHF&nbsp;15|$105
+amount_lost|15&nbsp;€|€45|€15|7k|€15|6k|CHF&nbsp;15|7,500円|12M (120k)|400 ريال|$105|CHF&nbsp;15|CHF&nbsp;15|CHF&nbsp;15|$105
 price_increase|1&nbsp;|2|1|2|1|1|1|2|2|3|2|1|1|1|2
-amount_expenses|40&nbsp;€|€70|€40|250&nbsp;PLN|€35|£60|CHF&nbsp;35|11,000円|7&nbsp;000&nbsp;руб.|500 ريال|$140|CHF&nbsp;35|CHF&nbsp;35|CHF&nbsp;35|$140
+amount_expenses|40&nbsp;€|€70|€40|250&nbsp;PLN|€35|50k|CHF&nbsp;35|11,000円|7&nbsp;000&nbsp;руб.|500 ريال|$140|CHF&nbsp;35|CHF&nbsp;35|CHF&nbsp;35|$140
 amount_lottery|100&nbsp;€|100&nbsp;€|100&nbsp;€|500&nbsp;PLN|100&nbsp;€|£100|CHF&nbsp;100|20,000円|10&nbsp;000&nbsp;руб.|500 ريال|$100|100&nbsp;CHF|100&nbsp;CHF|100&nbsp;franchi|$100
 country_name|la France|Deutschland|Italia|Polska|España|the UK|Switzerland|日本|Россия|المملكة العربية السعودية|the United States|la Suisse|die Schweiz|Svizzera|Los Estados Unidos
 emissions_with|TRUE|TRUE|TRUE|TRUE|TRUE|TRUE|FALSE|TRUE|TRUE|FALSE|TRUE|FALSE|FALSE|FALSE|TRUE
@@ -42,21 +42,21 @@ affected_top3|5|10|5|4|5|5|18|10|4|16|18|18|18|18|18
 transfer_top3|2|4|3|4|3|3|3|4|5|12|8|3|3|3|8
 affected_top1|2|4|2|2|2|4|4|4|2|11|8|4|4|4|8
 transfer_top1|1|2|1|1|1|1|1|1|2|5|3|1|1|1|3
-lcu_400|400&nbsp;€|400&nbsp;€|400&nbsp;€|1500&nbsp;PLN|400&nbsp;€|£300|400&nbsp;CHF|6万円|40&nbsp;000&nbsp;руб.|1,500 ريال|$400|400&nbsp;CHF|400&nbsp;CHF|400&nbsp;CHF|$400
-lcu_250|250&nbsp;€|250&nbsp;€|250&nbsp;€|1500&nbsp;PLN|250&nbsp;€|£200|250&nbsp;CHF|4万円|25&nbsp;000&nbsp;руб.|1,000 ريال|$250|250&nbsp;CHF|250&nbsp;CHF|250&nbsp;CHF|$250
-lcu_1500|150&nbsp;€|150&nbsp;€|150&nbsp;€|10&nbsp;000&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.|1,500 ريال|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
-lcu_1500_top3|150&nbsp;€|150&nbsp;€|150&nbsp;€|10&nbsp;000&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.|1,500 ريال|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
-lcu_10k|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|25&nbsp;000&nbsp;PLN|1&nbsp;000&nbsp;€|£10,000|10,000&nbsp;CHF|100万円|100&nbsp;000&nbsp;руб.|10,000 ريال|$10,000|10,000&nbsp;CHF|10,000&nbsp;CHF|10,000&nbsp;CHF|$10,000
-lcu_10k_top3|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|30&nbsp;000&nbsp;PLN|1&nbsp;000&nbsp;€|£10,000|10,000&nbsp;CHF|100万円|100&nbsp;000&nbsp;руб.|10,000 ريال|$10,000|10,000&nbsp;CHF|10,000&nbsp;CHF|10,000&nbsp;CHF|$10,000
-lcu_75k|4&nbsp;500&nbsp;€|4&nbsp;500&nbsp;€|4&nbsp;500&nbsp;€|40&nbsp;000&nbsp;PLN|4&nbsp;500&nbsp;€|£75,000|70,000&nbsp;CHF|1,200万円|750&nbsp;000&nbsp;руб.|20,000 ريال|$75,000|70,000&nbsp;CHF|70,000&nbsp;CHF|70,000&nbsp;CHF|$75,000
-lcu_80k|5&nbsp;000&nbsp;€|5&nbsp;000&nbsp;€|5&nbsp;000&nbsp;€|35&nbsp;000&nbsp;PLN|5&nbsp;000&nbsp;€|£80,000|75,000&nbsp;CHF|1,300万円|800&nbsp;000&nbsp;руб.|25,000 ريال|$80,000|75,000&nbsp;CHF|75,000&nbsp;CHF|75,000&nbsp;CHF|$80,000
-lcu_90k|6&nbsp;000&nbsp;€|6&nbsp;000&nbsp;€|6&nbsp;000&nbsp;€|40&nbsp;000&nbsp;PLN|6&nbsp;000&nbsp;€|£90,000|85,000&nbsp;CHF|1,400万円|900&nbsp;000&nbsp;руб.|35,000 ريال|$90,000|85,000&nbsp;CHF|85,000&nbsp;CHF|85,000&nbsp;CHF|$90,000
-lcu_100k|7&nbsp;000&nbsp;€|7&nbsp;000&nbsp;€|7&nbsp;000&nbsp;€|50&nbsp;000&nbsp;PLN|7&nbsp;000&nbsp;€|£100,000|100,000&nbsp;CHF|1,800万円|1&nbsp;000&nbsp;000&nbsp;руб.|35,000 ريال|$100,000|100,000&nbsp;CHF|100,000&nbsp;CHF|100,000&nbsp;CHF|$100,000
-lcu_120k|7&nbsp;500&nbsp;€|7&nbsp;500&nbsp;€|7&nbsp;500&nbsp;€|50&nbsp;000&nbsp;PLN|7&nbsp;500&nbsp;€|£120,000|110,000&nbsp;CHF|1,900万円|1&nbsp;200&nbsp;000&nbsp;руб.|40,000 ريال|$120,000|110,000&nbsp;CHF|110,000&nbsp;CHF|110,000&nbsp;CHF|$120,000
-lcu_130k|8&nbsp;500&nbsp;€|8&nbsp;500&nbsp;€|8&nbsp;500&nbsp;€|70&nbsp;000&nbsp;PLN|8&nbsp;500&nbsp;€|£130,000|120,000&nbsp;CHF|2,000万円|1&nbsp;300&nbsp;000&nbsp;руб.|50,000 ريال|$130,000|120,000&nbsp;CHF|120,000&nbsp;CHF|120,000&nbsp;CHF|$130,000
-lcu_150k|9&nbsp;000&nbsp;€|9&nbsp;000&nbsp;€|9&nbsp;000&nbsp;€|300&nbsp;000&nbsp;PLN|9&nbsp;000&nbsp;€|£150,000|140,000&nbsp;CHF|2,400万円|1&nbsp;500&nbsp;000&nbsp;руб.|40,000 ريال|$150,000|140,000&nbsp;CHF|140,000&nbsp;CHF|140,000&nbsp;CHF|$150,000
-lcu_200k|14&nbsp;000&nbsp;€|14&nbsp;000&nbsp;€|14&nbsp;000&nbsp;€|1700&nbsp;PLN|14&nbsp;000&nbsp;€|£200,000|200,000&nbsp;CHF|3,600万円|2&nbsp;000&nbsp;000&nbsp;руб.|70,000 ريال|$200,000|200,000&nbsp;CHF|200,000&nbsp;CHF|200,000&nbsp;CHF|$200,000
-lcu_1M|60&nbsp;000&nbsp;€|60&nbsp;000&nbsp;€|60&nbsp;000&nbsp;€|1000&nbsp;PLN|60&nbsp;000&nbsp;€|£1 million|1&nbsp;million&nbsp;CHF|15,000万円|100&nbsp;000&nbsp;000&nbsp;руб.|300,000 ريال|$1 million|1&nbsp;million&nbsp;CHF|1&nbsp;million&nbsp;CHF|1&nbsp;million&nbsp;CHF|$1 million
+lcu_400|300&nbsp;€|300&nbsp;€|300&nbsp;€|800&nbsp;PLN|250&nbsp;€|£300|400&nbsp;CHF|4万円|13&nbsp;000&nbsp;руб.| ريال 800|$400|400&nbsp;CHF|400&nbsp;CHF|400&nbsp;CHF|$400
+lcu_250|200&nbsp;€|200&nbsp;€|200&nbsp;€|500&nbsp;PLN|150&nbsp;€|£200|250&nbsp;CHF|3万円|8&nbsp;000&nbsp;руб.| ريال 500|$250|250&nbsp;CHF|250&nbsp;CHF|250&nbsp;CHF|$250
+lcu_1500|150&nbsp;€|150&nbsp;€|150&nbsp;€|150&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.| ريال 150|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
+lcu_1500_top3|150&nbsp;€|150&nbsp;€|150&nbsp;€|150&nbsp;PLN|150&nbsp;€|£1,500|1,500&nbsp;CHF|15万円|15&nbsp;000&nbsp;руб.| ريال 150|$1,500|1,500&nbsp;CHF|1,500&nbsp;CHF|1,500&nbsp;CHF|$1,500
+lcu_10k|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;PLN|1&nbsp;000&nbsp;€|£10,000|10,000&nbsp;CHF|100万円|100&nbsp;000&nbsp;руб.|1,000 ريال|$10,000|10,000&nbsp;CHF|10,000&nbsp;CHF|10,000&nbsp;CHF|$10,000
+lcu_10k_top3|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;€|1&nbsp;000&nbsp;PLN|1&nbsp;000&nbsp;€|£10,000|10,000&nbsp;CHF|100万円|100&nbsp;000&nbsp;руб.|1,000 ريال|$10,000|10,000&nbsp;CHF|10,000&nbsp;CHF|10,000&nbsp;CHF|$10,000
+lcu_75k|4&nbsp;500&nbsp;€|4&nbsp;500&nbsp;€|4&nbsp;000&nbsp;€|10&nbsp;000&nbsp;PLN|3&nbsp;500&nbsp;€|£50,000|80,000&nbsp;CHF|750万円|150&nbsp;000&nbsp;руб.|8,000 ريال|$75,000|80,000&nbsp;CHF|80,000&nbsp;CHF|80,000&nbsp;CHF|$75,000
+lcu_80k|5&nbsp;000&nbsp;€|5&nbsp;000&nbsp;€|4&nbsp;500&nbsp;€|13&nbsp;000&nbsp;PLN|4&nbsp;000&nbsp;€|£60,000|85,000&nbsp;CHF|800万円|200&nbsp;000&nbsp;руб.|10,000 ريال|$80,000|85,000&nbsp;CHF|85,000&nbsp;CHF|85,000&nbsp;CHF|$80,000
+lcu_90k|6&nbsp;000&nbsp;€|6&nbsp;000&nbsp;€|5&nbsp;500&nbsp;€|14&nbsp;000&nbsp;PLN|5&nbsp;000&nbsp;€|£70,000|95,000&nbsp;CHF|900万円|300&nbsp;000&nbsp;руб.|11,000 ريال|$90,000|95,000&nbsp;CHF|95,000&nbsp;CHF|95,000&nbsp;CHF|$90,000
+lcu_100k|7&nbsp;000&nbsp;€|7&nbsp;000&nbsp;€|7&nbsp;000&nbsp;€|17&nbsp;500&nbsp;PLN|5&nbsp;000&nbsp;€|£80,000|125,000&nbsp;CHF|1,000万円|250&nbsp;000&nbsp;руб.|12,000 ريال|$100,000|125,000&nbsp;CHF|125,000&nbsp;CHF|125,000&nbsp;CHF|$100,000
+lcu_120k|7&nbsp;500&nbsp;€|7&nbsp;500&nbsp;€|7&nbsp;500&nbsp;€|20&nbsp;000&nbsp;PLN|6&nbsp;000&nbsp;€|£90,000|130,000&nbsp;CHF|1,200万円|300&nbsp;000&nbsp;руб.|15,000 ريال|$120,000|130,000&nbsp;CHF|130,000&nbsp;CHF|130,000&nbsp;CHF|$120,000
+lcu_130k|8&nbsp;500&nbsp;€|8&nbsp;500&nbsp;€|8&nbsp;500&nbsp;€|21&nbsp;000&nbsp;PLN|7&nbsp;00&nbsp;€|£100,000|140,000&nbsp;CHF|1,300万円|400&nbsp;000&nbsp;руб.|16,000 ريال|$130,000|140,000&nbsp;CHF|140,000&nbsp;CHF|140,000&nbsp;CHF|$130,000
+lcu_150k|9&nbsp;000&nbsp;€|9&nbsp;000&nbsp;€|8&nbsp;000&nbsp;€|20&nbsp;000&nbsp;PLN|7&nbsp;000&nbsp;€|£100,000|160,000&nbsp;CHF|1,500万円|300&nbsp;000&nbsp;руб.|16,000 ريال|$150,000|160,000&nbsp;CHF|160,000&nbsp;CHF|160,000&nbsp;CHF|$150,000
+lcu_200k|14&nbsp;000&nbsp;€|14&nbsp;000&nbsp;€|14&nbsp;000&nbsp;€|35&nbsp;000&nbsp;PLN|10&nbsp;000&nbsp;€|£160,000|250,000&nbsp;CHF|2,000万円|500&nbsp;000&nbsp;руб.|24,000 ريال|$200,000|250,000&nbsp;CHF|250,000&nbsp;CHF|250,000&nbsp;CHF|$200,000
+lcu_1M|60&nbsp;000&nbsp;€|60&nbsp;000&nbsp;€|60&nbsp;000&nbsp;€|150&nbsp;000&nbsp;PLN|50&nbsp;000&nbsp;€|£700,000|1&nbsp;million&nbsp;CHF|10,000万円|2&nbsp;500&nbsp;000&nbsp;руб.|130,000 ريال|$1 million|1&nbsp;million&nbsp;CHF|1&nbsp;million&nbsp;CHF|1&nbsp;million&nbsp;CHF|$1 million
 tax_country_name|En France|In Deutschland|In Italia|W Polsce|En España|In the UK|In Switzerland|日本では|В России|في المملكة العربية السعودية|In the U.S.|En Suisse|In der Schweiz|In Svizzera|En EE.UU.
 tax_country_gdp|PIB Français|German GDP|PIL italiano|Polski PKB|Spanish GDP|UK GDP|Swiss GDP|日本のGDP|ВВП России|الناتج المحلي الإجمالي السعودي|U.S. GDP|PIB suisse|Schweizer BIP|PIL svizzero|U.S. GDP
 tax_revenue|47 milliards d'euros|42 Milliarden Euro|11 miliardi di euro|6 mld PLN|6.000 millones de euros|£11 billion|CHF 14 billion|4兆円|2000 миллиардов рублей|16 مليار ريال|$514 billion|14 milliards CHF|CHF 14 Billionen|14 miliardi di CHF|5.000 millones de dólares
