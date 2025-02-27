@@ -224,3 +224,4 @@ write.table(features, "../questionnaire/features.csv", sep="|",  col.names=FALSE
 
 features_inc <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", colNames = F))
 write.table(features_inc, "../questionnaire/income.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
+
