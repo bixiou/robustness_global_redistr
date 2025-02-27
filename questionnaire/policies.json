@@ -31,38 +31,6 @@
 			"-" 
 		] 
 	},
-	"EN-GB": {
-		"Economic issues": [
-			"30 hours of free childcare per week for working parents",
-			"Healthcare plan: more appointments through overtime, recruitment in mental care and dentistry coverage",
-			"Raising the minimum wage to £15 per hour",
-			"A 4-day working week",
-			"-" 
-		],
-		"Social issues": [
-			"Legal limit on migration and deportation to Rwanda",
-			"Enforce neighbourhood policing through recruitment and new equipment",
-			"Increase the Universal Credit for low-income households",
-			"-" 
-		],
-		"Climate policy": [
-			"Investment in renewables and nuclear to achieve zero emissions electricity in 2030",
-			"A ban on domestic flights for trips under three hours by train",
-			"-" 
-		],
-		"Tax system": [
-			"Fight tax avoidance by abolishing the non-domiciled tax status",
-			"Abolition of National Insurance for the self-employed",
-			"Abolish all business rates",
-			"-" 
-		],
-		"Foreign policy": [
-			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
-			"Cut development aid",
-			"Deepen Brexit by removing or reforming EU-inherited laws",
-			"-" 
-		] 
-	},
 	"DE": {
 		"Wirtschaftspolitik": [
 			"Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat",
@@ -91,38 +59,6 @@
 			"Globale Steuer auf Millionäre",
 			"Globale demokratische Versammlung zum Klimawandel",
 			"Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern",
-			"-" 
-		] 
-	},
-	"ES-ES": {
-		"Asuntos económicos": [
-			"Más necesidades sanitarias dentro del sistema público (cuidado dental, gafas, salud mental)",
-			"Ingreso Básico Garantizado de 600€ al mes",
-			"Jornada laboral de 34 horas semanales",
-			"Inversión en el sistema educativo y universalización de la educación preescolar",
-			"-" 
-		],
-		"Asuntos sociales": [
-			"Reformar la ley electoral para hacer el Senado más proporcional",
-			"Abolición de la prostitución",
-			"-" 
-		],
-		"Política climática": [
-			"100% de electricidad producida con energías renovables en 2040",
-			"Plan de aislamiento térmico",
-			"Prohibir la venta de coches nuevos con motor de combustión para 2030",
-			"-" 
-		],
-		"Sistema fiscal": [
-			"Plan de redistribución nacional",
-			"Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales",
-			"-" 
-		],
-		"Política exterior": [
-			"Plan climático global",
-			"Impuesto mundial a los millonarios",
-			"Asamblea democrática mundial sobre el cambio climático",
-			"Duplicar la ayuda exterior a los países de renta baja",
 			"-" 
 		] 
 	},
@@ -175,6 +111,70 @@
 			"Międzynarodowy podatek od milionerów, z 30% finansowaniem opieki zdrowotnej i edukacji w krajach o niskich dochodach",
 			"Ograniczenie pomocy rozwojowej",
 			"Zatrzymanie osób, którym odmówiono azylu, do czasu ich deportacji",
+			"-" 
+		] 
+	},
+	"ES-ES": {
+		"Asuntos económicos": [
+			"Más necesidades sanitarias dentro del sistema público (cuidado dental, gafas, salud mental)",
+			"Ingreso Básico Garantizado de 600€ al mes",
+			"Jornada laboral de 34 horas semanales",
+			"Inversión en el sistema educativo y universalización de la educación preescolar",
+			"-" 
+		],
+		"Asuntos sociales": [
+			"Reformar la ley electoral para hacer el Senado más proporcional",
+			"Abolición de la prostitución",
+			"-" 
+		],
+		"Política climática": [
+			"100% de electricidad producida con energías renovables en 2040",
+			"Plan de aislamiento térmico",
+			"Prohibir la venta de coches nuevos con motor de combustión para 2030",
+			"-" 
+		],
+		"Sistema fiscal": [
+			"Plan de redistribución nacional",
+			"Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales",
+			"-" 
+		],
+		"Política exterior": [
+			"Plan climático global",
+			"Impuesto mundial a los millonarios",
+			"Asamblea democrática mundial sobre el cambio climático",
+			"Duplicar la ayuda exterior a los países de renta baja",
+			"-" 
+		] 
+	},
+	"EN-GB": {
+		"Economic issues": [
+			"30 hours of free childcare per week for working parents",
+			"Healthcare plan: more appointments by utilising overtime employment, recruitment in mental care and dentistry coverage",
+			"Raising the minimum wage to £15 per hour",
+			"A 4-day working week",
+			"-" 
+		],
+		"Social issues": [
+			"Legal limit on migration and deportation to Rwanda",
+			"Enforce neighbourhood policing through recruitment and new equipment",
+			"Increase the Universal Credit for low-income households",
+			"-" 
+		],
+		"Climate policy": [
+			"Investment in renewables and nuclear to achieve zero-emissions electricity in 2030",
+			"A ban on domestic flights for trips under three hours by train",
+			"-" 
+		],
+		"Tax system": [
+			"Fight tax avoidance by abolishing the non-domiciled tax status",
+			"Abolition of National Insurance for the self-employed",
+			"Abolish all business rates",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Deepen Brexit by removing or reforming EU-inherited laws",
 			"-" 
 		] 
 	},
@@ -277,7 +277,7 @@
 			"Enhance border security and limit immigration",
 			"Ensure nationwide access to abortion as a constitutional right",
 			"Deployment of U.S. troops against drug cartels in Mexico",
-			"No immunity for crimes of a former president",
+			"No immunity for crimes committed by a former president",
 			"-" 
 		],
 		"Climate policy": [
@@ -286,7 +286,7 @@
 			"-" 
 		],
 		"Tax system": [
-			"Imposing a universal tariff on all U.S. imports of 20 percent",
+			"Imposing a universal tariff of 20 percent on all U.S. imports",
 			"Raising the capital gains tax rate to 28% for individuals earning over $1 million",
 			"Extend the Trump tax cuts",
 			"-" 
