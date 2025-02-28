@@ -1,3 +1,738 @@
-"","StartDate","EndDate","Status","IPAddress","Progress","Duration (in seconds)","Finished...7","RecordedDate","ResponseId","RecipientLastName","RecipientFirstName","RecipientEmail","ExternalReference","LocationLatitude","LocationLongitude","DistributionChannel","UserLanguage","Q75_Browser","Q75_Version","Q75_Operating System","Q75_Resolution","gender","hidden_country","age_exact","foreign","couple","hh_size","Nb_children__14","race_1","race_2","race_3","race_4","race_5","race_6","race_7","race_8","income","education","employment_status","zipcode","home_1","home_2","home_3","home_4","millionaire","voted","vote_US","vote_GB","vote_FR","vote_CH","vote_PL","concerns_field","wish_field","issue_field","Q92","conjoint","revenue_split_few_1","revenue_split_few_2","revenue_split_few_3","revenue_split_few_4","revenue_split_few_5","revenue_split_few_DO_1","revenue_split_few_DO_2","revenue_split_few_DO_3","revenue_split_few_DO_4","revenue_split_few_DO_5","revenue_split_many_1","revenue_split_many_2","revenue_split_many_3","revenue_split_many_4","revenue_split_many_5","revenue_split_many_6","revenue_split_many_7","revenue_split_many_8","revenue_split_many_9","revenue_split_many_10","revenue_split_many_11","revenue_split_many_12","revenue_split_many_13","revenue_split_many_DO_1","revenue_split_many_DO_2","revenue_split_many_DO_3","revenue_split_many_DO_4","revenue_split_many_DO_5","revenue_split_many_DO_6","revenue_split_many_DO_7","revenue_split_many_DO_8","revenue_split_many_DO_9","revenue_split_many_DO_10","revenue_split_many_DO_11","revenue_split_many_DO_12","revenue_split_many_DO_13","hidden_sum","ncs_support","donation_1","gcs_support","gcs_belief_1","ics_support","likely_solidarity","solidarity_support_1","solidarity_support_2","solidarity_support_3","solidarity_support_4","solidarity_support_5","solidarity_support_6","solidarity_support_7","solidarity_support_8","solidarity_support_9","solidarity_support_10","solidarity_support_c_1","solidarity_support_c_2","solidarity_support_c_3","solidarity_support_c_4","solidarity_support_c_5","global_tax_support","hic_tax_support","intl_tax_support","maritime_split_1","maritime_split_2","maritime_split_3","maritime_split_DO_1","maritime_split_DO_2","maritime_split_DO_3","ncqg_full","ncqg","ncqg_DO_1","ncqg_DO_4","ncqg_DO_5","ncqg_DO_2","ncqg_DO_3","ncqg_DO_6","ncqg_DO_7","sustainable_future_a","sustainable_future_s","sustainable_future_b","top1_tax_support","top1_tax_support_cut","top3_tax_support","top3_tax_support_cut","attention_test","transfer_how_1","transfer_how_2","transfer_how_3","transfer_how_4","transfer_how_5","transfer_how_6","transfer_how_7","transfer_how_DO_1","transfer_how_DO_2","transfer_how_DO_3","transfer_how_DO_4","transfer_how_DO_5","transfer_how_DO_6","transfer_how_DO_7","global_movement_1","global_movement_2","global_movement_4","global_movement_6","global_movement_3","vote_intl_coalition","vote_intl_coalition_DO_5","vote_intl_coalition_DO_6","vote_intl_coalition_DO_7","why_hic_help_lic_1","why_hic_help_lic_2","why_hic_help_lic_3","why_hic_help_lic_5","why_hic_help_lic_DO_1","why_hic_help_lic_DO_2","why_hic_help_lic_DO_3","why_hic_help_lic_DO_5","reparations_support","income_exact","Q94_First Click","Q94_Last Click","Q94_Page Submit","Q94_Click Count","custom_redistr_4","custom_redistr_5","well_being_gallup_0","well_being_gallup_1","well_being_wvs_0","well_being_wvs_1","gcs_comprehension","gcs_comprehension_DO_2","gcs_comprehension_DO_3","gcs_comprehension_DO_5","my_tax_global_nation","group_defended","donation_charities","interested_politics","involvement_govt_1","Q93_First Click","Q93_Last Click","Q93_Page Submit","Q93_Click Count","survey_biased","comment_field","interview","custom_redistr_winners","custom_redistr_losers","custom_redistr_degree","m","complete","quotasfull","screenout","speeder","Q_TotalDuration","Q_TerminateFlag","Finished...210","country","region","urbanity","cut","long","variant_split","variant_warm_glow","variant_realism","variant_ncqg_maritime","variant_radical_redistr","variant_gcs","variant_sliders","variant_radical_transfer","variant_synthetic","variant_comprehension","variant_belief","F-1-1","F-1-2","F-1-3","F-1-4","F-1-5","F-1-6","F-1-1-1","F-1-1-2","F-1-1-3","F-1-1-4","F-1-1-5","F-1-1-6","F-1-2-1","F-1-2-2","F-1-2-3","F-1-2-4","F-1-2-5","F-1-2-6","Q_Language","time_start","duration_consent","time_consent","duration_socios_demos","time_socios_demos","duration_field","time_field","duration_conjoint","time_conjoint","duration_global_tax","time_global_tax","duration_warm_glow_substitute","time_warm_glow_substitute","duration_gcs","time_gcs","duration_ics","time_ics","duration_warm_glow_realism","time_warm_glow_realism","duration_ncqg_maritime","time_ncqg_maritime","duration_wealth_tax","time_wealth_tax","duration_preferred_transfer_mean","time_preferred_transfer_mean","duration_radical_redistr","time_radical_redistr","duration_custom_redistr","time_custom_redistr","duration_well_being","time_well_being","duration_extra","time_extra","duration_main_questions","Open-endedfield_DO_issue_field","Open-endedfield_DO_Q92","Open-endedfield_DO_wish_field","Open-endedfield_DO_concerns_field","Cap&Sharenon-universal _DO_gcs_mid","Cap&Sharenon-universal _DO_gcs_high","Cap&Sharenon-universal _DO_ics_support","Cap&Sharenon-universal _DO_gcs_low","Cap&Sharenon-universal _DO_gcs_high_color","Wealthtaxdependingonsetsofcountries_DO_hic_tax_support","Wealthtaxdependingonsetsofcountries_DO_global_tax_support","Wealthtaxdependingonsetsofcountries_DO_intl_tax_support","Well-being_DO_well_being_gallup_1","Well-being_DO_well_being_wvs_1","Well-being_DO_well_being_wvs_0","Well-being_DO_well_being_gallup_0"
-"1",2025-02-28 09:14:46,2025-02-28 09:15:06,"IP Address","169.255.160.42",100,19,TRUE,2025-02-28 09:15:06,"R_8PM4RrIZIMZD9jv",NA,NA,NA,NA,-20.2494,57.4879,"anonymous","PL","Chrome","133.0.0.0","Windows NT 10.0","1920x1080","Man","PL","Below 18","No, I was born in this country and my parents too","No",1,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,298607646252041,"141672_800d28b2","141672_a2c0152d","141672_aef1c3da",141672,19,"QuotaMet",1,"PL",NA,NA,1,0.216449450053379,1,1,1,2,1,NA,0,1,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"PL",1740730489.747,5.52600002288818,1740730495.273,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"2",2025-02-28 09:15:40,2025-02-28 09:25:13,"IP Address","169.255.160.42",100,573,TRUE,2025-02-28 09:25:14,"R_8UyS9vg6s9k7bTH",NA,NA,NA,NA,-20.2494,57.4879,"anonymous","PL","Chrome","133.0.0.0","Windows NT 10.0","1920x1080","Man","PL","25 to 29","Not me but one of my parents was born in a foreign country","Yes",1,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,"2 Some high school","Part-time employed","01-224",NA,NA,"Landlord renting out property",NA,"Likely","Yes",NA,NA,NA,NA,"Poland 2050",NA,NA,NA,NA,"Candidate B",10,10,20,25,35,1,3,4,2,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"No",NA,"No",33,"Yes","Likely",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Strongly oppose","Indifferent","Somewhat oppose","Somewhat oppose","Somewhat support",NA,"No",NA,NA,NA,NA,NA,NA,NA,"$300 billion",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Scenario B",NA,"Indifferent",NA,NA,"A little","A right way","A right way","An acceptable way","A right way","A right way","An acceptable way","A wrong way",7,6,5,4,3,2,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA,"Humans",NA,NA,NA,7.587,11.332,11.999,3,"Yes, right-wing biased","Test",NA,NA,NA,NA,298607646257163,"141672_800d28b2","141672_a2c0152d","141672_aef1c3da",141672,573,NA,1,"PL",NA,1,1,0.367581404132671,1,1,0,2,0,"high",0,0,0,0,1,"Kwestie społeczne","Polityka klimatyczna","System podatkowy","Polityka zagraniczna","Kwestie ekonomiczne",NA,"Wydłużony urlop rodzicielski, ulgi podatkowe na dzieci i możliwość pracy zdalnej","Zakaz sprzedaży nowych samochodów z silnikiem spalinowym do 2035 r.","-","Zatrzymanie osób, którym odmówiono azylu, do czasu ich deportacji","Rozwój produkcji kolejowej i inwestycje w infrastrukturę",NA,"Wydłużony urlop rodzicielski, ulgi podatkowe na dzieci i możliwość pracy zdalnej","Rezygnacja z węgla do 2035 r.","Zwolnienie z podatku dochodowego dla seniorów opóźniających przejście na emeryturę","-","Rozwój produkcji kolejowej i inwestycje w infrastrukturę",NA,"PL",1740730543.697,8.95300006866455,1740730552.65,NA,NA,1740730621.78,1740730621.78,91.1900000572205,1740730712.97,25.1019999980927,1740730738.072,76.5299999713898,1740730814.602,105.660000085831,1740730920.262,131.161999940872,1740730945.764,19.2309999465942,1740730964.995,NA,NA,64.2370002269745,1740731029.232,1740730984.702,1740730984.702,NA,NA,1740731047.771,1740731047.771,NA,NA,1740731101.062,1740731101.062,NA,NA,NA,NA,NA,NA,1,2,NA,NA,1,NA,NA,NA,NA,NA,1
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Q75_Browser,Q75_Version,Q75_Operating System,Q75_Resolution,gender,hidden_country,age_exact,foreign,couple,hh_size,Nb_children__14,race_1,race_2,race_3,race_4,race_5,race_6,race_7,race_8,income,education,employment_status,zipcode,home_1,home_2,home_3,home_4,millionaire,voted,vote_US,vote_GB,vote_FR,vote_CH,vote_PL,concerns_field,wish_field,issue_field,Q92,conjoint,revenue_split_few_1,revenue_split_few_2,revenue_split_few_3,revenue_split_few_4,revenue_split_few_5,revenue_split_few_DO_1,revenue_split_few_DO_2,revenue_split_few_DO_3,revenue_split_few_DO_4,revenue_split_few_DO_5,revenue_split_many_1,revenue_split_many_2,revenue_split_many_3,revenue_split_many_4,revenue_split_many_5,revenue_split_many_6,revenue_split_many_7,revenue_split_many_8,revenue_split_many_9,revenue_split_many_10,revenue_split_many_11,revenue_split_many_12,revenue_split_many_13,revenue_split_many_DO_1,revenue_split_many_DO_2,revenue_split_many_DO_3,revenue_split_many_DO_4,revenue_split_many_DO_5,revenue_split_many_DO_6,revenue_split_many_DO_7,revenue_split_many_DO_8,revenue_split_many_DO_9,revenue_split_many_DO_10,revenue_split_many_DO_11,revenue_split_many_DO_12,revenue_split_many_DO_13,hidden_sum,ncs_support,donation_1,gcs_support,gcs_belief_1,ics_support,likely_solidarity,solidarity_support_1,solidarity_support_2,solidarity_support_3,solidarity_support_4,solidarity_support_5,solidarity_support_6,solidarity_support_7,solidarity_support_8,solidarity_support_9,solidarity_support_10,solidarity_support_c_1,solidarity_support_c_2,solidarity_support_c_3,solidarity_support_c_4,solidarity_support_c_5,global_tax_support,hic_tax_support,intl_tax_support,maritime_split_1,maritime_split_2,maritime_split_3,maritime_split_DO_1,maritime_split_DO_2,maritime_split_DO_3,ncqg_full,ncqg,ncqg_DO_1,ncqg_DO_4,ncqg_DO_5,ncqg_DO_2,ncqg_DO_3,ncqg_DO_6,ncqg_DO_7,sustainable_future_a,sustainable_future_s,sustainable_future_b,top1_tax_support,top1_tax_support_cut,top3_tax_support,top3_tax_support_cut,attention_test,transfer_how_1,transfer_how_2,transfer_how_3,transfer_how_4,transfer_how_5,transfer_how_6,transfer_how_7,transfer_how_DO_1,transfer_how_DO_2,transfer_how_DO_3,transfer_how_DO_4,transfer_how_DO_5,transfer_how_DO_6,transfer_how_DO_7,global_movement_1,global_movement_2,global_movement_4,global_movement_6,global_movement_3,vote_intl_coalition,vote_intl_coalition_DO_5,vote_intl_coalition_DO_6,vote_intl_coalition_DO_7,why_hic_help_lic_1,why_hic_help_lic_2,why_hic_help_lic_3,why_hic_help_lic_5,why_hic_help_lic_DO_1,why_hic_help_lic_DO_2,why_hic_help_lic_DO_3,why_hic_help_lic_DO_5,reparations_support,income_exact,Q94_First Click,Q94_Last Click,Q94_Page Submit,Q94_Click Count,custom_redistr_4,custom_redistr_5,well_being_gallup_0,well_being_gallup_1,well_being_wvs_0,well_being_wvs_1,gcs_comprehension,gcs_comprehension_DO_2,gcs_comprehension_DO_3,gcs_comprehension_DO_5,my_tax_global_nation,group_defended,donation_charities,interested_politics,involvement_govt_1,Q93_First Click,Q93_Last Click,Q93_Page Submit,Q93_Click Count,survey_biased,comment_field,interview,custom_redistr_winners,custom_redistr_losers,custom_redistr_degree,m,complete,quotasfull,screenout,speeder,Q_TotalDuration,Q_TerminateFlag,Finished,country,region,urbanity,cut,long,variant_split,variant_warm_glow,variant_realism,variant_ncqg_maritime,variant_radical_redistr,variant_gcs,variant_sliders,variant_radical_transfer,variant_synthetic,variant_comprehension,variant_belief,F-1-1,F-1-2,F-1-3,F-1-4,F-1-5,F-1-6,F-1-1-1,F-1-1-2,F-1-1-3,F-1-1-4,F-1-1-5,F-1-1-6,F-1-2-1,F-1-2-2,F-1-2-3,F-1-2-4,F-1-2-5,F-1-2-6,Q_Language,time_start,duration_consent,time_consent,duration_socios_demos,time_socios_demos,duration_field,time_field,duration_conjoint,time_conjoint,duration_global_tax,time_global_tax,duration_warm_glow_substitute,time_warm_glow_substitute,duration_gcs,time_gcs,duration_ics,time_ics,duration_warm_glow_realism,time_warm_glow_realism,duration_ncqg_maritime,time_ncqg_maritime,duration_wealth_tax,time_wealth_tax,duration_preferred_transfer_mean,time_preferred_transfer_mean,duration_radical_redistr,time_radical_redistr,duration_custom_redistr,time_custom_redistr,duration_well_being,time_well_being,duration_extra,time_extra,duration_main_questions,Open-endedfield_DO_issue_field,Open-endedfield_DO_Q92,Open-endedfield_DO_wish_field,Open-endedfield_DO_concerns_field,Cap&Sharenon-universal _DO_gcs_mid,Cap&Sharenon-universal _DO_gcs_high,Cap&Sharenon-universal _DO_ics_support,Cap&Sharenon-universal _DO_gcs_low,Cap&Sharenon-universal _DO_gcs_high_color,Wealthtaxdependingonsetsofcountries_DO_hic_tax_support,Wealthtaxdependingonsetsofcountries_DO_global_tax_support,Wealthtaxdependingonsetsofcountries_DO_intl_tax_support,Well-being_DO_well_being_gallup_1,Well-being_DO_well_being_wvs_1,Well-being_DO_well_being_wvs_0,Well-being_DO_well_being_gallup_0
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,Click to write the question text - Browser,Click to write the question text - Version,Click to write the question text - Operating System,Click to write the question text - Resolution,What is your gender?,What is your country?,What is your age?,Were you or your parents born in a foreign country?,Do you live with your partner (if you have one)?,"How many people are there in your household? 
+The household includes: you, your spouse, your family members who live with you, and your dependents.",How many children under the age of 14 live with you?,What race or ethnicity do you identify with? (Multiple answers are possible) - White,What race or ethnicity do you identify with? (Multiple answers are possible) - Black or African American,What race or ethnicity do you identify with? (Multiple answers are possible) - Hispanic,What race or ethnicity do you identify with? (Multiple answers are possible) - Asian,What race or ethnicity do you identify with? (Multiple answers are possible) - American Indian or Alaskan Native,What race or ethnicity do you identify with? (Multiple answers are possible) - Native Hawaiian or Pacific Islander,What race or ethnicity do you identify with? (Multiple answers are possible) - Other,What race or ethnicity do you identify with? (Multiple answers are possible) - Prefer not to say,"What is the [periodicity_text: monthly] [income_type: gross] income of your household, [income_type_long: after taxes and transfers]?
+
+This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources.",What is your highest completed education level?,What is your employment status?,What is your zipcode?,Are you a homeowner or a tenant? (Multiple answers are possible) - Tenant,Are you a homeowner or a tenant? (Multiple answers are possible) - Owner,Are you a homeowner or a tenant? (Multiple answers are possible) - Landlord renting out property,Are you a homeowner or a tenant? (Multiple answers are possible) - Hosted free of charge,How likely are you to become a millionaire at some point in your life?,Did you vote in the [election: 2024 presidential election]?,"[text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","[text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","[text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","[text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","[text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",What are your main concerns these days?,What do you need or wish?,Can you name an issue that is important to you but is neglected in the public debate?,What according to you is the greatest injustice in the world?,"Imagine if the two top candidates in your constituency in the next general election campaigned with the following policies in their party's platforms. 
+
+Which of these candidates would you vote for?  
+
+
+
+
+
+
+
+
+
+
+    Candidate A
+    
+    Candidate B
+ 
+
+
+[Field-F-1-1-1]
+[Field-F-1-2-1]
+[Field-F-1-1]
+
+[Field-F-1-1-2]
+[Field-F-1-2-2]
+[Field-F-1-2]
+
+[Field-F-1-1-3]
+[Field-F-1-2-3]
+[Field-F-1-3]
+
+[Field-F-1-1-4]
+[Field-F-1-2-4]
+[Field-F-1-4]
+
+[Field-F-1-1-5]
+[Field-F-1-2-5]
+[Field-F-1-5]","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Domestic: Education and Healthcare","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Domestic: Social welfare programs","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Domestic: Reduction in the federal income tax","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Domestic: Reduction of the deficit","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Global: Education, Healthcare and Renewable energy in low-income countries","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Display Order - Domestic: Education and Healthcare","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Display Order - Domestic: Social welfare programs","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Display Order - Domestic: Reduction in the federal income tax","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Display Order - Domestic: Reduction of the deficit","Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to 100%. - Display Order - Global: Education, Healthcare and Renewable energy in low-income countries","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Education and Research","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Healthcare","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Defense","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Deficit reduction","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Justice and Police","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Retirement pensions","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Social welfare programs","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Infrastructure (public transport, water systems...)","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Domestic: Income tax reduction","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Global: Education and Healthcare in low-income countries","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Global: Renewable energy and infrastructure to cope with climate change","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Global: Loss and Damage Fund (to rebuild after climate disasters)","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Global: Forestation and biodiversity projects","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Education and Research","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Healthcare","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Defense","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Deficit reduction","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Justice and Police","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Retirement pensions","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Social welfare programs","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Infrastructure (public transport, water systems...)","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Domestic: Income tax reduction","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Global: Education and Healthcare in low-income countries","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Global: Renewable energy and infrastructure to cope with climate change","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Global: Loss and Damage Fund (to rebuild after climate disasters)","Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+
+
+[tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
+Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
+
+
+What percentage of the global wealth tax revenue should be allocated to each category? 
+The total allocation must sum to
+100%. - Display Order - Global: Forestation and biodiversity projects",Click to write the question text,"Do you agree with the following policy?
+
+
+Climate Scheme: 
+
+To meet the national climate target, a limited number of permits to emit greenhouse gases would be issued nationally. Polluting firms would be required to buy permits to cover their greenhouse gas emissions. Such a policy would make fossil fuel companies pay for their emissions and gradually raise the price of fossil fuels. Higher prices would encourage people and companies to use less fossil fuels, reducing greenhouse gas emissions.
+
+The revenues generated by the sale of permits would finance an equal cash transfer. Each [country_adjective: American] would receive [amount_expenses: $115][periodicity: per month], thereby offsetting price increases for the average [country_adjective: American].
+
+
+
+Do you support the Climate Scheme?","By taking this survey, you will be automatically entered into a lottery to win up to [amount_lottery: $100]. 
+Should you be selected in the lottery, you will have the option to channel a part of this additional compensation to the charity Just One Tree to plant trees.
+
+In case you win the lottery, what share of the [amount_lottery: $100 prize] would you donate to plant trees? - Share to plant trees","Do you support the following policy?
+
+To ensure that you have attentively read the description, we will ask some comprehension questions later in the survey: those who get correct answers can win [amount_lottery: $100].
+
+
+Global Climate Scheme: 
+
+
+In 2015, all countries agreed to contain global warming ""well below +2 °C"". To achieve this, there is a maximum amount of greenhouse gases we can emit globally. 
+
+
+To meet the climate target, a limited number of permits to emit greenhouse gases would be issued globally. Polluting firms would be required to buy permits to cover their greenhouse gas emissions. Such a policy would make fossil fuel companies pay for their emissions and gradually raise the price of fossil fuels. Higher prices would encourage people and companies to use less fossil fuels, reducing greenhouse gas emissions.
+
+
+In accordance with the principle that each human has an equal right to pollute, the revenues generated by the sale of permits could finance a global basic income. Every adult would receive [amount_bi: $20][periodicity: per month], thereby lifting 600 million people who earn less than $2 a day out of extreme poverty.
+
+The typical [national: American] would lose out financially [amount_lost: $105][periodicity: per month] (as he or she would face around [price_increase: 2]% in price increases, which is higher than the [amount_bi: $20][periodicity: per month] they would receive).
+
+
+The policy could be implemented as soon as 100 countries agree to it. Countries that would refuse to take part in the policy could face sanctions (like tariffs) from the rest of the world and would be excluded from the basic income program.
+
+
+
+
+Do you support the Global Climate Scheme?","According to you, what percentage of [belief_nationality: Americans] would answer Yes to the previous question (considering that typical [belief_nationality: Americans] would lose [belief_loss: $140] per month from the Global Climate Scheme)?
+ The respondent who is closest to the correct value will get [amount_lottery: $100]. - Percentage of Americans in favor of Global Climate Scheme","Do you support [ics_country: the U.S.] joining the Global Climate Scheme, in case it is adopted by the above countries?","According to you, how likely is it that international policies involving significant transfers from high-income countries to low-income countries will be introduced in the next 15 years?","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - A minimum tax of 2% on the wealth of billionaires, in voluntary countries","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Raising the globally agreed minimum tax rate on multinational profits from 15% to 35%, closing loopholes and sharing revenues fairly between countries","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Expanding the UN Security Council (in charge of peacekeeping) to new members such as India, Brazil, and the African Union, and restricting the use of the veto by its members","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Developed countries contributing at least 0.7% of their GDP in foreign aid and development assistance","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Debt relief for vulnerable countries by suspending repayments until they are more able to repay, promoting their development","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Developed countries providing $300 billion a year (0.4% of their GDP) to finance climate action in developing countries","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - An international levy on carbon emissions from shipping, financing countries' budgets in proportion to their population","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - An international levy on carbon emissions from aviation, increasing the price of flights by 30% and funding countries' budgets in proportion to their population","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - A minimum tax of 2% on the wealth of billionaires, in voluntary countries","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Raising the globally agreed minimum tax rate on multinational profits from 15% to 35%, closing loopholes and sharing revenues fairly between countries","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Expanding the UN Security Council (in charge of peacekeeping) to new members such as India, Brazil, and the African Union, and restricting the use of the veto by its members","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Developed countries contributing at least 0.7% of their GDP in foreign aid and development assistance","Do you support or oppose the following policies?
+
+[developed_note_long: (As some items refer to ""developed countries"", note that we consider Saudi Arabia to be a developed country in this question.)] - Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)","Imagine an international tax on individuals with net worth above [wealth_threshold: $1 million]. 
+Only wealth above [wealth_threshold: $1 million] would be taxed, at a rate of 2%. Each country would retain 70% of the revenues it collects, while 30% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). 
+
+Say we are in 2030. Imagine that all other countries in the world adopt this policy. 
+Do you support [country_name: the United States] adopting this international tax on millionaires?","Imagine an international tax on individuals with net worth above [wealth_threshold: $1 million]. 
+Only wealth above [wealth_threshold: $1 million] would be taxed, at a rate of 2%. Each country would retain 70% of the revenues it collects, while 30% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). 
+
+Say we are in 2030. [hic_tax: Imagine that all other high-income countries (such as the European Union, Japan, and Canada) adopt this policy and some middle-income countries (such as China) do not.] 
+Do you support [country_name: the United States] adopting this international tax on millionaires?","Imagine an international tax on individuals with net worth above [wealth_threshold: $1 million]. 
+Only wealth above [wealth_threshold: $1 million] would be taxed, at a rate of 2%. Each country would retain 70% of the revenues it collects, while 30% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). 
+
+  
+
+Say we are in 2030. [intl_tax: Imagine that some countries  (such as the European Union) adopt this policy and others (such as Japan, Canada, and China) do not.]
+Do you support [country_name: the United States] adopting this international tax on millionaires?","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Fostering sustainable transition in the least developed countries and small islands states","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Return revenues to shipping companies to prevent increases in shipping costs","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Finance research, development and deployment for zero-emission fuels and ships","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Display Order - Fostering sustainable transition in the least developed countries and small islands states","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Display Order - Return revenues to shipping companies to prevent increases in shipping costs","This year, to meet the international climate targets, the International Maritime Organization is designing a global levy on shipping carbon emissions.
+
+According to you, what percentage of the revenue from a maritime fuel levy should be allocated to each category below? The total must be 100%. - Display Order - Finance research, development and deployment for zero-emission fuels and ships","At international climate negotiations, developing countries call for larger provision of ""climate finance"": the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. In 2022, $26 billion was provided as grants and the rest as loans, for a total of $116 billion. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance by 2020. In 2024, they committed to raise this goal to $300 billion by 2035. None of the goals specify which share should be provided as grants.
+
+Below are different positions on the amount of climate finance that should be provided in 2035, all expressed in grant-equivalent terms (that is, not counting loans):
+-        $0: There should be no contributions from developed countries to climate action in developing countries.
+-      $26 billion (0.04% of developed countries' GDP): The current amount, consistent with the old goal.
+-    $100 billion (0.14% of GDP): The old goal, if all climate finance were provided as grants.
+-    $300 billion (0.43% of GDP): The new goal, if all climate finance were provided as grants.
+-    $600 billion (0.86% of GDP): The goal called for by India, a position shared by most developing countries.
+- $1,000 billion (1.43% of GDP): The goal called for by Climate Action Network (a network of NGOs including Greenpeace, Oxfam, and WWF).
+- $5,000 billion (7.14% of GDP): The goal called for by Demand Climate Justice (a network of NGOs including 350.org and the World Council of Churches)
+
+If you could choose the amount of climate finance provided by developed countries to developing countries in 2035, what amount would you choose (in grant-equivalent terms)?","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose?","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Stop </strong>all provision of climate finance.","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Reduce </strong>the provision of climate finance.","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Maintain </strong>current contributions ($26 billion per year in grants, that is 0.04% of developed countries&#39; GDP, and $80 billion in loans, or 0.1% of GDP).","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Increase loans</strong> (to meet the new goal of $300 billion, or 0.4% of GDP) <strong>while maintaining grants</strong> at their current level.","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - Increase climate finance to <strong>a level between what developed countries have agreed and what developing countries are asking for</strong>, with at least half of climate finance in the form of grants ($200 billion in grants, 0.3% of GDP).","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Increase climate finance to match what developing countries are asking for </strong>($600 billion in grants, or 0.9% of GDP).","""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
+
+There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
+
+In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
+At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
+
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose? - Display Order - <strong>Increase climate finance to match what NGOs are asking for</strong> (at least $1,000 billion per year in grants, that is 1.4% of GDP, is what Greenpeace, Oxfam, WWF, and the World Council of Churches ask for).","Consider two possible scenarios for the world for the next 20 years. 
+
+Scenario A: 
+Most countries implement coordinated policies to limit global warming to +2°C and reduce inequality. The world greatly reduces greenhouse gas emissions and is on track to meet its climate target. Taxes on millionaires fund the installation of heat pumps, the thermal insulation of buildings, and improved public transportation. Yachts and private jets are phased out worldwide. Cars are all electric by 2045, and they are about the same price as internal combustion cars nowadays. By 2045, environmental regulations gradually double the price heating fuel or gas, air travel, and beef. As a result, people fly half as much, eat half as much meat, and use more public transportation in 2045 than they did in 2025. Despite higher prices for polluting goods, the overall purchasing power is preserved, thanks to a decrease in sales tax that reduces the prices of non-polluting goods.
+
+Scenario B:
+Since 2025, no additional policies are implemented to address climate change or inequality. People maintain the same lifestyles as in 2025. For example, most people continue to drive cars with internal combustion engines. Greenhouse gas emissions are stable. Global warming is expected to reach +3°C by 2100 and higher levels beyond that date. A warmer climate will cause more frequent and more severe droughts, heatwaves, wildfires, and coastal floodings.
+
+Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). 
+
+Which scenario do you prefer for the future?","Which scenario do you prefer for the next 20 years?
+
+Scenario A:
+- No additional policies to address climate change or inequality. 
+- Stable carbon emissions. Global warming expected to reach +3°C by 2100 and higher levels beyond 2100, which will cause more severe natural disasters.
+- People maintain the same lifestyles as in 2025, such as driving gasoline cars.
+
+Scenario B: 
+- Worldwide policies to limit global warming to +2°C and reduce inequality. 
+- Reduced global carbon emissions, in line with climate target. 
+- Taxes on millionaires funding heat pumps, building insulation, and public transport. 
+- All cars electric by 2045, priced like today's gasoline cars.
+
+
+- Heating fuel, air travel, and beef prices gradually double. As a result, 50% less flying and meat consumption, and more public transport use. 
+- Lower sales tax on non-polluting goods preserves overall purchasing power.
+
+Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). 
+
+Which scenario do you prefer?","Consider two possible scenarios for the world for the next 20 years. 
+
+Scenario A:
+Since 2025, no additional policies are implemented to address climate change or inequality. People maintain the same lifestyles as in 2025. For example, most people continue to drive cars with internal combustion engines. Greenhouse gas emissions are stable. Global warming is expected to reach +3°C by 2100 and higher levels beyond that date. A warmer climate will cause more frequent and more severe droughts, heatwaves, wildfires, and coastal floodings.
+
+Scenario B: 
+Most countries implement coordinated policies to limit global warming to +2°C and reduce inequality. The world greatly reduces greenhouse gas emissions and is on track to meet its climate target. Taxes on millionaires fund the installation of heat pumps, the thermal insulation of buildings, and improved public transportation. Yachts and private jets are phased out worldwide. Cars are all electric by 2045, and they are about the same price as internal combustion cars nowadays. By 2045, environmental regulations gradually double the price of heating fuel or gas, air travel, and beef. As a result, people fly half as much, eat half as much meat, and use more public transportation in 2045 than they did in 2025. Despite higher prices for polluting goods, the overall purchasing power is preserved, thanks to a decrease in sales tax that reduces the prices of non-polluting goods.
+
+Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). 
+
+Which scenario do you prefer for the future?","Currently, 2 billion people live in acute poverty, with less than [lcu_250: $250][periodicity: per month].
+The Sustainable Development Goals, adopted by all countries in 2015, aim to alleviate poverty and give access to healthcare, education, drinking water, and sanitation for all by 2030. The world is not on track to meet these poverty reduction goals due to lack of funding.
+
+Poverty reduction could be funded by a global tax on individual income above [lcu_120k: $120,000][periodicity_tax: per year]. 
+The tax rate would be 15% for every [currency: dollar] over [lcu_120k: $120,000] of income after existing taxes. 
+For example, a single person earning [lcu_130k: $130,000][periodicity_tax: per year] after taxes would pay [lcu_1500: $1,500] in additional taxes, or 15% of [lcu_10k: $10,000] = [lcu_130k: $130,000] - [lcu_120k: $120,000]. Meanwhile, a married couple earning [lcu_200k: $200,000][periodicity_tax: per year], [lcu_100k: $100,000] for each of them, would go untaxed.
+This tax would apply to the richest 1% of the world's population. [tax_country_name: In the United States], it would affect the richest [affected_top1: 8]% and redistribute [transfer_top1: 3]% of GDP to lower-income countries.
+
+Do you support or oppose such a global tax on the richest people to finance global poverty reduction?","Currently, 2 billion people live in acute poverty, with less than [lcu_250: $250][periodicity: per month].
+
+Poverty reduction could be funded by a global tax on individual income above [lcu_120k: $120,000][periodicity_tax: per year]. 
+The tax rate would be 15% for every [currency: dollar] over [lcu_120k: $120,000] of income after existing taxes. 
+
+Do you support or oppose such a global tax on the richest people to finance global poverty reduction?","Currently, 3 billion people live in deep poverty, with less than [lcu_400: $400][periodicity: per month].
+The Sustainable Development Goals, adopted by all countries in 2015, aim to alleviate poverty and achieve access to healthcare, education, drinking water, and sanitation for all by 2030. The world is not on track to meet these poverty reduction goals due to lack of funding.
+
+Poverty reduction could be funded by a global tax on individual income above [lcu_80k: $80,000][periodicity_tax: per year]. 
+The tax rate would be 15% for every [currency: dollar] over [lcu_80k: $80,000] of income after existing taxes, 30% over [lcu_120k: $120,000], and 45% over [lcu_1M: $1 million]. 
+For example, a single person earning [lcu_90k: $90,000][periodicity_tax: per year] after taxes would pay [lcu_1500_top3: $1,500] in additional taxes, or 15% of [lcu_10k_top3: $10,000] = [lcu_90k: $90,000] - [lcu_80k: $80,000]. Meanwhile, a married couple earning [lcu_150k: $150,000][periodicity_tax: per year], [lcu_75k: $75,000] for each of them, would go untaxed.
+This tax would apply to the richest 3% of the world's population. [tax_country_name: In the United States], it would affect the richest [affected_top3: 18]% and redistribute [transfer_top3: 8]% of GDP to lower-income countries.
+
+Do you support or oppose such a global tax on the richest people to finance global poverty reduction?","Currently, 3 billion people live in deep poverty, with less than [lcu_400: $400][periodicity: per month].
+
+Poverty reduction could be funded by a global tax on individual income above [lcu_80k: $80,000][periodicity_tax: per year]. 
+The tax rate would be 15% for every [currency: dollar] over [lcu_80k: $80,000] of income after existing taxes, 30% over [lcu_120k: $120,000], and 45% over [lcu_1M: $1 million]. 
+For example, a single person earning [lcu_90k: $90,000][periodicity_tax: per year] after taxes would pay [lcu_1500_top3: $1,500] in additional taxes, or 15% of [lcu_10k_top3: $10,000] = [lcu_90k: $90,000] - [lcu_80k: $80,000]. Meanwhile, a married couple earning [lcu_150k: $150,000][periodicity_tax: per year], [lcu_75k: $75,000] for each of them, would go untaxed.
+
+Do you support or oppose such a global tax on the richest people to finance global poverty reduction?","To show that you are attentive, please select ""A little"" in the following list:","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Transfers to public development aid agencies that select suitable projects","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Transfers to the national government conditioned on the use of funds for poverty reduction programs","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Unconditional transfers to the national government","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Unconditional transfers to local authorities (municipality, village chief...)","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Transfers to local NGOs with democratic decision-making processes","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Cash transfers to parents (child allowances), to the disabled and to the elderly","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Unconditional cash transfers to each household","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Transfers to public development aid agencies that select suitable projects","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Transfers to the national government conditioned on the use of funds for poverty reduction programs","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Unconditional transfers to the national government","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Unconditional transfers to local authorities (municipality, village chief...)","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Transfers to local NGOs with democratic decision-making processes","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Cash transfers to parents (child allowances), to the disabled and to the elderly","Below are different ways to transfer resources to help reduce poverty in a low-income country. 
+How do you evaluate each of these options? - Display Order - Unconditional cash transfers to each household","If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) - I would not support such a movement.","If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) - I could sign a petition and spread ideas.","If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) - I could attend a demonstration.","If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) - I could go on strike.","If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) - I could donate [amount_lottery: $100] to a strike fund.","Let us call ""your political party"" the party you voted for in the last election, or the party that represents your views most closely. 
+Imagine there was a worldwide coalition of political parties in favor of a common program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries. 
+
+Would you be more likely to vote for your party if it were part of that coalition?","Let us call ""your political party"" the party you voted for in the last election, or the party that represents your views most closely. 
+Imagine there was a worldwide coalition of political parties in favor of a common program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries. 
+
+Would you be more likely to vote for your party if it were part of that coalition? - Display Order - Yes, I would be <b>more likely</b> to vote for my party if it joined that coalition (or to vote for another party if only that other party joined the coalition).","Let us call ""your political party"" the party you voted for in the last election, or the party that represents your views most closely. 
+Imagine there was a worldwide coalition of political parties in favor of a common program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries. 
+
+Would you be more likely to vote for your party if it were part of that coalition? - Display Order - My choice would <b>not depend</b> on which parties are part of that coalition.","Let us call ""your political party"" the party you voted for in the last election, or the party that represents your views most closely. 
+Imagine there was a worldwide coalition of political parties in favor of a common program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries. 
+
+Would you be more likely to vote for your party if it were part of that coalition? - Display Order - No, I would be <b>less likely</b> to vote for my party if it joined that coalition.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - High-income countries have a historical responsibility for the current situation in low-income countries.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - In the long run, it is in the interest of high-income countries to help low-income countries.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - Helping those in need is the right thing to do. This is also true at the international level.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - None of the above.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - Display Order - High-income countries have a <strong>historical responsibility</strong> for the current situation in low-income countries.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - Display Order - In the long run, <strong>it is in the interest of high-income countries</strong> to help low-income countries.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - Display Order - <strong>Helping those in need</strong> is the right thing to do. This is also true at the international level.","Some people think that high-income countries should support low-income countries. 
+Among the different reasons given, which ones do you agree with? - Display Order - None of the above.","Some people argue that Western countries owe reparations for colonization and slavery to former colonies and descendants of slaves. 
+Reparations could take the form of funding education and facilitating technology transfers, to address unequal opportunities passed down from the past. 
+
+Do you support or oppose reparations of this kind for colonization and slavery?","What is the [periodicity_text: yearly] income of your household after taxes and social benefits?
+This includes all sources of income: salaries, pensions, allowances, welfare benefits, property income, etc.
+My household earns ... [text_unit: $ per year] (answer with no comma, no space, no period):",Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,"If you could redistribute income at the global level, what would you do? In this question, we let you choose your preferred parameters for a redistribution of income at the world level. 
+If you prefer to skip this question, check the corresponding box at the bottom of the page.
+
+The worldwide redistribution of income would take the form of additional policies, taxes, and transfers, on top of existing ones.
+These policies would lower the income of the richest (the losers from the redistribution) and increase the income of the poorest (the winners). 
+
+Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green. 
+The first two sliders control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest. 
+If you do not want new policies to reduce global inequality, you can set the third slider to zero. 
+
+You need to move the sliders (by holding the mouse down on the little squares and moving to the side) to make the green curve evolve: the idea is to move the sliders until you get a green curve you are satisfied with. 
+
+
+
+
+Examples of income changes after your proposed redistribution:
+
+
+    
+		Now
+        After
+    
+    
+        0 [text_unit: $ per year]
+        0 [text_unit: $ per year]
+    
+    
+        [now_10k: 10 000] [text_unit: $ per year]
+        [after_10k: 10 000] [text_unit: $ per year]
+    
+    
+        [now_60k: 60 000] [text_unit: $ per year]
+        [after_60k: 60 000] [text_unit: $ per year]
+    
+    
+        [now_100k: 100 000] [text_unit: $ per year]
+        [after_100k: 100 000] [text_unit: $ per year]
+    
+    
+		Your individual income
+    
+    
+        [own: 40 000] [text_unit: $ per year]
+        [after_own: 3 000] [text_unit: $ per year] - I am satisfied with my custom redistribution.","If you could redistribute income at the global level, what would you do? In this question, we let you choose your preferred parameters for a redistribution of income at the world level. 
+If you prefer to skip this question, check the corresponding box at the bottom of the page.
+
+The worldwide redistribution of income would take the form of additional policies, taxes, and transfers, on top of existing ones.
+These policies would lower the income of the richest (the losers from the redistribution) and increase the income of the poorest (the winners). 
+
+Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green. 
+The first two sliders control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest. 
+If you do not want new policies to reduce global inequality, you can set the third slider to zero. 
+
+You need to move the sliders (by holding the mouse down on the little squares and moving to the side) to make the green curve evolve: the idea is to move the sliders until you get a green curve you are satisfied with. 
+
+
+
+
+Examples of income changes after your proposed redistribution:
+
+
+    
+		Now
+        After
+    
+    
+        0 [text_unit: $ per year]
+        0 [text_unit: $ per year]
+    
+    
+        [now_10k: 10 000] [text_unit: $ per year]
+        [after_10k: 10 000] [text_unit: $ per year]
+    
+    
+        [now_60k: 60 000] [text_unit: $ per year]
+        [after_60k: 60 000] [text_unit: $ per year]
+    
+    
+        [now_100k: 100 000] [text_unit: $ per year]
+        [after_100k: 100 000] [text_unit: $ per year]
+    
+    
+		Your individual income
+    
+    
+        [own: 40 000] [text_unit: $ per year]
+        [after_own: 3 000] [text_unit: $ per year] - I want to skip this question.","Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
+
+On which step of the ladder would you say you personally feel you stand at this time?","Please imagine a ladder, with steps numbered from 1 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
+
+On which step of the ladder would you say you personally feel you stand at this time?","All things considered, how satisfied are you with your life as a whole these days?","All things considered, how satisfied are you with your life as a whole these days?","Comprehension question: one respondent with the expected answer will get [amount_lottery: $100].
+
+How would gasoline prices change as a result of the Global Climate Scheme? 
+Gasoline prices would...","Comprehension question: one respondent with the expected answer will get [amount_lottery: $100].
+
+How would gasoline prices change as a result of the Global Climate Scheme? 
+Gasoline prices would... - Display Order - increase","Comprehension question: one respondent with the expected answer will get [amount_lottery: $100].
+
+How would gasoline prices change as a result of the Global Climate Scheme? 
+Gasoline prices would... - Display Order - not be affected","Comprehension question: one respondent with the expected answer will get [amount_lottery: $100].
+
+How would gasoline prices change as a result of the Global Climate Scheme? 
+Gasoline prices would... - Display Order - decrease","To what extent do you agree or disagree with the following statement? ""My taxes should go towards solving global problems.""",Which group of people do you advocate for when you vote?,How much did you give to charitable organizations in 2022?,To what extent are you interested in politics?,"Where would you rate yourself on a scale of 1 to 5, where 1 means you think the government should limit yourself to only providing the most basic government functions, and 5 means you think the government should take active steps in every area it can to enhance the lives of its citizens? - Desired involvement of government",Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,Do you feel that this survey was politically biased?,"The survey is nearing completion. You can now enter any comments, thoughts, or suggestions in the field below.","Lastly, would you be interested to participate in an interview with a researcher (via videoconferencing) for 30 min? 
+This is totally optional and will not be rewarded.",custom_redistr_winners,custom_redistr_losers,custom_redistr_degree,m,complete,quotasfull,screenout,speeder,Q_TotalDuration,Q_TerminateFlag,Finished,country,region,urbanity,cut,long,variant_split,variant_warm_glow,variant_realism,variant_ncqg_maritime,variant_radical_redistr,variant_gcs,variant_sliders,variant_radical_transfer,variant_synthetic,variant_comprehension,variant_belief,F-1-1,F-1-2,F-1-3,F-1-4,F-1-5,F-1-6,F-1-1-1,F-1-1-2,F-1-1-3,F-1-1-4,F-1-1-5,F-1-1-6,F-1-2-1,F-1-2-2,F-1-2-3,F-1-2-4,F-1-2-5,F-1-2-6,Q_Language,time_start,duration_consent,time_consent,duration_socios_demos,time_socios_demos,duration_field,time_field,duration_conjoint,time_conjoint,duration_global_tax,time_global_tax,duration_warm_glow_substitute,time_warm_glow_substitute,duration_gcs,time_gcs,duration_ics,time_ics,duration_warm_glow_realism,time_warm_glow_realism,duration_ncqg_maritime,time_ncqg_maritime,duration_wealth_tax,time_wealth_tax,duration_preferred_transfer_mean,time_preferred_transfer_mean,duration_radical_redistr,time_radical_redistr,duration_custom_redistr,time_custom_redistr,duration_well_being,time_well_being,duration_extra,time_extra,duration_main_questions,Open-ended field - Display Order - issue_field,Open-ended field - Display Order - Q92,Open-ended field - Display Order - wish_field,Open-ended field - Display Order - concerns_field,Cap & Share non-universal  - Display Order - gcs_mid,Cap & Share non-universal  - Display Order - gcs_high,Cap & Share non-universal  - Display Order - ics_support,Cap & Share non-universal  - Display Order - gcs_low,Cap & Share non-universal  - Display Order - gcs_high_color,Wealth tax depending on sets of countries - Display Order - hic_tax_support,Wealth tax depending on sets of countries - Display Order - global_tax_support,Wealth tax depending on sets of countries - Display Order - intl_tax_support,Well-being - Display Order - well_being_gallup_1,Well-being - Display Order - well_being_wvs_1,Well-being - Display Order - well_being_wvs_0,Well-being - Display Order - well_being_gallup_0
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID75_BROWSER""}","{""ImportId"":""QID75_VERSION""}","{""ImportId"":""QID75_OS""}","{""ImportId"":""QID75_RESOLUTION""}","{""ImportId"":""QID31""}","{""ImportId"":""QID106_TEXT""}","{""ImportId"":""QID32""}","{""ImportId"":""QID79""}","{""ImportId"":""QID34""}","{""ImportId"":""QID35""}","{""ImportId"":""QID36""}","{""ImportId"":""QID119"",""choiceId"":""1""}","{""ImportId"":""QID119"",""choiceId"":""2""}","{""ImportId"":""QID119"",""choiceId"":""3""}","{""ImportId"":""QID119"",""choiceId"":""4""}","{""ImportId"":""QID119"",""choiceId"":""5""}","{""ImportId"":""QID119"",""choiceId"":""6""}","{""ImportId"":""QID119"",""choiceId"":""7""}","{""ImportId"":""QID119"",""choiceId"":""8""}","{""ImportId"":""QID38""}","{""ImportId"":""QID39""}","{""ImportId"":""QID40""}","{""ImportId"":""QID99_TEXT""}","{""ImportId"":""QID41"",""choiceId"":""1""}","{""ImportId"":""QID41"",""choiceId"":""2""}","{""ImportId"":""QID41"",""choiceId"":""3""}","{""ImportId"":""QID41"",""choiceId"":""4""}","{""ImportId"":""QID80""}","{""ImportId"":""QID44""}","{""ImportId"":""QID57""}","{""ImportId"":""QID60""}","{""ImportId"":""QID104""}","{""ImportId"":""QID105""}","{""ImportId"":""QID90""}","{""ImportId"":""QID21_TEXT""}","{""ImportId"":""QID100_TEXT""}","{""ImportId"":""QID61_TEXT""}","{""ImportId"":""QID92_TEXT""}","{""ImportId"":""QID83""}","{""ImportId"":""QID1_1""}","{""ImportId"":""QID1_2""}","{""ImportId"":""QID1_3""}","{""ImportId"":""QID1_4""}","{""ImportId"":""QID1_5""}","{""ImportId"":""QID1_DO"",""choiceId"":""1""}","{""ImportId"":""QID1_DO"",""choiceId"":""2""}","{""ImportId"":""QID1_DO"",""choiceId"":""3""}","{""ImportId"":""QID1_DO"",""choiceId"":""4""}","{""ImportId"":""QID1_DO"",""choiceId"":""5""}","{""ImportId"":""QID103_1""}","{""ImportId"":""QID103_2""}","{""ImportId"":""QID103_3""}","{""ImportId"":""QID103_4""}","{""ImportId"":""QID103_5""}","{""ImportId"":""QID103_13""}","{""ImportId"":""QID103_14""}","{""ImportId"":""QID103_15""}","{""ImportId"":""QID103_16""}","{""ImportId"":""QID103_17""}","{""ImportId"":""QID103_18""}","{""ImportId"":""QID103_19""}","{""ImportId"":""QID103_20""}","{""ImportId"":""QID103_DO"",""choiceId"":""1""}","{""ImportId"":""QID103_DO"",""choiceId"":""2""}","{""ImportId"":""QID103_DO"",""choiceId"":""3""}","{""ImportId"":""QID103_DO"",""choiceId"":""4""}","{""ImportId"":""QID103_DO"",""choiceId"":""5""}","{""ImportId"":""QID103_DO"",""choiceId"":""6""}","{""ImportId"":""QID103_DO"",""choiceId"":""7""}","{""ImportId"":""QID103_DO"",""choiceId"":""8""}","{""ImportId"":""QID103_DO"",""choiceId"":""9""}","{""ImportId"":""QID103_DO"",""choiceId"":""10""}","{""ImportId"":""QID103_DO"",""choiceId"":""11""}","{""ImportId"":""QID103_DO"",""choiceId"":""12""}","{""ImportId"":""QID103_DO"",""choiceId"":""13""}","{""ImportId"":""QID102_TEXT""}","{""ImportId"":""QID3""}","{""ImportId"":""QID2_1""}","{""ImportId"":""QID5""}","{""ImportId"":""QID69_1""}","{""ImportId"":""QID77""}","{""ImportId"":""QID25""}","{""ImportId"":""QID7_11""}","{""ImportId"":""QID7_5""}","{""ImportId"":""QID7_4""}","{""ImportId"":""QID7_10""}","{""ImportId"":""QID7_6""}","{""ImportId"":""QID7_1""}","{""ImportId"":""QID7_2""}","{""ImportId"":""QID7_9""}","{""ImportId"":""QID7_7""}","{""ImportId"":""QID7_8""}","{""ImportId"":""QID116_11""}","{""ImportId"":""QID116_5""}","{""ImportId"":""QID116_4""}","{""ImportId"":""QID116_10""}","{""ImportId"":""QID116_1""}","{""ImportId"":""QID8""}","{""ImportId"":""QID72""}","{""ImportId"":""QID73""}","{""ImportId"":""QID26_1""}","{""ImportId"":""QID26_2""}","{""ImportId"":""QID26_3""}","{""ImportId"":""QID26_DO"",""choiceId"":""1""}","{""ImportId"":""QID26_DO"",""choiceId"":""2""}","{""ImportId"":""QID26_DO"",""choiceId"":""3""}","{""ImportId"":""QID95""}","{""ImportId"":""QID97""}","{""ImportId"":""QID97_DO"",""choiceId"":""1""}","{""ImportId"":""QID97_DO"",""choiceId"":""4""}","{""ImportId"":""QID97_DO"",""choiceId"":""5""}","{""ImportId"":""QID97_DO"",""choiceId"":""2""}","{""ImportId"":""QID97_DO"",""choiceId"":""3""}","{""ImportId"":""QID97_DO"",""choiceId"":""6""}","{""ImportId"":""QID97_DO"",""choiceId"":""7""}","{""ImportId"":""QID17""}","{""ImportId"":""QID113""}","{""ImportId"":""QID76""}","{""ImportId"":""QID29""}","{""ImportId"":""QID114""}","{""ImportId"":""QID74""}","{""ImportId"":""QID115""}","{""ImportId"":""QID63""}","{""ImportId"":""QID10_6""}","{""ImportId"":""QID10_3""}","{""ImportId"":""QID10_2""}","{""ImportId"":""QID10_4""}","{""ImportId"":""QID10_5""}","{""ImportId"":""QID10_1""}","{""ImportId"":""QID10_7""}","{""ImportId"":""QID10_DO"",""choiceId"":""1""}","{""ImportId"":""QID10_DO"",""choiceId"":""2""}","{""ImportId"":""QID10_DO"",""choiceId"":""3""}","{""ImportId"":""QID10_DO"",""choiceId"":""4""}","{""ImportId"":""QID10_DO"",""choiceId"":""5""}","{""ImportId"":""QID10_DO"",""choiceId"":""6""}","{""ImportId"":""QID10_DO"",""choiceId"":""7""}","{""ImportId"":""QID14"",""choiceId"":""1""}","{""ImportId"":""QID14"",""choiceId"":""2""}","{""ImportId"":""QID14"",""choiceId"":""4""}","{""ImportId"":""QID14"",""choiceId"":""6""}","{""ImportId"":""QID14"",""choiceId"":""3""}","{""ImportId"":""QID28""}","{""ImportId"":""QID28_DO"",""choiceId"":""5""}","{""ImportId"":""QID28_DO"",""choiceId"":""6""}","{""ImportId"":""QID28_DO"",""choiceId"":""7""}","{""ImportId"":""QID18"",""choiceId"":""1""}","{""ImportId"":""QID18"",""choiceId"":""2""}","{""ImportId"":""QID18"",""choiceId"":""3""}","{""ImportId"":""QID18"",""choiceId"":""5""}","{""ImportId"":""QID18_DO"",""choiceId"":""1""}","{""ImportId"":""QID18_DO"",""choiceId"":""2""}","{""ImportId"":""QID18_DO"",""choiceId"":""3""}","{""ImportId"":""QID18_DO"",""choiceId"":""5""}","{""ImportId"":""QID13""}","{""ImportId"":""QID30_TEXT""}","{""ImportId"":""QID94_FIRST_CLICK""}","{""ImportId"":""QID94_LAST_CLICK""}","{""ImportId"":""QID94_PAGE_SUBMIT""}","{""ImportId"":""QID94_CLICK_COUNT""}","{""ImportId"":""QID23"",""choiceId"":""4""}","{""ImportId"":""QID23"",""choiceId"":""5""}","{""ImportId"":""QID12""}","{""ImportId"":""QID118""}","{""ImportId"":""QID68""}","{""ImportId"":""QID117""}","{""ImportId"":""QID86""}","{""ImportId"":""QID86_DO"",""choiceId"":""2""}","{""ImportId"":""QID86_DO"",""choiceId"":""3""}","{""ImportId"":""QID86_DO"",""choiceId"":""5""}","{""ImportId"":""QID22""}","{""ImportId"":""QID54""}","{""ImportId"":""QID51""}","{""ImportId"":""QID52""}","{""ImportId"":""QID53_1""}","{""ImportId"":""QID93_FIRST_CLICK""}","{""ImportId"":""QID93_LAST_CLICK""}","{""ImportId"":""QID93_PAGE_SUBMIT""}","{""ImportId"":""QID93_CLICK_COUNT""}","{""ImportId"":""QID87""}","{""ImportId"":""QID88_TEXT""}","{""ImportId"":""QID89""}","{""ImportId"":""custom_redistr_winners""}","{""ImportId"":""custom_redistr_losers""}","{""ImportId"":""custom_redistr_degree""}","{""ImportId"":""m""}","{""ImportId"":""complete""}","{""ImportId"":""quotasfull""}","{""ImportId"":""screenout""}","{""ImportId"":""speeder""}","{""ImportId"":""Q_TotalDuration""}","{""ImportId"":""Q_TerminateFlag""}","{""ImportId"":""Finished""}","{""ImportId"":""country""}","{""ImportId"":""region""}","{""ImportId"":""urbanity""}","{""ImportId"":""cut""}","{""ImportId"":""long""}","{""ImportId"":""variant_split""}","{""ImportId"":""variant_warm_glow""}","{""ImportId"":""variant_realism""}","{""ImportId"":""variant_ncqg_maritime""}","{""ImportId"":""variant_radical_redistr""}","{""ImportId"":""variant_gcs""}","{""ImportId"":""variant_sliders""}","{""ImportId"":""variant_radical_transfer""}","{""ImportId"":""variant_synthetic""}","{""ImportId"":""variant_comprehension""}","{""ImportId"":""variant_belief""}","{""ImportId"":""F-1-1""}","{""ImportId"":""F-1-2""}","{""ImportId"":""F-1-3""}","{""ImportId"":""F-1-4""}","{""ImportId"":""F-1-5""}","{""ImportId"":""F-1-6""}","{""ImportId"":""F-1-1-1""}","{""ImportId"":""F-1-1-2""}","{""ImportId"":""F-1-1-3""}","{""ImportId"":""F-1-1-4""}","{""ImportId"":""F-1-1-5""}","{""ImportId"":""F-1-1-6""}","{""ImportId"":""F-1-2-1""}","{""ImportId"":""F-1-2-2""}","{""ImportId"":""F-1-2-3""}","{""ImportId"":""F-1-2-4""}","{""ImportId"":""F-1-2-5""}","{""ImportId"":""F-1-2-6""}","{""ImportId"":""Q_Language""}","{""ImportId"":""time_start""}","{""ImportId"":""duration_consent""}","{""ImportId"":""time_consent""}","{""ImportId"":""duration_socios_demos""}","{""ImportId"":""time_socios_demos""}","{""ImportId"":""duration_field""}","{""ImportId"":""time_field""}","{""ImportId"":""duration_conjoint""}","{""ImportId"":""time_conjoint""}","{""ImportId"":""duration_global_tax""}","{""ImportId"":""time_global_tax""}","{""ImportId"":""duration_warm_glow_substitute""}","{""ImportId"":""time_warm_glow_substitute""}","{""ImportId"":""duration_gcs""}","{""ImportId"":""time_gcs""}","{""ImportId"":""duration_ics""}","{""ImportId"":""time_ics""}","{""ImportId"":""duration_warm_glow_realism""}","{""ImportId"":""time_warm_glow_realism""}","{""ImportId"":""duration_ncqg_maritime""}","{""ImportId"":""time_ncqg_maritime""}","{""ImportId"":""duration_wealth_tax""}","{""ImportId"":""time_wealth_tax""}","{""ImportId"":""duration_preferred_transfer_mean""}","{""ImportId"":""time_preferred_transfer_mean""}","{""ImportId"":""duration_radical_redistr""}","{""ImportId"":""time_radical_redistr""}","{""ImportId"":""duration_custom_redistr""}","{""ImportId"":""time_custom_redistr""}","{""ImportId"":""duration_well_being""}","{""ImportId"":""time_well_being""}","{""ImportId"":""duration_extra""}","{""ImportId"":""time_extra""}","{""ImportId"":""duration_main_questions""}","{""ImportId"":""BL_80biOah55EarQto_DO"",""choiceId"":""issue_field""}","{""ImportId"":""BL_80biOah55EarQto_DO"",""choiceId"":""Q92""}","{""ImportId"":""BL_80biOah55EarQto_DO"",""choiceId"":""wish_field""}","{""ImportId"":""BL_80biOah55EarQto_DO"",""choiceId"":""concerns_field""}","{""ImportId"":""BL_eDxMzf4B7b5ERYG_DO"",""choiceId"":""gcs_mid""}","{""ImportId"":""BL_eDxMzf4B7b5ERYG_DO"",""choiceId"":""gcs_high""}","{""ImportId"":""BL_eDxMzf4B7b5ERYG_DO"",""choiceId"":""ics_support""}","{""ImportId"":""BL_eDxMzf4B7b5ERYG_DO"",""choiceId"":""gcs_low""}","{""ImportId"":""BL_eDxMzf4B7b5ERYG_DO"",""choiceId"":""gcs_high_color""}","{""ImportId"":""BL_bBJYAE6ft0p9usK_DO"",""choiceId"":""hic_tax_support""}","{""ImportId"":""BL_bBJYAE6ft0p9usK_DO"",""choiceId"":""global_tax_support""}","{""ImportId"":""BL_bBJYAE6ft0p9usK_DO"",""choiceId"":""intl_tax_support""}","{""ImportId"":""BL_9LvCqQiy31k0dCK_DO"",""choiceId"":""well_being_gallup_1""}","{""ImportId"":""BL_9LvCqQiy31k0dCK_DO"",""choiceId"":""well_being_wvs_1""}","{""ImportId"":""BL_9LvCqQiy31k0dCK_DO"",""choiceId"":""well_being_wvs_0""}","{""ImportId"":""BL_9LvCqQiy31k0dCK_DO"",""choiceId"":""well_being_gallup_0""}"
+2025-02-28 01:14:46,2025-02-28 01:15:06,IP Address,169.255.160.42,100,19,True,2025-02-28 01:15:06,R_8PM4RrIZIMZD9jv,,,,,-20.2494,57.4879,anonymous,PL,Chrome,133.0.0.0,Windows NT 10.0,1920x1080,Man,PL,Below 18,"No, I was born in this country and my parents too",No,1,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,298607646252041,141672_800d28b2,141672_a2c0152d,141672_aef1c3da,141672,19,QuotaMet,1,PL,,,1,0.2164494500533793,1,1,1,2,1,,0,1,0,1,0,,,,,,,,,,,,,,,,,,,PL,1740730489.747,5.526000022888184,1740730495.273,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-02-28 01:15:40,2025-02-28 01:25:13,IP Address,169.255.160.42,100,573,True,2025-02-28 01:25:14,R_8UyS9vg6s9k7bTH,,,,,-20.2494,57.4879,anonymous,PL,Chrome,133.0.0.0,Windows NT 10.0,1920x1080,Man,PL,25 to 29,Not me but one of my parents was born in a foreign country,Yes,1,0,,,,,,,,,"between $201 and $250 ",2 Some high school,Part-time employed,01-224,,,Landlord renting out property,,Likely,Yes,,,,,Poland 2050,,,,,Candidate B,10,10,20,25,35,1,3,4,2,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,No,,No,33,Yes,Likely,,,,,,,,,,,Strongly oppose,Indifferent,Somewhat oppose,Somewhat oppose,Somewhat support,,No,,,,,,,,$300 billion,,,,,,,,,,,Scenario B,,Indifferent,,,A little,A right way,A right way,An acceptable way,A right way,A right way,An acceptable way,A wrong way,7,6,5,4,3,2,1,,,,,,,,,,,,,,,,,,,,,,,,,,6,,,,,,,,,Humans,,,,7.587,11.332,11.999,3,"Yes, right-wing biased","Test ",,,,,298607646257163,141672_800d28b2,141672_a2c0152d,141672_aef1c3da,141672,573,,1,PL,,"1",1,0.36758140413267104,1,1,0,2,0,high,0,0,0,0,1,Kwestie społeczne,Polityka klimatyczna,System podatkowy,Polityka zagraniczna,Kwestie ekonomiczne,,"Wydłużony urlop rodzicielski, ulgi podatkowe na dzieci i możliwość pracy zdalnej",Zakaz sprzedaży nowych samochodów z silnikiem spalinowym do 2035 r.,-,"Zatrzymanie osób, którym odmówiono azylu, do czasu ich deportacji",Rozwój produkcji kolejowej i inwestycje w infrastrukturę,,"Wydłużony urlop rodzicielski, ulgi podatkowe na dzieci i możliwość pracy zdalnej",Rezygnacja z węgla do 2035 r.,Zwolnienie z podatku dochodowego dla seniorów opóźniających przejście na emeryturę,-,Rozwój produkcji kolejowej i inwestycje w infrastrukturę,,PL,1740730543.697,8.95300006866455,1740730552.65,,,1740730621.78,1740730621.78,91.19000005722046,1740730712.97,25.10199999809265,1740730738.072,76.52999997138977,1740730814.602,105.66000008583069,1740730920.262,131.1619999408722,1740730945.764,19.23099994659424,1740730964.995,,,64.23700022697449,1740731029.232,1740730984.702,1740730984.702,,,1740731047.771,1740731047.771,,,1740731101.062,1740731101.062,,,,,,,1,2,,,1,,,,,,1
