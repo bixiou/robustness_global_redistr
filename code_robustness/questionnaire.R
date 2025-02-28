@@ -1,14 +1,14 @@
 ##### Radical redistribution: example world income tax #####
 # Data fetch and preparation
-gethin <- read.csv("../data/fisher-gethin-redistribution-2024-06-27.csv") # Fisher-Post & Gethin (2023) https://www.dropbox.com/scl/fi/yseottljqpzom1lrqga5c?e=1
+gethin <- read.csv("../data_ext/fisher-gethin-redistribution-2024-06-27.csv") # Fisher-Post & Gethin (2023) https://www.dropbox.com/scl/fi/yseottljqpzom1lrqga5c?e=1
 
-inflation <- read.xlsx("../data/inflation_imf.xlsx") # IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
+inflation <- read.xlsx("../data_ext/inflation_imf.xlsx") # IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
 gethin <- merge(gethin, inflation, all.x = T)
 for (y in 2018:2024) gethin[[paste0("inflation_", y)]][is.na(gethin[[paste0("inflation_", y)]]) | gethin[[paste0("inflation_", y)]] == "no data"] <- 1
 for (y in 2018:2024) gethin[[paste0("inflation_", y)]] <- as.numeric(gethin[[paste0("inflation_", y)]])
 gethin$inflation_2023_2024 <- (1+gethin$inflation_2023/100)*(1+gethin$inflation_2024/100)
 
-growth <- read.xlsx("../data/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
+growth <- read.xlsx("../data_ext/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
 gethin <- merge(gethin, growth, all.x = T)
 gethin$growth_2020_2024 <- (1+gethin$growth_2020/100)*(1+gethin$growth_2021/100)*(1+gethin$growth_2022/100)*(1+gethin$growth_2023/100)*(1+gethin$growth_2024/100)
 gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
@@ -46,7 +46,7 @@ thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_dis
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
 
 # Export world income distribution
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data/world_disposable_inc.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data_ext/world_disposable_inc.csv", row.names = F)
 
 # Tax revenue from a given linear tax, in proportion of world income
 tax_revenue <- function(distr = thousandile_world_disposable_inc, weight = NULL, rate = .1, threshold = 48e3) {
@@ -123,7 +123,7 @@ round(1e6*usd_lcu/1e4/12)*1e4
 ##### Wealth tax revenue by country #####
 ## 2% tax above 5M, assuming 30% evasion/depreciation
 # Data from WID, for 2022 (courtesy of bajard.felix@laposte.net), in current USD. 
-wealth <- read.csv("../data/wealth_tax_wid.csv") # /!\ wealth_above_threshold is total, not marginal wealth. E.g. someone with 150M will have wealth_above_threshold = 150M, not 50M, for threshold = 100M.
+wealth <- read.csv("../data_ext/wealth_tax_wid.csv") # /!\ wealth_above_threshold is total, not marginal wealth. E.g. someone with 150M will have wealth_above_threshold = 150M, not 50M, for threshold = 100M.
 names(wealth) <- c("n", "code", "year", "threshold", "gdp", "national_wealth", "wealth_above_threshold", "headcount_above_threshold", "threshold_constant_2023", "headcount_at_bracket", "wealth_at_bracket")
 wealth_tax_revenue <- sapply(countries, function(c) .02 * (1-.3) * (wealth$wealth_above_threshold[wealth$threshold == 5e6 & wealth$year == 2022 & wealth$code == c] - 
   5e6 * wealth$headcount_above_threshold[wealth$threshold == 5e6 & wealth$year == 2022 & wealth$code == c]))
@@ -157,7 +157,7 @@ dhyper(4, 4, 9, 4) # 1% chance to get only global policies
 
 ##### Russian Statistical Survey of Income and Participation in Social Programs 2023 #####
 # Rosstat disposable income is ~20% lower than LIS', itself lower than GDP pc (WID matches GDP pc)
-ru_hh <- read.dta13("../data/RU_hh.dta") # Data and doc here: https://rosstat.gov.ru/free_doc/new_site/vndn-2023/index.html
+ru_hh <- read.dta13("../data_ext/RU_hh.dta") # Data and doc here: https://rosstat.gov.ru/free_doc/new_site/vndn-2023/index.html
 ru_hh$hh_size <- as.numeric(substr(ru_hh$R_2_0, 1, 2))
 ru_hh$uc <- 1 + 0.5 * pmax(0, ru_hh$hh_size - 1) - 0.2 * ru_hh$CH_0_15  # I count 15-16 yrs as below 15 as there is no hh data on below_15
 # R_H_DOXOD_RASP: disposable cash income / R_H_DOX_RASPOL_BEZ: total disposable income (incl. non-cash except imputed rent)

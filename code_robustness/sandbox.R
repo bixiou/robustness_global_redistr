@@ -1,4 +1,4 @@
-world <- read.csv2("../data/WID/WID_data_WO.csv") # There is also WO-MER
+world <- read.csv2("../data_ext/WID/WID_data_WO.csv") # There is also WO-MER
 
 world_thousandile <- as.numeric(c(quadratic_interpolations(as.numeric(sapply(1:99, function(i) world$value[world$percentile == paste0("p", i-1, "p", i) & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023])), 
                                                                    as.numeric(sapply(1:99, function(i) world$value[world$percentile == paste0("p", i-1, "p", i) & world$variable == "tptincj992" & world$country == "WO" & world$year == 2023])), 
@@ -6,19 +6,19 @@ world_thousandile <- as.numeric(c(quadratic_interpolations(as.numeric(sapply(1:9
                                   world$value[world$percentile == paste0("p99p99.1") & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023], 
                                   sapply(2:9, function(i) world$value[world$percentile == paste0("p99.", (i-1) %% 10, "p99.", i %% 10) & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023]),
                                   world$value[world$percentile == paste0("p99.9p100") & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023]))
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data/world_thousandile.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data_ext/world_thousandile.csv", row.names = F)
 
 # View(world)
 sort(unique(world$variable)) # a: average, t: threshold / pt: pre-tax (but post social contrib), di: post-tax, ca: disposable / inc: income, pfcar: carbon footprint / 992: all above 20, 999: all age / j: Equal-split adults,	i: individual
-# gethin <- read.dta13("../data/fisher-gethin-redistribution-2024-06-27.dta") # pdi: disposable (pretax - direct taxes + gov_soc: social assistance transfers), pni = diinc: posttax (pretax - all taxes + all transfers), pni_edp, dina_: venant de DINA existantes, pre: pretax, cons: conso imputée à partir de pretax
+# gethin <- read.dta13("../data_ext/fisher-gethin-redistribution-2024-06-27.dta") # pdi: disposable (pretax - direct taxes + gov_soc: social assistance transfers), pni = diinc: posttax (pretax - all taxes + all transfers), pni_edp, dina_: venant de DINA existantes, pre: pretax, cons: conso imputée à partir de pretax
 # gethin <- gethin[gethin$year == 2019,]
-# write.csv(gethin, "../data/fisher-gethin-redistribution-2024-06-27.csv", row.names = F) # Fisher-Post & Gethin (2023) https://www.dropbox.com/scl/fi/yseottljqpzom1lrqga5c?e=1
-gethin <- read.csv("../data/fisher-gethin-redistribution-2024-06-27.csv")
+# write.csv(gethin, "../data_ext/fisher-gethin-redistribution-2024-06-27.csv", row.names = F) # Fisher-Post & Gethin (2023) https://www.dropbox.com/scl/fi/yseottljqpzom1lrqga5c?e=1
+gethin <- read.csv("../data_ext/fisher-gethin-redistribution-2024-06-27.csv")
 View(gethin) # edp: education distributed proportionally (to posttax inc, like in WID, instead of school attendance)
 # 174 countries, not missing any important one (~2M people missing in total); data from 2019
 # View(gethin[gethin$iso %in% c("FR", "DE", "IT", "ES") & gethin$p %in% c(9000, 74000, 89000),])
 
-inflation <- read.xlsx("../data/inflation_imf.xlsx")
+inflation <- read.xlsx("../data_ext/inflation_imf.xlsx")
 # Inflation from data/inflation_worldbank.xslx. Accessed 12/21/24. Sources: 2020-2023: Ha et al. (2023), https://www.worldbank.org/en/research/brief/inflation-database; 2024: IMF WEO (Oct 2024) https://www.imf.org/external/datamapper/PCPIPCH@WEO/WEOWORLD/VEN
 gethin <- merge(gethin, inflation, all.x = T)
 for (y in 2018:2024) gethin[[paste0("inflation_", y)]][is.na(gethin[[paste0("inflation_", y)]]) | gethin[[paste0("inflation_", y)]] == "no data"] <- 1
@@ -27,14 +27,14 @@ gethin$inflation_2020_2022 <- (1+gethin$inflation_2020/100)*(1+gethin$inflation_
 gethin$inflation_2023_2024 <- (1+gethin$inflation_2023/100)*(1+gethin$inflation_2024/100)
 gethin$inflation_2018_2024 <- gethin$inflation_2023_2024*gethin$inflation_2020_2022*(1+gethin$inflation_2019/100)*(1+gethin$inflation_2018/100)
 
-mer <- read.csv2("../data/LCU_USD_2023_wid.csv") # Market exchange rate, LCU per USD, 2023, xlcusx_999_i_2023, Fetched from https://wid.world/data/ on 12/21/2024.
+mer <- read.csv2("../data_ext/LCU_USD_2023_wid.csv") # Market exchange rate, LCU per USD, 2023, xlcusx_999_i_2023, Fetched from https://wid.world/data/ on 12/21/2024.
 gethin <- merge(gethin, mer, all.x = T)
 gethin$lcu_usd <- as.numeric(gethin$lcu_usd)
 gethin$lcu19_mer23 <- gethin$lcu_usd * gethin$defl / (1+gethin$inflation_2023/100)
 gethin$lcu19_mer23[is.na(gethin$lcu19_mer23)] <- 1
 gethin$lcu19_mer23[gethin$isoname %in% c("Venezuela", "Zimbabwe", "Sierra Leone")] <- (gethin$xppp_us * gethin$defl)[gethin$isoname %in% c("Venezuela", "Zimbabwe", "Sierra Leone")]
 
-growth <- read.xlsx("../data/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
+growth <- read.xlsx("../data_ext/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
 gethin <- merge(gethin, growth, all.x = T)
 gethin$growth_2020_2024 <- (1+gethin$growth_2020/100)*(1+gethin$growth_2021/100)*(1+gethin$growth_2022/100)*(1+gethin$growth_2023/100)*(1+gethin$growth_2024/100)
 gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
@@ -81,19 +81,19 @@ View(world_post_transfer_inc)
 thousandile_world_post_transfer_inc <- c(quadratic_interpolations(world_post_transfer_inc$post_transfer_inc_mean, world_post_transfer_inc$post_transfer_inc_thre, 
                                                                    c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_post_transfer_inc$post_transfer_inc_mean[101:102] %*% c(.9, .1))
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_post_transfer_inc)), file = "../data/world_post_transfer_inc.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_post_transfer_inc)), file = "../data_ext/world_post_transfer_inc.csv", row.names = F)
 
 world_disposable_inc_ppp22 <- compute_world_distrib_from_gethin("disposable_inc_ppp22")
 thousandile_world_disposable_inc_ppp22 <- c(quadratic_interpolations(pmax(0, world_disposable_inc_ppp22$disposable_inc_ppp22_mean), pmax(0, world_disposable_inc_ppp22$disposable_inc_ppp22_thre), 
                                                                c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc_ppp22$disposable_inc_ppp22_mean[101:102] %*% c(.9, .1))
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_ppp22)), file = "../data/world_disposable_inc_ppp22.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_ppp22)), file = "../data_ext/world_disposable_inc_ppp22.csv", row.names = F)
 
 world_disposable_inc <- compute_world_distrib_from_gethin("disposable_inc")
 thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_disposable_inc$disposable_inc_mean), pmax(0, world_disposable_inc$disposable_inc_thre), 
                                                                   c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc$disposable_inc_mean[101:102] %*% c(.9, .1))
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data/world_disposable_inc.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data_ext/world_disposable_inc.csv", row.names = F)
 
 tax_revenue <- function(distr = thousandile_world_disposable_inc, weight = NULL, rate = .1, threshold = 48e3) {
   if (is.null(weight)) return(sum(pmax(0, rate*(distr - threshold)))/sum(distr)) 
@@ -138,14 +138,14 @@ mean(thousandile_world_disposable_inc < 10*365)*8
 
 
 thousandile_world_disposable_inc_reform_simple <- pmax(thousandile_world_disposable_inc, 2555) - .1*pmax(0, thousandile_world_disposable_inc - 48e3)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_reform_simple)), file = "../data/world_disposable_inc_reform_simple.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_reform_simple)), file = "../data_ext/world_disposable_inc_reform_simple.csv", row.names = F)
 thousandile_world_disposable_inc_reform_double <- pmax(thousandile_world_disposable_inc, 3650) - .1*pmax(0, thousandile_world_disposable_inc - 48e3) - .15*pmax(0, thousandile_world_disposable_inc - 1e5) - .15*pmax(0, thousandile_world_disposable_inc - 1e6)
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_reform_double)), file = "../data/world_disposable_inc_reform_double.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc_reform_double)), file = "../data_ext/world_disposable_inc_reform_double.csv", row.names = F)
 
 world_pretax_inc <- compute_world_distrib_from_gethin("pretax_inc")
 thousandile_world_pretax_inc <- c(quadratic_interpolations(world_pretax_inc$pretax_inc_mean, world_pretax_inc$pretax_inc_thre, 
                                                                   c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_pretax_inc$pretax_inc_mean[101:102] %*% c(.9, .1))
-write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_pretax_inc)), file = "../data/world_pretax_inc.csv", row.names = F)
+write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_pretax_inc)), file = "../data_ext/world_pretax_inc.csv", row.names = F)
 
 national_disposable_inc_by_country <- sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))
 tax_revenue_by_country <- sapply(unique(gethin$iso), function(c) tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c]))
@@ -244,7 +244,7 @@ mean(world_post_transfer_inc$post_transfer_inc_mean[1:11])
 # world_thousandile[1000] <- as.numeric(world$value[world$percentile == paste0("p99.9p100") & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023])
 # mean(world_thousandile)
 # mean(world_income)
-# write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data/world_thousandile.csv", row.names = F)
+# write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(world_thousandile)), file = "../data_ext/world_thousandile.csv", row.names = F)
 
 # world_inc_averages <- as.numeric(c(sapply(1:99, function(i) world$value[world$percentile == paste0("p", i-1, "p", i) & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023]),
 #                         world$value[world$percentile == paste0("p99p99.1") & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023], 

@@ -36,9 +36,10 @@ package <- function(p, version = NULL, remove = FALSE, github = '') {
 # package("janitor") # heatmaps
 # package("ggdist") # nice confidence intervals in regression plots
 
-# package("qualtRics") # https://cran.r-project.org/web/packages/qualtRics/vignettes/qualtRics.html
+package("qualtRics") # https://cran.r-project.org/web/packages/qualtRics/vignettes/qualtRics.html
 # For Antoine's account, API is not enabled (cf. Account Settings > Qualtrics ID > API or https://lse.eu.qualtrics.com/Q/QualtricsIdsSection/IdsSection) so we cannot retrieve the data directly using qualtRics.
 # qualtrics_api_credentials(api_key = "<YOUR-QUALTRICS_API_KEY>", base_url = "https://lse.eu.qualtrics.com/", install = TRUE)
+source("qualtrics_credential.R")
 
 #'
 #' chooseCRANmirror(ind = 1)

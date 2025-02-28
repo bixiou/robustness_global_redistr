@@ -5,3 +5,5 @@
 *.RDataTmp
 questionnaire/~$sources.xlsx
 data/~$inflation_imf.xlsx
+*qualtrics_credential.R
+*.Renviron
