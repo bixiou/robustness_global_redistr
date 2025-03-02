@@ -38,14 +38,14 @@ package("labelled")
 test <- labelled(c(1, NA, -1), c("No" = 0, "Yes" = 1, "PNR" = -1))
 na_values(test) <- c(-1)
 
-test <- as.item(c(1, NA, -1), labels = structure(c(0, 1, -1), names = c("No", "Yes", "PNR")), missing.values = c(NA, -1), annotation = "test")
+test <- include.missings(as.item(c(1, NA, -1), labels = structure(c(0, 1, -1), names = c("No", "Yes", "PNR")), missing.values = c(NA, -1), annotation = "test"))
 
 test
-as.character(test[1]) # "Yes"
-as.numeric(test) # 1
+as.character(test) # "Yes" NA "PNR"
+as.numeric(test) # 1 NA -1 (or NaN or NA for the last one)
 test %in% 1 # TRUE FALSE FALSE
 test == 1 # TRUE NA FALSE
-test >= 1 # TRUE NA FALSE
+test < 1 # FALSE NA TRUE (or NA for the last one)
 test %in% "Yes" # TRUE FALSE FALSE
 test == "Yes" # TRUE NA FALSE
 is.na(test) # FALSE TRUE FALSE
@@ -61,3 +61,8 @@ decrit(df$test, miss = F)
 
 (bar <- as.factor(as.character(test)))
 bar <- relevel(bar, 'PNR')
+
+df <- within(df, { # Shorthand for ds <- within(ds,...)
+  df$test_im <- include.missings(df$test)
+}) 
+lm(c(T, T, T) ~ test, data = df)$rank
