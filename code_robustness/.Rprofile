@@ -416,19 +416,21 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
       warning("Lengths of weight and variable differ, non-weighted results are provided")
       weights <- NULL
     } }
+  
   nb_numeric_levels <- length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))
+  is_memisc <- length(memisc::annotation(variable)) > 0
   
   non_missing <- no.na(variable, rep = "") != ""
-  if (!miss & numbers & length(memisc::annotation(variable)) > 0) {
+  if (!miss & numbers & is_memisc) {
     non_missing <- no.na(variable, rep = "") != "" & !is.missing(variable) # TODO? useful?
     lab <- paste(length(which(is.missing(variable))), "missing obs.", Label(variable)) 
-  } else if (miss & !numbers & length(memisc::annotation(variable)) > 0) {
+  } else if (miss & !numbers & is_memisc) {
     lab <- Label(variable)
     if (nb_numeric_levels > 10) { 
       non_missing <- no.na(variable, rep = "") != "" & !is.na(variable) 
     } else { 
       non_missing <- no.na(include.missings(variable), rep = "") != "" & !is.na(variable) }
-  } else if (numbers & !(length(memisc::annotation(variable)) > 0)) { 
+  } else if (numbers & !is_memisc) { 
     lab <- NULL
   } else {  
     lab <- Label(variable)  
@@ -436,7 +438,7 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
   var <- variable[non_missing]
   wgt <- weights[non_missing]
   
-  if (!numbers & length(memisc::annotation(variable)) > 0) {
+  if (!numbers & is_memisc) {
     if (miss) {
       if (nb_numeric_levels > 10) var <- include.missings(variable)
       else var <- as.factor(include.missings(variable)) # Here it was var <- as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), I think it's equivalent to what we do here: as.factor(include.missings(variable[...]))
