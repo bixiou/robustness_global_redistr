@@ -243,10 +243,10 @@ package("WDI") # World Development Indicators, WDI()
 #'   return(ci) }
 #' match.nona <- function(v, t) {return(as.vector(na.omit(match(v, t))))} # returns match(v, t) purged from NAs, i.e. the (first) position of v elements (that are in t) in t (screened/ordered from v), cf. below
 #' # so df$foo[match.nona(db$bar, df$bar)] <- db$foo[db$bar %in% df$bar] replaces elements of df$foo such that df$bar is in db$bar by corresponding db$foo
-#' Label <- function(var) {
-#'   if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
-#'   else { label(var)  }
-#' }
+Label <- function(var) {
+  if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
+  else { label(var)  }
+}
 #' break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
 #'   n <- nchar(string)
 #'   nb_pieces <- min(ceiling(n/max_length), max_lines)
@@ -368,14 +368,14 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
 #'   else if (return %in% c("levels", "labels")) return(levels)
 #'   else if (return == "values") return(values)
 #' }
-no.na <- function(vec, num_as_char = T, rep = "na") {
+no.na <- function(vec, num_as_char = T, rep = "") {
   if (num_as_char) {
     if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
     else return(replace_na(as.vector(vec), rep))
   } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
   } else return(vec)
 }
-decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
+decrit_old <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
   # if (!missing(data)) variable <- data[[variable]]
   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
   if (!missing(which)) variable <- variable[which]
@@ -403,6 +403,49 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
       if (miss) describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""], descript=Label(variable))
       else describe(variable[no.na(variable)!="" & !is.missing(variable)], weights = weights[no.na(variable)!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
     } else describe(variable[no.na(variable)!=""], weights = weights[no.na(variable)!=""])  }
+}
+decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
+  # if (!missing(data)) variable <- data[[variable]]
+  if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
+  if (!missing(which)) variable <- variable[which]
+  if (weight) {
+    # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
+    if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
+    if (!missing(which)) weights <- weights[which]
+    if (length(weights)!=length(variable)) {
+      warning("Lengths of weight and variable differ, non-weighted results are provided")
+      weights <- NULL
+    } }
+  nb_numeric_levels <- length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))
+  
+  non_missing <- no.na(variable, rep = "") != ""
+  if (!miss & numbers & length(memisc::annotation(variable)) > 0) {
+    non_missing <- no.na(variable, rep = "") != "" & !is.missing(variable) # TODO? useful?
+    lab <- paste(length(which(is.missing(variable))), "missing obs.", Label(variable)) 
+  } else if (miss & !numbers & length(memisc::annotation(variable)) > 0) {
+    lab <- Label(variable)
+    if (nb_numeric_levels > 10) { 
+      non_missing <- no.na(variable, rep = "") != "" & !is.na(variable) 
+    } else { 
+      non_missing <- no.na(include.missings(variable), rep = "") != "" & !is.na(variable) }
+  } else if (numbers & !(length(memisc::annotation(variable)) > 0)) { 
+    lab <- NULL
+  } else {  
+    lab <- Label(variable)  
+  }
+  var <- variable[non_missing]
+  wgt <- weights[non_missing]
+  
+  if (!numbers & length(memisc::annotation(variable)) > 0) {
+    if (miss) {
+      if (nb_numeric_levels > 10) var <- include.missings(variable)
+      else var <- as.factor(include.missings(variable)) # Here it was var <- as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), I think it's equivalent to what we do here: as.factor(include.missings(variable[...]))
+    } else {
+      if (nb_numeric_levels == 0) var <- as.factor(var)
+      else var <- as.numeric(as.vector(va))
+    }
+  }
+  describe(var, weights = wgt, descript = lab)
 }
 #' # Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
 #' #   if (setequal(levels(var), c(T, F))) levels <- c(T) # before: not this line

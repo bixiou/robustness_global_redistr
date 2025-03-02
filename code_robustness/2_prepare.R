@@ -34,22 +34,30 @@ lm(c(T, T) ~ temp)$rank
 
 #### Tests #####
 
-temp <- c(2, NA, -1)
-test <- labelled(temp, c("between" = 2, "PNR" = -1))
+package("labelled")
+test <- labelled(c(1, NA, -1), c("No" = 0, "Yes" = 1, "PNR" = -1))
 na_values(test) <- c(-1)
-test <- as.item(temp, labels = structure(c(0, 2, -1), names = c("No", "between", "PNR")), missing.values = c(NA, -1))
-  
+
+test <- as.item(c(1, NA, -1), labels = structure(c(0, 1, -1), names = c("No", "Yes", "PNR")), missing.values = c(NA, -1), annotation = "test")
+
 test
-test %in% 2
-test == 2
-test %in% "between"
-test == "between"
-is.na(test)
-is.missing(test)
-as.character(test)
-lm(c(T, T, T) ~ test)$rank
-as.numeric(test)
+as.character(test[1]) # "Yes"
+as.numeric(test) # 1
+test %in% 1 # TRUE FALSE FALSE
+test == 1 # TRUE NA FALSE
+test >= 1 # TRUE NA FALSE
+test %in% "Yes" # TRUE FALSE FALSE
+test == "Yes" # TRUE NA FALSE
+is.na(test) # FALSE TRUE FALSE
+is.missing(test) # FALSE TRUE TRUE 
+lm(c(T, T, T) ~ test)$rank # 2 (i.e., keeps missing values that are not NA)
+df <- data.frame(test = test, true = c(T, T, T))
+lm(true ~ test, data = df)$rank
+decrit(df$test, miss = F)
 
 # memisc 0.99.22: characters not recognized; numeric only recognized by == not %in%; missing not interpreted as numeric
+# memisc 0.99.31: missing not interpreted as numeric/character (one needs to use as.factor(as.character(include.missings(test))) in regressions)
 # labelled: characters not recognized (even error when == used); numeric characters when as.character used; is.na(missing) == T
 
+(bar <- as.factor(as.character(test)))
+bar <- relevel(bar, 'PNR')
