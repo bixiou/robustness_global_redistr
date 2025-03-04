@@ -1,5 +1,6 @@
 library(utils)
 chooseCRANmirror(ind = 1)
+.libPaths(c("C:/Program Files/R/R-4.4.3/library", "C:/Users/fabre/AppData/Local/R/win-library/4.3", "C:/Program Files/R/R-4.3.1/library"))
 
 # options(download.file.method = "wget"); # For Ubuntu 14.04
 package <- function(p, version = NULL, remove = FALSE, github = '') {

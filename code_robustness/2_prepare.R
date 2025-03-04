@@ -39,3 +39,7 @@ table(GBp$group_defended)
 PLp$comment_field
 decrit(GBp$Q_TerminateFlag)
 
+stats_exclusion <- function(e) {
+  
+}
+
