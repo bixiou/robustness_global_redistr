@@ -188,7 +188,8 @@ package("Hmisc") # describe, decrit
 package("WDI") # World Development Indicators, WDI()
 # package("wbstats") # World Bank
 # package("rootSolve")
-#' # One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
+package("memisc")
+#' # Previously: One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
 # if (!is.element("memisc", installed.packages()[,1])) {
 #   install.packages("https://github.com/melff/memisc/files/9690453/memisc_0.99.22.tar.gz", repos=NULL)
 # } else if (packageVersion("memisc")!="0.99.22") {
@@ -229,10 +230,14 @@ package("WDI") # World Development Indicators, WDI()
 #' # eval(parse(along)) !!along as.name(along) substitute(eval(along)) eval(along) substitute(temp) deparse(substitute(temp)) eval(as.symbol()) eval(str2expression(along))
 #' # Fs <- function(QID) { s[QID][[1]] }
 #' # Vs <- function(QID) { as.vector(Fs(QID))  }
-#' d <- function(str, alt_data = eu, alt_var = "country") {
-#'   if (exists(tolower(str)) && is.data.frame(eval(str2expression(tolower(str))))) return(eval(str2expression(tolower(str)))) # data from name
-#'   else return(alt_data[alt_data[[alt_var]] == toupper(str),])
-#' }
+# d <- function(str, alt_data = eu, alt_var = "country") {
+#   if (exists(tolower(str)) && is.data.frame(eval(str2expression(tolower(str))))) return(eval(str2expression(tolower(str)))) # data from name
+#   else return(alt_data[alt_data[[alt_var]] == toupper(str),])
+# }
+d <- function(str, alt_data = eu, alt_var = "country") {
+  if (exists(str) && is.data.frame(eval(str2expression(str)))) return(eval(str2expression(str))) # data from name
+  else return(alt_data[alt_data[[alt_var]] == toupper(str),])
+}
 #' n <- function(var) { as.numeric(as.vector(var)) }
 #' #' NSPs <- function(QID) { length(V(QID)[V(QID) == "NSP (Je ne veux pas répondre)"])/length(V(QID)) }
 #' #' nsps <- function(id) { length(v(id)[v(id) == "NSP (Je ne veux pas répondre)"])/length(v(id)) }
