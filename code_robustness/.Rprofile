@@ -239,7 +239,7 @@ d <- function(str, alt_data = eu, alt_var = "country") {
   if (exists(str) && is.data.frame(eval(str2expression(str)))) return(eval(str2expression(str))) # data from name
   else return(alt_data[alt_data[[alt_var]] == toupper(str),])
 }
-#' n <- function(var) { as.numeric(as.vector(var)) }
+n <- function(var) { as.numeric(as.vector(var)) }
 #' #' NSPs <- function(QID) { length(V(QID)[V(QID) == "NSP (Je ne veux pas répondre)"])/length(V(QID)) }
 #' #' nsps <- function(id) { length(v(id)[v(id) == "NSP (Je ne veux pas répondre)"])/length(v(id)) }
 #' CI <- function(estimate, SE, N = NULL, level = 0.95, print = FALSE, digits = 2) { 
