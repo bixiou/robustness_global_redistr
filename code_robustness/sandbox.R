@@ -368,3 +368,74 @@ df <- within(df, { # Shorthand for ds <- within(ds,...)
   df$test_im <- include.missings(df$test)
 }) 
 lm(c(T, T, T) ~ test, data = df)$rank
+
+merge_all_countries <- function(df = lapply(countries, function(c) d(c)), weight_adult = T, weight_oecd = F, weight_no_pop = T) {
+  all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, df)
+  if ("weight" %in% names(all)) {
+    all$weight_country <- all$weight
+    all$weight_pop <- all$weight * population[all$country]
+    all$weight_adult <- all$weight * adult_pop[all$country]
+    all$weight_pop_oecd <- all$weight * oecd[all$country] * population[all$country]
+    all$weight_adult_oecd <- all$weight * oecd[all$country] * adult_pop[all$country]
+    for (w in c("weight_country", "weight_pop", "weight_adult", "weight_pop_oecd", "weight_adult_oecd")) all[[w]] <- nrow(all) * as.numeric(all[[w]] / sum(all[[w]]))
+    
+    if (weight_adult) {
+      if (weight_oecd) all$weight <- all$weight_adult_oecd
+      else all$weight <- all$weight_adult
+    } else {
+      if (weight_oecd) all$weight <- all$weight_pop_oecd
+      else all$weight <- all$weight_pop
+    }
+    if (weight_no_pop) all$weight <- all$weight_country    
+  } else warning("No weight defined.")
+  
+  # all$index_pooled_main_policies <- index_zscore("main_policies", df = all, weight = T, dummies = FALSE, require_all_variables = TRUE, efa = FALSE)
+  names_indices <<- c("affected", "knowledge", "knowledge_not_dum", "knowledge_footprint", "net_zero_feasible", "worried", "positive_economy", "policies_effective",
+                      "affected_subjective", "lose_policies_subjective", "lose_policies_poor", "lose_policies_rich", "fairness", "trust_govt", "willing_change", "care_poverty", "problem_inequality",
+                      "standard_policy", "tax_transfers_policy", "investments_policy", "main_policies", "main_policies_all", "main_policies_all", "beef_policies",
+                      "international_policies", "other_policies", "all_policies", "standard_effective",
+                      "tax_transfers_effective", "investments_effective", "tax_transfers_positive_economy", "standard_positive_economy", "investments_positive_economy", "lose_standard_poor", "lose_standard_rich", "lose_standard_subjective",
+                      "lose_investments_poor", "lose_investments_rich", "lose_investments_subjective", "lose_tax_transfers_poor", "lose_tax_transfers_rich", "lose_tax_transfers_subjective", "policies_emissions", "investments_emissions", "tax_emissions_plus", "investments_emissions_plus", "standard_emissions_plus", 
+                      "policies_pollution", "investments_pollution", "tax_transfers_pollution", "standard_pollution", "tax_emissions", "standard_emissions", #"policies_others_effective", "investments_others_effective", "tax_transfers_others_effective", 
+                      "policies_emissions_plus", "fairness_standard", "fairness_tax_transfers", "fairness_investments", "knowledge_fundamentals", "knowledge_gases", "knowledge_impacts", "worried_old", "concerned_about_CC")
+  
+  # "constrained", "altruism", "pro_redistribution", "earmarking_vs_transfers", "affected_income", "affected_lifestyle", "pricing_vs_norms", "distribution_critical", "attentive", "pro_climate"
+  for (i in names_indices) {
+    tryCatch({ temp <- index_zscore(i, df = all, weight = T, dummies = FALSE, require_all_variables = TRUE, efa = FALSE)
+    all[[paste0("index_c_", i)]] <- all[[paste0("index_", i)]]
+    all[[paste0("index_", i)]] <- temp # all[[paste0("index_pooled_", i)]]
+    }, error = function(cond) { print(paste("Index", i, "could not be created")) } )  }
+  
+  # tryCatch({ for (c in countries) for (i in intersect(paste0("index_c_", names_indices), names(all))) eval(str2expression(paste(tolower(c), '[[paste0("index_c_", i)]] <<- all[[paste0("index_c_", i)]][all$country == c]'))) }, error = function(cond) { print("Fail to put pooled indices into country df") } )
+  # tryCatch({ for (c in countries) for (i in intersect(paste0("index_c_", names_indices), names(all))) eval(str2expression(paste(tolower(c), '[[paste0("index_", i)]] <<- all[[paste0("index_", i)]][all$country == c]'))) }, error = function(cond) { print("Fail to put pooled indices into country df") } )
+  
+  try({
+    all$knows_anthropogenic <- all$CC_anthropogenic == 2
+    variables_knowledge_efa <- variables_knowledge
+    negatives_knowledge_efa <- negatives_knowledge
+    # variables_knowledge_efa <- c(variables_knowledge, "knows_anthropogenic")
+    # negatives_knowledge_efa <- c(negatives_knowledge, F)
+    temp <- all[,c("weight", "treatment", variables_knowledge_efa)]
+    for (i in seq_along(variables_knowledge_efa)) temp[[variables_knowledge_efa[i]]] <- z_score_computation(group = c(variables_knowledge_efa[i], negatives_knowledge_efa[i], "", "F"), df = temp, weight = T) # impute mean of same treatment group to missings
+    # for (i in seq_along(variables_knowledge_efa)) temp[[variables_knowledge_efa[i]]][is.pnr(temp[[variables_knowledge_efa[i]]])] <- wtd.mean(temp[[variables_knowledge_efa[i]]], weights = temp$weight, na.rm=T) # impute sample mean to missings
+    loadings <- as.numeric(factanal(temp[,variables_knowledge_efa], 1)$loadings)
+    names(loadings) <- variables_knowledge_efa
+    loadings_efa[["all"]] <- loadings
+    # print(loadings_z)
+    all$index_knowledge_efa_global <- 0
+    for (v in variables_knowledge_efa) all$index_knowledge_efa_global <- all$index_knowledge_efa_global + loadings[v]*temp[[v]]
+    all$index_knowledge_efa_global <- (all$index_knowledge_efa_global - wtd.mean(all$index_knowledge_efa_global, weights = all$weight, na.rm = T))/sqrt(wtd.var(all$index_knowledge_efa, weights = all$weight, na.rm = T))
+    label(all$index_knowledge_efa_global) <- "index_knowledge_efa_global: Weighted average of z-scores of variables in variables_knowledge_efa. Weights are loadings from explanatory factor analysis of all countries jointly (EFA with 1 factor). Each z-score is standardized with survey weights and impute mean of treatment group to missing values."
+  })
+  
+  if ("heating_expenses" %in% names(all)) { # Replace heating expenses for countries where the variable is not defined
+    all$heating_expenses_original <- all$heating_expenses
+    all$heating_expenses <- as.character(all$heating_expenses)
+    all[["heating_expenses"]][all$country  %in% c("MX", "BR", "IA", "ID")] <- "Don't know"
+    temp <- 125*(all$heating_expenses == "< 250") + 600*(all$heating_expenses == "251-1,000") + 1250*(all$heating_expenses == "1,001-1,500") +
+      2000*(all$heating_expenses == "1,501-2,500") + 3000*(all$heating_expenses == "> 2,500") - 0.1*(all$heating_expenses == "Don't know")
+    all$heating_expenses <- as.item(temp, labels = structure(c(-0.1, 125, 600, 1250, 2000, 3000), names = c("Don't know","< 250","251-1,000", "1,001-1,500","1,501-2,500", "> 2,500")), missing.values=-0.1, annotation=Label(all$heating_expenses))
+  }
+  
+  return(all)
+}

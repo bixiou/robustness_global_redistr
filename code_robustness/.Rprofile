@@ -190,6 +190,7 @@ package("WDI") # World Development Indicators, WDI()
 # package("wbstats") # World Bank
 # package("rootSolve")
 package("memisc")
+setMethod("include.missings","ANY",function(x,mark="*") x) # to fix bug in include.missings(1); include.missings("a") until the new version of memisc is released (post 0.99.31.8.2)
 #' # Previously: One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
 # if (!is.element("memisc", installed.packages()[,1])) {
 #   install.packages("https://github.com/melff/memisc/files/9690453/memisc_0.99.22.tar.gz", repos=NULL)

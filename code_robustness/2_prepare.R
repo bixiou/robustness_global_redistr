@@ -93,59 +93,122 @@ stats_exclude <- function(data_name, all = F) {
 }
 for (p in pilots) stats_exclude(p)
 
-prepare <- function(incl_quality_fail = FALSE, exclude_speeder=TRUE, exclude_screened=TRUE, only_Finished=TRUE, only_known_agglo=T, Q_TotalDuration_min=360, 
-                    country = "US", wave = NULL, weighting = TRUE, zscores = T, zscores_dummies = FALSE, remove_id = FALSE, 
-                    efa = FALSE, combine_age_50 = T, define_var_lists = T) { 
-  filename <- paste0(c(country, wave), collapse="")
-  file <- paste0("../data_raw/", filename, ".csv")
-  # if (remove_id) remove_id(filename)
-  e <- read_csv(file)
+weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
+  if (!missing(variant)) print(variant)
+  vars <- quotas[[paste0(c(country, variant), collapse = "_")]]
+  freqs <- list()
+  for (v in vars) {
+    if (!(v %in% names(e))) warning(paste(v, "not in data"))
+    e[[v]] <- as.character(e[[v]])
+    e[[v]][is.na(e[[v]])] <- "NA"
+    var <- ifelse(v %in% names(levels_quotas), v, paste(country, v, sep="_"))
+    if (!(var %in% names(levels_quotas))) warning(paste(var, "not in levels_quotas"))
+    levels_v <- as.character(levels_quotas[[var]])
+    missing_levels <- setdiff(levels(as.factor(e[[v]])), levels_v)
+    present_levels <- which(levels_v %in% levels(as.factor(e[[v]])))
+    if (length(present_levels) != length(levels_v)) warning(paste0("Following levels are missing from data: ", var, ": ", 
+        paste(levels_v[!1:length(levels_v) %in% present_levels], collapse = ', '), " (for ", country, "). Weights are still computed, neglecting this category."))
+    prop_v <- pop_freq[[country]][[var]][present_levels]
+    if (min_weight_for_missing_level) freq_missing <- rep(0.000001, length(missing_levels)) # imputes 0 weight for levels present in data but not in the weight's definitio
+    else freq_missing <- vapply(missing_levels, function(x) sum(e[[v]]==x), FUN.VALUE = c(0))
+    freq_v <- c(prop_v*(nrow(e)-sum(freq_missing)), freq_missing)
+    df <- data.frame(c(levels_v[present_levels], missing_levels), freq_v)
+    # df <- data.frame(c(levels_v, missing_levels), nrow(e)*c(pop_freq[[country]][[var]], rep(0.0001, length(missing_levels))))
+    names(df) <- c(v, "Freq")
+    freqs <- c(freqs, list(df))
+  }
+  # print(freqs)
+  unweigthed <- svydesign(ids=~1, data=e)
+  raked <- rake(design= unweigthed, sample.margins = lapply(vars, function(x) return(as.formula(paste("~", x)))), population.margins = freqs)
   
-  if (missing(wave)) wave <- "full"
-  # e <- relabel_and_rename(e, country = country, wave = wave)
-  all_na <- c()
-  for (v in 1:ncol(e)) if (all(is.na(e[[v]])) & is.na(names(e)[[v]])) all_na <- c(all_na, v)
-  e <- e[, setdiff(1:ncol(e), all_na)]
+  if (printWeights) {    print(summary(weights(raked))  )
+    print(paste("(mean w)^2 / (n * mean w^2): ", representativity_index(weights(raked)), " (pb if < 0.5)")) # <0.5 : problématique
+    print(paste("proportion not in [0.25; 4]: ", round(length(which(weights(raked)<0.25 | weights(raked)>4))/ length(weights(raked)), 3), "Nb obs. in sample: ", nrow(e)))
+  }
+  if (trim) return(weights(trimWeights(raked, lower=0.25, upper=4, strict=TRUE)))
+  else return(weights(raked, lower=0.25, upper=4, strict=TRUE))
+}
+
+prepare <- function(country = "US", scope = "final", fetch = T, convert = T, duration_min = 360, pilot = FALSE, weighting = TRUE) { # scope: all, stayed, final
+  sample_name <- paste0(country, if (pilot) "p" else NULL)
+  if (fetch) {
+    print(country)
+    survey_list <- all_surveys()
+    e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F)
+    e <- e[,which(!(names(e) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
+    for (v in names(e)) label(e[[v]]) <- c(v = paste0(v, ": ", label(e[[v]])))
+    write_csv(e, paste0("../data_raw/", sample_name, ".csv"), na = "")
+    saveRDS(label(e), paste0("../data_raw/labels/", sample_name, ".rds"))
+    e <- read_csv(paste0("../data_raw/", sample_name, ".csv"))
+  }
+  e <- read_csv(paste0("../data_raw/", sample_name, ".csv"))
+  labels <- readRDS(paste0("../data_raw/labels/", sample_name, ".rds"))
+  for (v in names(e)) label(e[[v]]) <- labels[[v]]
   
-  print(paste(length(which(e$Q_TerminateFlag=="QuotaMet")), "QuotaMet"))
-  e$Finished[e$Q_TerminateFlag=="QuotaMet"] <- "False" # To check the number of QuotaMet that shouldn't have incremented the quota, comment this line and: decrit(e$each_strate[e$exclu=="QuotaMet" & e$csp=="Employé" & !grepl("2019-03-04 07", e$date)])
-  if (incl_quality_fail & "attention_test" %in% names(e)) e <- e[replace_na(e$Q_TerminateFlag, "na") != "QuotaMet" & !is.na(e$attention_test) & !(replace_na(e$Q_TerminateFlag, "na") == "Screened" & replace_na(e$attention_test) == "A little"),] # allqa: e[e$Finished == 1
-  if (exclude_screened & !incl_quality_fail) { e <- e[is.na(e$Q_TerminateFlag),] }
-  if (exclude_speeder) e <- e[as.numeric(as.vector(e$Q_TotalDuration)) > Q_TotalDuration_min,] # & !incl_quality_fail
-  if (only_Finished & !incl_quality_fail) e <- e[e$Finished==1,] 
-  # if (only_Finished | incl_quality_fail) { # TODO: le faire marcher même pour les autres
-  e <- convert(e, country = country, wave = wave, weighting = weighting, zscores = zscores, zscores_dummies = zscores_dummies, efa = efa, combine_age_50 = combine_age_50, only_Finished = only_Finished, define_var_lists = define_var_lists)
-  e <- e[,!duplicated(names(e))]
-  # if (!incl_quality_fail) e <- e[e$attention_test == T, ] # TODO!
+  if (convert) {
+    # e <- rename(e, country = country, pilot = pilot)
+    all_na <- c()
+    for (v in 1:ncol(e)) if (all(is.na(e[[v]])) & is.na(names(e)[[v]])) all_na <- c(all_na, v)
+    e <- e[, setdiff(1:ncol(e), all_na)]
+    
+    e$speeder <- e$Q_TotalDuration < duration_min
+    label(e$speeder) <- paste0("speeder: T/F duration < ", duration_min/60, " min")
+    # s$excluded <- e$Q_TerminateFlag
+    e$valid <- !e$Q_TerminateFlag %in% "QuotaMet" 
+    label(e$valid) <- "valid: T/F Not quota met or socio-demo screened (excluded != QuotaMet)"
+    e$legit <- is.na(e$Q_TerminateFlag) 
+    label(e$legit) <- "legit: T/F Not excluded (not quota met nor screened) (is.na(excluded))"
+    e$dropout <- is.na(e$Q_TerminateFlag) & !e$Finished %in% c(TRUE, "TRUE", 1, "1") 
+    label(e$dropout) <- "dropout: T/F Chose to leave the survey (is.na(excluded) & !finished)"
+    e$stayed <- e$Finished %in% c(TRUE, "TRUE", 1, "1") & !e$Q_TerminateFlag %in% "QuotaMet" # TODO: check includes failed attention_test
+    label(e$stayed) <- "stayed: T/F Did not drop out (excluded != QuotaMet & finished)" # Includes Screened (speeder or quality) but excludes dropout
+    e$final <- is.na(e$Q_TerminateFlag) & e$Finished %in% c(TRUE, "TRUE", 1, "1") 
+    label(e$final) <- "final: T/F In Final sample (!excluded & finished)"
+    # progress_socio <- if (country == "US1") 19 else { if (country == "US2") 14 else 15 }
+    # e$dropout_late <- (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$excluded) & e$finished != "1" & n(e$progress) >= progress_socio
+    # label(e$dropout_late) <- "dropout: Respondent who did not complete the survey though was not excluded, and who dropped out after the socio-demographic questions." }
+    if (scope %in% names(e)) e <- e[e[[scope]] == T,]
+    
+    e <- convert(e, country = country, pilot = pilot, weighting = weighting)
+    e <- e[,!duplicated(names(e))]
+  }
+  
   if (weighting) {
-    e$weight <- weighting(e, sub("[0-9p]+", "", country))
-    e$weight_all <- weighting(e, sub("[0-9p]+", "", country), variant = "all")
-    if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, sub("[0-9]+[a-z]*", "", country), variant = "vote")
+    e$weight <- weighting(e, country)
+    e$weight_all <- weighting(e, country, variant = "all")
+    if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, country, variant = "vote")
     if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
   }
-
-  if ("attention_test" %in% names(e)) {
-    e$failed_test <- no.na(e$attention_test) != "A little"
-    label(e$failed_test) <- "failed_test: Failed the attention_test"
-    e$valid <- (as.numeric(e$progress) > 1) & (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$Q_TerminateFlag)
-    label(e$valid) <- "valid: Respondents that has not been screened out due to speed or failure to the attention test."
-    e$dropout <- (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$Q_TerminateFlag) & e$Finished != "1"
-    label(e$dropout) <- "dropout: Respondent who did not complete the survey though was not Q_TerminateFlag."
-    if (country %in% c("US1", "US2", "EU")) {
-      progress_socio <- if (country == "US1") 19 else { if (country == "US2") 14 else 15 }
-      # max(as.numeric(e$progress[is.na(e$gcs_win_lose) & (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$Q_TerminateFlag) & e$Finished != "1"]))
-      e$dropout_late <- (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$Q_TerminateFlag) & e$Finished != "1" & n(e$progress) >= progress_socio
-      label(e$dropout_late) <- "dropout: Respondent who did not complete the survey though was not Q_TerminateFlag, and who dropped out after the socio-demographic questions." }
-    e$Finished_attentive <- (e$valid | (e$Q_TotalDuration <= Q_TotalDuration_min & e$attention_test=="A little")) & e$Finished==1
-    label(e$Finished_attentive) <- "Finished_attentive: Respondent completed the survey and did not fail the attention test."
-    e$stayed <- !e$dropout & no.na(e$Q_TerminateFlag) != "QuotaMet"
-    label(e$stayed) <- "stayed: T/F quotas are allowed and do not drop out"
-  }
-  # e$sample <- "a"
-  # e$sample[e$Finished=="True"] <- "e"
-  # e$sample[e$Finished=="True" & e$Q_TotalDuration > Q_TotalDuration_min] <- "p"
-  # e$sample[e$Finished=="True" & e$Q_TotalDuration > Q_TotalDuration_min & e$Q_TerminateFlag==""] <- "r"
   
   return(e)
 }
+
+convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) {
+  return(e)
+}
+
+# Pilots
+pilot_countries <- c("PL", "GB", "US")
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
+p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
+list2env(pilot_data, envir = .GlobalEnv)
+
+# list2env(setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")), envir = .GlobalEnv)
+# p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, lapply(paste0(pilot_countries, "p"), function(c) d(c)))
+# USp <- prepare(country = "US", scope = "final", fetch = F, convert = T, pilot = TRUE, weighting = FALSE)
+# PLp <- prepare(country = "PL", scope = "final", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
+# GBp <- prepare(country = "GB", scope = "final", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
+# p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, list(USp, PLp, GBp))
+
+
+
+
+
+
+
+
+
+
+
+
 
