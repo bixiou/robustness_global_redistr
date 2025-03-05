@@ -16,16 +16,19 @@ survey_list <- all_surveys()
 pilots <- paste0(c("PL", "GB", "US"), "p") 
 pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots) 
 # cut=0 at March 4 2025, 00:05 Paris time (after 46 PL; 118 GB; 46 US)
-for (p in pilots) {
+for (p in pilots) { # pilots
   print(p)
   data <- fetch_survey(survey_list$id[survey_list$name == pilot_names[p]], include_display_order = T, verbose = T, convert = F)
   data <- data[,which(!(names(data) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
   for (v in names(data)) label(data[[v]]) <- c(v = paste0(v, ": ", label(data[[v]])))
-  write.csv(data, paste0("../data_raw/", p, ".csv"), quote = F, na = "", row.names = F)
-  eval(str2expression(paste0(p, " <- data")))
+  write_csv(data, paste0("../data_raw/", p, ".csv"), na = "")
+  eval(str2expression(paste0(p, " <- read_csv('../data_raw/", p, ".csv')")))
+  saveRDS(label(data), paste0("../data_raw/labels/", p, ".rds"))
+  labels <- readRDS(paste0("../data_raw/labels/", p, ".rds"))
+  for (v in names(d(p))) eval(str2expression(paste0("label(", p, "[[v]]) <- labels[[v]]")))
 }
-GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
-write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
+# GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
+# write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
 # Slightly different from manual export .csv: no second row with question text; timezone is different (in e.g. startDate); True => TRUE; income bug; some additional "" are removed
 View(GBp)
   
@@ -52,39 +55,40 @@ stats_exclude <- function(data_name, all = F) {
   cat(paste0(round(100*sum(e$income %in% "Prefer not to say")/nrow(e), 1), "% socio-demo screened due to PNR income\n"))
   cat(paste0(round(100*sum(e$urbanity %in% 0 | e$region %in% 0)/nrow(e), 1), "% socio-demo screened due to unrecognized zipcode\n"))
   if (all) cat(paste0(round(100*sum(e$age_exact %in% "Below 18")/nrow(e), 1), "% socio-demo screened due to age < 18\n"))
-  cat(paste0(sum(!e$Q_TerminateFlag %in% "QuotaMet"), " not quota met or socio-demo screened \n"))
+  cat(paste0(sum(!e$Q_TerminateFlag %in% "QuotaMet"), " valid: not quota met or socio-demo screened \n"))
   cat(paste0(sum(e$Q_TerminateFlag %in% "Screened"), " screened after socio-demo\n"))
   if (all) cat(paste0(sum(e$Finished %in% c(TRUE, "TRUE", 1)), " finished\n"))
   if (all) cat(paste0(sum((!is.na(e$Q_TerminateFlag)) & !e$Q_TerminateFlag %in% c("Screened", "QuotaMet")), " unknown Q_TerminateFlag\n"))
-  cat(paste0(sum(is.na(e$Q_TerminateFlag)), " valid: not quota met nor screened out\n"))
   if (all) cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened")/nrow(e), 1), "% screened in total \n"))
-  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened")/sum(is.na(e$Q_TerminateFlag)), 1), "% screened among valid \n"))
-  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & !(e$attention_test %in% "A little"))/sum(is.na(e$Q_TerminateFlag)), 1), "% screened among valid due to failed attention_test\n"))
-  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & n(e$Q_TotalDuration) < 360)/sum(is.na(e$Q_TerminateFlag)), 1), "% screened among valid due to duration < 360\n"))
-  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & !(e$attention_test %in% "A little") & n(e$Q_TotalDuration) < 360)/sum(is.na(e$Q_TerminateFlag)), 1), "% screened among valid due to both reasons\n"))
-  if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & n(e$Q_TotalDuration) >= 420) | # TODO for non-pilot: replace 420 by 360
-    (is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | n(e$Q_TotalDuration) < 360))), " unexplained screened or unexplained non-screened\n"))
-  # if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & n(e$Q_TotalDuration) >= 420)), " unexplained screened\n"))
-  # if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | n(e$Q_TotalDuration) < 360))), " unexplained non-screened\n"))
-  cat(paste0(round(100*sum(!e$Finished %in% c(TRUE, "TRUE", 1))/sum(is.na(e$Q_TerminateFlag)), 1), "% dropout among valid\n"))
-  if (all) cat(paste0(round(100*sum(e$Finished %in% c(TRUE, "TRUE", 1) & is.na(e$Q_TerminateFlag))/sum(is.na(e$Q_TerminateFlag)), 1), "% finished among valid\n"))
-  if (all) cat("Progress among valid\n")
+  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened")/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid \n"))
+  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & !(e$attention_test %in% "A little"))/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid due to failed attention_test\n"))
+  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & e$Q_TotalDuration < 360)/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid due to duration < 360\n"))
+  cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & !(e$attention_test %in% "A little") & e$Q_TotalDuration < 360)/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid due to both reasons\n"))
+  if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & e$Q_TotalDuration >= 420) | # TODO for non-pilot: replace 420 by 360
+    (is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained screened or unexplained non-screened\n"))
+  # if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & e$Q_TotalDuration >= 420)), " unexplained screened\n"))
+  # if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained non-screened\n"))
+  if (all) cat(paste0(sum(is.na(e$Q_TerminateFlag)), " legit: not quota met nor screened out\n"))
+  cat(paste0(round(100*sum(!e$Finished %in% c(TRUE, "TRUE", 1))/sum(is.na(e$Q_TerminateFlag)), 1), "% dropout among legit\n"))
+  if (all) cat(paste0(round(100*sum(e$Finished %in% c(TRUE, "TRUE", 1) & is.na(e$Q_TerminateFlag))/sum(is.na(e$Q_TerminateFlag)), 1), "% finished among legit\n"))
+  cat(paste0(sum(e$Finished %in% c(TRUE, "TRUE", 1) & is.na(e$Q_TerminateFlag)), " final: finished, not quota met nor screened out\n"))
+  if (all) cat("Progress among legit\n")
   if (all) cat(decrit(e$Progress[(is.na(e$Q_TerminateFlag))], weight = F))
-  if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)), " in final sample: finished and valid\n"))
+  if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)), " in final sample: finished and legit\n"))
   cat("Duration in final sample")
-  print(decrit(n(e$Q_TotalDuration)[(is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
+  print(decrit(e$Q_TotalDuration[(is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
   if (all) {
     cat("Duration in final sample for cut == 1\n")
-    print(decrit(n(e$Q_TotalDuration)[e$cut == 1 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
+    print(decrit(e$Q_TotalDuration[e$cut == 1 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
     cat("Duration in final sample for cut == 0\n")
-    print(decrit(n(e$Q_TotalDuration)[e$cut == 0 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
+    print(decrit(e$Q_TotalDuration[e$cut == 0 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
     cat("Duration in final sample for long\n")
-    print(decrit(n(e$Q_TotalDuration)[e$long > .42 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
+    print(decrit(e$Q_TotalDuration[e$long > .42 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
     cat("Duration in final sample for short\n")
-    print(decrit(n(e$Q_TotalDuration)[e$long < .42 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
+    print(decrit(e$Q_TotalDuration[e$long < .42 & (is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)]/60, weight = F))
   }
-  print(summary(lm(n(Q_TotalDuration)/60 ~ (long > .42) , data = e, subset = ((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)))))
-  if (all) print(summary(lm(n(Q_TotalDuration)/60 ~ (long > .42) * cut, data = e, subset = ((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)))))
+  print(summary(lm(Q_TotalDuration/60 ~ (long > .42) , data = e, subset = ((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)))))
+  if (all) print(summary(lm(Q_TotalDuration/60 ~ (long > .42) * cut, data = e, subset = ((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)))))
   cat("___________________________________________")
 }
 for (p in pilots) stats_exclude(p)
@@ -139,8 +143,8 @@ prepare <- function(incl_quality_fail = FALSE, exclude_speeder=TRUE, exclude_scr
   }
   # e$sample <- "a"
   # e$sample[e$Finished=="True"] <- "e"
-  # e$sample[e$Finished=="True" & n(e$Q_TotalDuration) > Q_TotalDuration_min] <- "p"
-  # e$sample[e$Finished=="True" & n(e$Q_TotalDuration) > Q_TotalDuration_min & e$Q_TerminateFlag==""] <- "r"
+  # e$sample[e$Finished=="True" & e$Q_TotalDuration > Q_TotalDuration_min] <- "p"
+  # e$sample[e$Finished=="True" & e$Q_TotalDuration > Q_TotalDuration_min & e$Q_TerminateFlag==""] <- "r"
   
   return(e)
 }
