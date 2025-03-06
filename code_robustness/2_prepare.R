@@ -42,11 +42,21 @@ table(GBp$group_defended)
 PLp$comment_field
 decrit(GBp$Q_TerminateFlag)
 
-stats_exclude <- function(data_name, all = F) {
+stats_exclude <- function(data_name, all = F, old_names = F) {
   cat("\n")
   cat(paste("\nSURVEY:", data_name))
   cat("\n\n")
   e <- d(data_name)
+  # if (descr) {
+  #   for (v in names(e)[1:80]) { print(decrit(v, e)); print("____________");}
+  #   for (v in names(e)[81:160]) { print(decrit(v, e)); print("____________");}
+  #   for (v in names(e)[161:211]) { print(decrit(v, e)); print("____________");}
+  # }
+  if (!old_names) {
+    e$Q_TerminateFlag <- e$excluded
+    e$Finished <- e$finished
+    e$Progress <- e$progress
+  }
   if ("Finished...7" %in% names(e)) e$Finished <- e$Finished...7
   cat(paste0(nrow(e), " total obs.\n"))
   cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "QuotaMet")/nrow(e), 1), "% quota met (incl. socio-demo screened)\n"))
@@ -65,7 +75,7 @@ stats_exclude <- function(data_name, all = F) {
   cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & e$Q_TotalDuration < 360)/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid due to duration < 360\n"))
   cat(paste0(round(100*sum(e$Q_TerminateFlag %in% "Screened" & !(e$attention_test %in% "A little") & e$Q_TotalDuration < 360)/sum(!e$Q_TerminateFlag %in% "QuotaMet"), 1), "% screened among valid due to both reasons\n"))
   if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & e$Q_TotalDuration >= 420) | # TODO for non-pilot: replace 420 by 360
-    (is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained screened or unexplained non-screened\n"))
+                            (is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained screened or unexplained non-screened\n"))
   # if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & e$Q_TotalDuration >= 420)), " unexplained screened\n"))
   # if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained non-screened\n"))
   if (all) cat(paste0(sum(is.na(e$Q_TerminateFlag)), " legit: not quota met nor screened out\n"))
@@ -270,6 +280,10 @@ p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
 e <- USp
+
+for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
+for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
+for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
 
 for (i in 1:length(e)) {
   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
