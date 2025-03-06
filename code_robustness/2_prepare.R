@@ -129,13 +129,14 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
   else return(weights(raked, lower=0.25, upper=4, strict=TRUE))
 }
 
-prepare <- function(country = "US", scope = "final", fetch = T, convert = T, duration_min = 360, pilot = FALSE, weighting = TRUE) { # scope: all, stayed, final
+prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE) { # scope: all, stayed, final
   sample_name <- paste0(country, if (pilot) "p" else NULL)
   if (fetch) {
     print(country)
     survey_list <- all_surveys()
     e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F)
     e <- e[,which(!(names(e) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
+    if (rename) e <- rename_survey(e, pilot = pilot)
     for (v in names(e)) label(e[[v]]) <- c(v = paste0(v, ": ", label(e[[v]])))
     write_csv(e, paste0("../data_raw/", sample_name, ".csv"), na = "")
     saveRDS(label(e), paste0("../data_raw/labels/", sample_name, ".rds"))
@@ -146,23 +147,23 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, dur
   for (v in names(e)) label(e[[v]]) <- labels[[v]]
   
   if (convert) {
-    # e <- rename(e, country = country, pilot = pilot)
     all_na <- c()
     for (v in 1:ncol(e)) if (all(is.na(e[[v]])) & is.na(names(e)[[v]])) all_na <- c(all_na, v)
     e <- e[, setdiff(1:ncol(e), all_na)]
     
-    e$speeder <- e$Q_TotalDuration < duration_min
-    label(e$speeder) <- paste0("speeder: T/F duration < ", duration_min/60, " min")
-    # s$excluded <- e$Q_TerminateFlag
-    e$valid <- !e$Q_TerminateFlag %in% "QuotaMet" 
+    e$fast <- e$duration < duration_min
+    label(e$fast) <- paste0("fast: T/F duration < ", duration_min/60, " min")
+    # e$excluded <- e$Q_TerminateFlag
+    # e$finished <- e$Finished
+    e$valid <- !e$excluded %in% "QuotaMet" 
     label(e$valid) <- "valid: T/F Not quota met or socio-demo screened (excluded != QuotaMet)"
-    e$legit <- is.na(e$Q_TerminateFlag) 
+    e$legit <- is.na(e$excluded) 
     label(e$legit) <- "legit: T/F Not excluded (not quota met nor screened) (is.na(excluded))"
-    e$dropout <- is.na(e$Q_TerminateFlag) & !e$Finished %in% c(TRUE, "TRUE", 1, "1") 
+    e$dropout <- is.na(e$excluded) & !e$finished %in% c(TRUE, "TRUE", 1, "1") 
     label(e$dropout) <- "dropout: T/F Chose to leave the survey (is.na(excluded) & !finished)"
-    e$stayed <- e$Finished %in% c(TRUE, "TRUE", 1, "1") & !e$Q_TerminateFlag %in% "QuotaMet" # TODO: check includes failed attention_test
-    label(e$stayed) <- "stayed: T/F Did not drop out (excluded != QuotaMet & finished)" # Includes Screened (speeder or quality) but excludes dropout
-    e$final <- is.na(e$Q_TerminateFlag) & e$Finished %in% c(TRUE, "TRUE", 1, "1") 
+    e$stayed <- e$finished %in% c(TRUE, "TRUE", 1, "1") & !e$excluded %in% "QuotaMet" # TODO: check includes failed attention_test
+    label(e$stayed) <- "stayed: T/F Did not drop out (excluded != QuotaMet & finished)" # Includes Screened (fast or quality) but excludes dropout
+    e$final <- is.na(e$excluded) & e$finished %in% c(TRUE, "TRUE", 1, "1") 
     label(e$final) <- "final: T/F In Final sample (!excluded & finished)"
     # progress_socio <- if (country == "US1") 19 else { if (country == "US2") 14 else 15 }
     # e$dropout_late <- (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$excluded) & e$finished != "1" & n(e$progress) >= progress_socio
@@ -183,16 +184,54 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, dur
   return(e)
 }
 
+define_var_lists <- function() {
+  text_support <<- c("Strongly oppose","Somewhat oppose","Indifferent","Somewhat support","Strongly support")
+  text_pnr <<- c("Prefer not to say")
+  variables_solidarity_support <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
+    "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_loss_damage", "solidarity_support_ncqg_300bn", "solidarity_support_shipping_levy", "solidarity_support_aviation_levy")
+  # variables_support <<- names(e)[grepl('support', names(e))]
+  wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
+  top_tax_support <<- c("top1_tax_support", "top3_tax_support", "top1_tax_support_cut", "top3_tax_support_cut")
+  variables_likert <<- c(variables_solidarity_support, top_tax_support, "reparations_support")
+  variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", wealth_tax_support, "couple")
+  variables_race <<- c("race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
+  variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
+  variables_global_movement <<- c("global_movement_no", "global_movement_spread", "global_movement_demonstrate", "global_movement_strike", "global_movement_donate")
+  variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none", "why_hic_help_lic_order_responsibility", 
+                                   "why_hic_help_lic_order_interest", "why_hic_help_lic_order_duty")
+  variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
+  variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_gcs", "variant_sliders", "variant_radical_transfer", 
+                          "variant_synthetic", "variant_comprehension", "variant_belief")
+  # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
+  #                                "variant_synthetic", "variant_comprehension", "variant_belief")
+  variables_binary <<- c(variables_race, variables_home, variables_global_movement, variables_why_hic_help_lic, variables_custom_redistr)
+}
+# for (v in names(e)) if (length(unique(e[[v]])) == 2) print(v)
+# for (v in names(e)) if ("No" %in% unique(e[[v]])) print(v)
+for (v in names(e)) if (is.logical(e[[v]])) print(v)
+# names(e)[grepl('race', names(e))]
+cat(names(e)[grepl('variant', names(e))], sep = '", "')
+
 convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) {
+  define_var_lists()
+  # sociodemos, millionaire, field, conjoint, split, likely_solidarity, gcs_belief, donation, ncqg, sustainable_future, attention, transfer_how, vote_intl_coalition, 
+  # well_being, gcs_comprehension, my_tax_global_nation, group_defended, survey_biased, long
   return(e)
 }
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
+e <- USp
+
+for (i in 1:length(e)) {
+  # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
+  print(paste(i, label(e[[i]])))
+  # print(names(e)[i])
+}
 # list2env(setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")), envir = .GlobalEnv)
 # p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, lapply(paste0(pilot_countries, "p"), function(c) d(c)))
 # USp <- prepare(country = "US", scope = "final", fetch = F, convert = T, pilot = TRUE, weighting = FALSE)
