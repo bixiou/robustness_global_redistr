@@ -270,12 +270,14 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       e[[v]] <- as.item(temp, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), missing.values = NA, annotation=Label(e[[v]])) 
   } }
   
+  # TODO display
+  
   return(e)
 }
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
