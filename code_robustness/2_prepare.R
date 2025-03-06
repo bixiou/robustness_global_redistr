@@ -205,17 +205,61 @@ define_var_lists <- function() {
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
   #                                "variant_synthetic", "variant_comprehension", "variant_belief")
   variables_binary <<- c(variables_race, variables_home, variables_global_movement, variables_why_hic_help_lic, variables_custom_redistr)
+  variables_duration <<- c("duration", "duration_consent", "duration_socios_demos", "duration_field", "duration_conjoint", "duration_global_tax", "duration_warm_glow_substitute", "duration_gcs", 
+                           "duration_ics", "duration_warm_glow_realism", "duration_ncqg_maritime", "duration_wealth_tax", "duration_preferred_transfer_mean", "duration_radical_redistr", 
+                           "duration_custom_redistr", "duration_well_being", "duration_extra", "duration_main_questions")
+  variables_split_few <<- c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
+                            "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global")
+  variables_split_many <<- c("revenue_split_many_domestic_education", "revenue_split_many_domestic_healthcare", "revenue_split_many_domestic_defense", "revenue_split_many_domestic_deficit_reduction", 
+                             "revenue_split_many_domestic_justice_police", "revenue_split_many_domestic_pensions", "revenue_split_many_domestic_welfre", "revenue_split_many_domestic_infrastructure", 
+                             "revenue_split_many_domestic_tax_reduction", "revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
+                             "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
+  variables_split_maritime <<- c("maritime_split_ldc", "maritime_split_companies", "maritime_split_decarbonization")
+  variables_split <<- c(variables_split_few, variables_split_many, variables_split_maritime)
+  variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief", variables_split)
 }
 # for (v in names(e)) if (length(unique(e[[v]])) == 2) print(v)
 # for (v in names(e)) if ("No" %in% unique(e[[v]])) print(v)
-for (v in names(e)) if (is.logical(e[[v]])) print(v)
+# for (v in names(e)) if (is.logical(e[[v]])) print(v)
 # names(e)[grepl('race', names(e))]
-cat(names(e)[grepl('variant', names(e))], sep = '", "')
+# cat(names(e)[grepl('split', names(e)) & !grepl('order', names(e))], sep = '", "')
 
 convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) {
   define_var_lists()
   # sociodemos, millionaire, field, conjoint, split, likely_solidarity, gcs_belief, donation, ncqg, sustainable_future, attention, transfer_how, vote_intl_coalition, 
   # well_being, gcs_comprehension, my_tax_global_nation, group_defended, survey_biased, long
+  
+  for (i in intersect(variables_numeric, names(e))) {
+    lab <- label(e[[i]])
+    e[[i]] <- as.numeric(as.vector(gsub("[^0-9\\.]", "", e[[i]]))) # /!\ this may create an issue with UK zipcodes as it removes letters
+    label(e[[i]]) <- lab
+  }
+  for (v in intersect(variables_duration, names(e))) e[[v]] <- e[[v]]/60
+  
+  for (j in intersect(variables_yes_no, names(e))) {
+    temp <- 1*(e[j][[1]] %in% "Yes") - 0.1*(e[j][[1]] %in% text_pnr) # - (e[j][[1]] %in% text_no)
+    temp[is.na(e[j][[1]])] <- NA
+    e[j][[1]] <- as.item(temp, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), missing.values = c("",NA,"PNR"), annotation=attr(e[j][[1]], "label"))
+  }
+  
+  for (j in intersect(variables_binary, names(e))) { # TODO: variant NAs
+    temp <- label(e[[j]])
+    e[[j]] <- !is.na(e[[j]])
+    # e[[j]] <- e[[j]] %in% "" # e[[j]][e[[j]]!=""] <- TRUE
+    # e[[j]][is.na(e[[j]])] <- FALSE
+    label(e[[j]]) <- temp
+  }
+  
+  if ("attention_test" %in% names(e)) e$attentive <- e$attention_test %in% "A little"
+  
+  for (v in intersect(variables_likert, names(e))) {
+    if (v %in% names(e)) {
+      temp <-  temp <- 2 * (e[[v]] %in% "Strongly support") + (e[[v]] %in% "Somewhat support") - (e[[v]] %in% "Somewhat oppose") - 2 * (e[[v]] %in% "Strongly oppose")
+      temp[is.na(e[[v]])] <- NA
+      # e[[v]] <- as.item(temp, labels = structure(c(-2:2), names = c("Strongly oppose","Somewhat oppose","Indifferent","Somewhat support","Strongly support")), missing.values=c(NA), annotation=Label(e[[v]])) 
+      e[[v]] <- as.item(temp, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), missing.values = NA, annotation=Label(e[[v]])) 
+  } }
+  
   return(e)
 }
 
