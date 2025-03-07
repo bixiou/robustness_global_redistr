@@ -144,7 +144,7 @@ package("readstata13") # read.dta13
 #' # package("prettydoc")
 #' # package("seriation")
 # package("RColorBrewer")
-# package("corrplot") #, github = 'taiyun')#, version = "0.88") # 0.92 installed: is that an issue?
+package("corrplot") # heatmap #, github = 'taiyun')#, version = "0.88") # 0.92 installed: is that an issue?
 #' package("psy")
 #' package("lavaan")
 #' package("StatMatch")
@@ -255,26 +255,28 @@ Label <- function(var) {
   if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
   else { label(var)  }
 }
-#' break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
-#'   n <- nchar(string)
-#'   nb_pieces <- min(ceiling(n/max_length), max_lines)
-#'   max <- floor(n/nb_pieces)
-#'   broken_string <- strwrap(string, max)
-#'   if (soft_max_length) { # Ensures that there are nb_pieces lines, but a line can be longer than max_length
-#'     while (length(broken_string) > nb_pieces) {
-#'       max <- max + 1
-#'       broken_string <- strwrap(string, max)
-#'     }
-#'   } # else no line is longer than max_length-1 but there might be more than nb_pieces lines.
-#'   return(paste(broken_string, collapse = sep))
-#' }
-#' 
-#' break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
-#'   broken_strings <- strings
-#'   for (s in seq_along(strings)) if (!grepl(sep, strings[s])) {
-#'     broken_strings[s] <- break_string(strings[s], max_length = max_length, soft_max_length = soft_max_length, sep = sep, max_lines = max_lines) }
-#'   return(broken_strings)
-#' }
+break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
+  # used in heatmap_multiple
+  n <- nchar(string)
+  nb_pieces <- min(ceiling(n/max_length), max_lines)
+  max <- floor(n/nb_pieces)
+  broken_string <- strwrap(string, max)
+  if (soft_max_length) { # Ensures that there are nb_pieces lines, but a line can be longer than max_length
+    while (length(broken_string) > nb_pieces) {
+      max <- max + 1
+      broken_string <- strwrap(string, max)
+    }
+  } # else no line is longer than max_length-1 but there might be more than nb_pieces lines.
+  return(paste(broken_string, collapse = sep))
+}
+
+break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
+  # used in heatmap_multiple
+  broken_strings <- strings
+  for (s in seq_along(strings)) if (!grepl(sep, strings[s])) {
+    broken_strings[s] <- break_string(strings[s], max_length = max_length, soft_max_length = soft_max_length, sep = sep, max_lines = max_lines) }
+  return(broken_strings)
+}
 #' is.pnr <- function(variable, empty_as_pnr = T) {
 #'   if (empty_as_pnr) {
 #'     if (is.null(memisc::annotation(variable))) return(is.na(variable)|variable=="")
@@ -466,38 +468,39 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
 #' #   }
 #' #   return(levels)
 #' # }
-#' Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TRUE, concatenate = FALSE, max_values = 13, names = FALSE) {
-#'   if (values) {
-#'     if (length(variable)==1 & is.character(variable)) variable <- data[[variable]]
-#'     # if (length(annotation(variable))==1 & !is.null(labels(variable))) Levs <- as.character(labels(variable)) # old, gave numbers instead of labels for double.item
-#'     if ("double.item" %in% class(variable) & !is.null(labels(variable))) Levs <- names(as.character(labels(variable)))
-#'     else if (("character.item" %in% class(variable) | length(memisc::annotation(variable))==1) & !is.null(labels(variable))) Levs <- as.character(labels(variable))
-#'     else if (is.factor(variable)) Levs <- levels(variable)
-#'     else if (is.numeric(variable)) {
-#'       if (length(unique(variable)) > max_values) {
-#'         Levs <- round(c(min(variable, na.rm = T), max(variable, na.rm = T)), 3)
-#'         names(Levs) <- c("min", "max")
-#'       } else Levs <- round(sort(unique(variable)), 3) }
-#'     else if (is.character(variable)) Levs <- if (length(unique(variable)) > max_values) "[string variable]" else as.character(unique(variable))
-#'     else if (is.logical(variable)) Levs <- if (any(is.pnr(variable))) "TRUE / FALSE / NA" else "TRUE / FALSE"
-#'     if (concatenate) {
-#'       if (is.null(names(Levs))) Levs <- paste(Levs, collapse = " / ")
-#'       else Levs <- paste(sapply(1:length(Levs), function(i) return(paste0(names(Levs)[i], ": ", Levs[i]))), collapse = " / ")
-#'     }
-#'   } else {
-#'     Levs <- decrit(variable, miss = miss, numbers = numbers, data = data)$values$value
-#'     if (is.null(Levs)) {
-#'       if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
-#'       Levs <- unique(variable)
-#'       if (concatenate) Levs <- paste(Levs, collapse = " / ") } }
-#'   if (names & length(names(Levs)) == length(Levs)) Levs <- names(Levs)
-#'   return(Levs)
-#'   # if (is.character(var) & length(var)==1) var <- data[[var]]
-#'   # if (length(annotation(var))>0) { # works but cubmbersome and doesn't allow to get rid of missings
-#'   #   if (is.character(var)) levels(as.factor(include.missings(var)))
-#'   #   else return(as.vector(labels(var))) }
-#'   # else return(levels(as.factor(var))) # as.factor may cause issues as it converts to string
-#' }
+Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TRUE, concatenate = FALSE, max_values = 13, names = FALSE) {
+  # used in heatmap_wrapper, heatmap_multiple
+  if (values) {
+    if (length(variable)==1 & is.character(variable)) variable <- data[[variable]]
+    # if (length(annotation(variable))==1 & !is.null(labels(variable))) Levs <- as.character(labels(variable)) # old, gave numbers instead of labels for double.item
+    if ("double.item" %in% class(variable) & !is.null(labels(variable))) Levs <- names(as.character(labels(variable)))
+    else if (("character.item" %in% class(variable) | length(memisc::annotation(variable))==1) & !is.null(labels(variable))) Levs <- as.character(labels(variable))
+    else if (is.factor(variable)) Levs <- levels(variable)
+    else if (is.numeric(variable)) {
+      if (length(unique(variable)) > max_values) {
+        Levs <- round(c(min(variable, na.rm = T), max(variable, na.rm = T)), 3)
+        names(Levs) <- c("min", "max")
+      } else Levs <- round(sort(unique(variable)), 3) }
+    else if (is.character(variable)) Levs <- if (length(unique(variable)) > max_values) "[string variable]" else as.character(unique(variable))
+    else if (is.logical(variable)) Levs <- if (any(is.pnr(variable))) "TRUE / FALSE / NA" else "TRUE / FALSE"
+    if (concatenate) {
+      if (is.null(names(Levs))) Levs <- paste(Levs, collapse = " / ")
+      else Levs <- paste(sapply(1:length(Levs), function(i) return(paste0(names(Levs)[i], ": ", Levs[i]))), collapse = " / ")
+    }
+  } else {
+    Levs <- decrit(variable, miss = miss, numbers = numbers, data = data)$values$value
+    if (is.null(Levs)) {
+      if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
+      Levs <- unique(variable)
+      if (concatenate) Levs <- paste(Levs, collapse = " / ") } }
+  if (names & length(names(Levs)) == length(Levs)) Levs <- names(Levs)
+  return(Levs)
+  # if (is.character(var) & length(var)==1) var <- data[[var]]
+  # if (length(annotation(var))>0) { # works but cubmbersome and doesn't allow to get rid of missings
+  #   if (is.character(var)) levels(as.factor(include.missings(var)))
+  #   else return(as.vector(labels(var))) }
+  # else return(levels(as.factor(var))) # as.factor may cause issues as it converts to string
+}
 #' #' # decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
 #' #' #   # if (!missing(data)) variable <- data[[variable]]
 #' #' #   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
@@ -1442,31 +1445,32 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
 #' #' # dev.off()
 #' #' # orca(example, file = "image.png") # BEST METHOD, cf. below
 #' fig_height <- function(nb_bars, large = F) return(ifelse(nb_bars == 1, 140, 220 + 30*(nb_bars - 2)) + 10*nb_bars*large) # 2 ~ 220, 3 ~ 250, 4 ~ 280, 5 ~ 325, 6 ~ 360, 7 ~ 380, TRUE ~ 400 # 2 ~ 200-240, 3 ~ 240-275, 4 ~ 270-340, 5 ~ 320-340, 6 ~ 400, 7 ~ 340-430,
-#' save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='dev', trim = T, format = 'png') {
-#'   if (any(class(plot) %in% c("data.frame", "array"))) {
-#'     # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
-#'     file <- paste(sub("figures", "xlsx", folder), filename, ".xlsx", sep='') # xlsx
-#'     write.xlsx(as.data.frame(plot), file, row.names = T, overwrite = T)
-#'   } else {
-#'     file <- paste0(folder, filename, ".", format)
-#'     # print(file)
-#'     if (grepl('dev', method)) {
-#'       if (format == 'png') {
-#'         dev.copy(png, filename = file, width = width, height = height) # save plot from R (not plotly)
-#'         dev.off() }
-#'       else if (format == 'svg') {
-#'         dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
-#'         dev.off() } # TODO choose width height with PDF
-#'       else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
-#'     }
-#'     else {
-#'       server <- orca_serve() # doesn't work within a function because requires admin rights
-#'       server$export(plot, file = file, width = width, height = height)
-#'       server$close()
-#'     }
-#'     if (trim & format %in% c('png')) image_write(image_trim(image_read(file)), file) # , 'svg'
-#'     if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also code_oecd/crop_pdf.sh and run it in the desired folder
-#' }
+save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='dev', trim = T, format = 'png') {
+  # used in heatmap_wrapper
+  if (any(class(plot) %in% c("data.frame", "array"))) {
+    # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
+    file <- paste(sub("figures", "xlsx", folder), filename, ".xlsx", sep='') # xlsx
+    write.xlsx(as.data.frame(plot), file, row.names = T, overwrite = T)
+  } else {
+    file <- paste0(folder, filename, ".", format)
+    # print(file)
+    if (grepl('dev', method)) {
+      if (format == 'png') {
+        dev.copy(png, filename = file, width = width, height = height) # save plot from R (not plotly)
+        dev.off() }
+      else if (format == 'svg') {
+        dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
+        dev.off() } # TODO choose width height with PDF
+      else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
+    }
+    else {
+      server <- orca_serve() # doesn't work within a function because requires admin rights
+      server$export(plot, file = file, width = width, height = height)
+      server$close()
+    }
+    if (trim & format %in% c('png')) image_write(image_trim(image_read(file)), file) # , 'svg'
+    if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also code_oecd/crop_pdf.sh and run it in the desired folder
+}
 #' save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='orca', format = 'pdf', trim = T) { # in case connection refused, turn off Windows Defender on private networks
 #'   if (any(class(plot) == "data.frame")) {
 #'     # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
@@ -1497,137 +1501,265 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
 #' #'   p.mat <- cor.mtest(data) # corrplot does not work when some packages are loaded before 'corrplot' => if it doesn't work, restart R and load only corrplot.
 #' #'   corrplot(corr, method='color', p.mat = p.mat, sig.level = 0.01, diag=FALSE, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = T, type='upper') #, order='hclust'
 #' #' }
-#' automatic_folder <- function(along = "country_name", data = e, several = "country_comparison") {
-#'   if (along %in% c("country", "country_name", "wave")) {
-#'     folder <- unique(data[[along]])
-#'     if (length(folder) > 1) folder <- paste0('../figures/', several, '/')
-#'     else folder <- paste0("../figures/", folder, "/")
-#'     return(folder)
-#'   } else warning("'folder' missing")
-#' }
-#' heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, percent = FALSE, colors = 'RdYlBu', nb_digits = NULL) { # type in full, upper, lower
-#'   diag <- if(type=="full") T else F
-#'   # color_lims <- if(proportion) c(0,1) else { if (min(data)>=2 & max(data)<= 2) c(-2,2) else c(min(0, data), max(data)) }
-#'   color_lims <- if(proportion) c(0,1) else { if (min(data, na.rm=T)>=2 & max(data, na.rm=T)<= 2) c(-2,2) else c(min(0, data, na.rm=T), max(data, na.rm=T)) }
-#'   if (missing(nb_digits) || is.null(nb_digits)) nb_digits <- if(proportion | percent) 0 else 1
-#'   # color2 <- c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
-#'   # col <- colorRampPalette(color2)(200)
-#'   # # if (proportion) col <- colorRampPalette(c(rep("#67001F", 10), col2))(200)
-#'   par(xpd=TRUE)
-#'   return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
-#' }
-#' heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", special = c(), conditions = c("", ">= 1", "/"), on_control = FALSE, alphabetical = T, export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {
-#'   # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
-#'   # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
-#'   e <- data
-#'   if (on_control) e <- e[e$treatment=="None",]
-#'   if (missing(folder)) folder <- automatic_folder(along, data)
-#'   if (along == "country_name" & !alphabetical & exists("countries_names")) {
-#'     if (exists("countries_names_hm") & any(c('High-income','Middle-income') %in% special)) names <- countries_names_hm else names <- countries_names
-#'     levels <- c()
-#'     for (l in names) if (l %in% Levels(data[[along]], data = data)) levels <- c(levels, l)
-#'   } else levels <- Levels(data[[along]], data = data, values = FALSE)
-#'   nb_vars <- length(vars)
-#'   if (length(conditions)==1) conditions <- rep(conditions[1], nb_vars)
-#'   up_labels <- c(special, levels)
-#'   if (any(c('non-OECD', 'Non-OECD', 'non-oecd') %in% special)) { # TODO manage all df
-#'     if (length(levels) == 14) up_labels <- c(special[!special %in% c('non-OECD', 'Non-OECD', 'non-oecd')], levels)
-#'     else if (levels[15]=="Brazil") up_labels <- c(special[!special %in% c('non-OECD', 'Non-OECD', 'non-oecd')], levels[1:14], "Non-OECD", levels[15:length(levels)])
-#'     else warning("Unkown number of levels") }
-#'   if (any(c('high-income', 'High-income', 'High income') %in% special)) {
-#'     if (length(levels) == 12) up_labels <- c("High-income", levels)
-#'     else if (levels[13]=="Brazil") up_labels <- c(special[!special %in% c('middle-income', 'Middle-income', 'Middle income')], levels[high_income[names(names)]], "Middle-income", levels[!high_income[names(names)]])
-#'     else warning("Unkown number of levels") }
-#'   if (any(c('middle-income', 'Middle-income', 'Middle income') %in% special) & length(levels) == 8)  up_labels <- c("Middle-income", levels)
-#'   if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names)) up_labels <- c(levels[5], "Europe", levels[1:4])
-#'   if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names[1:4])) up_labels <- c("Europe", levels[1:4])
-#'   if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names_fr)) up_labels <- c(levels[3], "Europe", levels[c(1,2,4,5)])
-#'   if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names_fr[1:4])) up_labels <- c("Europe", levels[c(1,2,4)])
-#'   table <- array(NA, dim = c(nb_vars, length(c(special, levels))), dimnames = list(vars, up_labels))
-#'   for (c in up_labels) {
-#'     if (c %in% levels) { df_c <- e[e[[along]]==c,]
-#'     } else if (c %in% c('World', 'world', 'total', 'all')) { df_c <- e
-#'     } else if (c %in% c('OECD', 'oecd', 'EU')) { df_c <- e[which(oecd[e$country]),]
-#'     } else if (c %in% c('non-OECD', 'Non-OECD', 'non-oecd')) { df_c <- e[which(!oecd[e$country]),]
-#'     } else if (c %in% c('high-income', 'High-income', 'High income')) { df_c <- e[which(high_income[e$country]),]
-#'     } else if (c %in% c('middle-income', 'Middle-income', 'Middle income')) { df_c <- e[which(!high_income[e$country]),]
-#'     } else if (c %in% c('Europe', 'Europe4')) { df_c <- e[e$continent == "Europe",]
-#'     } else if (c %in% countries) { df_c <- e[e$country == c,]
-#'     } else if (c %in% c("Eu", "Eu4", "EU4", "EU")) { df_c <- e[e$continent == "Eu4",] 
-#'     } else if (c %in% countries_names) { df_c <- e[e$country_name == c,] }
-#'     for (v in 1:nb_vars) {
-#'       if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) { 
-#'         temp <- df_c
-#'         df_c <- df_c[df_c$wave != "US2",] }
-#'       var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
-#'       if (conditions[v] == "median") {
-#'         if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
-#'         if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
-#'         if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("median(var_c, na.rm = T)")))
-#'       } else {
-#'         if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
-#'         if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
-#'         if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("mean(var_c", conditions[v], ", na.rm = T)")))
-#'       }
-#'       if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) df_c <- temp
-#'     }
-#'   }
-#'   row.names(table) <- labels
-#'   if (sort) table <- table[order(-table[,1]),]
-#'   if (remove_na) table <- table[sapply(1:nrow(table), function(i) { !all(is.na(table[i,])) }), sapply(1:ncol(table), function(j) { !all(is.na(table[,j])) }), drop = FALSE]
-#'   if (transpose) table <- t(table)
-#'   if (export_xls) save_plot(table, filename = sub("figures", "xlsx", paste0(folder, filename)))
-#'   return(table)
-#' }
-#' heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, special = c(),
-#'                             conditions = c("", ">= 1", "/"), data = e, width = NULL, height = NULL, alphabetical = T, on_control = FALSE,
-#'                             export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
-#'                             colors = 'RdYlBu', folder = NULL, weights = T) {
-#'   # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
-#'   # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
-#'   # Longest label: "Richest countries should pay even more to help vulnerable ones" (62 characters, variables_burden_sharing_few).
-#'   # special can be c("World", "OECD")
-#'   if (is.null(folder)) folder <- automatic_folder(along, data)
-#'   if (is.null(width)) width <- ifelse(length(labels) <= 3, 1000, ifelse(length(labels) <= 8, 1550, 1770)) # TODO! more precise than <= 3 vs. > 3
-#'   if (is.null(height)) height <- ifelse(length(labels) <= 3, 163, ifelse(length(labels) <= 8, 400, 600))
-#'   
-#'   for (cond in conditions) {
-#'     filename <- paste(sub("variables_", "", name),
-#'                       case_when(cond == "" ~ "mean",
-#'                                 cond == "median" ~ "median",
-#'                                 cond == "> 0" ~ "positive",
-#'                                 cond == ">= 1" ~ "positive",
-#'                                 cond == "< 0" ~ "negative",
-#'                                 cond == "<= -1" ~ "negative",
-#'                                 cond == ">= 0" ~ "non-negative",
-#'                                 cond == "<= 0" ~ "non-positive",
-#'                                 cond == "== 2" ~ "max",
-#'                                 cond == "== -2" ~ "min",
-#'                                 cond == "-" ~ "difference",
-#'                                 cond == "/" ~ "share", # uses >0 for binary data (detected as neg=0) 
-#'                                 cond == "//" ~ "share_strict", # to use when no one gave a negative answer though it was an option
-#'                                 TRUE ~ "unknown"), sep = "_")
-#'     tryCatch({
-#'       if (cond %in% c("/", "-", "//")) { 
-#'         pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = ">= 1", on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights)
-#'         neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = "<= -1", on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights)
-#'         if (cond == "-") temp <- pos - neg else temp <- pos / (pos + neg)
-#'         if (cond == "/") {
-#'           binary_rows <- which(rowMeans(neg)==0)
-#'           temp[binary_rows,] <- pos[binary_rows,]
-#'           row.names(temp)[binary_rows] <- paste0(row.names(temp)[binary_rows], "*")
-#'         }
-#'         for (i in 1:length(vars)) if (is.logical(data[[vars[i]]])) temp[i, ] <- pos[i, ]
-#'       } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = cond, on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights) }
-#'       if (!missing(labels_along) & length(labels_along) == ncol(temp)) colnames(temp) <- labels_along
-#'       if (sort) temp <- temp[order(-temp[,1]),, drop = FALSE]
-#'       if (export_xls) save_plot(as.data.frame(temp), filename = sub("figures", "xlsx", paste0(folder, filename)))
-#'       heatmap_plot(temp, proportion = ifelse(is.null(proportion), !cond %in% c("median", ""), proportion), percent = percent, nb_digits = nb_digits, colors = colors)
-#'       save_plot(filename = paste0(folder, filename), width = width, height = height, format = format, trim = trim)
-#'       print(paste0(filename, ": success"))
-#'     }, error = function(cond) { print(paste0(filename, ": fail.")) } )
-#'   }
-#' }
+automatic_folder <- function(along = "country_name", data = e, several = "country_comparison") {
+  # used in heatmap_multiple
+  if (along %in% c("country", "country_name", "wave")) {
+    folder <- unique(data[[along]])
+    if (length(folder) > 1) folder <- paste0('../figures/', several, '/')
+    else folder <- paste0("../figures/", folder, "/")
+    return(folder)
+  } else warning("'folder' missing")
+} 
+heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, percent = FALSE, colors = 'RdYlBu', nb_digits = NULL) { # type in full, upper, lower
+  diag <- if(type=="full") T else F
+  # color_lims <- if(proportion) c(0,1) else { if (min(data)>=2 & max(data)<= 2) c(-2,2) else c(min(0, data), max(data)) }
+  color_lims <- if(proportion) c(0,1) else { if (min(data, na.rm=T)>=2 & max(data, na.rm=T)<= 2) c(-2,2) else c(min(0, data, na.rm=T), max(data, na.rm=T)) }
+  if (missing(nb_digits) || is.null(nb_digits)) nb_digits <- if(proportion | percent) 0 else 1
+  # color2 <- c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
+  # col <- colorRampPalette(color2)(200)
+  # # if (proportion) col <- colorRampPalette(c(rep("#67001F", 10), col2))(200)
+  par(xpd=TRUE)
+  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
+}
+heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", special = c(), conditions = c("", ">= 1", "/"), on_control = FALSE, alphabetical = T, export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {
+  # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
+  # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
+  e <- data
+  if (on_control) e <- e[e$treatment=="None",]
+  if (missing(folder)) folder <- automatic_folder(along, data)
+  if (along == "country_name" & !alphabetical & exists("countries_names")) {
+    if (exists("countries_names_hm") & any(c('High-income','Middle-income') %in% special)) names <- countries_names_hm else names <- countries_names
+    levels <- c()
+    for (l in names) if (l %in% Levels(data[[along]], data = data)) levels <- c(levels, l)
+  } else levels <- Levels(data[[along]], data = data, values = FALSE)
+  nb_vars <- length(vars)
+  if (length(conditions)==1) conditions <- rep(conditions[1], nb_vars)
+  up_labels <- c(special, levels)
+  if (any(c('non-OECD', 'Non-OECD', 'non-oecd') %in% special)) { # TODO manage all df
+    if (length(levels) == 14) up_labels <- c(special[!special %in% c('non-OECD', 'Non-OECD', 'non-oecd')], levels)
+    else if (levels[15]=="Brazil") up_labels <- c(special[!special %in% c('non-OECD', 'Non-OECD', 'non-oecd')], levels[1:14], "Non-OECD", levels[15:length(levels)])
+    else warning("Unkown number of levels") }
+  if (any(c('high-income', 'High-income', 'High income') %in% special)) {
+    if (length(levels) == 12) up_labels <- c("High-income", levels)
+    else if (levels[13]=="Brazil") up_labels <- c(special[!special %in% c('middle-income', 'Middle-income', 'Middle income')], levels[high_income[names(names)]], "Middle-income", levels[!high_income[names(names)]])
+    else warning("Unkown number of levels") }
+  if (any(c('middle-income', 'Middle-income', 'Middle income') %in% special) & length(levels) == 8)  up_labels <- c("Middle-income", levels)
+  if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names)) up_labels <- c(levels[5], "Europe", levels[1:4])
+  if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names[1:4])) up_labels <- c("Europe", levels[1:4])
+  if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names_fr)) up_labels <- c(levels[3], "Europe", levels[c(1,2,4,5)])
+  if (any(c("Eu", "Eu4", "EU4", "EU", "Europe") %in% special) & all(levels == countries_names_fr[1:4])) up_labels <- c("Europe", levels[c(1,2,4)])
+  table <- array(NA, dim = c(nb_vars, length(c(special, levels))), dimnames = list(vars, up_labels))
+  for (c in up_labels) {
+    if (c %in% levels) { df_c <- e[e[[along]]==c,]
+    } else if (c %in% c('World', 'world', 'total', 'all')) { df_c <- e
+    } else if (c %in% c('OECD', 'oecd', 'EU')) { df_c <- e[which(oecd[e$country]),]
+    } else if (c %in% c('non-OECD', 'Non-OECD', 'non-oecd')) { df_c <- e[which(!oecd[e$country]),]
+    } else if (c %in% c('high-income', 'High-income', 'High income')) { df_c <- e[which(high_income[e$country]),]
+    } else if (c %in% c('middle-income', 'Middle-income', 'Middle income')) { df_c <- e[which(!high_income[e$country]),]
+    } else if (c %in% c('Europe', 'Europe4')) { df_c <- e[e$continent == "Europe",]
+    } else if (c %in% countries) { df_c <- e[e$country == c,]
+    } else if (c %in% c("Eu", "Eu4", "EU4", "EU")) { df_c <- e[e$continent == "Eu4",]
+    } else if (c %in% countries_names) { df_c <- e[e$country_name == c,] }
+    for (v in 1:nb_vars) {
+      if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) {
+        temp <- df_c
+        df_c <- df_c[df_c$wave != "US2",] }
+      var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
+      if (conditions[v] == "median") {
+        if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
+        if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+        if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("median(var_c, na.rm = T)")))
+      } else {
+        if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
+        if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+        if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("mean(var_c", conditions[v], ", na.rm = T)")))
+      }
+      if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) df_c <- temp
+    }
+  }
+  row.names(table) <- labels
+  if (sort) table <- table[order(-table[,1]),]
+  if (remove_na) table <- table[sapply(1:nrow(table), function(i) { !all(is.na(table[i,])) }), sapply(1:ncol(table), function(j) { !all(is.na(table[,j])) }), drop = FALSE]
+  if (transpose) table <- t(table)
+  if (export_xls) save_plot(table, filename = sub("figures", "xlsx", paste0(folder, filename)))
+  return(table)
+}
+heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, special = c(),
+                            conditions = c("", ">= 1", "/"), data = e, width = NULL, height = NULL, alphabetical = T, on_control = FALSE,
+                            export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
+                            colors = 'RdYlBu', folder = NULL, weights = T) {
+  # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
+  # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
+  # Longest label: "Richest countries should pay even more to help vulnerable ones" (62 characters, variables_burden_sharing_few).
+  # special can be c("World", "OECD")
+  if (is.null(folder)) folder <- automatic_folder(along, data)
+  if (is.null(width)) width <- ifelse(length(labels) <= 3, 1000, ifelse(length(labels) <= 8, 1550, 1770)) # TODO! more precise than <= 3 vs. > 3
+  if (is.null(height)) height <- ifelse(length(labels) <= 3, 163, ifelse(length(labels) <= 8, 400, 600))
+
+  for (cond in conditions) {
+    filename <- paste(sub("variables_", "", name),
+                      case_when(cond == "" ~ "mean",
+                                cond == "median" ~ "median",
+                                cond == "> 0" ~ "positive",
+                                cond == ">= 1" ~ "positive",
+                                cond == "< 0" ~ "negative",
+                                cond == "<= -1" ~ "negative",
+                                cond == ">= 0" ~ "non-negative",
+                                cond == "<= 0" ~ "non-positive",
+                                cond == "== 2" ~ "max",
+                                cond == "== -2" ~ "min",
+                                cond == "-" ~ "difference",
+                                cond == "/" ~ "share", # uses >0 for binary data (detected as neg=0)
+                                cond == "//" ~ "share_strict", # to use when no one gave a negative answer though it was an option
+                                TRUE ~ "unknown"), sep = "_")
+    tryCatch({
+      if (cond %in% c("/", "-", "//")) {
+        pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = ">= 1", on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights)
+        neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = "<= -1", on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights)
+        if (cond == "-") temp <- pos - neg else temp <- pos / (pos + neg)
+        if (cond == "/") {
+          binary_rows <- which(rowMeans(neg)==0)
+          temp[binary_rows,] <- pos[binary_rows,]
+          row.names(temp)[binary_rows] <- paste0(row.names(temp)[binary_rows], "*")
+        }
+        for (i in 1:length(vars)) if (is.logical(data[[vars[i]]])) temp[i, ] <- pos[i, ]
+      } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, special = special, conditions = cond, on_control = on_control, alphabetical = alphabetical, sort = FALSE, weights = weights) }
+      if (!missing(labels_along) & length(labels_along) == ncol(temp)) colnames(temp) <- labels_along
+      if (sort) temp <- temp[order(-temp[,1]),, drop = FALSE]
+      if (export_xls) save_plot(as.data.frame(temp), filename = sub("figures", "xlsx", paste0(folder, filename)))
+      heatmap_plot(temp, proportion = ifelse(is.null(proportion), !cond %in% c("median", ""), proportion), percent = percent, nb_digits = nb_digits, colors = colors)
+      save_plot(filename = paste0(folder, filename), width = width, height = height, format = format, trim = trim)
+      print(paste0(filename, ": success"))
+    }, error = function(cond) { print(paste0(filename, ": fail.")) } )
+  }
+}
+fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, conditions = c("", ">= 1", "/"), sort = FALSE, percent = FALSE, proportion = NULL, nb_digits = NULL, labels = labels_vars) {
+  # list_var_list can be NULL, a named list of vectors of variables, a named list of type heatmaps_defs, or a list of names of (existing) vectors of variables (with or without the prefix 'variables_')
+  # /!\ Bug if an object named 'heatmaps' exists in the environment.
+  if (missing(list_var_list)) list_var_list <- list()
+  if (is.character(list_var_list)) {
+    vec_vars <- list_var_list
+    list_var_list <- list()
+    for (vars in vec_vars) {
+      vars <- sub("variables_", "", vars)
+      if (!vars %in% names(heatmaps)) list_var_list[[vars]]$vars <- eval(str2expression(paste0("variables_", vars))) # do not override an already defined variable vec with this name
+    } 
+  }  
+  if (length(list_var_list) != length(names(list_var_list))) warning("'list_var_list' cannot be an unnamed list.")
+  # We fill heatmaps with the entries given in input
+  for (name in names(list_var_list)) {
+    if (!is.list(list_var_list[[name]])) list_var_list[[name]] <- list(vars = list_var_list[[name]])
+    var_list <- list_var_list[[name]]
+    if (!name %in% names(heatmaps)) heatmaps[[name]] <- var_list
+    else for (key in names(var_list)) heatmaps[[name]][[key]] <- var_list[[key]] # TODO? if (!key %in% names(heatmaps[[name]])) ?
+  }
+  # We complete the missing fields of heatmaps 
+  for (name in names(heatmaps)) {
+    if (!"name" %in% names(heatmaps[[name]])) heatmaps[[name]]$name <- name
+    if (!"labels" %in% names(heatmaps[[name]])) {
+      if (!"vars" %in% names(heatmaps[[name]])) { warning(paste("'vars' must be specified for", name)) }
+      heatmaps[[name]]$labels <- c()
+      for (var in heatmaps[[name]]$vars) heatmaps[[name]]$labels <- c(heatmaps[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), sep = "\n"))
+    }
+    if (!"conditions" %in% names(heatmaps[[name]])) heatmaps[[name]]$conditions <- conditions
+    if (!"sort" %in% names(heatmaps[[name]])) heatmaps[[name]]$sort <- sort
+    if (!"percent" %in% names(heatmaps[[name]])) heatmaps[[name]]$percent <- percent
+    if (!"proportion" %in% names(heatmaps[[name]])) heatmaps[[name]]$proportion <- proportion
+    if (!"nb_digits" %in% names(heatmaps[[name]])) heatmaps[[name]]$nb_digits <- nb_digits
+  }
+  return(heatmaps)
+}
+
+heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, weights = T, folder = NULL, name = NULL, along = "country_name") {
+  for (heatmap in heatmaps) {
+    vars_present <- heatmap$vars %in% names(data)
+    # if (any(c("gcs_support", "nr_support", "gcs_support_100") %in% heatmap$vars)) data <- data[data$wave != "US2",]
+    # TODO special = c("Europe")
+    heatmap_wrapper(vars = heatmap$vars[vars_present], special = c(), data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort, 
+                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, trim = trim, weights = weights, folder = folder, along = along)   
+  }
+}
+
+# TODO! option to not display main label from barresN
+barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T) {
+  if (missing(folder)) folder <- automatic_folder(along = "country", data = df, several = "all")
+  for (def in barres) {
+    tryCatch({
+      vars_present <- def$vars %in% names(df)
+      if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
+                                                   miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights)
+      else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
+                           miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights)
+      if (print) print(plot)
+      save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
+      print(paste0(def$name, ": success"))
+    }
+    , error = function(cond) { print(paste0(def$name, ": failed.")) } )
+  }
+}
+
+fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, country = NULL, miss = FALSE, sort = T, thin = T, rev = FALSE, rev_color = T, along = NULL,
+                        short_labels = T, width = 850, labels_max_length = 57) { # width/height could be NULL by default as well, so plotly decides the size , height = dev.size('px')[2], width = dev.size('px')[1]
+  # list_var_list can be NULL, a named list of vectors of variables, a named list of type plots_defs, or a list of names of (existing) vectors of variables (with or without the prefix 'variables_')
+  # If df$var and variables_var both exist, giving 'var' (resp. 'variables_var') will yield var (resp. variables_var)
+  # /!\ Bug if an object named 'plots' exists in the environment.
+  if (!exists("labels_vars")) warning("'labels_vars' should exist but does not.")
+  labels <- labels_vars
+  if (exists("labels_vars_short_html") & short_labels) labels[names(labels_vars_short_html)] <- labels_vars_short_html
+  # if (grepl("us", deparse(substitute(df)))) labels[names(labels_vars_us)] <- labels_vars_us
+  # c <- if (deparse(substitute(df)) != "e") gsub("[0-9p]*", "",  deparse(substitute(df))) else if (length(unique(df$country)) == 1) unique(df$country)[1] else NULL
+  c <- if (length(unique(df$country)) == 1) unique(df$country)[1] else NULL
+  if (!is.null(c)) labels[names(labels_vars_country[[c]])] <- labels_vars_country[[c]]
+  if (!is.null(country)) labels[names(labels_vars_country[[country]])] <- labels_vars_country[[country]]
+  if (missing(list_var_list)) list_var_list <- list()
+  if (is.character(list_var_list)) {
+    vec_vars <- list_var_list
+    list_var_list <- list()
+    for (vars in vec_vars) {
+      multi <- grepl("^variables_", vars) | (exists(paste0("variables_", vars)) & !vars %in% names(df))
+      variables <- ifelse(multi, paste0("variables_", sub("variables_", "", vars)), sub("variables_", "", vars))
+      if (!vars %in% names(plots)) list_var_list[[vars]]$vars <- if (multi) eval(str2expression(variables)) else variables # do not override an already defined variable vec with this name
+    } 
+  }  
+  if (length(list_var_list) != length(names(list_var_list))) warning("'list_var_list' cannot be an unnamed list.")
+  # We fill plots with the entries given in input
+  for (name in names(list_var_list)) {
+    if (!is.list(list_var_list[[name]])) list_var_list[[name]] <- list(vars = list_var_list[[name]])
+    var_list <- list_var_list[[name]]
+    if (!name %in% names(plots)) plots[[name]] <- var_list
+    else for (key in names(var_list)) plots[[name]][[key]] <- var_list[[key]] 
+  }
+  # We complete the missing fields of plots 
+  for (name in names(plots)) {
+    if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- if (name %in% names(df)) name else if (exists(paste0("variables_", sub("variables_", "", name)))) eval(str2expression(paste0("variables_", sub("variables_", "", name)))) else warning(paste(name, "not found"))
+    if (!"name" %in% names(plots[[name]])) plots[[name]]$name <- name
+    if (!"labels" %in% names(plots[[name]])) {
+      plots[[name]]$labels <- c()
+      for (var in plots[[name]]$vars) plots[[name]]$labels <- c(plots[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), max_length = labels_max_length))
+    }
+    # if (!"share_labels" %in% names(plots[[name]])) plots[[name]]$share_labels <- NA
+    # if (!"margin_l" %in% names(plots[[name]])) plots[[name]]$margin_l <- NA
+    if (!"miss" %in% names(plots[[name]])) plots[[name]]$miss <- miss
+    if (!"sort" %in% names(plots[[name]])) plots[[name]]$sort <- sort
+    if (!"along" %in% names(plots[[name]])) plots[[name]]$along <- along
+    if (!"rev" %in% names(plots[[name]])) plots[[name]]$rev <- rev
+    if (!"rev_color" %in% names(plots[[name]])) plots[[name]]$rev_color <- rev_color
+    if (!"fr" %in% names(plots[[name]])) plots[[name]]$fr <- FALSE
+    if (!"title" %in% names(plots[[name]])) plots[[name]]$title <- ""
+    vars_in <- plots[[name]]$vars[plots[[name]]$vars %in% names(df)]
+    var_example <- vars_in[1]
+    if (!"legend" %in% names(plots[[name]]) & !is.na(var_example)) plots[[name]]$legend <- dataKN(vars = vars_in, data=df, miss=plots[[name]]$miss, return = "legend", fr = plots[[name]]$fr, rev = plots[[name]]$rev, rev_legend = plots[[name]]$rev)
+    # yes_no <- setequal(plots[[name]]$legend, c('Yes', 'No', 'PNR')) | setequal(plots[[name]]$legend, c('Oui', 'Non', 'NSP')) | setequal(plots[[name]]$legend, c('Yes', 'No')) | setequal(plots[[name]]$legend, c('Oui', 'Non'))
+    # if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example))  T else (!is.binary(df[[var_example]]) | yes_no)
+    if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
+    if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
+    if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
+    if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
+    if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
+  }
+  return(plots)
+}
+
 #' 
 #' #' ##### Other #####
 #' #' CImedian <- function(vec) { # 95% confidence interval

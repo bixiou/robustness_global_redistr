@@ -13,7 +13,15 @@ median(p$duration[!p$variant_long & !p$cut])
 
 # TODO field, conjoint
 
-with(p, summary(lm(split_global ~ nb_global))) # TODO
+decrit("revenue_split_few_global", p)
+sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$revenue_split_few_global, na.rm = T), 3))
+sapply(paste0(pilot_countries, "p"), function(c) round(median(d(c)$revenue_split_few_global, na.rm = T)))
+decrit("split_many_global", p)
+decrit("split_both_global", p)
+decrit("split_nb_global", p)
+decrit("split_both_nb_global", p)
+with(p, summary(lm(split_many_global ~ split_nb_global))) 
+with(p, summary(lm(split_both_global ~ split_both_nb_global * variant_split))) 
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
@@ -21,13 +29,14 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$gcs_belief, na.
 
 with(p, summary(lm(ics_support %in% "Yes" ~ variant_gcs)))
 
-with(p, summary(lm((likely_solidarity > 0) ~ info_solidarity + variant_info_solidarity))) # TODO!
-with(p, summary(lm(nb_solidarity_supported ~ info_solidarity + variant_info_solidarity))) # TODO
+with(p, summary(lm((likely_solidarity > 0) ~ info_solidarity + variant_info_solidarity)))
+with(p, summary(lm(share_solidarity_supported ~ info_solidarity + variant_info_solidarity))) 
+with(p, summary(lm(share_solidarity_short_supported ~ info_solidarity + variant_info_solidarity))) 
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3))
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3))
-with(p, summary(lm(tax_support ~ variant_tax))) # TODO
+with(p, summary(lm(top_tax_support ~ variant_wealth_tax)))
 
 CrossTable(p$ncqg, p$country, prop.t = F, prop.r = F, prop.chisq = F, prop.c = T, total.c = F, total.r = F, cell.layout = F) 
 
@@ -35,9 +44,9 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$sustainable_fut
 with(p, summary(lm(sustainable_future ~ variant_sustainable_future))) 
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$top_tax_support, na.rm = T), 3))
-with(p, summary(lm(top_tax_support ~ variant_radical_redistr * variant_long)))  # TODO!
-
-# TODO heatmaps: transfer_how, solidarity_support, global_movement, why_help_lic
+with(p, summary(lm(top_tax_support ~ variant_top_tax * variant_long)))  
+with(p, summary(lm(top_tax_support ~ variant_top_tax_full)))  
+with(p, summary(lm(top_tax_support ~ variant_top_tax)))
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$vote_intl_coalition > 0, na.rm = T), 3))
 
@@ -61,12 +70,13 @@ with(p, summary(lm(custom_redistr_winners ~ variant_sliders)))
 with(p, summary(lm(custom_redistr_winners ~ variant_sliders, subset = custom_redistr_satisfied == T)))
 with(p, summary(lm(custom_redistr_losers ~ variant_sliders, subset = custom_redistr_satisfied == T)))
 with(p, summary(lm(custom_redistr_degree ~ variant_sliders, subset = custom_redistr_satisfied == T)))
-with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = custom_redistr_satisfied == T))) # TODO
+with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = custom_redistr_satisfied == T))) # TODO: compute transfer for each
 # 500-150-5 => transfer: 5.8% / demogrant: 299$/month
 # 401-101-7.1 => transfer: 4.3% / demogrant: 298$/month
 # 601-201-2.1 => transfer: 4.6% / demogrant: 185$/month
 
-with(p, summary(lm(well_being ~ variant_well_being))) # TODO
+with(p, summary(lm(well_being ~ variant_well_being))) 
+with(p, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$group_defended > 0, na.rm = T), 3))
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3))

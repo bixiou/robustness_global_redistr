@@ -1,8 +1,8 @@
-for (i in 1:length(e)) {
-  # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
-  print(paste(i, label(e[[i]])))
-  # print(names(e)[i])
-}
+# for (i in 1:length(e)) {
+#   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
+#   print(paste(i, label(e[[i]])))
+#   # print(names(e)[i])
+# }
 
 rename_survey <- function(e, pilot = FALSE) {
   if (pilot) {
