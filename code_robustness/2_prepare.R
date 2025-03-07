@@ -101,7 +101,7 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   if (all) print(summary(lm(Q_TotalDuration/60 ~ (long > .42) * cut, data = e, subset = ((is.na(e$Q_TerminateFlag)) & e$Finished %in% c(TRUE, "TRUE", 1)))))
   cat("___________________________________________")
 }
-for (p in pilots) stats_exclude(p)
+# for (p in pilots) stats_exclude(p)
 
 weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
   if (!missing(variant)) print(variant)
@@ -199,10 +199,12 @@ define_var_lists <- function() {
   text_pnr <<- c("Prefer not to say")
   variables_solidarity_support <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
     "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_loss_damage", "solidarity_support_ncqg_300bn", "solidarity_support_shipping_levy", "solidarity_support_aviation_levy")
+  variables_solidarity_support_short <<- paste0(c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
+                                     "solidarity_support_bridgetown"), "_short")
   # variables_support <<- names(e)[grepl('support', names(e))]
   wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
   top_tax_support <<- c("top1_tax_support", "top3_tax_support", "top1_tax_support_cut", "top3_tax_support_cut")
-  variables_likert <<- c(variables_solidarity_support, top_tax_support, "reparations_support")
+  variables_likert <<- c(variables_solidarity_support, top_tax_support, "reparations_support", variables_solidarity_support_short)
   variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", wealth_tax_support, "couple")
   variables_race <<- c("race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
@@ -227,17 +229,38 @@ define_var_lists <- function() {
   variables_split_maritime <<- c("maritime_split_ldc", "maritime_split_companies", "maritime_split_decarbonization")
   variables_split <<- c(variables_split_few, variables_split_many, variables_split_maritime)
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief", variables_split)
+  variables_well_being <<- c("well_being_gallup_0", "well_being_gallup_1", "well_being_wvs_0", "well_being_wvs_1")
+  variables_transfer_how <- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
+                              "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")
+  variables_sustainable_future <<- c("sustainable_future_a", "sustainable_future_s", "sustainable_future_b")
 }
 # for (v in names(e)) if (length(unique(e[[v]])) == 2) print(v)
 # for (v in names(e)) if ("No" %in% unique(e[[v]])) print(v)
 # for (v in names(e)) if (is.logical(e[[v]])) print(v)
 # names(e)[grepl('race', names(e))]
-# cat(names(e)[grepl('split', names(e)) & !grepl('order', names(e))], sep = '", "')
+cat(names(e)[grepl('sustainable', names(e)) & !grepl('order', names(e))], sep = '", "')
+
+create_item <- function(var, labels, df, grep = FALSE, keep_original = FALSE, missing.values = NA, values = names(labels), annotation = NULL) {
+  # Creates a memisc item s.t. var %in% values[[i]] will yield value/label labels[i]/names(labels)[i]
+  # var: a character or vector of characters
+  # labels: a named numeric vector
+  # missing.values: a numeric or character vector
+  # values: a vector of characters or a list of such vectors
+  if (length(var) > 1) { 
+    for (v in var) df <- create_item(v, df = df, labels = labels, grep = grep, missing.values = missing.values, values = values, annotation = NULL)
+  } else { if (var %in% names(df)) {
+    # print(var)
+    if (keep_original) df[[paste0(var, "_original")]] <- df[[var]]
+    temp <- NA
+    for (i in seq(labels)) temp[if (grep) grepl(values[[i]], df[[var]]) else df[[var]] %in% values[[i]]] <- labels[i] 
+    temp[is.na(df[[var]])] <- NA
+    df[[var]] <- as.item(temp, labels = labels, grep = grep, missing.values = missing.values, annotation = if (is.null(annotation)) Label(df[[var]]) else annotation) 
+  }  }
+  return(df)
+}
 
 convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) {
   define_var_lists()
-  # sociodemos, millionaire, field, conjoint, split, likely_solidarity, gcs_belief, donation, ncqg, sustainable_future, attention, transfer_how, vote_intl_coalition, 
-  # well_being, gcs_comprehension, my_tax_global_nation, group_defended, survey_biased, long
   
   for (i in intersect(variables_numeric, names(e))) {
     lab <- label(e[[i]])
@@ -245,12 +268,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     label(e[[i]]) <- lab
   }
   for (v in intersect(variables_duration, names(e))) e[[v]] <- e[[v]]/60
-  
-  for (j in intersect(variables_yes_no, names(e))) {
-    temp <- 1*(e[j][[1]] %in% "Yes") - 0.1*(e[j][[1]] %in% text_pnr) # - (e[j][[1]] %in% text_no)
-    temp[is.na(e[j][[1]])] <- NA
-    e[j][[1]] <- as.item(temp, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), missing.values = c("",NA,"PNR"), annotation=attr(e[j][[1]], "label"))
-  }
+  label(e$duration) <- "duration: Duration (in min)"
   
   for (j in intersect(variables_binary, names(e))) { # TODO: variant NAs
     temp <- label(e[[j]])
@@ -262,15 +280,54 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   if ("attention_test" %in% names(e)) e$attentive <- e$attention_test %in% "A little"
   
-  for (v in intersect(variables_likert, names(e))) {
-    if (v %in% names(e)) {
-      temp <-  temp <- 2 * (e[[v]] %in% "Strongly support") + (e[[v]] %in% "Somewhat support") - (e[[v]] %in% "Somewhat oppose") - 2 * (e[[v]] %in% "Strongly oppose")
-      temp[is.na(e[[v]])] <- NA
-      # e[[v]] <- as.item(temp, labels = structure(c(-2:2), names = c("Strongly oppose","Somewhat oppose","Indifferent","Somewhat support","Strongly support")), missing.values=c(NA), annotation=Label(e[[v]])) 
-      e[[v]] <- as.item(temp, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), missing.values = NA, annotation=Label(e[[v]])) 
-  } }
+  # for (j in intersect(variables_yes_no, names(e))) {
+  #   temp <- 1*(e[j][[1]] %in% "Yes") - 0.1*(e[j][[1]] %in% text_pnr) # - (e[j][[1]] %in% text_no)
+  #   temp[is.na(e[j][[1]])] <- NA
+  #   e[j][[1]] <- as.item(temp, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), missing.values = c("",NA,"PNR"), annotation=attr(e[j][[1]], "label"))
+  # }
+  # 
+  # for (v in intersect(variables_likert, names(e))) {
+  #   if (v %in% names(e)) {
+  #     temp <- 2 * (e[[v]] %in% "Strongly support") + (e[[v]] %in% "Somewhat support") - (e[[v]] %in% "Somewhat oppose") - 2 * (e[[v]] %in% "Strongly oppose")
+  #     temp[is.na(e[[v]])] <- NA
+  #     # e[[v]] <- as.item(temp, labels = structure(c(-2:2), names = c("Strongly oppose","Somewhat oppose","Indifferent","Somewhat support","Strongly support")), missing.values=c(NA), annotation=Label(e[[v]])) 
+  #     e[[v]] <- as.item(temp, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), missing.values = NA, annotation=Label(e[[v]])) 
+  # } }
+  e$variant_long <- e$long > .42 # info_solidarity; nb_solidarity; top_tax_support
+  # cut: fields; transfer_how OR radical redistr; custom redistr; comprehension
+  e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
+  e <- create_item(variables_likert, c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e)
+  e <- create_item("millionaire", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
+  e <- create_item("likely_solidarity", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
+  e <- create_item("ncqg", c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "More loans" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
+                   grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "Increase loans", "\\$200", "\\$600", "\\$1,000"), df = e)
+  e <- create_item("ncqg_full", c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
+                   grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
+  if (all(c("ncqg", "ncqg_full") %in% names(e))) {
+    e$variant_ncqg <- ifelse(e$variant_ncqg_maritime %in% 2, "full", "new")
+    label(e$variant_ncqg) <- "variant_ncqg: full/new. full: A lot of explanations, answers in numerical grant-equivalent; new: Shorter, answers in terms of who defends them or what they mean."
+    # e$ncqg_fusion <- as.character(e$ncqg_original)
+    # e$ncqg_fusion[e$variant_ncqg %in% "full"] <- as.character(e$ncqg_full_original)[e$variant_ncqg %in% "full"]
+    e$ncqg_fusion <- ifelse(e$variant_ncqg %in% "full", as.character(e$ncqg_full_original), as.character(e$ncqg_original))
+    e <- create_item("ncqg_fusion", c("$0" = 0, "Less" = 10, "Stable" = 26, "More loans" = 30, "$100 bn" = 100, "$200 bn" = 200, "300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1e3, "$5,000 bn" = 5e3),
+                   grep = T, values = c("Stop|\\$0", "Reduce", "\\$26", "Increase loans", "\\$100", "\\$200", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
+  }
+  e <- create_item(variables_transfer_how, c("Wrong" = -1, "Acceptable" = 0, "Right" = 1, "Best" = 2), grep = T, values = c("wrong", "acceptable", "right", "best"), df = e)
+  e$variant_sustainable_future <- ifelse(!is.na(e$sustainable_future_a), "a", ifelse(!is.na(e$sustainable_future_b), "b", "s"))
+  label(e$variant_sustainable_future) <- "variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points)."
+  e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
+  e <- create_item("vote_intl_coalition", c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
+  e <- create_item("gcs_comprehension", c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
+  e$gcs_understood <- e$gcs_comprehension == 1
+  e <- create_item("my_tax_global_nation", c("Strongly disagree" = -2, "Disagree" = -1, "Neither agree nor disagree" = 0, "Agree" = 1, "Strongly agree" = 2), df = e)
+  e <- create_item("group_defended", c("Family and self" = -2, "Region, continent or religion" = -1, "Fellow citizens" = 0, "Humans" = 1, "Sentient beings" = 2),
+                   grep = T, values = c("family", "religion", "Americans", "Humans", "Sentient"), df = e) # In NHB 0-7, Relatives 1; Culture/religion 3; Europeans 5
+  e <- create_item("survey_biased", c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
+
+  # TODO: variant, sociodemos, field, conjoint
   
-  # TODO display
+  for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
+  for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
   
   return(e)
 }
@@ -286,6 +343,9 @@ e <- USp
 for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
 for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
 for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
+for (c in paste0(pilot_countries, "p")) print(paste(c, mean(d(c)$gcs_support %in% "Yes")))
+summary(lm(gcs_support %in% "Yes" ~ country, data = p))
+summary(lm(ics_support %in% "Yes" ~ variant_gcs, data = p))
 
 for (i in 1:length(e)) {
   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
