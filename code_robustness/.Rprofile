@@ -91,7 +91,7 @@ package("gmodels") # CrossTable
 #' if (!is.element("gdata", installed.packages()[,1])) package("memisc")
 #' package('gdata')
 # package("descr") # CrossTable
-# package("quantreg")
+package("quantreg")
 # package("segmented")
 #' package("rcompanion")
 # package("DescTools") # Gini

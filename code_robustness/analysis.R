@@ -1,5 +1,8 @@
+with(p, summary(rq(duration ~ variant_long * cut))) # 19 + 1*long - 4*cut
+with(p, summary(rq(duration ~ country))) 
+with(p, summary(rq(duration ~ variant_long * cut * country)))
 with(p, summary(lm(duration ~ variant_long * cut)))
-with(p, summary(lm(duration ~ country))) # TODO! quantreg
+with(p, summary(lm(duration ~ country))) 
 with(p, summary(lm(duration ~ variant_long * cut * country)))
 median(p$duration)
 median(p$duration[p$variant_long & !p$cut])
@@ -18,8 +21,8 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$gcs_belief, na.
 
 with(p, summary(lm(ics_support %in% "Yes" ~ variant_gcs)))
 
-with(p, summary(lm((likely_solidarity > 0) ~ variant_info_solidarity))) # TODO!
-with(p, summary(lm(nb_solidarity_supported ~ variant_info_solidarity))) # TODO
+with(p, summary(lm((likely_solidarity > 0) ~ info_solidarity + variant_info_solidarity))) # TODO!
+with(p, summary(lm(nb_solidarity_supported ~ info_solidarity + variant_info_solidarity))) # TODO
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3))

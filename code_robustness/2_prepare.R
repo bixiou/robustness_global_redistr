@@ -46,7 +46,8 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   cat("\n")
   cat(paste("\nSURVEY:", data_name))
   cat("\n\n")
-  e <- d(data_name)
+  e <- read_csv(paste0("../data_raw/", data_name, ".csv"))
+  # e <- d(data_name)
   # if (descr) {
   #   for (v in names(e)[1:80]) { print(decrit(v, e)); print("____________");}
   #   for (v in names(e)[81:160]) { print(decrit(v, e)); print("____________");}
@@ -102,6 +103,9 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   cat("___________________________________________")
 }
 # for (p in pilots) stats_exclude(p)
+stats_exclude("USp")
+# e <- read_csv(paste0("../data_raw/USp.csv"))
+# write.csv(e$zipcode[e$urbanity %in% 0], "../data_ext/unrecognized_zipcodes_US.csv", quote = F, row.names = F)
 
 weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
   if (!missing(variant)) print(variant)
@@ -329,12 +333,19 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
   
+  e$info_solidarity <- e$variant_realism %in% 1
+  e$variant_info_solidarity <- ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")
+  
+  for (v in variables_solidarity_support_short) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
+  for (v in variables_solidarity_support_short) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
+  # e$nb_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0, na.rm = T)  #TODO!
+  
   return(e)
 }
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
