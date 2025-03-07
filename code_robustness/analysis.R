@@ -1,5 +1,5 @@
 with(p, summary(lm(duration ~ variant_long * cut)))
-with(p, summary(lm(duration ~ country))) # TODO quantreg
+with(p, summary(lm(duration ~ country))) # TODO! quantreg
 with(p, summary(lm(duration ~ variant_long * cut * country)))
 median(p$duration)
 median(p$duration[p$variant_long & !p$cut])
@@ -18,7 +18,7 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$gcs_belief, na.
 
 with(p, summary(lm(ics_support %in% "Yes" ~ variant_gcs)))
 
-with(p, summary(lm((likely_solidarity > 0) ~ variant_info_solidarity))) # TODO
+with(p, summary(lm((likely_solidarity > 0) ~ variant_info_solidarity))) # TODO!
 with(p, summary(lm(nb_solidarity_supported ~ variant_info_solidarity))) # TODO
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
@@ -32,7 +32,7 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$sustainable_fut
 with(p, summary(lm(sustainable_future ~ variant_sustainable_future))) 
 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$top_tax_support, na.rm = T), 3))
-with(p, summary(lm(top_tax_support ~ variant_radical_redistr * variant_long)))  # TODO
+with(p, summary(lm(top_tax_support ~ variant_radical_redistr * variant_long)))  # TODO!
 
 # TODO heatmaps: transfer_how, solidarity_support, global_movement, why_help_lic
 
