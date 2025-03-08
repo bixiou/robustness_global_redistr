@@ -17,7 +17,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "name",
       "firstname",
       "mmail",
-      "ref",
+      "id",
       "latitude",
       "longitude",
       "distr",

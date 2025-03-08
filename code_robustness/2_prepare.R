@@ -27,7 +27,7 @@ for (p in pilots) { # pilots
   labels <- readRDS(paste0("../data_raw/labels/", p, ".rds"))
   for (v in names(d(p))) eval(str2expression(paste0("label(", p, "[[v]]) <- labels[[v]]")))
 }
-# GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
+GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
 # write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
 # Slightly different from manual export .csv: no second row with question text; timezone is different (in e.g. startDate); True => TRUE; income bug; some additional "" are removed
 View(GBp)
@@ -143,12 +143,14 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
   else return(weights(raked, lower=0.25, upper=4, strict=TRUE))
 }
 
-prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE) { # scope: all, stayed, final
+prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE, remove_id = NULL) { # scope: all, stayed, final
   sample_name <- paste0(country, if (pilot) "p" else NULL)
+  if (is.null(remove_id)) remove_id <- sample_name != "USp"
   if (fetch) {
     print(country)
     survey_list <- all_surveys()
-    e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F)
+    e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F, col_types = cols("m" = col_character()))
+    if (!remove_id) e$ExternalReference <- e$m
     e <- e[,which(!(names(e) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
     if (rename) e <- rename_survey(e, pilot = pilot)
     for (v in names(e)) label(e[[v]]) <- c(v = paste0(v, ": ", label(e[[v]])))
@@ -193,6 +195,21 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     e$weight_all <- weighting(e, country, variant = "all")
     if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, country, variant = "vote")
     if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
+  }
+  
+  if (sample_name == "USp") {
+    invalid_IDs <- read.csv("../data_ext/invalid_IDs_USp.csv", colClasses = "character")[[1]]
+    # print(decrit(e$gender[e$id %in% invalid_IDs], weight = F))
+    # print(decrit(e$age[e$id %in% invalid_IDs], weight = F))
+    # print(decrit(e$education[e$id %in% invalid_IDs & e$age > 25 & e$age < 65], weight = F))
+    # e$urban_rural <- e$urbanity
+    # e <- create_item("urban_rural", labels = c("Cities" = 1, "Rural" = 2), values = list(1, c(2:4)), df = e)
+    # print(decrit(e$urban_rural[e$id %in% invalid_IDs], weight = F))
+    # print(decrit(e$income_quartile[e$id %in% invalid_IDs], weight = F))
+    # print(decrit(e$region[e$id %in% invalid_IDs], weight = F))
+    # print(decrit(e$race[e$id %in% invalid_IDs], weight = F))
+    e <- e[!e$id %in% invalid_IDs, ]
+    e$id <- NA
   }
   
   return(e)
@@ -284,6 +301,15 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     label(e[[j]]) <- temp
   }
   
+  if ("race_black" %in% names(e)) {
+    e$race <- "Other"
+    e$race[e$race_white==T & e$race_asian == FALSE & e$race_native == FALSE] <- "White only"
+    e$race[e$race_hispanic==T] <- "Hispanic"
+    e$race[e$race_black==T] <- "Black"
+    if (any(e$race == "White only")) e$race <- relevel(as.factor(e$race), "White only")
+    label(e$race) <- "race: White only/Hispanic/Black/Other. True proportions: .601/.185/.134/.08"
+  }
+  
   if ("attention_test" %in% names(e)) e$attentive <- e$attention_test %in% "A little"
   
   # for (j in intersect(variables_yes_no, names(e))) {
@@ -301,6 +327,15 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # } }
   e$variant_long <- e$long > .42 # info_solidarity; nb_solidarity; top_tax_support
   # cut: fields; transfer_how OR radical redistr; custom redistr; comprehension
+  e$age <- e$age_exact
+  e <- create_item("age", labels = c("18-24" = 21.5, "25-34" = 30, "35-49" = 42.5, "50-64" = 57.5, "65+" = 71), 
+                   values = list(c("18 to 20", "21 to 24"), c("25 to 29", "30 to 34"), c("35 to 39", "40 to 44", "45 to 49"), c("50 to 54", "55 to 59", "60 to 64"), 
+                                 c("65 to 69", "70 to 74", "75 to 79", "80 to 84", "85 to 89", "90 to 99", "100 or above")), df = e)
+  e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3", "4|5|6|7"), df = e)
+  e$income_quartile <- e$income
+  e <- create_item("income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  # e$urban_rural <- e$urbanity
+  # e <- create_item("urban_rural", labels = c("Cities" = 1, "Rural" = 2), values = list(1, c(2:4)), df = e)
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
   e <- create_item(variables_likert, c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e)
   e <- create_item("millionaire", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)

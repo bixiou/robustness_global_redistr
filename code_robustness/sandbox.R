@@ -439,3 +439,4 @@ merge_all_countries <- function(df = lapply(countries, function(c) d(c)), weight
   
   return(all)
 }
+
