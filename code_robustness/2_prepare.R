@@ -151,6 +151,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     survey_list <- all_surveys()
     e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F, col_types = cols("m" = col_character()))
     if (!remove_id) e$ExternalReference <- e$m
+    if (!remove_id) e$DistributionChannel <- e$IPAddress
     e <- e[,which(!(names(e) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
     if (rename) e <- rename_survey(e, pilot = pilot)
     for (v in names(e)) label(e[[v]]) <- c(v = paste0(v, ": ", label(e[[v]])))
@@ -429,11 +430,12 @@ countries_EU <- c("Poland")
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p"))
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
 e <- USp
+# sum(duplicated(p$distr))
 
 for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
 for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
