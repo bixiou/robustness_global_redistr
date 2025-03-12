@@ -39,7 +39,13 @@ sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$intl_tax_suppor
 with(p, summary(lm(top_tax_support ~ variant_wealth_tax)))
 
 CrossTable(p$ncqg, p$country, prop.t = F, prop.r = F, prop.chisq = F, prop.c = T, total.c = F, total.r = F, cell.layout = F) 
-
+sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$ncqg, na.rm = T), 3)) # 2.6-3
+sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$ncqg_full, na.rm = T), 3)) # 315-420
+sapply(paste0(pilot_countries, "p"), function(c) round(median(d(c)$ncqg, na.rm = T), 3)) # 3
+sapply(paste0(pilot_countries, "p"), function(c) round(median(d(c)$ncqg_full, na.rm = T), 3)) # 100
+summary(lm(ncqg ~ (age == 21.5) + (education == 3) + race_white, data = USp))
+summary(lm(ncqg ~ (education == 2), data = PLp))
+ 
 sapply(paste0(pilot_countries, "p"), function(c) round(mean(d(c)$sustainable_future, na.rm = T), 3))
 with(p, summary(lm(sustainable_future ~ variant_sustainable_future))) 
 
