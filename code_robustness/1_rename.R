@@ -13,7 +13,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "progress",
       "duration",
       "finished",
-      "date_recored", #"ID_qualtrics",
+      "date_recorded", #"ID_qualtrics",
       "name",
       "firstname",
       "mmail",
