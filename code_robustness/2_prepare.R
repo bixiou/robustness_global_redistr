@@ -396,8 +396,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$variant_well_being_scale <- ifelse(grepl("0", e$variant_well_being), "10", "9")
   e$variant_well_being_wording <- ifelse(grepl("gallup", e$variant_well_being), "Gallup", "WVS")
   
-  e$variant_wealth_tax <- NA
+  e$variant_wealth_tax <- e$wealth_tax_support <- NA
   for (v in variables_wealth_tax_support) e$variant_wealth_tax[!is.na(e[[v]])] <- sub("_tax_support", "", v)
+  for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
+  e <- create_item("wealth_tax_support", c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e)
   
   e$split_nb_global <- rowSums(!is.na(e[, variables_split_many_global]))
   e$split_nb_global[e$variant_split == 1] <- NA
@@ -426,17 +428,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   return(e)
 }
 
-countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United States") # TODO
-names(countries_names) <- pilot_countries
-countries_EU <- c("Poland")
-
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
 e <- USp
+
+countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United States") # TODO
+names(countries_names) <- pilot_countries
+countries_EU <- c("Poland")
+pilot_countries_all <- c(pilot_countries, "")
 # sum(duplicated(p$distr))
 
 for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}

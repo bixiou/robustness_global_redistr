@@ -33,7 +33,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("ncqg", "ncqg_full") 
+vars_barres <- c("ncqg", "ncqg_full", "wealth_tax_support") 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 
@@ -43,7 +43,7 @@ barresN_defs <- fill_barres(vars_barresN, along = "country_name")
 
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
-barres_multiple(barres_defs)
+barres_multiple(barres_defs["wealth_tax_support"])
 barres_multiple(barresN_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])
