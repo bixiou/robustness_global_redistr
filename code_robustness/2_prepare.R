@@ -12,35 +12,35 @@ remove_id <- function(file, folder = "../data_raw/") {
 
 
 ##### Load data #####
-survey_list <- all_surveys()
-pilots <- paste0(c("PL", "GB", "US"), "p") 
-pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots) 
-# cut=0 at March 4 2025, 00:05 Paris time (after 46 PL; 118 GB; 46 US)
-for (p in pilots) { # pilots
-  print(p)
-  data <- fetch_survey(survey_list$id[survey_list$name == pilot_names[p]], include_display_order = T, verbose = T, convert = F)
-  data <- data[,which(!(names(data) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
-  for (v in names(data)) label(data[[v]]) <- c(v = paste0(v, ": ", label(data[[v]])))
-  write_csv(data, paste0("../data_raw/", p, ".csv"), na = "")
-  eval(str2expression(paste0(p, " <- read_csv('../data_raw/", p, ".csv')")))
-  saveRDS(label(data), paste0("../data_raw/labels/", p, ".rds"))
-  labels <- readRDS(paste0("../data_raw/labels/", p, ".rds"))
-  for (v in names(d(p))) eval(str2expression(paste0("label(", p, "[[v]]) <- labels[[v]]")))
-}
-GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
-# write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
-# Slightly different from manual export .csv: no second row with question text; timezone is different (in e.g. startDate); True => TRUE; income bug; some additional "" are removed
-View(GBp)
-  
-for (v in names(GBp)[1:80]) { print(decrit(v, GBp)); print("____________");}
-for (v in names(GBp)[81:160]) { print(decrit(v, GBp)); print("____________");}
-for (v in names(GBp)[161:240]) { print(decrit(v, GBp)); print("____________");}
-for (v in names(GBp)) if (grepl("Q_TotalDuration", v)) { print(decrit(as.numeric(GBp[[v]]))); print("____________");}
-
-table(GBp$ncqg)
-table(GBp$group_defended)
-PLp$comment_field
-decrit(GBp$Q_TerminateFlag)
+# survey_list <- all_surveys()
+# pilots <- paste0(c("PL", "GB", "US"), "p") 
+# pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots) 
+# # cut=0 at March 4 2025, 00:05 Paris time (after 46 PL; 118 GB; 46 US)
+# for (p in pilots) { # pilots
+#   print(p)
+#   data <- fetch_survey(survey_list$id[survey_list$name == pilot_names[p]], include_display_order = T, verbose = T, convert = F)
+#   data <- data[,which(!(names(data) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
+#   for (v in names(data)) label(data[[v]]) <- c(v = paste0(v, ": ", label(data[[v]])))
+#   write_csv(data, paste0("../data_raw/", p, ".csv"), na = "")
+#   eval(str2expression(paste0(p, " <- read_csv('../data_raw/", p, ".csv')")))
+#   saveRDS(label(data), paste0("../data_raw/labels/", p, ".rds"))
+#   labels <- readRDS(paste0("../data_raw/labels/", p, ".rds"))
+#   for (v in names(d(p))) eval(str2expression(paste0("label(", p, "[[v]]) <- labels[[v]]")))
+# }
+# GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
+# # write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
+# # Slightly different from manual export .csv: no second row with question text; timezone is different (in e.g. startDate); True => TRUE; income bug; some additional "" are removed
+# View(GBp)
+#   
+# for (v in names(GBp)[1:80]) { print(decrit(v, GBp)); print("____________");}
+# for (v in names(GBp)[81:160]) { print(decrit(v, GBp)); print("____________");}
+# for (v in names(GBp)[161:240]) { print(decrit(v, GBp)); print("____________");}
+# for (v in names(GBp)) if (grepl("Q_TotalDuration", v)) { print(decrit(as.numeric(GBp[[v]]))); print("____________");}
+# 
+# table(GBp$ncqg)
+# table(GBp$group_defended)
+# PLp$comment_field
+# decrit(GBp$Q_TerminateFlag)
 
 stats_exclude <- function(data_name, all = F, old_names = F) {
   cat("\n")
@@ -103,7 +103,7 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   cat("___________________________________________")
 }
 # for (p in pilots) stats_exclude(p)
-stats_exclude("USp")
+# stats_exclude("USp")
 # e <- read_csv(paste0("../data_raw/USp.csv"))
 # write.csv(e$zipcode[e$urbanity %in% 0], "../data_ext/unrecognized_zipcodes_US.csv", quote = F, row.names = F)
 

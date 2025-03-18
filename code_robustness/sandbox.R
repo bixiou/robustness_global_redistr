@@ -448,7 +448,8 @@ PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, pilot = TR
 tail(PLa$date[PLa$age %in% 21.5])
 tail(PLa$excluded[PLa$urbanity %in% 1])
 tail(PLa$date_recorded[PLa$urbanity %in% 1])
-tail(PLa$date[PLa$education_quota %in% 1 & PLa$final == T], 20)
+PLa$date[PLa$education_quota %in% 1 & PLa$final == T]
+PLa$date[PLa$education_quota %in% 1 & PLa$excluded %in% "QuotaMet"]
 tail(PLa$excluded[PLa$education_quota %in% 1])
 decrit(PLa$education)
 
