@@ -440,3 +440,15 @@ merge_all_countries <- function(df = lapply(countries, function(c) d(c)), weight
   return(all)
 }
 
+GBa <- prepare(country = "GB", scope = "all", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
+tail(GBa$dropout)
+tail(GBp$date_recorded)
+
+PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
+tail(PLa$date[PLa$age %in% 21.5])
+tail(PLa$excluded[PLa$urbanity %in% 1])
+tail(PLa$date_recorded[PLa$urbanity %in% 1])
+tail(PLa$date[PLa$education_quota %in% 1 & PLa$final == T], 20)
+tail(PLa$excluded[PLa$education_quota %in% 1])
+decrit(PLa$education)
+
