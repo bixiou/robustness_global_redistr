@@ -457,7 +457,11 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
       else var <- as.numeric(as.vector(va))
     }
   }
-  describe(var, weights = wgt, descript = lab)
+  output <- capture.output(describe(var, weights = wgt, descript = lab))
+  output_cut <- !any(grepl("Proportion", output)) & !any(grepl("Mean", output)) #& any(grepl("lowest", output))
+  # output_cut <- F
+  if (output_cut) describe(var, weights = wgt, descript = lab, listunique = 25) # listunique gives the maximum number of (long) answers to print (cf. https://www.rdocumentation.org/packages/Hmisc/versions/5.2-2/topics/describe)
+  else describe(var, weights = wgt, descript = lab)
 }
 #' # Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
 #' #   if (setequal(levels(var), c(T, F))) levels <- c(T) # before: not this line

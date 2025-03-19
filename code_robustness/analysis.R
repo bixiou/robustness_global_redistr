@@ -6,6 +6,8 @@ with(p, summary(lm(duration ~ country)))
 with(p, summary(lm(duration ~ variant_long * cut * country)))
 median(p$duration)
 median(p$duration[p$variant_long & !p$cut])
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$duration[p$variant_long & !p$cut], na.rm = T), 3))
+sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$duration[p$variant_long & !p$cut])))
 sum(p$variant_long & !p$cut)
 median(p$duration[p$variant_long & p$cut])
 median(p$duration[!p$variant_long & p$cut])
@@ -88,3 +90,6 @@ sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$group_defen
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3))
 
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$survey_biased > 0, na.rm = T), 3))
+
+sapply(paste0(pilot_countries, "p"), function(c) decrit(paste0("vote_", sub("p", "", c)), d(c)))
+sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
