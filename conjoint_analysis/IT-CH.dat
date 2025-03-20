@@ -1,14 +1,14 @@
 Attributes
-ITCH1:bla,-
-ITCH2:bla,-
-ITCH3:bla,-
-ITCH4:bla,-
-ITCH5:bla,-
+econ_issues:econ_issues1,-
+society_issues:econ_issues1,-
+climate_pol:econ_issues1,-
+tax_system:econ_issues1,-
+foreign_policy:econ_issues1,-
 Weights
-ITCH1:0.5,0.5
-ITCH2:0.5,0.5
-ITCH3:0.5,0.5
-ITCH4:0.5,0.5
-ITCH5:0.5,0.5
+econ_issues:0.5,0.5
+society_issues:0.5,0.5
+climate_pol:0.5,0.5
+tax_system:0.5,0.5
+foreign_policy:0.5,0.5
 Restrictions
 

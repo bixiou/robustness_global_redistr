@@ -1,10 +1,16 @@
-policies_names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies")) # , rowNames = T, rows = c(1, 16:41), cols = 1:6
-languages <- colnames(policies_names)[!grepl("_|[a-z]", colnames(policies_names))]
+d <- function(str, alt_data = eu, alt_var = "country") {
+  if (exists(str) && is.data.frame(eval(str2expression(str)))) return(eval(str2expression(str))) # data from name
+  else return(alt_data[alt_data[[alt_var]] == toupper(str),])
+}
+# policies_names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies")) # , rowNames = T, rows = c(1, 16:41), cols = 1:6
+# languages <- colnames(policies_names)[!grepl("_|[a-z]", colnames(policies_names))]
+# languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", 
+#                           CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
+# conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
 
 policies.names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies", rowNames = T)) #, rows = c(1, 16:41), cols = 1:6))
 policies.names <- policies.names[is.na(as.numeric(row.names(policies.names))), ] # NAs by coercion normal
 
-conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
 formula_cjoint <- as.formula("selected ~ econ_issues + society_issues + climate_pol + tax_system + foreign_policy")
 # formula_cjoint_specific <- as.formula("selected ~ `Economic issues` + `Societal issues` + `Climate policy` + `Tax system` + `Foreign policy`")
 # /!\ If Error in if (any(as.vector(r_1) - as.vector(cross_tab_std[m,... add a (second) blank line at the end of the .dat
@@ -14,6 +20,8 @@ formula_cjoint <- as.formula("selected ~ econ_issues + society_issues + climate_
 amce <- ca <- list() # We should have "Old qualtrics format detected." (otherwise it would assume new format and delete the first observation).
 for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
   print(df)
+  main_language <- languages_country[[sub("p", "", df)]][1]
+  policies_l <- c(unlist(setNames(policies_conjoint[[main_language]], conjoint_attributes)), "-" = "-")
   csv.path <- paste0("../conjoint_analysis/ca_", df, ".csv")
   write.csv(d(df)[!is.na(d(df)$conjoint_number), c(variables_conjoint_all, 'conjoint_number', 'conjoint', 'n')], csv.path, row.names = FALSE)
   temp <- readLines(csv.path)
@@ -22,18 +30,29 @@ for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
   ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_number', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint]
   names(ca[[df]])[1] <- "n"
   ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "n"))], ca[[df]]) # vote
-  for (i in 1:5) {
-    ca[[df]][[conjoint.attributes[i]]] <- as.character(ca[[df]][[conjoint_attributes[i]]]) 
-    for (c in paste0(pilot_countries, "p")) {
-      temp <- which(ca[[df]]$country == c) # & !(ca[[df]][[conjoint_attributes[i]]] %in% c("soc3", "tax3", "-")))
-      ca[[df]][[conjoint.attributes[i]]][temp] <- as.character(policies.names[as.character(ca[[df]][[conjoint_attributes[i]]][temp]), c])
-    }
-    # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "-"] <- "-"
-    # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "soc3"] <- "Making abortion a right at the federal level"
-    # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "tax3"] <- "Increase corporate income tax rate from 21% to 28%"
-    ca[[df]][[conjoint.attributes[i]]] <- as.factor(ca[[df]][[conjoint.attributes[i]]])
-    ca[[df]][[paste0(conjoint.attributes[i], ".rowpos")]] <- ca[[df]][[paste0(conjoint_attributes[i], ".rowpos")]]
-  }
-  design_cjoint <- makeDesign(filename = paste0("../conjoint_analysis/9d_", sub("p", "", c), ".dat")) 
-  amce[[df]] <- amce(formula_cjoint, ca[[df]], design = design_cjoint, cluster = FALSE, weights= NULL)
+  # names(policies_conjoint[["EN-GB"]])
+  # domain_names <- names(policies_conjoint[[main_language]])
+  # for (i in 1:5) {
+  #   # ca[[df]][[domain_names[i]]] <- as.character(ca[[df]][[conjoint_attributes[i]]])
+  #   # ca[[df]][[conjoint.attributes[i]]] <- as.character(ca[[df]][[conjoint_attributes[i]]])
+  #   # for (c in paste0(pilot_countries, "p")) {
+  #   #   temp <- which(ca[[df]]$country == c) # & !(ca[[df]][[conjoint_attributes[i]]] %in% c("soc3", "tax3", "-")))
+  #   #   ca[[df]][[conjoint.attributes[i]]][temp] <- as.character(policies.names[as.character(ca[[df]][[conjoint_attributes[i]]][temp]), c])
+  #   # }
+  #   # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "-"] <- "-"
+  #   # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "soc3"] <- "Making abortion a right at the federal level"
+  #   # ca[[df]][[conjoint.attributes[i]]][ca[[df]][[conjoint_attributes[i]]] == "tax3"] <- "Increase corporate income tax rate from 21% to 28%"
+  #   ca[[df]][[domain_names[i]]] <- as.factor(gsub(",", ";;", gsub(":", "##", ca[[df]][[conjoint_attributes[i]]])))
+  #   ca[[df]][[paste0(domain_names[i], ".rowpos")]] <- ca[[df]][[paste0(conjoint_attributes[i], ".rowpos")]]
+  # }
+  design_cjoint <- makeDesign(filename = paste0("../conjoint_analysis/", main_language, ".dat")) 
+  # formula_cjoint <- as.formula(paste("selected ~ `", paste0(domain_names, collapse = "` + `"), "`"))
+  amce[[df]] <- amce(formula_cjoint, ca[[df]], design = design_cjoint, cluster = FALSE, weights = NULL)
+  for (i in 1:length(amce[[df]]$attributes)) amce[[df]]$user.names[[i+1]] <- names(policies_conjoint[[main_language]])[i]
+  for (i in 1:length(amce[[df]]$user.levels)) amce[[df]]$user.levels[[i]] <- policies_l[amce[[df]]$user.levels[[i]]]
 }
+View(ca[[df]])
+
+plot(amce$GBp)
+plot(amce$PLp)
+plot(amce$USp)

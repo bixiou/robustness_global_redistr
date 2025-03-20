@@ -207,15 +207,23 @@ write(json, "../conjoint_analysis/policies.json")
 write(json, "../questionnaire/policies.json")
 policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
 
-# Export .dat required to process conjoint analysis results
 for (l in languages) {
   ldat <- "Attributes\n"
-  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(gsub(",", ";", policies_conjoint[[l]][[d]]), collapse = ','), "\n")
+  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, policies_domains[d], ":", paste0(policies_code[policies_conjoint[[l]][[d]]], collapse = ','), "\n")
   ldat <- paste0(ldat, "Weights\n") # /!\ Assumes equal weight for each policy in a given domain
-  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(rep(1/length(policies_conjoint[[l]][[d]]), length(policies_conjoint[[l]][[d]])), collapse = ','), "\n")
+  for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, policies_domains[d], ":", paste0(rep(1/length(policies_conjoint[[l]][[d]]), length(policies_conjoint[[l]][[d]])), collapse = ','), "\n")
   ldat <- paste0(ldat, "Restrictions\n") # /!\ Assumes no restrictions, i.e. no incompatibility between policies
   write(ldat, paste0("../conjoint_analysis/", l, ".dat"))
 }
+# Export .dat required to process conjoint analysis results
+# for (l in languages) {
+#   ldat <- "Attributes\n"
+#   for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(gsub(",", ";;", gsub(":", "##", policies_conjoint[[l]][[d]])), collapse = ','), "\n")
+#   ldat <- paste0(ldat, "Weights\n") # /!\ Assumes equal weight for each policy in a given domain
+#   for (d in names(policies_conjoint[[l]])) ldat <- paste0(ldat, d, ":", paste0(rep(1/length(policies_conjoint[[l]][[d]]), length(policies_conjoint[[l]][[d]])), collapse = ','), "\n")
+#   ldat <- paste0(ldat, "Restrictions\n") # /!\ Assumes no restrictions, i.e. no incompatibility between policies
+#   write(ldat, paste0("../conjoint_analysis/", l, ".dat"))
+# }
 
 
 ##### Export in .csv #####

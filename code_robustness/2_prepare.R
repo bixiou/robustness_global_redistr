@@ -436,7 +436,16 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
   e$n <- paste0(country, 1:nrow(e))
   e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
-  
+  for (v in intersect(variables_conjoint_domains, names(e))) {
+    e[[paste0(v, "_original")]] <- e[[v]]
+    e[[v]] <- policies_domains[e[[v]]] # common policy name for all countries
+  }
+  policies_l <- unlist(setNames(policies_conjoint[[languages_country[[country]][1]]], conjoint_attributes))
+  for (v in intersect(variables_conjoint_policies, names(e))) {
+    e[[paste0(v, "_original")]] <- e[[v]]
+    e[[v]] <- policies_code[e[[v]]]
+    # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
+  }  
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
   # e$global_movement_any[!e$global_movement_asked] <- NA 
   # e$why_hic_help_lic_any <- as.logical(rowSums(e[, variables_why_hic_help_lic[1:3]]))
@@ -457,20 +466,38 @@ countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United S
 names(countries_names) <- pilot_countries
 countries_EU <- c("Poland")
 pilot_countries_all <- c(pilot_countries, "")
+
+languages <- c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
+languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
+policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
+conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
+conjoint.attributes <- c("Economic issues", "Societal issues", "Climate policy", "Tax system", "Foreign policy")
+policies_domains <- c()
+for (l in languages) policies_domains <- c(policies_domains, setNames(conjoint_attributes, names(policies_conjoint[[l]])))
+policies_code <- c()
+for (l in languages) {
+  policies_l <- unlist(setNames(policies_conjoint[[l]], conjoint_attributes))
+  policies_code <- c(policies_code, setNames(names(policies_l), policies_l))
+}
+policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
+# policies_main_language <- policies_english <- c()
+# for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
+
+
 # sum(duplicated(p$distr))
 
-for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
-for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
-for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
-for (c in paste0(pilot_countries, "p")) print(paste(c, mean(d(c)$gcs_support %in% "Yes")))
-summary(lm(gcs_support %in% "Yes" ~ country, data = p))
-summary(lm(ics_support %in% "Yes" ~ variant_gcs, data = p))
-
-for (i in 1:length(e)) {
-  # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
-  print(paste(i, label(e[[i]])))
-  # print(names(e)[i])
-}
+# for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
+# for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
+# for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
+# for (c in paste0(pilot_countries, "p")) print(paste(c, mean(d(c)$gcs_support %in% "Yes")))
+# summary(lm(gcs_support %in% "Yes" ~ country, data = p))
+# summary(lm(ics_support %in% "Yes" ~ variant_gcs, data = p))
+# 
+# for (i in 1:length(e)) {
+#   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
+#   print(paste(i, label(e[[i]])))
+#   # print(names(e)[i])
+# }
 # list2env(setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")), envir = .GlobalEnv)
 # p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, lapply(paste0(pilot_countries, "p"), function(c) d(c)))
 # USp <- prepare(country = "US", scope = "final", fetch = F, convert = T, pilot = TRUE, weighting = FALSE)

@@ -1,14 +1,14 @@
 Attributes
-Économie:Versement du RSA aux 18-25 ans sans emploi,SMIC à 1600€ net par mois,Recul de l'âge légal de départ à la retraite à 65 ans,Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale,-
-Démocratie:Élection des députés à la proportionnelle,Référendum d'Initiative Citoyenne (RIC),-
-Climat:Interdiction des véhicules les plus polluants dans les centres-villes (ZFE),Plan pour l'isolation thermique,Interdiction de la vente de voitures thermiques neuves d'ici 2030,-
-Fiscalité:Plan de redistribution nationale,Rétablissement de l'impôt sur la fortune (ISF),-
-Politique étrangère:Plan mondial pour le climat,Taxe mondiale sur les millionaires,Assemblée démocratique mondiale sur le changement climatique,Doubler l'aide au développement des pays à faibles revenus,-
+econ_issues:econ_issues1,econ_issues2,econ_issues3,econ_issues4,-
+society_issues:society_issues1,society_issues2,-
+climate_pol:climate_pol1,climate_pol2,climate_pol3,-
+tax_system:tax_system1,tax_system2,-
+foreign_policy:foreign_policy1,foreign_policy2,foreign_policy3,foreign_policy4,-
 Weights
-Économie:0.2,0.2,0.2,0.2,0.2
-Démocratie:0.333333333333333,0.333333333333333,0.333333333333333
-Climat:0.25,0.25,0.25,0.25
-Fiscalité:0.333333333333333,0.333333333333333,0.333333333333333
-Politique étrangère:0.2,0.2,0.2,0.2,0.2
+econ_issues:0.2,0.2,0.2,0.2,0.2
+society_issues:0.333333333333333,0.333333333333333,0.333333333333333
+climate_pol:0.25,0.25,0.25,0.25
+tax_system:0.333333333333333,0.333333333333333,0.333333333333333
+foreign_policy:0.2,0.2,0.2,0.2,0.2
 Restrictions
 

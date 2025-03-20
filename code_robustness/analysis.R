@@ -26,8 +26,9 @@ with(p, summary(lm(is.na(field) ~ variant_field)))
 with(p, summary(rq(duration_field ~ variant_field)))
 # concerns & issue give comparable results. issue has slightly shorter/fewer answers.
 
+
 # => Either keep as is or change "in the world" => "of all" for injustice; or have two versions of injustice and take out concerns.
-# -> test "of all" for last 188 US respondents.
+# -> test "of all" for last 188 US respondents; concerns changed to open question on global tax revenue use. TODO analyze
 p$issue_field[!is.na(p$issue_field) & !p$country %in% "PL"] # Short political answers. Main topics: cost of living; immigration; climate; (homelessness; healthcare; animal).
 p$concerns_field[!is.na(p$concerns_field) & !p$country %in% "PL"] # Political answers. Main topics: money; cost of living; immigration; (peace; Trump; job/unemployment).
 p$injustice_field[!is.na(p$injustice_field) & !p$country %in% "PL"] # Short political answers. Main topics: poverty; hunger; inequality; (wars).

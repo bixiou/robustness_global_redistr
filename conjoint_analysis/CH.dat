@@ -1,14 +1,14 @@
 Attributes
-CH1:bla,-
-CH2:bla,-
-CH3:bla,-
-CH4:bla,-
-CH5:bla,-
+econ_issues:econ_issues1,-
+society_issues:econ_issues1,-
+climate_pol:econ_issues1,-
+tax_system:econ_issues1,-
+foreign_policy:econ_issues1,-
 Weights
-CH1:0.5,0.5
-CH2:0.5,0.5
-CH3:0.5,0.5
-CH4:0.5,0.5
-CH5:0.5,0.5
+econ_issues:0.5,0.5
+society_issues:0.5,0.5
+climate_pol:0.5,0.5
+tax_system:0.5,0.5
+foreign_policy:0.5,0.5
 Restrictions
 

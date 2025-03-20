@@ -1,14 +1,14 @@
 Attributes
-Economic issues:Cut federal spending by $1 trillion,Raise the federal minimum wage to $15/hour,Increase the Child and Dependent Care Tax Credit,-
-Social issues:Enhance border security and limit immigration,Ensure nationwide access to abortion as a constitutional right,Deployment of U.S. troops against drug cartels in Mexico,No immunity for crimes committed by a former president,-
-Climate policy:Rejoin the Paris Agreement,Expedite the process for oil and gas drilling permits on federal land,-
-Tax system:Imposing a universal tariff of 20 percent on all U.S. imports,Raising the capital gains tax rate to 28% for individuals earning over $1 million,Extend the Trump tax cuts,-
-Foreign policy:International tax on millionaires with 30% financing healthcare and education in low-income countries,Cut development aid,Negotiate an immediate ceasefire in Ukraine; recognize new Russian territories and withdraw support to Ukraine,-
+econ_issues:econ_issues1,econ_issues2,econ_issues3,-
+society_issues:society_issues1,society_issues2,society_issues3,society_issues4,-
+climate_pol:climate_pol1,climate_pol2,-
+tax_system:tax_system1,tax_system2,tax_system3,-
+foreign_policy:foreign_policy1,foreign_policy2,foreign_policy3,-
 Weights
-Economic issues:0.25,0.25,0.25,0.25
-Social issues:0.2,0.2,0.2,0.2,0.2
-Climate policy:0.333333333333333,0.333333333333333,0.333333333333333
-Tax system:0.25,0.25,0.25,0.25
-Foreign policy:0.25,0.25,0.25,0.25
+econ_issues:0.25,0.25,0.25,0.25
+society_issues:0.2,0.2,0.2,0.2,0.2
+climate_pol:0.333333333333333,0.333333333333333,0.333333333333333
+tax_system:0.25,0.25,0.25,0.25
+foreign_policy:0.25,0.25,0.25,0.25
 Restrictions
 

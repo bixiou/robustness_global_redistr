@@ -1,14 +1,14 @@
 Attributes
-JA1:bla,-
-JA2:bla,-
-JA3:bla,-
-JA4:bla,-
-JA5:bla,-
+econ_issues:econ_issues1,-
+society_issues:econ_issues1,-
+climate_pol:econ_issues1,-
+tax_system:econ_issues1,-
+foreign_policy:econ_issues1,-
 Weights
-JA1:0.5,0.5
-JA2:0.5,0.5
-JA3:0.5,0.5
-JA4:0.5,0.5
-JA5:0.5,0.5
+econ_issues:0.5,0.5
+society_issues:0.5,0.5
+climate_pol:0.5,0.5
+tax_system:0.5,0.5
+foreign_policy:0.5,0.5
 Restrictions
 
