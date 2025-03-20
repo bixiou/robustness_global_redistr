@@ -1,14 +1,14 @@
 Attributes
-Wirtschaftspolitik:Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat,Bürgerversicherung als gerechtere Sozialversicherung,Staatsschuldenquote auf unter 60% reduzieren,Investitionen für Gigabit-Netzwerke bereitstellen,-
-Gesellschaft:Cannabis-Legalisierung,-
-Klimaschutz:Verpflichtende Solaranlagen auf allen geeigneten Dächern,Plan zur Wärmedämmung,Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030,-
-Steuerpolitik:Nationales Umverteilungsprogramm,Die Vermögenssteuer wieder in Kraft setzen,-
-Außenpolitik:Globales Klimaprogramm,Globale Steuer auf Millionäre,Globale demokratische Versammlung zum Klimawandel,Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern,-
+Economic issues:Cut federal spending by $1 trillion,Raise the federal minimum wage to $15/hour,Increase the Child and Dependent Care Tax Credit,-
+Social issues:Enhance border security and limit immigration,Ensure nationwide access to abortion as a constitutional right,Deployment of U.S. troops against drug cartels in Mexico,No immunity for crimes committed by a former president,-
+Climate policy:Rejoin the Paris Agreement,Expedite the process for oil and gas drilling permits on federal land,-
+Tax system:Imposing a universal tariff of 20 percent on all U.S. imports,Raising the capital gains tax rate to 28% for individuals earning over $1 million,Extend the Trump tax cuts,-
+Foreign policy:International tax on millionaires with 30% financing healthcare and education in low-income countries,Cut development aid,Negotiate an immediate ceasefire in Ukraine; recognize new Russian territories and withdraw support to Ukraine,-
 Weights
-Wirtschaftspolitik:0.2,0.2,0.2,0.2,0.2
-Gesellschaft:0.5,0.5
-Klimaschutz:0.25,0.25,0.25,0.25
-Steuerpolitik:0.333333333333333,0.333333333333333,0.333333333333333
-Außenpolitik:0.2,0.2,0.2,0.2,0.2
+Economic issues:0.25,0.25,0.25,0.25
+Social issues:0.2,0.2,0.2,0.2,0.2
+Climate policy:0.333333333333333,0.333333333333333,0.333333333333333
+Tax system:0.25,0.25,0.25,0.25
+Foreign policy:0.25,0.25,0.25,0.25
 Restrictions
 

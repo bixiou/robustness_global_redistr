@@ -1,14 +1,14 @@
 Attributes
-Economic issues:Welfare (RSA) payment to unemployed 18-25 year olds,Minimum wage (SMIC) at 1600€/month net,Raising the legal retirement age to 65,20% increase in funding for public hospitals and National Education,-
-Institutions:Proportional election of MPs,Citizens' Initiative Referendum (RIC),-
-Climate policy:Prohibition of the most polluting vehicles in city centers (ZFE),Plan for thermal insulation,Ban on the sale of new thermal cars by 2030,-
-Tax system:National redistribution plan,Reinstatement of the wealth tax (ISF),-
-Foreign policy:Global Climate Plan,Global Millionaire Tax,Global Democratic Assembly on Climate Change,Double foreign aid to low-income countries,-
+Economic issues:30 hours of free childcare per week for working parents,Healthcare plan: more appointments by utilising overtime employment; recruitment in mental care and dentistry coverage,Raising the minimum wage to £15 per hour,A 4-day working week,-
+Social issues:Legal limit on migration and deportation to Rwanda,Enforce neighbourhood policing through recruitment and new equipment,Increase the Universal Credit for low-income households,-
+Climate policy:Investment in renewables and nuclear to achieve zero-emissions electricity in 2030,A ban on domestic flights for trips under three hours by train,-
+Tax system:Fight tax avoidance by abolishing the non-domiciled tax status,Abolition of National Insurance for the self-employed,Abolish all business rates,-
+Foreign policy:International tax on millionaires with 30% financing healthcare and education in low-income countries,Cut development aid,Deepen Brexit by removing or reforming EU-inherited laws,-
 Weights
 Economic issues:0.2,0.2,0.2,0.2,0.2
-Institutions:0.333333333333333,0.333333333333333,0.333333333333333
-Climate policy:0.25,0.25,0.25,0.25
-Tax system:0.333333333333333,0.333333333333333,0.333333333333333
-Foreign policy:0.2,0.2,0.2,0.2,0.2
+Social issues:0.25,0.25,0.25,0.25
+Climate policy:0.333333333333333,0.333333333333333,0.333333333333333
+Tax system:0.25,0.25,0.25,0.25
+Foreign policy:0.25,0.25,0.25,0.25
 Restrictions
 

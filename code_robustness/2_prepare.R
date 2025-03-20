@@ -13,8 +13,8 @@ remove_id <- function(file, folder = "../data_raw/") {
 
 ##### Load data #####
 # survey_list <- all_surveys()
-# pilots <- paste0(c("PL", "GB", "US"), "p") 
-# pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots) 
+# pilots <- paste0(c("PL", "GB", "US"), "p")
+# pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots)
 # # cut=0 at March 4 2025, 00:05 Paris time (after 46 PL; 118 GB; 46 US)
 # for (p in pilots) { # pilots
 #   print(p)
@@ -27,11 +27,11 @@ remove_id <- function(file, folder = "../data_raw/") {
 #   labels <- readRDS(paste0("../data_raw/labels/", p, ".rds"))
 #   for (v in names(d(p))) eval(str2expression(paste0("label(", p, "[[v]]) <- labels[[v]]")))
 # }
-# GBp <- fetch_survey(survey_list$id[survey_list$name == "GB_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
+# USp <- fetch_survey(survey_list$id[survey_list$name == "US_pilot"], include_display_order = T, verbose = T, convert = F) # labels using sjlabelled package
 # # write.csv(d("GBp"), paste0("../data_raw/GBp.csv"), quote = F, na = "", row.names = F)
 # # Slightly different from manual export .csv: no second row with question text; timezone is different (in e.g. startDate); True => TRUE; income bug; some additional "" are removed
 # View(GBp)
-#   
+# 
 # for (v in names(GBp)[1:80]) { print(decrit(v, GBp)); print("____________");}
 # for (v in names(GBp)[81:160]) { print(decrit(v, GBp)); print("____________");}
 # for (v in names(GBp)[161:240]) { print(decrit(v, GBp)); print("____________");}
@@ -236,7 +236,7 @@ define_var_lists <- function() {
   variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none")
   variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
   variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_gcs", "variant_sliders", "variant_radical_transfer", 
-                          "variant_synthetic", "variant_comprehension", "variant_belief")
+                          "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field")
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
   #                                "variant_synthetic", "variant_comprehension", "variant_belief")
   variables_binary <<- c(variables_race, variables_home, variables_global_movement, variables_why_hic_help_lic, variables_custom_redistr)
@@ -246,7 +246,7 @@ define_var_lists <- function() {
   variables_split_few <<- c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
                             "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global")
   variables_split_many_domestic <<- c("revenue_split_many_domestic_education", "revenue_split_many_domestic_healthcare", "revenue_split_many_domestic_defense", "revenue_split_many_domestic_deficit_reduction", 
-                             "revenue_split_many_domestic_justice_police", "revenue_split_many_domestic_pensions", "revenue_split_many_domestic_welfre", "revenue_split_many_domestic_infrastructure", 
+                             "revenue_split_many_domestic_justice_police", "revenue_split_many_domestic_pensions", "revenue_split_many_domestic_welfare", "revenue_split_many_domestic_infrastructure", 
                              "revenue_split_many_domestic_tax_reduction")
   variables_split_many_global <<- c("revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
   "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
@@ -258,6 +258,11 @@ define_var_lists <- function() {
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
                               "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")
   variables_sustainable_future <<- c("sustainable_future_a", "sustainable_future_s", "sustainable_future_b")
+  variables_field <<- paste0(c("wish", "issue", "concerns", "injustice"), "_field")
+  variables_field_all <<- c(variables_field, "comment_field")
+  variables_conjoint_domains <<- c("F-1-1", "F-1-2", "F-1-3", "F-1-4", "F-1-5") # , "F-1-6"
+  variables_conjoint_policies <<- c("F-1-1-1", "F-1-1-2", "F-1-1-3", "F-1-1-4", "F-1-1-5", "F-1-2-1", "F-1-2-2", "F-1-2-3", "F-1-2-4", "F-1-2-5") #, "F-1-1-6", "F-1-2-6"
+  variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
 }
 define_var_lists()
 # for (v in names(e)) if (length(unique(e[[v]])) == 2) print(v)
@@ -375,8 +380,15 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
   
+  e$variant_field <- e$field <- NA
+  for (v in intersect(variables_field, names(e))) e$field[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
+  for (v in intersect(variables_field, names(e))) e$variant_field[!is.na(e[[paste0("Open-endedfield_order_", v)]])] <- sub("_field", "", v)
+  
   e$info_solidarity <- e$variant_realism %in% 1
-  e$variant_info_solidarity <- ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")
+  e$variant_info_solidarity <- relevel(as.factor(ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")), "No info")
+  
+  e <- create_item("variant_warm_glow", c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e)
+  e$variant_warm_glow <- as.factor(e$variant_warm_glow)
   
   for (v in variables_solidarity_support_short) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
   for (v in variables_solidarity_support_short) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
@@ -422,6 +434,9 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in eval(str2expression(paste0("variables_", l)))) e[[v]][!e[[paste0(l, "_asked")]]] <- NA
   }
 
+  e$n <- paste0(country, 1:nrow(e))
+  e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
+  
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
   # e$global_movement_any[!e$global_movement_asked] <- NA 
   # e$why_hic_help_lic_any <- as.logical(rowSums(e[, variables_why_hic_help_lic[1:3]]))
@@ -432,7 +447,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 

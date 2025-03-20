@@ -1,14 +1,14 @@
 Attributes
-Économie:Versement du RSA aux 18-25 ans sans emploi,SMIC à 1600€ net par mois,Recul de l'âge légal de départ à la retraite à 65 ans,Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale,-
-Démocratie:Élection des députés à la proportionnelle,Référendum d'Initiative Citoyenne (RIC),-
-Climat:Interdiction des véhicules les plus polluants dans les centres-villes (ZFE),Plan pour l'isolation thermique,Interdiction de la vente de voitures thermiques neuves d'ici 2030,-
-Fiscalité:Plan de redistribution nationale,Rétablissement de l'impôt sur la fortune (ISF),-
-Politique étrangère:Plan mondial pour le climat,Taxe mondiale sur les millionaires,Assemblée démocratique mondiale sur le changement climatique,Doubler l'aide au développement des pays à faibles revenus,-
+Kwestie ekonomiczne:Rozwój produkcji kolejowej i inwestycje w infrastrukturę,Przeznaczenie 5% PKB na wydatki wojskowe do 2030 r,-
+Kwestie społeczne:Przywrócenie praw reprodukcyjnych; w tym prawa do aborcji,Złagodzenie restrykcji w zakresie zgromadzeń publicznych i protestów,Wydłużony urlop rodzicielski; ulgi podatkowe na dzieci i możliwość pracy zdalnej,-
+Polityka klimatyczna:Rezygnacja z węgla do 2035 r.,Zakaz sprzedaży nowych samochodów z silnikiem spalinowym do 2035 r.,-
+System podatkowy:Obniżenie podatków dla gospodarstw domowych o niskich dochodach poprzez zwiększenie kwoty wolnej od podatku,Zwiększenie podatków od zysków dużych korporacji cyfrowych oraz firm zajmujących się paliwami kopalnymi,Zwolnienie z podatku dochodowego dla seniorów opóźniających przejście na emeryturę,-
+Polityka zagraniczna:Międzynarodowy podatek od milionerów; z 30% finansowaniem opieki zdrowotnej i edukacji w krajach o niskich dochodach,Ograniczenie pomocy rozwojowej,Zatrzymanie osób; którym odmówiono azylu; do czasu ich deportacji,-
 Weights
-Économie:0.2,0.2,0.2,0.2,0.2
-Démocratie:0.333333333333333,0.333333333333333,0.333333333333333
-Climat:0.25,0.25,0.25,0.25
-Fiscalité:0.333333333333333,0.333333333333333,0.333333333333333
-Politique étrangère:0.2,0.2,0.2,0.2,0.2
+Kwestie ekonomiczne:0.333333333333333,0.333333333333333,0.333333333333333
+Kwestie społeczne:0.25,0.25,0.25,0.25
+Polityka klimatyczna:0.333333333333333,0.333333333333333,0.333333333333333
+System podatkowy:0.25,0.25,0.25,0.25
+Polityka zagraniczna:0.25,0.25,0.25,0.25
 Restrictions
 

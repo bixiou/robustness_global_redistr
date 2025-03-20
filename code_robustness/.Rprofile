@@ -54,7 +54,8 @@ package("tidyr") # replace_na, no.na, decrit
 package("openxlsx") # read.xlsx
 package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
-# package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
+package("ivreg") # ivreg
+package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
 # package("list") # list experiment aka. item count technique: ictreg

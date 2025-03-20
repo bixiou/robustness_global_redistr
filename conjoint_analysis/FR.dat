@@ -1,14 +1,14 @@
 Attributes
-Asuntos económicos:Más necesidades sanitarias dentro del sistema público (cuidado dental; gafas; salud mental),Ingreso Básico Garantizado de 600€ al mes,Jornada laboral de 34 horas semanales,Inversión en el sistema educativo y universalización de la educación preescolar,-
-Asuntos sociales:Reformar la ley electoral para hacer el Senado más proporcional,Abolición de la prostitución,-
-Política climática:100% de electricidad producida con energías renovables en 2040,Plan de aislamiento térmico,Prohibir la venta de coches nuevos con motor de combustión para 2030,-
-Sistema fiscal:Plan de redistribución nacional,Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales,-
-Política exterior:Plan climático global,Impuesto mundial a los millonarios,Asamblea democrática mundial sobre el cambio climático,Duplicar la ayuda exterior a los países de renta baja,-
+Économie:Versement du RSA aux 18-25 ans sans emploi,SMIC à 1600€ net par mois,Recul de l'âge légal de départ à la retraite à 65 ans,Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale,-
+Démocratie:Élection des députés à la proportionnelle,Référendum d'Initiative Citoyenne (RIC),-
+Climat:Interdiction des véhicules les plus polluants dans les centres-villes (ZFE),Plan pour l'isolation thermique,Interdiction de la vente de voitures thermiques neuves d'ici 2030,-
+Fiscalité:Plan de redistribution nationale,Rétablissement de l'impôt sur la fortune (ISF),-
+Politique étrangère:Plan mondial pour le climat,Taxe mondiale sur les millionaires,Assemblée démocratique mondiale sur le changement climatique,Doubler l'aide au développement des pays à faibles revenus,-
 Weights
-Asuntos económicos:0.2,0.2,0.2,0.2,0.2
-Asuntos sociales:0.333333333333333,0.333333333333333,0.333333333333333
-Política climática:0.25,0.25,0.25,0.25
-Sistema fiscal:0.333333333333333,0.333333333333333,0.333333333333333
-Política exterior:0.2,0.2,0.2,0.2,0.2
+Économie:0.2,0.2,0.2,0.2,0.2
+Démocratie:0.333333333333333,0.333333333333333,0.333333333333333
+Climat:0.25,0.25,0.25,0.25
+Fiscalité:0.333333333333333,0.333333333333333,0.333333333333333
+Politique étrangère:0.2,0.2,0.2,0.2,0.2
 Restrictions
 
