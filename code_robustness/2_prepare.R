@@ -351,7 +351,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("millionaire", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
   e <- create_item("likely_solidarity", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
   e <- create_item("ncqg", c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "More loans" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
-                   grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "Increase loans", "\\$200", "\\$600", "\\$1,000"), df = e)
+                   grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "meet|Meet", "level between", "\\$600", "\\$1,000"), df = e)
   e <- create_item("ncqg_full", c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "$300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
                    grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
   if (all(c("ncqg", "ncqg_full") %in% names(e))) {

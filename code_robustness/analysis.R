@@ -189,4 +189,5 @@ sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
 
 ##### Comments #####
 p$comment_field[!is.na(p$comment_field) & !p$country %in% "PL"]
-# TODO USp$interview after 856 / PLp after 898: GDP convergence
+# TODO USp$interview & new ncqg after 856 / PLp after 898: GDP convergence
+
