@@ -8,6 +8,7 @@ d <- function(str, alt_data = eu, alt_var = "country") {
 #                           CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
 # conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
 
+include_indifferent <- T # TODO functionalize
 policies.names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies", rowNames = T)) #, rows = c(1, 16:41), cols = 1:6))
 policies.names <- policies.names[is.na(as.numeric(row.names(policies.names))), ] # NAs by coercion normal
 
@@ -23,13 +24,13 @@ for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
   main_language <- languages_country[[sub("p", "", df)]][1]
   policies_l <- c(unlist(setNames(policies_conjoint[[main_language]], conjoint_attributes)), "-" = "-")
   csv.path <- paste0("../conjoint_analysis/ca_", df, ".csv")
-  write.csv(d(df)[!is.na(d(df)$conjoint_number), c(variables_conjoint_all, 'conjoint_number', 'conjoint', 'n')], csv.path, row.names = FALSE)
+  write.csv(d(df)[, c(variables_conjoint_all, 'conjoint_number', 'conjoint_misleading', 'conjoint', 'n')], csv.path, row.names = FALSE) # !is.na(d(df)$conjoint_number)
   temp <- readLines(csv.path)
   writeLines(c(temp[1], temp), csv.path)
   # /!\ Bugs at CIRED but works well at home
-  ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_number', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint]
+  ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_misleading', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint]
   names(ca[[df]])[1] <- "n"
-  ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "n"))], ca[[df]]) # vote
+  ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "conjoint", "conjoint_number", "n"))], ca[[df]]) # vote
   # names(policies_conjoint[["EN-GB"]])
   # domain_names <- names(policies_conjoint[[main_language]])
   # for (i in 1:5) {
@@ -47,9 +48,16 @@ for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
   # }
   design_cjoint <- makeDesign(filename = paste0("../conjoint_analysis/", main_language, ".dat")) 
   # formula_cjoint <- as.formula(paste("selected ~ `", paste0(domain_names, collapse = "` + `"), "`"))
+  
+  # To allow for ties, replace selected==NA by 0.5 and previously make conjoint_r_number == "" for respondents who chose "neither" (read.qualtrics removes NA from ca[[df]] but keeps "" which it converts into selected==NA).
+  # /!\ But beware, if the question wasn't asked to everyone, this will attribute 0.5 instead of NA to some respondents!
+  if (include_indifferent) ca[[df]]$selected[ca[[df]]$conjoint %in% "Neither of them"] <- .5
+  else ca[[df]] <- ca[[df]][!ca[[df]]$conjoint %in% "Neither of them",]
   amce[[df]] <- amce(formula_cjoint, ca[[df]], design = design_cjoint, cluster = FALSE, weights = NULL)
+  # if (lang == "main") 
   for (i in 1:length(amce[[df]]$attributes)) amce[[df]]$user.names[[i+1]] <- names(policies_conjoint[[main_language]])[i]
   for (i in 1:length(amce[[df]]$user.levels)) amce[[df]]$user.levels[[i]] <- policies_l[amce[[df]]$user.levels[[i]]]
+  # else if (lang == "english") # TODO
 }
 View(ca[[df]])
 

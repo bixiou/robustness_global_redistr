@@ -436,6 +436,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
   e$n <- paste0(country, 1:nrow(e))
   e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
+  e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number)
   for (v in intersect(variables_conjoint_domains, names(e))) {
     e[[paste0(v, "_original")]] <- e[[v]]
     e[[v]] <- policies_domains[e[[v]]] # common policy name for all countries
