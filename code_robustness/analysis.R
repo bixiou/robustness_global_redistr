@@ -52,7 +52,7 @@ with(p, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_glob
 with(p, summary(lm(split_both_global ~ split_both_nb_global * variant_split))) 
 sort(sapply(variables_split_many, function(c) mean(p[[c]], na.rm = T)), decreasing = T) 
 sort(sapply(variables_split_many, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) 
-# global_education_healthcare ranks 8/13; other global 10, 12, 13 justice_polices, deficit_reduction are only domestic that rank below it.
+# global_education_healthcare ranks 8/13; other global 10, 12, 13 justice_police, deficit_reduction are only domestic that rank below it.
 sort(sapply(variables_split_few, function(c) mean(p[[c]], na.rm = T)), decreasing = T) # global ranks 5/5
 sort(sapply(variables_split_few, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) # global ranks 3/5
 
@@ -150,16 +150,16 @@ sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$reparations
 
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_degree[!d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 170
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 440-520: 500
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 160
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_degree[!d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 450-540: 500
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 150
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
+sapply(paste0(pilot_countries_all, "p"), function(c) round(median(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_losers %in% c(101, 201), na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_degree %in% c(2.1, 7.1), na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied] %in% c(401, 601), na.rm = T), 3))
@@ -170,7 +170,7 @@ with(p, summary(lm(custom_redistr_winners ~ variant_sliders)))
 with(p, summary(lm(custom_redistr_winners ~ variant_sliders, subset = custom_redistr_satisfied == T)))
 with(p, summary(lm(custom_redistr_losers ~ variant_sliders, subset = custom_redistr_satisfied == T)))
 with(p, summary(lm(custom_redistr_degree ~ variant_sliders, subset = custom_redistr_satisfied == T)))
-with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = custom_redistr_satisfied == T))) # TODO: compute transfer for each
+with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = custom_redistr_satisfied == T))) # TODO: compute transfer for each; tax rates; dummy whether decrease own income; sociodemos determinants
 # 500-150-5 => transfer: 5.8% / demogrant: 299$/month
 # 401-101-7.1 => transfer: 4.3% / demogrant: 298$/month
 # 601-201-2.1 => transfer: 4.6% / demogrant: 185$/month
@@ -185,3 +185,8 @@ sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$survey_bias
 
 sapply(paste0(pilot_countries, "p"), function(c) decrit(paste0("vote_", sub("p", "", c)), d(c)))
 sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
+
+
+##### Comments #####
+p$comment_field[!is.na(p$comment_field) & !p$country %in% "PL"]
+# TODO USp$interview after 856 / PLp after 898: GDP convergence

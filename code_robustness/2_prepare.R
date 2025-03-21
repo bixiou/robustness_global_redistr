@@ -352,7 +352,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("likely_solidarity", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
   e <- create_item("ncqg", c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "More loans" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
                    grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "Increase loans", "\\$200", "\\$600", "\\$1,000"), df = e)
-  e <- create_item("ncqg_full", c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
+  e <- create_item("ncqg_full", c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "$300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
                    grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
   if (all(c("ncqg", "ncqg_full") %in% names(e))) {
     e$variant_ncqg <- ifelse(e$variant_ncqg_maritime %in% 2, "full", "new")
@@ -457,11 +457,11 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
-e <- USp
+e <- p
 
 countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United States") # TODO
 names(countries_names) <- pilot_countries

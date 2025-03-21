@@ -423,7 +423,7 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
     if (!missing(which)) weights <- weights[which]
-    if (length(weights)!=length(variable)) {
+    if (length(weights) != length(variable)) {
       warning("Lengths of weight and variable differ, non-weighted results are provided")
       weights <- NULL
     } }
@@ -451,11 +451,11 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
   
   if (!numbers & is_memisc) {
     if (miss) {
-      if (nb_numeric_levels > 10) var <- include.missings(variable)
-      else var <- as.factor(include.missings(variable)) # Here it was var <- as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), I think it's equivalent to what we do here: as.factor(include.missings(variable[...]))
+      if (nb_numeric_levels > 10) var <- include.missings(var) # Here and line below, was include.missings(variable) (21/03/25)
+      else var <- as.factor(include.missings(var)) # older: Here it was var <- as.factor(include.missings(variable)[no.na(include.missings(variable))!="" & !is.na(variable)]), I think it's equivalent to what we do here: as.factor(include.missings(variable[...]))
     } else {
       if (nb_numeric_levels == 0) var <- as.factor(var)
-      else var <- as.numeric(as.vector(va))
+      else var <- as.numeric(as.vector(var))
     }
   }
   output <- capture.output(describe(var, weights = wgt, descript = lab))

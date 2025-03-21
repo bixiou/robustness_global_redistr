@@ -13,7 +13,7 @@ heatmaps_defs <- list(
   "transfer_how" = list(vars = variables_transfer_how, conditions = ">= 1"), 
   # "solidarity_support" = list(vars = variables_solidarity_support), 
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
-  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
+  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1")
 )
 # TODO heatmaps: transfer_how, solidarity_support, global_movement, why_help_lic
 
@@ -23,7 +23,7 @@ vars_heatmaps <- c("variables_transfer_how", "solidarity_support", "global_movem
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
-heatmap_multiple(heatmaps_defs)
+# heatmap_multiple(heatmaps_defs)
 
 
 ##### barres_defs #####
@@ -44,7 +44,7 @@ barresN_defs <- fill_barres(vars_barresN, along = "country_name")
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
 barres_multiple(barres_defs["ncqg_full"])
-barres_multiple(barresN_defs["ncqg_full"])
+barres_multiple(barresN_defs)
 barres_multiple(barres_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])
