@@ -76,7 +76,7 @@ sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$gcs_belief,
 
 
 ##### ICS #####
-# -> add one version with almost all countries?
+# -> add one version with almost all countries? no
 # -> remove NCS?
 with(p, summary(lm(ics_support %in% "Yes" ~ variant_gcs)))
 with(p, summary(lm(ics_support %in% "Yes" ~ variant_gcs, subset = country == "US")))
