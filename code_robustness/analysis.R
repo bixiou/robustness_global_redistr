@@ -191,3 +191,21 @@ sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
 p$comment_field[!is.na(p$comment_field) & !p$country %in% "PL"]
 # TODO USp$interview & new ncqg after 856 / PLp after 898: GDP convergence
 
+
+##### Influence order ######
+summary(lm((ncqg > 2) ~ (ncqg_order == 7), data = p))
+summary(lm((ncqg > 3) ~ (ncqg_order == 7), data = p))
+summary(lm(split_many_global ~ mean_order_many_global, data = p))
+summary(lm(revenue_split_few_global ~ revenue_split_few_order_global, data = p))
+summary(lm(maritime_split_ldc ~ maritime_split_order_ldc, data = p))
+summary(lm((vote_intl_coalition == "More likely") ~ (vote_intl_coalition_order_more_likely == 1), data = p))
+summary(lm(why_hic_help_lic_duty ~ why_hic_help_lic_order_duty, data = p))
+summary(lm(why_hic_help_lic_interest ~ why_hic_help_lic_order_interest, data = p))
+summary(lm(transfer_how_cash_unconditional ~ (transfer_how_order_cash_unconditional == 7), data = p))
+summary(lm((transfer_how_cash_unconditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
+summary(lm((transfer_how_social_protection > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
+summary(lm((transfer_how_agencies > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
+summary(lm((transfer_how_govt_conditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
+summary(lm((transfer_how_govt_unconditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
+
+# TODO variable that best correlates

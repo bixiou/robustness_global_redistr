@@ -350,7 +350,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item(variables_likert, c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e)
   e <- create_item("millionaire", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
   e <- create_item("likely_solidarity", c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
-  e <- create_item("ncqg", c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "More loans" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
+  e <- create_item("ncqg", c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "Meet goal ($100 bn)" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
                    grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "meet|Meet", "level between", "\\$600", "\\$1,000"), df = e)
   e <- create_item("ncqg_full", c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "$300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
                    grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
@@ -424,6 +424,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$split_both_global[e$split_nb_global %in% 0] <- NA
   e$split_both_nb_global <- ifelse(e$variant_split == 1, 1, e$split_nb_global)
   
+  e$mean_order_many_global <- rowMeans(e[, sub("many_", "many_order_", variables_split_many_global)], na.rm = T)
+  
   # TODO update for non-pilot
   e$race_asked <- e$country %in% "US"
   e$custom_redistr_asked <- e$cut %in% 0
@@ -457,7 +459,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
