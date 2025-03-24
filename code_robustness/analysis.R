@@ -16,6 +16,9 @@ sum(p$variant_long & !p$cut)
 median(p$duration[p$variant_long & p$cut])
 median(p$duration[!p$variant_long & p$cut])
 median(p$duration[!p$variant_long & !p$cut])
+for (v in variables_duration) print(decrit(v, p)) # Pbs: ncqg, preferred_transfer_mean
+decrit(p$duration_ics - p$duration_gcs)
+# Weird: wealth_tax, radical_redistr
 
 
 ##### Fields #####

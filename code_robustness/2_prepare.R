@@ -1,3 +1,27 @@
+##### Parameters #####
+countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United States") # TODO
+names(countries_names) <- pilot_countries
+countries_EU <- c("Poland")
+pilot_countries_all <- c(pilot_countries, "")
+
+languages <- c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
+languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
+policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
+conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
+conjoint.attributes <- c("Economic issues", "Societal issues", "Climate policy", "Tax system", "Foreign policy")
+policies_domains <- c()
+for (l in languages) policies_domains <- c(policies_domains, setNames(conjoint_attributes, names(policies_conjoint[[l]])))
+policies_code <- c()
+for (l in languages) {
+  policies_l <- unlist(setNames(policies_conjoint[[l]], conjoint_attributes))
+  policies_code <- c(policies_code, setNames(names(policies_l), policies_l))
+}
+policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
+# policies_main_language <- policies_english <- c()
+# for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
+
+
+
 ##### Functions #####
 remove_id <- function(file, folder = "../data_raw/") {
   filename <- paste(folder, file, ".csv", sep = "")
@@ -465,26 +489,6 @@ list2env(pilot_data, envir = .GlobalEnv)
 
 e <- p
 
-countries_names <- countries_names_fr <- c("Poland", "United Kingdom", "United States") # TODO
-names(countries_names) <- pilot_countries
-countries_EU <- c("Poland")
-pilot_countries_all <- c(pilot_countries, "")
-
-languages <- c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
-languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
-policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
-conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
-conjoint.attributes <- c("Economic issues", "Societal issues", "Climate policy", "Tax system", "Foreign policy")
-policies_domains <- c()
-for (l in languages) policies_domains <- c(policies_domains, setNames(conjoint_attributes, names(policies_conjoint[[l]])))
-policies_code <- c()
-for (l in languages) {
-  policies_l <- unlist(setNames(policies_conjoint[[l]], conjoint_attributes))
-  policies_code <- c(policies_code, setNames(names(policies_l), policies_l))
-}
-policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
-# policies_main_language <- policies_english <- c()
-# for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
 
 
 # sum(duplicated(p$distr))
