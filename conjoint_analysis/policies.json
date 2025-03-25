@@ -437,6 +437,80 @@
 			"-" 
 		] 
 	},
+	"FR-CH": {
+		"Économie": [
+			"Versement du RSA aux 18-25 ans sans emploi",
+			"SMIC à 1600€ net par mois",
+			"Recul de l'âge légal de départ à la retraite à 65 ans",
+			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
+			"-" 
+		],
+		"Démocratie": [
+			"Élection des députés à la proportionnelle",
+			"Référendum d'Initiative Citoyenne (RIC)",
+			"-" 
+		],
+		"Climat": [
+			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
+			"Plan pour l'isolation thermique",
+			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
+			"-" 
+		],
+		"Fiscalité": [
+			"Plan de redistribution nationale",
+			"Rétablissement de l'impôt sur la fortune (ISF)",
+			"-" 
+		],
+		"Politique étrangère": [
+			"Taxe mondiale sur les millionaires finançant les pays à bas revenus",
+			"Réduire l'aide au développement",
+			"-" 
+		] 
+	},
+	"DE-CH": {
+		"DECH1": [
+			"bla",
+			"-" 
+		],
+		"DECH2": [
+			"bla",
+			"-" 
+		],
+		"DECH3": [
+			"bla",
+			"-" 
+		],
+		"DECH4": [
+			"bla",
+			"-" 
+		],
+		"DECH5": [
+			"bla",
+			"-" 
+		] 
+	},
+	"IT-CH": {
+		"ITCH1": [
+			"bla",
+			"-" 
+		],
+		"ITCH2": [
+			"bla",
+			"-" 
+		],
+		"ITCH3": [
+			"bla",
+			"-" 
+		],
+		"ITCH4": [
+			"bla",
+			"-" 
+		],
+		"ITCH5": [
+			"bla",
+			"-" 
+		] 
+	},
 	"ES-US": {
 		"Asuntos económicos": [
 			"Cut federal spending by $1 trillion",
