@@ -1,86 +1,191 @@
 {
 	"FR": {
 		"Économie": [
-			"Versement du RSA aux 18-25 ans sans emploi",
-			"SMIC à 1600€ net par mois",
-			"Recul de l'âge légal de départ à la retraite à 65 ans",
-			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
+			"Indexer les retraites sur l’inflation",
+			"Augmenter le SMIC à 1600€ net par mois",
+			"Restaurer l'âge légal de départ à la retraite à 62 ans",
 			"-" 
 		],
-		"Démocratie": [
-			"Élection des députés à la proportionnelle",
-			"Référendum d'Initiative Citoyenne (RIC)",
+		"Société": [
+			"Supprimer le droit du sol",
+			"Peines planchers pour les récidivistes et responsabilité pénale à 16 ans",
+			"Instaurer le Référendum d’Initiative Citoyenne (RIC)",
 			"-" 
 		],
 		"Climat": [
-			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
-			"Plan pour l'isolation thermique",
-			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
+			"Construire 14 nouveaux réacteurs nucléaires",
+			"Supprimer les Zones à Faibles Émissions",
 			"-" 
 		],
 		"Fiscalité": [
-			"Plan de redistribution nationale",
-			"Rétablissement de l'impôt sur la fortune (ISF)",
+			"Défiscaliser les primes jusqu’à 10 000 €",
+			"Exonérer d’impôt sur le revenu pour les jeunes de moins de 30 ans",
+			"Baisser l'impôt sur le revenu jusqu'à 4000€/mois net et l'augmenter au-delà",
+			"Rétablir un impôt sur la fortune (ISF) renforcé",
 			"-" 
 		],
 		"Politique étrangère": [
-			"Plan mondial pour le climat",
-			"Taxe mondiale sur les millionaires",
-			"Assemblée démocratique mondiale sur le changement climatique",
-			"Doubler l'aide au développement des pays à faibles revenus",
+			"Taxe mondiale sur les millionnaires, dont 30 % pour financer la santé et l’éducation dans les pays à faible revenu",
+			"Réduire l’aide au développement",
+			"Doubler le budget militaire d'ici 2030",
+			"-" 
+		] 
+	},
+	"EN-FR": {
+		"Economic issues": [
+			"Index pensions to inflation",
+			"Raise the minimum wage to 1,600 euros net",
+			"Restore the right to retire at 60 with full benefits",
+			"-" 
+		],
+		"Social issues": [
+			"Abolition of birthright citizenship",
+			"Impose mandatory sentences for repeat offenders, and lower the age of criminal responsibility to 16",
+			"Establish the Citizens' Initiative Referendum (RIC)",
+			"-" 
+		],
+		"Climate policy": [
+			"Build 14 new nuclear reactors",
+			"Abolition of Low Emission Zones (ZFE) that restrict car access in cities",
+			"-" 
+		],
+		"Tax system": [
+			"Tax-free bonuses of up to €10,000 per year",
+			"Abolish income tax for individuals under 30",
+			"Increase the progressivity of income tax by expanding from 5 to 14 brackets",
+			"Restore the Solidarity Wealth Tax (ISF) with an enhanced climate component",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Double military budget by 2030",
 			"-" 
 		] 
 	},
 	"DE": {
 		"Wirtschaftspolitik": [
-			"Erhöhung des Regelsatzes des Bürgergelds auf bis zu 600€ pro Monat",
-			"Bürgerversicherung als gerechtere Sozialversicherung",
-			"Staatsschuldenquote auf unter 60% reduzieren",
-			"Investitionen für Gigabit-Netzwerke bereitstellen",
+			"Strompreise durch Steuersenkungen um 12 % senken",
+			"Mindestlohn bis 2026 auf 15 € erhöhen",
+			"Invest 500 billion euros in strategic sectors such as steel, automotive and defense",
 			"-" 
 		],
 		"Gesellschaft": [
-			"Cannabis-Legalisierung",
+			"Einsatz elektronischer Fußfesseln zur Verfolgung von Gewalttätern gegen Frauen",
+			"Bieten Sie eine Geburtsbeihilfe von 20.000 € für Neugeborene an",
+			"Beschränkung des schnellen Weges zur deutschen Staatsbürgerschaft",
 			"-" 
 		],
 		"Klimaschutz": [
-			"Verpflichtende Solaranlagen auf allen geeigneten Dächern",
-			"Plan zur Wärmedämmung",
+			"Aufhebung des Heizungsgesetzes, das erneuerbare Energien vorschreibt",
+			"Einführung einer Mindestquote für grünen Stahl und Zement im öffentlichen Beschaffungswesen",
 			"Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030",
 			"-" 
 		],
 		"Steuerpolitik": [
-			"Nationales Umverteilungsprogramm",
-			"Die Vermögenssteuer wieder in Kraft setzen",
+			"Steuerbefreiung für Überstunden und Arbeit von Rentnern",
+			"Abschaffung der Erbschaftssteuer",
+			"Die Schuldenbremse einhalten",
 			"-" 
 		],
 		"Außenpolitik": [
-			"Globales Klimaprogramm",
-			"Globale Steuer auf Millionäre",
-			"Globale demokratische Versammlung zum Klimawandel",
-			"Verdoppelung der Mittel für die Entwicklungshilfe in einkommensschwachen Ländern",
+			"Internationale Millionärssteuer mit 30 % zur Finanzierung von Gesundheit und Bildung in Ländern mit niedrigem Einkommen",
+			"Kürzung der Entwicklungshilfe",
+			"Die Ukraine militärisch und finanziell unterstützen",
+			"-" 
+		] 
+	},
+	"EN-DE": {
+		"Economic issues": [
+			"Lower electricity prices by 12% through tax reductions",
+			"Raise the minimum wage to €15 by 2026",
+			"Invest €500 billion in strategic industries like steel, automotive, and defense",
+			"-" 
+		],
+		"Social issues": [
+			"Use electronic ankle monitors to track violent offenders against women",
+			"Offer a birth grant of €20,000 for newborns",
+			"Restrict the fast-track path to German citizenship",
+			"-" 
+		],
+		"Climate policy": [
+			"Repeal the heating law that requires renewable energy",
+			"Introduce a minimum quota of green steel and cement in public procurement",
+			"Ban new combustion-engine cars from 2035",
+			"-" 
+		],
+		"Tax system": [
+			"Exempt from taxes overtime work and work of retired people",
+			"Abolish the inheritance tax",
+			"Maintain the debt brake",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Support Ukraine militarily and financially",
 			"-" 
 		] 
 	},
 	"IT": {
-		"IT1": [
-			"bla",
+		"Politica economica": [
+			"Aumentare l'assegno di natalità fino a 3.600 euro per i neonati",
+			"Utilizzare i fondi UE non spesi per esentare dalle tasse le aziende che assumono",
+			"Introdurre un salario minimo legale di 10€ all'ora",
+			"Ridurre l'orario di lavoro senza ridurre gli stipendi",
 			"-" 
 		],
-		"IT2": [
-			"bla",
+		"Politica sociale": [
+			"Limitazione legale della migrazione e trattamento delle richieste di asilo al di fuori dell'UE",
+			"Riconoscere il matrimonio tra persone dello stesso sesso",
+			"Introdurre l'istruzione precoce gratuita e obbligatoria (fino a 3 anni)",
 			"-" 
 		],
-		"IT3": [
-			"bla",
+		"Politica climatica": [
+			"Annullare il divieto di circolazione di nuove auto con motore a combustione a partire dal 2035",
+			"Raddoppiare la capacità di energia rinnovabile entro il 2030",
 			"-" 
 		],
-		"IT4": [
-			"bla",
+		"Politica fiscale": [
+			"Riduzione dell'imposta sul reddito delle famiglie a basso reddito",
+			"Sostituire l'imposta sul reddito con una flat tax del 15%.",
 			"-" 
 		],
-		"IT5": [
-			"bla",
+		"Politica estera": [
+			"Tassa internazionale sui milionari con il 30% di finanziamento dell'assistenza sanitaria e dell'istruzione nei paesi a basso reddito",
+			"Tagliare gli aiuti allo sviluppo",
+			"Sviluppare una difesa comune dell'UE",
+			"-" 
+		] 
+	},
+	"EN-IT": {
+		"Economic issues": [
+			"Increase the birth grant to up to €3,600 for newborns",
+			"Use unspent EU funds to exempt hiring companies from taxes",
+			"Introduce a legal minimum wage at 10€ per hour",
+			"Reduce working hours without reducing salaries",
+			"-" 
+		],
+		"Social issues": [
+			"Legal limit on migration and process asylum requests outside the EU",
+			"Recognize same-sex marriage",
+			"Introduce free and mandatory early education (until 3 years old)",
+			"-" 
+		],
+		"Climate policy": [
+			"Cancel the ban on new combustion-engine cars from 2035",
+			"Double the capacity of renewable energy by 2030",
+			"-" 
+		],
+		"Tax system": [
+			"Reduce the income tax on low-income households",
+			"Replace the income tax by a 15% flat tax",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Develop a common EU defense",
 			"-" 
 		] 
 	},
@@ -114,35 +219,95 @@
 			"-" 
 		] 
 	},
+	"EN-PL": {
+		"Economic issues": [
+			"Expansion of rail production and infrastructure investment",
+			"Allocate 5% of GDP to military expenditures by 2030",
+			"-" 
+		],
+		"Social issues": [
+			"Restoring abortion rights",
+			"Relax restrictions on public assembly and protest",
+			"Extended parental leave, tax benefits for children, and remote work option",
+			"-" 
+		],
+		"Climate policy": [
+			"Phase out coal by 2035",
+			"Ban the sale of new combustion-engine cars by 2035",
+			"-" 
+		],
+		"Tax system": [
+			"Reduce taxes on low-income households by increasing the tax-free income allowance",
+			"Taxes on the profits of large digital corporations and fossil fuel companies",
+			"Income tax exemption for seniors delaying retirement",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Detention of rejected asylum seekers until they can be deported",
+			"-" 
+		] 
+	},
 	"ES-ES": {
 		"Asuntos económicos": [
-			"Más necesidades sanitarias dentro del sistema público (cuidado dental, gafas, salud mental)",
-			"Ingreso Básico Garantizado de 600€ al mes",
-			"Jornada laboral de 34 horas semanales",
-			"Inversión en el sistema educativo y universalización de la educación preescolar",
+			"Fijar el salario mínimo en 1350€/mes",
+			"Reducir la jornada laboral a 36 horas antes de 2030 sin merma salaria",
+			"Fomentar la flexibilidad horaria mediante un banco de horas",
 			"-" 
 		],
 		"Asuntos sociales": [
-			"Reformar la ley electoral para hacer el Senado más proporcional",
-			"Abolición de la prostitución",
+			"Reforzar la regulación de las redes sociales en materia de transparencia, control de la desinformación e identidad verificada",
+			"Educación de 0 a 3 años gratuita",
+			"Crear centros fuera de la UE para tramitar las solicitudes de asilo",
 			"-" 
 		],
 		"Política climática": [
-			"100% de electricidad producida con energías renovables en 2040",
+			"Ampliar los bonos sociales térmico y eléctrico",
 			"Plan de aislamiento térmico",
-			"Prohibir la venta de coches nuevos con motor de combustión para 2030",
 			"-" 
 		],
 		"Sistema fiscal": [
-			"Plan de redistribución nacional",
-			"Aumentar los impuestos sobre las rentas superiores a 100.000 euros anuales",
+			"Bajar el impuesto sobre la renta a la clase media y aumentarlo a los hogares ricos",
+			"Suprimir el impuesto sobre el patrimonio y bajar los tipos del impuesto de sociedades",
+			"Reducir los impuestos en zonas rurales mediante la Ley de Fiscalidad Agraria",
 			"-" 
 		],
 		"Política exterior": [
-			"Plan climático global",
-			"Impuesto mundial a los millonarios",
-			"Asamblea democrática mundial sobre el cambio climático",
-			"Duplicar la ayuda exterior a los países de renta baja",
+			"Impuesto internacional a los millonarios con un 30% para financiar la sanidad y la educación en países de renta baja",
+			"Reducir la ayuda al desarrollo a los países de renta baja",
+			"Aumentar el apoyo a Ucrania y mantener las sanciones a Rusia",
+			"-" 
+		] 
+	},
+	"EN-ES": {
+		"Economic issues": [
+			"Set the minimum wage at 1350€/month",
+			"Reduce the workweek to 36 hours by 2030 without salary cut",
+			"Promote flexible working hours through a time bank",
+			"-" 
+		],
+		"Social issues": [
+			"Strengthen social media regulation for transparency, misinformation control, and verified identity",
+			"Free early education (from 0 to 3 years)",
+			"Create centers outside the EU to process asylum requests",
+			"-" 
+		],
+		"Climate policy": [
+			"Extend the social electricity voucher",
+			"A national investment plan to enhance water management",
+			"-" 
+		],
+		"Tax system": [
+			"Lower the income tax on the middle class and increase it on rich households",
+			"Abolish the wealth tax and lower corporate tax rates",
+			"Reduce taxation in rural areas through the Agricultural Taxation Act",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Increase support for Ukraine and maintain sanctions on Russia",
 			"-" 
 		] 
 	},
@@ -178,91 +343,65 @@
 			"-" 
 		] 
 	},
-	"CH": {
-		"CH1": [
-			"bla",
-			"-" 
-		],
-		"CH2": [
-			"bla",
-			"-" 
-		],
-		"CH3": [
-			"bla",
-			"-" 
-		],
-		"CH4": [
-			"bla",
-			"-" 
-		],
-		"CH5": [
-			"bla",
-			"-" 
-		] 
-	},
 	"JA": {
-		"JA1": [
-			"bla",
+		"経済問題（けいざいもんだい）": [
+			"最低賃金を時給1,500円に引き上げる",
+			"18歳までの子ども全員に月額15,000円の子ども手当を支給する。",
 			"-" 
 		],
-		"JA2": [
-			"bla",
+		"社会問題（しゃかいもんだい）": [
+			"選挙区合併の廃止",
+			"同性婚を認める",
+			"パートタイム労働者への年金受給資格の拡大",
+			"リスキル、公正な賃金、キャリアの継続性を通じて女性のエンパワーメントを促進する。",
 			"-" 
 		],
-		"JA3": [
-			"bla",
+		"気候政策（きこうせいさく）": [
+			"2030年までに再生可能エネルギーによる電力50％を達成",
+			"コロジカル・トランジションに150兆円を投資",
 			"-" 
 		],
-		"JA4": [
-			"bla",
+		"税制（ぜいせい）": [
+			"中小企業の法人税率を15％に設定する。",
+			"中低所得世帯への消費税還付制度の導入",
+			"財政均衡を回復し、2025年までに財政黒字を達成する。",
 			"-" 
 		],
-		"JA5": [
-			"bla",
+		"外交政策（がいこうせいさく）": [
+			"大富豪への国際課税、30％を低所得国の医療と教育に充てる",
+			"開発援助削減",
+			"北朝鮮の核・ミサイル計画の完全な廃棄を要求する。",
 			"-" 
 		] 
 	},
-	"RU": {
-		"RU1": [
-			"bla",
+	"EN-JA": {
+		"Economic issues": [
+			"Raise the minimum wage to ¥1,500 per hour",
+			"Provide child allowance of ¥15,000 per month for all children up to age 18",
 			"-" 
 		],
-		"RU2": [
-			"bla",
+		"Social issues": [
+			"Eliminate electoral district mergers (gōku kaiketsu)",
+			"Recognize same-sex marraige",
+			"Expand eligibility for pension coverage to part-time workers",
+			"Promote women’s empowerment through reskilling, fair pay, and career continuity",
 			"-" 
 		],
-		"RU3": [
-			"bla",
+		"Climate policy": [
+			"Achieve 50% of electricity from renewable sources by 2030",
+			"Invest 150,000 billion yen in the ecological transition",
 			"-" 
 		],
-		"RU4": [
-			"bla",
+		"Tax system": [
+			"Set the corporate tax rate for SMEs at 15%",
+			"Introduce a consumption tax refund system for low- and middle-income households",
+			"Restore fiscal balance and achieve a budget surplus by 2025",
 			"-" 
 		],
-		"RU5": [
-			"bla",
-			"-" 
-		] 
-	},
-	"AR": {
-		"AR1": [
-			"bla",
-			"-" 
-		],
-		"AR2": [
-			"bla",
-			"-" 
-		],
-		"AR3": [
-			"bla",
-			"-" 
-		],
-		"AR4": [
-			"bla",
-			"-" 
-		],
-		"AR5": [
-			"bla",
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Demand the complete dismantlement of North Korea’s nuclear and missile programs",
 			"-" 
 		] 
 	},
@@ -298,91 +437,35 @@
 			"-" 
 		] 
 	},
-	"FR-CH": {
-		"FRCH1": [
-			"bla",
-			"-" 
-		],
-		"FRCH2": [
-			"bla",
-			"-" 
-		],
-		"FRCH3": [
-			"bla",
-			"-" 
-		],
-		"FRCH4": [
-			"bla",
-			"-" 
-		],
-		"FRCH5": [
-			"bla",
-			"-" 
-		] 
-	},
-	"DE-CH": {
-		"DECH1": [
-			"bla",
-			"-" 
-		],
-		"DECH2": [
-			"bla",
-			"-" 
-		],
-		"DECH3": [
-			"bla",
-			"-" 
-		],
-		"DECH4": [
-			"bla",
-			"-" 
-		],
-		"DECH5": [
-			"bla",
-			"-" 
-		] 
-	},
-	"IT-CH": {
-		"ITCH1": [
-			"bla",
-			"-" 
-		],
-		"ITCH2": [
-			"bla",
-			"-" 
-		],
-		"ITCH3": [
-			"bla",
-			"-" 
-		],
-		"ITCH4": [
-			"bla",
-			"-" 
-		],
-		"ITCH5": [
-			"bla",
-			"-" 
-		] 
-	},
 	"ES-US": {
-		"ESUS1": [
-			"bla",
+		"Asuntos económicos": [
+			"Cut federal spending by $1 trillion",
+			"Raise the federal minimum wage to $15/hour",
+			"Increase the Child and Dependent Care Tax Credit",
 			"-" 
 		],
-		"ESUS2": [
-			"bla",
+		"Asuntos sociales": [
+			"Enhance border security and limit immigration",
+			"Ensure nationwide access to abortion as a constitutional right",
+			"Deployment of U.S. troops against drug cartels in Mexico",
+			"No immunity for crimes committed by a former president",
 			"-" 
 		],
-		"ESUS3": [
-			"bla",
+		"Política climática": [
+			"Rejoin the Paris Agreement",
+			"Expedite the process for oil and gas drilling permits on federal land",
 			"-" 
 		],
-		"ESUS4": [
-			"bla",
+		"Sistema fiscal": [
+			"Imposing a universal tariff of 20 percent on all U.S. imports",
+			"Raising the capital gains tax rate to 28% for individuals earning over $1 million",
+			"Extend the Trump tax cuts",
 			"-" 
 		],
-		"ESUS5": [
-			"bla",
+		"Política exterior": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Negotiate an immediate ceasefire in Ukraine, recognize new Russian territories and withdraw support to Ukraine",
 			"-" 
 		] 
 	}
