@@ -489,7 +489,7 @@ list2env(pilot_data, envir = .GlobalEnv)
 
 e <- p
 
-
+# PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE)
 
 # sum(duplicated(p$distr))
 

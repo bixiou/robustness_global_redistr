@@ -299,24 +299,32 @@
 		] 
 	},
 	"FR-CH": {
-		"FRCH1": [
-			"bla",
+		"Économie": [
+			"Versement du RSA aux 18-25 ans sans emploi",
+			"SMIC à 1600€ net par mois",
+			"Recul de l'âge légal de départ à la retraite à 65 ans",
+			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
 			"-" 
 		],
-		"FRCH2": [
-			"bla",
+		"Démocratie": [
+			"Élection des députés à la proportionnelle",
+			"Référendum d'Initiative Citoyenne (RIC)",
 			"-" 
 		],
-		"FRCH3": [
-			"bla",
+		"Climat": [
+			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
+			"Plan pour l'isolation thermique",
+			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
 			"-" 
 		],
-		"FRCH4": [
-			"bla",
+		"Fiscalité": [
+			"Plan de redistribution nationale",
+			"Rétablissement de l'impôt sur la fortune (ISF)",
 			"-" 
 		],
-		"FRCH5": [
-			"bla",
+		"Politique étrangère": [
+			"Taxe mondiale sur les millionaires finançant les pays à bas revenus",
+			"Réduire l'aide au développement",
 			"-" 
 		] 
 	},
