@@ -95,6 +95,7 @@ with(p, summary(lm((likely_solidarity > 0) ~ variant_info_solidarity)))
 with(p, summary(lm(likely_solidarity ~ variant_info_solidarity)))
 with(p, summary(lm(share_solidarity_supported ~ variant_info_solidarity))) 
 with(p, summary(lm(share_solidarity_short_supported ~ variant_info_solidarity))) 
+with(p, summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0)))) 
 summary(ivreg(share_solidarity_short_supported ~ (likely_solidarity > 0) | info_solidarity, data = p))
 summary(ivreg(share_solidarity_short_supported ~ likely_solidarity | info_solidarity, data = p))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = p))
@@ -139,6 +140,7 @@ sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$top_tax_sup
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$top1_tax_support > 0, na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$top3_tax_support > 0, na.rm = T), 3))
 with(p, summary(lm((top_tax_support > 0) ~ variant_top_tax * variant_long)))  
+with(p, summary(lm((top_tax_support > 0) ~ variant_long)))  
 with(p, summary(lm((top_tax_support > 0) ~ variant_top_tax_full)))  
 with(p, summary(lm((top_tax_support > 0) ~ variant_top_tax)))
 
@@ -181,6 +183,7 @@ with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = cust
 with(p, summary(lm(well_being ~ variant_well_being))) 
 with(p, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
 
+sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$group_defended)))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$group_defended > 0, na.rm = T), 3))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3)) # -> TODO check
 
@@ -212,3 +215,16 @@ summary(lm((transfer_how_govt_conditional > 0) ~ (transfer_how_order_cash_uncond
 summary(lm((transfer_how_govt_unconditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
 
 # TODO variable that best correlates
+
+##### Attrition #####
+# vote = end sociodemos = 21; 26% dropout at 34 (revenue_split), 7% at 33 (conjoint), 8% at 49 (likely_solidarity), 5% at 59 (scenarios)
+100*round(table(a$progress[!a$progress %in% 100])/sum(!a$finished %in% c(TRUE, "TRUE", 1)), 2) 
+sum(!a$finished %in% c(TRUE, "TRUE", 1))/sum(is.na(a$excluded)) # 18.6% dropout
+sum(!a$finished %in% c(TRUE, "TRUE", 1) & a$progress > 21)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos
+sum(!a$finished %in% c(TRUE, "TRUE", 1) & a$progress == 34)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos, incl. 5% at revenue_split
+summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_US, data = a, subset = is.na(a$excluded)))
+summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_PL, data = a, subset = is.na(a$excluded)))
+summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_GB, data = a, subset = is.na(a$excluded)))
+decrit(a$revenue_split_few_global[a$progress == 34])
+decrit(USp$finished[is.na(USp$excluded)], miss= T)
+sum()

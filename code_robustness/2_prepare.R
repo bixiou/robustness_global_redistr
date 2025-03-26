@@ -104,7 +104,7 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   # if (all) cat(paste0(sum((e$Q_TerminateFlag %in% "Screened" & (e$attention_test %in% "A little") & e$Q_TotalDuration >= 420)), " unexplained screened\n"))
   # if (all) cat(paste0(sum((is.na(e$Q_TerminateFlag) & ((!e$attention_test %in% "A little") | e$Q_TotalDuration < 360))), " unexplained non-screened\n"))
   if (all) cat(paste0(sum(is.na(e$Q_TerminateFlag)), " legit: not quota met nor screened out\n"))
-  cat(paste0(round(100*sum(!e$Finished %in% c(TRUE, "TRUE", 1))/sum(is.na(e$Q_TerminateFlag)), 1), "% dropout among legit\n"))
+  cat(paste0(round(100*sum(!e$Finished %in% c(TRUE, "TRUE", 1))/sum(is.na(e$Q_TerminateFlag)), 1), "% dropout among legit\n")) # 13-23% dropout
   if (all) cat(paste0(round(100*sum(e$Finished %in% c(TRUE, "TRUE", 1) & is.na(e$Q_TerminateFlag))/sum(is.na(e$Q_TerminateFlag)), 1), "% finished among legit\n"))
   cat(paste0(sum(e$Finished %in% c(TRUE, "TRUE", 1) & is.na(e$Q_TerminateFlag)), " final: finished, not quota met nor screened out\n"))
   if (all) cat("Progress among legit\n")
@@ -490,6 +490,8 @@ list2env(pilot_data, envir = .GlobalEnv)
 e <- p
 
 # PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE)
+# pilot_data_all <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+# a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_all)
 
 # sum(duplicated(p$distr))
 

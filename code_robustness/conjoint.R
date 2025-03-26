@@ -27,7 +27,9 @@ for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
   write.csv(d(df)[, c(variables_conjoint_all, 'conjoint_number', 'conjoint_misleading', 'conjoint', 'n')], csv.path, row.names = FALSE) # !is.na(d(df)$conjoint_number)
   temp <- readLines(csv.path)
   writeLines(c(temp[1], temp), csv.path)
+  
   # /!\ Bugs at CIRED but works well at home
+  
   ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_misleading', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint]
   names(ca[[df]])[1] <- "n"
   ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "conjoint", "conjoint_number", "n"))], ca[[df]]) # vote

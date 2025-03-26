@@ -67,19 +67,19 @@
 		"Wirtschaftspolitik": [
 			"Strompreise durch Steuersenkungen um 12 % senken",
 			"Mindestlohn bis 2026 auf 15 € erhöhen",
-			"Invest 500 billion euros in strategic sectors such as steel, automotive and defense",
+			"500 Milliarden Euro in strategische Sektoren wie Stahl, Automobilindustrie und Verteidigung investieren.",
 			"-" 
 		],
 		"Gesellschaft": [
 			"Einsatz elektronischer Fußfesseln zur Verfolgung von Gewalttätern gegen Frauen",
-			"Bieten Sie eine Geburtsbeihilfe von 20.000 € für Neugeborene an",
-			"Beschränkung des schnellen Weges zur deutschen Staatsbürgerschaft",
+			"20.000 € staatlicher Zuschuss bei Geburt eines Kindes.",
+			"Beschleunigte Verfahren zur Erlangung der deutschen Staatsangehörigkeit einschränken",
 			"-" 
 		],
 		"Klimaschutz": [
 			"Aufhebung des Heizungsgesetzes, das erneuerbare Energien vorschreibt",
 			"Einführung einer Mindestquote für grünen Stahl und Zement im öffentlichen Beschaffungswesen",
-			"Verbot des Verkaufs von Neuwagen mit Verbrennungsmotor bis 2030",
+			"Neuwagen mit Verbrennungsmotor ab 2035 verbieten.",
 			"-" 
 		],
 		"Steuerpolitik": [
@@ -437,80 +437,6 @@
 			"-" 
 		] 
 	},
-	"FR-CH": {
-		"Économie": [
-			"Versement du RSA aux 18-25 ans sans emploi",
-			"SMIC à 1600€ net par mois",
-			"Recul de l'âge légal de départ à la retraite à 65 ans",
-			"Hausse de 20% du financement de l'hôpital public et de l'Éducation nationale",
-			"-" 
-		],
-		"Démocratie": [
-			"Élection des députés à la proportionnelle",
-			"Référendum d'Initiative Citoyenne (RIC)",
-			"-" 
-		],
-		"Climat": [
-			"Interdiction des véhicules les plus polluants dans les centres-villes (ZFE)",
-			"Plan pour l'isolation thermique",
-			"Interdiction de la vente de voitures thermiques neuves d'ici 2030",
-			"-" 
-		],
-		"Fiscalité": [
-			"Plan de redistribution nationale",
-			"Rétablissement de l'impôt sur la fortune (ISF)",
-			"-" 
-		],
-		"Politique étrangère": [
-			"Taxe mondiale sur les millionaires finançant les pays à bas revenus",
-			"Réduire l'aide au développement",
-			"-" 
-		] 
-	},
-	"DE-CH": {
-		"DECH1": [
-			"bla",
-			"-" 
-		],
-		"DECH2": [
-			"bla",
-			"-" 
-		],
-		"DECH3": [
-			"bla",
-			"-" 
-		],
-		"DECH4": [
-			"bla",
-			"-" 
-		],
-		"DECH5": [
-			"bla",
-			"-" 
-		] 
-	},
-	"IT-CH": {
-		"ITCH1": [
-			"bla",
-			"-" 
-		],
-		"ITCH2": [
-			"bla",
-			"-" 
-		],
-		"ITCH3": [
-			"bla",
-			"-" 
-		],
-		"ITCH4": [
-			"bla",
-			"-" 
-		],
-		"ITCH5": [
-			"bla",
-			"-" 
-		] 
-	},
 	"ES-US": {
 		"Asuntos económicos": [
 			"Cut federal spending by $1 trillion",
@@ -540,6 +466,130 @@
 			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
 			"Cut development aid",
 			"Negotiate an immediate ceasefire in Ukraine, recognize new Russian territories and withdraw support to Ukraine",
+			"-" 
+		] 
+	},
+	"FR-CH": {
+		"Économie": [
+			"Stopper la croissance du secteur public et réduire les coûts administratifs",
+			"Déréglementer et flexibiliser le marché du travail",
+			"Plafonner les primes d'assurance maladie à 10 % du revenu du ménage",
+			"-" 
+		],
+		"Société": [
+			"Augmenter les rentes en introduisant un 13e mois de versement de l'AVS",
+			"Octroi de la nationalité suisse à tous les résidents légaux après 5 ans",
+			"Réduire le coût des services de garde d'enfants pour les parents grâce à une aide nationale",
+			"-" 
+		],
+		"Climat": [
+			"Élimination progressive des voitures à moteur à combustion d'ici à 2040",
+			"Remplacer les systèmes de chauffage à base de combustibles fossiles par des énergies renouvelables",
+			"-" 
+		],
+		"Fiscalité": [
+			"Supprimer l'imposition de la valeur locative pour favoriser l'accès à la propriété",
+			"Augmenter les droits de succession sur les grandes fortunes",
+			"Introduire une imposition indépendante de l’état civil pour mettre fin aux pénalités de mariage",
+			"-" 
+		],
+		"Politique étrangère": [
+			"Taxe mondiale sur les millionnaires, dont 30 % pour financer la santé et l’éducation dans les pays à faible revenu",
+			"Réduire l’aide au développement",
+			"Rejoindre l'UE",
+			"-" 
+		] 
+	},
+	"DE-CH": {
+		"Wirtschaftspolitik": [
+			"Das Wachstum des öffentlichen Sektors stoppen und die Verwaltungskosten senken",
+			"Deregulierung und Flexibilisierung des Arbeitsmarktes",
+			"Begrenzung der Krankenversicherungsprämien auf 10 % des Haushaltseinkommens",
+			"-" 
+		],
+		"Gesellschaft": [
+			"Erhöhung der Renten durch Einführung eines 13. Monats der AVS-Zahlung",
+			"Verleihung der Schweizer Staatsbürgerschaft an alle rechtmäßig Ansässigen nach 5 Jahren",
+			"Senkung der Kinderbetreuungskosten für Eltern durch nationale Unterstützung",
+			"-" 
+		],
+		"Klimaschutz": [
+			"Abschaffung von Autos mit Verbrennungsmotor bis 2040",
+			"Ersatz von Heizsystemen mit fossilen Brennstoffen durch erneuerbare Energien",
+			"-" 
+		],
+		"Steuerpolitik": [
+			"Abschaffung der Mietwertbesteuerung zur Förderung des Immobilienbesitzes",
+			"Erhöhung der Erbschaftssteuer auf große Vermögen",
+			"Einführung einer individualisierten Besteuerung zur Abschaffung von Heiratsstrafen",
+			"-" 
+		],
+		"Außenpolitik": [
+			"Internationale Millionärssteuer mit 30 % zur Finanzierung von Gesundheit und Bildung in Ländern mit niedrigem Einkommen",
+			"Kürzung der Entwicklungshilfe",
+			"Beitritt zur EU",
+			"-" 
+		] 
+	},
+	"EN-CH": {
+		"Economic issues": [
+			"Stop public sector growth and cut administrative costs",
+			"Deregulate and flexibilize the labor market",
+			"Cap health insurance premiums at 10% of household income",
+			"-" 
+		],
+		"Social issues": [
+			"Increase pensions by introducing a 13th month of AVS payment",
+			"Grant Swiss nationality to all legal residents after 5 years",
+			"Reduce cost of childcare for parents through national support",
+			"-" 
+		],
+		"Climate policy": [
+			"Phase out combustion engine cars by 2040",
+			"Substitute fossil fuel heating systems with renewables",
+			"-" 
+		],
+		"Tax system": [
+			"Abolish rental value taxation to support property ownership",
+			"Increase inheritance taxes on large fortunes",
+			"Introduce individualized taxation to end marriage penalties",
+			"-" 
+		],
+		"Foreign policy": [
+			"International tax on millionaires with 30% financing healthcare and education in low-income countries",
+			"Cut development aid",
+			"Join the EU",
+			"-" 
+		] 
+	},
+	"IT-CH": {
+		"Politica economica": [
+			"Fermare la crescita del settore pubblico e tagliare i costi amministrativi",
+			"Deregolamentare e flessibilizzare il mercato del lavoro",
+			"Limitare i premi dell'assicurazione sanitaria al 10% del reddito familiare",
+			"-" 
+		],
+		"Politica sociale": [
+			"Aumento delle pensioni con l'introduzione di una tredicesima mensilità dell'AVS",
+			"Concedere la cittadinanza svizzera a tutti i residenti legali dopo 5 anni",
+			"Ridurre il costo dell'assistenza all'infanzia per i genitori attraverso un sostegno nazionale",
+			"-" 
+		],
+		"Politica climatica": [
+			"Eliminazione graduale delle auto con motore a combustione entro il 2040",
+			"Sostituire i sistemi di riscaldamento a combustibili fossili con le energie rinnovabili",
+			"-" 
+		],
+		"Politica fiscale": [
+			"Abolire la tassazione del valore locativo per sostenere la proprietà immobiliare",
+			"Aumentare le tasse di successione sulle grandi fortune",
+			"Introdurre una tassazione personalizzata per porre fine alle sanzioni matrimoniali",
+			"-" 
+		],
+		"Politica estera": [
+			"Tassa internazionale sui milionari con il 30% di finanziamento dell'assistenza sanitaria e dell'istruzione nei paesi a basso reddito",
+			"Tagliare gli aiuti allo sviluppo",
+			"Aderire all'UE",
 			"-" 
 		] 
 	}
