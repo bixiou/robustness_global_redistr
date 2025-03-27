@@ -23,31 +23,31 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
 {
   levels_quotas <- list(
     "gender" = c("Woman", "Other", "Man"), # we could add: urbanity, education, wealth, occupation, employment_agg, marital_status, Nb_children, HH_size, home (ownership)
-    "income_quartile" = 1:4, #c("Q1", "Q2", "Q3", "Q4"),
+    "income_quartile" = c("Q1", "Q2", "Q3", "Q4"), # 1:4, 
     "age" = c("18-24", "25-34", "35-49", "50-64", "65+"),
     "urbanity" = c("Cities", "Towns and suburbs", "Rural"),
-    "diploma_25_64" = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64"), # "Not 25-64"
+    "education_quota" = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64"), # "Not 25-64"
     "employment_18_64" = c("Inactive", "Unemployed", "Employed", "65+"),
     "vote" = c("Left", "Center-right or Right", 'Far right', "PNR/Non-voter"),
     # "EU_country" = c("FR", "DE", "ES", "UK"),
     "US_region" = c("Northeast", "Midwest", "South", "West"),
     "US_race" = c("White only", "Hispanic", "Black", "Other"),
-    "US_vote_us" = c("Biden", "Trump", "Other/Non-voter", "PNR/no right"),
+    "US_vote_us" = c("Harris", "Trump", "Other/Non-voter", "PNR/no right"),
     "US_urban" = c(TRUE, FALSE)
   )
   
-  quotas <- list(# "EU" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity"),
-                 # "EU_vote" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity", "vote"),
-                 # "EU_all" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity", "employment_18_64", "vote"), 
-                 "US" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban"), 
-                 "US_vote" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban", "vote_us"),
-                 "US_all" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban", "employment_18_64", "vote"),
-                 "FR" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
+  quotas <- list(# "EU" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity"),
+                 # "EU_vote" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "vote"),
+                 # "EU_all" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "employment_18_64", "vote"), 
+                 "US" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban"), 
+                 "US_vote" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "vote_us"),
+                 "US_all" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "employment_18_64", "vote"),
+                 "FR" = c("gender", "income_quartile", "age", "education_quota", "urbanity"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
                  # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
-                 "DE" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
-                 "ES" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
-                 "PL" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
-                 "GB" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity")
+                 "DE" = c("gender", "income_quartile", "age", "education_quota", "urbanity"),
+                 "ES" = c("gender", "income_quartile", "age", "education_quota", "urbanity"),
+                 "PL" = c("gender", "income_quartile", "age", "education_quota", "urbanity"),
+                 "GB" = c("gender", "income_quartile", "age", "education_quota", "urbanity")
   )
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
@@ -55,28 +55,25 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
   
   pop_freq <- list(
     "EU" = list( 
-      "EU_country" = unlist(qs["EU", c("FR", "DE", "ES", "UK")]/1000)
+      "EU_country" = unlist(qs["EU", c("FR", "DE", "ES", "GB", "IT", "PL", "CH")]/1000)
     ),
     "US" = list(
       "urbanity" = c(qs["US", "Cities"], 0.001, qs["US","Rural"])/1000,
       "US_urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
       "US_region" = unlist(qs["US", c("Region.1", "Region.2", "Region.3", "Region.4")]/1000),
       "US_race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000),
-      "US_vote_us" = c(0.342171, 0.312823, 0.345006, 0.000001)
+      "US_vote_us" = c(0.308637, 0.31822, 0.373142, 0.000001) # https://en.wikipedia.org/wiki/2024_United_States_presidential_election
     ))
   for (c in c("EU", countries)) {
     pop_freq[[c]]$gender <- c(qs[c,"women"], 0.001, qs[c,"men"])/1000
     pop_freq[[c]]$income_quartile <- rep(.25, 4)
     pop_freq[[c]]$age <- unlist(qs[c, c("18-24", "25-34", "35-49", "50-64", ">65")]/1000)
-    pop_freq[[c]]$diploma_25_64 <- unlist(c(qs[c, c("Below.upper.secondary.25-64.0-2", "Upper.secondary.25-64.3", "Above.Upper.secondary.25-64.4-8")]/1000, "Not 25-64" = sum(unlist(qs[c, c("18-24", ">65")]/1000))))
+    pop_freq[[c]]$education_quota <- unlist(c(qs[c, c("Below.upper.secondary.25-64.0-2", "Upper.secondary.25-64.3", "Above.Upper.secondary.25-64.4-8")]/1000, "Not 25-64" = sum(unlist(qs[c, c("18-24", ">65")]/1000))))
     pop_freq[[c]]$employment_18_64 <- unlist(c(c("Inactive" = qs[c, "Inactivity"], "Unemployed" = qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000, "Employed" =  1000-qs[c, "Inactivity"]-qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000)*(1000-qs[c, c(">65")])/1000, "65+" = qs[c, c(">65")])/1000)
     pop_freq[[c]]$vote <- unlist(c(c(qs[c, "Left"], qs[c, "Center-right.or.Right"], qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")]), qs[c, "Abstention"])/1000)
-    pop_freq[[c]]$wealth <- rep(.2, 5)
     if (c != "US") pop_freq[[c]]$urbanity <- unlist(qs[c, c("Cities", "Towns.and.suburbs", "Rural")]/1000)
   }
 }
-
-
 
 
 ##### Functions #####
@@ -274,7 +271,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
   
   if (weighting) {
     e$weight <- weighting(e, country)
-    e$weight_all <- weighting(e, country, variant = "all")
+    # e$weight_all <- weighting(e, country, variant = "all") # TODO
     if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, country, variant = "vote")
     if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
   } else {
@@ -421,10 +418,16 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
                    values = list(c("18 to 20", "21 to 24"), c("25 to 29", "30 to 34"), c("35 to 39", "40 to 44", "45 to 49"), c("50 to 54", "55 to 59", "60 to 64"), 
                                  c("65 to 69", "70 to 74", "75 to 79", "80 to 84", "85 to 89", "90 to 99", "100 or above")), df = e)
   e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3", "4|5|6|7"), df = e)
-  e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, NA)
-  e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), values = c(1, 2, 3), df = e)
+  e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, 0)
+  # e$diploma_25_64 <- e$diploma
+  # e$diploma_25_64[e$age < 25 | e$age > 65] <- 0 # "Not 25-64"
+  # e$diploma_25_64 <- as.item(as.numeric(as.vector(e$diploma_25_64)), labels = structure(c(1:3, 0), names = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64")), missing.values=c(NA, 0), 
+  #                            annotation="diploma_25_64: 0: Not 25-64 if age is not within 25-64 (missing value) / 1: Below upper secondary (ISCED 0-2) / 2: Upper secondary (ISCED 3) / 3: Post secondary (ISCED 4-8), recoded from education.")
+  e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3, "Not 25-64" = 0), values = 0:3, missing.values = c(NA, 0), df = e)
+  # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   e$income_quartile <- e$income
   e <- create_item("income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  e$urban <- e$urbanity == 1
   # e$urban_rural <- e$urbanity
   # e <- create_item("urban_rural", labels = c("Cities" = 1, "Rural" = 2), values = list(1, c(2:4)), df = e)
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
@@ -540,7 +543,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
 p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 

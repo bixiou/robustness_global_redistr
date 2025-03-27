@@ -865,7 +865,7 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
 #' #'   decote <- (ir < seuil_decote) * 0.75 * (seuil_decote - ir)
 #' #'   return(pmax((ir-decote),0)) # vrai calcul
 #' #' }
-#' representativity_index <- function(weights, digits = 3) { return(round(sum(weights)^2/(length(weights)*sum(weights^2)), 3)) }
+representativity_index <- function(weights, digits = 3) { return(round(sum(weights)^2/(length(weights)*sum(weights^2)), 3)) }
 #' #'
 #' #'
 #' #' ##### Graphiques #####

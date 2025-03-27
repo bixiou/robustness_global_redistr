@@ -44,7 +44,7 @@ barresN_defs <- fill_barres(vars_barresN, along = "country_name")
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
 barres_multiple(barres_defs["ncqg"])
-barres_multiple(barresN_defs["group_defended"])
+barres_multiple(barresN_defs["maritime_split_ldc"])
 barres_multiple(barres_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])
