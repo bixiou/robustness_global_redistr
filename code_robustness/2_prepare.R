@@ -20,6 +20,63 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
 # policies_main_language <- policies_english <- c()
 # for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
 
+{
+  levels_quotas <- list(
+    "gender" = c("Woman", "Other", "Man"), # we could add: urbanity, education, wealth, occupation, employment_agg, marital_status, Nb_children, HH_size, home (ownership)
+    "income_quartile" = 1:4, #c("Q1", "Q2", "Q3", "Q4"),
+    "age" = c("18-24", "25-34", "35-49", "50-64", "65+"),
+    "urbanity" = c("Cities", "Towns and suburbs", "Rural"),
+    "diploma_25_64" = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64"), # "Not 25-64"
+    "employment_18_64" = c("Inactive", "Unemployed", "Employed", "65+"),
+    "vote" = c("Left", "Center-right or Right", 'Far right', "PNR/Non-voter"),
+    # "EU_country" = c("FR", "DE", "ES", "UK"),
+    "US_region" = c("Northeast", "Midwest", "South", "West"),
+    "US_race" = c("White only", "Hispanic", "Black", "Other"),
+    "US_vote_us" = c("Biden", "Trump", "Other/Non-voter", "PNR/no right"),
+    "US_urban" = c(TRUE, FALSE)
+  )
+  
+  quotas <- list(# "EU" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity"),
+                 # "EU_vote" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity", "vote"),
+                 # "EU_all" = c("gender", "income_quartile", "age", "diploma_25_64", "country", "urbanity", "employment_18_64", "vote"), 
+                 "US" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban"), 
+                 "US_vote" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban", "vote_us"),
+                 "US_all" = c("gender", "income_quartile", "age", "diploma_25_64", "race", "region", "urban", "employment_18_64", "vote"),
+                 "FR" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
+                 # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
+                 "DE" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
+                 "ES" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
+                 "PL" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity"),
+                 "GB" = c("gender", "income_quartile", "age", "diploma_25_64", "urbanity")
+  )
+  # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
+  
+  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 3:13), cols = 1:45)
+  
+  pop_freq <- list(
+    "EU" = list( 
+      "EU_country" = unlist(qs["EU", c("FR", "DE", "ES", "UK")]/1000)
+    ),
+    "US" = list(
+      "urbanity" = c(qs["US", "Cities"], 0.001, qs["US","Rural"])/1000,
+      "US_urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
+      "US_region" = unlist(qs["US", c("Region.1", "Region.2", "Region.3", "Region.4")]/1000),
+      "US_race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000),
+      "US_vote_us" = c(0.342171, 0.312823, 0.345006, 0.000001)
+    ))
+  for (c in c("EU", countries)) {
+    pop_freq[[c]]$gender <- c(qs[c,"women"], 0.001, qs[c,"men"])/1000
+    pop_freq[[c]]$income_quartile <- rep(.25, 4)
+    pop_freq[[c]]$age <- unlist(qs[c, c("18-24", "25-34", "35-49", "50-64", ">65")]/1000)
+    pop_freq[[c]]$diploma_25_64 <- unlist(c(qs[c, c("Below.upper.secondary.25-64.0-2", "Upper.secondary.25-64.3", "Above.Upper.secondary.25-64.4-8")]/1000, "Not 25-64" = sum(unlist(qs[c, c("18-24", ">65")]/1000))))
+    pop_freq[[c]]$employment_18_64 <- unlist(c(c("Inactive" = qs[c, "Inactivity"], "Unemployed" = qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000, "Employed" =  1000-qs[c, "Inactivity"]-qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000)*(1000-qs[c, c(">65")])/1000, "65+" = qs[c, c(">65")])/1000)
+    pop_freq[[c]]$vote <- unlist(c(c(qs[c, "Left"], qs[c, "Center-right.or.Right"], qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")]), qs[c, "Abstention"])/1000)
+    pop_freq[[c]]$wealth <- rep(.2, 5)
+    if (c != "US") pop_freq[[c]]$urbanity <- unlist(qs[c, c("Cities", "Towns.and.suburbs", "Rural")]/1000)
+  }
+}
+
+
 
 
 ##### Functions #####

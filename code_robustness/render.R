@@ -50,3 +50,7 @@ barres_multiple(barres_defs)
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs)
 heatmap_multiple(heatmaps_defs["global_movement"])
+
+
+##### Maritime #####
+
