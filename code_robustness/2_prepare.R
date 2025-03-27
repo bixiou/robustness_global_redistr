@@ -236,7 +236,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     # print(decrit(e$region[e$id %in% invalid_IDs], weight = F))
     # print(decrit(e$race[e$id %in% invalid_IDs], weight = F))
     e <- e[!e$id %in% invalid_IDs, ]
-    e$id <- NA
+    if (remove_id) e$id <- NA
   }
   
   return(e)
@@ -488,6 +488,14 @@ p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
 e <- p
+
+# pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+# i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
+# list2env(pilot_data, envir = .GlobalEnv)
+# write.csv(i[, c("id", "country")], "../deprecated/IDs_pilot.csv", row.names = F, quote = F)
+# sum(is.na(i$id))
+# sum(duplicated(i$distr))
+
 
 # PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE)
 # pilot_data_all <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F

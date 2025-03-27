@@ -31,7 +31,7 @@ with(p, summary(rq(duration_field ~ variant_field)))
 
 
 # => Either keep as is or change "in the world" => "of all" for injustice; or have two versions of injustice and take out concerns.
-# -> test "of all" for last 188 US respondents; concerns changed to open question on global tax revenue use. TODO analyze
+# -> test "of all" for last 188 US respondents; concerns changed to open question on global tax revenue use. 
 p$issue_field[!is.na(p$issue_field) & !p$country %in% "PL"] # Short political answers. Main topics: cost of living; immigration; climate; (homelessness; healthcare; animal).
 p$concerns_field[!is.na(p$concerns_field) & !p$country %in% "PL"] # Political answers. Main topics: money; cost of living; immigration; (peace; Trump; job/unemployment).
 p$injustice_field[!is.na(p$injustice_field) & !p$country %in% "PL"] # Short political answers. Main topics: poverty; hunger; inequality; (wars).
@@ -185,7 +185,7 @@ with(p, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wo
 
 sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$group_defended)))
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$group_defended > 0, na.rm = T), 3))
-sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3)) # -> TODO check
+sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3)) # corresponds well
 
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$survey_biased > 0, na.rm = T), 3))
 
@@ -195,7 +195,6 @@ sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
 
 ##### Comments #####
 p$comment_field[!is.na(p$comment_field) & !p$country %in% "PL"]
-# TODO USp$interview & new ncqg after 856 / PLp after 898: GDP convergence
 
 
 ##### Influence order ######
