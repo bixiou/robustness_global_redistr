@@ -126,7 +126,7 @@ package("readstata13") # read.dta13
 # install.packages("stargazer", repos = NULL, type="source")
 # setwd(temp)
 #' package("clipr")
-# package("ergm") # wtd.median
+package("ergm") # wtd.median
 #' package("mfx")
 #' package("margins")
 #' package("plotrix")

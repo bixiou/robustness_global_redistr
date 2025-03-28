@@ -35,13 +35,15 @@ heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
 ##### barres_defs #####
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
-  
+  "maritime_split_decarbonization" = list(height = 250),
+  "maritime_split_companies" = list(height = 250),
+  "maritime_split_ldc" = list(height = 250)
   # "understood_each" = list(vars = variables_understood, width = 850), 
   # "negotiation" = list(width = 940), 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("ncqg", "ncqg_full", "maritime_split", variables_maritime_split) 
+vars_barres <- c("ncqg", "ncqg_full", "maritime_split") 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 
@@ -51,8 +53,8 @@ barresN_defs <- fill_barres(vars_barresN, along = "country_name")
 
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
-barres_multiple(barres_defs["maritime_split"], export_xls = T)
-barres_multiple(barresN_defs[variables_maritime_split], export_xls = T)
+barres_multiple(barres_defs["maritime_split"])
+barres_multiple(barresN_defs[variables_maritime_split])
 barres_multiple(barres_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])
@@ -64,4 +66,16 @@ heatmap_multiple(heatmaps_defs["global_movement"])
 mean_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
 for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) mean_maritime_split[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight)
 barres(mean_maritime_split/100, save = T, file = "../figures/country_comparison/mean_maritime_split", export_xls = T, 
-       miss = F, rev_color = T, sort = F, legend = c("Net-zero fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
+       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
+
+median_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
+for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) median_maritime_split[v, c] <- wtd.median(d(c)[[v]], d(c)$weight, na.rm = T)
+barres(median_maritime_split/100, save = T, file = "../figures/country_comparison/median_maritime_split", export_xls = T, 
+       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
+barres(as.matrix(median_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
+       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
+       labels = c("Median preferred allocation for\nglobal maritime levy revenue\n(3,000 respondents from Poland, UK & U.S.)"))
+
+barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
+       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
+       labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,000 respondents from Poland, UK & U.S.)"))
