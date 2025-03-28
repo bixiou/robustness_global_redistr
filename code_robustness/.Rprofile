@@ -126,7 +126,7 @@ package("readstata13") # read.dta13
 # install.packages("stargazer", repos = NULL, type="source")
 # setwd(temp)
 #' package("clipr")
-# package("ergm") # wtd.median
+package("ergm") # wtd.median
 #' package("mfx")
 #' package("margins")
 #' package("plotrix")
@@ -185,7 +185,7 @@ package("Hmisc") # describe, decrit
 #' package("forcats")
 #' package("modi")
 #' package("descr")
-# package("knitr") # plot_crop, representativeness_table
+package("knitr") # plot_crop, representativeness_table
 # options(knitr.kable.NA = '')
 # package("kableExtra") # add_header_above in 
 package("WDI") # World Development Indicators, WDI()
@@ -1195,7 +1195,7 @@ labelsN <- function(labels, levels, parentheses = T) {
   return(rev(new_labels)) # version var (lev1) / (lev2) / ...
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
-barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F,
+barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL,
                     rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F) {
   if (nolabel & length(labels)==1) labels <- ""
   if (is.data.frame(df)) df <- list(df)
@@ -1227,7 +1227,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
     } else {
       not_nan <- sapply(c(1:ncol(plotted_data)), function(j) any(!is.nan(plotted_data[,j])))
       plotted_data <- plotted_data[, not_nan, drop=FALSE]
-      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
+      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
                     miss=miss, weights = weights, fr=fr, rev=rev, color=color, rev_color = rev_color, hover=hover, sort=F, thin=thin, showLegend=showLegend, export_xls = export_xls, error_margin = error_margin))
     } }
 }
@@ -1359,11 +1359,11 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     values <- matrix(values, ncol=length(hover))
   }
   if (!(display_values)) values <- replace(values, T, '')
-
+  
   bars <- plot_ly(x = data[1,], y = labels, type = 'bar', orientation = 'h', text = values[,1], textposition = 'auto',
                   error_x = list(visible = error_margin, array=qnorm(1-0.05/2)*sqrt(data[1,]*(1-data[1,])/(N-1)), color = color_margin), # sort=FALSE,
                   hoverinfo = hovers[,1], name=legend[1], marker = list(color = color[1], line = list(color = 'white'))) %>% # , width = 0
-
+    
     plotly::layout(xaxis = list(title = "",
                                 showgrid = show_ticks,
                                 showline = FALSE,
@@ -1402,7 +1402,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     # showlegend = (showLegend & !((("Yes" %in% legend) | ("Oui" %in% legend)) & (length(legend)<4)))) %>%
     showlegend = showLegend # (showLegend & !(setequal(legend, c('Yes', 'No', 'PNR')) | setequal(legend, c('Oui', 'Non', 'NSP')) | setequal(legend, c('Yes', 'No')) | setequal(legend, c('Oui', 'Non'))))
     ) %>%
-
+    
     # labeling the y-axis
     add_annotations(xref = 'paper', yref = 'y', x = share_labels - 0.01, y = labels,
                     xanchor = 'right',
@@ -1428,7 +1428,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
                                        font = list(family = font, size = 16, color = 'black'),
                                        showarrow = FALSE) } # %>%
   }
-
+  
   # print(nrow(data))
   # print(hover)
   # print(nrow(hovers))
@@ -1443,8 +1443,12 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (export_xls) {
     table <- as.data.frame(data, row.names = legend)
     names(table) <- labels
-    return(table) }
-  else return(bars)
+    if (!is.null(file)) save_plot(table, filename = sub(".*/", "", file), folder = sub("/[^/]*$", "/", file))
+    print(table) 
+    # return(table) # old
+  }
+  # else return(bars) # old
+  return(bars)
 }
 #' #' # plot(1:3,1:3) # example
 #' #' # dev.copy(png, filename="test.png") # save plot from R (not plotly)
@@ -1601,7 +1605,7 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
   if (is.null(folder)) folder <- automatic_folder(along, data)
   if (is.null(width)) width <- ifelse(length(labels) <= 3, 1000, ifelse(length(labels) <= 8, 1550, 1770)) # TODO! more precise than <= 3 vs. > 3
   if (is.null(height)) height <- ifelse(length(labels) <= 3, 163, ifelse(length(labels) <= 8, 400, 600))
-
+  
   for (cond in conditions) {
     filename <- paste(sub("variables_", "", name),
                       case_when(cond == "" ~ "mean",
@@ -1690,17 +1694,17 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
 barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T) {
   if (missing(folder)) folder <- automatic_folder(along = "country", data = df, several = "all")
   for (def in barres) {
-    tryCatch({
-      vars_present <- def$vars %in% names(df)
-      if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
-                                                   miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights)
-      else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
-                           miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights)
-      if (print) print(plot)
-      save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
-      print(paste0(def$name, ": success"))
-    }
-    , error = function(cond) { print(paste0(def$name, ": failed.")) } )
+    # tryCatch({
+    vars_present <- def$vars %in% names(df)
+    if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
+                                                 miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
+    else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
+                         miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL)
+    if (print) print(plot)
+    save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
+    #   print(paste0(def$name, ": success"))
+    # }
+    # , error = function(cond) { print(paste0(def$name, ": failed.")) } )
   }
 }
 
