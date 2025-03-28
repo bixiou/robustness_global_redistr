@@ -329,8 +329,8 @@ define_var_lists <- function() {
   variables_split_many_global <<- c("revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
   "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
   variables_split_many <<- c(variables_split_many_domestic, variables_split_many_global)
-  variables_split_maritime <<- c("maritime_split_ldc", "maritime_split_companies", "maritime_split_decarbonization")
-  variables_split <<- c(variables_split_few, variables_split_many, variables_split_maritime)
+  variables_maritime_split <<- rev(c("maritime_split_ldc", "maritime_split_companies", "maritime_split_decarbonization"))
+  variables_split <<- c(variables_split_few, variables_split_many, variables_maritime_split)
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief", variables_split)
   variables_well_being <<- c("well_being_gallup_0", "well_being_gallup_1", "well_being_wvs_0", "well_being_wvs_1")
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 

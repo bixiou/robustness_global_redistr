@@ -185,7 +185,7 @@ package("Hmisc") # describe, decrit
 #' package("forcats")
 #' package("modi")
 #' package("descr")
-# package("knitr") # plot_crop, representativeness_table
+package("knitr") # plot_crop, representativeness_table
 # options(knitr.kable.NA = '')
 # package("kableExtra") # add_header_above in 
 package("WDI") # World Development Indicators, WDI()
@@ -1443,6 +1443,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (export_xls) {
     table <- as.data.frame(data, row.names = legend)
     names(table) <- labels
+    save_plot(table, filename = sub(".*/", "", file), folder = sub("/[^/]*$", "/", file))
     return(table) }
   else return(bars)
 }
