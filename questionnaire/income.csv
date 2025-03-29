@@ -12,7 +12,7 @@ d8|36659.071690779529|41370|31440.86593181235|69100.704084011624|29828|47988.094
 d9|45688.808248758367|51810|39493.701871315039|85005.251693502956|37303|62682.79691055177|146643.92003772949|7623988.0297548193|1457024.7273481926|286259.87015063019|212538.51063829788|146643.92003772949|146643.92003772949|146643.92003772949|212538.51063829788
 periodicity|12|12|12|12|12|1|1|10000|12|12|1|1|1|1|1
 round_at|50|50|50|50|50|500|1000|1|1000|50|1000|1000|1000|1000|1000
-separator|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|,|&nbsp;|&nbsp;|&nbsp;|,|,|&nbsp;|&nbsp;|&nbsp;|,
+separator|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|,|&nbsp;|,|&nbsp;|,|,|&nbsp;|&nbsp;|&nbsp;|,
 income_type|net|Netto|netto|netto|neto|gross|gross|総|чистый|صافي|gross|brut|Brutto|lordo|bruto
 periodicity_text|mensuel|monatliche|mensile|miesięczny|mensual|yearly|yearly|年|ежемесячный|الشهري|yearly|annuel|Jahrliche|annuale|anual
 income_type_long|après impôts et transferts|nach Steuern und Transfers|dopo le imposte e i trasferimenti|po opodatkowaniu i transferach|después de impuestos y transferencias|before taxes|before taxes|税引前|после уплаты налогов и трансфертов|قبل الضرائب|before taxes|avant impôts|vor Steuern|prima delle imposte|antes de impuestos
