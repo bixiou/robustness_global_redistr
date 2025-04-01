@@ -55,9 +55,15 @@ with(p, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_glob
 with(p, summary(lm(split_both_global ~ split_both_nb_global * variant_split))) 
 sort(sapply(variables_split_many, function(c) mean(p[[c]], na.rm = T)), decreasing = T) 
 sort(sapply(variables_split_many, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_many, function(c) mean(p[[c]] == 0, na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_many, function(c) median(p[[c]], na.rm = T)), decreasing = T) 
 # global_education_healthcare ranks 8/13; other global 10, 12, 13 justice_police, deficit_reduction are only domestic that rank below it.
 sort(sapply(variables_split_few, function(c) mean(p[[c]], na.rm = T)), decreasing = T) # global ranks 5/5
+sort(sapply(variables_split_few, function(c) median(p[[c]], na.rm = T)), decreasing = T)
 sort(sapply(variables_split_few, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) # global ranks 3/5
+sort(sapply(variables_split_few, function(c) mean(p[[c]] == 0, na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_few, function(c) mean(p[[c]][p[[c]] != 0], na.rm = T)), decreasing = T)
+sort(sapply(variables_split_few, function(c) mean(p[[c]][p$revenue_split_few_global != 0], na.rm = T)), decreasing = T) 
 
 
 ##### Warm glow - substitute #####
