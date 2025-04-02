@@ -76,8 +76,8 @@ barres(median_maritime_split/100, save = T, file = "../figures/country_compariso
        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
 barres(as.matrix(median_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
-       labels = c("Median preferred allocation for\nglobal maritime levy revenue\n(3,000 respondents from Poland, UK & U.S.)"))
+       labels = c("Median preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
 
-barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
+barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/mean_maritime_split", export_xls = T, 
        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
-       labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,000 respondents from Poland, UK & U.S.)"))
+       labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))

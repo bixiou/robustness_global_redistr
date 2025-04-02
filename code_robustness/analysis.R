@@ -55,9 +55,15 @@ with(p, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_glob
 with(p, summary(lm(split_both_global ~ split_both_nb_global * variant_split))) 
 sort(sapply(variables_split_many, function(c) mean(p[[c]], na.rm = T)), decreasing = T) 
 sort(sapply(variables_split_many, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_many, function(c) mean(p[[c]] == 0, na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_many, function(c) median(p[[c]], na.rm = T)), decreasing = T) 
 # global_education_healthcare ranks 8/13; other global 10, 12, 13 justice_police, deficit_reduction are only domestic that rank below it.
 sort(sapply(variables_split_few, function(c) mean(p[[c]], na.rm = T)), decreasing = T) # global ranks 5/5
+sort(sapply(variables_split_few, function(c) median(p[[c]], na.rm = T)), decreasing = T)
 sort(sapply(variables_split_few, function(c) mean(GBp[[c]], na.rm = T)), decreasing = T) # global ranks 3/5
+sort(sapply(variables_split_few, function(c) mean(p[[c]] == 0, na.rm = T)), decreasing = T) 
+sort(sapply(variables_split_few, function(c) mean(p[[c]][p[[c]] != 0], na.rm = T)), decreasing = T)
+sort(sapply(variables_split_few, function(c) mean(p[[c]][p$revenue_split_few_global != 0], na.rm = T)), decreasing = T) 
 
 
 ##### Warm glow - substitute #####
@@ -213,7 +219,6 @@ summary(lm((transfer_how_agencies > 0) ~ (transfer_how_order_cash_unconditional 
 summary(lm((transfer_how_govt_conditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
 summary(lm((transfer_how_govt_unconditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = p))
 
-# TODO variable that best correlates
 
 ##### Attrition #####
 # vote = end sociodemos = 21; 26% dropout at 34 (revenue_split), 7% at 33 (conjoint), 8% at 49 (likely_solidarity), 5% at 59 (scenarios)
@@ -227,3 +232,13 @@ summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_GB, data = a, subset = is.na
 decrit(a$revenue_split_few_global[a$progress == 34])
 decrit(USp$finished[is.na(USp$excluded)], miss= T)
 sum()
+
+
+##### Most correlated variable #####
+p$itw <- p$interview == "Yes"
+variables_interest <- c(variables_solidarity_support, variables_solidarity_support_short, "wealth_tax_support", "top_tax_support", "reparations_support", "ncs_support", "gcs_support", "ics_support", 
+                        variables_global_movement, variables_why_hic_help_lic, "revenue_split_few_global", variables_transfer_how, "sustainable_future", "likely_solidarity", "gcs_belief", 
+                        "ncqg", "vote_intl_coalition", "maritime_split_ldc", "my_tax_global_nation", "group_defended", "ncqg_fusion", "humanist", "share_solidarity_supported", "itw")
+cors <- cor(p[, variables_interest], use = "pairwise.complete.obs")
+corrplot(cors)
+sort(rowMeans(abs(cors), na.rm = T)) # share_solidarity_supported .41, solidarity_support_ncqg_300bn .39, my_tax_global_nation .37, global_movement_no .36, vote_intl_coalition .35, 
