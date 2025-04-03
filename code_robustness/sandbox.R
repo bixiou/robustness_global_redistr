@@ -453,3 +453,24 @@ PLa$date[PLa$education_quota %in% 1 & PLa$excluded %in% "QuotaMet"]
 tail(PLa$excluded[PLa$education_quota %in% 1])
 decrit(PLa$education)
 
+df$net_gain_maritime_pc
+df$emissions_maritime_mean
+revenue_maritime <- maritime_carbon_price*sum(df$emissions_maritime_mean, na.rm = T)
+sum(df$emissions_maritime_mean[df$gni_pc_nom_2023 < 10000], na.rm = T)*maritime_carbon_price/revenue_maritime # 33%
+df$gni_pc_nom_2023[df$code == "CHN"]/wtd.mean(df$gni_pc_nom_2023, df$pop_2023)
+df$gni_pc_nom_2023[df$code == "BRA"]/wtd.mean(df$gni_pc_nom_2023, df$pop_2023)
+df$emissions_maritime_mean[df$code == "CHN"]/sum(df$emissions_maritime_mean, na.rm = T) # 9% louche
+df$emissions_maritime_mean[df$code == "BRA"]/sum(df$emissions_maritime_mean, na.rm = T) # 10% 
+sort(setNames(df$emissions_maritime_mean/sum(df$emissions_maritime_mean, na.rm = T), df$country))
+sum(df$gni_pc_nom_2023 * df$pop_2023 * df$code %in% LIC, na.rm = T)/sum(df$gni_pc_nom_2023 * df$pop_2023, na.rm = T) # 0.5%
+sum(df$pop_2023 * df$code %in% LIC, na.rm = T)/sum(df$pop_2023, na.rm = T) # 9%
+sum(df$emissions_maritime_mean * df$code %in% LIC, na.rm = T)/sum(df$emissions_maritime_mean, na.rm = T) # 1%
+# p*u-y
+# Sp=1, Sy=u
+# y*r+(1-r)u*f=p*u => f=(p*u-y*r/((1-r)*u) 
+# Pour s'approcher d'une égale recette par habitant, laisser chaque État récupérer une part réservée r des recettes collectées, et sur le 1-r mis en commun,
+# lui attribuer une part proportionnelle à la recette égale par habitant diminué de ce que l'État a déjà obtenu.
+# Si pour l'État le plus riche, la recette égale n'est pas inférieure à sa part réservée y*r, on arrive exactement à la recette égalitaire.
+# Pour que ce soit le cas, il faudrait que r < 0.25. 
+# 1. Redistribution égalitaire des recettes
+# 2. Redistribution progressive de 30% aux LMICs et le reste aux compagnies et ports de sorte que non-HICs aient la recette égalitaire.
