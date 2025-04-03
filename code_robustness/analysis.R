@@ -107,6 +107,10 @@ summary(ivreg(share_solidarity_short_supported ~ likely_solidarity | info_solida
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = p))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = p, subset = !info_solidarity))
 
+sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c), which = d(c)$solidarity_support_shipping_levy != 0)))
+sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c))))
+sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$solidarity_support_shipping_levy < 0, d(c))))
+
 
 ##### Wealth tax depending on coverage #####
 sapply(paste0(pilot_countries_all, "p"), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))

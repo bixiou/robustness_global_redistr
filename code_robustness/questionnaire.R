@@ -17,7 +17,8 @@ gethin$growth_2020_2024[is.na(gethin$growth_2020_2024)] <- 1
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 countries_names <- c("France", "Germany", "Italy", "Poland", "Spain", "UK", "Switzerland", "Japan", "Russia", "Saudia Arabia"," U.S.") # France, Germany, Italy, Poland, Spain, UK, Switzerland, Japan, Russia, Saudia Arabia, U.S.
 countries_iso3 <- c("FRA", "DEU", "ITA", "POL", "ESP", "GBR", "CHE", "JPN", "RUS", "SAU", "USA")
-lcu_per_dollar <- setNames(c(0.97, 0.97, 0.97, 4.15, 0.97, 0.809, 0.912, 158, 105, 3.75, 1), countries)
+# lcu_per_dollar <- setNames(c(0.97, 0.97, 0.97, 4.15, 0.97, 0.809, 0.912, 158, 105, 3.75, 1), countries) # 01/25
+lcu_per_dollar <- setNames(c(0.926, 0.926, 0.926, 3.87, 0.926, 0.773, 0.896, 149, 84.3, 3.75, 1), countries) # 04/25
 pop <- sapply(countries, function(c) mean(gethin$npop[gethin$iso == c], na.rm = T))
 world_population <- 8231613070 # UN, 2025, Accessed 12/21/2024, https://population.un.org/dataportal/data/indicators/49/locations/900/start/2024/end/2025/table/pivotbylocation?df=e5e54b33-f396-4e7a-a2e6-938af4215c20
 (inflation_2023_2024 <- sapply(countries, function(c) mean(gethin$inflation_2023_2024[gethin$iso == c], na.rm = T)))
