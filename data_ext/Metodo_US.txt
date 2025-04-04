@@ -1,0 +1,9 @@
+US 
+
+0- out of America
+1- Northeast
+2 - Midwest
+3 - South
+4 - West
+
+Description - based on geographical distributions of zipcodes
