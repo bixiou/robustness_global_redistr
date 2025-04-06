@@ -13,7 +13,7 @@ d9|45688.808248758367|51810|39493.701871315039|85005.251693502956|37303|62682.79
 periodicity|12|12|12|12|12|1|1|10000|12|12|12|1|1|1|1|1
 round_at|50|50|50|50|50|500|1000|1|1000|50|50|1000|1000|1000|1000|1000
 separator|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|,|&nbsp;|,|&nbsp;|,|,|,|&nbsp;|&nbsp;|&nbsp;|,
-income_type|net|Netto|netto|netto|neto|gross|gross|総|чистый|gross|الإجمالي|gross|brut|Brutto|lordo|bruto
+income_type|net|Nettoeinkommen|netto|netto|neto|gross|gross|総|чистый|gross|الإجمالي|gross|brut|Bruttoeinkommen|lordo|bruto
 periodicity_text|mensuel|monatliche|mensile|miesięczny|mensual|yearly|yearly|年|ежемесячный|monthly|الشهري|yearly|annuel|Jahrliche|annuale|anual
 income_type_long|après impôts et transferts|nach Steuern und Transfers|dopo le imposte e i trasferimenti|po opodatkowaniu i transferach|después de impuestos y transferencias|before taxes|before taxes|税引前|после уплаты налогов и трансфертов|before taxes|قبل الضرائب|before taxes|avant impôts|vor Steuern|prima delle imposte|antes de impuestos
 unit_before||||||£||||SAR&nbsp;| ريال|$||||$
