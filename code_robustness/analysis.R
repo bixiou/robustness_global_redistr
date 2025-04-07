@@ -134,6 +134,10 @@ sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$maritime_
 sapply(paste0(pilot_countries_all, "p"), function(c) print(decrit(d(c)$maritime_split_decarbonization))) # 40
 
 
+##### Transfer how #####
+sapply(variables_transfer_how, function(v) print(decrit(v, p)))
+
+
 ##### Scenarios #####
 # 60-70% for sustainability
 # -> use long version
