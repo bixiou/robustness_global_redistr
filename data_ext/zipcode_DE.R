@@ -22,21 +22,21 @@ data2 <- data2 %>%
   filter(!is.na(zipcode))
 
 # Définir les groupes régionaux basés sur les codes Länder
-Northern <- c("01", "02", "03", "04", "13")  # Schleswig-Holstein, Hamburg, Niedersachsen, Mecklenburg-Vorpommern
+Northern <- c("01", "02", "03", "04")  # Schleswig-Holstein, Hamburg, Niedersachsen, Bremen
 Western <- c("05", "07", "10")  # Nordrhein-Westfalen, Rheinland-Pfalz, Saarland
 Central <- c("06", "16")  # Hessen, Thüringen
-Eastern <- c("11", "12", "14", "15")  # Berlin, Brandenburg, Sachsen, Sachsen-Anhalt
+Eastern <- c("11", "12", "13", "14", "15")  # Berlin, Brandenburg, Sachsen, Sachsen-Anhalt, Mecklenburg-Vorpommern
 Southern <- c("08", "09")  # Baden-Württemberg, Bayern
 
 data2 <- data2 %>%
   mutate(
     RegionSTAR = case_when(
-      country %in% Northern ~ 1,
-      country %in% Western ~ 2,
-      country %in% Central ~ 3,
-      country %in% Eastern ~ 4,
-      country %in% Southern ~ 5,
-      TRUE ~ 0
+      country %in% Northern ~ "Others",
+      country %in% Western ~ "Others",
+      country %in% Central ~ "Others",
+      country %in% Eastern ~ "Eastern",
+      country %in% Southern ~ "Southern",
+      TRUE ~ NA
     )
   ) %>%
   select(zipcode, density_type, RegionSTAR, population_total)  # Garder les colonnes essentielles
