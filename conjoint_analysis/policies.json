@@ -238,7 +238,7 @@
 		],
 		"Tax system": [
 			"Reduce taxes on low-income households by increasing the tax-free income allowance",
-			"Taxes on profits of large digital corporations and fossil fuel companies",
+			"Taxes on the profits of large digital corporations and fossil fuel companies",
 			"Income tax exemption for seniors delaying retirement",
 			"-" 
 		],
@@ -362,7 +362,7 @@
 			"-" 
 		],
 		"税制": [
-			"中小企業の法人税率を15％に設定する",
+			"最も裕福な人々への（所得税と相続税の）増税と最も貧しい人々への減税",
 			"中低所得世帯への消費税還付制度の導入",
 			"財政均衡を回復し、2025年までに財政黒字を達成する。",
 			"-" 
@@ -393,7 +393,7 @@
 			"-" 
 		],
 		"Tax system": [
-			"Set the corporate tax rate for SMEs at 15%",
+			"Increase taxes (on income and inheritance) on the richest and reduce them on the poorest",
 			"Introduce a consumption tax refund system for low- and middle-income households",
 			"Restore fiscal balance and achieve a budget surplus by 2025",
 			"-" 
@@ -478,7 +478,7 @@
 		],
 		"Société": [
 			"Augmenter les rentes en introduisant un 13e mois de versement de l'AVS",
-			"Introduire un impôt auprès des immigrants",
+			"Introduire un impôt sur les immigrants",
 			"Réduire le coût des services de garde d'enfants pour les parents grâce à une aide nationale",
 			"-" 
 		],
