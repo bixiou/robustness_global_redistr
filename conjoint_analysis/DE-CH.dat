@@ -1,14 +1,14 @@
 Attributes
-econ_issues:econ_issues1,-
-society_issues:econ_issues1,-
-climate_pol:econ_issues1,-
-tax_system:econ_issues1,-
-foreign_policy:econ_issues1,-
+econ_issues:NA,NA,NA,-
+society_issues:NA,NA,NA,-
+climate_pol:NA,NA,-
+tax_system:NA,NA,NA,-
+NA:NA,NA,NA,-
 Weights
-econ_issues:0.5,0.5
-society_issues:0.5,0.5
-climate_pol:0.5,0.5
-tax_system:0.5,0.5
-foreign_policy:0.5,0.5
+econ_issues:0.25,0.25,0.25,0.25
+society_issues:0.25,0.25,0.25,0.25
+climate_pol:0.333333333333333,0.333333333333333,0.333333333333333
+tax_system:0.25,0.25,0.25,0.25
+NA:0.25,0.25,0.25,0.25
 Restrictions
 
