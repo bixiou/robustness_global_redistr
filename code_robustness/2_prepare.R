@@ -583,6 +583,8 @@ e <- p
 # p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, list(USp, PLp, GBp))
 
 
+##### Codebook #####
+export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
 
 
 

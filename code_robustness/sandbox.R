@@ -276,12 +276,15 @@ mean(world_post_transfer_inc$post_transfer_inc_mean[1:11])
 
 # n=7.84/MDE^2
 # MDE=2.8/sqrt(n)
-# MDE in a regression  btw 2 dummies. n is the total sample sample size (assuming 2 subsamples), y is the average outcome between subsamples
+# MDE in a regression between 2 dummies. n is the total sample size (assuming 2 subsamples), y is the average outcome between subsamples, cf. also https://www.evanmiller.org/ab-testing/sample-size.html or https://www.statsig.com/calculator
+# Note that these calculations are conservative as they assume a two-sided test, while the tests can generally be one-sided as the hypothesis is directional.
 mde <- function(n, alpha = .05, beta = .8, y = .5) return((qnorm(1 - alpha/2) + qnorm(beta))*sqrt(4*y*(1-y))/sqrt(n))
 mde(12000) # .025
 mde(6000) # .036
 mde(3000) # .05
+mde(2500) # .06
 mde(2000) # .06
+mde(1500) # .07
 mde(1000) # .09
 mde(666) # .11
 mde(500) # .125 # MDE for SA, RU (n=1k) with 4 branches: .13. That's fine.

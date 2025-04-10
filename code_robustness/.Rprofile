@@ -564,41 +564,41 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
 #' #' #       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
 #' #' #     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
 #' #' # }
-#' export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, dta_file = NULL, csv_file = NULL, rds_file = NULL, keep = NULL, omit = NULL, folder = "../data/") {
-#'   if (missing(keep)) keep <- 1:length(data)
-#'   if (!missing(omit)) keep <- setdiff(keep, omit)
-#'   
-#'   if (stata) {
-#'     data_stata <- janitor::clean_names(eval(data))
-#'     names_stata <- c()
-#'     for (i in seq_along(names(data_stata))) {
-#'       names_stata[i] <- ifelse(nchar(names(data_stata)[i]) < 33, names(data_stata)[i], paste(substr(names(data_stata)[i], 1, 27), i, sep = "_"))
-#'       # Shorten string values
-#'       if (is.character(data_stata[[i]]) && any(nchar(data_stata[[i]]) > 127, na.rm = T)) data_stata[[i]] <- substr(data_stata[[i]], 1, 128) }
-#'     names(data_stata) <- names_stata
-#'     if (!missing(dta_file)) {
-#'       # attr(data_stata, "label.table") <- list()
-#'       # attr(data_stata, "val.labels") <- c()
-#'       # attr(data_stata, "label") <- "data.frame"
-#'       # for (i in seq_along(names(data))) {
-#'       #   if (length(annotation(data[[i]]))==1) { # This is supposed to export value labels in Stata but it doesn't seem to work, because it relies on write.dta (note write_dta), which is deprecated
-#'       #     attr(data_stata, "label.table") <- c(attr(data_stata, "label.table"), list(Levels(data[[i]])))
-#'       #     attr(data_stata, "val.labels") <- c(attr(data_stata, "val.labels"), names_stata[i]) }
-#'       # }
-#'       haven::write_dta(data_stata[,keep], paste0(folder, dta_file, ".dta"))
-#'     }
-#'     if (!missing(csv_file)) write.csv(data_stata[,keep], paste0(folder, csv_file, ".csv"))
-#'     if (!missing(rds_file)) saveRDS(data_stata[,keep], file = paste0(folder, rds_file, ".rds"))
-#'     
-#'     codebook <- data.frame(names(data), names_stata, sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
-#'     names(codebook) <- c("Variable", "Variable Stata", "Label", "Levels")
-#'   } else {
-#'     data <- data[, keep]
-#'     codebook <- data.frame(names(data), sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
-#'     names(codebook) <- c("Variable", "Label", "Levels")
-#'   }
-#'   write_csv(codebook[keep,], file)
-#' }
+export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, dta_file = NULL, csv_file = NULL, rds_file = NULL, keep = NULL, omit = NULL, folder = "../data/") {
+  if (missing(keep)) keep <- 1:length(data)
+  if (!missing(omit)) keep <- setdiff(keep, omit)
+
+  if (stata) {
+    data_stata <- janitor::clean_names(eval(data))
+    names_stata <- c()
+    for (i in seq_along(names(data_stata))) {
+      names_stata[i] <- ifelse(nchar(names(data_stata)[i]) < 33, names(data_stata)[i], paste(substr(names(data_stata)[i], 1, 27), i, sep = "_"))
+      # Shorten string values
+      if (is.character(data_stata[[i]]) && any(nchar(data_stata[[i]]) > 127, na.rm = T)) data_stata[[i]] <- substr(data_stata[[i]], 1, 128) }
+    names(data_stata) <- names_stata
+    if (!missing(dta_file)) {
+      # attr(data_stata, "label.table") <- list()
+      # attr(data_stata, "val.labels") <- c()
+      # attr(data_stata, "label") <- "data.frame"
+      # for (i in seq_along(names(data))) {
+      #   if (length(annotation(data[[i]]))==1) { # This is supposed to export value labels in Stata but it doesn't seem to work, because it relies on write.dta (note write_dta), which is deprecated
+      #     attr(data_stata, "label.table") <- c(attr(data_stata, "label.table"), list(Levels(data[[i]])))
+      #     attr(data_stata, "val.labels") <- c(attr(data_stata, "val.labels"), names_stata[i]) }
+      # }
+      haven::write_dta(data_stata[,keep], paste0(folder, dta_file, ".dta"))
+    }
+    if (!missing(csv_file)) write.csv(data_stata[,keep], paste0(folder, csv_file, ".csv"))
+    if (!missing(rds_file)) saveRDS(data_stata[,keep], file = paste0(folder, rds_file, ".rds"))
+
+    codebook <- data.frame(names(data), names_stata, sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
+    names(codebook) <- c("Variable", "Variable Stata", "Label", "Levels")
+  } else {
+    data <- data[, keep]
+    codebook <- data.frame(names(data), sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
+    names(codebook) <- c("Variable", "Label", "Levels")
+  }
+  write_csv(codebook[keep,], file)
+}
 #' #' export_stats_desc <- function(data, file, miss = TRUE, sorted_by_n = FALSE, return = FALSE, fill_extern = FALSE) {
 #' #'   original_width <- getOption("width")
 #' #'   options(width = 10000)
