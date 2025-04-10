@@ -1,0 +1,21 @@
+Regions UK
+
+Please find the code at this address
+https://github.com/bixiou/oecd_climate/blob/main/code_oecd/zipcodes/UK_rural.R 
+
+
+southern.england <- c("South West", "South East", "East of England")
+midlands <- c("West Midlands", "East Midlands")
+northern.england <- c("North West", "Yorkshire and The Humber", "North East")
+
+data$Region.quota[data$Region =="London"] <- "London"
+data$Region.quota[data$Region %in% southern.england] <- "Southern England"
+data$Region.quota[data$Region %in% midlands | data$Country == "Wales"] <- "Central UK"
+data$Region.quota[data$Region %in% northern.england] <- "Northern England"
+data$Region.quota[data$Country %in% c("Scotland", "Northern Ireland")] <- "Northern UK"
+
+final$Region.outcode[final$Region.outcode == "London"] <- 1
+final$Region.outcode[final$Region.outcode == "Southern England"] <- 2
+final$Region.outcode[final$Region.outcode == "Central UK"] <- 3
+final$Region.outcode[final$Region.outcode == "Northern England"] <- 4
+final$Region.outcode[final$Region.outcode == "Northern UK"] <- 5
