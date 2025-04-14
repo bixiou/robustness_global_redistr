@@ -20,6 +20,13 @@ for (v in variables_duration) print(decrit(v, p)) # Pbs: ncqg, preferred_transfe
 decrit(p$duration_ics - p$duration_gcs)
 # Weird: wealth_tax, radical_redistr
 
+View(p[, intersect(variables_duration[-1], names(p))])
+rowSums(p[-c(4, 7, 9, 12), intersect(variables_duration[-1], names(p))], na.rm = T)
+sum(rowMeans(p[-c(4, 7, 9, 12), intersect(variables_duration[-1], names(p))], na.rm = T))
+p$duration[-c(4, 7, 9, 12)]
+p$country[c(4, 7, 9, 12)]
+p$duration_feedback
+
 
 ##### Fields #####
 # Global poverty/inequality not a concern nor wish but appears prominently in injustice.
