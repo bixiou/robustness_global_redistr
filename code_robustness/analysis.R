@@ -1,3 +1,22 @@
+# Everyone:
+# TODO: no absolute file paths, only relative ones
+# TODO: all original .csv in the repository, with a link (URL) to the original source
+# TODO: better document the code (explain at the beginning of the file what you do, and briefly explain each step/part)
+# Raquel:
+# TODO: export without quotes, to ../data_ext/zipcode_[country]_urba_region.csv
+# TODO: Unify all files under one .R (with ##### [Country] ##### headers), merging the methodo as comments in .R
+# TODO: Re-run everything and check the files are the same as the existing ones.
+# TODO: Add two sheets in features: urbanity, region. 
+#       In each sheet, one column country (iso2) - several rows will have the same country, 
+#         one column urbanity/region (giving the corresponding number), one column urbanity_name or region_name, 
+#         (for urbanity) one column definition or (for region) several columns defining the region by listing the States/departments/provinces (one per column)
+#       In the sheet Sources, add rows: zipcode, urbanity, region, and more if needed, with the source used in each case
+#         the source should be e.g. "OECD, 2021, http://location.of/the.source.file", where 2021 is the year of the data (not the year of their release)
+#       Complete the sheet Sources for the quota sources.
+
+
+export_quotas()
+
 ##### Duration #####
 # long & !cut < 20 min => we are not constrained by duration \o/
 with(p, summary(rq(duration ~ variant_long * cut))) # 19 + 1*long - 4*cut

@@ -56,6 +56,8 @@ package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
 package("ivreg") # ivreg
 package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
+package("httr") # curl API requests (GET, POST...)
+package("googlesheets4") # read/write google sheets
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
 # package("list") # list experiment aka. item count technique: ictreg
@@ -716,7 +718,7 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #'   if (!nolabel) table <- table_mean_lines_save(table, mean_above = mean_above, only_mean = only_mean, indep_labels = indep_labels, indep_vars = indep_vars, add_lines = add_lines, file_path = file_path, oecd_latex = oecd_latex, nb_columns = length(indep_vars_included), omit = omit)
 #'   return(table)
 #' }
-#' multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lapply(patterns, function(x) which(grepl(x, vec))))))
+multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lapply(patterns, function(x) which(grepl(x, vec))))))
 #' table_mean_lines_save <- function(table, mean_above = T, only_mean = FALSE, indep_vars = NULL, indep_labels = indep_vars, add_lines = NULL, file_path = NULL, oecd_latex = FALSE, nb_columns = 2, omit = c("Constant", "Gender: Other", "econ_leaningPNR", "Race: Other")) {
 #'   if (mean_above) {
 #'     mean_line <- regmatches(table, regexpr('(Mean|Control group mean) &[^\\]*', table))
@@ -866,6 +868,34 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #' #'   return(pmax((ir-decote),0)) # vrai calcul
 #' #' }
 representativity_index <- function(weights, digits = 3) { return(round(sum(weights)^2/(length(weights)*sum(weights^2)), 3)) }
+
+# If bug, detach memisc and plotly; and run qualtrics_credential.R
+# surveys are assumed to be name [country]_survey
+export_quotas <- function(waves = countries, order_cols = c("country", "Gender", "Age", "Education", "Urbanity", "Income", "Region", "Race"), gdoc = "https://docs.google.com/spreadsheets/d/1S8QObjDtPzqKHTB-pKjEAT1qXiRfCLNpK1pk2yIeJ3k/", domain = "wumarketing.eu") {
+  quotas_limit_current <- quotas_count <- data.frame()
+  for (country in waves) {
+    api_response <- GET(paste0("https://", domain, ".qualtrics.com/API/v3/survey-definitions/", survey_list$id[survey_list$name == paste0(country, "_survey")], "/quotas"),
+                        query = list(pageSize = 50), # accept_json(),
+                        add_headers('x-api-token' = Sys.getenv("QUALTRICS_API_KEY")))
+    api_response <- fromJSON(content(api_response, as = "text", encoding = "UTF-8"), flatten = TRUE)$result$elements
+    if (nrow(quotas_limit_current) > 0) quotas_limit_current <- merge(quotas_limit_current, as.data.frame(t(c("country" = country, setNames(api_response$Occurrences, api_response$Name)))), all = T)
+    else quotas_limit_current <- as.data.frame(t(c("country" = country, setNames(api_response$Occurrences, api_response$Name))))
+    if (nrow(quotas_count) > 0) quotas_count <- merge(quotas_count, as.data.frame(t(c("country" = country, setNames(api_response$Count, api_response$Name)))), all = T)
+    else quotas_count <- as.data.frame(t(c("country" = country, setNames(api_response$Count, api_response$Name))))
+  }
+  row.names(quotas_limit_current) <- row.names(quotas_count) <- waves[order(waves)]
+  new_order <- c()
+  for (i in order_cols) new_order <- c(new_order, sort(names(quotas_count))[grepl(i, sort(names(quotas_count)))])
+  new_order <- c(new_order, sort(names(quotas_count))[!multi_grepl(order_cols, sort(names(quotas_count)))])
+  quotas_limit_current <- quotas_limit_current[waves, new_order]
+  quotas_count <- quotas_count[waves, new_order]
+  # quotas_limit_current <- quotas_limit_current[waves, order(names(quotas_limit_current))]
+  # quotas_count <- quotas_count[waves, order(names(quotas_count))]
+  # quotas_limit_current <- quotas_limit_current[, colSums(quotas_limit_current != 0, na.rm = T) > 0]
+  # quotas_count <- quotas_count[, colSums(quotas_count != 0, na.rm = T) > 0]
+  quotas_limit_current %>%  write_sheet(ss = gs4_get(gdoc), sheet = "quotas_limit_current")
+  quotas_count %>%  write_sheet(ss = gs4_get(gdoc), sheet = "quotas_count")
+}
 #' #'
 #' #'
 #' #' ##### Graphiques #####

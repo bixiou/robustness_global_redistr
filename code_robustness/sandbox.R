@@ -477,3 +477,17 @@ sum(df$emissions_maritime_mean * df$code %in% LIC, na.rm = T)/sum(df$emissions_m
 # Pour que ce soit le cas, il faudrait que r < 0.25. 
 # 1. Redistribution égalitaire des recettes
 # 2. Redistribution progressive de 30% aux LMICs et le reste aux compagnies et ports de sorte que non-HICs aient la recette égalitaire.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
