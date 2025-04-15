@@ -225,6 +225,7 @@ with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = cust
 # 500-150-5 => transfer: 5.8% / demogrant: 299$/month
 # 401-101-7.1 => transfer: 4.3% / demogrant: 298$/month
 # 601-201-2.1 => transfer: 4.6% / demogrant: 185$/month
+# TODO: flag respondents who clicked both options
 
 with(p, summary(lm(well_being ~ variant_well_being))) 
 with(p, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
