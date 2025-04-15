@@ -14,18 +14,18 @@
 		],
 		"Climat": [
 			"Construire 14 nouveaux réacteurs nucléaires",
-			"Supprimer les Zones à Faibles Émissions",
+			"Supprimer les Zones à Faibles Émissions (ZFE)",
 			"-" 
 		],
 		"Fiscalité": [
-			"Défiscaliser les primes jusqu’à 10 000 €",
+			"Défiscaliser les primes jusqu’à 10 000 € par an",
 			"Exonérer d’impôt sur le revenu les jeunes de moins de 30 ans",
 			"Baisser l'impôt sur le revenu jusqu'à 4000€/mois net et l'augmenter au-delà",
 			"Rétablir un impôt sur la fortune (ISF) renforcé",
 			"-" 
 		],
 		"Politique étrangère": [
-			"Taxe mondiale sur les millionnaires, dont 30 % pour financer la santé et l’éducation dans les pays à faible revenu",
+			"Taxe mondiale sur les millionnaires, dont 30 % financerait la santé et l’éducation dans les pays à bas revenus",
 			"Réduire l’aide au développement",
 			"Doubler le budget militaire d'ici 2030",
 			"-" 
@@ -33,27 +33,27 @@
 	},
 	"EN-FR": {
 		"Economic issues": [
-			"Index pensions to inflation",
-			"Raise the minimum wage to 1,600 euros net",
-			"Restore the right to retire at 60 with full benefits",
+			"Fully index pensions to inflation",
+			"Raise the minimum wage to 1,600 euros net per month",
+			"Restore the legal retirement age to 62",
 			"-" 
 		],
 		"Social issues": [
-			"Abolition of birthright citizenship",
+			"Abolish birthright citizenship",
 			"Impose mandatory sentences for repeat offenders, and lower the age of criminal responsibility to 16",
 			"Establish the Citizens' Initiative Referendum (RIC)",
 			"-" 
 		],
 		"Climate policy": [
 			"Build 14 new nuclear reactors",
-			"Abolition of Low Emission Zones (ZFE) that restrict car access in cities",
+			"Abolish Low Emission Zones (ZFE) that restrict car access in cities",
 			"-" 
 		],
 		"Tax system": [
 			"Tax-free bonuses of up to €10,000 per year",
-			"Abolish income tax for individuals under 30",
-			"Increase the progressivity of income tax by expanding from 5 to 14 brackets",
-			"Restore the Solidarity Wealth Tax (ISF) with an enhanced climate component",
+			"Exempt individuals under 30 from income tax ",
+			"Reduce income tax up to €4,000/month net and increase it above that.",
+			"Reinstate a reinforced wealth tax",
 			"-" 
 		],
 		"Foreign policy": [
@@ -67,29 +67,29 @@
 		"Wirtschaftspolitik": [
 			"Strompreise durch Steuersenkungen um 12 % senken",
 			"Mindestlohn bis 2026 auf 15 € erhöhen",
-			"500 Milliarden Euro in strategische Sektoren wie Stahl, Automobilindustrie und Verteidigung investieren.",
+			"500 Milliarden Euro in strategische Sektoren wie Stahl, Automobilindustrie und Verteidigung investieren",
 			"-" 
 		],
 		"Gesellschaft": [
 			"Einsatz elektronischer Fußfesseln zur Verfolgung von Gewalttätern gegen Frauen",
-			"20.000 € staatlicher Zuschuss bei Geburt eines Kindes.",
+			"20.000 € staatlicher Zuschuss bei Geburt eines Kindes",
 			"Beschleunigte Verfahren zur Erlangung der deutschen Staatsangehörigkeit einschränken",
 			"-" 
 		],
 		"Klimaschutz": [
 			"Aufhebung des Heizungsgesetzes, das erneuerbare Energien vorschreibt",
-			"Einführung einer Mindestquote für grünen Stahl und Zement im öffentlichen Beschaffungswesen",
 			"Neuwagen mit Verbrennungsmotor ab 2035 verbieten.",
 			"-" 
 		],
 		"Steuerpolitik": [
-			"Keine Steuern auf Überstunden und Arbeit im Rentenalter.",
+			"Keine Steuern auf Überstunden und Arbeit im Rentenalter",
 			"Abschaffung der Erbschaftssteuer",
 			"Komplette Wiedereinführung der Schuldenbremse",
+			"Höhere Steuern für die reichsten 1% zur Finanzierung von höherem Kindergeld, Bürgergeld und Mindestrente",
 			"-" 
 		],
 		"Außenpolitik": [
-			"Internationale Millionärssteuer von 30 % zur Finanzierung von Gesundheitsversorgung und Bildung in einkommensschwachen Ländern.",
+			"Internationale Millionärssteuer mit 30 % zur Finanzierung von Gesundheit und Bildung in Ländern mit niedrigem Einkommen",
 			"Kürzung der Entwicklungshilfe",
 			"Die Ukraine militärisch und finanziell unterstützen",
 			"-" 
@@ -117,7 +117,7 @@
 			"Exempt from taxes overtime work and work of retired people",
 			"Abolish the inheritance tax",
 			"Fully reinstate the debt brake",
-			"Höhere Steuern für die reichsten 1% zur Finanzierung von höherem Kindergeld, Bürgergeld und Mindestrente",
+			"Higher taxes for the richest 1% to finance higher child benefit, citizen's income and minimum pension",
 			"-" 
 		],
 		"Foreign policy": [
@@ -252,7 +252,7 @@
 	"ES-ES": {
 		"Asuntos económicos": [
 			"Fijar el salario mínimo en 1350€/mes",
-			"Reducir la jornada laboral a 36 horas antes de 2030 sin merma salaria",
+			"Reducir la semana laboral a 36 horas antes de 2030 sin merma salaria",
 			"Fomentar la flexibilidad horaria mediante un banco de horas",
 			"-" 
 		],
@@ -264,7 +264,7 @@
 		],
 		"Políticas climáticas": [
 			"Ampliar los bonos sociales térmico y eléctrico",
-			"Plan de aislamiento térmico",
+			"Un plan nacional de inversiones para mejorar la gestión del agua",
 			"-" 
 		],
 		"Sistema fiscal": [
@@ -415,7 +415,7 @@
 		"Social issues": [
 			"Enhance border security and limit immigration",
 			"Ensure nationwide access to abortion as a constitutional right",
-			"Deployment of U.S. troops against drug cartels in Mexico",
+			"Deploy U.S. troops against drug cartels in Mexico",
 			"No immunity for crimes committed by a former president",
 			"-" 
 		],
@@ -426,7 +426,7 @@
 		],
 		"Tax system": [
 			"Repeal all Trump import tariff increases",
-			"Raising the capital gains tax rate to 28% for individuals earning over $1 million",
+			"Raise the capital gains tax rate to 28% for individuals earning over $1 million",
 			"Extend the Trump tax cuts",
 			"-" 
 		],
@@ -483,7 +483,7 @@
 			"-" 
 		],
 		"Climat": [
-			"Élimination progressive des voitures à moteur à combustion d'ici à 2040",
+			"Éliminer progressivement les voitures à moteur à combustion d'ici à 2040",
 			"Remplacer les systèmes de chauffage à base de combustibles fossiles par des énergies renouvelables",
 			"-" 
 		],
@@ -525,7 +525,7 @@
 			"-" 
 		],
 		"Aussenpolitik": [
-			"Internationale Millionärssteuer von 30 % zur Finanzierung von Gesundheitsversorgung und Bildung in einkommensschwachen Ländern.",
+			"Internationale Millionärssteuer mit 30 % zur Finanzierung von Gesundheit und Bildung in Ländern mit niedrigem Einkommen",
 			"Kürzung der Entwicklungshilfe",
 			"Der EU beitreten",
 			"-" 
