@@ -555,12 +555,13 @@ pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
 # Surveys
-survey_data <- setNames(lapply(countries[!countries %in% c("CH", "PL", "GB", "RU")], function(c) { prepare(country = c, scope = "final", 
-               fetch = F, convert = T, rename = T, pilot = FALSE, weighting = F) }), countries[!countries %in% c("CH", "PL", "GB", "RU")]) # remove_id = F
+survey_data <- setNames(lapply(countries[!countries %in% c("SA", "JP", "RU")], function(c) { prepare(country = c, scope = "final", 
+               fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F) }), countries[!countries %in% c("SA", "JP", "RU")]) # remove_id = F
 all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
 
 p <- all
+beep()
 
 # CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F)
 

@@ -56,8 +56,6 @@ package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
 package("ivreg") # ivreg
 package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
-package("httr") # curl API requests (GET, POST...)
-package("googlesheets4") # read/write google sheets
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
 # package("list") # list experiment aka. item count technique: ictreg
@@ -195,6 +193,8 @@ package("WDI") # World Development Indicators, WDI()
 # package("rootSolve")
 package("memisc")
 setMethod("include.missings","ANY",function(x,mark="*") x) # to fix bug in include.missings(1); include.missings("a") until the new version of memisc is released (post 0.99.31.8.2)
+package("httr") # curl API requests (GET, POST...)
+package("googlesheets4") # read/write google sheets
 #' # Previously: One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
 # if (!is.element("memisc", installed.packages()[,1])) {
 #   install.packages("https://github.com/melff/memisc/files/9690453/memisc_0.99.22.tar.gz", repos=NULL)
@@ -869,10 +869,11 @@ multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lap
 #' #' }
 representativity_index <- function(weights, digits = 3) { return(round(sum(weights)^2/(length(weights)*sum(weights^2)), 3)) }
 
-# If bug, detach memisc and plotly; and run qualtrics_credential.R
+# If bug, detach memisc (namespace content) and plotly (namespace config); and run qualtrics_credential.R
 # surveys are assumed to be name [country]_survey
 export_quotas <- function(waves = countries, order_cols = c("country", "Gender", "Age", "Education", "Urbanity", "Income", "Region", "Race"), gdoc = "https://docs.google.com/spreadsheets/d/1S8QObjDtPzqKHTB-pKjEAT1qXiRfCLNpK1pk2yIeJ3k/", domain = "wumarketing.eu") {
   quotas_limit_current <- quotas_count <- data.frame()
+  survey_list <- all_surveys()
   for (country in waves) {
     api_response <- GET(paste0("https://", domain, ".qualtrics.com/API/v3/survey-definitions/", survey_list$id[survey_list$name == paste0(country, "_survey")], "/quotas"),
                         query = list(pageSize = 50), # accept_json(),

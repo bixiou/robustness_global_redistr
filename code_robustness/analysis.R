@@ -47,6 +47,10 @@ p$country[c(4, 7, 9, 12)]
 p$duration_feedback
 
 
+##### Variants #####
+for (v in variables_variant) print(decrit(v, p)) # Pbs: ncqg, preferred_transfer_mean
+
+
 ##### Fields #####
 # Global poverty/inequality not a concern nor wish but appears prominently in injustice.
 decrit(p$variant_field)
@@ -63,6 +67,8 @@ p$concerns_field[!is.na(p$concerns_field) & !p$country %in% "PL"] # Political an
 p$injustice_field[!is.na(p$injustice_field) & !p$country %in% "PL"] # Short political answers. Main topics: poverty; hunger; inequality; (wars).
 p$wish_field[!is.na(p$wish_field) & !p$country %in% "PL"] # Short answers. Main topics: money (by far); health; happiness; (peace).
 # New research questions: What's wrong with immigration? Why do you need money for? Sociodemos determinants.
+
+p$comment_field[!is.na(p$comment_field)]
 
 
 ##### Revenue split #####
