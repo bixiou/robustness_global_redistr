@@ -1,22 +1,3 @@
-# Everyone:
-# TODO: no absolute file paths, only relative ones
-# TODO: all original .csv in the repository, with a link (URL) to the original source
-# TODO: better document the code (explain at the beginning of the file what you do, and briefly explain each step/part)
-# Raquel:
-# TODO: export without quotes, to ../data_ext/zipcode_[country]_urba_region.csv
-# TODO: Unify all files under one .R (with ##### [Country] ##### headers), merging the methodo as comments in .R
-# TODO: Re-run everything and check the files are the same as the existing ones.
-# TODO: Add two sheets in features: urbanity, region. 
-#       In each sheet, one column country (iso2) - several rows will have the same country, 
-#         one column urbanity/region (giving the corresponding number), one column urbanity_name or region_name, 
-#         (for urbanity) one column definition or (for region) several columns defining the region by listing the States/departments/provinces (one per column)
-#       In the sheet Sources, add rows: zipcode, urbanity, region, and more if needed, with the source used in each case
-#         the source should be e.g. "OECD, 2021, http://location.of/the.source.file", where 2021 is the year of the data (not the year of their release)
-#       Complete the sheet Sources for the quota sources.
-
-
-export_quotas()
-
 ##### Duration #####
 # long & !cut < 20 min => we are not constrained by duration \o/
 with(p, summary(rq(duration ~ variant_long * cut))) # 19 + 1*long - 4*cut
@@ -39,17 +20,6 @@ for (v in variables_duration) print(decrit(v, p)) # Pbs: ncqg, preferred_transfe
 decrit(p$duration_ics - p$duration_gcs)
 # Weird: wealth_tax, radical_redistr
 
-View(p[, intersect(variables_duration[-1], names(p))])
-rowSums(p[-c(4, 7, 9, 12), intersect(variables_duration[-1], names(p))], na.rm = T)
-sum(rowMeans(p[-c(4, 7, 9, 12), intersect(variables_duration[-1], names(p))], na.rm = T))
-p$duration[-c(4, 7, 9, 12)]
-p$country[c(4, 7, 9, 12)]
-p$duration_feedback
-
-
-##### Variants #####
-for (v in variables_variant) print(decrit(v, p)) # Pbs: ncqg, preferred_transfer_mean
-
 
 ##### Fields #####
 # Global poverty/inequality not a concern nor wish but appears prominently in injustice.
@@ -67,8 +37,6 @@ p$concerns_field[!is.na(p$concerns_field) & !p$country %in% "PL"] # Political an
 p$injustice_field[!is.na(p$injustice_field) & !p$country %in% "PL"] # Short political answers. Main topics: poverty; hunger; inequality; (wars).
 p$wish_field[!is.na(p$wish_field) & !p$country %in% "PL"] # Short answers. Main topics: money (by far); health; happiness; (peace).
 # New research questions: What's wrong with immigration? Why do you need money for? Sociodemos determinants.
-
-p$comment_field[!is.na(p$comment_field)]
 
 
 ##### Revenue split #####
@@ -225,7 +193,6 @@ with(p, summary(lm(custom_redistr_losers ~ income_exact * country, subset = cust
 # 500-150-5 => transfer: 5.8% / demogrant: 299$/month
 # 401-101-7.1 => transfer: 4.3% / demogrant: 298$/month
 # 601-201-2.1 => transfer: 4.6% / demogrant: 185$/month
-# TODO: flag respondents who clicked both options
 
 with(p, summary(lm(well_being ~ variant_well_being))) 
 with(p, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
