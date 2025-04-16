@@ -193,6 +193,8 @@ package("WDI") # World Development Indicators, WDI()
 # package("rootSolve")
 package("memisc")
 setMethod("include.missings","ANY",function(x,mark="*") x) # to fix bug in include.missings(1); include.missings("a") until the new version of memisc is released (post 0.99.31.8.2)
+package("httr") # curl API requests (GET, POST...)
+package("googlesheets4") # read/write google sheets
 #' # Previously: One needs a *patched* version of memisc version 0.99.22 (not a newer), hence the code below (cf. this issue: https://github.com/melff/memisc/issues/62)
 # if (!is.element("memisc", installed.packages()[,1])) {
 #   install.packages("https://github.com/melff/memisc/files/9690453/memisc_0.99.22.tar.gz", repos=NULL)
@@ -564,41 +566,41 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
 #' #' #       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
 #' #' #     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
 #' #' # }
-#' export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, dta_file = NULL, csv_file = NULL, rds_file = NULL, keep = NULL, omit = NULL, folder = "../data/") {
-#'   if (missing(keep)) keep <- 1:length(data)
-#'   if (!missing(omit)) keep <- setdiff(keep, omit)
-#'   
-#'   if (stata) {
-#'     data_stata <- janitor::clean_names(eval(data))
-#'     names_stata <- c()
-#'     for (i in seq_along(names(data_stata))) {
-#'       names_stata[i] <- ifelse(nchar(names(data_stata)[i]) < 33, names(data_stata)[i], paste(substr(names(data_stata)[i], 1, 27), i, sep = "_"))
-#'       # Shorten string values
-#'       if (is.character(data_stata[[i]]) && any(nchar(data_stata[[i]]) > 127, na.rm = T)) data_stata[[i]] <- substr(data_stata[[i]], 1, 128) }
-#'     names(data_stata) <- names_stata
-#'     if (!missing(dta_file)) {
-#'       # attr(data_stata, "label.table") <- list()
-#'       # attr(data_stata, "val.labels") <- c()
-#'       # attr(data_stata, "label") <- "data.frame"
-#'       # for (i in seq_along(names(data))) {
-#'       #   if (length(annotation(data[[i]]))==1) { # This is supposed to export value labels in Stata but it doesn't seem to work, because it relies on write.dta (note write_dta), which is deprecated
-#'       #     attr(data_stata, "label.table") <- c(attr(data_stata, "label.table"), list(Levels(data[[i]])))
-#'       #     attr(data_stata, "val.labels") <- c(attr(data_stata, "val.labels"), names_stata[i]) }
-#'       # }
-#'       haven::write_dta(data_stata[,keep], paste0(folder, dta_file, ".dta"))
-#'     }
-#'     if (!missing(csv_file)) write.csv(data_stata[,keep], paste0(folder, csv_file, ".csv"))
-#'     if (!missing(rds_file)) saveRDS(data_stata[,keep], file = paste0(folder, rds_file, ".rds"))
-#'     
-#'     codebook <- data.frame(names(data), names_stata, sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
-#'     names(codebook) <- c("Variable", "Variable Stata", "Label", "Levels")
-#'   } else {
-#'     data <- data[, keep]
-#'     codebook <- data.frame(names(data), sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
-#'     names(codebook) <- c("Variable", "Label", "Levels")
-#'   }
-#'   write_csv(codebook[keep,], file)
-#' }
+export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, dta_file = NULL, csv_file = NULL, rds_file = NULL, keep = NULL, omit = NULL, folder = "../data/") {
+  if (missing(keep)) keep <- 1:length(data)
+  if (!missing(omit)) keep <- setdiff(keep, omit)
+
+  if (stata) {
+    data_stata <- janitor::clean_names(eval(data))
+    names_stata <- c()
+    for (i in seq_along(names(data_stata))) {
+      names_stata[i] <- ifelse(nchar(names(data_stata)[i]) < 33, names(data_stata)[i], paste(substr(names(data_stata)[i], 1, 27), i, sep = "_"))
+      # Shorten string values
+      if (is.character(data_stata[[i]]) && any(nchar(data_stata[[i]]) > 127, na.rm = T)) data_stata[[i]] <- substr(data_stata[[i]], 1, 128) }
+    names(data_stata) <- names_stata
+    if (!missing(dta_file)) {
+      # attr(data_stata, "label.table") <- list()
+      # attr(data_stata, "val.labels") <- c()
+      # attr(data_stata, "label") <- "data.frame"
+      # for (i in seq_along(names(data))) {
+      #   if (length(annotation(data[[i]]))==1) { # This is supposed to export value labels in Stata but it doesn't seem to work, because it relies on write.dta (note write_dta), which is deprecated
+      #     attr(data_stata, "label.table") <- c(attr(data_stata, "label.table"), list(Levels(data[[i]])))
+      #     attr(data_stata, "val.labels") <- c(attr(data_stata, "val.labels"), names_stata[i]) }
+      # }
+      haven::write_dta(data_stata[,keep], paste0(folder, dta_file, ".dta"))
+    }
+    if (!missing(csv_file)) write.csv(data_stata[,keep], paste0(folder, csv_file, ".csv"))
+    if (!missing(rds_file)) saveRDS(data_stata[,keep], file = paste0(folder, rds_file, ".rds"))
+
+    codebook <- data.frame(names(data), names_stata, sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
+    names(codebook) <- c("Variable", "Variable Stata", "Label", "Levels")
+  } else {
+    data <- data[, keep]
+    codebook <- data.frame(names(data), sapply(names(data), function(n) return(Label(data[[n]]))), sapply(names(data), function(n) { Levels(data[[n]], concatenate = T) } ))
+    names(codebook) <- c("Variable", "Label", "Levels")
+  }
+  write_csv(codebook[keep,], file)
+}
 #' #' export_stats_desc <- function(data, file, miss = TRUE, sorted_by_n = FALSE, return = FALSE, fill_extern = FALSE) {
 #' #'   original_width <- getOption("width")
 #' #'   options(width = 10000)
@@ -716,7 +718,7 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
 #'   if (!nolabel) table <- table_mean_lines_save(table, mean_above = mean_above, only_mean = only_mean, indep_labels = indep_labels, indep_vars = indep_vars, add_lines = add_lines, file_path = file_path, oecd_latex = oecd_latex, nb_columns = length(indep_vars_included), omit = omit)
 #'   return(table)
 #' }
-#' multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lapply(patterns, function(x) which(grepl(x, vec))))))
+multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lapply(patterns, function(x) which(grepl(x, vec))))))
 #' table_mean_lines_save <- function(table, mean_above = T, only_mean = FALSE, indep_vars = NULL, indep_labels = indep_vars, add_lines = NULL, file_path = NULL, oecd_latex = FALSE, nb_columns = 2, omit = c("Constant", "Gender: Other", "econ_leaningPNR", "Race: Other")) {
 #'   if (mean_above) {
 #'     mean_line <- regmatches(table, regexpr('(Mean|Control group mean) &[^\\]*', table))
@@ -866,6 +868,35 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
 #' #'   return(pmax((ir-decote),0)) # vrai calcul
 #' #' }
 representativity_index <- function(weights, digits = 3) { return(round(sum(weights)^2/(length(weights)*sum(weights^2)), 3)) }
+
+# If bug, detach memisc (namespace content) and plotly (namespace config); and run qualtrics_credential.R
+# surveys are assumed to be name [country]_survey
+export_quotas <- function(waves = countries, order_cols = c("country", "Gender", "Age", "Education", "Urbanity", "Income", "Region", "Race"), gdoc = "https://docs.google.com/spreadsheets/d/1S8QObjDtPzqKHTB-pKjEAT1qXiRfCLNpK1pk2yIeJ3k/", domain = "wumarketing.eu") {
+  quotas_limit_current <- quotas_count <- data.frame()
+  survey_list <- all_surveys()
+  for (country in waves) {
+    api_response <- GET(paste0("https://", domain, ".qualtrics.com/API/v3/survey-definitions/", survey_list$id[survey_list$name == paste0(country, "_survey")], "/quotas"),
+                        query = list(pageSize = 50), # accept_json(),
+                        add_headers('x-api-token' = Sys.getenv("QUALTRICS_API_KEY")))
+    api_response <- fromJSON(content(api_response, as = "text", encoding = "UTF-8"), flatten = TRUE)$result$elements
+    if (nrow(quotas_limit_current) > 0) quotas_limit_current <- merge(quotas_limit_current, as.data.frame(t(c("country" = country, setNames(api_response$Occurrences, api_response$Name)))), all = T)
+    else quotas_limit_current <- as.data.frame(t(c("country" = country, setNames(api_response$Occurrences, api_response$Name))))
+    if (nrow(quotas_count) > 0) quotas_count <- merge(quotas_count, as.data.frame(t(c("country" = country, setNames(api_response$Count, api_response$Name)))), all = T)
+    else quotas_count <- as.data.frame(t(c("country" = country, setNames(api_response$Count, api_response$Name))))
+  }
+  row.names(quotas_limit_current) <- row.names(quotas_count) <- waves[order(waves)]
+  new_order <- c()
+  for (i in order_cols) new_order <- c(new_order, sort(names(quotas_count))[grepl(i, sort(names(quotas_count)))])
+  new_order <- c(new_order, sort(names(quotas_count))[!multi_grepl(order_cols, sort(names(quotas_count)))])
+  quotas_limit_current <- quotas_limit_current[waves, new_order]
+  quotas_count <- quotas_count[waves, new_order]
+  # quotas_limit_current <- quotas_limit_current[waves, order(names(quotas_limit_current))]
+  # quotas_count <- quotas_count[waves, order(names(quotas_count))]
+  # quotas_limit_current <- quotas_limit_current[, colSums(quotas_limit_current != 0, na.rm = T) > 0]
+  # quotas_count <- quotas_count[, colSums(quotas_count != 0, na.rm = T) > 0]
+  quotas_limit_current %>%  write_sheet(ss = gs4_get(gdoc), sheet = "quotas_limit_current")
+  quotas_count %>%  write_sheet(ss = gs4_get(gdoc), sheet = "quotas_count")
+}
 #' #'
 #' #'
 #' #' ##### Graphiques #####

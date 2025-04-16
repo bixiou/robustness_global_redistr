@@ -4,15 +4,16 @@ names(countries_names) <- pilot_countries
 countries_EU <- c("Poland")
 pilot_countries_all <- c(pilot_countries, "")
 
-languages <- c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
-languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = "AR", US = c("EN", "ES-US"))
+languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
+# list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
+languages <- unname(unlist(languages_country)) # c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
 policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
 conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
 conjoint.attributes <- c("Economic issues", "Societal issues", "Climate policy", "Tax system", "Foreign policy")
 policies_domains <- c()
-for (l in languages) policies_domains <- c(policies_domains, setNames(conjoint_attributes, names(policies_conjoint[[l]])))
+for (l in languages[!languages %in% c("RU", "EN-SA", "AR")]) policies_domains <- c(policies_domains, setNames(conjoint_attributes, names(policies_conjoint[[l]])))
 policies_code <- c()
-for (l in languages) {
+for (l in languages[!languages %in% c("RU", "EN-SA", "AR")]) {
   policies_l <- unlist(setNames(policies_conjoint[[l]], conjoint_attributes))
   policies_code <- c(policies_code, setNames(names(policies_l), policies_l))
 }
@@ -227,7 +228,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
   if (fetch) {
     print(country)
     survey_list <- all_surveys()
-    e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else NULL)], include_display_order = T, verbose = T, convert = F, col_types = cols("m" = col_character()))
+    e <- fetch_survey(survey_list$id[survey_list$name == paste0(country, if (pilot) "_pilot" else "_survey")], include_display_order = T, verbose = T, convert = F, col_types = cols("m" = col_character()))
     if (!remove_id) e$ExternalReference <- e$m
     if (!remove_id) e$DistributionChannel <- e$IPAddress
     e <- e[,which(!(names(e) %in% c("PSID", "ResponseId", "PID", "tic", "IPAddress", "m")))]
@@ -320,7 +321,7 @@ define_var_lists <- function() {
   variables_binary <<- c(variables_race, variables_home, variables_global_movement, variables_why_hic_help_lic, variables_custom_redistr)
   variables_duration <<- c("duration", "duration_consent", "duration_socios_demos", "duration_field", "duration_conjoint", "duration_global_tax", "duration_warm_glow_substitute", "duration_gcs", 
                            "duration_ics", "duration_warm_glow_realism", "duration_ncqg_maritime", "duration_wealth_tax", "duration_preferred_transfer_mean", "duration_radical_redistr", 
-                           "duration_custom_redistr", "duration_well_being", "duration_extra", "duration_main_questions")
+                           "duration_custom_redistr", "duration_well_being", "duration_scenarios_tax", "duration_end", "duration_extra", "duration_main_questions", "duration_feedback")
   variables_split_few <<- c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
                             "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global")
   variables_split_many_domestic <<- c("revenue_split_many_domestic_education", "revenue_split_many_domestic_healthcare", "revenue_split_many_domestic_defense", "revenue_split_many_domestic_deficit_reduction", 
@@ -378,6 +379,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   }
   for (v in intersect(variables_duration, names(e))) e[[v]] <- e[[v]]/60
   label(e$duration) <- "duration: Duration (in min)"
+  e$duration_feedback <- e$duration - rowSums(e[, intersect(variables_duration[-1], names(e))], na.rm = T)
   
   for (j in intersect(variables_binary, names(e))) { # TODO: variant NAs
     temp <- label(e[[j]])
@@ -450,7 +452,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item(variables_transfer_how, c("Wrong" = -1, "Acceptable" = 0, "Right" = 1, "Best" = 2), grep = T, values = c("wrong", "acceptable", "right", "best"), df = e)
   e$variant_sustainable_future <- ifelse(!is.na(e$sustainable_future_a), "a", ifelse(!is.na(e$sustainable_future_b), "b", "s")) # variant_radical_redistr
   label(e$variant_sustainable_future) <- "variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points)."
-  e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
+  if (pilot) e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
+  else e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("A", e$sustainable_future_a), T, F)
   e <- create_item("vote_intl_coalition", c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
   e <- create_item("gcs_comprehension", c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
   e$gcs_understood <- e$gcs_comprehension == 1
@@ -469,7 +472,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in intersect(variables_field, names(e))) e$variant_field[!is.na(e[[paste0("Open-endedfield_order_", v)]])] <- sub("_field", "", v)
   
   e$info_solidarity <- e$variant_realism %in% 1
-  e$variant_info_solidarity <- relevel(as.factor(ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")), "No info")
+  if ("No info" %in% unique(e$info_solidarity)) e$variant_info_solidarity <- relevel(as.factor(ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")), "No info")
   
   e <- create_item("variant_warm_glow", c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e)
   e$variant_warm_glow <- as.factor(e$variant_warm_glow)
@@ -481,8 +484,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
   e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
   
-  e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
-  e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
+  if (pilot) {
+    e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
+    e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
+  }
   e$top_tax_support <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support) # TODO: label
   e$variant_top_tax <- ifelse(e$variant_radical_redistr == 0, "top1", "top3")
   e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
@@ -520,19 +525,21 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in eval(str2expression(paste0("variables_", l)))) e[[v]][!e[[paste0(l, "_asked")]]] <- NA
   }
 
-  e$n <- paste0(country, 1:nrow(e))
-  e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
-  e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number)
-  for (v in intersect(variables_conjoint_domains, names(e))) {
-    e[[paste0(v, "_original")]] <- e[[v]]
-    e[[v]] <- policies_domains[e[[v]]] # common policy name for all countries
+  if (!country %in% c("RU", "SA")) {
+    e$n <- paste0(country, 1:nrow(e))
+    e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
+    e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number)
+    for (v in intersect(variables_conjoint_domains, names(e))) {
+      e[[paste0(v, "_original")]] <- e[[v]]
+      e[[v]] <- policies_domains[e[[v]]] # common policy name for all countries
+    }
+    policies_l <- unlist(setNames(policies_conjoint[[languages_country[[country]][1]]], conjoint_attributes))
+    for (v in intersect(variables_conjoint_policies, names(e))) {
+      e[[paste0(v, "_original")]] <- e[[v]]
+      e[[v]] <- policies_code[e[[v]]]
+      # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
+    }  
   }
-  policies_l <- unlist(setNames(policies_conjoint[[languages_country[[country]][1]]], conjoint_attributes))
-  for (v in intersect(variables_conjoint_policies, names(e))) {
-    e[[paste0(v, "_original")]] <- e[[v]]
-    e[[v]] <- policies_code[e[[v]]]
-    # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
-  }  
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
   # e$global_movement_any[!e$global_movement_asked] <- NA 
   # e$why_hic_help_lic_any <- as.logical(rowSums(e[, variables_why_hic_help_lic[1:3]]))
@@ -544,10 +551,19 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 # Pilots
 pilot_countries <- c("PL", "GB", "US")
 pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
-p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
+pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 list2env(pilot_data, envir = .GlobalEnv)
 
-e <- p
+# Surveys
+survey_data <- setNames(lapply(countries[!countries %in% c("SA", "JP", "RU")], function(c) { prepare(country = c, scope = "final", 
+               fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F) }), countries[!countries %in% c("SA", "JP", "RU")]) # remove_id = F
+all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
+list2env(survey_data, envir = .GlobalEnv)
+
+p <- all
+beep()
+
+# CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F)
 
 # pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
@@ -583,6 +599,8 @@ e <- p
 # p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, list(USp, PLp, GBp))
 
 
+##### Codebook #####
+export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
 
 
 

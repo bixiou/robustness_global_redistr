@@ -1,9 +1,9 @@
 library(dplyr)
 library(stringr)
 
-data1 <- read.csv("C:/Users/Erwan Akrour/Downloads/KEN_ALL_ROME/KEN_ALL_ROME.CSV", sep = ",", fileEncoding = "Shift-JIS", header = F) # Zipcode and Municipality 
+data1 <- read.csv("C:/Users/Erwan Akrour/Downloads/KEN_ALL_ROME/KEN_ALL_ROME.CSV", sep = ",", fileEncoding = "Shift-JIS", header = F)
 code <- read.csv("C:/Users/Erwan Akrour/Downloads/JP_zipcode.csv", sep = ",")
-data.pop2 <- read.csv2("/Users/Erwan Akrour/Downloads/FEI_CITY_250327223303.csv", sep=",", fileEncoding = "cp932", header = F, skip = 9) #Population by Municipality in 2020
+data.pop2 <- read.csv2("/Users/Erwan Akrour/Downloads/FEI_CITY_250327223303.csv", sep=",", fileEncoding = "cp932", header = F, skip = 9)
 
 ### PART 1  
 
@@ -135,8 +135,6 @@ df$Municipality.short[df$Municipality.short=="KOTORA CHO"] <- "KOTOURA CHO"
 df$Municipality.short[df$Municipality.short=="KATSURA CHO"] <- "KATSUURA CHO"
 df$Municipality.short[df$Municipality.short=="SANAGOCHI SON"] <- "SANAGOUCHI SON"
 df$Municipality.short[df$Municipality.short=="SETOCHI CHO"] <- "SETOUCHI CHO"
-unique(df$Municipality.short[!(df$Municipality.short %in% data.pop2$Municipality.short)])
-
 
 df$N_word <- NULL
 data1 <- rbind(data1, df)
@@ -167,30 +165,27 @@ merge_1$Rural.urban <- ""
 merge_1$Rural.urban[merge_1$small.zip %in% pop.small.zip$small.zip[pop.small.zip$pop.max>=100000]] <- "Urban"
 merge_1$Rural.urban[merge_1$small.zip %in% pop.small.zip$small.zip[pop.small.zip$pop.max<100000]] <- "Rural"
 
+View(merge_1[merge_1$small.zip %in% duplicate.urbanity$small.zip[duplicate.urbanity$dup.urbanity>1],])
 
-# merge_3 <- merge_1
+merge_3 <- merge_1
 
-# merge_2 <- merge_1[,c("Prefecture", "Municipality.short", "Rural.urban")]
-# merge_2 <- merge_2[!duplicated(merge_2),]
+merge_2 <- merge_1[,c("Prefecture", "Municipality.short", "Rural.urban")]
+merge_2 <- merge_2[!duplicated(merge_2),]
+# Check pop in rural and urban
+merge_2 <- merge(x=data.pop2.unique, y=merge_2, by=c("Prefecture", "Municipality.short"), all.x = T)
+table(is.na(merge_2$Rural.urban))
 
-# Check pop in rural and urban old definition
-# merge_2 <- merge(x=data.pop2.unique, y=merge_2, by=c("Prefecture", "Municipality.short"), all.x = T)
-# table(is.na(merge_2$Rural.urban))
 
+merge_2$Rural.urban[duplicated(merge_2[c("Prefecture", "Municipality.short")])] <- "Urban"
+merge_2 <- merge_2[!duplicated(merge_2[c("Prefecture", "Municipality.short")]), ]
 
-# merge_2$Rural.urban[duplicated(merge_2[c("Prefecture", "Municipality.short")])] <- "Urban"
-# merge_2 <- merge_2[!duplicated(merge_2[c("Prefecture", "Municipality.short")]), ]
-
-# sum(merge_2$Pop.int[merge_2$Rural.urban == "Urban"])/sum(merge_2$Pop.int)
-# sum(merge_2$Pop.int[merge_2$Rural.urban == "Rural"])/sum(merge_2$Pop.int)
+sum(merge_2$Pop.int[merge_2$Rural.urban == "Urban"])/sum(merge_2$Pop.int)
+sum(merge_2$Pop.int[merge_2$Rural.urban == "Rural"])/sum(merge_2$Pop.int)
 
 duplicate.urbanity <- merge_1 %>%
   group_by(small.zip) %>%
   summarise(dup.urbanity = length(unique(Region))) %>%
   ungroup()
-
-View(merge_1[merge_1$small.zip %in% duplicate.urbanity$small.zip[duplicate.urbanity$dup.urbanity>1],])
-
 
 # Fix dup small codes
 merge_1$small.zip[merge_1$Municipality.short== "KISOSAKI CHO"] <- "49808"
@@ -198,23 +193,21 @@ merge_1$small.zip[merge_1$Postal.Code== 3840097] <- "37716"
 merge_1$small.zip[merge_1$Postal.Code== 3890121] <- "37903"
 
 
-# Copy of merge_1
+
 merge_final <- merge_1 %>% 
 mutate(Municipality.type2 = word(Municipality.short, -1))
 
 
+merge_1 <- merge_1 %>%
+  select(small.zip, Region, Rural.urban)
 
-# EXPORT OLD VERSION OF JAPAN ZIPCODE
-# merge_1 <- merge_1 %>%
-  # select(small.zip, Region, Rural.urban)
+merge_1 <- merge_1[!duplicated(merge_1),]
 
-# merge_1 <- merge_1[!duplicated(merge_1),]
-
-# write.csv(merge_1,"Japan_zipcode2.csv", row.names=F)
+write.csv(merge_1,"Japan_zipcode2.csv", row.names=F)
 
 
 
-### POPULATION BY REGION AND BY URBAN/RURAL WITH OLD DEFINITION OF URBANITY
+### POPULATION BY REGION AND BY URBAN/RURAL
 
 # merge_4 <- merge_3 %>% distinct(Municipality.short, .keep_all = TRUE)
 
@@ -257,8 +250,7 @@ mutate(Municipality.type2 = word(Municipality.short, -1))
 
 # Check the difference between 2020 and 2025
 
-
-# Column urbanity using the municipality_type (ku and shi for urban, cho, machi, mura, son for rural)
+# column urbanity2 using the municipality_type (ku and shi for urban, cho, machi, mura, son for rural)
 merge_final <- merge_final %>%
   mutate(urbanity = case_when(
     Municipality.type2 %in% c("KU", "SHI", "KEN", "TAKIZAWASHI") ~ "urban",
@@ -267,93 +259,15 @@ merge_final <- merge_final %>%
   ))
 
 
-
-# ZIPCODE with 7 digits
-merge_final$small.zip3 <- sprintf("%07d", merge_final$Postal.Code)# zipcode with 7 digits
-
-
-
-# ZIPCODE with 6 digits
-merge_final$small.zip2 <- ""  #zipcode with 6 digits
-# Case 1 : Postal.Code >= 1 000 000 → keeping the first 6 digits
-merge_final$small.zip2[merge_final$Postal.Code >= 1e6] <- substr(merge_final$Postal.Code[merge_final$Postal.Code >= 1e6], 1, 6)
-# Case 2 : Postal.Code entre 100000 et 999999 → keeping the first 5 and add a “0” in front of them
-merge_final$small.zip2[merge_final$Postal.Code >= 1e5 & merge_final$Postal.Code < 1e6] <- paste0("0", substr(merge_final$Postal.Code[merge_final$Postal.Code >= 1e5 & merge_final$Postal.Code < 1e6], 1, 5))
-# Case 3 : Postal.Code < 100000 → keeping the first 4 and add “00” in front of them
-merge_final$small.zip2[merge_final$Postal.Code < 1e5] <- paste0("00", substr(merge_final$Postal.Code[merge_final$Postal.Code < 1e5], 1, 4))
-
-
-# Keeping only 4 columns
 merge_final2 <- merge_final %>% 
-  select(small.zip2, small.zip3, urbanity, Region, Municipality.short, Town, Pop.int)
+  select(small.zip, urbanity, Region)
 
-# Removing duplicate lines except for small.zip2, Municipality, Town and Pop.int
-merge_final2 <- merge_final2[!duplicated(merge_final2[ , setdiff(names(merge_final2), c("small.zip2", "Municipality.short", "Town", "Pop.int"))]), ]
-
-
-# Obtaining the full zipcode that are associated to two town which are not of the same urbanity
-duplicate_small.zip3 <- merge_final2[duplicated(merge_final2[c("small.zip3")]) | 
-                                     duplicated(merge_final2[c("small.zip3")], fromLast = TRUE), ]
-
-### Applying changes to merge_final2 based on "duplicate_small.zip3"
-# Zipcode of OISHIDA MACHI TAKANOSU(OKAKUSAYAMA) seems wrong, true zipcode is 999-4101 
-merge_final2[merge_final2$Town == "TAKANOSU(OKAKUSAYAMA)", c("small.zip3", "small.zip2")] <- c("9994101 ", "999410")
-
-
-# Removing duplicated zip code lines for rural towns : https://www.zipcode-jp.com/modules/zipcode/viewzip.php?zcd=4110000 
-# Town == IKANIKEISAIGANAIBAAI means “if not specified", these zipcode always end by "00"
-zipcode_to_remove <- duplicate_small.zip3[duplicate_small.zip3$urbanity == "rural", ]
-
-zipcode_to_remove <- zipcode_to_remove %>% 
-  filter(Town != "TAKANOSU(OKAKUSAYAMA)")
-
-merge_final2 <- anti_join(merge_final2, zipcode_to_remove)
-
-
-
-
-# Keeping only the first occurence of same lines
-merge_final2 <- merge_final2[!duplicated(merge_final2[, !(names(merge_final2) %in% c("Pop.int", "Municipality.short", "Town", "small.zip3"))]), ]
-
-
-# Zipcode in duplicate with different urbanity (there are 35)
-duplicate_small.zip2 <- merge_final2[duplicated(merge_final2[c("small.zip2")]) | 
-                                     duplicated(merge_final2[c("small.zip2")], fromLast = TRUE), ]
-
-# Removing column except small.zip2, urbanity and Region
-merge_final2 <- merge_final2 %>% 
-  select(small.zip2, urbanity, Region)
-
-### Determining the maximum population of which we don't know if it is urban or rural because of the duplicate small.zip2
-pop_duplicated <- duplicate_small.zip2[!duplicated(duplicate_small.zip2$Pop.int), ]
-sum(pop_duplicated$Pop.int)
-sum(pop_duplicated$Pop.int[pop_duplicated$urbanity == "urban"])
-# 4 645 683 people are concerned with 4 057 611 leaving in urban zone
-
+merge_final2 <- merge_final2[!duplicated(merge_final2),]
 
 merge_final2 <- merge_final2 %>% 
-  rename(zipcode = small.zip2,
+  rename(zipcode = small.zip,
          urbanity = urbanity,
          region = Region)
-
-
-
-
-
-# Finding the municipalities concerned
-municipalites_concerned <- merge_final %>%
-  filter(small.zip2 %in% duplicate_small.zip2$small.zip2) %>%
-  distinct(Municipality.short)
-
-# Counting the separate zipcodes in merge_final for these municipalities
-zipcodes_municipality <- merge_final %>%
-  semi_join(municipalites_concerned, by = "Municipality.short") %>%
-  group_by(Municipality.short) %>%
-  summarise(n_zipcodes = n_distinct(small.zip2)) %>%
-  arrange(desc(n_zipcodes))
-sum(zipcodes_municipality$n_zipcodes) # 823 zipcodes are concerned
-
-
 
 merge_final2 <- merge_final2 %>%
   mutate(urbanity = case_when(
@@ -373,11 +287,10 @@ merge_final2 <- merge_final2 %>%
   ))
 
 
-write.csv(merge_final2,"C:/Users/Erwan Akrour/Downloads/Japan_zipcode3.csv", row.names=F)
+write.csv(merge_final2,"C:/Users/Erwan Akrour/Downloads/Japan_zipcode.csv", row.names=F)
 
 
-
-### POPULATION RURAL/URBAN AND REGION
+### POPULATION RURAL/URBAN
 
 merge_final3 <- merge_final %>% distinct(Municipality.short, .keep_all = TRUE)
 
@@ -407,9 +320,5 @@ urb_rur <- merge_final4 %>%
 
 sum(region$Tot_Pop_Region)
 sum(urb_rur$Tot_Pop_Urb_Rur)
-
-
-### END
-
 
 
