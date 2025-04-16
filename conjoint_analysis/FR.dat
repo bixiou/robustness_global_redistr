@@ -1,14 +1,14 @@
 Attributes
-econ_issues:econ_issues1,econ_issues2,econ_issues3,econ_issues4,-
-society_issues:society_issues1,society_issues2,-
-climate_pol:climate_pol1,climate_pol2,climate_pol3,-
-tax_system:tax_system1,tax_system2,-
-foreign_policy:foreign_policy1,foreign_policy2,foreign_policy3,foreign_policy4,-
+econ_issues:econ_issues1,econ_issues2,econ_issues3,-
+society_issues:society_issues1,society_issues2,society_issues3,-
+climate_pol:climate_pol1,NA,-
+tax_system:NA,NA,tax_system3,tax_system4,-
+foreign_policy:NA,foreign_policy2,foreign_policy3,-
 Weights
-econ_issues:0.2,0.2,0.2,0.2,0.2
-society_issues:0.333333333333333,0.333333333333333,0.333333333333333
-climate_pol:0.25,0.25,0.25,0.25
-tax_system:0.333333333333333,0.333333333333333,0.333333333333333
-foreign_policy:0.2,0.2,0.2,0.2,0.2
+econ_issues:0.25,0.25,0.25,0.25
+society_issues:0.25,0.25,0.25,0.25
+climate_pol:0.333333333333333,0.333333333333333,0.333333333333333
+tax_system:0.2,0.2,0.2,0.2,0.2
+foreign_policy:0.25,0.25,0.25,0.25
 Restrictions
 
