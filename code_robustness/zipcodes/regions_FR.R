@@ -1,8 +1,13 @@
+################################################################################################################################
+#This code computes the population in the 5 regions of France : North/East, Ile de France, SouthEast, SouthWest, and the rest. #
+#Latest data from 2025, INSEE - updated yearly.                                                                                #
+################################################################################################################################
+
 library(dplyr) # /!\ BUG if plyr (or memisc?) loaded before => detach("package:plyr", unload = TRUE)
 library("openxlsx")
-#source https://www.insee.fr/fr/statistiques/8331297
+#source : https://www.insee.fr/fr/statistiques/8331297
 #keep what is necesary on the sheet
-data <- read.xlsx("C:/Users/ZBOOK/Downloads/estim-pop-dep-sexe-gca-1975-2025.xlsx", sheet=2, startRow = 5)
+data <- read.xlsx(".../robustness_global_redistr/data_ext/source_zipcode/estim-pop-dep-sexe-gca-1975-2025.xlsx", sheet=2, startRow = 5)
 
 data <- data %>%
   rename(departement="X1", Name="X2", Population="Total")
@@ -16,7 +21,7 @@ data <- data %>%
     departement %in% c("01", "03", "07", "11", "13", "15", "26", "30", "34", "38", "42", "43", "48", "63", "66", "69", "73", "74", "83", "84") ~ 4,
     TRUE ~ 5
   ))
-# Calculer la population totale par région
+# Compute population per region
 population_par_region <- data %>%
   group_by(region) %>%
   summarise(total_population = sum(Population, na.rm = TRUE))
