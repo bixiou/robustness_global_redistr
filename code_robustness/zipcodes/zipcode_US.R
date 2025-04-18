@@ -1,14 +1,23 @@
+##################################################################################################################################################################
+#This code computes population counts per level of urbanity in the US                                                                        
+#Source : 2020 Census
+#Urbanity of zipcodes comes from a code from this github https://github.com/bixiou/oecd_climate/tree/main/code_oecd/zipcodes that must be found searched again
+#This code then assigns regions to zipcodes - but the method is sub-optimal and can be modofied the next time
+##################################################################################################################################################################
+
 library(dplyr) # /!\ BUG if plyr (or memisc?) loaded before => detach("package:plyr", unload = TRUE)
 library("openxlsx")
 
-data <- read.csv("C:/Users/ZBOOK/Downloads/DECENNIALDHC2020.P1-Data.csv", skip=1)
+# source : https://data.census.gov/table?q=All+5-digit+ZIP+Code+Tabulation+Areas+within+United+States+Populations+and+People
+data <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/DECENNIALDHC2020.P1-Data.csv", skip=1)
 
 data <- data %>%
   select(Geographic.Area.Name, X...Total) %>%  
   mutate(zipcode = substr(Geographic.Area.Name, nchar(Geographic.Area.Name) - 4, nchar(Geographic.Area.Name))) %>%
   select(zipcode, X...Total)
 
-data_urb <- read.csv("C:/Users/ZBOOK/Downloads/zipcode_US.csv")
+#source : https://github.com/bixiou/oecd_climate/tree/main/code_oecd/zipcodes
+data_urb <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/zipcode_US.csv")
 
 data$zipcode <- as.integer(data$zipcode)
 data_urb$zipcode <- as.integer(data_urb$zipcode)
@@ -21,51 +30,10 @@ population_by_urbanity <- merge_1 %>%
 
 print(population_by_urbanity)
 
-data4 <- read.xlsx("C:/Users/ZBOOK/Downloads/co-est2024-pop.xlsx", startRow = 5)
+datacode <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/zipcode_US.csv")
 
-# Renommer les colonnes
-colnames(data4) <- c("County/State", "x2", "x3", "x4", "x5", "x6", "Population")
-
-# Garder uniquement le texte après la virgule dans la colonne "County/State"
-data4$`County/State` <- sub(".*,\\s*", "", data4$`County/State`)
-
-# Ne garder que la première (County/State) et la dernière colonne (Population)
-data4_cleaned <- data4[, c(1, ncol(data4))]
-
-# Regrouper par "County/State" (qui contient maintenant les états), puis sommer les populations
-data4_summed <- data4_cleaned %>%
-  group_by(`County/State`) %>%
-  summarise(Total_Population = sum(Population, na.rm = TRUE))
-
-# Ajouter directement la colonne de région à partir des états
-data4_summed$Region <- case_when(
-  data4_summed$"County/State" %in% c("Connecticut", "Maine", "Massachusetts", "New Hampshire", "Rhode Island", "Vermont", 
-                              "New Jersey", "New York", "Pennsylvania") ~ "Northeast",
-  data4_summed$"County/State" %in% c("Illinois", "Indiana", "Michigan", "Ohio", "Wisconsin", "Iowa", "Kansas", "Minnesota", 
-                              "Missouri", "Nebraska", "North Dakota", "South Dakota") ~ "Midwest",
-  data4_summed$"County/State" %in% c("Delaware", "District of Columbia", "Florida", "Georgia", "Maryland", "North Carolina", 
-                              "South Carolina", "Virginia", "West Virginia", "Alabama", "Kentucky", "Mississippi", 
-                              "Tennessee", "Arkansas", "Louisiana", "Oklahoma", "Texas") ~ "South",
-  data4_summed$"County/State" %in% c("Arizona", "Colorado", "Idaho", "Montana", "Nevada", "New Mexico", "Utah", "Wyoming", 
-                              "Alaska", "California", "Hawaii", "Oregon", "Washington") ~ "West",
-  TRUE ~ "Other"  # Pour les états qui ne sont pas inclus
-)
-
-# Somme des populations par région
-data4_region_sum <- data4_summed %>%
-  group_by(Region) %>%
-  summarise(Total_Pop = sum(Total_Population, na.rm = TRUE))
-
-# Afficher le résultat
-print(data4_region_sum)
-
-# Somme totale des populations dans le tableau data4_cleaned
-total_population2 <- sum(data4$Population, na.rm = TRUE)
-
-# Afficher la somme totale
-print(total_population2)
-
-datacode <- read.csv("C:/Users/ZBOOK/Downloads/zipcode_US.csv")
+# source : https://redivis.com/datasets/b36a-8fmm08tgf
+#The file is >100 Mo so you won't find it on the github but it is often updated and easily accessible
 datastate <- read.csv ("C:/Users/ZBOOK/Downloads/us_zip_codes_to_county.csv")
 
 # Garder uniquement les deux premières colonnes (ZIP et COUNTY)
@@ -110,7 +78,7 @@ datastate_cleaned$region <- case_when(
 
 merge_1 <- merge(x=datacode, y=datastate_cleaned, by.x="zipcode", by.y="ZIP", all.x=TRUE)
 
-# Fonction pour attribuer les valeurs de state et region
+# Allocates regions to the fex missing zipcodes - not optimal ut right because zipcodes are split regularly
 assign_state_region <- function(df) {
   for (i in 2:nrow(df)) {
     if (df$zipcode[i] >= 1000 && is.na(df$state[i])) {
@@ -127,12 +95,3 @@ assign_state_region <- function(df) {
 merge_1 <- assign_state_region(merge_1)
 
 write.csv(merge_1, "us_25_zipcode.csv", row.names = FALSE)
-
-# Filtrer les lignes où 'region' est NA
-datastate_na_region <- merge_1[is.na(merge_1$region), ]
-
-# Sauvegarder ce sous-ensemble dans un fichier CSV, en gardant toutes les colonnes
-write.csv(datastate_na_region, "us_zipcode_with_na_region.csv", row.names = FALSE)
-
-
-
