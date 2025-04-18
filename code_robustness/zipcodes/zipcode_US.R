@@ -5,6 +5,10 @@
 #This code then assigns regions to zipcodes - but the method is sub-optimal and can be modofied the next time
 ##################################################################################################################################################################
 
+#Population per region come directly from this source (2024 estimate)
+#https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html
+#".../robustness_global_redistr/data_ext/source_zipcode/NST-EST2024-POP.xlsx"
+
 library(dplyr) # /!\ BUG if plyr (or memisc?) loaded before => detach("package:plyr", unload = TRUE)
 library("openxlsx")
 
