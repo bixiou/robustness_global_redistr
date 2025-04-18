@@ -1,10 +1,19 @@
+######################################################################################################################################################################################################################
+#chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/definition-stl-ab-31122011.pdf?__blob=publicationFile
+#Germany defines urbanity as degrees of density 
+#Rural grid cells:  Grid cells outside urban clusters 
+#Urban clusters: clusters of contiguous2 grid cells of 1km2 with a density of at least 300 inhabitants per km2 and a minimum population of 5 000.  
+#High-density cluster (or city centre): Contiguous3 grid cells of 1km2 with a density of at least 1 500 inhabitants per km2 and a minimum population of 5000
+#This code assesses urbanity level and region index to zipcode
+######################################################################################################################################################################################################################
+
 library("openxlsx")
 library(dplyr)
 library(tidyr)
 
 # Charger les données
 #source https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV4QAktuell.html
-data2 <- read.xlsx("C:/Users/ZBOOK/Downloads/AuszugGV4QAktuell.xlsx", sheet = 2, startRow = 6, colNames = TRUE)
+data2 <- read.xlsx(".../robustness_global_redistr/data_ext/source_zipcode/AuszugGV4QAktuell.xlsx", sheet = 2, startRow = 6, colNames = TRUE)
 
 # Renommer les colonnes
 colnames(data2) <- c(
@@ -64,7 +73,7 @@ result <- data3 %>%
             region = first(region)) %>%  # Garder la région associée
   ungroup()  # Retirer le groupement pour éviter des erreurs par la suite
 
-data_add <- read.csv("C:/Users/ZBOOK/Documents/CIRED/Questionnaire_robustness/zipcodes/zipcode_DE.csv")
+data_add <- read.csv("".../robustness_global_redistr/data_ext/source_zipcode/zipcode_DE.csv"")
 
 # 1. Identifier les zipcodes manquants
 missing_zipcodes <- setdiff(data_add$zipcode, result$zipcode)
