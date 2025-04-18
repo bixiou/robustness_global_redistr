@@ -72,7 +72,8 @@ result <- data3 %>%
   summarise(urbanity = min(as.integer(density_type), na.rm=TRUE),  # Trouver la valeur minimale de urbanity par zipcode
             region = first(region)) %>%  # Garder la région associée
   ungroup()  # Retirer le groupement pour éviter des erreurs par la suite
-
+#Data from 2020 computations to complete missing data
+#source : https://github.com/bixiou/oecd_climate/tree/main/code_oecd/zipcodes
 data_add <- read.csv("".../robustness_global_redistr/data_ext/source_zipcode/zipcode_DE.csv"")
 
 # 1. Identifier les zipcodes manquants
