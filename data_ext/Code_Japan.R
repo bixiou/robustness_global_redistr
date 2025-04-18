@@ -5,8 +5,8 @@ library(stringr)
 # Source (population by municipality, year 2020): https://www.e-stat.go.jp/en/regional-statistics/ssdsview/municipality
 # Source (zipcode, updated 3 july 2024) : https://www.post.japanpost.jp/zipcode/dl/roman-zip.html
 
-data1 <- read.csv("data_ext/source_zipcode/source_JA_zipcode.csv", sep = ",", fileEncoding = "Shift-JIS", header = F) # Zipcode 
-data.pop2 <- read.csv2("data_ext/source_zipcode/source_JA_population.csv", sep=",", fileEncoding = "cp932", header = F, skip = 9) #Population by Municipality in 2020
+data1 <- read.csv("../data_ext/source_zipcode/source_JA_zipcode.csv", sep = ",", fileEncoding = "Shift-JIS", header = F) # Zipcode 
+data.pop2 <- read.csv2("../data_ext/source_zipcode/source_JA_population.csv", sep=",", fileEncoding = "cp932", header = F, skip = 9) #Population by Municipality in 2020
 
 ### PART 1 Municipality
 
