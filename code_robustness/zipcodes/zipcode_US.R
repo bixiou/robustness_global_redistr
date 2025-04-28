@@ -13,7 +13,7 @@ library(dplyr) # /!\ BUG if plyr (or memisc?) loaded before => detach("package:p
 library("openxlsx")
 
 # source : https://data.census.gov/table?q=All+5-digit+ZIP+Code+Tabulation+Areas+within+United+States+Populations+and+People
-data <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/DECENNIALDHC2020.P1-Data.csv", skip=1)
+data <- read.csv("../../data_ext/source_zipcode/DECENNIALDHC2020.P1-Data.csv", skip=1)
 
 data <- data %>%
   select(Geographic.Area.Name, X...Total) %>%  
@@ -21,7 +21,7 @@ data <- data %>%
   select(zipcode, X...Total)
 
 #source : https://github.com/bixiou/oecd_climate/tree/main/code_oecd/zipcodes
-data_urb <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/zipcode_US.csv")
+data_urb <- read.csv("../../data_ext/source_zipcode/zipcode_US.csv")
 
 data$zipcode <- as.integer(data$zipcode)
 data_urb$zipcode <- as.integer(data_urb$zipcode)
@@ -34,11 +34,11 @@ population_by_urbanity <- merge_1 %>%
 
 print(population_by_urbanity)
 
-datacode <- read.csv(".../robustness_global_redistr/data_ext/source_zipcode/zipcode_US.csv")
+datacode <- read.csv("../../data_ext/source_zipcode/zipcode_US.csv")
 
 # source : https://redivis.com/datasets/b36a-8fmm08tgf
 #The file is >100 Mo so you won't find it on the github but it is often updated and easily accessible
-datastate <- read.csv ("C:/Users/ZBOOK/Downloads/us_zip_codes_to_county.csv")
+datastate <- read.csv ("us_zip_codes_to_county.csv")
 
 # Garder uniquement les deux premières colonnes (ZIP et COUNTY)
 datastate_cleaned <- datastate[, c("ZIP", "COUNTY")]
