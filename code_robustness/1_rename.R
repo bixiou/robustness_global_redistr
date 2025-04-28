@@ -103,7 +103,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "ncs_support",
       "donation",
       "gcs_support",
-      "gcs_belief",
+      "gcs_belief_us",
       "ics_support",
       "likely_solidarity",
       "solidarity_support_billionaire_tax",
@@ -132,7 +132,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "maritime_split_order_decarbonization",
       "ncqg_full",
       "ncqg",
-      "ncqg_order", # 1: normal / 7: reverse TODO
+      "ncqg_order", 
       "ncqg_order_4",
       "ncqg_order_5",
       "ncqg_order_2",
@@ -191,7 +191,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "well_being_wvs_0",
       "well_being_wvs_1",
       "gcs_comprehension",
-      "gcs_comprehension_order", # 2: normal / 5: reverse TODO
+      "gcs_comprehension_order", 
       "gcs_comprehension_order_3",
       "gcs_comprehension_order_5",
       "my_tax_global_nation",
@@ -440,7 +440,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "maritime_split_order_decarbonization",
       "ncqg_full",
       "ncqg",
-      "ncqg_order", # 1: normal / 7: reverse TODO
+      "ncqg_order", 
       "ncqg_order_4",
       "ncqg_order_5",
       "ncqg_order_2",
@@ -500,7 +500,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "well_being_wvs_0",
       "well_being_wvs_1",
       "gcs_comprehension",
-      "gcs_comprehension_order", # 2: normal / 5: reverse TODO
+      "gcs_comprehension_order", 
       "gcs_comprehension_order_3",
       "gcs_comprehension_order_5",
       "my_tax_global_nation",

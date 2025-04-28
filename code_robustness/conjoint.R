@@ -19,7 +19,7 @@ formula_cjoint <- as.formula("selected ~ econ_issues + society_issues + climate_
 # design_cjoint_EU <- makeDesign(filename = "../conjoint_analysis/9d_F_EU.dat") 
 # design_cjoint_both <- makeDesign(filename = "../conjoint_analysis/9d_F_both.dat") # The weighted are the average of the US and EU weights
 amce <- ca <- list() # We should have "Old qualtrics format detected." (otherwise it would assume new format and delete the first observation).
-for (df in paste0(pilot_countries, "p")) { # "usp", "eup", "ep"
+for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("SA", "RU")], paste0(pilot_countries, "p"))
   print(df)
   main_language <- languages_country[[sub("p", "", df)]][1]
   policies_l <- c(unlist(setNames(policies_conjoint[[main_language]], conjoint_attributes)), "-" = "-")

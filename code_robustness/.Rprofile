@@ -50,7 +50,7 @@ package("dplyr")
 package("tidyr") # replace_na, no.na, decrit
 # package("expss") # fre (for weighted frequency table)
 # package("GDAtools") # wtable (for weighted frequency crosstable)
-# package("beepr") # beep() makes sound
+package("beepr") # beep() makes sound
 package("openxlsx") # read.xlsx
 package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
@@ -95,7 +95,7 @@ package("plotly") # used in barres; in case of bug due to kaleido: "pip install 
 package("quantreg")
 # package("segmented")
 #' package("rcompanion")
-# package("DescTools") # Gini
+package("DescTools") # Gini, %[]%
 #' # package("VCA")
 #' package("glmnet")
 #' # package("installr") # not for linux
@@ -242,6 +242,7 @@ package("googlesheets4") # read/write google sheets
 # }
 d <- function(str, alt_data = eu, alt_var = "country") {
   if (exists(str) && is.data.frame(eval(str2expression(str)))) return(eval(str2expression(str))) # data from name
+  else if (!exists(str)) warning(paste(str, "does not exist."))
   else return(alt_data[alt_data[[alt_var]] == toupper(str),])
 }
 n <- function(var) { as.numeric(as.vector(var)) }
