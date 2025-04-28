@@ -9,7 +9,7 @@ library("openxlsx")
 
 #source https://public.opendatasoft.com/explore/dataset/correspondance-code-insee-code-postal/table/
 #data from 2015 but they are the best with this scale of precision according to INSEE
-data <-read.csv(".../robustness_global_redistr/data_ext/source_zipcode/correspondance-code-insee-code-postal.csv", sep=';')
+data <-read.csv("../../data_ext/source_zipcode/correspondance-code-insee-code-postal.csv", sep=';')
 data <- as.data.frame(data)
 
 data <- data %>% 
@@ -22,7 +22,7 @@ data <- data %>%
 #urbanity per zipcode data comes from a code that was created in 2020 accessible athe followong address
 #https://github.com/bixiou/oecd_climate/blob/main/code_oecd/FR_commune.R
 #source : https://github.com/bixiou/robustness_global_redistr/blob/main/data_ext/zipcode_FR.csv
-data2 <-read.csv(".../robustness_global_redistr/data_ext/source_zipcode/zipcode_FR.csv")
+data2 <-read.csv("../../data_ext/source_zipcode/zipcode_FR.csv")
 
 data2 <- data2 %>%
   mutate(zipcode=as.integer(zipcode)
