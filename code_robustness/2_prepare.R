@@ -84,7 +84,7 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
                  "CH" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
                  "JP" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
                  "RU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "SA" = c("gender_nationality", "income_quartile", "age", "education_quota", "urbanity", "region"),
+                 "SA" = c("gender_nationality", "income_quartile", "age", "education_quota", "region"),
                  "US" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region", "race")
   )
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
@@ -236,14 +236,14 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
   freqs <- list()
   for (v in vars) {
     if (!(v %in% names(e))) warning(paste(v, "not in data"))
-    e[[v]] <- as.character(e[[v]])
+    e[[v]] <- as.character(e[[v]], include.missings = T)
     e[[v]][is.na(e[[v]])] <- "NA"
     var <- ifelse(v %in% names(levels_quotas), v, paste(country, v, sep="_"))
     if (!(var %in% names(levels_quotas))) warning(paste(var, "not in levels_quotas"))
     levels_v <- as.character(levels_quotas[[var]])
     levels_v <- levels_v[levels_v != 0]
-    missing_levels <- setdiff(Levels(e[[v]]), levels_v) # old: levels(as.factor(e[[v]])) (misses memisc missing values such as "Not 25-64" in education_quota)
-    present_levels <- which(levels_v %in% Levels(e[[v]])) # old: levels(as.factor(e[[v]]))
+    missing_levels <- setdiff(levels(as.factor(e[[v]])), levels_v) 
+    present_levels <- which(levels_v %in% levels(as.factor(e[[v]]))) 
     if (length(present_levels) != length(levels_v)) warning(paste0("Following levels are missing from data: ", var, ": ", 
         paste(levels_v[!1:length(levels_v) %in% present_levels], collapse = ', '), " (for ", country, "). Weights are still computed, neglecting this category."))
     prop_v <- pop_freq[[country]][[var]][present_levels]
