@@ -98,23 +98,25 @@ labels_vars <- c(
   "global_movement_demonstrate" = "Could attend a demonstration",
   "global_movement_strike" = "Could go on strike",
   "global_movement_donate" = "Could donate [$100] to a strike fund",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
-  "why_hic_help_lic_responsibility" = "",
+  "solidarity_support_billionaire_tax" = "Minimum tax of 2% on billionaires' wealth, in voluntary countries", # A minimum tax of 2% on the wealth of billionaires, in voluntary countries
+  "solidarity_support_corporate_tax" = "Raise global minimum tax on profit from 15% to 35%, allocating revenues to countries based on sales", 
+  # Raising the globally agreed minimum tax rate on profits of multinational firms from 15% to 35%, closing loopholes and allocating revenues to countries where sales are made
+  "solidarity_support_expanding_security_council" = "Expand Security Council to new permanent members (e.g. India, Brazil, AU), restrict veto use", 
+  # Expanding the UN Security Council (in charge of peacekeeping) to new permanent members such as India, Brazil, and the African Union, and restricting the use of the veto
+  "solidarity_support_foreign_aid" = "At least 0.7% of developed countries' GDP in foreign aid", # Developed countries contributing at least 0.7% of their GDP in foreign aid and development assistance
+  "solidarity_support_debt_relief" = "Debt relief for vulnerable countries, suspending payments until they are more able to repay", # Debt relief for vulnerable countries by suspending repayments until they are better able to repay, promoting their development
+  "solidarity_support_bridgetown" = "Bridgetown initiative: MDBs expanding sustainable investments in LICs, and at lower interest rates", # Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)
+  "solidarity_support_loss_damage" = "L&D: Developed countries financing a fund to help vulnerable countries cope with cliamte Loss and damage", # Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change
+  "solidarity_support_ncqg_300bn" = "NCQG: Developing countries providing $300 bn a year in climate finance for developing countries", # Developed countries providing $300 billion a year (0.4% of their GDP) to finance climate action in developing countries
+  "solidarity_support_shipping_levy" = "Levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
+  "solidarity_support_aviation_levy" = "Levy on aviation carbon emissions, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
+  "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
+  "transfer_how_govt_conditional" = "Government, conditional on financing poverty reduction", # Transfers to the national government conditioned on the use of funds for poverty reduction programs
+  "transfer_how_govt_unconditional" = "Government, unconditional", # Unconditional transfers to the national government
+  "transfer_how_local_authorities" = "Local authorities", # Unconditional transfers to local authorities (municipality, village chief...)
+  "transfer_how_ngo" = "Local NGOs with democratic processes", # Transfers to local NGOs with democratic decision-making processes
+  "transfer_how_social_protection" = "Target cash transfers (child allowances, disability & elderly pensions)", # Cash transfers to parents (child allowances), to the disabled and to the elderly
+  "transfer_how_cash_unconditional" = "Unconditional cash transfers to each household", # Unconditional cash transfers to each household
   setNames(names(p), names(p))
 )
 for (v in intersect(names(all), names(labels_vars))) { # intersect(c(socio_demos, socio_demos_us), names(all)), 

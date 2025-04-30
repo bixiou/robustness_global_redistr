@@ -640,8 +640,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("variant_warm_glow", labels = c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e)
   e$variant_warm_glow <- as.factor(e$variant_warm_glow)
   
-  for (v in variables_solidarity_support_short) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
-  for (v in variables_solidarity_support_short) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
+  for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
+  for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
   e$share_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0)  
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
   e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
