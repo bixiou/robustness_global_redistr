@@ -1,4 +1,3 @@
-# TODO: weight all countries jointly
 # TODO: labels_vars
 # TODO: heatmaps
 # TODO: function heatmap
@@ -90,7 +89,9 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
   )
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
-  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:14), cols = 1:54)
+  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:14), cols = 1:53)
+  
+  adult_pop <- setNames(qs[countries, "Adult.pop"], countries)
   
   pop_freq <- list(
     "Eu" = list( 
@@ -240,12 +241,13 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
     var <- ifelse(v %in% names(levels_quotas), v, paste(country, v, sep="_"))
     if (!(var %in% names(levels_quotas))) warning(paste(var, "not in levels_quotas"))
     levels_v <- as.character(levels_quotas[[var]])
-    missing_levels <- setdiff(levels(as.factor(e[[v]])), levels_v)
-    present_levels <- which(levels_v %in% levels(as.factor(e[[v]])))
+    levels_v <- levels_v[levels_v != 0]
+    missing_levels <- setdiff(Levels(e[[v]]), levels_v) # old: levels(as.factor(e[[v]])) (misses memisc missing values such as "Not 25-64" in education_quota)
+    present_levels <- which(levels_v %in% Levels(e[[v]])) # old: levels(as.factor(e[[v]]))
     if (length(present_levels) != length(levels_v)) warning(paste0("Following levels are missing from data: ", var, ": ", 
         paste(levels_v[!1:length(levels_v) %in% present_levels], collapse = ', '), " (for ", country, "). Weights are still computed, neglecting this category."))
     prop_v <- pop_freq[[country]][[var]][present_levels]
-    if (min_weight_for_missing_level) freq_missing <- rep(0.000001, length(missing_levels)) # imputes 0 weight for levels present in data but not in the weight's definitio
+    if (min_weight_for_missing_level) freq_missing <- rep(0.000001, length(missing_levels)) # imputes 0 weight for levels present in data but not in the weight's definition
     else freq_missing <- vapply(missing_levels, function(x) sum(e[[v]]==x), FUN.VALUE = c(0))
     freq_v <- c(prop_v*(nrow(e)-sum(freq_missing)), freq_missing)
     df <- data.frame(c(levels_v[present_levels], missing_levels), freq_v)
@@ -315,12 +317,14 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
   }
   
   if (weighting) {
-    e$weight <- weighting(e, country)
+    e$weight_country <- e$weight <- weighting(e, country)
+    label(e$weight_country) <- "weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country]."
+    label(e$weight) <- "weight: Weight for the international sample: weight_country is rescaled so that each country is weighted according to its adult population. Sums to nrow(all). (Created outside 'prepare')"
     # e$weight_all <- weighting(e, country, variant = "all") # TODO
     if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, country, variant = "vote")
-    if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
+    # if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
   } else {
-    e$weight <- e$weight_country <- 1
+    # e$weight <- e$weight_country <- 1
   }
   
   if (sample_name == "USp") {
@@ -481,16 +485,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3", "4|5|6|7"), df = e)
   e$post_secondary <- e$education %in% 2
   e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, 0)
+  if (country == "JP") e$education_quota[e$education_quota %in% 1] <- 2 # In JP official stats, there is no one Below upper secondary. They'd have weights of 0 if we didn't relabeled them.
   # e$diploma_25_64 <- e$diploma
   # e$diploma_25_64[e$age < 25 | e$age > 65] <- 0 # "Not 25-64"
   # e$diploma_25_64 <- as.item(as.numeric(as.vector(e$diploma_25_64)), labels = structure(c(1:3, 0), names = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64")), missing.values=c(NA, 0), 
   #                            annotation="diploma_25_64: 0: Not 25-64 if age is not within 25-64 (missing value) / 1: Below upper secondary (ISCED 0-2) / 2: Upper secondary (ISCED 3) / 3: Post secondary (ISCED 4-8), recoded from education.")
-  e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3, "Not 25-64" = 0), values = 0:3, missing.values = c(NA, 0), df = e)
+  e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e)
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
   e$urban <- e$urbanity == 1
   e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e)
+  if (country == "US") e$urbanity[e$urbanity %in% c(2, 4)] <- 3 
   # e$urban_rural <- e$urbanity
   # e <- create_item("urban_rural", labels = c("Cities" = 1, "Rural" = 2), values = list(1, c(2:4)), df = e)
   if ("foreign" %in% names(e)) {
@@ -590,6 +596,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # Other variables
   if (country == "SA") e$saudi <- e$nationality_SA == "Saudi"
+  if (country == "SA") e$gender_nationality <- paste0(ifelse(e$man, "Man", "Woman"), ", ", ifelse(e$saudi, "Saudi", "non-Saudi"))
   e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
   e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e)
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
@@ -734,20 +741,25 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Surveys
 survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
-                                                                    fetch = F, convert = T, rename = T, pilot = FALSE, weighting = F) }), countries[-9]) # remove_id = F
+                        fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
 all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
+all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
 
 e <- all
 beep()
 
 # Pilots
-pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
-pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
-list2env(pilot_data, envir = .GlobalEnv)
+# pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
+# pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
+# list2env(pilot_data, envir = .GlobalEnv)
+# 
+# data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
+# a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
-data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
-a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
+
+
+# Oldies
 
 # CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F)
 
@@ -786,7 +798,7 @@ a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
 
 ##### Codebook #####
-export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
+# export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
 
 
 
