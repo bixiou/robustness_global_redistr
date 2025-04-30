@@ -471,15 +471,15 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
   if (output_cut) describe(var, weights = wgt, descript = lab, listunique = 25) # Hmisc might soon include Proportion when listunique is used, cf. https://github.com/harrelfe/Hmisc/issues/193#issuecomment-2738292554 
   else describe(var, weights = wgt, descript = lab)
 }
-#' # Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
-#' #   if (setequal(levels(var), c(T, F))) levels <- c(T) # before: not this line
-#' #   else if (is.null(annotation(var))) levels <- levels(var)
-#' #   else {
-#' #     levels <- labels(var)@.Data
-#' #     levels <- levels[levels %in% as.character(var)] # new, removes empty levels
-#' #   }
-#' #   return(levels)
-#' # }
+# Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
+#   if (setequal(levels(var), c(T, F))) levels <- c(T) # before: not this line
+#   else if (is.null(annotation(var))) levels <- levels(var)
+#   else {
+#     levels <- labels(var)@.Data
+#     levels <- levels[levels %in% as.character(var)] # new, removes empty levels
+#   }
+#   return(levels)
+# }
 Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TRUE, concatenate = FALSE, max_values = 13, names = FALSE) {
   # used in heatmap_wrapper, heatmap_multiple
   if (values) {
@@ -495,12 +495,16 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
       } else Levs <- round(sort(unique(variable)), 3) }
     else if (is.character(variable)) Levs <- if (length(unique(variable)) > max_values) "[string variable]" else as.character(unique(variable))
     else if (is.logical(variable)) Levs <- if (any(is.pnr(variable))) "TRUE / FALSE / NA" else "TRUE / FALSE"
+    else Levs <- "[unknown variable type]"
     if (concatenate) {
       if (is.null(names(Levs))) Levs <- paste(Levs, collapse = " / ")
       else Levs <- paste(sapply(1:length(Levs), function(i) return(paste0(names(Levs)[i], ": ", Levs[i]))), collapse = " / ")
     }
   } else {
-    Levs <- decrit(variable, miss = miss, numbers = numbers, data = data)$values$value
+    if (length(variable)==1 & is.character(variable)) Levs <- decrit(variable, miss = miss, numbers = numbers, data = data)$values
+    else Levs <- decrit(variable, miss = miss, numbers = numbers)$values
+    if ("value" %in% names(Levs) & "frequency" %in% names(Levs)) Levs <- Levs$value
+    else Levs <- names(Levs)
     if (is.null(Levs)) {
       if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
       Levs <- unique(variable)
@@ -512,65 +516,66 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
   #   if (is.character(var)) levels(as.factor(include.missings(var)))
   #   else return(as.vector(labels(var))) }
   # else return(levels(as.factor(var))) # as.factor may cause issues as it converts to string
+  
 }
-#' #' # decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
-#' #' #   # if (!missing(data)) variable <- data[[variable]]
-#' #' #   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
-#' #' #   if (!missing(which)) variable <- variable[which]
-#' #' #   if (weight) {
-#' #' #     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
-#' #' #     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
-#' #' #     if (!missing(which)) weights <- weights[which]
-#' #' #     if (length(weights)!=length(variable)) {
-#' #' #       warning("Lengths of weight and variable differ, non-weighted results are provided")
-#' #' #       weights <- NULL
-#' #' #     } }
-#' #' #   if (length(annotation(variable))>0 & !numbers) {
-#' #' #     if (!miss) {
-#' #' #       # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #       # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #       if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[variable!=""]), weights = weights[variable!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#' #' #       else { describe(as.numeric(as.vector(variable[variable!=""])), weights = weights[variable!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
-#' #' #     }
-#' #' #     else {
-#' #' #       if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#' #' #       else describe(as.factor(include.missings(variable[variable!="" & !is.na(variable)])), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #   }
-#' #' #   else {
-#' #' #     if (length(annotation(variable))>0) {
-#' #' #       if (miss) describe(variable[variable!=""], weights = weights[variable!=""], descript=Label(variable))
-#' #' #       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
-#' #' #     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
-#' #' # }
-#' #' # decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
-#' #' #   # if (!missing(data)) variable <- data[[variable]]
-#' #' #   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
-#' #' #   if (!missing(which)) variable <- variable[which]
-#' #' #   if (weight) {
-#' #' #     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
-#' #' #     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
-#' #' #     if (!missing(which)) weights <- weights[which]
-#' #' #     if (length(weights)!=length(variable)) {
-#' #' #       warning("Lengths of weight and variable differ, non-weighted results are provided")
-#' #' #       weights <- NULL
-#' #' #     } }
-#' #' #   if (length(annotation(variable))>0 & !numbers) {
-#' #' #     if (!miss) {
-#' #' #       # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #       # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #       if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[variable!=""]), weights = weights[variable!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#' #' #       else { describe(as.numeric(as.vector(variable[variable!=""])), weights = weights[variable!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
-#' #' #     }
-#' #' #     else {
-#' #' #       if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
-#' #' #       else describe(as.factor(include.missings(variable[variable!="" & !is.na(variable)])), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
-#' #' #   }
-#' #' #   else {
-#' #' #     if (length(annotation(variable))>0) {
-#' #' #       if (miss) describe(variable[variable!=""], weights = weights[variable!=""], descript=Label(variable))
-#' #' #       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
-#' #' #     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
-#' #' # }
+# decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
+#   # if (!missing(data)) variable <- data[[variable]]
+#   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
+#   if (!missing(which)) variable <- variable[which]
+#   if (weight) {
+#     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
+#     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
+#     if (!missing(which)) weights <- weights[which]
+#     if (length(weights)!=length(variable)) {
+#       warning("Lengths of weight and variable differ, non-weighted results are provided")
+#       weights <- NULL
+#     } }
+#   if (length(annotation(variable))>0 & !numbers) {
+#     if (!miss) {
+#       # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#       # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#       if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[variable!=""]), weights = weights[variable!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+#       else { describe(as.numeric(as.vector(variable[variable!=""])), weights = weights[variable!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
+#     }
+#     else {
+#       if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+#       else describe(as.factor(include.missings(variable[variable!="" & !is.na(variable)])), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#   }
+#   else {
+#     if (length(annotation(variable))>0) {
+#       if (miss) describe(variable[variable!=""], weights = weights[variable!=""], descript=Label(variable))
+#       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
+#     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
+# }
+# decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
+#   # if (!missing(data)) variable <- data[[variable]]
+#   if (is.character(variable) & length(variable)==1) variable <- data[[variable]]
+#   if (!missing(which)) variable <- variable[which]
+#   if (weight) {
+#     # if (length(variable) > 1) warning("Field 'variable' is a vector instead of a character, weight will not be used.")
+#     if (missing(weights)) weights <- data[["weight"]]  #  if (missing(data)) warning("Field 'data' is missing, weight will not be used.") else {
+#     if (!missing(which)) weights <- weights[which]
+#     if (length(weights)!=length(variable)) {
+#       warning("Lengths of weight and variable differ, non-weighted results are provided")
+#       weights <- NULL
+#     } }
+#   if (length(annotation(variable))>0 & !numbers) {
+#     if (!miss) {
+#       # if (is.element("Oui", levels(as.factor(variable))) | grepl("(char)", annotation(variable)) | is.element("quotient", levels(as.factor(variable)))  | is.element("Pour", levels(as.factor(variable))) | is.element("Plutôt", levels(as.factor(variable))) ) { describe(as.factor(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#       # else { describe(variable[variable!="" & !is.na(variable)], weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#       if (length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))==0) { describe(as.factor(variable[variable!=""]), weights = weights[variable!=""], descript=Label(variable)) } # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+#       else { describe(as.numeric(as.vector(variable[variable!=""])), weights = weights[variable!=""], descript=Label(variable)) } # avant:  & !is.na(variable)
+#     }
+#     else {
+#       if (length(which(suppressWarnings(!is.na(as.numeric(levels(as.factor(variable)))))))>10) describe(include.missings(variable[variable!="" & !is.na(variable)]), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) # encore avant:  & !is.na(variable), avant: (length(which(is.numeric(levels(as.factor(variable)))))==0)
+#       else describe(as.factor(include.missings(variable[variable!="" & !is.na(variable)])), weights = weights[variable!="" & !is.na(variable)], descript=Label(variable)) }
+#   }
+#   else {
+#     if (length(annotation(variable))>0) {
+#       if (miss) describe(variable[variable!=""], weights = weights[variable!=""], descript=Label(variable))
+#       else describe(variable[variable!="" & !is.missing(variable)], weights = weights[variable!="" & !is.missing(variable)], descript=paste(length(which(is.missing(variable))), "missing obs.", Label(variable)))
+#     } else describe(variable[variable!=""], weights = weights[variable!=""])  }
+# }
 export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, dta_file = NULL, csv_file = NULL, rds_file = NULL, keep = NULL, omit = NULL, folder = "../data/") {
   if (missing(keep)) keep <- 1:length(data)
   if (!missing(omit)) keep <- setdiff(keep, omit)
@@ -1567,7 +1572,7 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
   par(xpd=TRUE)
   return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
-heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", special = c(), conditions = c("", ">= 1", "/"), on_control = FALSE, alphabetical = T, export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {
+heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", special = c(), conditions = ">= 1", on_control = FALSE, alphabetical = T, export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {
   # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
   # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
   e <- data
@@ -1577,7 +1582,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
     if (exists("countries_names_hm") & any(c('High-income','Middle-income') %in% special)) names <- countries_names_hm else names <- countries_names
     levels <- c()
     for (l in names) if (l %in% Levels(data[[along]], data = data)) levels <- c(levels, l)
-  } else levels <- Levels(data[[along]], data = data, values = FALSE)
+  } else levels <- Levels(data[[along]], data = data, values = FALSE) # TODO! Why values = F?
   nb_vars <- length(vars)
   if (length(conditions)==1) conditions <- rep(conditions[1], nb_vars)
   up_labels <- c(special, levels)
@@ -1607,20 +1612,22 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
     } else if (c %in% c("Eu", "Eu4", "EU4", "EU")) { df_c <- e[e$continent == "Eu4",]
     } else if (c %in% countries_names) { df_c <- e[e$country_name == c,] }
     for (v in 1:nb_vars) {
-      if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) {
-        temp <- df_c
-        df_c <- df_c[df_c$wave != "US2",] }
+      # if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) {
+      #   temp <- df_c
+      #   df_c <- df_c[df_c$wave != "US2",] }
       var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
       if (conditions[v] == "median") {
-        if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
-        if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+        # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
+        # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+        if (weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
         if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("median(var_c, na.rm = T)")))
-      } else {
-        if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
-        if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+      } else { # TODO!!
+        # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
+        # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
+        if (weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
         if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("mean(var_c", conditions[v], ", na.rm = T)")))
       }
-      if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) df_c <- temp
+      # if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) df_c <- temp
     }
   }
   row.names(table) <- labels
