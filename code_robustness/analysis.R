@@ -1,5 +1,5 @@
 # Everyone:
-# TODO: no absolute file paths, only relative ones
+# TODO: no absolute file paths, only relative ones => Erwan JP, ZBOOK DE, US
 # TODO: all original .csv in the repository, with a link (URL) to the original source
 # TODO: better document the code (explain at the beginning of the file what you do, and briefly explain each step/part)
 # Raquel:

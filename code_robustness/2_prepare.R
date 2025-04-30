@@ -1,3 +1,4 @@
+# TODO: weight all countries jointly
 # TODO: labels_vars
 # TODO: heatmaps
 # TODO: function heatmap

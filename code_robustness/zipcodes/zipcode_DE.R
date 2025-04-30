@@ -13,7 +13,7 @@ library(tidyr)
 
 # Charger les données
 #source https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV4QAktuell.html
-data2 <- read.xlsx(".../robustness_global_redistr/data_ext/source_zipcode/AuszugGV4QAktuell.xlsx", sheet = 2, startRow = 6, colNames = TRUE)
+data2 <- read.xlsx("../robustness_global_redistr/data_ext/source_zipcode/AuszugGV4QAktuell.xlsx", sheet = 2, startRow = 6, colNames = TRUE)
 
 # Renommer les colonnes
 colnames(data2) <- c(
@@ -74,7 +74,7 @@ result <- data3 %>%
   ungroup()  # Retirer le groupement pour éviter des erreurs par la suite
 #Data from 2020 computations to complete missing data
 #source : https://github.com/bixiou/oecd_climate/tree/main/code_oecd/zipcodes
-data_add <- read.csv("".../robustness_global_redistr/data_ext/source_zipcode/zipcode_DE.csv"")
+data_add <- read.csv("../robustness_global_redistr/data_ext/source_zipcode/zipcode_DE.csv")
 
 # 1. Identifier les zipcodes manquants
 missing_zipcodes <- setdiff(data_add$zipcode, result$zipcode)
