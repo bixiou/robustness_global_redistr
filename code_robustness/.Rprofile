@@ -255,9 +255,13 @@ n <- function(var) { as.numeric(as.vector(var)) }
 #'   return(ci) }
 #' match.nona <- function(v, t) {return(as.vector(na.omit(match(v, t))))} # returns match(v, t) purged from NAs, i.e. the (first) position of v elements (that are in t) in t (screened/ordered from v), cf. below
 #' # so df$foo[match.nona(db$bar, df$bar)] <- db$foo[db$bar %in% df$bar] replaces elements of df$foo such that df$bar is in db$bar by corresponding db$foo
-Label <- function(var) {
-  if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
-  else { label(var)  }
+Label <- function(var, df = e, multi = FALSE) {
+  if (multi) sapply(var, function(v) Label(v, df = df, multi = FALSE))
+  else {
+    if (length(var) == 1 & nrow(df) > 1) var <- df[[var]]
+    if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
+    else { label(var)  } 
+  }
 }
 break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
   # used in heatmap_multiple

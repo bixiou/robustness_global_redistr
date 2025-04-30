@@ -50,13 +50,7 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
     "education_quota" = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64"), # "Not 25-64"
     "employment_18_64" = c("Inactive", "Unemployed", "Employed", "65+"),
     "vote" = c("Left", "Center-right or Right", 'Far right', "PNR/Non-voter"),
-    "region" = 1:5,
-    "IT_region" = 1:2,
-    "PL_region" = 1:2,
-    "PL_region" = 1:2,
-    "RU_region" = 1:4,
-    "SA_region" = 1:4,
-    "US_region" = 1:4,
+    "region" = 1:5, # It's OK if some values are missing in one population. (2 regions: IT, PL; 3 regions: DE, CH; 4 regions: RU, SA, US)
     "Eu_country" = c("FR", "DE", "ES", "IT", "PL", "GB", "CH"),
     "EU_country" = c("FR", "DE", "ES", "IT", "PL"),
     "gender_nationality" = c("Woman, Saudi", "Woman, non-Saudi", "Man, Saudi", "Man, non-Saudi"),
@@ -66,24 +60,17 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
     "US_urban" = c(TRUE, FALSE)
   )
   
-  # TODO? default for quotas, automatic _vote in quotas, nb_regions automatic
-  quotas <- list(# "EU" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity"),
+  # TODO? automatic _vote in quotas, nb_regions automatic
+  quotas <- list("default" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
+                 # "EU" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity"),
                  # "EU_vote" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "vote"),
                  # "EU_all" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "employment_18_64", "vote"), 
                  "US_vote" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "vote_US"),
                  "US_all" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "employment_18_64", "vote"),
                  "EU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"), # TODO
                  "Eu" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
-                 "FR" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
-                 # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
-                 "DE" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "IT" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "PL" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "ES" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "GB" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "CH" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "JP" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
-                 "RU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"),
+                 # "FR" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
+                 # # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
                  "SA" = c("gender_nationality", "income_quartile", "age", "education_quota", "region"),
                  "US" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region", "race")
   )
@@ -232,7 +219,11 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
 
 weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
   if (!missing(variant)) print(variant)
-  vars <- quotas[[paste0(c(country, variant), collapse = "_")]]
+  country_variant <- paste0(c(country, variant), collapse = "_") 
+  if (!country_variant %in% names(quotas)) {
+    warning("No country-variant quotas found, using default variables.")
+    country_variant <- "default" }
+  vars <- quotas[[country_variant]]
   freqs <- list()
   for (v in vars) {
     if (!(v %in% names(e))) warning(paste(v, "not in data"))
@@ -593,7 +584,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # sources: https://en.wikipedia.org/wiki/Swing_state#Swing_states_by_results, https://en.wikipedia.org/wiki/2024_United_States_presidential_election#Results_by_state, zipcodes: https://www.mapsofworld.com/usa/zipcodes/
   }
 
-  
   # Other variables
   if (country == "SA") e$saudi <- e$nationality_SA == "Saudi"
   if (country == "SA") e$gender_nationality <- paste0(ifelse(e$man, "Man", "Woman"), ", ", ifelse(e$saudi, "Saudi", "non-Saudi"))
@@ -761,7 +751,7 @@ beep()
 
 # Oldies
 
-# CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F)
+CH <- prepare(country = "CH", scope = "final", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = F)
 
 # pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
