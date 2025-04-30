@@ -7,7 +7,7 @@ library(dplyr) # /!\ BUG if plyr (or memisc?) loaded before => detach("package:p
 library("openxlsx")
 #source : https://www.insee.fr/fr/statistiques/8331297
 #keep what is necesary on the sheet
-data <- read.xlsx("../robustness_global_redistr/data_ext/source_zipcode/estim-pop-dep-sexe-gca-1975-2025.xlsx", sheet=2, startRow = 5)
+data <- read.xlsx("../../data_ext/source_zipcode/estim-pop-dep-sexe-gca-1975-2025.xlsx", sheet=2, startRow = 5)
 
 data <- data %>%
   rename(departement="X1", Name="X2", Population="Total")
