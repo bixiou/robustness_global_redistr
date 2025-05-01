@@ -112,8 +112,8 @@ with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_
 sapply(countries[-9], function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
 sapply(countries[-9], function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
 sapply(countries[-9], function(c) round(mean(d(c)$ics_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$ics_support[d(c)$variant_gcs == "mid"], na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$gcs_support[d(c)$variant_gcs == "mid"], na.rm = T), 3))
+sapply(countries[-9], function(c) round(mean(d(c)$ics_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
+sapply(countries[-9], function(c) round(mean(d(c)$gcs_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
 sapply(countries[-9], function(c) round(mean(d(c)$gcs_belief_us, na.rm = T), 0))
 sapply(countries[-9], function(c) round(mean(d(c)$gcs_belief_own, na.rm = T), 0))
 
@@ -121,10 +121,10 @@ sapply(countries[-9], function(c) round(mean(d(c)$gcs_belief_own, na.rm = T), 0)
 ##### ICS #####
 # -> add one version with almost all countries? no
 # -> remove NCS?
-with(e, summary(lm(ics_support %in% "Yes" ~ variant_gcs)))
-with(e, summary(lm(ics_support %in% "Yes" ~ variant_gcs, subset = country == "US")))
-with(e, summary(lm(ics_support %in% "Yes" ~ variant_gcs, subset = country == "GB")))
-with(e, summary(lm(ics_support %in% "Yes" ~ variant_gcs, subset = country == "PL")))
+with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics)))
+with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics, subset = country == "US")))
+with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics, subset = country == "GB")))
+with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics, subset = country == "PL")))
 
 
 ##### Solidarity likert #####

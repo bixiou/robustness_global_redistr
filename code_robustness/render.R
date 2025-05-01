@@ -56,11 +56,22 @@ labels_vars <- c(
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
   # "gcs_support_100" = "Support for the GCS",
   # "gcs_support_90" = "Support for a Global Climate Scheme at $90/tCO2",
-  # "gcs_support_neg" = "Support for the GCS",
+  "gcs_support_control" = "Supports the Global Climate Scheme (GCS)",
   "gcs_belief" = "Belief about GCS support",
   "gcs_belief_own" = "Belief about GCS support in own country",
-  "gcs_belief_us" = "Belief about GCS support in the U.S.",
+  "gcs_belief_us" = "Belief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
+  "ncs_support" = "Supports the National Climate Scheme", 
+  "ics_high_support" = "Supports the GCS if its other members* cover 64-72% of world emissions\n*High: Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)", 
+  "ics_high_color_support" = "Supports the GCS if its other members* cover 64-72% of world emissions,\n*High color: High + Distributive effects displayed using colors on world map", 
+  "ics_mid_support" = "Supports the GCS if its other members* cover 56% of world emissions\n*Mid: Global South + China)", 
+  "ics_low_support" = "Supports the GCS if its other members* cover 25-33% of world emissions\n*Low: Global South + EU)", 
   "attention_test" = "Attention test",
+  # "global_tax_support" = "Supports tax on millionaires' wealth with 30% funding low-income countries if\nGlobal: implemented by all other countries",
+  # "hic_tax_support" = "Supports tax on millionaires' wealth with 30% funding low-income countries if\nHigh-income: implemented by all other HICs and not by some MICs (such as China)",
+  # "intl_tax_support" = "Supports tax on millionaires' wealth with 30% funding low-income countries if\nInternational: implemented by some (e.g. EU, UK, Brazil) and not by others (e.g. U.S., China)",
+  "global_tax_support" = "Global: implemented by all other countries",
+  "hic_tax_support" = "High-income: implemented by all other HICs and not by some MICs (such as China)",
+  "intl_tax_support" = "International: implemented by some (e.g. EU, UK, Brazil) and not by others (e.g. U.S., China)",
   # "global_tax_global_share" = "Preferred share of global tax for LICs (in %)",
   "group_defended" = "Group defended when voting",
   "survey_biased" = "Survey biased", 
@@ -71,12 +82,16 @@ labels_vars <- c(
   "interview" = "Agrees for interview",
   "duration" = "Duration",
   "duration_feedback" = "Duration: feedback",
-  "gcs_understood" = "With GCS, gasoline price will increase", 
+  "gcs_comprehension" = "As a result of the GCS, gasoline price would...", 
   "share_policies_supported" = "Share of policies supported",
   "dropout" = "Dropped out",
-  "nationalist" = "Nationalist",
-  "universalist" = "Universalist",
-  "individualist" = "Individualist",
+  "my_tax_global_nation" = '"My taxes should go towards solving global problems"',
+  "convergence_support" = '"Governments should actively cooperate to have all countries converge in terms of GDP per capita by the end of the century"',
+  "nationalist" = "Fellow citizens", # "Nationalist",
+  "universalist" = "Humans or Sentient beings", # "Universalist",
+  "individualist" = "Family and self", # "Individualist",
+  "humanist" = "Humans", # "Humanist",
+  "antispecist" = "Sentient beings (humans and animals)", # "Antispeciesist",
   "woman" = "Gender: Woman",
   "man" = "Gender: Man",
   "global_tax_more_30p" = "Preferred share of global wealth tax for low-income countries: ≥ 30%",
@@ -88,7 +103,6 @@ labels_vars <- c(
   "maritime_split_ldc" =       "Sustainable transition in LDCs",
   "maritime_split_companies" = "Shipping companies to mitigate price increases",
   "maritime_split_decarbonization" = "RD&D of zero-emission fuels and ships",
-  "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
   "why_hic_help_lic_responsibility" = "Responsibility: Historical responsibility of HICs for situation in LICs", # High-income countries have a historical responsibility for the current situation in low-income countries
   "why_hic_help_lic_interest" = "Interest: Long-term interest of HICs to help LICs", # In the long run, it is in the interest of high-income countries to help low-income countries
   "why_hic_help_lic_duty" = "Duty: Helping countries in need is the right thing to do.", # Helping those in need is the right thing to do. This is also true at the international level
@@ -108,8 +122,9 @@ labels_vars <- c(
   "solidarity_support_bridgetown" = "Bridgetown initiative: MDBs expanding sustainable investments in LICs, and at lower interest rates", # Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)
   "solidarity_support_loss_damage" = "L&D: Developed countries financing a fund to help vulnerable countries cope with cliamte Loss and damage", # Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change
   "solidarity_support_ncqg_300bn" = "NCQG: Developing countries providing $300 bn a year in climate finance for developing countries", # Developed countries providing $300 billion a year (0.4% of their GDP) to finance climate action in developing countries
-  "solidarity_support_shipping_levy" = "Levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
-  "solidarity_support_aviation_levy" = "Levy on aviation carbon emissions, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
+  "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
+  # "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
+  "solidarity_support_aviation_levy" = "International levy on carbon emissions from aviation, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
   "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
   "transfer_how_govt_conditional" = "Government, conditional on financing poverty reduction", # Transfers to the national government conditioned on the use of funds for poverty reduction programs
   "transfer_how_govt_unconditional" = "Government, unconditional", # Unconditional transfers to the national government
@@ -117,9 +132,19 @@ labels_vars <- c(
   "transfer_how_ngo" = "Local NGOs with democratic processes", # Transfers to local NGOs with democratic decision-making processes
   "transfer_how_social_protection" = "Target cash transfers (child allowances, disability & elderly pensions)", # Cash transfers to parents (child allowances), to the disabled and to the elderly
   "transfer_how_cash_unconditional" = "Unconditional cash transfers to each household", # Unconditional cash transfers to each household
-  setNames(names(p), names(p))
+  "sustainable_future" = "Prefers sustainable future", 
+  "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
+  "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
+  "vote_intl_coalition" = "More/less likely to vote for party if part of worldwide coalition for climate action and global redistribution",
+  "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
+  "well_being_gallup_0" = "Well-being: Gallup, 0-10 scale",
+  "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
+  "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
+  "well_being_wvs_1" = "Well-being: World Values Survey, 1-10 scale",
+  setNames(names(all), names(all))
 )
-for (v in intersect(names(all), names(labels_vars))) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
+for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
+  if (grepl("-", Label(all[[v]])) & labels_vars[v] == v) labels_vars[v] <- sub("(.*)- ", "", Label(all[[v]]))
   if (grepl("TRUE / FALSE", Levels(all[[v]])[1])) labels_vars[paste0(v, "TRUE")] <- labels_vars[v]
   else for (l in setdiff(Levels(all[[v]]), NA)) {
     if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
@@ -128,38 +153,56 @@ for (v in intersect(names(all), names(labels_vars))) { # intersect(c(socio_demos
 
 
 ##### labels_vars_short_html #####
-labels_vars_short_html <- c(
-  "gcs_understood" = "With GCS,<br>gasoline price will increase",
-  "global_tax_more_30p" = "Preferred share of global wealth tax<br>for low-income countries: ≥ 30%",
-  "democratise_un_imf_support" = "Democratise international institutions (UN, IMF) by making<br>a country's voting right proportional to its population"
-)
-
-##### labels_vars_country #####
-labels_vars_country <- list() #"US" = c(), "DE" = c(), "FR" = c(), "ES" = c(), "UK" = c())
-labels_vars_country$FR["gcs_support"] <- "Plan mondial pour le climat"
-labels_vars_country$FR["global_tax_global_share"] <- "Part préférée de l'ISF mondial pour les pays pauvres (en %)"
-# for (c in countries) labels_vars_country[[c]] <- labels_vars
+# labels_vars_short_html <- c(
+#   "gcs_understood" = "With GCS,<br>gasoline price will increase",
+#   "global_tax_more_30p" = "Preferred share of global wealth tax<br>for low-income countries: ≥ 30%",
+#   "democratise_un_imf_support" = "Democratise international institutions (UN, IMF) by making<br>a country's voting right proportional to its population"
+# )
+# 
+# ##### labels_vars_country #####
+# labels_vars_country <- list() #"US" = c(), "DE" = c(), "FR" = c(), "ES" = c(), "UK" = c())
+# labels_vars_country$FR["gcs_support"] <- "Plan mondial pour le climat"
+# labels_vars_country$FR["global_tax_global_share"] <- "Part préférée de l'ISF mondial pour les pays pauvres (en %)"
+# # for (c in countries) labels_vars_country[[c]] <- labels_vars
 
 
 ##### heatmaps_defs #####
 heatmaps_defs <- list()
 heatmaps_defs <- list(
-  "gcs_support" = list(vars = "gcs_support", conditions = ">= 1"), 
+  "gcs_support" = list(vars = "gcs_support", conditions = ">= 1"),
+  "gcs_support_control" = list(vars = "gcs_support", conditions = ">= 1"),  
+  "gcs_belief" = list(vars = variables_gcs_belief, conditions = ""), 
+  "variables_ics" = list(vars = variables_ics, conditions = ">= 1"), 
+  "gcs_all" = list(vars = variables_gcs_all, conditions = "", nb_digits = 0), 
+  "gcs_ics" = list(vars = variables_gcs_ics, conditions = ">= 1"), 
+  "gcs_ics_all" = list(vars = variables_gcs_ics_all, conditions = "", nb_digits = 0), 
+  "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1"), 
+  "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0), 
   "duration" = list(vars = variables_duration, conditions = ""),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c("")),
   "transfer_how" = list(vars = variables_transfer_how, conditions = ">= 1"), 
-  "solidarity_support" = list(vars = variables_solidarity_support),
+  "solidarity_support" = list(vars = variables_solidarity_support, sort = T),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
-  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1")
+  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
+  "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1"), 
+  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = ">= 1"),
+  "well_being" = list(vars = variables_well_being, conditions = ""),
+  "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1"),
+  "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1"),
+  "group_defended_5" = list(vars = variables_group_defended_5, conditions = ">= 1"),
+  "split_few" = list(vars = variables_split_few, conditions = c("", ">= 1")), # white color at 20
+  "split_many" = list(vars = variables_split_many, conditions = c("", ">= 1")),
+  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1"))
 )
-# TODO heatmaps: transfer_how, solidarity_support, global_movement, why_help_lic
+# TODO! vote, fields
 
 ##### vars_heatmaps #####
-vars_heatmaps <- c("variables_transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic") 
+vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation") 
 # TODO: special = all; automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
+heatmap_multiple(heatmaps_defs)
 # heatmap_multiple(heatmaps_defs)
 
 
@@ -167,29 +210,35 @@ heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
   "maritime_split_decarbonization" = list(height = 250),
   "maritime_split_companies" = list(height = 250),
-  "maritime_split_ldc" = list(height = 250)#,
+  "maritime_split_ldc" = list(height = 250),
+  "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T), #, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)) TODO add var name in transform_mean to use non _agg var and compute true mean
+  "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
+  "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T)
+  # "split_many"
+  # "split_many_global
   # "solidarity_support_shipping_levy" = list(height = 250, width = 870)
   # "understood_each" = list(vars = variables_understood, width = 850), 
   # "negotiation" = list(width = 940), 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_shipping_levy") 
+vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "sustainable_future", "vote_intl_coalition", 
+                 "group_defended", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 
-vars_barresN <- vars_barres
-barresN_defs <- fill_barres(vars_barresN, along = "country_name")
+vars_barres1 <- c("split_few", "split_many", "split_many_global", "maritime_split") #vars_barres
+barresN_defs <- fill_barres(vars_barres[!vars_barres %in% vars_barres1], along = "country_name")
 
 
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
-barres_multiple(barres_defs["solidarity_support_shipping_levy"])
-barres_multiple(barresN_defs["solidarity_support_shipping_levy"], folder = "../figures/country_comparison/")
-barres_multiple(barres_defs)
+barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
+barres_multiple(barresN_defs, nolabel = T)
+# barres_multiple(barres_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])
-heatmap_multiple(heatmaps_defs)
+heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs["global_movement"])
 
 
@@ -210,3 +259,11 @@ barres(as.matrix(median_maritime_split[,4])/100, save = T, file = "../figures/al
 barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/mean_maritime_split", export_xls = T, 
        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
        labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
+
+
+##### Split #####
+data_countries <- countries[-9]
+data_split_few <- matrix(NA, dimnames = list(variables_split_few, data_countries), nrow = 5, ncol = length(data_countries))
+for (v in variables_split_few) for (c in data_countries) data_split_few[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight, na.rm = T)
+barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
+       legend = labels_vars[variables_split_few], labels = countries_names[data_countries])

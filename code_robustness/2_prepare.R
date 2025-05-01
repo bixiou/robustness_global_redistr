@@ -353,7 +353,7 @@ define_var_lists <- function() {
   variables_global_movement <<- c("global_movement_no", "global_movement_spread", "global_movement_demonstrate", "global_movement_strike", "global_movement_donate")
   variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none")
   variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
-  variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_gcs", "variant_sliders", "variant_radical_transfer", 
+  variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_ics", "variant_sliders", "variant_radical_transfer", 
                           "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field", "variant_sliders")
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
   #                                "variant_synthetic", "variant_comprehension", "variant_belief")
@@ -369,14 +369,28 @@ define_var_lists <- function() {
   variables_split_many_global <<- c("revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
   "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
   variables_split_many <<- c(variables_split_many_domestic, variables_split_many_global)
+  variables_split_few_agg <<- paste0(variables_split_few, "_agg")
+  variables_split_many_domestic_agg <<- paste0(variables_split_many_domestic, "_agg")
+  variables_split_many_global_agg <<- paste0(variables_split_many_global, "_agg")
+  variables_split_many_agg <<- paste0(variables_split_many, "_agg")
   variables_maritime_split <<- rev(c("maritime_split_ldc", "maritime_split_companies", "maritime_split_decarbonization"))
   variables_split <<- c(variables_split_few, variables_split_many, variables_maritime_split)
+  variables_split_agg <<- c(variables_split_few_agg, variables_split_many_agg)
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief_us", "gcs_belief_own", variables_split)
   variables_gcs_belief <<- c("gcs_belief_us", "gcs_belief_own")
-  variables_well_being <<- c("well_being_gallup_0", "well_being_gallup_1", "well_being_wvs_0", "well_being_wvs_1")
+  variables_ics <<- c("ics_high_support", "ics_high_color_support", "ics_mid_support", "ics_low_support")
+  variables_gcs_all <<- c("gcs_support_control", variables_gcs_belief)
+  variables_gcs_ics <<- c("gcs_support_control", variables_ics)
+  variables_gcs_ics_all <<- c("gcs_support_control", variables_gcs_belief, variables_ics)
+  variables_ncs_gcs_ics <<- c("ncs_support", "gcs_support_control", variables_ics)
+  variables_ncs_gcs_ics_all <<- c("ncs_support", "gcs_support_control", variables_gcs_belief, variables_ics)
+  variables_well_being <<- c("well_being_gallup_0", "well_being_wvs_0", "well_being_gallup_1", "well_being_wvs_1")
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
                               "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")
   variables_sustainable_future <<- c("sustainable_future_a", "sustainable_future_s", "sustainable_future_b")
+  variables_group_defended_5 <<- c("universalist", "antispecist", "humanist", "nationalist", "individualist")
+  variables_group_defended_4 <<- c("antispecist", "humanist", "nationalist", "individualist")
+  variables_group_defended_3 <<- c("universalist", "nationalist", "individualist")
   variables_field <<- paste0(c("wish", "issue", "concerns", "injustice"), "_field")
   variables_field_all <<- c(variables_field, "comment_field")
   variables_conjoint_domains <<- c("F-1-1", "F-1-2", "F-1-3", "F-1-4", "F-1-5") # , "F-1-6"
@@ -589,7 +603,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if (country == "SA") e$gender_nationality <- paste0(ifelse(e$man, "Man", "Woman"), ", ", ifelse(e$saudi, "Saudi", "non-Saudi"))
   e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
   e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e)
-  e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 1), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
+  e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 100), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
   e <- create_item(variables_likert, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e)
   e <- create_item("likely_solidarity", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
   e <- create_item("ncqg", labels = c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "Meet goal ($100 bn)" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
@@ -639,6 +653,9 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   e <- create_item("variant_warm_glow", labels = c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e)
   e$variant_warm_glow <- as.factor(e$variant_warm_glow)
+  e$gcs_support_control <- ifelse(e$variant_warm_glow == "None", e$gcs_support, NA)
+  
+  for (v in unique(e$variant_ics)) e[[paste0("ics_", v, "_support")]] <- ifelse(e$variant_ics == v, e$ics_support, NA)
   
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
@@ -667,6 +684,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
   e <- create_item("wealth_tax_support", labels = c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e)
   
+  e$humanist <- grepl("Humans", e$group_defended)
+  e$universalist <- grepl("Sentient|Humans", e$group_defended)
+  e$antispecist <- grepl("Sentient", e$group_defended)
+  e$nationalist <- grepl("Fellow", e$group_defended)
+  e$individualist <- grepl("self", e$group_defended)
+  
   e$split_nb_global <- rowSums(!is.na(e[, variables_split_many_global]))
   e$split_nb_global[e$variant_split == 1] <- NA
   e$split_many_global <- rowSums(e[, variables_split_many_global], na.rm = T)
@@ -675,6 +698,11 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$split_both_global <- ifelse(e$variant_split == 1, e$revenue_split_few_global, e$split_many_global)
   e$split_both_global[e$split_nb_global %in% 0] <- NA
   e$split_both_nb_global <- ifelse(e$variant_split == 1, 1, e$split_nb_global)
+  
+  for (v in variables_split_agg) {
+    e[[v]] <- pmin(e[[sub("_agg", "", v)]], 35)
+    e <- create_item(v, labels = c("0" = 0, "5" = 5, "10" = 10, "15" = 15, "20" = 20, "25" = 25, "30" = 30, "35-100" = 35), values = c(0, 5, 10, 15, 20, 25, 30, 35), missing.values = c("", NA), df = e)
+  }
   
   e$mean_order_many_global <- rowMeans(e[, sub("many_", "many_order_", variables_split_many_global)], na.rm = T)
   
@@ -772,7 +800,7 @@ beep()
 # for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
 # for (c in paste0(pilot_countries, "p")) print(paste(c, mean(d(c)$gcs_support %in% "Yes")))
 # summary(lm(gcs_support %in% "Yes" ~ country, data = p))
-# summary(lm(ics_support %in% "Yes" ~ variant_gcs, data = p))
+# summary(lm(ics_support %in% "Yes" ~ variant_ics, data = p))
 # 
 # for (i in 1:length(e)) {
 #   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #

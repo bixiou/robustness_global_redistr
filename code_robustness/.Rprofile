@@ -1,6 +1,6 @@
 library(utils)
 chooseCRANmirror(ind = 1)
-.libPaths(c("C:/Program Files/R/R-4.4.3/library", "C:/Users/fabre/AppData/Local/R/win-library/4.3", "C:/Program Files/R/R-4.3.1/library"))
+.libPaths(c("C:/Users/fabre/AppData/Local/R/win-library/4.4", "C:/Program Files/R/R-4.4.3/library", "C:/Users/fabre/AppData/Local/R/win-library/4.3", "C:/Program Files/R/R-4.3.1/library"))
 
 # options(download.file.method = "wget"); # For Ubuntu 14.04
 package <- function(p, version = NULL, remove = FALSE, github = '') {
@@ -176,6 +176,7 @@ package("corrplot") # heatmap #, github = 'taiyun')#, version = "0.88") # 0.92 i
 # package("dplR") # latexify, used in table_mean_lines_save
 # package("tm") # must be loaded before memisc; used for wordcloud
 # package("wordcloud")
+package("xfun") # required by Hmisc, knitr
 package("Hmisc") # describe, decrit
 # package("readxl")
 #' package("ggpubr")
@@ -1520,7 +1521,7 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
       server$close()
     }
     if (trim & format %in% c('png')) image_write(image_trim(image_read(file)), file) # , 'svg'
-    if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also code_oecd/crop_pdf.sh and run it in the desired folder
+    if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also figures/crop_pdf.sh and run it in the desired folder
 }
 save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='orca', format = 'pdf', trim = T) { # used in barres; in case connection refused, turn off Windows Defender on private networks
   if (any(class(plot) == "data.frame")) {
@@ -1695,7 +1696,7 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
     list_var_list <- list()
     for (vars in vec_vars) {
       vars <- sub("variables_", "", vars)
-      if (!vars %in% names(heatmaps)) list_var_list[[vars]]$vars <- eval(str2expression(paste0("variables_", vars))) # do not override an already defined variable vec with this name
+      if (!vars %in% names(heatmaps)) list_var_list[[vars]]$vars <- if (exists(paste0("variables_", vars))) eval(str2expression(paste0("variables_", vars))) else vars # do not override an already defined variable vec with this name
     } 
   }  
   if (length(list_var_list) != length(names(list_var_list))) warning("'list_var_list' cannot be an unnamed list.")
@@ -1733,8 +1734,7 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
   }
 }
 
-# TODO! option to not display main label from barresN
-barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T) {
+barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T, nolabel = F) {
   if (missing(folder)) folder <- automatic_folder(along = "country", data = df, several = "all")
   for (def in barres) {
     # tryCatch({
@@ -1742,7 +1742,7 @@ barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/c
     if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
                                                  miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
     else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
-                         miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL)
+                         miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
     if (print) print(plot)
     save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
     #   print(paste0(def$name, ": success"))
@@ -1784,31 +1784,37 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
   }
   # We complete the missing fields of plots 
   for (name in names(plots)) {
-    if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- if (name %in% names(df)) name else if (exists(paste0("variables_", sub("variables_", "", name)))) eval(str2expression(paste0("variables_", sub("variables_", "", name)))) else warning(paste(name, "not found"))
-    if (!"name" %in% names(plots[[name]])) plots[[name]]$name <- name
-    if (!"labels" %in% names(plots[[name]])) {
-      plots[[name]]$labels <- c()
-      for (var in plots[[name]]$vars) plots[[name]]$labels <- c(plots[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), max_length = labels_max_length))
+    vars <- if (name %in% names(df)) name else if (exists(paste0("variables_", sub("variables_", "", name)))) eval(str2expression(paste0("variables_", sub("variables_", "", name)))) else NULL
+    if (!is.null(vars) && any(vars %in% names(df)) && sum(!is.na(df[, vars])) > 0) {
+      if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- vars 
+      if (!"name" %in% names(plots[[name]])) plots[[name]]$name <- name
+      if (!"labels" %in% names(plots[[name]])) {
+        plots[[name]]$labels <- c()
+        for (var in plots[[name]]$vars) plots[[name]]$labels <- c(plots[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), max_length = labels_max_length))
+      }
+      # if (!"share_labels" %in% names(plots[[name]])) plots[[name]]$share_labels <- NA
+      # if (!"margin_l" %in% names(plots[[name]])) plots[[name]]$margin_l <- NA
+      if (!"miss" %in% names(plots[[name]])) plots[[name]]$miss <- miss
+      if (!"sort" %in% names(plots[[name]])) plots[[name]]$sort <- sort
+      if (!"along" %in% names(plots[[name]])) plots[[name]]$along <- along
+      if (!"rev" %in% names(plots[[name]])) plots[[name]]$rev <- rev
+      if (!"rev_color" %in% names(plots[[name]])) plots[[name]]$rev_color <- rev_color
+      if (!"fr" %in% names(plots[[name]])) plots[[name]]$fr <- FALSE
+      if (!"title" %in% names(plots[[name]])) plots[[name]]$title <- ""
+      vars_in <- plots[[name]]$vars[plots[[name]]$vars %in% names(df)]
+      var_example <- vars_in[1]
+      if (!"legend" %in% names(plots[[name]]) & !is.na(var_example)) plots[[name]]$legend <- dataKN(vars = vars_in, data=df, miss=plots[[name]]$miss, return = "legend", fr = plots[[name]]$fr, rev = plots[[name]]$rev, rev_legend = plots[[name]]$rev)
+      # yes_no <- setequal(plots[[name]]$legend, c('Yes', 'No', 'PNR')) | setequal(plots[[name]]$legend, c('Oui', 'Non', 'NSP')) | setequal(plots[[name]]$legend, c('Yes', 'No')) | setequal(plots[[name]]$legend, c('Oui', 'Non'))
+      # if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example))  T else (!is.binary(df[[var_example]]) | yes_no)
+      if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
+      if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
+      if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
+      if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
+      if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
+    } else {
+      plots <- plots[!name %in% names(plots)]
+      warning(paste(name, "not found, removing it."))
     }
-    # if (!"share_labels" %in% names(plots[[name]])) plots[[name]]$share_labels <- NA
-    # if (!"margin_l" %in% names(plots[[name]])) plots[[name]]$margin_l <- NA
-    if (!"miss" %in% names(plots[[name]])) plots[[name]]$miss <- miss
-    if (!"sort" %in% names(plots[[name]])) plots[[name]]$sort <- sort
-    if (!"along" %in% names(plots[[name]])) plots[[name]]$along <- along
-    if (!"rev" %in% names(plots[[name]])) plots[[name]]$rev <- rev
-    if (!"rev_color" %in% names(plots[[name]])) plots[[name]]$rev_color <- rev_color
-    if (!"fr" %in% names(plots[[name]])) plots[[name]]$fr <- FALSE
-    if (!"title" %in% names(plots[[name]])) plots[[name]]$title <- ""
-    vars_in <- plots[[name]]$vars[plots[[name]]$vars %in% names(df)]
-    var_example <- vars_in[1]
-    if (!"legend" %in% names(plots[[name]]) & !is.na(var_example)) plots[[name]]$legend <- dataKN(vars = vars_in, data=df, miss=plots[[name]]$miss, return = "legend", fr = plots[[name]]$fr, rev = plots[[name]]$rev, rev_legend = plots[[name]]$rev)
-    # yes_no <- setequal(plots[[name]]$legend, c('Yes', 'No', 'PNR')) | setequal(plots[[name]]$legend, c('Oui', 'Non', 'NSP')) | setequal(plots[[name]]$legend, c('Yes', 'No')) | setequal(plots[[name]]$legend, c('Oui', 'Non'))
-    # if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example))  T else (!is.binary(df[[var_example]]) | yes_no)
-    if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
-    if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
-    if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
-    if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
-    if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
   }
   return(plots)
 }
