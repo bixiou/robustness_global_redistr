@@ -145,6 +145,7 @@ labels_vars <- c(
 )
 for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
   if (grepl("-", Label(all[[v]])) & labels_vars[v] == v) labels_vars[v] <- sub("(.*)- ", "", Label(all[[v]]))
+  if (grepl("_control", v) & labels_vars[v] == v) labels_vars[v] <- labels_vars[sub("_control", "", v)]
   if (grepl("TRUE / FALSE", Levels(all[[v]])[1])) labels_vars[paste0(v, "TRUE")] <- labels_vars[v]
   else for (l in setdiff(Levels(all[[v]]), NA)) {
     if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
@@ -181,7 +182,8 @@ heatmaps_defs <- list(
   "duration" = list(vars = variables_duration, conditions = ""),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c("")),
   "transfer_how" = list(vars = variables_transfer_how, conditions = ">= 1"), 
-  "solidarity_support" = list(vars = variables_solidarity_support, sort = T),
+  "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T),
+  "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
   "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1"), 
@@ -226,15 +228,15 @@ vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_avia
                  "group_defended", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
-
+barresN_defs <- fill_barres(vars_barres, along = "country_name")
+# TODO! vote_intl_coalition SA? what does it mean?
 vars_barres1 <- c("split_few", "split_many", "split_many_global", "maritime_split") #vars_barres
-barresN_defs <- fill_barres(vars_barres[!vars_barres %in% vars_barres1], along = "country_name")
-
+vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
 barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
-barres_multiple(barresN_defs, nolabel = T)
+barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_barres1]], nolabel = T)
 # barres_multiple(barres_defs)
 
 # heatmap_multiple(heatmaps_defs["var"])

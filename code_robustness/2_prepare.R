@@ -1,5 +1,4 @@
-# TODO: labels_vars
-# TODO: heatmaps
+# TODO: heatmaps/barres: special
 # TODO: function heatmap
 # TODO: labels
 # TODO: vote_agg, vote, vote_voted, weight_vote...
@@ -98,7 +97,7 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
     pop_freq[[c]]$gender <- c("Woman" = qs[c,"women"], 0.001, "Man" = qs[c,"men"])/1000
     pop_freq[[c]]$income_quartile <- rep(.25, 4)
     pop_freq[[c]]$age <- unlist(qs[c, c("18-24", "25-34", "35-49", "50-64", ">65")]/1000)
-    pop_freq[[c]]$education_quota <- unlist(c(qs[c, c("Below.upper.secondary.25-64.0-2", "Upper.secondary.25-64.3", "Above.Upper.secondary.25-64.4-8")]/1000, "Not 25-64" = sum(unlist(qs[c, c("18-24", ">65")]/1000))))
+    pop_freq[[c]]$education_quota <- unlist(c(qs[c, c("Below.upper.secondary.25-64.0-2", "Upper.secondary.25-64.3", "Above.Upper.secondary.25-64.4-8")]/1000, "Not 25-64" = sum(unlist(qs[c, c("18-24", ">65")]/1000)))) # It's called 3 and 4-8 though in reality it's 3-4 and 5-8.
     pop_freq[[c]]$urbanity <- unlist(qs[c, c("Cities", "Towns.and.suburbs", "Rural")]/1000)
     pop_freq[[c]]$region <- unlist(qs[c, paste0("Region.", 1:5)]/1000)
     pop_freq[[c]]$employment_18_64 <- unlist(c(c("Inactive" = qs[c, "Inactivity"], "Unemployed" = qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000, "Employed" =  1000-qs[c, "Inactivity"]-qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000)*(1000-qs[c, c(">65")])/1000, "65+" = qs[c, c(">65")])/1000)
@@ -341,6 +340,7 @@ define_var_lists <- function() {
   text_pnr <<- c("Prefer not to say")
   variables_solidarity_support <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
     "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_loss_damage", "solidarity_support_ncqg_300bn", "solidarity_support_shipping_levy", "solidarity_support_aviation_levy")
+  variables_solidarity_support_control <<- paste0(variables_solidarity_support, "_control")
   variables_solidarity_support_short <<- paste0(c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
                                      "solidarity_support_bridgetown"), "_short")
   # variables_support <<- names(e)[grepl('support', names(e))]
@@ -663,6 +663,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
   e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
   e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
+  for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, e[[v]], NA)
   
   if (pilot) {
     e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
