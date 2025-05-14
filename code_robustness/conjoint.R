@@ -66,3 +66,29 @@ View(ca[[df]])
 plot(amce$GBp)
 plot(amce$PLp)
 plot(amce$USp)
+
+
+##### Attempt to make it work at CIRED #####
+decrit(e$conjoint)
+decrit(e$`F-1-1-1`) # foreign1: millionaire tax / foreign2: cut aid
+e$program_a <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-1-", 1:5)], collapse = ' ')})
+e$program_b <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-2-", 1:5)], collapse = ' ')})
+e$millionaire_tax_in_a <- grepl("foreign_policy1", e$program_a)
+e$millionaire_tax_in_b <- grepl("foreign_policy1", e$program_b)
+e$cut_aid_in_a <- grepl("foreign_policy2", e$program_a)
+e$cut_aid_in_b <- grepl("foreign_policy2", e$program_b)
+e$millionaire_tax_in_program <- e$millionaire_tax_in_a
+e$cut_aid_in_program <- e$cut_aid_in_a
+e$program <- e$program_a
+e$program_preferred <- e$conjoint == "Candidate A"
+temp <- e
+temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
+temp$cut_aid_in_program <- temp$cut_aid_in_b
+temp$program <- temp$program_b
+temp$program_preferred <- temp$conjoint == "Candidate B"
+ce <- cbind(e, temp)
+rm(temp)
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = ce))
+summary(lm(program_preferred ~ cut_aid_in_program, data = ce))
+summary(lm(program_preferred ~ cut_aid_in_program, data = ce, subset = country == "CH"))
+summary(lm(program_preferred ~ cut_aid_in_program, data = ce, subset = country != "CH"))
