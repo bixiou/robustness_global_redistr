@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 fdzf
+=======
+zipcode _all data
+>>>>>>> origin/main
