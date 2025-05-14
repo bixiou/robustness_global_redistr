@@ -29,9 +29,9 @@ with(e, summary(lm(duration ~ country)))
 with(e, summary(lm(duration ~ variant_long * cut * country)))
 median(e$duration)
 median(e$duration[e$variant_long & !e$cut])
-sapply(countries[-9], function(c) round(median(d(c)$duration[e$variant_long & !e$cut], na.rm = T), 3))
-sapply(countries[-9], function(c) print(decrit(d(c)$duration[e$variant_long & !e$cut])))
-sapply(countries[-9], function(c) round(median(d(c)$duration, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$duration[e$variant_long & !e$cut], na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$duration[e$variant_long & !e$cut])))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$duration, na.rm = T), 3))
 sum(e$variant_long & !e$cut)
 median(e$duration[e$variant_long & e$cut])
 median(e$duration[!e$variant_long & e$cut])
@@ -76,8 +76,8 @@ e$comment_field[!is.na(e$comment_field)]
 # Average of 17 for global item, quite independent of number of global items => people seem to split more or less equally between presented choices.
 # -> ask in open-ended field how should global tax revenues be spent / how they should be allocated between countries?
 decrit("revenue_split_few_global", e)
-sapply(countries[-9], function(c) round(mean(d(c)$revenue_split_few_global, na.rm = T), 3))
-sapply(countries[-9], function(c) round(median(d(c)$revenue_split_few_global, na.rm = T)))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$revenue_split_few_global, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$revenue_split_few_global, na.rm = T)))
 decrit("split_many_global", e)
 decrit("split_many_global", e, which = e$split_nb_global == 1)
 decrit("split_both_global", e)
@@ -109,13 +109,13 @@ with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_
 # -> keep high scenario for all but RU-SA-US
 # => higher support for ICS than GCS. Why? loss less salient? more realistic? less alone? more countries than expected?
 # => Being without other HIC is worse than without China
-sapply(countries[-9], function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$ics_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$ics_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$gcs_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$gcs_belief_us, na.rm = T), 0))
-sapply(countries[-9], function(c) round(mean(d(c)$gcs_belief_own, na.rm = T), 0))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ics_support, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ics_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_belief_us, na.rm = T), 0))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_belief_own, na.rm = T), 0))
 
 
 ##### ICS #####
@@ -131,9 +131,11 @@ with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics, subset = country == "PL
 # Long info twice the effect of short. Long info => likely solidarity +10pp; share_solidarity_short_supported +2.5pp
 # IV works. likely_solidarity positively (not negatively!) correlated with support.
 # -> keep only long
-with(e, summary(lm((likely_solidarity > 0) ~ variant_info_solidarity)))
-with(e, summary(lm(likely_solidarity ~ variant_info_solidarity)))
-with(e, summary(lm(share_solidarity_supported ~ variant_info_solidarity))) 
+sort(sapply(variables_solidarity_support, function(c) mean(e[[c]][e[[c]] != 0] > 0, na.rm = T)), decreasing = T) 
+sapply(c("all", countries[-9]), function(c) mean(d(c)$solidarity_support_aviation_levy[d(c)$solidarity_support_aviation_levy != 0] > 0))
+with(e, summary(lm((likely_solidarity > 0) ~ info_solidarity)))
+with(e, summary(lm(likely_solidarity ~ info_solidarity)))
+with(e, summary(lm(share_solidarity_supported ~ info_solidarity))) 
 with(e, summary(lm(share_solidarity_short_supported ~ variant_info_solidarity))) 
 with(e, summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0)))) 
 summary(ivreg(share_solidarity_short_supported ~ (likely_solidarity > 0) | info_solidarity, data = e))
@@ -141,31 +143,31 @@ summary(ivreg(share_solidarity_short_supported ~ likely_solidarity | info_solida
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e, subset = !info_solidarity))
 
-sapply(countries[-9], function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c), which = d(c)$solidarity_support_shipping_levy != 0)))
-sapply(countries[-9], function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c))))
-sapply(countries[-9], function(c) print(decrit(d(c)$solidarity_support_shipping_levy < 0, d(c))))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c), which = d(c)$solidarity_support_shipping_levy != 0)))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c))))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$solidarity_support_shipping_levy < 0, d(c))))
 
 
 ##### Wealth tax depending on coverage #####
-sapply(countries[-9], function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3))
-with(e, summary(lm(wealth_tax_support ~ variant_wealth_tax)))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3))
+with(e, summary(lm(wealth_tax_support ~ variant_wealth_tax))) # TODO! bug
 
 
 ##### NCQG, Maritime #####
 # ?? ncqg: maintain / ncqg_full: $100 bn
 CrossTable(e$ncqg, e$country, prop.t = F, prop.r = F, prop.chisq = F, prop.c = T, total.c = F, total.r = F, cell.layout = F) 
-sapply(countries[-9], function(c) round(mean(d(c)$ncqg, na.rm = T), 3)) # 2.6-3
-sapply(countries[-9], function(c) round(mean(d(c)$ncqg_full, na.rm = T), 3)) # 315-420
-sapply(countries[-9], function(c) round(median(d(c)$ncqg, na.rm = T), 3)) # 3
-sapply(countries[-9], function(c) round(median(d(c)$ncqg_full, na.rm = T), 3)) # 100
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ncqg, na.rm = T), 3)) # 2.6-3
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ncqg_full, na.rm = T), 3)) # 315-420
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$ncqg, na.rm = T), 3)) # 3
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$ncqg_full, na.rm = T), 3)) # 100
 summary(lm(ncqg ~ (age == 21.5) + (education == 3) + race_white, data = USp))
 summary(lm(ncqg ~ (education == 2), data = e))
 
-sapply(countries[-9], function(c) print(decrit(d(c)$maritime_split_ldc))) # 30
-sapply(countries[-9], function(c) print(decrit(d(c)$maritime_split_companies))) # 30
-sapply(countries[-9], function(c) print(decrit(d(c)$maritime_split_decarbonization))) # 40
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$maritime_split_ldc))) # 30
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$maritime_split_companies))) # 30
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$maritime_split_decarbonization))) # 40
 
 
 ##### Transfer how #####
@@ -175,7 +177,7 @@ sapply(variables_transfer_how, function(v) print(decrit(v, e)))
 ##### Scenarios #####
 # 60-70% for sustainability
 # -> use long version
-sapply(countries[-9], function(c) round(mean(d(c)$sustainable_future, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$sustainable_future, na.rm = T), 3))
 with(e, summary(lm(sustainable_future ~ variant_sustainable_future))) 
 
 
@@ -184,38 +186,38 @@ with(e, summary(lm(sustainable_future ~ variant_sustainable_future)))
 # -> Either take out 1% or keep both
 decrit("top1_tax_support", e)
 decrit("top3_tax_support", e)
-sapply(countries[-9], function(c) round(mean(d(c)$top_tax_support > 0, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$top1_tax_support > 0, na.rm = T), 3))
-sapply(countries[-9], function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$top_tax_support > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$top1_tax_support > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight, na.rm = T), 3))
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax * variant_long)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_long)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax_full)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax)))
 
 # more likely if party in coalition: 39% / less likely: 16%
-sapply(countries[-9], function(c) print(decrit(d(c)$vote_intl_coalition, weight = F)))
-sapply(countries[-9], function(c) round(mean(d(c)$vote_intl_coalition > 0, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$vote_intl_coalition < 0, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$vote_intl_coalition == 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$vote_intl_coalition, weight = F)))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$vote_intl_coalition > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$vote_intl_coalition < 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$vote_intl_coalition == 0, na.rm = T), 3))
 
-sapply(countries[-9], function(c) print(decrit(d(c)$reparations_support, weight = F)))
-sapply(countries[-9], function(c) round(mean(d(c)$reparations_support[!d(c)$reparations_support %in% 0] > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$reparations_support, weight = F)))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$reparations_support[!d(c)$reparations_support %in% 0] > 0, na.rm = T), 3))
 
-sapply(countries[-9], function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 170
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 440-520: 500
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 160
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_degree[!d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 450-540: 500
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 150
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
-sapply(countries[-9], function(c) round(median(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$custom_redistr_losers %in% c(101, 201), na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$custom_redistr_degree %in% c(2.1, 7.1), na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied] %in% c(401, 601), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 170
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 440-520: 500
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 160
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[!d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 450-540: 500
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 150
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_losers %in% c(101, 201), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_degree %in% c(2.1, 7.1), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied] %in% c(401, 601), na.rm = T), 3))
 decrit("custom_redistr_winners", data = e, which = e$custom_redistr_satisfied) # 500
 decrit("custom_redistr_losers", data = e, which = e$custom_redistr_satisfied) # 150
 decrit("custom_redistr_degree", data = e, which = e$custom_redistr_satisfied) # 5
@@ -233,16 +235,17 @@ decrit("custom_redistr_both_satisfied_skip", e)
 with(e, summary(lm(well_being ~ variant_well_being))) 
 with(e, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
 
-sapply(countries[-9], function(c) print(decrit(d(c)$group_defended)))
-sapply(countries[-9], function(c) round(mean(d(c)$group_defended > 0, na.rm = T), 3))
-sapply(countries[-9], function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3)) # corresponds well
+sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$group_defended)))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$group_defended > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$my_tax_global_nation > 0, na.rm = T), 3)) # corresponds well
+sapply(variables_why_hic_help_lic, function(c) print(decrit(e[[c]])))
 
-sapply(countries[-9], function(c) round(mean(d(c)$survey_biased > 0, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$survey_biased > 0, na.rm = T), 3))
 
 sapply(paste0(pilot_countries, "p"), function(c) decrit(paste0("vote_", sub("p", "", c)), d(c)))
 sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
 
-sapply(countries[-9], function(c) round(mean(d(c)$convergence_support %in% "Yes"), 2))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$convergence_support %in% "Yes"), 2))
 
 
 ##### Comments #####

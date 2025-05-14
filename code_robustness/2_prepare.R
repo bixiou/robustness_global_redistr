@@ -760,7 +760,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 # Surveys
 survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
-                        fetch = F, convert = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
+                        fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
 all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
