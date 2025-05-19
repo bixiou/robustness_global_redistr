@@ -13,6 +13,7 @@
 # results of global_tax_attitudes with new def of swing_state / dem
 # missing urbanity, region: decrit(e$country[is.na(e$region)]) GB$zipcode[is.na(GB$region)]
 
+
 ##### Parameters #####
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 countries_names <- c("FR" = "France", "DE" = "Germany", "IT" = "Italy", "PL" = "Poland", "ES" = "Spain", "GB" = "United Kingdom", "CH" = "Switzerland", "JP" = "Japan", "RU" = "Russia", "SA" = "Saudi Arabia", "US" = "United States")

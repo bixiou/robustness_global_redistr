@@ -174,6 +174,10 @@ ru_hh$tot_inc_pc <- ru_hh$R_H_DOXOD_DEN/ru_hh$hh_size
 round(wtd.quantile(ru_hh$disp_inc, weights = ru_hh$KVZV, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
 wtd.mean(ru_hh$tot_inc_pc, weights = ru_hh$KVZV)
 round(wtd.quantile(ru_hh$tot_inc_pc/1200, weights = ru_hh$KVZV, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
+ru_ind <- read.dta13("../data_ext/RU_ind.dta") 
+ru_ind$weight <- ru_ind$KVZV
+ru <- merge(ru_ind, ru_hh, by = "H00_06")
+round(wtd.quantile(ru$R_H_DOXOD_RASP, weights = ru$weight * !ru$CH_0_17, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
 
 
 ##### Conjoint analysis: Extract policies from sources.xlsx and export to JSON #####
