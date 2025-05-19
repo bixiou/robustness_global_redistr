@@ -269,3 +269,8 @@ data_split_few <- matrix(NA, dimnames = list(variables_split_few, data_countries
 for (v in variables_split_few) for (c in data_countries) data_split_few[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight, na.rm = T)
 barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
        legend = labels_vars[variables_split_few], labels = countries_names[data_countries])
+
+
+##### Custom redistr #####
+plot(0:1000, c(0, round(thousandile_world_disposable_inc)), type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
+lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")

@@ -209,7 +209,7 @@ $j(document).ready(function($j){
 				for (i=0; i<winners; i++) { diff[i] = futur[i] - avant[i] ; }
 				var econ = integrale(diff, 0, winners-1) + economisable(futur, "d");
 				// $j('#out').html((integrale(avant,0,1000)-integrale(futur,0,1000))/integrale(avant,0,1000)+"  "+G/R+"  "+futur[0]/12);
-				$j('#out').html(Math.round(1000*(integrale(futur,0,winners)-integrale(avant,0,winners))/integrale(avant,0,1000))/10+" % GDP transferred  "+Math.round(1000*(integrale(avant,non_losers,1000)-integrale(futur,non_losers,1000))/integrale(avant,0,1000))/10+"  "+Math.round(futur[0]/12));
+				$j('#out').html(Math.round(1000*(integrale(futur,0,winners)-integrale(avant,0,winners))/integrale(avant,0,1000))/10+" % GDP transferred  "+(integrale(avant,non_losers,1000)-integrale(futur,non_losers,1000))/integrale(avant,0,1000)+"  income_min: "+futur[0]+"   L:"+G+"   R:"+R+"    Na_r:"+Na_r+"    sum:"+integrale(avant,0,winners)+"   rdb:"+rdb);
 				$j('#after_0').html(Math.round(interpole(0, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));
 				$j('#after_10k').html(Math.round(interpole(10000, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));
 				$j('#after_40k').html(Math.round(interpole(40000, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));

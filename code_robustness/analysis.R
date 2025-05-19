@@ -231,6 +231,11 @@ with(e, summary(lm(custom_redistr_losers ~ income_exact * country, subset = cust
 # 601-201-2.1 => transfer: 4.6% / demogrant: 185$/month
 decrit("custom_redistr_unsatisfied_unskip", e)
 decrit("custom_redistr_both_satisfied_skip", e)
+decrit("custom_redistr_transfer", e)
+# mean winners = non-losers: 71% / mean transfer: 4.84% / mean demogrant: $235/month
+(mean_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 709
+100*sum(mean_custom_redistr[["all"]][1:mean_winners] - current[1:mean_winners])/sum(current[1:1000]) 
+mean_custom_redistr[["all"]][1]/12 # 235
 
 with(e, summary(lm(well_being ~ variant_well_being))) 
 with(e, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
