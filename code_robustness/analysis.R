@@ -101,7 +101,7 @@ sort(sapply(variables_split_few, function(c) mean(e[[c]][e$revenue_split_few_glo
 
 ##### Warm glow - substitute #####
 # => Wrong that some prefer to pay more to get climate policy at global level; on the contrary it seems a few prefer to not lose and have it domestically
-with(e, summary(lm(gcs_support ~ variant_warm_glow))) # No effect of donation; -.03 for NCS
+with(e, summary(lm(gcs_support ~ variant_warm_glow, weights = weight))) # No effect of donation; -.03 for NCS
 with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_warm_glow %in% "donation"))) # NCS effect driven by PL
 
 

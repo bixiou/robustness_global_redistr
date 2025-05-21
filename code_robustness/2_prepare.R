@@ -1,9 +1,8 @@
 # TODO: heatmaps/barres: special
 # TODO: function heatmap
 # TODO: labels
-# TODO: vote_agg, vote, vote_voted, weight_vote...
 # TODO: fields
-# TODO: custom redistr: compute transfer for each; tax rates; dummy whether decrease own income; sociodemos determinants
+# TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
 # TODO: conjoint (need Paris)
 
 # check:
@@ -52,7 +51,7 @@ mean_custom_redistr <- list()
     "urbanity" = c("Cities", "Towns and suburbs", "Rural"),
     "education_quota" = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64"), # "Not 25-64"
     "employment_18_64" = c("Inactive", "Unemployed", "Employed", "65+"),
-    "vote" = c("Left", "Center-right or Right", 'Far right', "PNR/Non-voter"),
+    "vote" = c("Left", "Center-right or Right", 'Far right', "Non-voter, PNR or Other"),
     "region" = 1:5, # It's OK if some values are missing in one population. (2 regions: IT, PL; 3 regions: DE, CH; 4 regions: RU, SA, US)
     "Eu_country" = c("FR", "DE", "ES", "IT", "PL", "GB", "CH"),
     "EU_country" = c("FR", "DE", "ES", "IT", "PL"),
@@ -68,7 +67,7 @@ mean_custom_redistr <- list()
                  # "EU" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity"),
                  # "EU_vote" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "vote"),
                  # "EU_all" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "employment_18_64", "vote"), 
-                 "US_vote" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "vote_US"),
+                 # "US_vote" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "vote_US"),
                  "US_all" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "employment_18_64", "vote"),
                  "EU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"), # TODO
                  "Eu" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
@@ -77,10 +76,10 @@ mean_custom_redistr <- list()
                  "SA" = c("gender_nationality", "income_quartile", "age", "education_quota", "region"),
                  "US" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region", "race")
   )
+  for (q in names(quotas)) quotas[[paste0(q, "_vote")]] <- c(quotas[[q]], "vote")
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
-  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:14), cols = 1:53)
-  
+  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:14), cols = 1:57)
   adult_pop <- setNames(qs[countries, "Adult.pop"], countries)
   
   pop_freq <- list(
@@ -94,8 +93,8 @@ mean_custom_redistr <- list()
       # "urbanity" = c(qs["US", "Cities"], 0.001, qs["US","Rural"])/1000,
       "US_urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
       # "US_region" = unlist(qs["US", c("Region.1", "Region.2", "Region.3", "Region.4")]/1000),
-      "US_race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000),
-      "US_vote_US" = c(0.308637, 0.31822, 0.373142, 0.000001) # https://en.wikipedia.org/wiki/2024_United_States_presidential_election
+      "US_race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000)
+      # "US_vote_US" = c(0.308637, 0.31822, 0.373142, 0.000001) # https://en.wikipedia.org/wiki/2024_United_States_presidential_election
     ))
   for (c in c("EU", countries)) {
     pop_freq[[c]]$gender <- c("Woman" = qs[c,"women"], 0.001, "Man" = qs[c,"men"])/1000
@@ -106,9 +105,15 @@ mean_custom_redistr <- list()
     pop_freq[[c]]$region <- unlist(qs[c, paste0("Region.", 1:5)]/1000)
     pop_freq[[c]]$employment_18_64 <- unlist(c(c("Inactive" = qs[c, "Inactivity"], "Unemployed" = qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000, "Employed" =  1000-qs[c, "Inactivity"]-qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000)*(1000-qs[c, c(">65")])/1000, "65+" = qs[c, c(">65")])/1000)
     pop_freq[[c]]$gender_nationality <- unlist(setNames(qs[c, c("White.non.Hispanic", "Hispanic", "Black", "Other")],  c("WoSaudi", "WoNonSaudi", "ManSaudi", "ManNonSaudi"))/1000)
-    pop_freq[[c]]$vote <- unlist(c(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")]), "Abstention" = qs[c, "Abstention"])/1000)
+    # pop_freq[[c]]$vote <- unlist(c(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")], na.rm = T), "Abstention" = qs[c, "Abstention"])/1000) # We exclude Other in this variant
+    pop_freq[[c]]$vote <- unlist(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"], "Non-voter, PNR or Other" = sum(qs[c, "Abstention"], qs[c, "Vote_other"]))/1000) # We exclude Other in this variant
   }
 }
+
+votes_xlsx <- read.xlsx("../questionnaire/sources.xlsx", sheet = "elections", cols = 1:6)
+votes <- list()
+for (c in unique(votes_xlsx$country)) votes[[c]] <- votes_xlsx[votes_xlsx$country == c, ]  
+for (c in unique(votes_xlsx$country)) row.names(votes[[c]]) <- votes[[c]]$party
 
 
 ##### Functions #####
@@ -167,7 +172,6 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
   #   for (v in names(e)[161:211]) { print(decrit(v, e)); print("____________");}
   # }
   if (!old_names) {
-    e$Q_TerminateFlag <- e$excluded
     e$Finished <- e$finished
     e$Progress <- e$progress
   }
@@ -225,7 +229,7 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
   country_variant <- paste0(c(country, variant), collapse = "_") 
   if (!country_variant %in% names(quotas)) {
     warning("No country-variant quotas found, using default variables.")
-    country_variant <- "default" }
+    country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant)) }
   vars <- quotas[[country_variant]]
   freqs <- list()
   for (v in vars) {
@@ -315,8 +319,9 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     label(e$weight_country) <- "weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country]."
     label(e$weight) <- "weight: Weight for the international sample: weight_country is rescaled so that each country is weighted according to its adult population. Sums to nrow(all). (Created outside 'prepare')"
     # e$weight_all <- weighting(e, country, variant = "all") # TODO
-    if (("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))) e$weight_vote <- weighting(e, country, variant = "vote")
+    if ("vote" %in% names(e)) e$weight_vote <- weighting(e, country, variant = "vote") # ("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))
     # if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
+    if (any(e$custom_redistr_asked)) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p"))
   } else {
     # e$weight <- e$weight_country <- 1
   }
@@ -405,6 +410,7 @@ define_var_lists <- function() {
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
+  variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_group", "vote_major", "vote_major_candidate", "vote_leaning")
   covariates <<- c("country_name", "man", "age_factor", "income_quartile", "millionaire_agg", "education", "urban", "couple", "employment_agg", "voted", "vote_agg") # "race_white", "region"
 }
 define_var_lists()
@@ -611,65 +617,22 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("voted", new_var = "voted_original", c("No right" = -1, "PNR" = -0.1, "No" = 0, "Yes" = 1), grep = T, values = c("right", "Prefer not", "No", "Yes"), df = e)
   e$voted <- e$voted %in% "Yes"
   
-  e$vote_agg <- ifelse(e$voted, "Left", "Far right") # TODO!
-  # if ("vote_participation" %in% names(e)) {
-  #   e$vote_participation[grepl("right to vote", e$vote_participation)] <- "No right to vote"
-  #   
-  #   major_threshold <- 5 # 5% is the treshold to be considered a major candidate
-  #   e$vote <- -0.1 # "PNR/Non-voter"
-  #   for (c in tolower(countries)) {
-  #     if (paste0("vote_", c, "_voters") %in% names(e)) {
-  #       e$vote_all[!is.na(e[[paste0("vote_", c, "_voters")]]) & e$vote_participation=="Yes"] <- e[[paste0("vote_", c, "_voters")]][!is.na(e[[paste0("vote_", c, "_voters")]]) & e$vote_participation=="Yes"]
-  #       e$vote_all[!is.na(e[[paste0("vote_", c, "_non_voters")]]) & e$vote_participation!="Yes"] <- e[[paste0("vote_", c, "_non_voters")]][!is.na(e[[paste0("vote_", c, "_non_voters")]]) & e$vote_participation!="Yes"]
-  #       major_candidates[[c]] <<- setdiff(names(table(e$vote_all[e$country == toupper(c)]))[table(e$vote_all[e$country == toupper(c)]) > major_threshold * sum(e$country == toupper(c)) / 100], text_pnr)
-  #       minor_candidates[[c]] <<- setdiff(names(table(e$vote_all[e$country == toupper(c)]))[table(e$vote_all[e$country == toupper(c)]) <= .05 * sum(e$country == toupper(c))], text_pnr)
-  #       e$vote_agg[e$country == toupper(c) & no.na(e$vote_all) %in% c(major_candidates[[c]], text_pnr)] <- e$vote_all[e$country == toupper(c) & no.na(e$vote_all) %in% c(major_candidates[[c]], text_pnr)]
-  #       e$vote_agg[e$country == toupper(c) & no.na(e$vote_all) %in% minor_candidates[[c]]] <- "Other"
-  #       e$vote[e[[paste0("vote_", c, "_voters")]] %in% c("Biden", "Hawkins", "Jean-Luc Mélenchon", "Yannick Jadot", "Fabien Roussel", "Anne Hidalgo", "Philippe Poutou", "Nathalie Arthaud", 
-  #                                                        "PSOE", "Unidas Podemos", "Esquerra Republicana", "Más País", "JxCat–Junts", "Euskal Herria Bildu (EHB)", "Candidatura d'Unitat Popular-Per la Ruptura (CUP–PR)", "Partido Animalista (PACMA)", 
-  #                                                        "SPD", "Grüne", "Die Linke", "Tierschutzpartei", "dieBasis", "Die PARTEI", "Labour", "SNP", "Green", "Sinn Féin")] <- -1 # "Left"
-  #       e$vote[e[[paste0("vote_", c, "_voters")]] %in% c("Trump", "Jorgensen", "Emmanuel Macron", "Valérie Pécresse", "Jean Lassalle", "CDU/CSU", "Freie Wähler", "FDP", 
-  #                                                        "PP", "Ciudadanos", "Partido Nacionalista Vasco (EAJ-PNV)", "Conservative", "Liberal Democrats", "DUP")] <- 0 #"Center-right or Right"
-  #       e$vote[e[[paste0("vote_", c, "_voters")]] %in% c("Marine Le Pen", "Éric Zemmour", "Nicolas Dupont-Aignan", "AfD", "Vox", "Brexit Party")] <- 1 #"Far right"
-  #       e$vote <- as.item(e$vote, labels = structure(c(-1:1, -0.1), names = c("Left", "Center-right or Right", "Far right", "PNR/Non-voter")), missing.values = c(-0.1, NA), annotation = "vote: Left / Center-right or Right / Far right / PNR/Non-voter Classification of vote_[country]_voters into three blocs.")
-  #       e$vote_factor <- as.character(e$vote)
-  #       e$vote_factor[is.na(e$vote_participation)] <- "NA"
-  #       e$vote_factor <- as.factor(e$vote_factor)
-  #       e$vote_factor <- relevel(e$vote_factor, "Left")
-  #       # e$vote_factor <- relevel(e$vote_factor, "PNR/Non-voter")
-  #       label(e$vote_factor) <- Label(e$vote)
-  #     }
-  #   }
-  #   e$vote_participation <- as.item(as.character(e$vote_participation), missing.values = 'PNR', annotation=Label(e$vote_participation))
-  #   label(e$vote_all) <- "vote_all: What the respondent has voted or would have voted in the last election, combining vote_[country]_voters and vote_[country]_non_voters."
-  #   label(e$vote_agg) <- paste0("vote_agg: What the respondent has voted or would have voted in the last election, lumping minor candidates (with less than ", major_threshold, "% of $vote) into 'Other'. Build from $vote that combines $vote_[country]_voters and $vote_[country]_non_voters.")
-  #   # e$vote_all <- as.item(as.character(e$vote_all), missing.values = 'PNR', annotation="vote_all: What the respondent has voted or would have voted in the last election, combining vote_[country]_voters and vote_[country]_non_voters.")
-  #   # e$vote_agg <- as.item(as.character(e$vote_agg), missing.values = 'PNR', annotation=paste0("vote_agg: What the respondent has voted or would have voted in the last election, lumping minor candidates (with less than ", major_threshold, "% of $vote) into 'Other'. Build from $vote that combines $vote_[country]_voters and $vote_[country]_non_voters."))
-  #   e$voted <- e$vote_participation == 'Yes'
-  #   label(e$voted) <- "voted: Has voted in last election: Yes to vote_participation."
-  #   major_candidates <<- major_candidates
-  #   minor_candidates <<- minor_candidates
-  #   
-  #   temp <- as.character(e$vote)
-  #   temp[grepl("ight", temp)] <- "Right"
-  #   e$continent_vote <- paste(e$continent, temp)
-  # }
-  
-  if (country == "US") {
-    # e$vote_us <- "Other/Non-voter" # What respondent voted in 2020.
-    # e$vote_us[e$vote_participation %in% c("No right to vote", "Prefer not to say") | e$vote_us_voters %in% c("PNR", "Prefer not to say")] <- "PNR/no right"
-    # e$vote_us[e$vote_us_voters == "Biden"] <- "Biden"
-    # e$vote_us[e$vote_us_voters == "Trump"] <- "Trump"
-    # e$vote_us <- as.item(e$vote_us, annotation = "vote_us: Biden / Trump / Other/Non-voter / PNR/No right. True proportions: .342/.313/.333/.0")
-    # missing.values(e$vote_us) <- "PNR/no right"
-    # e$vote3 <- as.character(e$vote_us)
-    # e$vote3[e$vote3 %in% c("PNR/no right", "Other/Non-voter")] <- "Abstention/PNR/Other"
-    # e$vote3[is.na(e$vote_participation)] <- "NA"
-    # label(e$vote3) <- "vote3: Abstention/PNR/Other / Biden / Trump Vote at 2020 presidential election"
-    # e$vote3_factor <- relevel(as.factor(e$vote3), "Biden")
-    # e$vote_Biden <- e$vote3 == 'Biden'
-    # e$vote_not_Biden <- e$vote3 != 'Biden'
+  if (country %in% names(votes)) {
+    e$vote_original <- e[[paste0("vote_", country)]]
+    e$vote_agg <- ifelse(e$vote_original %in% c("Prefer not to say", "Other"), -1, votes[[country]][e$vote_original, "leaning"]) # PNR, Other as -1
+    e$vote_leaning <- ifelse(e$vote_original == "Other", NA, e$vote_agg) # PNR as -1, Other as NA
+    e$vote_major_candidate <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "major"] %in% 1
+    e$vote_major <- ifelse(e$vote_major_candidate, e$vote_original, "PNR or Other")
+    if (country %in% countries_EU) e$vote_group <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "group"]
+    e$vote <- ifelse(e$voted, e$vote_agg, -1) # Only on voters
     
+    e <- create_item("vote_agg", labels = c("PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e)
+    e <- create_item("vote", labels = c("Non-voter, PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e)
+    e$vote_agg_factor <- relevel(as.factor(as.character(e$vote_agg, include.missings = T)), "PNR or Other")
+    e$vote_factor <- relevel(as.factor(as.character(e$vote, include.missings = T)), "Non-voter, PNR or Other") # Left
+  }
+
+  if (country == "US") {
     # label(e$flipped_2024) <- "flipped_2024: T/F Lives in one of the 6 States that flipped from Democrat to Republican in the 2024 presidential election (AZ, GA, MI, NV, PA, WI)."
     e$swing_state <- floor(n(e$zipcode)/100) %[]% c(30, 38) | floor(n(e$zipcode)/1000) %[]% c(48, 49) | floor(n(e$zipcode)/100) %[]% c(889, 900) | floor(n(e$zipcode)/100) %[]% c(150, 196) | floor(n(e$zipcode)/1000) %[]% c(53, 54) | floor(n(e$zipcode)/1000) %[]% c(85, 86) | floor(n(e$zipcode)/1000) %[]% c(30, 31) | floor(n(e$zipcode)/100) %[]% c(398, 399) | floor(n(e$zipcode)/1000) %[]% c(27, 28) 
     label(e$swing_state) <- "swing_state_5pp: T/F Lives in one of the 8 States around the tipping-point one: with less than 5 p.p. difference in margin with the national one at the 2024 Presidential election (NH, WI, MI, PA, GA, NV, NC, AZ)." 
@@ -813,7 +776,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$custom_redistr_both_satisfied_skip <- ifelse(e$custom_redistr_asked, e$custom_redistr_satisfied & e$custom_redistr_skip, NA) # flag bad quality
   e$variant_sliders <- ifelse(e$variant_sliders %in% 1, "concentrated", "diffuse")
   label(e$variant_sliders) <- "variant_sliders: Concentrated/Diffuse. Values of the initial position of sliders in custom_redistr. Concentrated/Diffuse: Winners: 40/60; Losers: 10/20; Degree: 7/2."
-  if (any(e$custom_redistr_asked)) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p"))
   # e$income_qantile <- # TODO
   # e$custom_redistr_winning <- e$income_qantile < e$custom_redistr_winners
   # e$custom_redistr_losing <- (100 - e$income_quantile) > e$custom_redistr_losers
@@ -846,7 +808,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   return(e)
 }
 
-# Surveys
+##### Load data #####
+start_time <- Sys.time()
 survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
                         fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
 all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
@@ -854,9 +817,12 @@ list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
 
 e <- all
-
-all <- compute_custom_redistr(all, name = "all")
 beep()
+Sys.time() - start_time # 6 min
+
+all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
+beep()
+Sys.time() - start_time # 10 min
 
 # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
