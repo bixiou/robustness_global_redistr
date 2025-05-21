@@ -321,7 +321,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     # e$weight_all <- weighting(e, country, variant = "all") # TODO
     if ("vote" %in% names(e)) e$weight_vote <- weighting(e, country, variant = "vote") # ("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))
     # if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
-    if (any(e$custom_redistr_asked)) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p"))
+    if (any(e$custom_redistr_asked) & !pilot) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p")) # TODO make it work for pilot
   } else {
     # e$weight <- e$weight_country <- 1
   }
@@ -672,8 +672,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if (pilot) e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
   else e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("A", e$sustainable_future_a), T, F)
   e <- create_item("vote_intl_coalition", labels = c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
-  e$convergence_support[is.na(e$convergence_support)] <- "prefer not" # only 11, when I realized that there was not yet "force response" for this question
-  e <- create_item("convergence_support", labels = c("No" = -1, "PNR" = 0, "Yes" = 1), grep = T, values = c("No", "prefer not", "Yes"), missing.values = c(0, NA), df = e)
+  if ("convergence_support" %in% names(e)) e$convergence_support[is.na(e$convergence_support)] <- "prefer not" # only 11, when I realized that there was not yet "force response" for this question
+  if ("convergence_support" %in% names(e)) e <- create_item("convergence_support", labels = c("No" = -1, "PNR" = 0, "Yes" = 1), grep = T, values = c("No", "prefer not", "Yes"), missing.values = c(0, NA), df = e)
   e <- create_item("gcs_comprehension", labels = c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
   e$gcs_understood <- e$gcs_comprehension == 1
   e <- create_item("my_tax_global_nation", labels = c("Strongly disagree" = -2, "Disagree" = -1, "Neither agree nor disagree" = 0, "Agree" = 1, "Strongly agree" = 2), df = e)
@@ -811,7 +811,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 ##### Load data #####
 start_time <- Sys.time()
 survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
-                        fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
+                        fetch = T, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
 all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
@@ -825,14 +825,15 @@ beep()
 Sys.time() - start_time # 10 min
 
 # Pilots
-# pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = F, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
+# pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
 # pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
-# list2env(pilot_data, envir = .GlobalEnv)
+# list2env(pilot_data, envir = .GlobalEnv) # 35 in both pilot and all: 16 in PL, 14 in GB, 5 in US
+# beep()
 # 
 # data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
-
+# save.image(".RData")
 
 # Oldies
 
