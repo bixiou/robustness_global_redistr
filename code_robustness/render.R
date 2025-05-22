@@ -200,7 +200,7 @@ heatmaps_defs <- list(
 
 ##### vars_heatmaps #####
 vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation") 
-# TODO: special = all; automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
+# TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
@@ -242,6 +242,8 @@ barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "gcs_support")])
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_saudi)
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_merge_EU)
 
 
 ##### Maritime #####

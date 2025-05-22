@@ -1,5 +1,3 @@
-# TODO: heatmaps/barres: special
-# TODO: function heatmap
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
@@ -15,14 +13,25 @@
 
 ##### Parameters #####
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
-countries_names <- c("FR" = "France", "DE" = "Germany", "IT" = "Italy", "PL" = "Poland", "ES" = "Spain", "GB" = "United Kingdom", "CH" = "Switzerland", "JP" = "Japan", "RU" = "Russia", "SA" = "Saudi Arabia", "US" = "United States")
+countries_names <- c("FR" = "France", "DE" = "Germany", "IT" = "Italy", "PL" = "Poland", "ES" = "Spain", "GB" = "United Kingdom", "CH" = "Switzerland", "JP" = "Japan", "RU" = "Russia", "SA" = "Saudi Arabia", "US" = "USA")
 countries_names_fr <- c("FR" = "France", "DE" = "Allemagne", "IT" = "Italie", "PL" = "Pologne", "ES" = "Espagne", "GB" = "Royaume-Uni", "CH" = "Suisse", "JP" = "Japon", "RU" = "Russie", "SA" = "Arabie Saoudite", "US" = "États-Unis")
 # names(countries_names) <- pilot_countries
 countries_EU <- countries_names[1:5]
 countries_Eu <- countries_names[1:7]
 pilot_countries <- c("PL", "GB", "US")
 pilot_countries_all <- c(pilot_countries, "")
-
+special_levels <- list("All" = list("var" = "country_name", "value" = countries_names),
+                       "Europe" = list("var" = "country_name", "value" = countries_Eu), 
+                       "European Union" = list("var" = "country_name", "value" = countries_EU),
+                       "Saudi citizens" = list("var" = "saudi", "value" = T),
+                       "U.S. Democrats" = list("var" = "vote_voters", "value" = "Harris"),
+                       "U.S. Republicans" = list("var" = "vote_voters", "value" = "Trump"),
+                       "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"))
+levels_default <- c("All", "Europe", countries_names)
+levels_EU <- c("All", "European Union", countries_names)
+levels_saudi <- c("All", "Europe", countries_names[1:10], "Saudi citizens", countries_names[11])
+levels_merge_EU <- c("All", "European Union", countries_names[!countries_names %in% countries_EU])      
+                  
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
 languages <- unname(unlist(languages_country)) # c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
@@ -410,7 +419,7 @@ define_var_lists <- function() {
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
-  variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_group", "vote_major", "vote_major_candidate", "vote_leaning")
+  variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_voters", "vote_group", "vote_major", "vote_major_voters", "vote_major_candidate", "vote_leaning")
   covariates <<- c("country_name", "man", "age_factor", "income_quartile", "millionaire_agg", "education", "urban", "couple", "employment_agg", "voted", "vote_agg") # "race_white", "region"
 }
 define_var_lists()
@@ -623,6 +632,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e$vote_leaning <- ifelse(e$vote_original == "Other", NA, e$vote_agg) # PNR as -1, Other as NA
     e$vote_major_candidate <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "major"] %in% 1
     e$vote_major <- ifelse(e$vote_major_candidate, e$vote_original, "PNR or Other")
+    e$vote_voters <- ifelse(e$voted, e$vote_original, "Non-voter or PNR")
+    e$vote_major_voters <- ifelse(e$voted, ifelse(e$vote_major %in% "PNR or Other", "Non-voter, PNR or Other", e$vote_major), "Non-voter, PNR or Other")
     if (country %in% countries_EU) e$vote_group <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "group"]
     e$vote <- ifelse(e$voted, e$vote_agg, -1) # Only on voters
     
