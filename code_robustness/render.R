@@ -224,6 +224,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "maritime_split_ldc" = list(height = 250),
   "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
   "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T)
+  # ncqg: rev = F, rev_color = T
   # "split_many"
   # "split_many_global
   # "solidarity_support_shipping_levy" = list(height = 250, width = 870)

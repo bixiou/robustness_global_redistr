@@ -1234,22 +1234,29 @@ labelsN <- function(labels, levels, parentheses = T) {
     labs_other <- levels[1:(length(levels)-1)]
     labs_main <- paste0("<b>", labels, double_dot, "</b><br>", levels[length(levels)])  }
   for (l in seq_along(labels)) new_labels <- c(new_labels, labs_other, labs_main[l])
+  new_labels <- gsub("')", "</b>", gsub("$ bold('", "<b>", new_labels, fixed = T), fixed = T)
   return(rev(new_labels)) # version var (lev1) / (lev2) / ...
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
 barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL,
-                    rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F) {
+                    rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F, levels = NULL) {
   if (nolabel & length(labels)==1) labels <- ""
   if (is.data.frame(df)) df <- list(df)
-  if (!missing(along)) {
-    if (along == "country_name" & !alphabetical & exists("countries_names")) {
-      levels <- c()
-      for (l in countries_names) if (l %in% Levels(df[[1]][[along]])) levels <- c(levels, l)
-    } else levels <- Levels(df[[1]][[along]])
+  # if (!missing(along)) {
+  #   if (along == "country_name" & !alphabetical & exists("countries_names")) {
+  #     levels <- c()
+  #     for (l in countries_names) if (l %in% Levels(df[[1]][[along]])) levels <- c(levels, l)
+  #   } else levels <- Levels(df[[1]][[along]])
+  #   levels <- sub("^\\*", "", rev(levels))
+  # }
+  if (!is.null(levels) & !missing(along)) {
+    levels <- rev(levels)
+    data <- lapply(levels, function(l) if (exists("special_levels") && l %in% names(special_levels)) df[[1]][df[[1]][[special_levels[[l]]$var]] %in% special_levels[[l]]$value,] else df[[1]][df[[1]][[along]]==l,])
+  } else if (!missing(along)) {
+    levels <- Levels(df[[1]][[along]])
     levels <- sub("^\\*", "", rev(levels))
-  }
-  if (!missing(along)) data <- lapply(seq_along(levels), function(l) return(df[[1]][df[[1]][[along]]==levels[l],]))
-  else data <- df
+    data <- lapply(seq_along(levels), function(l) return(df[[1]][df[[1]][[along]]==levels[l],]))
+  } else data <- df
   if (!missing(along) & missing(labels)) labels <- paste(along, levels, sep=": ")
   if (!missing(along) & length(labels) < length(df)*length(levels)*length(vars)) labels <- labelsN(labels, levels, parentheses = parentheses)
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
@@ -1269,7 +1276,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
     } else {
       not_nan <- sapply(c(1:ncol(plotted_data)), function(j) any(!is.nan(plotted_data[,j])))
       plotted_data <- plotted_data[, not_nan, drop=FALSE]
-      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
+      return(barres(data = plotted_data, labels=labels[rev(not_nan)], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
                     miss=miss, weights = weights, fr=fr, rev=rev, color=color, rev_color = rev_color, hover=hover, sort=F, thin=thin, showLegend=showLegend, export_xls = export_xls, error_margin = error_margin))
     } }
 }
@@ -1738,14 +1745,14 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
   }
 }
 
-barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T, nolabel = F) {
+barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T, nolabel = F, levels = levels_default) {
   if (missing(folder)) folder <- automatic_folder(along = "country", data = df, several = "all")
   for (def in barres) {
     # tryCatch({
     vars_present <- def$vars %in% names(df)
     if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
                                                  miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
-    else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
+    else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
                          miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
     if (print) print(plot)
     save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
