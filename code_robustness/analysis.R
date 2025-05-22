@@ -52,6 +52,14 @@ e$duration_feedback
 for (v in variables_variant) print(decrit(v, e)) # Pbs: ncqg, preferred_transfer_mean
 
 
+##### Weights #####
+sapply(countries[-9], function(c) representativity_index(d(c)$weight)) # from .54 (CH) to .94 (JP)
+sapply(countries[-c(9:10)], function(c) representativity_index(d(c)$weight_vote)) # from .51 (PL) to .81 (JP)
+sapply(c("all", countries[-9]), function(c) round(length(which(d(c)$weight<=0.25 | d(c)$weight>=4))/nrow(d(c)), 3)) # all: . from 0 (JP) to .24 (CH)
+sapply(countries[-c(9:10)], function(c) round(length(which(d(c)$weight_vote<=0.25 | d(c)$weight_vote>=4))/nrow(d(c)), 3)) # from 0 (JP) to .34 (CH)
+representativity_index(all$weight_country) # .67
+
+
 ##### Fields #####
 # Global poverty/inequality not a concern nor wish but appears prominently in injustice.
 decrit(e$variant_field)

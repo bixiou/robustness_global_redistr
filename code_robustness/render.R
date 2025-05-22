@@ -250,8 +250,8 @@ barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "gcs_support")])
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_saudi)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_merge_EU)
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
 
 
 ##### Maritime #####

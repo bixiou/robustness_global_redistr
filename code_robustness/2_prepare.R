@@ -798,8 +798,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # e$variant_realism <- ifelse(e$variant_realism == 1, "Info", "No info") # => info_solidarity
   e$variant_ncqg_maritime <- ifelse(e$variant_ncqg_maritime %in% 0, "maritime", e$variant_ncqg)
   
+  e$n <- paste0(country, 1:nrow(e))
   if (!country %in% c("RU", "SA")) {
-    e$n <- paste0(country, 1:nrow(e))
     e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
     e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number)
     for (v in intersect(variables_conjoint_domains, names(e))) {
@@ -846,11 +846,12 @@ Sys.time() - start_time # 10 min
 # data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
+# write.csv(all[, c("n", "country", "distr", "id", "interview")], "../Adrien's/all_id.csv", quote = F, row.names = F)
 # save.image(".RData")
 
 # Oldies
 
-# CH <- prepare(country = "CH", scope = "final", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = F)
+# PL <- prepare(country = "PL", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T, remove_id = T)
 
 # pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
