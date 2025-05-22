@@ -130,9 +130,9 @@ labels_vars <- c(
   "solidarity_support_bridgetown" = "Bridgetown initiative: MDBs expanding sustainable investments in LICs, and at lower interest rates", # Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)
   "solidarity_support_loss_damage" = "L&D: Developed countries financing a fund to help vulnerable countries cope with cliamte Loss and damage", # Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change
   "solidarity_support_ncqg_300bn" = "NCQG: Developing countries providing $300 bn a year in climate finance for developing countries", # Developed countries providing $300 billion a year (0.4% of their GDP) to finance climate action in developing countries
-  "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
+  "solidarity_support_shipping_levy" = "International levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
   # "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
-  "solidarity_support_aviation_levy" = "International levy on carbon emissions from aviation, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
+  "solidarity_support_aviation_levy" = "International levy on aviation carbon emissions, raising prices by 30%, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
   "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
   "transfer_how_govt_conditional" = "Government, conditional on financing poverty reduction", # Transfers to the national government conditioned on the use of funds for poverty reduction programs
   "transfer_how_govt_unconditional" = "Government, unconditional", # Unconditional transfers to the national government
@@ -211,7 +211,6 @@ vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_merge_EU)
 
 heatmap_multiple(heatmaps_defs)
 # heatmap_multiple(heatmaps_defs)
@@ -219,10 +218,10 @@ heatmap_multiple(heatmaps_defs)
 
 ##### barres_defs #####
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
+  "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T), #, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)) TODO add var name in transform_mean to use non _agg var and compute true mean
   "maritime_split_decarbonization" = list(height = 250),
   "maritime_split_companies" = list(height = 250),
   "maritime_split_ldc" = list(height = 250),
-  "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T), #, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)) TODO add var name in transform_mean to use non _agg var and compute true mean
   "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
   "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T)
   # "split_many"
@@ -239,7 +238,7 @@ vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_avia
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 barresN_defs <- fill_barres(vars_barres, along = "country_name")
 # TODO! vote_intl_coalition SA? what does it mean?
-vars_barres1 <- c("split_few", "split_many", "split_many_global", "maritime_split") #vars_barres
+vars_barres1 <- c("split_few", "split_many", "split_many_global") # , "maritime_split" TODO: no error when variable not found
 vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 
 ##### Plot #####

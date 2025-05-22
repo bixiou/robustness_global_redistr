@@ -279,10 +279,10 @@ break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<b
   return(paste(broken_string, collapse = sep))
 }
 
-break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>|atop|\n", max_lines = 3) {
+break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
   # used in heatmap_multiple
   broken_strings <- strings
-  for (s in seq_along(strings)) if (!grepl(sep, strings[s])) {
+  for (s in seq_along(strings)) if (!grepl("<br>|atop|\n", strings[s])) {
     broken_strings[s] <- break_string(strings[s], max_length = max_length, soft_max_length = soft_max_length, sep = sep, max_lines = max_lines) }
   return(broken_strings)
 }
@@ -1679,7 +1679,7 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
         if (cond == "/") {
           binary_rows <- which(rowMeans(neg)==0)
           temp[binary_rows,] <- pos[binary_rows,]
-          row.names(temp)[binary_rows] <- paste0(rowNames(temp)[binary_rows], "*")
+          row.names(temp)[binary_rows] <- paste0(row.names(temp)[binary_rows], "*")
         }
         for (i in 1:length(vars)) if (is.logical(data[[vars[i]]])) temp[i, ] <- pos[i, ]
       } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = cond, sort = FALSE, weights = weights) } # on_control = on_control, alphabetical = alphabetical, 
@@ -1718,7 +1718,7 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
     if (!"labels" %in% names(heatmaps[[name]])) {
       if (!"vars" %in% names(heatmaps[[name]])) { warning(paste("'vars' must be specified for", name)) }
       heatmaps[[name]]$labels <- c()
-      for (var in heatmaps[[name]]$vars) heatmaps[[name]]$labels <- c(heatmaps[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var)))
+      for (var in heatmaps[[name]]$vars) heatmaps[[name]]$labels <- c(heatmaps[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), sep = "\n"))
     }
     if (!"conditions" %in% names(heatmaps[[name]])) heatmaps[[name]]$conditions <- conditions
     if (!"sort" %in% names(heatmaps[[name]])) heatmaps[[name]]$sort <- sort
@@ -1816,7 +1816,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
       if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
     } else {
-      plots <- plots[!name %in% names(plots)]
+      plots[[name]] <- NULL
       warning(paste(name, "not found, removing it."))
     }
   }

@@ -1,3 +1,5 @@
+# TODO: special in barres
+# TODO: check bug fixed unique(PL$vote_original) %in% row.names(votes$PL)
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
@@ -721,7 +723,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
   e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
   e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
-  for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, e[[v]], NA)
+  for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
   
   if (pilot) {
     e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
