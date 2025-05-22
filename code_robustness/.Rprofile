@@ -279,7 +279,7 @@ break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<b
   return(paste(broken_string, collapse = sep))
 }
 
-break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
+break_strings <- function(strings, max_length = 57, soft_max_length = T, sep = "<br>|atop|\n", max_lines = 3) {
   # used in heatmap_multiple
   broken_strings <- strings
   for (s in seq_along(strings)) if (!grepl(sep, strings[s])) {
@@ -1718,7 +1718,7 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
     if (!"labels" %in% names(heatmaps[[name]])) {
       if (!"vars" %in% names(heatmaps[[name]])) { warning(paste("'vars' must be specified for", name)) }
       heatmaps[[name]]$labels <- c()
-      for (var in heatmaps[[name]]$vars) heatmaps[[name]]$labels <- c(heatmaps[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var), sep = "\n"))
+      for (var in heatmaps[[name]]$vars) heatmaps[[name]]$labels <- c(heatmaps[[name]]$labels, break_strings(ifelse(var %in% names(labels), labels[var], var)))
     }
     if (!"conditions" %in% names(heatmaps[[name]])) heatmaps[[name]]$conditions <- conditions
     if (!"sort" %in% names(heatmaps[[name]])) heatmaps[[name]]$sort <- sort

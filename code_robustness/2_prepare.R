@@ -20,17 +20,17 @@ countries_EU <- countries_names[1:5]
 countries_Eu <- countries_names[1:7]
 pilot_countries <- c("PL", "GB", "US")
 pilot_countries_all <- c(pilot_countries, "")
-special_levels <- list("All" = list("var" = "country_name", "value" = countries_names),
-                       "Europe" = list("var" = "country_name", "value" = countries_Eu), 
-                       "European Union" = list("var" = "country_name", "value" = countries_EU),
+special_levels <- list("All" = list("var" = "country_name", "value" = countries_names), "$ bold('All')" = list("var" = "country_name", "value" = countries_names),
+                       "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), 
+                       "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU),
                        "Saudi citizens" = list("var" = "saudi", "value" = T),
                        "U.S. Democrats" = list("var" = "vote_voters", "value" = "Harris"),
                        "U.S. Republicans" = list("var" = "vote_voters", "value" = "Trump"),
                        "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"))
-levels_default <- c("All", "Europe", countries_names)
-levels_EU <- c("All", "European Union", countries_names)
-levels_saudi <- c("All", "Europe", countries_names[1:10], "Saudi citizens", countries_names[11])
-levels_merge_EU <- c("All", "European Union", countries_names[!countries_names %in% countries_EU])      
+levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
+levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
+levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
+levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])      
                   
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))

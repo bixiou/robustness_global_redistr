@@ -61,10 +61,18 @@ labels_vars <- c(
   "gcs_belief_own" = "Belief about GCS support in own country",
   "gcs_belief_us" = "Belief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
   "ncs_support" = "Supports the National Climate Scheme", 
-  "ics_high_support" = "Supports the GCS if its other members* cover 64-72% of world emissions\n*High: Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)", 
-  "ics_high_color_support" = "Supports the GCS if its other members* cover 64-72% of world emissions,\n*High color: High + Distributive effects displayed using colors on world map", 
-  "ics_mid_support" = "Supports the GCS if its other members* cover 56% of world emissions\n*Mid: Global South + China)", 
-  "ics_low_support" = "Supports the GCS if its other members* cover 25-33% of world emissions\n*Low: Global South + EU)", 
+  "ics_high_support" = "$ atop('                    Supports the GCS if its other members* cover 64-72% of world emissions', 
+                               '*' * bold(High) * ': Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)')", 
+  "ics_high_color_support" = "$ atop('     Supports the GCS if its other members* cover 64-72% of world emissions',          
+                                     '*' * bold('High color') * ': High + Distributive effects displayed using colors on world map')", 
+  "ics_mid_support" = "$ atop('Supports the GCS if its other members* cover 56% of world emissions', 
+                              '                                                                   *' * bold('Mid') * ': Global South + China')", 
+  "ics_low_support" = "$ atop('Supports the GCS if its other members* cover 25-33% of world emissions', 
+                              '                                                                            *' * bold('Low') * ': Global South + EU')", # The syntax $ paste uses plotmath, cf. https://www.rdocumentation.org/packages/grDevices/versions/3.6.2/topics/plotmath
+  # "ics_high_support" = "Supports the GCS if its other members* cover 64-72% of world emissions\n*High: Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)", 
+  # "ics_high_color_support" = "Supports the GCS if its other members* cover 64-72% of world emissions\n*High color: High + Distributive effects displayed using colors on world map", 
+  # "ics_mid_support" = "Supports the GCS if its other members* cover 56% of world emissions\n*Mid: Global South + China", 
+  # "ics_low_support" = "Supports the GCS if its other members* cover 25-33% of world emissions\n*Low: Global South + EU", 
   "attention_test" = "Attention test",
   # "global_tax_support" = "Supports tax on millionaires' wealth with 30% funding low-income countries if\nGlobal: implemented by all other countries",
   # "hic_tax_support" = "Supports tax on millionaires' wealth with 30% funding low-income countries if\nHigh-income: implemented by all other HICs and not by some MICs (such as China)",
@@ -203,6 +211,7 @@ vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_merge_EU)
 
 heatmap_multiple(heatmaps_defs)
 # heatmap_multiple(heatmaps_defs)
