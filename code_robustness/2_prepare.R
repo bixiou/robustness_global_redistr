@@ -1,5 +1,3 @@
-# TODO: special in barres
-# TODO: check bug fixed unique(PL$vote_original) %in% row.names(votes$PL)
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
@@ -365,14 +363,16 @@ define_var_lists <- function() {
                                      "solidarity_support_bridgetown"), "_short")
   # variables_support <<- names(e)[grepl('support', names(e))]
   variables_wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
-  variables_top_tax_support <<- c("top1_tax_support", "top3_tax_support", "top1_tax_support_cut", "top3_tax_support_cut")
-  variables_likert <<- c(variables_solidarity_support, top_tax_support, "reparations_support", variables_solidarity_support_short)
+  variables_top_tax_support <<- c("top1_tax_support", "top3_tax_support")
+  variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
   variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", wealth_tax_support, "couple")
   variables_race <<- c("race", "race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
   variables_global_movement <<- c("global_movement_no", "global_movement_spread", "global_movement_demonstrate", "global_movement_strike", "global_movement_donate")
   variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none")
   variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
+  variables_custom_redistr_param <<- c("custom_redistr_winners", "custom_redistr_losers", "custom_redistr_degree")
+  variables_custom_redistr_all <<- c(variables_custom_redistr_param, "custom_redistr_income_min", "custom_redistr_transfer", variables_custom_redistr)
   variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_ics", "variant_sliders", "variant_radical_transfer", 
                           "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field", "variant_sliders")
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
@@ -408,6 +408,7 @@ define_var_lists <- function() {
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
                               "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")
   variables_sustainable_future <<- c("sustainable_future_a", "sustainable_future_s", "sustainable_future_b")
+  variables_radical_redistr <<- c(variables_top_tax_support, "sustainable_future", "convergence_support", "global_movement_spread", "vote_intl_coalition", "reparations_support", "my_tax_global_nation")
   variables_group_defended_5 <<- c("universalist", "antispecist", "humanist", "nationalist", "individualist")
   variables_group_defended_4 <<- c("antispecist", "humanist", "nationalist", "individualist")
   variables_group_defended_3 <<- c("universalist", "nationalist", "individualist")
@@ -474,8 +475,8 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
   }
   
   for (k in 1:nrow(df)) {
-    winners <- df$custom_redistr_winners[k]
-    non_losers <- 1000 - df$custom_redistr_losers[k]
+    winners <- 10*df$custom_redistr_winners[k]
+    non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
     custom_redistr_current_income <- df$income_exact[k] # TODO correct income_exact (income_exact/unit/2 if couple, etc.)
     if (!is.na(winners)) {
@@ -685,6 +686,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if (pilot) e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
   else e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("A", e$sustainable_future_a), T, F)
   e <- create_item("vote_intl_coalition", labels = c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
+  e$vote_intl_coalition_less_likely <- e$vote_intl_coalition == -1
   if ("convergence_support" %in% names(e)) e$convergence_support[is.na(e$convergence_support)] <- "prefer not" # only 11, when I realized that there was not yet "force response" for this question
   if ("convergence_support" %in% names(e)) e <- create_item("convergence_support", labels = c("No" = -1, "PNR" = 0, "Yes" = 1), grep = T, values = c("No", "prefer not", "Yes"), missing.values = c(0, NA), df = e)
   e <- create_item("gcs_comprehension", labels = c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
@@ -779,6 +781,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$race_asked <- e$country %in% "US"
   e$custom_redistr_asked <- e$cut %in% 0 & country != "RU" # Asked in all non-pilot except RU
   e$radical_redistr_asked <- e$why_hic_help_lic_asked <- e$global_movement_asked <- e$cut %in% 0 | e$variant_radical_transfer %in% 1 # Asked in all non-pilot
+  for (v in c("winners", "losers")) e[[paste0("custom_redistr_", v)]] <- e[[paste0("custom_redistr_", v)]]/10
   # e$global_movement_asked <- e$cut %in% 0 | e$variant_radical_transfer %in% 1
   # e$transfer_how_asked <- e$cut %in% 0 | e$variant_radical_transfer %in% 0
   for (l in c("race", "global_movement", "why_hic_help_lic", "custom_redistr")) {

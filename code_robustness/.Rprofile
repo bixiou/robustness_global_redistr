@@ -1234,7 +1234,7 @@ labelsN <- function(labels, levels, parentheses = T) {
     labs_other <- levels[1:(length(levels)-1)]
     labs_main <- paste0("<b>", labels, double_dot, "</b><br>", levels[length(levels)])  }
   for (l in seq_along(labels)) new_labels <- c(new_labels, labs_other, labs_main[l])
-  new_labels <- gsub("')", "</b>", gsub("$ bold('", "<b>", new_labels, fixed = T), fixed = T)
+  new_labels <- gsub("\\$ bold\\('(.*)'\\)", "<b>\\1</b>", gsub("\\$ italic\\('(.*)'\\)", "<i>\\1</i>", new_labels))
   return(rev(new_labels)) # version var (lev1) / (lev2) / ...
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
@@ -1578,7 +1578,9 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
   # col <- colorRampPalette(color2)(200)
   # # if (proportion) col <- colorRampPalette(c(rep("#67001F", 10), col2))(200)
   par(xpd=TRUE)
-  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
+  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), 
+        tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, 
+        sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
 heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", # on_control = FALSE, alphabetical = T, 
                           export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {

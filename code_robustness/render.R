@@ -143,7 +143,7 @@ labels_vars <- c(
   "sustainable_future" = "Prefers sustainable future", 
   "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
   "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
-  "vote_intl_coalition" = "More/less likely to vote for party if part of worldwide coalition for climate action and global redistribution",
+  "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
   "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
   "well_being_gallup_0" = "Well-being: Gallup, 0-10 scale",
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
@@ -196,6 +196,9 @@ heatmaps_defs <- list(
   "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1"), 
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = ">= 1"),
+  "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1"),
+  "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
+  "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
   "well_being" = list(vars = variables_well_being, conditions = ""),
   "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1"),
   "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1"),
@@ -207,7 +210,7 @@ heatmaps_defs <- list(
 # TODO! vote, fields
 
 ##### vars_heatmaps #####
-vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation") 
+vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation", "reparations_support") 
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
@@ -234,11 +237,11 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
 )
 
 vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "sustainable_future", "vote_intl_coalition", 
-                 "group_defended", "gcs_comprehension", "survey_biased") # 
+                 "group_defended", "reparations_support", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 barresN_defs <- fill_barres(vars_barres, along = "country_name")
-# TODO! vote_intl_coalition SA? what does it mean?
+
 vars_barres1 <- c("split_few", "split_many", "split_many_global") # , "maritime_split" TODO: no error when variable not found
 vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 
@@ -250,8 +253,8 @@ barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_
 
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "gcs_support")])
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all")], levels = levels_merge_EU)
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all")])
+heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
 
 

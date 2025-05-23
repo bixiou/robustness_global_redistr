@@ -202,6 +202,8 @@ with(e, summary(lm((top_tax_support > 0) ~ variant_long)))
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax_full)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax)))
 
+
+##### Radical redistribution #####
 # more likely if party in coalition: 39% / less likely: 16%
 sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$vote_intl_coalition, weight = F)))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$vote_intl_coalition > 0, na.rm = T), 3))
