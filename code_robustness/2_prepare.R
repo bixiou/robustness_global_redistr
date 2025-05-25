@@ -1,3 +1,4 @@
+# TODO: Quota education JP
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
