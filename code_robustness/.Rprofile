@@ -1822,7 +1822,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
       if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
       if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
-      if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
+      # if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
       if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
     } else {
       plots[[name]] <- NULL
@@ -2987,3 +2987,4 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     return(estimate)
 #'   }
 #' }
+

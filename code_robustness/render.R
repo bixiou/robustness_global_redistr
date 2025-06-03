@@ -113,7 +113,7 @@ labels_vars <- c(
   "maritime_split_decarbonization" = "RD&D of zero-emission fuels and ships",
   "why_hic_help_lic_responsibility" = "Responsibility: Historical responsibility of HICs for situation in LICs", # High-income countries have a historical responsibility for the current situation in low-income countries
   "why_hic_help_lic_interest" = "Interest: Long-term interest of HICs to help LICs", # In the long run, it is in the interest of high-income countries to help low-income countries
-  "why_hic_help_lic_duty" = "Duty: Helping countries in need is the right thing to do.", # Helping those in need is the right thing to do. This is also true at the international level
+  "why_hic_help_lic_duty" = "Duty: Helping countries in need is the right thing to do", # Helping those in need is the right thing to do. This is also true at the international level
   "why_hic_help_lic_none" = "None of the above",
   "global_movement_no" = "Would not support such a movement",
   "global_movement_spread" = "Could sign a petition and spread ideas",
@@ -123,7 +123,7 @@ labels_vars <- c(
   "solidarity_support_billionaire_tax" = "Minimum tax of 2% on billionaires' wealth, in voluntary countries", # A minimum tax of 2% on the wealth of billionaires, in voluntary countries
   "solidarity_support_corporate_tax" = "Raise global minimum tax on profit from 15% to 35%, allocating revenues to countries based on sales", 
   # Raising the globally agreed minimum tax rate on profits of multinational firms from 15% to 35%, closing loopholes and allocating revenues to countries where sales are made
-  "solidarity_support_expanding_security_council" = "Expand Security Council to new permanent members (e.g. India, Brazil, AU), restrict veto use", 
+  "solidarity_support_expanding_security_council" = "Expand Security Council to new permanent members (e.g. India, Brazil, African Union), restrict veto use", 
   # Expanding the UN Security Council (in charge of peacekeeping) to new permanent members such as India, Brazil, and the African Union, and restricting the use of the veto
   "solidarity_support_foreign_aid" = "At least 0.7% of developed countries' GDP in foreign aid", # Developed countries contributing at least 0.7% of their GDP in foreign aid and development assistance
   "solidarity_support_debt_relief" = "Debt relief for vulnerable countries, suspending payments until they are more able to repay", # Debt relief for vulnerable countries by suspending repayments until they are better able to repay, promoting their development
@@ -138,7 +138,7 @@ labels_vars <- c(
   "transfer_how_govt_unconditional" = "Government, unconditional", # Unconditional transfers to the national government
   "transfer_how_local_authorities" = "Local authorities", # Unconditional transfers to local authorities (municipality, village chief...)
   "transfer_how_ngo" = "Local NGOs with democratic processes", # Transfers to local NGOs with democratic decision-making processes
-  "transfer_how_social_protection" = "Target cash transfers (child allowances, disability & elderly pensions)", # Cash transfers to parents (child allowances), to the disabled and to the elderly
+  "transfer_how_social_protection" = "Targeted cash transfers (child allowances, disability & elderly pensions)", # Cash transfers to parents (child allowances), to the disabled and to the elderly
   "transfer_how_cash_unconditional" = "Unconditional cash transfers to each household", # Unconditional cash transfers to each household
   "sustainable_future" = "Prefers sustainable future", 
   "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
@@ -189,7 +189,7 @@ heatmaps_defs <- list(
   "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0), 
   "duration" = list(vars = variables_duration, conditions = ""),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c("")),
-  "transfer_how" = list(vars = variables_transfer_how, conditions = ">= 1"), 
+  "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T), 
   "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T),
   "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
@@ -250,6 +250,8 @@ vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
 barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_barres1]], nolabel = T)
 # barres_multiple(barres_defs)
+barres_multiple(barresN_defs[c("ncqg", "ncqg_full")])
+barres_multiple(barres_defs["split_few"])
 
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
@@ -288,3 +290,43 @@ barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, so
 ##### Custom redistr #####
 plot(0:1000, c(0, round(thousandile_world_disposable_inc)), type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
 lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")
+
+
+##### Presentation #####
+# Revenue split
+barres_multiple(barres_defs["split_few"])
+
+# Warm glow -- moral substitute
+
+# International Climate Scheme
+heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")])
+
+# Realistic global policies
+heatmap_multiple(heatmaps_defs[c("solidarity_support")])
+
+# Warm glow -- realism
+
+# International wealth tax
+heatmap_multiple(heatmaps_defs[c("wealth_tax_support")])
+
+# NCQG
+barres_multiple(barresN_defs[c("ncqg", "ncqg_full")])
+
+# Preferred means of transfers
+heatmap_multiple(heatmaps_defs[c("transfer_how")])
+
+# Radical redistribution
+heatmap_multiple(heatmaps_defs[c("radical_redistr")])
+
+barres_multiple(barresN_defs[c("group_defended")])
+heatmap_multiple(heatmaps_defs[c("global_movement")])
+heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")])
+heatmap_multiple(heatmaps_defs[c("sustainable_future")])
+barres_multiple(barresN_defs[c("vote_intl_coalition")])
+
+# Custom redistribution
+heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
+
+# Conjoint analysis
+
+# Open-ended fields
