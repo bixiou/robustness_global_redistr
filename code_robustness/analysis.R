@@ -187,6 +187,7 @@ sapply(variables_transfer_how, function(v) print(decrit(v, e)))
 # -> use long version
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$sustainable_future, na.rm = T), 3))
 with(e, summary(lm(sustainable_future ~ variant_sustainable_future))) 
+with(e, summary(lm(sustainable_future ~ variant_sustainable_future * country))) 
 
 
 ##### Radical tax #####

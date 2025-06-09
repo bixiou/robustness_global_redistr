@@ -1,5 +1,8 @@
 # TODO! weight_control (pb: control group varies => estimate from regression / compute weights using NA)
 # TODO: Quota education JP
+# TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
+# TODO! Remove NAs due to change of policies.json after a few recorded answers, both in variables_conjoint_policies and in [country].dat
+# View(all[,c(variables_conjoint_policies, "n", "conjoint_misleading")])
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
@@ -418,6 +421,7 @@ define_var_lists <- function() {
   variables_field_all <<- c(variables_field, "comment_field")
   variables_conjoint_domains <<- c("F-1-1", "F-1-2", "F-1-3", "F-1-4", "F-1-5") # , "F-1-6"
   variables_conjoint_policies <<- c("F-1-1-1", "F-1-1-2", "F-1-1-3", "F-1-1-4", "F-1-1-5", "F-1-2-1", "F-1-2-2", "F-1-2-3", "F-1-2-4", "F-1-2-5") #, "F-1-1-6", "F-1-2-6"
+  variables_conjoint_policies_original <<- paste0(variables_conjoint_policies, "_original")
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "home", "millionaire", "nationality_SA", "voted", "vote")
@@ -856,7 +860,9 @@ Sys.time() - start_time # 10 min
 
 # Oldies
 
-# PL <- prepare(country = "PL", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T, remove_id = T)
+# CHa <- prepare(country = "CH", scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+
+# write.csv(CHa$id[CHa$excluded %in% "QuotaMet" & CHa$income_quartile < 3 & CHa$education_quota %in% "Below upper secondary"], "ID_CH_quotafull_below_upper.csv", quote = F, row.names = F)
 
 # pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)

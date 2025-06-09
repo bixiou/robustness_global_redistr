@@ -55,7 +55,8 @@ package("openxlsx") # read.xlsx
 package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
 package("ivreg") # ivreg
-package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), clone repo, setwd(/cjoint/R), build(), install()
+package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), devtools::install_github("bixiou/cjoint") 
+#clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
 # package("list") # list experiment aka. item count technique: ictreg
@@ -1509,7 +1510,7 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
   if (any(class(plot) %in% c("data.frame", "array"))) {
     # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
     file <- paste(sub("figures", "xlsx", folder), filename, ".xlsx", sep='') # xlsx
-    write.xlsx(as.data.frame(plot), file, rowNames = T, overwrite = T)
+    write.xlsx(as.data.frame(plot), file, row.names = T, overwrite = T)
   } else {
     file <- paste0(folder, filename, ".", format)
     # print(file)
@@ -1534,7 +1535,7 @@ save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '..
   if (any(class(plot) == "data.frame")) {
     # file <- paste(folder, "xls/", filename, ".xlsx", sep='')
     file <- paste(sub("figures", "xlsx", folder), filename, ".xlsx", sep='')
-    write.xlsx(plot, file, rowNames = T, overwrite = T)
+    write.xlsx(plot, file, row.names = T, overwrite = T)
     print(file)
   } else {
     file <- paste(folder, filename, ".", format, sep='')

@@ -24,15 +24,15 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
   main_language <- languages_country[[sub("p", "", df)]][1]
   policies_l <- c(unlist(setNames(policies_conjoint[[main_language]], conjoint_attributes)), "-" = "-")
   csv.path <- paste0("../conjoint_analysis/ca_", df, ".csv")
-  write.csv(d(df)[, c(variables_conjoint_all, 'conjoint_number', 'conjoint_misleading', 'conjoint', 'n')], csv.path, row.names = FALSE) # !is.na(d(df)$conjoint_number)
+  write.csv(d(df)[, c(variables_conjoint_all, 'conjoint_misleading', 'conjoint', 'n')], csv.path, row.names = FALSE) # !is.na(d(df)$conjoint_number) 'conjoint_number', 
   temp <- readLines(csv.path)
   writeLines(c(temp[1], temp), csv.path)
   
   # /!\ Bugs at CIRED but works well at home
   
-  ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_misleading', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint]
+  ca[[df]] <- read.qualtrics(csv.path, responses = 'conjoint_misleading', covariates = c(variables_conjoint_policies), respondentID = "n") # names(d(n))[cols_conjoint] , letter = "F"
   names(ca[[df]])[1] <- "n"
-  ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "conjoint", "conjoint_number", "n"))], ca[[df]]) # vote
+  ca[[df]] <- merge(d(df)[, intersect(names(d(df)), c("country", "conjoint", "n"))], ca[[df]]) # vote "conjoint_number", 
   # names(policies_conjoint[["EN-GB"]])
   # domain_names <- names(policies_conjoint[[main_language]])
   # for (i in 1:5) {
@@ -55,7 +55,8 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
   # /!\ But beware, if the question wasn't asked to everyone, this will attribute 0.5 instead of NA to some respondents!
   if (include_indifferent) ca[[df]]$selected[ca[[df]]$conjoint %in% "Neither of them"] <- .5
   else ca[[df]] <- ca[[df]][!ca[[df]]$conjoint %in% "Neither of them",]
-  amce[[df]] <- amce(formula_cjoint, ca[[df]], design = design_cjoint, cluster = FALSE, weights = NULL)
+  if (any(is.na(ca[[df]]))) warning(paste("/!\\", sum(sapply(1:nrow(ca[[df]]), function(i) any(is.na(ca[[df]][i,]))))), "rows with NAs have been removed in ", df)
+  amce[[df]] <- amce(formula_cjoint, ca[[df]][sapply(1:nrow(ca[[df]]), function(i) !any(is.na(ca[[df]][i,]))),], design = design_cjoint, cluster = FALSE, weights = NULL)
   # if (lang == "main") 
   for (i in 1:length(amce[[df]]$attributes)) amce[[df]]$user.names[[i+1]] <- names(policies_conjoint[[main_language]])[i]
   for (i in 1:length(amce[[df]]$user.levels)) amce[[df]]$user.levels[[i]] <- policies_l[amce[[df]]$user.levels[[i]]]
@@ -63,9 +64,23 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
 }
 View(ca[[df]])
 
+for (df in countries[!countries %in% c("SA", "RU")]) {
+  plot(amce[[df]], xlab = "Average Marginal Component Effect", text.size = 16)
+  save_plot (filename = paste0("conjoint_", df), folder = paste0('../figures/', df, '/'), width = 1100, height = 500, method='dev', trim = T, format = 'pdf') 
+}
+
 plot(amce$GBp)
 plot(amce$PLp)
 plot(amce$USp)
+plot(amce$FR) # !34
+plot(amce$DE) # !50
+plot(amce$IT)
+plot(amce$PL)
+plot(amce$ES) # !55
+plot(amce$GB)
+plot(amce$CH) # !4
+plot(amce$JP) # display
+plot(amce$US) # !18
 
 
 ##### Attempt to make it work at CIRED #####

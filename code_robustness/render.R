@@ -236,7 +236,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "sustainable_future", "vote_intl_coalition", 
+vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", 
                  "group_defended", "reparations_support", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
@@ -330,3 +330,8 @@ heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
 # Conjoint analysis
 
 # Open-ended fields
+
+## Other
+barres_defs[["solidarity_support_billionaire_tax"]]$labels <- "Un impôt minimum de 2% sur la fortune des milliardaires,<br>dans les pays volontaires"
+barres_defs[["solidarity_support_billionaire_tax"]]$legend <- c("Très opposé⋅e", "Plutôt opposé⋅e", "Indifférent⋅e ou ne sais pas", "Plutôt favorable", "Très favorable")
+barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, levels = "France")
