@@ -237,7 +237,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
 )
 
 vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", 
-                 "group_defended", "reparations_support", "gcs_comprehension", "survey_biased") # 
+                 "group_defended", "reparations_support", "gcs_support_control", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 barresN_defs <- fill_barres(vars_barres, along = "country_name")
@@ -250,11 +250,12 @@ vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
 barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_barres1]], nolabel = T)
 # barres_multiple(barres_defs)
-barres_multiple(barresN_defs[c("ncqg", "ncqg_full")])
+barres_multiple(barresN_defs["gcs_support_control"])
 barres_multiple(barres_defs["split_few"])
 
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
+heatmap_multiple(heatmaps_defs["gcs_ics_all"])
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all")])
 heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])

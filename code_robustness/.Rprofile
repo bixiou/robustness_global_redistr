@@ -32,7 +32,7 @@ package <- function(p, version = NULL, remove = FALSE, github = '') {
 #   # devtools::install_github("iatgen/iatgen")
 # } else library(iatgen)
 # package("ggplot2")
-# if (!is.element("ggalt", installed.packages()[,1])) { devtools::install_github("eliocamp/ggalt@new-coord-proj") 
+# if (!is.element("ggalt", installed.packages()[,1])) { devtools::install_github("eliocamp/ggalt@new-coord-proj")
 # } else package("ggalt") # maps
 # package("janitor") # heatmaps
 # package("ggdist") # nice confidence intervals in regression plots
@@ -55,7 +55,7 @@ package("openxlsx") # read.xlsx
 package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
 package("ivreg") # ivreg
-package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), devtools::install_github("bixiou/cjoint") 
+package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), devtools::install_github("bixiou/cjoint")
 #clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
@@ -189,7 +189,7 @@ package("Hmisc") # describe, decrit
 #' package("descr")
 package("knitr") # plot_crop, representativeness_table
 # options(knitr.kable.NA = '')
-# package("kableExtra") # add_header_above in 
+# package("kableExtra") # add_header_above in
 package("WDI") # World Development Indicators, WDI()
 # package("wbstats") # World Bank
 # package("rootSolve")
@@ -250,7 +250,7 @@ d <- function(str, alt_data = eu, alt_var = "country") {
 n <- function(var) { as.numeric(as.vector(var)) }
 #' #' NSPs <- function(QID) { length(V(QID)[V(QID) == "NSP (Je ne veux pas répondre)"])/length(V(QID)) }
 #' #' nsps <- function(id) { length(v(id)[v(id) == "NSP (Je ne veux pas répondre)"])/length(v(id)) }
-#' CI <- function(estimate, SE, N = NULL, level = 0.95, print = FALSE, digits = 2) { 
+#' CI <- function(estimate, SE, N = NULL, level = 0.95, print = FALSE, digits = 2) {
 #'   margin <- if (is.null(N)) qnorm(1-(1-level)/2) * SE else qt(1-(1-level)/2, df = N) * SE
 #'   ci <- estimate + if (length(margin) > 1) matrix(margin, nrow = length(margin))%*%c(-1, 1) else margin*c(-1, 1)
 #'   if (print) ci <- paste0("[", round(if (is.matrix(ci)) ci[,1] else ci[1], digits), "; ", round(if (is.matrix(ci)) ci[,2] else ci[2], digits), "]")
@@ -262,7 +262,7 @@ Label <- function(var, df = e, multi = FALSE) {
   else {
     if (length(var) == 1 & nrow(df) > 1) var <- df[[var]]
     if (length(memisc::annotation(var))==1) { memisc::annotation(var)[1] }
-    else { label(var)  } 
+    else { label(var)  }
   }
 }
 break_string <- function(string, max_length = 57, soft_max_length = T, sep = "<br>", max_lines = 3) {
@@ -307,8 +307,8 @@ is.pnr <- function(variable, empty_as_pnr = T) { # barres
 #'   if (is.binary(vec)) return(100*mean(vec, na.rm = T))
 #'   else return(100 * sum(!is.na(vec) & vec > 0) / sum(!is.na(vec)))
 #' }
-#' 
-#' barycenter <- function(x, x_prev, x_next, y_prev, y_next) { 
+#'
+#' barycenter <- function(x, x_prev, x_next, y_prev, y_next) {
 #'   lambda <- if (x_next == x_prev) 0 else (x - x_prev)/(x_next - x_prev)
 #'   return(((1 - lambda) * y_prev + lambda * y_next))
 #' }
@@ -355,7 +355,7 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
   return(y_fine)
 }
 #' agg_thresholds <- function(vec, thresholds, labels = NULL, sep = " - ", begin = "", end = "", shift = 0, strict_ineq_lower = T, return = "vec" # min = 0, max = Inf,
-#' ) { 
+#' ) {
 #'   # strict_ineq_lower == T means intervals 50,60 are of type ];] while == F means [;[.
 #'   # shift = 1 (with strict_ineq_lower == T) means levels ]50;60] will be displayed as "[begin]51[sep]60[end]".
 #'   # thresholds <- c(min, thresholds, max)
@@ -436,28 +436,28 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
       warning("Lengths of weight and variable differ, non-weighted results are provided")
       weights <- NULL
     } }
-  
+
   nb_numeric_levels <- length(which(!is.na(suppressWarnings(as.numeric(levels(as.factor(variable)))))))
   is_memisc <- length(memisc::annotation(variable)) > 0
-  
+
   non_missing <- no.na(variable, rep = "") != ""
   if (!miss & numbers & is_memisc) {
     non_missing <- no.na(variable, rep = "") != "" & !is.missing(variable) # TODO? useful?
-    lab <- paste(length(which(is.missing(variable))), "missing obs.", Label(variable)) 
+    lab <- paste(length(which(is.missing(variable))), "missing obs.", Label(variable))
   } else if (miss & !numbers & is_memisc) {
     lab <- Label(variable)
-    if (nb_numeric_levels > 10) { 
-      non_missing <- no.na(variable, rep = "") != "" & !is.na(variable) 
-    } else { 
+    if (nb_numeric_levels > 10) {
+      non_missing <- no.na(variable, rep = "") != "" & !is.na(variable)
+    } else {
       non_missing <- no.na(include.missings(variable), rep = "") != "" & !is.na(variable) }
-  } else if (numbers & !is_memisc) { 
+  } else if (numbers & !is_memisc) {
     lab <- NULL
-  } else {  
-    lab <- Label(variable)  
+  } else {
+    lab <- Label(variable)
   }
   var <- variable[non_missing]
   wgt <- weights[non_missing]
-  
+
   if (!numbers & is_memisc) {
     if (miss) {
       if (nb_numeric_levels > 10) var <- include.missings(var) # Here and line below, was include.missings(variable) (21/03/25)
@@ -470,7 +470,7 @@ decrit <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FA
   output <- capture.output(describe(var, weights = wgt, descript = lab))
   output_cut <- !any(grepl("Proportion", output)) & !any(grepl("Mean", output)) #& any(grepl("lowest", output))
   # output_cut <- F
-  if (output_cut) describe(var, weights = wgt, descript = lab, listunique = 25) # Hmisc might soon include Proportion when listunique is used, cf. https://github.com/harrelfe/Hmisc/issues/193#issuecomment-2738292554 
+  if (output_cut) describe(var, weights = wgt, descript = lab, listunique = 25) # Hmisc might soon include Proportion when listunique is used, cf. https://github.com/harrelfe/Hmisc/issues/193#issuecomment-2738292554
   else describe(var, weights = wgt, descript = lab)
 }
 # Levels_data <- function(var) { # I replaced it by Levels, haven't checked if it may create bugs
@@ -518,7 +518,7 @@ Levels <- function(variable, data = e, miss = TRUE, numbers = FALSE, values = TR
   #   if (is.character(var)) levels(as.factor(include.missings(var)))
   #   else return(as.vector(labels(var))) }
   # else return(levels(as.factor(var))) # as.factor may cause issues as it converts to string
-  
+
 }
 # decrit <- function(variable, miss = FALSE, weights = NULL, numbers = FALSE, data = e, which = NULL, weight = T) {
 #   # if (!missing(data)) variable <- data[[variable]]
@@ -645,7 +645,7 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #' #'     nb_manquants <<- des_miss     }
 #' #'   if (return) return(output)
 #' #' }
-#' reg_formula <- function(dep_var, indep_vars) return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
+reg_formula <- function(dep_var, indep_vars) return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
 #' desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control_variables, indep_labels = NULL, weights = data$weight, add_lines = NULL, model.numbers = T, multicolumn = T, #!mean_above,
 #'                        save_folder = "../tables/", dep.var.labels = NULL, dep.var.caption = c(""), digits= 3, mean_control = FALSE, logit = FALSE, atmean = T, robust_SE = T, omit = c("Constant", "Race: Other"),
 #'                        mean_above = T, only_mean = F, keep = indep_vars, nolabel = F, indep_vars_included = T, no.space = T, print_regs = FALSE, replace_endAB = NULL, oecd_latex = FALSE) {
@@ -706,7 +706,7 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #'     if (!is.data.frame(data)) data <- data[[1]]
 #'     model_total <- lm(as.formula(paste(dep_vars[1], "~", paste("(", indep_vars[covariates_with_several_values(data = data, covariates = indep_vars)], ")", collapse = ' + '))), data = data)
 #'     indep_labels <- create_covariate_labels(names(model_total$coefficients)[-1], regressors_names = labels_vars, keep = keep, omit = "Constant")
-#'     
+#'
 #'     # i_max <- max_i <- 0
 #'     # for (i in seq_along(models)) {
 #'     #   if (length(models[[i]]$coefficients) > max_i) {
@@ -718,9 +718,9 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #'   }
 #'   if (only_mean) mean_above <- T
 #'   table <- do.call(stargazer, c(models, list(out=file_path, header=F, model.numbers = model.numbers,
-#'                                              covariate.labels = if (nolabel) NULL else gsub("\\{", "{", gsub("\\}", "}", gsub("\\$", "$", gsub("\\textbackslash ", "\\", latexify(indep_labels, doublebackslash = FALSE), fixed = T), fixed = T), fixed = T), fixed = T), 
+#'                                              covariate.labels = if (nolabel) NULL else gsub("\\{", "{", gsub("\\}", "}", gsub("\\$", "$", gsub("\\textbackslash ", "\\", latexify(indep_labels, doublebackslash = FALSE), fixed = T), fixed = T), fixed = T), fixed = T),
 #'                                              add.lines = if (!"\\QConstant\\E" %in% keep) list(c(mean_text, means)) else NULL,
-#'                                              coef = coefs, se = SEs, 
+#'                                              coef = coefs, se = SEs,
 #'                                              dep.var.labels = dep.var.labels, dep.var.caption = dep.var.caption, dep.var.labels.include = dep.var.labels.include,
 #'                                              multicolumn = multicolumn, float = F, keep.stat = c("n", "rsq"), omit.table.layout = "n", keep=keep, no.space = no.space
 #'   )))
@@ -813,14 +813,14 @@ multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lap
 #'   if (!nolabel & !missing(covariate.labels)) covariate_labels <- covariate.labels
 #'   if (is.null(keep)) keep <- c(c(covariates)[!covariates %in% omit], if (any(c("(Intercept)", "Intercept", "Constant") %in% omit)) NULL else "Constant")
 #'   dep.var.caption <- ifelse(missing(dep.var.caption), ifelse(exists("labels_vars") && dep.var %in% names(labels_vars), labels_vars[dep.var], gsub("_", "\\_", dep.var, fixed = T)), dep.var.caption)
-#'   
-#'   table <- do.call(stargazer, c(if (include.total) models else models[-1], list(out=NULL, header=F, model.numbers = model.numbers, 
-#'                                                                                 covariate.labels = covariate_labels, coef = if (include.total) coefs else coefs[-1], se = if (include.total) SEs else SEs[-1], #p = ps[-1], 
+#'
+#'   table <- do.call(stargazer, c(if (include.total) models else models[-1], list(out=NULL, header=F, model.numbers = model.numbers,
+#'                                                                                 covariate.labels = covariate_labels, coef = if (include.total) coefs else coefs[-1], se = if (include.total) SEs else SEs[-1], #p = ps[-1],
 #'                                                                                 add.lines = if (display_mean) list(c(mean_text, means)) else NULL,
-#'                                                                                 dep.var.labels = if (is.null(dep_var_labels)) {if (include.total) c("All", along.levels) else along.levels} else dep_var_labels, 
+#'                                                                                 dep.var.labels = if (is.null(dep_var_labels)) {if (include.total) c("All", along.levels) else along.levels} else dep_var_labels,
 #'                                                                                 dep.var.caption = dep.var.caption, multicolumn = F, float = F, keep.stat = c("n", "rsq"), report = report,
 #'                                                                                 omit.table.layout = if (omit.note) "n" else NULL, keep=keep, omit = omit, no.space = no.space)))
-#'   
+#'
 #'   if (!missing(replace_endAB) & length(table) != 50) warning(paste0("Wrong specification for replacement of the last lines: table of length ", length(table)))
 #'   if (!missing(replace_endAB) & length(table) == 50) table <- c(table[1:43], replace_endAB)
 #'   table <- table_mean_lines_save(table, omit = omit, mean_above = mean_above, only_mean = only_mean, indep_labels = covariate_labels, indep_vars = covariates, add_lines = add_lines, file_path = file_path, oecd_latex = FALSE, nb_columns = length(along.levels) + include.total)
@@ -1102,10 +1102,14 @@ export_quotas <- function(waves = countries, order_cols = c("country", "Gender",
 #'   }
 #'   return( matrix(res, ncol=length(vars)) )
 #' }
-dataN <- function(var, data=e, miss=T, weights = T, return = "", fr=F, rev=FALSE, rev_legend = FALSE, levels = NULL) {
+dataN <- function(var, data=e, miss=T, weights = T, return = "", fr=F, rev=FALSE, rev_legend = FALSE, levels = NULL, weight_non_na = T) {
   missing_labels <- c("NSP", "PNR", "Non concerné·e", "Included", "Don't know", "PNR or other", "NSP ou autre", "PNR ou autre", "PNR/Non-voter") # TODO: allow for non-standard PNR in a more straightforward way than adding the argument "fr" and putting its value below
   if (is.character(fr)) missing_labels <- c(missing_labels, fr)
   weight_var <- if (sum(!is.na(data$weight_country)) == nrow(data) && length(unique(data$country)) == 1) "weight_country" else "weight"
+  if (weight_non_na && length(unique(data$country)) == 1 && sum(is.na(data[[var]])) > 0.1*nrow(data)) {
+    data$weight_control[!is.na(data[[var]])] <- weighting(data[!is.na(data[[var]]),], unique(data$country), printWeights = F) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
+    weight_var <- "weight_control"
+  } # /!\ We do not redefine weights for special_levels (as it would require to pre-compute all possible weights and find the corresponding weight vector)
   if (is.null(data[[weight_var]])) weights <- F # TODO? warning
   mat <- c()
   if (is.character(data[[var]]) | (is.numeric(data[[var]]) & !any(grepl("item", class(data[[var]])))) | is.logical(data[[var]])) v <- as.factor(data[[var]]) # before: no is.logical
@@ -1140,18 +1144,18 @@ dataN <- function(var, data=e, miss=T, weights = T, return = "", fr=F, rev=FALSE
   else if (return == "N") return(N)
   else return(matrix(mat, ncol=1))
 }
-dataKN <- function(vars, data=e, miss=T, weights = T, return = "", fr=F, rev=FALSE, rev_legend = FALSE) {
+dataKN <- function(vars, data=e, miss=T, weights = T, return = "", fr=F, rev=FALSE, rev_legend = FALSE, weight_non_na = T) {
   if (!any(vars %in% names(data))) {
     warning("Variable not found")
     out <- c()
   } else {
-    if (length(vars) == 1) out <- dataN(vars, data = data, miss = miss, weights = weights, return = return, fr = fr, rev = rev, rev_legend = rev_legend)
+    if (length(vars) == 1) out <- dataN(vars, data = data, miss = miss, weights = weights, return = return, fr = fr, rev = rev, rev_legend = rev_legend, weight_non_na = weight_non_na)
     else if (is.logical(data[[vars[1]]])) {
       mat <- data1(vars, data, weights)
       levels <- dataN(vars[1], data = data, return = "legend")
       out <- if (return == "legend") levels else mat }
     else {
-      values <- setNames(lapply(vars, function(v) dataN(v, data = data, miss = miss, weights = weights, return = "legend", fr = fr, rev = rev)), vars)
+      values <- setNames(lapply(vars, function(v) dataN(v, data = data, miss = miss, weights = weights, return = "legend", fr = fr, rev = rev, weight_non_na = weight_non_na)), vars)
       nb_values <- sapply(values, length)
       levels <- values[[which(nb_values == max(nb_values))[1]]]
       if (!all(sapply(values, function(var) all(var %in% levels)))) {
@@ -1159,7 +1163,7 @@ dataKN <- function(vars, data=e, miss=T, weights = T, return = "", fr=F, rev=FAL
         for (v in vars) levels <- union(levels, values[[v]]) }
       # The above code (after else) is new (and here to manage cases with different sets of levels for different variables)
       res <- c()
-      for (var in vars) res <- c(res, dataN(var = var, data = data, miss = miss, weights = weights, return = "", fr = fr, rev = rev, levels = levels))
+      for (var in vars) res <- c(res, dataN(var = var, data = data, miss = miss, weights = weights, return = "", fr = fr, rev = rev, levels = levels, weight_non_na = weight_non_na))
       mat <- matrix(res, ncol=length(vars))
       if (rev_legend) levels <- rev(levels)
       out <- if (return == "legend") levels else mat
@@ -1173,7 +1177,7 @@ dataKN <- function(vars, data=e, miss=T, weights = T, return = "", fr=F, rev=FAL
 #' #' dataN3 <- function(var, df = list(e2, e, c), miss=T, weights = T, fr=F, rev=FALSE, return = "") {
 #' #'   if (return %in% c("levels", "legend")) return(dataN(var, df[[1]], miss = miss, weights = weights, fr = fr, rev = rev, return = return))
 #' #'   else return(cbind(dataN(var, df[[1]], miss = miss, weights = weights, fr = fr, rev = rev), dataN(var, df[[2]], miss = miss, weights = weights, fr = fr, rev = rev), dataN(var, df[[3]], miss = miss, weights = weights, fr = fr, rev = rev))) }
-dataNK <- function(var, df = list(e2, e, c), miss=T, weights = T, fr=F, rev=FALSE, return = "") {
+dataNK <- function(var, df = list(e2, e, c), miss=T, weights = T, fr=F, rev=FALSE, return = "", weight_non_na = T) {
   if (return %in% c("levels", "legend")) return(dataN(var, df[[1]], miss = miss, weights = weights, fr = fr, rev = rev, return = return))
   else {
     values <- lapply(df, function(d) dataN(var, data = d, miss = miss, weights = weights, return = "legend", fr = fr, rev = rev))
@@ -1183,7 +1187,7 @@ dataNK <- function(var, df = list(e2, e, c), miss=T, weights = T, fr=F, rev=FALS
       warning("No variable contains all possible values, this may create bugs")
       for (d in 1:length(df)) levels <- union(levels, values[[d]]) }
     # The above code (after else) is new (and here to manage cases with different sets of levels for different variables)
-    return(do.call(cbind, lapply(df, function (d) {dataN(var, d, levels = levels, miss = miss, weights = weights, fr = fr, rev = rev)}))) } 
+    return(do.call(cbind, lapply(df, function (d) {dataN(var, d, levels = levels, miss = miss, weights = weights, fr = fr, rev = rev, weight_non_na = weight_non_na)}))) }
 }
 #' #' data12 <- function(vars, df = list(e, e2), miss=T, weights = T, fr=F, rev=FALSE, return = "") {
 #' #'   if (length(vars)==1) return(dataN2(var=vars, df=list(df[[2]], df[[1]]), miss=miss, weights=weights, fr=fr, rev=rev, return=return))
@@ -1240,7 +1244,7 @@ labelsN <- function(labels, levels, parentheses = T) {
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
 barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL,
-                    rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F, levels = NULL) {
+                    rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F, levels = NULL, weight_non_na = T) {
   if (nolabel & length(labels)==1) labels <- ""
   if (is.data.frame(df)) df <- list(df)
   # if (!missing(along)) {
@@ -1262,7 +1266,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
   if (!missing(along) & length(labels) < length(df)*length(levels)*length(vars)) labels <- labelsN(labels, levels, parentheses = parentheses)
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
   if (!missing(miss)) nsp <- miss
-  data1 <- dataKN(vars, data=df[[1]], miss=miss, weights = weights, return = "", fr=fr, rev=rev)
+  data1 <- dataKN(vars, data=df[[1]], miss=miss, weights = weights, return = "", fr=fr, rev=rev, weight_non_na = weight_non_na)
   if (missing(legend) & missing(hover)) {
     if (is.logical(df[[1]][[vars[1]]])) { showLegend = F; legend <- "True"; hover <- labels; } # data1(var = vars[1], data=df, weights = weights) # before: uncommented and "else" next line
     else hover <- legend <- dataN(var = vars[1], data=df[[1]], miss=miss, weights = weights, return = "legend", fr=fr, rev_legend = rev) }
@@ -1272,7 +1276,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
   else if (return=="labels") return(labels) # labels12(labels[agree], en = !fr, comp = comp, orig = orig)
   else if (return=="legend") return(legend)
   else {
-    plotted_data <- dataNK(vars[agree], df = data, miss=miss, weights = weights, fr=fr, rev=rev, return = "")
+    plotted_data <- dataNK(vars[agree], df = data, miss=miss, weights = weights, fr=fr, rev=rev, return = "", weight_non_na = weight_non_na)
     if (return=="data") { return(plotted_data)
     } else {
       not_nan <- sapply(c(1:ncol(plotted_data)), function(j) any(!is.nan(plotted_data[,j])))
@@ -1325,14 +1329,14 @@ order_agree <- function(data, miss, rev = T, n = ncol(data)) { # used in barres
   return(order(agree, decreasing = rev)) }
 barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FALSE, hover=legend, nsp=TRUE, sort=TRUE, legend=hover, showLegend=T,
                    margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL,
-                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T,
+                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T, 
                    weights = T, fr=F, rev=T, grouped = F, error_margin = F, color_margin = '#00000033', N = NA, font = 'Arial') { # default: Arial (also: Times, Latin Modern Sans, Computer Modern) # OECD: Computer Modern
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
   if (!missing(miss)) nsp <- miss
   labels <- rev(unname(labels))
   if (!missing(vars)) vars <- rev(vars)
   if (missing(data) & !missing(vars)) {
-    data <- dataKN(vars, data=df, miss=miss, weights = weights, return = "", fr=fr, rev=rev)
+    data <- dataKN(vars, data=df, miss=miss, weights = weights, return = "", fr=fr, rev=rev, weight_non_na = weight_non_na)
     N <- dataN(vars[1], data=df, miss=miss, weights = weights, return = "N")
     if ((missing(legend) || is.null(legend)) & missing(hover)) {
       if (is.logical(df[[vars[1]]])) hover <- legend <- labels # data1(var = vars[1], data=df, weights = weights)
@@ -1409,11 +1413,11 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     values <- matrix(values, ncol=length(hover))
   }
   if (!(display_values)) values <- replace(values, T, '')
-  
+
   bars <- plot_ly(x = data[1,], y = labels, type = 'bar', orientation = 'h', text = values[,1], textposition = 'auto',
                   error_x = list(visible = error_margin, array=qnorm(1-0.05/2)*sqrt(data[1,]*(1-data[1,])/(N-1)), color = color_margin), # sort=FALSE,
                   hoverinfo = hovers[,1], name=legend[1], marker = list(color = color[1], line = list(color = 'white'))) %>% # , width = 0
-    
+
     plotly::layout(xaxis = list(title = "",
                                 showgrid = show_ticks,
                                 showline = FALSE,
@@ -1452,7 +1456,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     # showlegend = (showLegend & !((("Yes" %in% legend) | ("Oui" %in% legend)) & (length(legend)<4)))) %>%
     showlegend = showLegend # (showLegend & !(setequal(legend, c('Yes', 'No', 'PNR')) | setequal(legend, c('Oui', 'Non', 'NSP')) | setequal(legend, c('Yes', 'No')) | setequal(legend, c('Oui', 'Non'))))
     ) %>%
-    
+
     # labeling the y-axis
     add_annotations(xref = 'paper', yref = 'y', x = share_labels - 0.01, y = labels,
                     xanchor = 'right',
@@ -1478,7 +1482,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
                                        font = list(family = font, size = 16, color = 'black'),
                                        showarrow = FALSE) } # %>%
   }
-  
+
   # print(nrow(data))
   # print(hover)
   # print(nrow(hovers))
@@ -1494,7 +1498,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     table <- as.data.frame(data, row.names = legend)
     names(table) <- labels
     if (!is.null(file)) save_plot(table, filename = sub(".*/", "", file), folder = sub("/[^/]*$", "/", file))
-    print(table) 
+    print(table)
     # return(table) # old
   }
   # else return(bars) # old
@@ -1569,7 +1573,7 @@ automatic_folder <- function(along = "country_name", data = e, several = "countr
     else folder <- paste0("../figures/", folder, "/")
     return(folder)
   } else warning("'folder' missing")
-} 
+}
 heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, percent = FALSE, colors = 'RdYlBu', nb_digits = NULL) { # type in full, upper, lower
   diag <- if(type=="full") T else F
   # color_lims <- if(proportion) c(0,1) else { if (min(data)>=2 & max(data)<= 2) c(-2,2) else c(min(0, data), max(data)) }
@@ -1579,12 +1583,12 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
   # col <- colorRampPalette(color2)(200)
   # # if (proportion) col <- colorRampPalette(c(rep("#67001F", 10), col2))(200)
   par(xpd=TRUE)
-  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors), 
-        tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat, 
+  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors),
+        tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat,
         sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
-heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", # on_control = FALSE, alphabetical = T, 
-                          export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, remove_na = T, transpose = FALSE) {
+heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", # on_control = FALSE, alphabetical = T,
+                          export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, weight_non_na = T, remove_na = T, transpose = FALSE) {
   # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
   # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
   e <- data
@@ -1595,7 +1599,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
   #   # if (exists("countries_names_hm") & any(c('High-income','Middle-income') %in% special)) names <- countries_names_hm else names <- countries_names
   #   levels <- c()
   #   for (l in names) if (l %in% Levels(data[[along]], data = data)) levels <- c(levels, l)
-  # } 
+  # }
   if (is.null(levels)) levels <- Levels(data[[along]], data = data, values = FALSE) # TODO! Why values = F?
   nb_vars <- length(vars)
   if (length(conditions)==1) conditions <- rep(conditions[1], nb_vars)
@@ -1625,14 +1629,17 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
     # } else if (c %in% c('Europe', 'Europe4')) { df_c <- e[e$continent == "Europe",]
     # } else if (c %in% countries) { df_c <- e[e$country == c,]
     # } else if (c %in% c("Eu", "Eu4", "EU4", "EU")) { df_c <- e[e$continent == "Eu4",]
-    # } else if (c %in% countries_names) { df_c <- e[e$country_name == c,] 
-    } else if (exists("special_levels") && c %in% names(special_levels)) { df_c <- e[e[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,] 
+    # } else if (c %in% countries_names) { df_c <- e[e$country_name == c,]
+    } else if (exists("special_levels") && c %in% names(special_levels)) { df_c <- e[e[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,]
     } else df_c <- NULL
     for (v in 1:nb_vars) {
       # if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) {
       #   temp <- df_c
       #   df_c <- df_c[df_c$wave != "US2",] }
       var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
+      if (weights && weight_non_na && !is.null(df_c) && exists("countries_names") && c %in% countries_names && sum(is.na(df_c[[vars[v]]])) > 0.1*nrow(df_c)) {
+        df_c$weight[!is.na(df_c[[vars[v]]])] <- weighting(df_c[!is.na(df_c[[vars[v]]]),], names_countries[c], printWeights = F) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
+      } # /!\ We do not redefine weights for special_levels (as it would require to pre-compute all possible weights and find the corresponding weight vector)
       if (conditions[v] == "median") {
         # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
         # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
@@ -1657,14 +1664,14 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
 heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, levels = NULL,
                             conditions = c("", ">= 1", "/"), data = e, width = NULL, height = NULL, #alphabetical = T, on_control = FALSE,
                             export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
-                            colors = 'RdYlBu', folder = NULL, weights = T) {
+                            colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T) {
   # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
   # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
   # Longest label: "Richest countries should pay even more to help vulnerable ones" (62 characters, variables_burden_sharing_few).
     if (is.null(folder)) folder <- automatic_folder(along, data)
   if (is.null(width)) width <- ifelse(length(labels) <= 3, 1000, ifelse(length(labels) <= 8, 1550, 1770)) # TODO! more precise than <= 3 vs. > 3
   if (is.null(height)) height <- ifelse(length(labels) <= 3, 163, ifelse(length(labels) <= 8, 400, 600))
-  
+
   for (cond in conditions) {
     filename <- paste(sub("variables_", "", name),
                       case_when(cond == "" ~ "mean",
@@ -1683,8 +1690,8 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
                                 TRUE ~ "unknown"), sep = "_")
     tryCatch({
       if (cond %in% c("/", "-", "//")) {
-        pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = ">= 1", sort = FALSE, weights = weights) # on_control = on_control, alphabetical = alphabetical, 
-        neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = "<= -1", sort = FALSE, weights = weights) # on_control = on_control, alphabetical = alphabetical, 
+        pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = ">= 1", sort = FALSE, weights = weights, weight_non_na = weight_non_na) # on_control = on_control, alphabetical = alphabetical,
+        neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = "<= -1", sort = FALSE, weights = weights, weight_non_na = weight_non_na) # on_control = on_control, alphabetical = alphabetical,
         if (cond == "-") temp <- pos - neg else temp <- pos / (pos + neg)
         if (cond == "/") {
           binary_rows <- which(rowMeans(neg)==0)
@@ -1692,7 +1699,7 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
           row.names(temp)[binary_rows] <- paste0(row.names(temp)[binary_rows], "*")
         }
         for (i in 1:length(vars)) if (is.logical(data[[vars[i]]])) temp[i, ] <- pos[i, ]
-      } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = cond, sort = FALSE, weights = weights) } # on_control = on_control, alphabetical = alphabetical, 
+      } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = cond, sort = FALSE, weights = weights) } # on_control = on_control, alphabetical = alphabetical,
       if (!missing(labels_along) & length(labels_along) == ncol(temp)) colnames(temp) <- labels_along
       if (sort) temp <- temp[order(-temp[,1]),, drop = FALSE]
       if (export_xls) save_plot(as.data.frame(temp), filename = sub("figures", "xlsx", paste0(folder, filename)))
@@ -1712,8 +1719,8 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
     for (vars in vec_vars) {
       vars <- sub("variables_", "", vars)
       if (!vars %in% names(heatmaps)) list_var_list[[vars]]$vars <- if (exists(paste0("variables_", vars))) eval(str2expression(paste0("variables_", vars))) else vars # do not override an already defined variable vec with this name
-    } 
-  }  
+    }
+  }
   if (length(list_var_list) != length(names(list_var_list))) warning("'list_var_list' cannot be an unnamed list.")
   # We fill heatmaps with the entries given in input
   for (name in names(list_var_list)) {
@@ -1722,7 +1729,7 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
     if (!name %in% names(heatmaps)) heatmaps[[name]] <- var_list
     else for (key in names(var_list)) heatmaps[[name]][[key]] <- var_list[[key]] # TODO? if (!key %in% names(heatmaps[[name]])) ?
   }
-  # We complete the missing fields of heatmaps 
+  # We complete the missing fields of heatmaps
   for (name in names(heatmaps)) {
     if (!"name" %in% names(heatmaps[[name]])) heatmaps[[name]]$name <- name
     if (!"labels" %in% names(heatmaps[[name]])) {
@@ -1743,8 +1750,8 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
   for (heatmap in heatmaps) {
     vars_present <- heatmap$vars %in% names(data)
     # if (any(c("gcs_support", "nr_support", "gcs_support_100") %in% heatmap$vars)) data <- data[data$wave != "US2",]
-    heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort, 
-                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, trim = trim, weights = weights, folder = folder, along = along)   
+    heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort,
+                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, trim = trim, weights = weights, weight_non_na = T, folder = folder, along = along)
   }
 }
 
@@ -1786,21 +1793,21 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       multi <- grepl("^variables_", vars) | (exists(paste0("variables_", vars)) & !vars %in% names(df))
       variables <- ifelse(multi, paste0("variables_", sub("variables_", "", vars)), sub("variables_", "", vars))
       if (!vars %in% names(plots)) list_var_list[[vars]]$vars <- if (multi) eval(str2expression(variables)) else variables # do not override an already defined variable vec with this name
-    } 
-  }  
+    }
+  }
   if (length(list_var_list) != length(names(list_var_list))) warning("'list_var_list' cannot be an unnamed list.")
   # We fill plots with the entries given in input
   for (name in names(list_var_list)) {
     if (!is.list(list_var_list[[name]])) list_var_list[[name]] <- list(vars = list_var_list[[name]])
     var_list <- list_var_list[[name]]
     if (!name %in% names(plots)) plots[[name]] <- var_list
-    else for (key in names(var_list)) plots[[name]][[key]] <- var_list[[key]] 
+    else for (key in names(var_list)) plots[[name]][[key]] <- var_list[[key]]
   }
-  # We complete the missing fields of plots 
+  # We complete the missing fields of plots
   for (name in names(plots)) {
     vars <- if (name %in% names(df)) name else if (exists(paste0("variables_", sub("variables_", "", name)))) eval(str2expression(paste0("variables_", sub("variables_", "", name)))) else NULL
     if (!is.null(vars) && any(vars %in% names(df)) && sum(!is.na(df[, vars])) > 0) {
-      if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- vars 
+      if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- vars
       if (!"name" %in% names(plots[[name]])) plots[[name]]$name <- name
       if (!"labels" %in% names(plots[[name]])) {
         plots[[name]]$labels <- c()
@@ -1833,7 +1840,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
   return(plots)
 }
 
-#' 
+#'
 #' #' ##### Other #####
 #' #' CImedian <- function(vec) { # 95% confidence interval
 #' #'   res <- tryCatch(unlist(ci.median(vec[!is.na(vec) & vec!=-1])), error=function(e) {print('NA')})
@@ -1855,13 +1862,13 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     }
 #'     tbl
 #'   }
-#'   
+#'
 #'   #Find no. of vars (all; row; col) for use in subsequent code
 #'   n.row.vars <- length(row.vars)
 #'   n.col.vars <- length(col.vars)
 #'   n.vars <- n.row.vars + n.col.vars
-#'   
-#'   
+#'
+#'
 #'   #Check to make sure all user-supplied arguments have valid values
 #'   stopifnot(as.integer(dec.places) == dec.places, dec.places > -1)
 #'   #type: see next section of code
@@ -1870,17 +1877,17 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   stopifnot(is.logical(addmargins))
 #'   stopifnot(is.logical(subtotals))
 #'   stopifnot(n.vars>=1)
-#'   
+#'
 #'   #Convert supplied table type(s) into full text string (e.g. "f" becomes "frequency")
 #'   #If invalid type supplied, failed match gives user automatic error message
 #'   types <- NULL
 #'   choices <- c("frequency", "row.pct", "column.pct", "joint.pct", "total.pct")
 #'   for (tp in type) types <- c(types, match.arg(tp, choices))
 #'   type <- types
-#'   
+#'
 #'   #If no type supplied, default to 'frequency + total' for univariate tables and to
 #'   #'frequency' for multi-dimenstional tables
-#'   
+#'
 #'   #For univariate table....
 #'   if (n.vars == 1) {
 #'     if (is.null(type)) {
@@ -1896,26 +1903,26 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     # default = frequency count
 #'     type <- "frequency"
 #'   }
-#'   
-#'   
-#'   
+#'
+#'
+#'
 #'   #Check for integrity of requested analysis and adjust values of function arguments as required
-#'   
+#'
 #'   if ((addmargins==FALSE) & (subtotals==FALSE)) {
 #'     warning("WARNING: Request to suppress subtotals (subtotals=FALSE) ignored because no margins requested (addmargins=FALSE)")
 #'     subtotals <- TRUE
 #'   }
-#'   
+#'
 #'   if ((n.vars>1) & (length(type)>1) & (addmargins==TRUE)) {
 #'     warning("WARNING: Only row totals added when more than one table type requested")
 #'     #Code lower down selecting type of margin implements this...
 #'   }
-#'   
+#'
 #'   if ((length(type)>1) & (subtotals==FALSE)) {
 #'     warning("WARNING: Can only request supply one table type if requesting suppression of subtotals; suppression of subtotals not executed")
 #'     subtotals <- TRUE
 #'   }
-#'   
+#'
 #'   if ((length(type)==1) & (subtotals==FALSE)) {
 #'     choices <- c("frequency", "row.pct", "column.pct", "joint.pct", "total.pct")
 #'     tp <- match.arg(type, choices)
@@ -1924,11 +1931,11 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       subtotals<- TRUE
 #'     }
 #'   }
-#'   
+#'
 #'   if ((n.vars > 2) & (n.col.vars>1) & (subtotals==FALSE))
 #'     warning("WARNING: suppression of subtotals assumes only 1 col var; table flattened accordingly")
-#'   
-#'   
+#'
+#'
 #'   if ( (subtotals==FALSE) & (n.vars>2) )  {
 #'     #If subtotals not required AND total table vars > 2
 #'     #Reassign all but last col.var as row vars
@@ -1941,7 +1948,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       n.col.vars <- 1
 #'     }
 #'   }
-#'   
+#'
 #'   #If dec.places not set by user, set to 2 unlesss only one table of type frequency requested,
 #'   #in which case set to 0.  [Leaves user with possibility of having frequency tables with > 0 dp]
 #'   if (is.null(dec.places)) {
@@ -1951,12 +1958,12 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       dec.places <-2
 #'     }
 #'   }
-#'   
+#'
 #'   #Take the original input data, whatever form originally supplied in,
 #'   #convert into table format using requested row and col vars, and save as 'tbl'
-#'   
+#'
 #'   args <- list(...)
-#'   
+#'
 #'   if (length(args) > 1) {
 #'     if (!all(sapply(args, is.factor)))
 #'       stop("If more than one argument is passed then all must be factors")
@@ -2006,10 +2013,10 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       stop("first argument must be either factors or a table object")
 #'     }
 #'   }
-#'   
+#'
 #'   #Convert supplied table style into full text string (e.g. "l" becomes "long")
 #'   style <- match.arg(style, c("long", "wide"))
-#'   
+#'
 #'   #Extract row and col names to be used in creating 'tbl' from supplied input data
 #'   nms <- names(dimnames(tbl))
 #'   z <- length(nms)
@@ -2029,15 +2036,15 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     col.vars <- z
 #'     row.vars <- (1:z)[-col.vars]
 #'   }
-#'   
+#'
 #'   #Take the original input data, converted into table format using supplied row and col vars (tbl)
 #'   #and create a second version (Crosstab) which stores results as percentages if a percentage table type is requested.
 #'   if (type[1] == "frequency")
 #'     Crosstab <- tbl
 #'   else
 #'     Crosstab <- mk.pcnt.tbl(tbl, type[1])
-#'   
-#'   
+#'
+#'
 #'   #If multiple table types requested, create and add these to
 #'   if (length(type) > 1) {
 #'     tbldat <- as.data.frame.table(Crosstab)
@@ -2062,13 +2069,13 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     Crosstab <- xtabs(Freq ~ ., data = tbldat)
 #'     names(dimnames(Crosstab))[z - 1] <- ""
 #'   }
-#'   
-#'   
+#'
+#'
 #'   #Add margins if required, adding only those margins appropriate to user request
 #'   if (addmargins==TRUE) {
-#'     
+#'
 #'     vars <- c(row.vars,col.vars)
-#'     
+#'
 #'     if (length(type)==1) {
 #'       if (type=="row.pct")
 #'       { Crosstab <- addmargins(Crosstab,margin=c(vars[n.vars]))
@@ -2091,34 +2098,34 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'         }
 #'       }
 #'     }
-#'     
+#'
 #'     #If more than one table type requested, only adding row totals makes any sense...
 #'     if (length(type)>1) {
 #'       Crosstab <- addmargins(Crosstab,margin=c(vars[n.vars]))
 #'       tbl <- addmargins(tbl,margin=c(vars[n.vars]))
 #'     }
-#'     
+#'
 #'   }
-#'   
-#'   
+#'
+#'
 #'   #If subtotals not required, and total vars > 2, create dataframe version of table, with relevent
 #'   #subtotal rows / cols dropped [Subtotals only present in tables with > 2 cross-classified vars]
 #'   t1 <- NULL
 #'   if ( (subtotals==FALSE) & (n.vars>2) )  {
-#'     
+#'
 #'     #Create version of Crosstab in ftable format
 #'     t1 <- Crosstab
 #'     t1 <- ftable(t1,row.vars=row.vars,col.vars=col.vars)
-#'     
+#'
 #'     #Convert to a dataframe
 #'     t1 <- as.data.frame(format(t1),stringsAsFactors=FALSE)
-#'     
+#'
 #'     #Remove backslashes from category names AND colnames
 #'     t1 <- apply(t1[,],2, function(x) gsub("\"","",x))
 #'     #Remove preceding and trailing spaces from category names to enable accurate capture of 'sum' rows/cols
 #'     #[Use of grep might extrac category labels with 'sum' as part of a longer one or two word string...]
 #'     t1 <- apply(t1,2,function(x) gsub("[[:space:]]*$","",gsub("^[[:space:]]*","",x)))
-#'     
+#'
 #'     #Reshape dataframe to that variable and category labels display as required
 #'     #(a) Move col category names down one row; and move col variable name one column to right
 #'     t1[2,(n.row.vars+1):ncol(t1)] <- t1[1,(n.row.vars+1):ncol(t1)]
@@ -2126,7 +2133,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     t1[1,(n.row.vars+2)] <- t1[2,(n.row.vars+1)]
 #'     #(b) Drop the now redundant column separating the row.var labels from the table data + col.var labels
 #'     t1 <- t1[,-(n.row.vars+1)]
-#'     
+#'
 #'     #In 'lab', assign category labels for each variable to all rows (to allow identification of sub-totals)
 #'     lab <- t1[,1:n.row.vars]
 #'     for (c in 1:n.row.vars) {
@@ -2134,26 +2141,26 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'         if (lab[r,c]=="") lab[r,c] <- lab[r-1,c]
 #'       }
 #'     }
-#'     
+#'
 #'     lab <- (apply(lab[,1:n.row.vars],2,function(x) x=="Sum"))
 #'     lab <- apply(lab,1,sum)
 #'     #Filter out rows of dataframe containing subtotals
-#'     
+#'
 #'     t1 <- t1[((lab==0) | (lab==n.row.vars)),]
-#'     
+#'
 #'     #Move the 'Sum' label associated with last row to the first column; in the process
 #'     #setting the final row labels associated with other row variables to ""
 #'     t1[nrow(t1),1] <- "Sum"
 #'     t1[nrow(t1),(2:n.row.vars)] <- ""
-#'     
+#'
 #'     #set row and column names to NULL
 #'     rownames(t1) <- NULL
 #'     colnames(t1) <- NULL
-#'     
+#'
 #'   }
-#'   
-#'   
-#'   
+#'
+#'
+#'
 #'   #Create output object 'result' [class: Crosstab]
 #'   result <- NULL
 #'   #(a) record of argument values used to produce tabular output
@@ -2165,27 +2172,27 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   result$percentages <- percentages
 #'   result$addmargins <- addmargins
 #'   result$subtotals <- subtotals
-#'   
+#'
 #'   #(b) tabular output [3 variants]
 #'   result$table <- tbl  #Stores original cross-tab frequency counts without margins [class: table]
 #'   result$Crosstab <- Crosstab #Stores cross-tab in table format using requested style(frequency/pct) and table margins (on/off)
 #'   #[class: table]
 #'   result$Crosstab.nosub <- t1  #Crosstab with subtotals suppressed [class: dataframe; or NULL if no subtotals suppressed]
 #'   class(result) <- "Crosstab"
-#'   
+#'
 #'   #Return 'result' as output of function
 #'   result
-#'   
+#'
 #' }
-#' 
+#'
 #' print.Crosstab <- function(x,dec.places=x$dec.places,subtotals=x$subtotals,...) {
-#'   
+#'
 #'   row.vars <- x$row.vars
 #'   col.vars <- x$col.vars
 #'   n.row.vars <- length(row.vars)
 #'   n.col.vars <- length(col.vars)
 #'   n.vars <- n.row.vars + n.col.vars
-#'   
+#'
 #'   if (length(x$type)>1) {
 #'     z<-length(names(dimnames(x$Crosstab)))
 #'     if (x$style=="long") {
@@ -2194,7 +2201,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       col.vars<-c(z,col.vars)
 #'     }
 #'   }
-#'   
+#'
 #'   if (n.vars==1) {
 #'     if (length(x$type)==1) {
 #'       tmp <- data.frame(round(x$Crosstab,x$dec.places))
@@ -2204,50 +2211,50 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'       print(round(x$Crosstab,x$dec.places))
 #'     }
 #'   }
-#'   
-#'   
+#'
+#'
 #'   #If table has only 2 dimensions, or subtotals required for >2 dimensional table,
 #'   #print table using ftable() on x$Crosstab
 #'   if ((n.vars == 2) | ((subtotals==TRUE) & (n.vars>2))) {
-#'     
+#'
 #'     tbl <- ftable(x$Crosstab,row.vars=row.vars,col.vars=col.vars)
-#'     
+#'
 #'     if (!all(as.integer(tbl)==as.numeric(tbl))) tbl <- round(tbl,dec.places)
 #'     print(tbl,...)
-#'     
+#'
 #'   }
-#'   
+#'
 #'   #If subtotals NOT required AND > 2 dimensions, print table using write.table() on x$Crosstab.nosub
 #'   if ((subtotals==FALSE) & (n.vars>2))  {
-#'     
+#'
 #'     t1 <- x$Crosstab.nosub
-#'     
+#'
 #'     #Convert numbers to required decimal places, right aligned
 #'     width <- max( nchar(t1[1,]), nchar(t1[2,]), 7 )
 #'     dec.places <- x$dec.places
 #'     number.format <- paste("%",width,".",dec.places,"f",sep="")
 #'     t1[3:nrow(t1),((n.row.vars+1):ncol(t1))] <- sprintf(number.format,as.numeric(t1[3:nrow(t1),((n.row.vars+1):ncol(t1))]))
-#'     
+#'
 #'     #Adjust column variable label to same width as numbers, left aligned, padding with trailing spaces as required
 #'     col.var.format <- paste("%-",width,"s",sep="")
 #'     t1[1,(n.row.vars+1):ncol(t1)] <- sprintf(col.var.format,t1[1,(n.row.vars+1):ncol(t1)])
 #'     #Adjust column category labels to same width as numbers, right aligned, padding with preceding spaces as required
 #'     col.cat.format <- paste("%",width,"s",sep="")
 #'     t1[2,(n.row.vars+1):ncol(t1)] <- sprintf(col.cat.format,t1[2,(n.row.vars+1):ncol(t1)])
-#'     
+#'
 #'     #Adjust row labels so that each column is of fixed width, using trailing spaces as required
 #'     for (i in 1:n.row.vars) {
 #'       width <- max(nchar(t1[,i])) + 2
 #'       row.lab.format <- paste("%-",width,"s",sep="")
 #'       t1[,i] <- sprintf(row.lab.format,t1[,i])
 #'     }
-#'     
+#'
 #'     write.table(t1,quote=FALSE,col.names=FALSE,row.names=FALSE)
-#'     
+#'
 #'   }
-#'   
+#'
 #' }
-#' 
+#'
 #' # inflate_for_miss <- function(v) return(c(v[1:(length(v)-1)]/(1-v[length(v)]), v[length(v)]))
 #' #
 #' # close <- function(x, y, prec = 0.0001) return(all(abs(x - y) < prec))
@@ -2318,7 +2325,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   # df <- data.frame(country = df_countries, mean = c(as.vector(table), seq(-1.84, 1.94, 0.2), seq(0.06, 0.86, 0.2))) # For oecd_climate
 #'   df_countries <- df$country_map
 #'   df <- data.frame(country_map = df_countries, mean = as.vector(table))
-#'   
+#'
 #'   if (condition != "") {
 #'     if (is.null(breaks)) breaks <- c(-Inf, .2, .35, .5, .65, .8, Inf)
 #'     if (is.null(labels)) labels <- c("0-20%", "20-35%", "35-50%", "50-65%", "65-80%", "80-100%")
@@ -2331,59 +2338,59 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     if (is.null(limits)) limits <- c(-2, 2)
 #'   }
 #'   if (continuous) df$mean <- pmax(pmin(df$mean, limits[2]), limits[1])
-#'   
+#'
 #'   world_map <- map_data(map = "world")
 #'   world_map <- world_map[world_map$region != "Antarctica",] #
 #'   world_map <- world_map[!world_map$region %in% c("Antarctica", "American Samoa", "Micronesia", "Guam", "Niue", "Pitcairn Islands", "Cook Islands", "Tonga", "Kiribati", "Marshall Islands", "French Polynesia", "Fiji", "Samoa", "Wallis and Futuna", "Vanuatu"),]
 #'   # world_map$region <- iso.alpha(world_map$region)
-#'   
+#'
 #'   if ("Dem USA" %in% parties) {
 #'     us_states <- map_data(map = "state")
-#'     blue_states <- tolower(c("California", "Illinois", "New York", "New Jersey", "Washington", "Massachusetts", "Oregon", "Connecticut", "Delaware", "Rhode Island", "District of Columbia", "Vermont", "Maryland", "Hawaii")) 
+#'     blue_states <- tolower(c("California", "Illinois", "New York", "New Jersey", "Washington", "Massachusetts", "Oregon", "Connecticut", "Delaware", "Rhode Island", "District of Columbia", "Vermont", "Maryland", "Hawaii"))
 #'     non_blue_states <- setdiff(us_states$region, blue_states) #  and Alaska missing from the map
 #'     us_states$region[us_states$region %in% blue_states] <- "USA" #"Dem USA"
 #'     us_states$region[us_states$region %in% non_blue_states] <- "Non-Dem USA"
 #'     world_map$region[world_map$subregion == "Alaska"] <- "Non-Dem USA"
 #'     world_map <- world_map[world_map$region != "USA",] # | world_map$subregion == "Alaska",]
-#'     world_map <- merge_maps(world_map, us_states) 
+#'     world_map <- merge_maps(world_map, us_states)
 #'   }
-#'   
+#'
 #'   df_na <- data.frame(country_map = setdiff(world_map$region, df_countries), mean = if (fill_na) breaks[2] else NA)
 #'   df <- merge(df, df_na, all = T)
 #'   df$group <- cut(df$mean, breaks = breaks, labels = labels)
-#'   
-#'   if (!continuous) {      
+#'
+#'   if (!continuous) {
 #'     if (is.null(colors)) colors <- setNames(c(color(length(breaks)-1, rev_color = rev_color), "#7F7F7F"), c(rev(labels), na_label))
 #'     if (negative_stripes) {
 #'       pattern <- setNames(c(rep("none", ceiling((length(breaks)-1)/2)), rep("stripe", floor((length(breaks)-1)/2)), "none"), c(rev(labels), na_label))
-#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = group), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) + 
-#'           geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', size = 0,  fill = NA) + 
-#'           expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) + 
+#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = group), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) +
+#'           geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', size = 0,  fill = NA) +
+#'           expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) +
 #'           scale_fill_manual(name = legend, drop = FALSE, values = colors, labels = c(rev(labels), na_label)) +
-#'           geom_map_pattern(data = df, map = world_map, aes(map_id = country_map, pattern = fct_rev(group)), pattern_fill = "black", fill = NA, show.legend=TRUE, 
+#'           geom_map_pattern(data = df, map = world_map, aes(map_id = country_map, pattern = fct_rev(group)), pattern_fill = "black", fill = NA, show.legend=TRUE,
 #'                            pattern_size = 0.01, pattern_density = 0.05, pattern_angle = 45, pattern_spacing = 0.015) +
 #'           scale_pattern_manual(name = legend, values = pattern, drop = FALSE, labels = c(rev(labels), na_label)) + guides(fill = "none", pattern = guide_legend(override.aes = list(fill = colors))))
 #'     } else {
-#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = fct_rev(group)), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) + 
-#'          geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', size = 0,  fill = NA) + expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) + 
+#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = fct_rev(group)), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) +
+#'          geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', size = 0,  fill = NA) + expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) +
 #'          scale_fill_manual(name = legend, drop = FALSE, values = colors[1:(length(colors)-1)], labels = function(breaks) {breaks[is.na(breaks)] <- na_label; breaks})) #, na.value = "grey50" +proj=eck4 (equal area) +proj=wintri (compromise) +proj=robin (compromise, default) Without ggalt::coord_proj(), the default use is a sort of mercator
 #'     }} else {
-#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = mean), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) + 
-#'          geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', fill = NA) + expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) + 
+#'       (plot <- ggplot(df) + geom_map(aes(map_id = country_map, fill = mean), map = world_map, show.legend=TRUE) + coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) +
+#'          geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', fill = NA) + expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(legend_x, .29)) +
 #'          scale_fill_gradientn(name = legend, limits = limits, colours = color(9, rev_color = !rev_color))) # scale_fill_manual(palette = "RdBu", limits = limits, direction = 1, na.value = "grey50")) #scale_fill_viridis_c(option = "plasma", trans = "sqrt"))
 #'     }
-#'   
+#'
 #'   print(plot)
 #'   if (save) for (f in format) save_plot(plot, filename = ifelse(!is.null(filename), filename, ifelse(continuous, paste0(var, "_cont"), ifelse(negative_stripes, paste0(var, "_stripes"), var))), folder = '../figures/maps/', width = width, height = height, format = f, trim = trim)
 #'   # return(plot)
 #' }
-#' 
+#'
 #' merge_maps <- function(map1, map2) {
 #'   map1$group <- map1$group + max(map2$group)
 #'   map1$order <- map1$order + max(map2$order)
 #'   return(rbind(map1, map2))
 #' }
-#' 
+#'
 #' # dem_us <- non_dem_us <- co2_pop[co2_pop$code == "USA",]
 #' # dem_us$country_map <- "Dem USA"
 #' # non_dem_us$country_map <- "Non-Dem USA"
@@ -2395,10 +2402,10 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' # #   temp$country_map <- s
 #' # #   df <- rbind(df, temp)
 #' # # }
-#' # 
+#' #
 #' # # df_map <- data.frame(country_map = df$country_map, mean = df$gain_adj_over_gdp_2050) # mean = as.vector(table))
 #' # df$group <- cut(df$gain_adj_over_gdp_2040, breaks = c(-Inf, -1.2, -.8, -.4, 0, .4, .8, 1.2, Inf), labels = c("< -1.2", "-1.2 - -0.8", "-0.8 - -0.4", "-0.4 - 0", "0 - 0.4", "0.4 - 0.8", "0.8 - 1.2", "> 1.2"))
-#' # 
+#' #
 #' # us_states <- map_data(map = "state") # tolower
 #' # blue_states <- c("California", "Illinois", "New York", "New Jersey", "Washington", "Massachusetts", "Oregon", "Connecticut", "Delaware", "Rhode Island", "District of Columbia", "Vermont", "Hawaii") #  and Alaska missing from the map
 #' # non_blue_states <- setdiff(us_states$region, blue_states)
@@ -2420,8 +2427,8 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' # # world_map <- spChFIDs(world_map, row.names(world_map)) # Requires maptools:: or mappoly::merge_maps or rgdal::spRbind
 #' # # world_map <- world_map %>% st_as_sf(coords = c("long", "lat"), crs = 4326) %>% st_transform(crs = 3310)
 #' # world_map <- merge_maps(world_map, us_states)
-#' # 
-#' # 
+#' #
+#' #
 #' # test <- ne_states(country = 'United States of America', returnclass = 'sf') %>% mutate(admin = ifelse(name %in% blue_states, "Dem USA", "Non-Dem USA")) %>%  group_by(admin) %>%  dplyr::summarize(geometry = st_union(geometry)) #%>%
 #' #   ggplot() +
 #' #   geom_sf(aes(fill = democrat), color = NA) +
@@ -2429,14 +2436,14 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #   coord_sf(xlim = c(-180, -60)) +
 #' #   theme_void() +
 #' #   theme(legend.position = 'none')
-#' # 
+#' #
 #' # temp <- ne_countries(returnclass = 'sf')
-#' # 
-#' #   
+#' #
+#' #
 #' # ne_states() %>% ggplot() +
 #' #   scale_fill_manual(values = c('red3', 'blue2'))
-#' # 
-#' # 
+#' #
+#' #
 #' # us_states <- maps::map("state", plot = FALSE, exact = FALSE, fill = TRUE) %>% st_as_sf()
 #' # world_map <- map_data(map = "world")
 #' # world_map$region[world_map$subregion == "Alaska"] <- "Non-Dem USA"
@@ -2445,53 +2452,53 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' # names(world_map)[5] <- "ID"
 #' # world_map <- world_map[, c(1:5)]
 #' # world_map <- world_map %>% st_as_sf()
-#' # 
+#' #
 #' # us_state <- maps::map("state", plot = FALSE, exact = FALSE, fill = TRUE)
 #' # IDs <- sapply(strsplit(us_state$names, ":"), function(x) x[1])
 #' # us_state <- map2SpatialPolygons(us_state, IDs=IDs, proj4string=CRS("+proj=longlat +datum=WGS84"))
 #' # us_state <- merge(us_state, us_regions, by.x = "", )
 #' # names(us_states)
 #' # world_map <- raster::aggregate(world_map, "region")
-#' # 
+#' #
 #' # states <- getData("GADM", country = "USA", level = 1) %>% st_as_sf() %>% st_transform(crs = 3310)
-#' # 
-#' # 
+#' #
+#' #
 #' # ggplot(non_blue_usa) +
 #' #   geom_sf(aes(fill = value)) +
 #' #   geom_sf_text(aes(label = region), check_overlap = T)+
 #' #   scale_fill_viridis_c()
-#' # 
+#' #
 #' # megakotas <- states %>%
 #' #   left_join(y = rownames_to_column(co2_pop, var = "State"), by = c("NAME_1" = "State")) %>%
 #' #   mutate(State = fct_collapse(NAME_1, Megakotas = c("North Dakota", "South Dakota"))) %>%
 #' #   # group_by(State) %>%  summarise(Murder = sum(Murder)) %>%
 #' #   st_simplify(dTolerance = 1000)
-#' # 
+#' #
 #' # world_map <- world_map %>% st_as_sf() %>% st_transform(crs = 3310) %>% st_simplify(dTolerance = 1000)
-#' # 
+#' #
 #' # us_coord <- map_data("state")
 #' # blue_states_coord <- map("state", regions = blue_states, boundary = TRUE, interior = FALSE, plot = FALSE)[c("x", "y")] %>%  base::as.data.frame() %>%  sort_points(y = "y", x = "x") %>%  mutate(region = "Dem USA")
 #' # non_blue_states_coord <- map("state", regions = non_blue_states, boundary = TRUE, interior = FALSE, plot = FALSE)[c("x", "y")] %>%  as.data.frame() %>%  sort_points(y = "y", x = "x") %>%  mutate(region = "Non-Dem USA")
 #' # names(blue_states_coord) <- names(non_blue_states_coord) <- c("long", "lat", "region")
 #' # world_map <- world_map[world_map$region != "USA",]
 #' # world_map <- merge_maps(world_map, non_blue_states_coord)
-#' # 
+#' #
 #' # world_map <- world_map %>%
 #' #   add_rownames("region") %>%
 #' #   mutate(region = replace(tolower(region), tolower(region) %in% c("north dakota", "south dakota"),
 #' #                           "megakotas")) %>%
 #' #   group_by(region) %>%
 #' #   mutate_all(sum)
-#' # 
+#' #
 #' # df <- rbind(co2_pop, co2_pop[co2_pop$code]
-#' # 
+#' #
 #' # ggplot(df) + geom_map(aes(map_id = country_map, fill = fct_rev(group)), map = world_map) + #coord_proj("+proj=robin", xlim = c(-135, 178.5), ylim = c(-56, 84)) + #geom_sf() + #devtools::install_github("eliocamp/ggalt@new-coord-proj") update ggplot2 xlim = c(162, 178.5) for mercator
 #' #   geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'grey', size = 0,  fill = NA) + expand_limits(x = world_map$long, y = world_map$lat) + theme_void() + theme(legend.position = c(0.05, .29)) + # coord_fixed() +
 #' #   # geom_map(data = as.data.frame(list(ID = "Non-Dem USA", group = "0.4 - 0.8")), map = us_states, color = 'green', size = 0) +
 #' #   # geom_map(data = df, map = world_map, color = 'green', size = 0) +
 #' #   scale_fill_manual(name = "mean", drop = FALSE, values = color(8), labels = paste("a", 1:8)) #, na.value = "grey50" +proj=eck4 (equal area) +proj=wintri (compromise) +proj=robin (compromise, default) Without ggalt::coord_proj(), the default use is a sort of mercator
-#' # 
-#' # 
+#' #
+#' #
 #' # ggplot(mapping = aes(map_id=country_map, fill = group)) +
 #' #   geom_map(data = df[!df$code %in% c("USA", "Dem USA", "Non-Dem USA"),],
 #' #            map = world_map, size = 0.15, color = "#ffffff") +
@@ -2500,25 +2507,25 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #   expand_limits(x = world_map$long, y = world_map$lat) +
 #' #   scale_fill_manual(name = "mean", drop = FALSE, values = color(8), labels = paste("a", 1:8)) +
 #' #   theme_void() + theme(legend.position = c(0.05, .29))
-#' # 
+#' #
 #' # plot_world_map("gain_adj_over_gdp_2050", condition = "", df = df, save = FALSE, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, parties = NULL)
-#' # 
+#' #
 #' # us_states <- map_data("state")
 #' # states_data <- data.frame(region = ifelse(us_states$region %in% non_blue_states, "Non-Dem USA", "Dem USA"), long = c(us_states$x), lat = c(us_states$y))
 #' # states_sf <- st_as_sf(us_states, coords = c("long", "lat"), crs = 4326)
-#' # 
+#' #
 #' # ggplot() +
 #' #   geom_sf(data = states_sf, aes(fill = region, group = region), color = "black") +
 #' #   scale_fill_manual(values = c("A" = "lightblue", "B" = "white")) +
 #' #   coord_sf(crs = st_crs(4326)) +
 #' #   theme_void()
-#' # 
+#' #
 #' # us_coord <- map_data("state")
 #' # non_blue_coord <- map("state", regions = non_blue_states, boundary = TRUE, interior = FALSE, plot = FALSE)[c("x", "y")] %>%
 #' #   as.data.frame() %>%   sort_points(y = "y", x = "x") %>% mutate(region = "Non-Dem USA")
 #' # blue_coord <- map("state", regions = blue_states, boundary = TRUE, interior = FALSE, plot = FALSE)[c("x", "y")] %>%
 #' #   as.data.frame() %>%   sort_points(y = "y", x = "x") %>% mutate(region = "Dem USA")
-#' # 
+#' #
 #' # us_regions <- data.frame(list(state = unique(us_states$region)))
 #' # # us_regions$region <- ifelse(us_regions$state %in% blue_states, "Dem USA", us_regions$state)
 #' # us_regions$value <- runif(49)
@@ -2526,7 +2533,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' # us_regions$region <- us_regions$state
 #' # us_regions$region[grepl("Non-Dem USA", us_regions$region)] <- "Non-Dem USA"
 #' # # us_regions <- add_rownames(us_regions, "region")
-#' # 
+#' #
 #' # ggplot(mapping = aes(map_id=region, fill = value)) +
 #' #   geom_map(data = us_regions[us_regions$region != "Non-Dem USA",],
 #' #            map = blue_coord, size = 0.15, color = "#ffffff") +
@@ -2535,20 +2542,20 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #   expand_limits(x = us_coord$long, y = us_coord$lat) +
 #' #   scale_fill_continuous(low = 'thistle2', high = 'darkred', guide = 'colorbar') +
 #' #   labs(x=NULL, y=NULL)
-#' # 
+#' #
 #' # us_coord <- map_data("state")
 #' # megakotas_coord <- map("state", regions = non_blue_states,
 #' #                        boundary = TRUE, interior = FALSE, plot = FALSE)[c("x", "y")] %>%
 #' #   as.data.frame() %>%
 #' #   sort_points(y = "y", x = "x") %>%
 #' #   mutate(region = "dakota")
-#' # 
+#' #
 #' # us_regions$value <- runif(49)
 #' # us_regions$area <- us_regions$region
 #' # us_regions$region <- us_regions$state
 #' # us_regions$region[grepl("dakota", us_regions$region)] <- "dakota"
 #' # # us_regions <- add_rownames(us_regions, "region")
-#' # 
+#' #
 #' # ggplot(mapping = aes(map_id=region, fill = value)) +
 #' #   geom_map(data = us_regions[us_regions$region != "dakota",],
 #' #            map = us_coord, size = 0.15, color = "#ffffff") +
@@ -2557,7 +2564,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #   expand_limits(x = us_coord$long, y = us_coord$lat) +
 #' #   scale_fill_continuous(low = 'thistle2', high = 'darkred', guide = 'colorbar') +
 #' #   labs(x=NULL, y=NULL)
-#' 
+#'
 #' ##### Plot along #####
 #' # gives a list of regressions with given covariates and the different values for the 'subsamples' variable and the 'outcomes'
 #' # outcomes, covariates: string vectors / subsamples: variable name
@@ -2593,7 +2600,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   }
 #'   return(regs)
 #' }
-#' 
+#'
 #' # Given a set of regressions with one common variable (along), gives the coefs and CI of the levels of that variable.
 #' #   or, if subsamples == along & !missing(covariates), gives the coefs/CI of all covariates with one regression for each subsample
 #' mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'others_at_mean', logit = c(FALSE), logit_margin = T, confidence = 0.95, factor_along = FALSE, covariates = NULL,
@@ -2660,13 +2667,13 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'           warning(paste("Covariate", l, "is absent from regression, replaced by NA."))
 #'           regmxf <- rbind(regmxf, rep(NA, ncol(regmxf)))
 #'           row.names(regmxf)[length(row.names(regmxf))] <- l }
-#'         
+#'
 #'         coefs <- origin_value + c(0, regmxf[names_levels[2:k],1])
-#'         
+#'
 #'         # SEs <- c(0, regmxf[names_levels[2:k],2])
 #'         # z <- qnorm(1-(1-confidence)/2)
 #'         # CI <- cbind(coefs - z*SEs, coefs + z*SEs) # CIs approximated using Standard Errors of logitmargin(...)$mfxest. Pb: no CI for omitted variable.
-#'         
+#'
 #'         n <- length(reg$fitted.values)
 #'         t <- qt(1-(1-confidence)/2, n)
 #'         sigma <- sqrt(wtd.mean((reg$y - reg$fitted.values)^2)) #, weights = data_s$weight)) TODO: handle weight for logit_margin (uncommenting this would only work when there is no missing value so that length(data_s$weight)==length(reg$y))
@@ -2702,8 +2709,8 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   }
 #'   return(mean_ci)
 #' }
-#' 
-#' 
+#'
+#'
 #' # Two cases: with covariates (coefficients or marginal effects are shown, depending on origin = 0 or not) or without covariates (i.e. unconditional means of subgroups)
 #' # Four configurations: a. and b. one outcomes, two heterogeneities / c. and d. different outcomes, one heterogeneity (d. is invert_y_along = T)
 #' # a. one outcome, y: subsamples (e.g. countries), along: heterogeneity; b. one outcome, y: covariates, along = subsamples: heterogeneity (e.g. countries)
@@ -2755,7 +2762,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   #   names(mean_ci)[which(names(mean_ci) == "along")] <- "temp"
 #'   #   names(mean_ci)[which(names(mean_ci) == "y")] <- "along"
 #'   #   names(mean_ci)[which(names(mean_ci) == "temp")] <- "y"  }
-#'   
+#'
 #'   if (exists("countries_names")) {
 #'     if (all(Levels(mean_ci$along)==sort(countries_names))) mean_ci$along <- factor(mean_ci$along, levels = countries_names)
 #'     if (all(Levels(mean_ci$y)==sort(countries_names))) mean_ci$y <- factor(mean_ci$y, levels = rev(countries_names))
@@ -2764,7 +2771,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   if (!is.null(order_along)) if (sort(Levels(mean_ci$along))==sort(order_along)) mean_ci$along <- factor(mean_ci$along, levels = order_along)
 #'   return(mean_ci)
 #' }
-#' 
+#'
 #' plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0(vars, conditions), covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, df = e, labels = vars, factor_along = FALSE,
 #'                        origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
 #'                        confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
@@ -2786,13 +2793,13 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   } else if (missing(name)) name <- "temp"
 #'   name <- sub("rev(", "", sub(")", "", sub("country_name", "country", name, fixed = T), fixed = T), fixed = T)
 #'   if (print_name) print(name) # TODO: name with subsamples
-#'   
+#'
 #'   if (missing(folder) & deparse(substitute(df)) %in% tolower(countries)) folder <- paste0("../figures/", toupper(deparse(substitute(df))), "/")
-#'   
+#'
 #'   if (missing(mean_ci)) mean_ci <- mean_ci(along = along, outcome_vars = vars, outcomes = outcomes, covariates = covariates, subsamples = subsamples, conditions = conditions, invert_y_along = invert_y_along, df = df, labels = labels, factor_along = factor_along,
 #'                                            origin = origin, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, confidence = confidence, order_y = order_y, order_along = order_along,
 #'                                            names_levels = names_levels, labels_along = labels_along, levels_along = levels_along, heterogeneity_condition = heterogeneity_condition, print_regs = return_mean_ci)
-#'   
+#'
 #'   #  if (missing(mean_ci)) {
 #'   #    mean_ci <- bind_rows((lapply(vars, heterogeneity_mean_CI, heterogeneity_group = along, df=df, weight = weight, along_labels = along_labels, country_heterogeneity = country_heterogeneity, heterogeneity_condition = heterogeneity_condition, condition = condition, confidence = confidence)))
 #'   #    mean_ci$y <- factor(mean_ci$y, levels = vars, labels = labels) }
@@ -2805,14 +2812,14 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   #    names(mean_ci)[which(names(mean_ci) == "variable")] <- "policy" # TODO: generalize this by rewriting heterogeneity_mean_CI
 #'   #    names(mean_ci)[which(names(mean_ci) == "country")] <- "y"
 #'   # }
-#'   
+#'
 #'   if (plot_origin_line) {
 #'     origins <- mean_ci$mean[mean_ci$along == levels_along[1]]
 #'     names(origins) <- mean_ci$y[mean_ci$along == names_levels[1]]
 #'   } else origins <- c()
 #'   if (to_percent) mean_ci[,c("mean", "CI_low", "CI_high")] <- 100*mean_ci[,c("mean", "CI_low", "CI_high")]
 #'   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T
-#'   
+#'
 #'   plot <- ggplot(mean_ci) + sapply(origins, function(xint) geom_vline(aes(xintercept = xint), linetype = "longdash", color = "grey")) + # For plot, we need mean_ci (cols: mean, CI_low,high, variable, along), legend_x, legend_y. For save, we need: name, folder, width, height.
 #'     geom_pointrange( aes(x = mean, y = y, color = along, xmin = CI_low, xmax = CI_high), position = position_dodge(width = .5)) +
 #'     labs(x = legend_x, y = legend_y, color="") + theme_minimal() + theme(legend.title = element_blank(), legend.position = ifelse(legend_top, "top", "right")) +
@@ -2823,8 +2830,8 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'   if (return_mean_ci) return(mean_ci)
 #'   else return(plot)
 #' }
-#' 
-#' 
+#'
+#'
 #' # # var_to_decompose and group_of_interest: you need to input only one variable as a character
 #' # # controls and indices, can be a character vector
 #' # # Factor variables from control need to be in controls_factor
@@ -2879,7 +2886,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #
 #' #   return(final)
 #' # }
-#' 
+#'
 #' representativeness_table <- function(country_list, weighted = T, non_weighted = T, label_operator = union, all = FALSE, omit = c("Other", "Not 25-64", "Employment_18_64: Employed", "Employment_18_64: 65+", "PNR", "Urban: FALSE"),
 #'                                      filename = NULL, folder = "../tables/sample_composition/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL) {
 #'   rows <- c()
@@ -2888,7 +2895,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     df <- d(country_list[i])
 #'     k <- country_list[i]
 #'     c <- sub("[0-9p]+", "", toupper(k))
-#'     
+#'
 #'     labels[[k]] <- "Sample size"
 #'     pop[[k]] <- ""
 #'     sample[[k]] <- sample_weighted[[k]] <- prettyNum(nrow(df), big.mark = ",")
@@ -2909,7 +2916,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     if (weighted) names(sample_weighted[[k]]) <- labels[[k]]
 #'     rows <- label_operator(rows, labels[[k]])
 #'   }
-#'   
+#'
 #'   variables <- unique(gsub("(.*):.*", "\\1", rows))
 #'   order_rows <- c()
 #'   for (v in variables) for (i in 1:length(rows)) order_rows <- c(order_rows, if (v == sub("(.*):.*", "\\1", rows[i])) i else NULL)
@@ -2920,7 +2927,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #'     if (non_weighted) table[[paste0(k, "_sample")]] <- sample[[k]][rows]
 #'     if (weighted) table[[paste0(k, "_sample_weighted")]] <- sample_weighted[[k]][rows]
 #'   }
-#'   
+#'
 #'   table <- table[!multi_grepl(omit, row.names(table)),]
 #'   if (return_table) return(table)
 #'   else export_representativeness_table(table = table, country_list = country_list, weighted = weighted, non_weighted = non_weighted, filename = if (all) paste0(filename, "_all") else filename, folder = folder, abbr = abbr)
@@ -2929,63 +2936,66 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' export_representativeness_table <- function(table, country_list, weighted = T, non_weighted = T, filename = NULL, folder = "../tables/sample_composition", abbr = NULL) {
 #'   header <- c("", rep((1 + weighted + non_weighted), length(country_list)))
 #'   names(header) <- c("", country_list)
-#'   
+#'
 #'   line_sep <- c()
 #'   for (i in 2:nrow(table)) {
 #'     previous <- substr(row.names(table)[i-1], 1, 5)
 #'     current <- substr(row.names(table)[i], 1, 5)
 #'     line_sep <- c(line_sep, if (previous == current) "" else "\\addlinespace")
 #'   }
-#'   
+#'
 #'   row.names(table) <- gsub("_", "\\_", row.names(table), fixed = T)
 #'   if (is.null(abbr)) abbr <- length(country_list) > 3
 #'   latex_output <- kbl(table, "latex", caption = NULL, position = "b", escape = F, booktabs = T,
 #'                       col.names = rep(c("Pop.", if (non_weighted) {if (abbr) "Sam." else ("Sample")}, if (weighted) {if (abbr) "\\makecell{Wght.\\\\sam.}" else "\\makecell{Weighted\\\\sample}"}), length(country_list)),
 #'                       linesep = line_sep) %>% add_header_above(header)
-#'   
+#'
 #'   if (is.null(filename)) filename <- paste(country_list, collapse = "_")
 #'   if (filename == "_all") filename <- paste0(paste(country_list, collapse = "_"), "_all")
 #'   cat(paste(latex_output, collapse="\n"), file = paste0(folder, filename, ".tex"))
 #' }
-#' 
-#' reweighted_estimate <- function(predicted_var = NULL, country = "EU", weights = FALSE, verbose = FALSE, omit = c()) { 
-#'   # Regresses predicted_var on 'levels_quotas[[country]]' and predicts the value based on population frequencies in 'pop_freq'.
-#'   # If is.null(predicted_var), returns instead the vector of population frequencies with which to multiply the vector of coefficients of the regression.
-#'   e <- d(country)
-#'   freq_pop <- pop_freq[[sub("[0-9p]+", "", country)]]
-#'   for (i in names(freq_pop)) names(freq_pop[[i]]) <- levels_quotas[[i]]
-#'   vars_pop <-  names(freq_pop)
-#'   covariates <- vars_pop
-#'   freq_vec <- c("(Intercept)" = 1)
-#'   for (c in vars_pop) {
-#'     c_name <- sub(paste0("^", sub("[0-9p]+", "", country), "_"), "", c)
-#'     # print("character.item" %in% class(e[[c_name]]))
-#'     # if (c %in% names(e) && !(is.factor(e[[c]]) | is.character(e[[c]])) & paste0(c, "_factor") %in% names(e)) new_c <- paste0(c, "_factor")
-#'     # else if (c %in% names(e) && !(is.factor(e[[c]]) | is.character(e[[c]])) & paste0(sub("_.*", "", c), "_factor") %in% names(e)) new_c <- paste0(sub("_.*", "", c), "_factor")
-#'     if ("character.item" %in% class(e[[c_name]])) new_c <- paste0("as.character(as.factor(", c_name, "))")
-#'     else if (!(is.factor(e[[c_name]]) | is.character(e[[c_name]]) | is.logical(e[[c_name]]))) new_c <- paste0("as.character(", c_name, ")")
-#'     else new_c <- c_name
-#'     # print(c)
-#'     covariates[covariates == c] <- new_c
-#'     if (Levels(e[[c_name]])[1] %in% c("TRUE / FALSE / NA", "TRUE / FALSE")) freq_vec[paste0(new_c, "TRUE")] <- freq_pop[[c]][[1]]
-#'     else for (i in intersect(Levels(e[[c_name]]), levels_quotas[[c]])) freq_vec[paste0(new_c, i)] <- freq_pop[[c]][[i]]
-#'   }
-#'   
-#'   if (is.null(predicted_var)) return(freq_vec)
-#'   else {
-#'     formula_reg <- reg_formula(predicted_var, covariates[!multi_grepl(omit, covariates)])
-#'     if (weights) reg <- lm(formula_reg, data = e, weights = e$weight)
-#'     else reg <- lm(formula_reg, data = e)
-#'     if (verbose) {
-#'       print(paste("Share of observations in regression:", length(reg$fitted.values)/nrow(e)))
-#'       print("Levels without a coefficient:")
-#'       print(setdiff(names(freq_vec), names(reg$coefficients)))    
-#'     }
-#'     if (length(setdiff(names(reg$coefficients), names(freq_vec))) > 0) {
-#'       warning(paste("Coefficients not taken into account:", paste(setdiff(names(reg$coefficients), names(freq_vec)), collapse = "; ")))
-#'     }
-#'     estimate <- sum(reg$coefficients[intersect(names(reg$coefficients), names(freq_vec))] * freq_vec[intersect(names(reg$coefficients), names(freq_vec))], na.rm = T)
-#'     return(estimate)
-#'   }
-#' }
+#'
+reweighted_estimate <- function(predicted_var = NULL, country = "EU", variant = NULL, weights = FALSE, verbose = FALSE, omit = c()) {
+  # Regresses predicted_var on 'levels_quotas[[country]]' and predicts the value based on population frequencies in 'pop_freq'.
+  # If is.null(predicted_var), returns instead the vector of population frequencies with which to multiply the vector of coefficients of the regression.
+  e <- d(country)
+  freq_pop <- pop_freq[[sub("[0-9p]+", "", country)]]
+  for (i in names(freq_pop)) names(freq_pop[[i]]) <- levels_quotas[[i]]
+  if (paste0(c(country, variant), collapse = "_") %in% names(quotas)) country_variant <- paste0(c(country, variant), collapse = "_")
+  else country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant)) 
+  vars_pop <- quotas[[country_variant]]
+  # vars_pop <-  names(freq_pop)
+  covariates <- vars_pop
+  freq_vec <- c("(Intercept)" = 1)
+  for (c in vars_pop) {
+    c_name <- sub(paste0("^", sub("[0-9p]+", "", country), "_"), "", c)
+    # print("character.item" %in% class(e[[c_name]]))
+    # if (c %in% names(e) && !(is.factor(e[[c]]) | is.character(e[[c]])) & paste0(c, "_factor") %in% names(e)) new_c <- paste0(c, "_factor")
+    # else if (c %in% names(e) && !(is.factor(e[[c]]) | is.character(e[[c]])) & paste0(sub("_.*", "", c), "_factor") %in% names(e)) new_c <- paste0(sub("_.*", "", c), "_factor")
+    if ("character.item" %in% class(e[[c_name]])) new_c <- paste0("as.character(as.factor(", c_name, "))")
+    else if (!(is.factor(e[[c_name]]) | is.character(e[[c_name]]) | is.logical(e[[c_name]]))) new_c <- paste0("as.character(include.missings(", c_name, "))")
+    else new_c <- c_name
+    # print(c)
+    covariates[covariates == c] <- new_c
+    if (Levels(e[[c_name]])[1] %in% c("TRUE / FALSE / NA", "TRUE / FALSE")) freq_vec[paste0(new_c, "TRUE")] <- freq_pop[[c]][[1]]
+    else for (i in intersect(Levels(e[[c_name]]), levels_quotas[[c]])) freq_vec[paste0(new_c, i)] <- freq_pop[[c]][[i]]
+  }
+
+  if (is.null(predicted_var)) return(freq_vec)
+  else {
+    formula_reg <- reg_formula(predicted_var, covariates[!multi_grepl(omit, covariates)])
+    if (weights) reg <- lm(formula_reg, data = e, weights = weight)
+    else reg <- lm(formula_reg, data = e)
+    if (verbose) {
+      print(paste("Share of observations in regression:", length(reg$fitted.values)/nrow(e)))
+      print("Levels without a coefficient:")
+      print(setdiff(names(freq_vec), names(reg$coefficients)))
+    }
+    if (length(setdiff(names(reg$coefficients), names(freq_vec))) > 0) {
+      warning(paste("Coefficients not taken into account:", paste(setdiff(names(reg$coefficients), names(freq_vec)), collapse = "; ")))
+    }
+    estimate <- sum(reg$coefficients[intersect(names(reg$coefficients), names(freq_vec))] * freq_vec[intersect(names(reg$coefficients), names(freq_vec))], na.rm = T)
+    return(estimate)
+  }
+}
 

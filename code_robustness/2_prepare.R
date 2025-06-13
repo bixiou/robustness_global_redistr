@@ -1,24 +1,23 @@
-# TODO! weight_control (pb: control group varies => estimate from regression / compute weights using NA)
-# TODO: Quota education JP
-# TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
-# TODO! Remove NAs due to change of policies.json after a few recorded answers, both in variables_conjoint_policies and in [country].dat
-# View(all[,c(variables_conjoint_policies, "n", "conjoint_misleading")])
 # TODO: labels
 # TODO: fields
 # TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
-# TODO: conjoint (need Paris)
+# TODO: main figures and tables
+# TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
+# TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 
 # check:
-# no NA in well_being, group_defended, also in pilots
+# no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
 # mean(e$convergence_support > 0)
 # sapply(countries[-9], function(c) round(mean(d(c)$convergence_support > 0, na.rm = T), 3))
 # results of global_tax_attitudes with new def of swing_state / dem
-# missing urbanity, region: decrit(e$country[is.na(e$region)]) GB$zipcode[is.na(GB$region)]
+# /!\ missing urbanity, region: decrit(e$country[is.na(e$region)]) GB$zipcode[is.na(GB$region)]
+# quota education JP
 
 
 ##### Parameters #####
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 countries_names <- c("FR" = "France", "DE" = "Germany", "IT" = "Italy", "PL" = "Poland", "ES" = "Spain", "GB" = "United Kingdom", "CH" = "Switzerland", "JP" = "Japan", "RU" = "Russia", "SA" = "Saudi Arabia", "US" = "USA")
+names_countries <- setNames(countries, countries_names)
 countries_names_fr <- c("FR" = "France", "DE" = "Allemagne", "IT" = "Italie", "PL" = "Pologne", "ES" = "Espagne", "GB" = "Royaume-Uni", "CH" = "Suisse", "JP" = "Japon", "RU" = "Russie", "SA" = "Arabie Saoudite", "US" = "États-Unis")
 # names(countries_names) <- pilot_countries
 countries_EU <- countries_names[1:5]
@@ -71,9 +70,9 @@ mean_custom_redistr <- list()
     "EU_country" = c("FR", "DE", "ES", "IT", "PL"),
     "gender_nationality" = c("Woman, Saudi", "Woman, non-Saudi", "Man, Saudi", "Man, non-Saudi"),
     # "US_region" = c("Northeast", "Midwest", "South", "West"),
-    "US_race" = c("White only", "Hispanic", "Black", "Other"),
-    "US_vote_US" = c("Harris", "Trump", "Other/Non-voter", "PNR/no right"), # TODO? vote_autres
-    "US_urban" = c(TRUE, FALSE)
+    "race" = c("White only", "Hispanic", "Black", "Other"),
+    "vote_US" = c("Harris", "Trump", "Other/Non-voter", "PNR/no right"), # TODO? vote_autres
+    "urban" = c(TRUE, FALSE)
   )
   
   # TODO? automatic _vote in quotas, nb_regions automatic
@@ -105,10 +104,13 @@ mean_custom_redistr <- list()
     ),
     "US" = list(
       # "urbanity" = c(qs["US", "Cities"], 0.001, qs["US","Rural"])/1000,
-      "US_urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
+      "urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
       # "US_region" = unlist(qs["US", c("Region.1", "Region.2", "Region.3", "Region.4")]/1000),
-      "US_race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000)
+      "race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000)
       # "US_vote_US" = c(0.308637, 0.31822, 0.373142, 0.000001) # https://en.wikipedia.org/wiki/2024_United_States_presidential_election
+    ),
+    "SA" = list(
+      "gender_nationality" = unlist(setNames(qs["SA", c("White.non.Hispanic", "Hispanic", "Black", "Other")],  c("WoSaudi", "WoNonSaudi", "ManSaudi", "ManNonSaudi"))/1000)
     ))
   for (c in c("EU", countries)) {
     pop_freq[[c]]$gender <- c("Woman" = qs[c,"women"], 0.001, "Man" = qs[c,"men"])/1000
@@ -118,7 +120,6 @@ mean_custom_redistr <- list()
     pop_freq[[c]]$urbanity <- unlist(qs[c, c("Cities", "Towns.and.suburbs", "Rural")]/1000)
     pop_freq[[c]]$region <- unlist(qs[c, paste0("Region.", 1:5)]/1000)
     pop_freq[[c]]$employment_18_64 <- unlist(c(c("Inactive" = qs[c, "Inactivity"], "Unemployed" = qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000, "Employed" =  1000-qs[c, "Inactivity"]-qs[c, "Unemployment"]*(1000-qs[c, "Inactivity"])/1000)*(1000-qs[c, c(">65")])/1000, "65+" = qs[c, c(">65")])/1000)
-    pop_freq[[c]]$gender_nationality <- unlist(setNames(qs[c, c("White.non.Hispanic", "Hispanic", "Black", "Other")],  c("WoSaudi", "WoNonSaudi", "ManSaudi", "ManNonSaudi"))/1000)
     # pop_freq[[c]]$vote <- unlist(c(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")], na.rm = T), "Abstention" = qs[c, "Abstention"])/1000) # We exclude Other in this variant
     pop_freq[[c]]$vote <- unlist(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"], "Non-voter, PNR or Other" = sum(qs[c, "Abstention"], qs[c, "Vote_other"]))/1000) # We exclude Other in this variant
   }
@@ -294,9 +295,9 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     for (v in names(e)) label(e[[v]]) <- c(v = paste0(v, ": ", label(e[[v]])))
     write_csv(e, paste0("../data_raw/", sample_name, ".csv"), na = "")
     saveRDS(label(e), paste0("../data_raw/labels/", sample_name, ".rds"))
-    e <- read_csv(paste0("../data_raw/", sample_name, ".csv"))
+    e <- read_csv(paste0("../data_raw/", sample_name, ".csv"), guess_max = Inf)
   }
-  e <- read_csv(paste0("../data_raw/", sample_name, ".csv"))
+  e <- read_csv(paste0("../data_raw/", sample_name, ".csv"), guess_max = Inf)
   labels <- readRDS(paste0("../data_raw/labels/", sample_name, ".rds"))
   for (v in names(e)) label(e[[v]]) <- labels[[v]]
   
@@ -422,6 +423,25 @@ define_var_lists <- function() {
   variables_conjoint_domains <<- c("F-1-1", "F-1-2", "F-1-3", "F-1-4", "F-1-5") # , "F-1-6"
   variables_conjoint_policies <<- c("F-1-1-1", "F-1-1-2", "F-1-1-3", "F-1-1-4", "F-1-1-5", "F-1-2-1", "F-1-2-2", "F-1-2-3", "F-1-2-4", "F-1-2-5") #, "F-1-1-6", "F-1-2-6"
   variables_conjoint_policies_original <<- paste0(variables_conjoint_policies, "_original")
+  # View(all[sapply(1:nrow(all), function(i) any(is.na(all[i, variables_conjoint_policies])) & all$country[i]!="SA"), c(as.vector(sapply(variables_conjoint_policies, function(v) c(v, paste0(v, "_original")))), "n", "conjoint_misleading")])
+  # na_policies <- c()
+  # for (i in 1:nrow(all)) {
+  #   for (j in variables_conjoint_policies) if (is.na(all[i,j]) & all$country[i] != "SA") na_policies <- c(na_policies, all[i, paste0(j, "_original")])
+  # }
+  # unique(na_policies)
+  correct_policies <<- c("36" = "econ_issues2", # "Reducir la semana laboral a 36 horas antes de 2030 sin merma salaria",
+                        "Mindestquote" = "-", # /!\ DE climate_pol3, removed after 14 respondents got it: "Einführung einer Mindestquote für grünen Stahl und Zement im öffentlichen Beschaffungswesen"
+                        "Milliarden" = "econ_issues3", # "500 Milliarden Euro in strategische Sektoren wie Stahl, Automobilindustrie und Verteidigung investieren",
+                        "Geburt" = "society_issues2", # "20.000 € staatlicher Zuschuss bei Geburt eines Kindes",
+                        "Überstunden" = "tax_system1", # "Keine Steuern auf Überstunden und Arbeit im Rentenalter",
+                        "aislamiento" = "-", # /!\ ES climate_pol2, replaced (by plan...agua) after 32 respondents got it: "Plan de aislamiento térmico"
+                        "Millionärssteuer" = "foreign_policy1", # "Internationale Millionärssteuer mit 30 % zur Finanzierung von Gesundheit und Bildung in Ländern mit niedrigem Einkommen",
+                        "28" = "tax_system2", # "Raise the capital gains tax rate to 28% for individuals earning over $1 million",
+                        "cartels" = "society_issues3", # "Deploy U.S. troops against drug cartels in Mexico",
+                        "Zones" = "climate_pol2", # "Supprimer les Zones à Faibles Émissions (ZFE)",
+                        "jeunes" = "tax_system2", # "Exonérer d’impôt sur le revenu les jeunes de moins de 30 ans",
+                        "Défiscaliser" = "tax_system1", # "Défiscaliser les primes jusqu’à 10 000 € par an",
+                        "moteur" = "climate_pol1") # "Éliminer progressivement les voitures à moteur à combustion d'ici à 2040")
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "home", "millionaire", "nationality_SA", "voted", "vote")
@@ -745,7 +765,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in variables_well_being) {
     e$variant_well_being[!is.na(e[[v]])] <- sub("well_being_", "", v)
     e$well_being[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] }
-  e$variant_well_being_scale <- ifelse(grepl("0", e$variant_well_being), "10", "9")
+  e$variant_well_being_scale <- ifelse(grepl("0", e$variant_well_being), "0", "1")
   e$variant_well_being_wording <- ifelse(grepl("gallup", e$variant_well_being), "Gallup", "WVS")
   
   e$variant_wealth_tax <- e$wealth_tax_support <- NA
@@ -819,6 +839,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in intersect(variables_conjoint_policies, names(e))) {
       e[[paste0(v, "_original")]] <- e[[v]]
       e[[v]] <- policies_code[e[[v]]]
+      for (j in names(correct_policies)) e[[v]][grepl(j, e[[paste0(v, "_original")]])] <- correct_policies[j]
       # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
     }  
   }
@@ -860,9 +881,10 @@ Sys.time() - start_time # 10 min
 
 # Oldies
 
-# CHa <- prepare(country = "CH", scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# temp <- prepare(country = "SA", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
 
 # write.csv(CHa$id[CHa$excluded %in% "QuotaMet" & CHa$income_quartile < 3 & CHa$education_quota %in% "Below upper secondary"], "ID_CH_quotafull_below_upper.csv", quote = F, row.names = F)
+# write.csv(temp$id, "SA_IDs.csv", quote = F, row.names = F)
 
 # pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
@@ -872,7 +894,7 @@ Sys.time() - start_time # 10 min
 # sum(duplicated(i$distr))
 
 
-# PLa <- prepare(country = "PL", scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE)
+# DE <- prepare(country = "DE", scope = "final", fetch = T, convert = T, rename = T, pilot = F, weighting = T)
 # pilot_data_all <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_all)
 
