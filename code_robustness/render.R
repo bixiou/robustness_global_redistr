@@ -300,15 +300,15 @@ grid()
 lines(0:1000, log10(pmax(250*12, world_income_after_tax("top1"))), type = 'l', lwd = 2, col = "blue")
 lines(0:1000, log10(pmax(400*12, world_income_after_tax("top3"))), type = 'l', lwd = 2, col = "cyan")
 
-plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2)), type = 'l', lwd = 2, ylim = c(0, .2), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2)), type = 'l', lwd = 2, ylim = c(0, .2), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 grid()
 
-plot(seq(0, 1e6, 1e3), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, ylim = c(0, .3), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+plot(seq(0, 1e6, 1e3), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, ylim = c(0, .3), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "blue")
 lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "purple")
 grid()
 
-plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2), marginal = T), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2), marginal = T), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 grid() # ~ 7-8% above 25k & 15% above 40k
 
 plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = T, fct_income = F), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized income centile")
@@ -322,6 +322,7 @@ grid()
 ##### Presentation #####
 # Revenue split
 barres_multiple(barres_defs["split_few"])
+barres_multiple(barresN_defs["split_few"])
 
 # Warm glow -- moral substitute
 
@@ -362,3 +363,30 @@ heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
 barres_defs[["solidarity_support_billionaire_tax"]]$labels <- "Un impôt minimum de 2% sur la fortune des milliardaires,<br>dans les pays volontaires"
 barres_defs[["solidarity_support_billionaire_tax"]]$legend <- c("Très opposé⋅e", "Plutôt opposé⋅e", "Indifférent⋅e ou ne sais pas", "Plutôt favorable", "Très favorable")
 barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, levels = "France")
+
+
+##### Paper #####
+# 1? coverage map
+# 2. survey_flow
+# 3. keywords in fields (taken jointly)
+# 4. TODO revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
+# 5a. TODO ICS: mean of variant (incl. NCS, GCS) (per country + global) 
+# 5b. TODO wealth tax by coverage: mean of variant (country + global)
+# 6. TODO conjoint: foreign aid + global tax (per country + global)
+# 7. TODO warm_glow: effect of info + display donation vs. control (per country + global)
+# 8. solidarity_support (on control): heatmap
+# 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG?, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
+# 10. group_defended: barresN or barres?
+# 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
+# 12. average custom_redistr
+
+# 5b. Wealth tax by coverage
+# TODO invert order graph (align to legend)
+# TODO several shapes to make it black & white compatible
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+                       #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
+                       # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
+                       # confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
+                       # legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', order_y = NULL, order_along = NULL)
+
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 

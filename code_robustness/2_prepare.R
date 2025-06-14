@@ -32,6 +32,8 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
                        "U.S. Republicans" = list("var" = "vote_voters", "value" = "Trump"),
                        "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
+levels_plain <- c("All", "Europe", countries_names)
+levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
 levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
 levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
 levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])      
