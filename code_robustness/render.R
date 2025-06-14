@@ -380,9 +380,16 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
 # 12. average custom_redistr
 
+# 5a. ICS: mean of variant 
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+
+
 # 5b. Wealth tax by coverage
 # TODO invert order graph (align to legend)
 # TODO several shapes to make it black & white compatible
+# TODO legend top vertical
 plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,

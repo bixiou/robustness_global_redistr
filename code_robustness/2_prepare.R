@@ -34,6 +34,7 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
 levels_plain <- c("All", "Europe", countries_names)
 levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
+# levels_default_list <- setNames(lapply(levels_plain[!levels_plain %in% "Russia"], function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain[!levels_plain %in% "Russia"])
 levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
 levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
 levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])      
@@ -408,10 +409,10 @@ define_var_lists <- function() {
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief_us", "gcs_belief_own", variables_split)
   variables_gcs_belief <<- c("gcs_belief_us", "gcs_belief_own")
   variables_ics <<- c("ics_high_support", "ics_high_color_support", "ics_mid_support", "ics_low_support")
-  variables_gcs_all <<- c("gcs_support_control", variables_gcs_belief)
-  variables_gcs_ics <<- c("gcs_support_control", variables_ics)
-  variables_gcs_ics_all <<- c("gcs_support_control", variables_gcs_belief, variables_ics)
-  variables_ncs_gcs_ics <<- c("ncs_support", "gcs_support_control", variables_ics)
+  variables_gcs_all <<- c("gcs_support", variables_gcs_belief)
+  variables_gcs_ics <<- c("gcs_support", variables_ics) # TODO! check where it's _control and not
+  variables_gcs_ics_all <<- c("gcs_support", variables_gcs_belief, variables_ics)
+  variables_ncs_gcs_ics <<- c("ncs_support", "gcs_support", variables_ics)
   variables_ncs_gcs_ics_all <<- c("ncs_support", "gcs_support_control", variables_gcs_belief, variables_ics)
   variables_well_being <<- c("well_being_gallup_0", "well_being_wvs_0", "well_being_gallup_1", "well_being_wvs_1")
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 

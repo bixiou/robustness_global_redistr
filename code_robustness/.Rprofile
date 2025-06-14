@@ -2770,10 +2770,10 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   #   names(mean_ci)[which(names(mean_ci) == "y")] <- "along"
   #   names(mean_ci)[which(names(mean_ci) == "temp")] <- "y"  }
 
-  if (exists("countries_names")) {
-    if (all(Levels(mean_ci$along) %in% (countries_names))) mean_ci$along <- factor(mean_ci$along, levels = countries_names)
-    if (all(Levels(mean_ci$y) %in% (countries_names))) mean_ci$y <- factor(mean_ci$y, levels = rev(countries_names))
-  }
+  if (exists("countries_names") && all(Levels(mean_ci$along) %in% countries_names)) mean_ci$along <- factor(mean_ci$along, levels = countries_names)
+  if (exists("countries_names") && all(Levels(mean_ci$y) %in% countries_names)) mean_ci$y <- factor(mean_ci$y, levels = rev(countries_names))
+  if (class(levels_along) == "list" && all(Levels(mean_ci$along) %in% labels_along)) mean_ci$along <- factor(mean_ci$along, levels = labels_along)
+  if (class(levels_along) == "list" && all(Levels(mean_ci$y) %in% labels_along)) mean_ci$y <- factor(mean_ci$y, levels = rev(labels_along))
   if (!is.null(order_y)) if (sort(Levels(mean_ci$y))==sort(order_y)) mean_ci$y <- factor(mean_ci$y, levels = order_y)
   if (!is.null(order_along)) if (sort(Levels(mean_ci$along))==sort(order_along)) mean_ci$along <- factor(mean_ci$along, levels = order_along)
   return(mean_ci)
@@ -2821,8 +2821,8 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   # }
 
   if (plot_origin_line) {
-    origins <- mean_ci$mean[mean_ci$along == levels_along[1]]
-    names(origins) <- mean_ci$y[mean_ci$along == names_levels[1]]
+    origins <- mean_ci$mean[mean_ci$along == levels_along[[1]]]
+    names(origins) <- mean_ci$y[mean_ci$along == names_levels[[1]]]
   } else origins <- c()
   if (to_percent) mean_ci[,c("mean", "CI_low", "CI_high")] <- 100*mean_ci[,c("mean", "CI_low", "CI_high")]
   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T
