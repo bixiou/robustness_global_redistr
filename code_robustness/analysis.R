@@ -214,6 +214,8 @@ sapply(c("all", countries[-9]), function(c) round(mean(d(c)$vote_intl_coalition 
 sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$reparations_support, weight = F)))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$reparations_support[!d(c)$reparations_support %in% 0] > 0, na.rm = T), 3))
 
+
+##### Custom redistr #####
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
@@ -244,10 +246,22 @@ decrit("custom_redistr_unsatisfied_unskip", e)
 decrit("custom_redistr_both_satisfied_skip", e)
 decrit("custom_redistr_transfer", e)
 # mean winners = non-losers: 71% / mean transfer: 4.84% / mean demogrant: $235/month
-(mean_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 709
+(max_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 709
+current_inc[max_winners] # 18k
 100*sum(mean_custom_redistr[["all"]][1:mean_winners] - current[1:mean_winners])/sum(current[1:1000]) 
 mean_custom_redistr[["all"]][1]/12 # 235
 
+sum(pmax(400*12, world_income_after_tax("top3")))/sum(current_inc) # 1.002
+sum(pmax(250*12, world_income_after_tax("top1")))/sum(current_inc) # 1.0004
+sum(mean_custom_redistr[["all"]])/sum(current_inc) # 99%
+sum(current_inc)
+current_inc[970] # 79.3k
+current_inc[971] # 80.5k
+current_inc[987] # 120k 987<->quantile 98.6, i.e. top 1.4%
+current_inc[990] # 131k
+
+
+###### Well-being #####
 with(e, summary(lm(well_being ~ variant_well_being))) 
 with(e, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
 

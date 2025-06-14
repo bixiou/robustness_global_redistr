@@ -1,7 +1,7 @@
 # TODO: labels
 # TODO: fields
-# TODO: custom redistr: tax rates; dummy whether decrease own income; sociodemos determinants
 # TODO: main figures and tables
+# TODO: sociodemos determinants (y.c. custom_redistr)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 
@@ -39,6 +39,7 @@ levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_name
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
 languages <- unname(unlist(languages_country)) # c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
+features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", rowNames = T))
 policies_conjoint <- fromJSON("../conjoint_analysis/policies.json")
 conjoint_attributes <- c("econ_issues", "society_issues", "climate_pol", "tax_system", "foreign_policy")
 conjoint.attributes <- c("Economic issues", "Societal issues", "Climate policy", "Tax system", "Foreign policy")
@@ -480,31 +481,52 @@ create_item <- function(var, new_var = var, labels, df, grep = FALSE, keep_origi
   return(df)
 }
 
+interpole_world_income <- function(rev, current, new) {
+  e <- 1
+  while (e <= 1001 && current[e] < rev) {
+    e <- e + 1
+  }
+  if (e == 1002) {
+    return(new[1001])
+  } else if (e == 1) {
+    return(new[1])
+  } else {
+    return((new[e] - new[e-1]) * (rev - current[e-1]) / (current[e] - current[e-1]) + new[e-1])
+  }
+}
+
+tax_rates_custom_redistr <- function(future, current = current_inc, at = seq(0, 1e5, 100), marginal = FALSE, fct_income = T) {
+  quantiles <- if (fct_income) 1:1001 else at # 1:1000 recommended for fct_income == F
+  effective_rates_quantiles <- 1 - (future/current)[quantiles]
+  effective_rates <- sapply(at, function(y) interpole_world_income(y, current, effective_rates_quantiles))
+  if (fct_income) { marginal_rates <- 1 - (sapply(at + 1, function(y) interpole_world_income(y, current, future)) - sapply(at, function(y) interpole_world_income(y, current, future)))
+  } else marginal_rates <- 1 - (future[at+1] - future[at])/(current[at+1] - current[at])
+  if (max(at) > max(current) || (!fct_income & max(at) > 1001)) warning("Some of 'at' values out of bounds.")
+  if (marginal) { return(marginal_rates)
+  } else { if (fct_income) return(effective_rates) else return(effective_rates_quantiles) }
+}
+
+world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rates = NULL, current = current_inc) {
+  if (tax == "top1") thresholds <- 120e3
+  if (tax == "top3") thresholds <- c(80e3, 120e3, 1e6)
+  if (tax == "top1") additional_rates <- .15
+  if (tax == "top3") additional_rates <- c(.15, .15, .15)
+  future <- current
+  for (k in 1:length(thresholds)) future <- future - additional_rates[k]*pmax(0, current - thresholds[k])
+  return(future)
+}
+
 compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
   # TODO: check we get same results as with .js (e.g. check values of L/G and R, own_after...) - I have checked on one example
   current <- c(0, round(thousandile_world_disposable_inc)) # corresponds to c(0, thousandile_world_disposable_inc) created in questionnaire.R
   e$custom_redistr_transfer <- e$custom_redistr_future_income <- e$custom_redistr_income_min <- NA #rep(NA, nrow(df))
   futures <- matrix(NA, ncol = 1001, nrow = nrow(df))
   
-  interpole_world_income <- function(rev, current, new) {
-    e <- 1
-    while (e <= 1001 && current[e] < rev) {
-      e <- e + 1
-    }
-    if (e == 1002) {
-      return(new[1001])
-    } else if (e == 1) {
-      return(new[1])
-    } else {
-      return((new[e] - new[e-1]) * (rev - current[e-1]) / (current[e] - current[e-1]) + new[e-1])
-    }
-  }
-  
   for (k in 1:nrow(df)) {
     winners <- 10*df$custom_redistr_winners[k]
     non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
-    custom_redistr_current_income <- df$income_exact[k] # TODO correct income_exact (income_exact/unit/2 if couple, etc.)
+    df$custom_redistr_current_income[k] <- df$income_exact[k]/ifelse(df$couple[k] > 0, 2, 1) * as.numeric(features["period_custom", languages_country[[df$country[k]]][1]]) * as.numeric(features["unit", languages_country[[df$country[k]]][1]]) # in $/year individualized
     if (!is.na(winners)) {
       income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
       income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
@@ -544,7 +566,8 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       # econ <- integral(diff, 0, winners - 1) + economizable(future, "right")
       
       df$custom_redistr_income_min[k] <- future[1]
-      df$custom_redistr_future_income[k] <- interpole_world_income(custom_redistr_current_income, current, future) 
+      df$custom_redistr_future_income[k] <- interpole_world_income(df$custom_redistr_current_income[k], current, future) 
+      df$custom_redistr_self_gain <- df$custom_redistr_future_income[k] >= df$custom_redistr_current_income[k]
       df$custom_redistr_transfer[k] <- 100*sum(future[1:winners] - current[1:winners])/sum(current[1:1000]) 
       # transfer <- (integral(future, 0, winners) - integral(current, 0, winners))/integral(current, 0, 1000)
       futures[k, ] <- future 

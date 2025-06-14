@@ -289,8 +289,34 @@ barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, so
 
 
 ##### Custom redistr #####
-plot(0:1000, c(0, round(thousandile_world_disposable_inc)), type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
+current_inc <- c(0, round(thousandile_world_disposable_inc))
+plot(0:1000, current_inc, type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
 lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")
+grid()
+
+plot(0:1000, log10(current_inc), type = 'l', lwd = 2, col = "red", ylim = c(3, 6))
+lines(0:1000, log10(mean_custom_redistr[["all"]]), type = 'l', lwd = 2, col = "green")
+grid()
+lines(0:1000, log10(pmax(250*12, world_income_after_tax("top1"))), type = 'l', lwd = 2, col = "blue")
+lines(0:1000, log10(pmax(400*12, world_income_after_tax("top3"))), type = 'l', lwd = 2, col = "cyan")
+
+plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2)), type = 'l', lwd = 2, ylim = c(0, .2), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+grid()
+
+plot(seq(0, 1e6, 1e3), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, ylim = c(0, .3), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "blue")
+lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "purple")
+grid()
+
+plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2), marginal = T), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized income (in $/year)")
+grid() # ~ 7-8% above 25k & 15% above 40k
+
+plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = T, fct_income = F), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized income centile")
+grid() 
+
+plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = F, fct_income = F), type = 'l', lwd = 2, ylim = c(-2, .5), ylab = "Tax rate", xlab = "Individualized income centile")
+grid() 
+
 
 
 ##### Presentation #####
