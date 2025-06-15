@@ -2770,9 +2770,9 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   #   names(mean_ci)[which(names(mean_ci) == "y")] <- "along"
   #   names(mean_ci)[which(names(mean_ci) == "temp")] <- "y"  }
 
-  if (exists("countries_names") && all(Levels(mean_ci$along) %in% countries_names)) mean_ci$along <- factor(mean_ci$along, levels = countries_names)
+  if (exists("countries_names") && all(Levels(mean_ci$along) %in% countries_names)) mean_ci$along <- factor(mean_ci$along, levels = (countries_names))
   if (exists("countries_names") && all(Levels(mean_ci$y) %in% countries_names)) mean_ci$y <- factor(mean_ci$y, levels = rev(countries_names))
-  if (class(levels_along) == "list" && all(Levels(mean_ci$along) %in% labels_along)) mean_ci$along <- factor(mean_ci$along, levels = labels_along)
+  if (class(levels_along) == "list" && all(Levels(mean_ci$along) %in% labels_along)) mean_ci$along <- factor(mean_ci$along, levels = (labels_along))
   if (class(levels_along) == "list" && all(Levels(mean_ci$y) %in% labels_along)) mean_ci$y <- factor(mean_ci$y, levels = rev(labels_along))
   if (!is.null(order_y)) if (sort(Levels(mean_ci$y))==sort(order_y)) mean_ci$y <- factor(mean_ci$y, levels = order_y)
   if (!is.null(order_along)) if (sort(Levels(mean_ci$along))==sort(order_along)) mean_ci$along <- factor(mean_ci$along, levels = order_along)
@@ -2780,8 +2780,8 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
 }
 
 plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0(vars, conditions), covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, df = e, labels = vars, factor_along = FALSE,
-                       origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
-                       confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
+                       origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]), font_size = 14, point_size = 4, ci_ticks = T,# condition = "> 0", #country_heterogeneity = FALSE, along_labels,
+                       confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T,
                        legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', width = dev.size('px')[1], height = dev.size('px')[2], save = T, order_y = NULL, order_along = NULL) {
   # TODO multiple conditions, show legend for 20 countries (display UA!) even if there is less than 4 variables
   # TODO: automatic values when missing(legend_x), legend_y
@@ -2826,17 +2826,26 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   } else origins <- c()
   if (to_percent) mean_ci[,c("mean", "CI_low", "CI_high")] <- 100*mean_ci[,c("mean", "CI_low", "CI_high")]
   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T
-
+  mean_ci <- mean_ci[rowSums(!is.pnr(mean_ci)) > 2, colSums(!is.pnr(mean_ci)) > 2] # Removes rows/columns with only NaN/NA
+  if (exists("levels_default_list") && missing(colors) && identical(levels_along, levels_default_list) & !invert_y_along) colors <- c("black", "grey30", scales::hue_pal()(length(unique(mean_ci$along))-2))
+  shapes <- c(19, 15, 17:18, 25, 0:10, 12:13)[1:length(unique(mean_ci$along))]
+  
   plot <- ggplot(mean_ci) + sapply(origins, function(xint) geom_vline(aes(xintercept = xint), linetype = "longdash", color = "grey")) + # For plot, we need mean_ci (cols: mean, CI_low,high, variable, along), legend_x, legend_y. For save, we need: name, folder, width, height.
-    geom_pointrange( aes(x = mean, y = y, color = along, xmin = mean_ci[,"CI_low"], xmax = mean_ci[,"CI_high"],), position = position_dodge(width = .5)) +
-    labs(x = legend_x, y = legend_y, color="") + theme_minimal() + theme(legend.title = element_blank(), legend.position = ifelse(legend_top, "top", "right")) +
-    {if (!missing(colors)) scale_color_manual(values = colors)} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
+    # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) +
+    geom_errorbar(aes(y = y, xmin = CI_low, xmax = CI_high, color = along), size = 0.4, width = .7, position = position_dodge2(width = .7, reverse = TRUE)) +
+    geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
+    geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = if (length(unique(mean_ci$along)) > 1) .2 else 0) +
+    labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
+        legend.title = element_blank(), legend.position = ifelse(legend_top, "top", "right"), legend.background = element_rect(color = if (legend_box) "black" else "white")) + 
+    guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
   if (save) save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T)
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], legend_vertical = T) 
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
 #'
 #'
 #' # # var_to_decompose and group_of_interest: you need to input only one variable as a character

@@ -629,12 +629,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$man <- e$gender %in% "Man"
   
   if ("race_black" %in% names(e)) {
-    e$race <- "Other"
-    e$race[e$race_white==T & e$race_asian == FALSE & e$race_native == FALSE] <- "White only"
+    e$race <- "Other" # Hispanic include Hispanic blacks; therefore Other is a bit higher than (100% - White only - Black alone - Hispanic) and Black a bit lower, by 0.4% I think.
+    e$race[e$race_white==T & e$race_asian == FALSE & e$race_native == FALSE & e$race_black == F & e$race_hispanic == F & e$race_hawaii == F & e$race_other == F] <- "White only"
+    e$race[e$race_black==T & e$race_hispanic==F & e$race_white==F & e$race_asian == FALSE & e$race_native == FALSE & e$race_hawaii == F & e$race_other == F] <- "Black only"
     e$race[e$race_hispanic==T] <- "Hispanic"
-    e$race[e$race_black==T] <- "Black"
     if (any(e$race == "White only")) e$race <- relevel(as.factor(e$race), "White only")
-    label(e$race) <- "race: White only/Hispanic/Black/Other. True proportions: .601/.185/.134/.08"
+    label(e$race) <- "race: White only/Hispanic/Black only/Other. True proportions: .584/.195/.133/.088"
   }
   
   e <- create_item("age_exact", new_var = "age", labels = c("18-24" = 21.5, "25-34" = 30, "35-49" = 42.5, "50-64" = 57.5, "65+" = 71), 
@@ -920,7 +920,7 @@ Sys.time() - start_time # 10 min
 # sum(duplicated(i$distr))
 
 
-# DE <- prepare(country = "DE", scope = "final", fetch = T, convert = T, rename = T, pilot = F, weighting = T)
+# US <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = F, weighting = T)
 # pilot_data_all <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_all)
 

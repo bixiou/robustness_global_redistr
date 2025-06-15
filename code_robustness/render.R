@@ -370,8 +370,8 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 2. survey_flow
 # 3. keywords in fields (taken jointly)
 # 4. TODO revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
-# 5a. TODO ICS: mean of variant (incl. NCS, GCS) (per country + global) 
-# 5b. TODO wealth tax by coverage: mean of variant (country + global)
+# 5a. ICS: mean of variant (incl. NCS, GCS) (per country + global) 
+# 5b. wealth tax by coverage: mean of variant (country + global)
 # 6. TODO conjoint: foreign aid + global tax (per country + global)
 # 7. TODO warm_glow: effect of info + display donation vs. control (per country + global)
 # 8. solidarity_support (on control): heatmap
@@ -383,13 +383,12 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 5a. ICS: mean of variant 
 plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
 
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], legend_vertical = T) 
 
 
 # 5b. Wealth tax by coverage
-# TODO invert order graph (align to legend)
-# TODO several shapes to make it black & white compatible
-# TODO legend top vertical
+# TODO weight (_control) for mean_ci
+# TODO order_along
 plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
