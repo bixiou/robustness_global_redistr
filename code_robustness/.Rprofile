@@ -2776,11 +2776,13 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   if (class(levels_along) == "list" && all(Levels(mean_ci$y) %in% labels_along)) mean_ci$y <- factor(mean_ci$y, levels = rev(labels_along))
   if (!is.null(order_y)) if (sort(Levels(mean_ci$y))==sort(order_y)) mean_ci$y <- factor(mean_ci$y, levels = order_y)
   if (!is.null(order_along)) if (sort(Levels(mean_ci$along))==sort(order_along)) mean_ci$along <- factor(mean_ci$along, levels = order_along)
+  mean_ci$y <- factor(mean_ci$y, levels = rev(unique(mean_ci$y)))
+  mean_ci$along <- factor(mean_ci$along, levels = unique(mean_ci$along))
   return(mean_ci)
 }
 
 plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0(vars, conditions), covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, df = e, labels = vars, factor_along = FALSE,
-                       origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]), font_size = 14, point_size = 4, ci_ticks = T,# condition = "> 0", #country_heterogeneity = FALSE, along_labels,
+                       origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]), font_size = 14, point_size = 4, shapes = NULL,# condition = "> 0", #country_heterogeneity = FALSE, along_labels,
                        confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T,
                        legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', width = dev.size('px')[1], height = dev.size('px')[2], save = T, order_y = NULL, order_along = NULL) {
   # TODO multiple conditions, show legend for 20 countries (display UA!) even if there is less than 4 variables
@@ -2828,10 +2830,11 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T
   mean_ci <- mean_ci[rowSums(!is.pnr(mean_ci)) > 2, colSums(!is.pnr(mean_ci)) > 2] # Removes rows/columns with only NaN/NA
   if (exists("levels_default_list") && missing(colors) && identical(levels_along, levels_default_list) & !invert_y_along) colors <- c("black", "grey30", scales::hue_pal()(length(unique(mean_ci$along))-2))
-  shapes <- c(19, 15, 17:18, 25, 0:10, 12:13)[1:length(unique(mean_ci$along))]
+  if (missing(shapes)) shapes <- if (exists("levels_default_list") && identical(levels_along, levels_default_list) & !invert_y_along) c(19, 15, 0:6, 17, 8, 18, 9:10, 12:13)[1:length(unique(mean_ci$along))] else c(19, 15, 17:18, 0:10, 12:13)[1:length(unique(mean_ci$along))] # c(19, 15, 0:10, 12:13, 17:18)[1:length(unique(mean_ci$along))]
   
   plot <- ggplot(mean_ci) + sapply(origins, function(xint) geom_vline(aes(xintercept = xint), linetype = "longdash", color = "grey")) + # For plot, we need mean_ci (cols: mean, CI_low,high, variable, along), legend_x, legend_y. For save, we need: name, folder, width, height.
-    # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) +
+    # Use this instead of the next two lines to remove ticks/whiskers at the edge of the error bars
+    # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) + 
     geom_errorbar(aes(y = y, xmin = CI_low, xmax = CI_high, color = along), size = 0.4, width = .7, position = position_dodge2(width = .7, reverse = TRUE)) +
     geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
     geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = if (length(unique(mean_ci$along)) > 1) .2 else 0) +
