@@ -381,18 +381,31 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 12. average custom_redistr
 
 # 5a. ICS: mean of variant 
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], legend_vertical = T) 
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
 
 
 # 5b. Wealth tax by coverage
 # TODO weight (_control) for mean_ci
-# TODO order_along
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+# TODO save mean_ci .xlsx
+# TODO aesthetics: print axes, dashed line at 0 or 50%
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
                        # confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
                        # legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', order_y = NULL, order_along = NULL)
 
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, to_percent = T, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
+
+
+# 7. Warm glow
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = dev.size('px')[1], height = dev.size('px')[2], 
+           covariates = "variant_warm_glow", origin = 0, plot_origin_line = T, no_legend = T, condition = "> 0") 
+mean_ci(along = "treatment_donation", outcome_vars = "gcs_support", subsamples = "country_name", df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], 
+        covariates = "treatment_donation", invert_y_along = T, origin = 0) 
+
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = F, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], 
+           covariates = "info_solidarity", origin = 0, plot_origin_line = T, no_legend = T) 
+mean_ci(along = "info_solidarity", outcome_vars = "share_solidarity_supported", subsamples = "country_name", df = all,  
+           covariates = "info_solidarity", origin = 0, print_regs = T) 
