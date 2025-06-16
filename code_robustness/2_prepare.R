@@ -448,7 +448,7 @@ define_var_lists <- function() {
                         "moteur" = "climate_pol1") # "Éliminer progressivement les voitures à moteur à combustion d'ici à 2040")
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
-                                 "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "home", "millionaire", "nationality_SA", "voted", "vote")
+                                 "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "millionaire", "nationality_SA", "voted", "vote")
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
@@ -951,12 +951,23 @@ Sys.time() - start_time # 10 min
 # export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
 
 
-
-
-
-
-
-
-
-
-
+##### Conjoint analysis #####
+e$program_a <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-1-", 1:5)], collapse = ' ')})
+e$program_b <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-2-", 1:5)], collapse = ' ')})
+e$millionaire_tax_in_a <- grepl("foreign_policy1", e$program_a)
+e$millionaire_tax_in_b <- grepl("foreign_policy1", e$program_b)
+e$cut_aid_in_a <- grepl("foreign_policy2", e$program_a)
+e$cut_aid_in_b <- grepl("foreign_policy2", e$program_b)
+e$millionaire_tax_in_program <- e$millionaire_tax_in_a
+e$cut_aid_in_program <- e$cut_aid_in_a
+e$program <- e$program_a
+e$program_preferred <- e$conjoint == "Candidate A"
+temp <- e
+temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
+temp$cut_aid_in_program <- temp$cut_aid_in_b
+temp$program <- temp$program_b
+temp$program_preferred <- temp$conjoint == "Candidate B"
+call <- cbind(e, temp)
+call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociodemos_all, "country", "country_name", "n", 
+        "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
+rm(temp)

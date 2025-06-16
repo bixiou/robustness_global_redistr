@@ -223,7 +223,7 @@ package("googlesheets4") # read/write google sheets
 #' # package("webshot2")
 #' package("htmlwidgets")
 # package("magick") # Bug sur Ubuntu, ne surtout pas décommenter sur Ubuntu
-# library(magick) # image_write
+library(magick) # image_write
 #' # install_github(repo = "MatthieuStigler/RCompAngrist", subdir = "RCompAngrist")
 #' # package("RCompAngrist")
 #'
@@ -1525,7 +1525,7 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
       else if (format == 'svg') {
         dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
         dev.off() } # TODO choose width height with PDF
-      else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
+      else if (format == 'pdf') dev.print(pdf, file = file, width = width/105, height = height/105) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
     }
     else {
       server <- orca_serve() # doesn't work within a function because requires admin rights
@@ -2847,13 +2847,13 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) +
     geom_errorbar(aes(y = y, xmin = CI_low, xmax = CI_high, color = along), size = 0.4, width = if (length(unique(mean_ci$along)) > 1) .7 else .2, position = position_dodge2(width = .7, reverse = TRUE)) +
     geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
-    geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = if (length(unique(mean_ci$along)) > 1) .2 else 0) +
+    {if (length(unique(mean_ci$along)) > 1) geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = .2)} +
     labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
         legend.title = element_blank(), legend.position = ifelse(no_legend, "none", ifelse(legend_top, "top", "right")), legend.background = element_rect(color = if (legend_box) "black" else "white")) + 
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
-  if (save) save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
+  if (save) save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }

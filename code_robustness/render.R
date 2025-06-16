@@ -372,7 +372,7 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 4. TODO revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
 # 5a. ICS: mean of variant (incl. NCS, GCS) (per country + global) 
 # 5b. wealth tax by coverage: mean of variant (country + global)
-# 6. TODO conjoint: foreign aid + global tax (per country + global)
+# 6. conjoint: foreign aid + global tax (per country + global)
 # 7. warm_glow: effect of info + display donation vs. control (per country + global)
 # 8. solidarity_support (on control): heatmap
 # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG?, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
@@ -400,10 +400,18 @@ plot_along("country_name", vars = variables_wealth_tax_support, levels_along = l
 plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
 # 6. conjoint: foreign aid + global tax
+# TODO allow several colors
+# TODO bold all/Europe
+# TODO remove labels for one of them
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # 7. Warm glow
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = dev.size('px')[1], height = dev.size('px')[2], 
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
            covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = F, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
