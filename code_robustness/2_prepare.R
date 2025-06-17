@@ -407,7 +407,7 @@ define_var_lists <- function() {
   variables_split <<- c(variables_split_few, variables_split_many, variables_maritime_split)
   variables_split_agg <<- c(variables_split_few_agg, variables_split_many_agg)
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief_us", "gcs_belief_own", variables_split)
-  variables_gcs_belief <<- c("gcs_belief_us", "gcs_belief_own")
+  variables_gcs_belief <<- c("gcs_belief_own", "gcs_belief_us")
   variables_ics <<- c("ics_high_support", "ics_high_color_support", "ics_mid_support", "ics_low_support")
   variables_gcs_all <<- c("gcs_support", variables_gcs_belief)
   variables_gcs_ics <<- c("gcs_support", variables_ics) # TODO! check where it's _control and not
@@ -570,7 +570,9 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       
       df$custom_redistr_income_min[k] <- future[1]
       df$custom_redistr_future_income[k] <- interpole_world_income(df$custom_redistr_current_income[k], current, future) 
-      df$custom_redistr_self_gain <- df$custom_redistr_future_income[k] >= df$custom_redistr_current_income[k]
+      df$custom_redistr_self_gain[k] <- df$custom_redistr_future_income[k] > df$custom_redistr_current_income[k]
+      df$custom_redistr_self_lose[k] <- df$custom_redistr_future_income[k] < df$custom_redistr_current_income[k]
+      df$custom_redistr_self_unaffected[k] <- df$custom_redistr_future_income[k] == df$custom_redistr_current_income[k]
       df$custom_redistr_transfer[k] <- 100*sum(future[1:winners] - current[1:winners])/sum(current[1:1000]) 
       # transfer <- (integral(future, 0, winners) - integral(current, 0, winners))/integral(current, 0, 1000)
       futures[k, ] <- future 

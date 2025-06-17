@@ -16,6 +16,8 @@
 # TODO: Add a new sheet in features: elections. With the following columns: country; candidate (this should match the "Albanese" version in Qualtrics); 
 #         major: 1 iff the candidate obtained >5% (if you think that another threshold makes more sense for a country, tell me); leaning: 0 if Left, 1 if Center-right or Right, 2 if Far right. 
 
+# TODO: Conjoint analysis: analyze the effect of having an inconsistent program (left+right pols) on conjoint choice and subsequent questions
+
 export_quotas()
 
 ##### Duration #####
@@ -117,6 +119,7 @@ with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_
 # -> keep high scenario for all but RU-SA-US
 # => higher support for ICS than GCS. Why? loss less salient? more realistic? less alone? more countries than expected?
 # => Being without other HIC is worse than without China
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_understood, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ics_support, na.rm = T), 3))
@@ -218,6 +221,9 @@ sapply(c("all", countries[-9]), function(c) round(mean(d(c)$reparations_support[
 ##### Custom redistr #####
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers, na.rm = T), 3)) 
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree, na.rm = T), 3)) 
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 170
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
@@ -245,11 +251,21 @@ with(e, summary(lm(custom_redistr_losers ~ income_exact * country, subset = cust
 decrit("custom_redistr_unsatisfied_unskip", e)
 decrit("custom_redistr_both_satisfied_skip", e)
 decrit("custom_redistr_transfer", e)
+decrit("custom_redistr_self_gain", all)
+decrit("custom_redistr_self_gain", all[all$custom_redistr_satisfied,])
+decrit("custom_redistr_self_lose", all)
+decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied,])
 # mean winners = non-losers: 71% / mean transfer: 4.84% / mean demogrant: $235/month
 (max_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 709
 current_inc[max_winners] # 18k
-100*sum(mean_custom_redistr[["all"]][1:mean_winners] - current[1:mean_winners])/sum(current[1:1000]) 
+100*sum(mean_custom_redistr[["all"]][1:mean_winners] - current[1:mean_winners])/sum(current[1:1000]) # 5% in transfer
 mean_custom_redistr[["all"]][1]/12 # 235
+summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
+summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Far right")
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Center-right or Right")
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Left")
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Non-voter, PNR or Other")
 
 sum(pmax(400*12, world_income_after_tax("top3")))/sum(current_inc) # 1.002
 sum(pmax(250*12, world_income_after_tax("top1")))/sum(current_inc) # 1.0004

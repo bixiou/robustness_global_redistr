@@ -38,7 +38,7 @@ CNRS, CIRED \\ \quad \\ \quad \\
 \begin{frame}{Ongoing data collection}
 \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_progress}}
 \bbvs
-\ip 9,343/12,000 respondents (Europe: 5,000; USA: 3,000; Japan: 2,000; Saudi Arabia, Russia: 1,000).
+\ip 10,208/12,000 respondents (Europe: 5,000; USA: 3,000; Japan: 2,000; Saudi Arabia, Russia: 1,000).
 \ip Representative along: gender, age, income, education, urbanicity, region.
 \ip Results on control group, weighted using quota variables and country population.
 \ip Median duration: 17 min.
@@ -65,8 +65,45 @@ CNRS, CIRED \\ \quad \\ \quad \\
 % 1. ICS: effect of variant (incl. NCS) controlling for GCS_support (per country + global; dans régression avec 2.5 lignes pas répondant, une étant GCS et l'autre NCS) 
 % 2. influence of order on split_few_global, on NCQG; of wording on NCQG
 
+
+% \begin{frame}{Open-ended fields}
+% \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
+% % \bbvs
+% % \ip 
+% % \ee
+% \end{frame}
+
+\begin{frame}{Conjoint analysis}
+\centering
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_10.png}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_5.png}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_7.png}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_9.png}}
+\only<+>{\includegraphics[height=.95\textheight]{../figures/questionnaire/conjoint_US_8.png}}
+\only<+>{}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_3.png}} % Cut left
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_6.png}} % Cut right
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_2.png}} % Cut in both
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/conjoint_US_1.png}} % Cut in none
+\end{frame}
+
+\begin{frame}{Conjoint analysis}
+    \begin{figure}
+\caption{\rose{Effect on} the \rose{likelihood that a} political \rose{program is preferred} of containing the following policy%\\(compared to no foreign policy in the program):
+} \vspace{-.3cm}
+\begin{subfigure}{.48\textwidth}
+  \caption[]{\blue{International tax on millionaires with 30\% financing} healthcare and education in \blue{low-income countries}: +5 pp***} \vspace{-.3cm}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.48\textwidth}
+  \caption[]{\blue{Cut development aid: $-$5 pp***}}\vspace{-.3cm}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
+\end{subfigure}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Revenue split}
-\centering How should revenue from a global tax on millionaires be allocated?
+\centering How should revenue from a global tax on millionaires be allocated? (in \%)
 \makebox[\textwidth][c]{
 \includegraphics[width=\textwidth]{../figures/all/split_few.pdf}}
 % \bbvs
@@ -74,22 +111,58 @@ CNRS, CIRED \\ \quad \\ \quad \\
 % \ee
 \end{frame}
 
-
-% \begin{frame}{Warm glow -- moral substitute} % TODO
-% \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% % \bbvs
-% % \ip 
-% % \ee
-% \end{frame}
-
-
-\begin{frame}{International Climate Scheme}
-\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/ncs_gcs_ics_all_mean}}
+\begin{frame}{International wealth tax}
+\centering Support for a 2\% wealth tax above [\$1 million] with 30\% financing public services in LICs,\\depending on (random variant) which countries adopt it.
+%     {\centering Imagine an international tax on individuals with net worth above [wealth_threshold: \$1 million]. \\
+% Only wealth above [wealth_threshold: \$1 million] would be taxed, at a rate of 2\%. Each country would retain 70\% of the revenues it collects, while 30\% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). \\
+% \\
+% Say we are in 2030. [International: Imagine that some countries  (such as the European Union) adopt this policy and others (such as Japan, Canada, and China) do not.]\\
+% Do you support [country_name: the United States] adopting this international tax on millionaires? }
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/country_by_variables_wealth_tax_support}} % wealth_tax_support_positive
 % \bbvs
 % \ip 
 % \ee
 \end{frame}
 
+\begin{frame}{International Climate Scheme}
+    \bbvsp \ip 3 random branches:
+      \bbvsp \ip Donation experiment: \textit{In case you win the lottery, what share of the \$100 would you donate to plant trees?}
+      \ip National Climate Scheme (NCS): a cap-and-trade financing equal cash transfers.
+      \ip Control group: $\varnothing$. \ee
+    \ip Global Climate Scheme (GCS): % TODO: include full text
+      \bbvsp \ip Description incentivized for comprehension (72\% get it right).
+      \ip A \textit{global} cap-and-trade financing a \textit{global} basic income of [\$35]/month.
+      \ip Salient cost: ``\textbf{The typical [country] person would lose out financially [U.S.: \$90, UK: £20...] per month} (as he or she would face around [U.S.: 2, UK: 1]\% in price increases, which is higher than the [\$35] per month they would receive).'' \ee
+    \ip Belief of support for the GCS. 2 random branches:
+      \bbvs \ip In own country.
+      \ip In the U.S. \ee
+    \ip International Climate Scheme (GCS where participating countries are specified). 4 random branches. 
+    \ee
+\end{frame}
+
+\begin{frame}{International Climate Scheme}
+    \centering % TODO add captions with nb countries and emission coverage ranges
+\only<+>{\includegraphics[height=.93\textheight]{../figures/questionnaire/survey_ics_mid.png}} 
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_low.png}} 
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_mid.png}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_high.png}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_high_color.pdf}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_high_color_EN.pdf}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_high_color_FR.pdf}}
+\only<+>{\includegraphics[height=.93\textheight]{../figures/maps_participation/GCS_high_color_AR.pdf}}
+\end{frame}
+
+\begin{frame}{Pluralistic ignorance}
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/gcs_belief_mean.pdf}} 
+% \ee
+\end{frame}
+
+\begin{frame}{International Climate Scheme}
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/country_by_variables_ncs_gcs_ics}} % ncs_gcs_ics_all_mean
+% \bbvs
+% \ip 
+% \ee
+\end{frame}
 
 \begin{frame}{Realistic global policies}
 \centering Share of (somewhat or strong) \textit{support} among non-\textit{indifferent} answers. \\
@@ -99,41 +172,25 @@ CNRS, CIRED \\ \quad \\ \quad \\
 % \ee
 \end{frame}
 
-
-% \begin{frame}{Warm glow -- realism} % TODO
-% \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% % \bbvs
-% % \ip 
-% % \ee
-% \end{frame}
-
-
-\begin{frame}{International wealth tax}
-\centering Support for a 2\% wealth tax above [\$1 million] with 30\% financing public services in LICs,\\depending on (random variant) which countries adopt it.
-%     {\centering Imagine an international tax on individuals with net worth above [wealth_threshold: \$1 million]. \\
-% Only wealth above [wealth_threshold: \$1 million] would be taxed, at a rate of 2\%. Each country would retain 70\% of the revenues it collects, while 30\% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). \\
-% \\
-% Say we are in 2030. [International: Imagine that some countries  (such as the European Union) adopt this policy and others (such as Japan, Canada, and China) do not.]\\
-% Do you support [country_name: the United States] adopting this international tax on millionaires? }
-\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/wealth_tax_support_positive}}
-% \bbvs
-% \ip 
-% \ee
-\end{frame}
-
-
-\begin{frame}{NCQG}
-\makebox[\textwidth][c]{ \includegraphics[height=.9\textheight]{../figures/all/ncqg}}
-% \bbvs
-% \ip 
-% \ee
+% TODO: description treatments
+\begin{frame}{Testing warm glow} 
+    \begin{figure}
+% \caption{}
+\begin{subfigure}{.47\textwidth}
+  \caption[]{Effect of a \blue{\textit{Donation lottery} treatment} on support for the \rose{Global Climate Scheme}.}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.47\textwidth}
+  \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of realistic \rose{global policies} supported}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+\end{subfigure}
+\end{figure}
 \end{frame}
 
 \begin{frame}{NCQG}
-\makebox[\textwidth][c]{ \includegraphics[height=.9\textheight]{../figures/all/ncqg_full}} % TODO
-% \bbvs
-% \ip 
-% \ee
+\centering
+\only<+>{ \includegraphics[height=.9\textheight]{../figures/all/ncqg}} 
+\only<+>{ \includegraphics[height=.9\textheight]{../figures/all/ncqg_full}} 
 \end{frame}
 
 \begin{frame}{BAU vs. sustainable future}
@@ -160,6 +217,11 @@ Sustainable future:
 % \ee
 \end{frame}
 
+\begin{frame}{Why help LICs?}
+    % Some people think that high-income countries should support low-income countries. \nAmong the different reasons given, which ones do you agree with? (Multiple answers possible)
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/why_hic_help_lic_positive.pdf}}
+\end{frame}
+
 \begin{frame}{Preferred means of transfers}
     \vspace*{.5cm}
 \centering How do you evaluate each of these channels to transfer resources to reduce poverty in LICs?\\ Share of \textit{Right} or \textit{Best} way (other options: \textit{Wrong} or \textit{Acceptable} way).
@@ -169,13 +231,15 @@ Sustainable future:
 % \ee
 \end{frame}
 
-\begin{frame}{Why help LICs?}
-    % Some people think that high-income countries should support low-income countries. \nAmong the different reasons given, which ones do you agree with? (Multiple answers possible)
-\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/why_hic_help_lic_positive.pdf}}
-% \bbvs
-% \ip 
-% \ee
-\end{frame}
+% Order questions in questionnaire:
+% convergence
+% movement
+% vote_intl
+% why_help
+% reparations
+% custom redistr
+% moral circle
+% my taxes
 
 \begin{frame}{A humanist movement}
 \centering If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible)
@@ -200,41 +264,44 @@ Sustainable future:
 \end{frame}
 
 \begin{frame}{Radical redistribution}
-\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_share}}
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}}
 % \bbvs
 % \ip 
 % \ee
 \end{frame}
 
-% \begin{frame}{Custom redistribution} % TODO
+\begin{frame}{Custom redistribution \href{run:../figures/questionnaire/survey_custom_redistr.mp4}{\beamergotobutton{Video}}} 
+    \centering
+    \only<+>{\begin{figure}
+    \includegraphics[height=.93\textheight]{../figures/questionnaire/survey_custom_redistr_bottom.png}\end{figure}}
+    \only<+>{\begin{figure}\caption{Redistribution with median preferred parameters (among satisfied): 
+    winners 49\%; losers: 19\%; degree: 5.}
+    \includegraphics[height=.83\textheight]{../figures/questionnaire/survey_custom_redistr_median_zoom.png}\end{figure}}
+    \only<+>{
+        \bbs \ip 55\% satisfied; 44\% skipped
+        \ip Share satisfied among:\\non-voters: 48\%; left: 61\%, right: 54\%, far right: 58\%.
+        \ip \blue{50\% lose} from their custom redistribution while only \rose{9\% win}.
+        \ip Average custom redistribution:
+        \bbs \ip \blue{Minimal income: \$235/month}
+        \ip \blue{5\% of world income transferred} from top 28\% \rose{to bottom 72\%}
+        \ee         \ee
+    }
+    % \only<+>{\caption{Average preferred redistribution} % TODO
+    % \includegraphics[width=\textwidth]{../figures/questionnaire/survey_custom_redistr_median_zoom.png}}
+\end{frame}
+
+\begin{frame}{Conclusion}
 % \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% % \bbvs
-% % \ip 
-% % \ee
-% \end{frame}
-
-% \begin{frame}{Conjoint analysis}
-% \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% % \bbvs
-% % \ip 
-% % \ee
-% \end{frame}
-
-
-% \begin{frame}{Open-ended fields}
-% \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% % \bbvs
-% % \ip 
-% % \ee
-% \end{frame}
-
-
-% \begin{frame}{Conclusion}
-% % \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
-% \bbvs
-% \ip 
-% \ee
-% \end{frame}
+\bbs
+\ip Global poverty seen as big injustice but not a salient concern.
+\ip Strong majority support for globally redistributive policies.
+\ip Support reduces (only) slightly when fewer countries participate.
+\ip Support is genuine. No evidence of warm glow.
+\ip Global redistribution is a vote-determining issue for many people. % Majority on the left? What about abstentionnist?
+\ip Most agree global sustainability is a duty.
+\ip Most agree they should contribute themselves.
+\ee
+\end{frame}
 
 % - People view global poverty/ineq as big injustice though not salient concern (e.g. revenue_split)
 % - Strong support for global tax / GCS even with partial participation

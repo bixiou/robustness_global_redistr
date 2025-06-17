@@ -1525,7 +1525,7 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
       else if (format == 'svg') {
         dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
         dev.off() } # TODO choose width height with PDF
-      else if (format == 'pdf') dev.print(pdf, file = file, width = width/105, height = height/105) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
+      else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
     }
     else {
       server <- orca_serve() # doesn't work within a function because requires admin rights
@@ -2792,7 +2792,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
                        logit_margin = T, confidence = 0.95, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]], logT=T), 
                        heterogeneity_condition = "", order_y = NULL, order_along = NULL, point_size = 4, shapes = NULL, return_mean_ci = FALSE, print_name = FALSE, font_size = 14, 
                        legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T, levels_subsamples = NULL,
-                       legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', 
+                       legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', plotly = FALSE,
                        width = dev.size('px')[1], height = dev.size('px')[2], save = T, no_legend = F) { # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
   # TODO multiple conditions, show legend for 20 countries (display UA!) even if there is less than 4 variables
   # TODO: automatic values when missing(legend_x), legend_y
@@ -2853,7 +2853,8 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
-  if (save) save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
+  if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
+  } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }

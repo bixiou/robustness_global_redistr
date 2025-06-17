@@ -104,7 +104,9 @@ temp$program <- temp$program_b
 temp$program_preferred <- temp$conjoint == "Candidate B"
 ce <- cbind(e, temp)
 rm(temp)
-summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = ce))
-summary(lm(program_preferred ~ cut_aid_in_program, data = ce))
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call))
+summary(lm(program_preferred ~ millionaire_tax_in_program, data = call))
+summary(lm(program_preferred ~ cut_aid_in_program, data = call))
+decrit("conjoint", all) # 27% Neither
 summary(lm(program_preferred ~ cut_aid_in_program, data = ce, subset = country == "CH"))
 summary(lm(program_preferred ~ cut_aid_in_program, data = ce, subset = country != "CH"))

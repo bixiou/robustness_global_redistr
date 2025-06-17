@@ -94,7 +94,7 @@ labels_vars <- c(
   "share_policies_supported" = "Share of policies supported",
   "dropout" = "Dropped out",
   "my_tax_global_nation" = '"My taxes should go towards solving global problems"',
-  "convergence_support" = '"Governments should actively cooperate to have all countries converge in terms of GDP per capita by the end of the century"',
+  "convergence_support" = '"Governments should actively cooperate to have\nall countries converge in terms of GDP per capita by the end of the century"',
   "nationalist" = "Fellow citizens", # "Nationalist",
   "universalist" = "Humans or Sentient beings", # "Universalist",
   "individualist" = "Family and self", # "Individualist",
@@ -133,6 +133,8 @@ labels_vars <- c(
   "solidarity_support_shipping_levy" = "International levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
   # "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
   "solidarity_support_aviation_levy" = "International levy on aviation carbon emissions, raising prices by 30%, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
+  "ncqg" = "Preferred North-to-South climate grant funding in 2035", # Preferred North-to-South climate funding
+  "ncqg_full" = "Preferred North-to-South climate grant funding in 2035",
   "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
   "transfer_how_govt_conditional" = "Government, conditional on financing poverty reduction", # Transfers to the national government conditioned on the use of funds for poverty reduction programs
   "transfer_how_govt_unconditional" = "Government, unconditional", # Unconditional transfers to the national government
@@ -180,7 +182,8 @@ heatmaps_defs <- list()
 heatmaps_defs <- list(
   "gcs_support" = list(vars = "gcs_support", conditions = ">= 1"),
   "gcs_support_control" = list(vars = "gcs_support", conditions = ">= 1"),  
-  "gcs_belief" = list(vars = variables_gcs_belief, conditions = ""), 
+  "belief" = list(vars = variables_gcs_belief, conditions = "", nb_digits = 0), 
+  "gcs_belief" = list(vars = c("gcs_support", variables_gcs_belief), conditions = "", nb_digits = 0), 
   "variables_ics" = list(vars = variables_ics, conditions = ">= 1"), 
   "gcs_all" = list(vars = variables_gcs_all, conditions = "", nb_digits = 0), 
   "gcs_ics" = list(vars = variables_gcs_ics, conditions = ">= 1"), 
@@ -199,6 +202,7 @@ heatmaps_defs <- list(
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1"),
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
+  "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/")),
   "well_being" = list(vars = variables_well_being, conditions = ""),
   "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1"),
   "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1"),
@@ -226,7 +230,9 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "maritime_split_companies" = list(height = 250),
   "maritime_split_ldc" = list(height = 250),
   "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
-  "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T)
+  "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T),
+  "ncqg" = list(vars = "ncqg", width = 1070, height = 640),
+  "ncqg_full" = list(vars = "ncqg_full", width = 1070, height = 640)
   # ncqg: rev = F, rev_color = T
   # "split_many"
   # "split_many_global
@@ -236,7 +242,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("ncqg", "ncqg_full", "maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", 
+vars_barres <- c("maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", 
                  "group_defended", "reparations_support", "gcs_support_control", "gcs_comprehension", "survey_biased") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
@@ -256,6 +262,7 @@ barres_multiple(barres_defs["split_few"])
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs["gcs_ics_all"])
+heatmap_multiple(heatmaps_defs["gcs_belief"]) # TODO! fix colors
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all")])
 heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
@@ -345,6 +352,7 @@ heatmap_multiple(heatmaps_defs[c("transfer_how")])
 
 # Radical redistribution
 heatmap_multiple(heatmaps_defs[c("radical_redistr")])
+heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F)
 
 barres_multiple(barresN_defs[c("group_defended")])
 heatmap_multiple(heatmaps_defs[c("global_movement")])
@@ -370,12 +378,14 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 2. survey_flow
 # 3. keywords in fields (taken jointly)
 # 4. TODO revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
+# 4bis. Average split by country (+ dot for share of 0 for global) Pb: no error bars
 # 5a. ICS: mean of variant (incl. NCS, GCS) (per country + global) 
 # 5b. wealth tax by coverage: mean of variant (country + global)
 # 6. conjoint: foreign aid + global tax (per country + global)
 # 7. warm_glow: effect of info + display donation vs. control (per country + global)
+# 7c. 2SLS info
 # 8. solidarity_support (on control): heatmap
-# 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG?, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
+# 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
 # 10. group_defended: barresN or barres?
 # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
 # 12. average custom_redistr
@@ -391,27 +401,27 @@ plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_d
 # TODO save mean_ci .xlsx
 # TODO aesthetics: print axes
 # TODO handle missing values in subsamples with levels_along as list
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
                        # confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
                        # legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', order_y = NULL, order_along = NULL)
 
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = F, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
+plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
 # 6. conjoint: foreign aid + global tax
 # TODO allow several colors
 # TODO bold all/Europe
 # TODO remove labels for one of them
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # 7. Warm glow
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
            covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, return_mean_ci = F, df = all, width = 400, height = 370, 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
