@@ -5,6 +5,8 @@
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 
+# TODO: change Green liberty party
+
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
 # mean(e$convergence_support > 0)
@@ -910,7 +912,7 @@ Sys.time() - start_time # 10 min
 
 # Oldies
 
-# temp <- prepare(country = "SA", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
 
 # write.csv(CHa$id[CHa$excluded %in% "QuotaMet" & CHa$income_quartile < 3 & CHa$education_quota %in% "Below upper secondary"], "ID_CH_quotafull_below_upper.csv", quote = F, row.names = F)
 # write.csv(temp$id, "SA_IDs.csv", quote = F, row.names = F)

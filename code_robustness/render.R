@@ -128,7 +128,7 @@ labels_vars <- c(
   "solidarity_support_foreign_aid" = "At least 0.7% of developed countries' GDP in foreign aid", # Developed countries contributing at least 0.7% of their GDP in foreign aid and development assistance
   "solidarity_support_debt_relief" = "Debt relief for vulnerable countries, suspending payments until they are more able to repay", # Debt relief for vulnerable countries by suspending repayments until they are better able to repay, promoting their development
   "solidarity_support_bridgetown" = "Bridgetown initiative: MDBs expanding sustainable investments in LICs, and at lower interest rates", # Institutions like the World Bank investing in many more sustainable projects in lower-income countries, and offering lower interest rates (the Bridgetown initiative)
-  "solidarity_support_loss_damage" = "L&D: Developed countries financing a fund to help vulnerable countries cope with cliamte Loss and damage", # Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change
+  "solidarity_support_loss_damage" = "L&D: Developed countries financing a fund to help vulnerable countries cope with climate Loss and damage", # Developed countries financing a fund to help vulnerable countries cope with loss and damage from climate change
   "solidarity_support_ncqg_300bn" = "NCQG: Developing countries providing $300 bn a year in climate finance for developing countries", # Developed countries providing $300 billion a year (0.4% of their GDP) to finance climate action in developing countries
   "solidarity_support_shipping_levy" = "International levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
   # "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
@@ -352,7 +352,7 @@ heatmap_multiple(heatmaps_defs[c("transfer_how")])
 
 # Radical redistribution
 heatmap_multiple(heatmaps_defs[c("radical_redistr")])
-heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F)
+heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F) # TODO! fix weights
 
 barres_multiple(barresN_defs[c("group_defended")])
 heatmap_multiple(heatmaps_defs[c("global_movement")])

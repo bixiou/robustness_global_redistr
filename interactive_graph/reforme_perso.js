@@ -111,7 +111,7 @@ $j(document).ready(function($j){
 				graph.getLegendBox().setDock(cfx.DockArea.Top);
 				titreX = new cfx.TitleDockable();
 				// titreX.setText("Revenus après impôts et transferts des humains adultes, du plus pauvre au plus riche");
-				titreX.setText("Income after taxes and transfers of human adults, from the poorest to the richest");
+				titreX.setText("Humans' disposable income, from poorest to richest");
 				titreX.setTextColor("#555555");
 				graph.getAxisX().setTitle(titreX);
 				graph.getAxisX().setStep(10000);
