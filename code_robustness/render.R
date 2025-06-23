@@ -53,6 +53,9 @@ labels_vars <- c(
   "voted" = "Voted at last election",
   # "vote_us_voters" = "Vote (voters)",
   # "vote_us_non_voters" = "Vote intention (non voters)",
+  "revenue_split_few_domestic_tax_reduction" = "Domestic: Reduction in the income tax",
+  "split_many_global_when_appear" = "Share allocated to Global spending options\nwhen such options are part of the 5 (out of 13) randomly selected ones",
+  "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected",
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
   # "gcs_support_100" = "Support for the GCS",
   # "gcs_support_90" = "Support for a Global Climate Scheme at $90/tCO2",
@@ -288,11 +291,11 @@ barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/
 
 
 ##### Split #####
-data_countries <- countries[-9]
-data_split_few <- matrix(NA, dimnames = list(variables_split_few, data_countries), nrow = 5, ncol = length(data_countries))
-for (v in variables_split_few) for (c in data_countries) data_split_few[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight, na.rm = T)
-barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
-       legend = labels_vars[variables_split_few], labels = countries_names[data_countries])
+# data_countries <- countries[-9]
+# data_split_few <- matrix(NA, dimnames = list(variables_split_few, data_countries), nrow = 5, ncol = length(data_countries))
+# for (v in variables_split_few) for (c in data_countries) data_split_few[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight, na.rm = T)
+# barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
+#        legend = labels_vars[variables_split_few], labels = countries_names[data_countries])
 
 
 ##### Custom redistr #####
@@ -377,20 +380,47 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 1? coverage map
 # 2. survey_flow
 # 3. keywords in fields (taken jointly)
-# 4. TODO revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
+# 4. revenue_split_global+revenue_split_few_global+revenue_split_few_domestic_education_healthcare: one point + error bar for mean per country; one global, one point for # 0% (per country + global)
 # 4bis. Average split by country (+ dot for share of 0 for global) Pb: no error bars
 # 5a. ICS: mean of variant (incl. NCS, GCS) (per country + global) 
 # 5b. wealth tax by coverage: mean of variant (country + global)
 # 6. conjoint: foreign aid + global tax (per country + global)
 # 7. warm_glow: effect of info + display donation vs. control (per country + global)
-# 7c. 2SLS info
 # 8. solidarity_support (on control): heatmap
 # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
 # 10. group_defended: barresN or barres?
 # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
 # 12. average custom_redistr
 
+# 4. Revenue split
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           name = "split_main_means", levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 900, height = 650) 
+
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           name = "split_main_nb0_nolabel", no_label = T, conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 500, height = 650) 
+
+# 4bis. 
+split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, rev(names(levels_default_list))))
+for (c in names(levels_default_list)) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
+split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, rev(names(levels_default_list))))
+for (c in names(levels_default_list)) for (v in variables_split_many) split_many[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))
+split_many <- sweep(split_many, 2, colSums(split_many), "/")
+split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(revenue_split_few_global > 0, weight)))
+# dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
+# dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
+
+# TODO: bold for special_levels
+# TODO: width & height in barres
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
+barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list))
+
 # 5a. ICS: mean of variant 
+# TODO: fix labels
 plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
 plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 

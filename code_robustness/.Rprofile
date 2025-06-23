@@ -1328,7 +1328,7 @@ order_agree <- function(data, miss, rev = T, n = ncol(data)) { # used in barres
     else { for (i in 1:n) { agree <- c(agree, data[1, i]) } } }
   return(order(agree, decreasing = rev)) }
 barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FALSE, hover=legend, nsp=TRUE, sort=TRUE, legend=hover, showLegend=T,
-                   margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL,
+                   margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL, name_mean = "mean",
                    display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T, 
                    weights = T, fr=F, rev=T, grouped = F, error_margin = F, color_margin = '#00000033', N = NA, font = 'Arial') { # default: Arial (also: Times, Latin Modern Sans, Computer Modern) # OECD: Computer Modern
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
@@ -1365,13 +1365,13 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (!is.na(legend_x)) legendX <- legend_x
   if (!showLegend) { margin_t <- max(0, margin_t - 70) }
   if (ncol(data)==1) legendY <- 1 # 1.5 + 0.3*thin
-  if (!is.null(add_means) && add_means && is.null(transform_mean)) transform_mean <- identity
-  if (!is.null(add_means) && add_means) means <- sapply(vars, function(v) return(transform_mean(wtd.mean(df[[v]], weights = df[["weight"]]))))
+  if (!is.null(add_means) && any(add_means) && is.null(transform_mean)) transform_mean <- identity
+  if (!is.null(add_means) && any(add_means)) means <- if (is.numeric(add_means)) add_means else sapply(vars, function(v) return(transform_mean(wtd.mean(df[[v]], weights = df[["weight"]]))))
   if (sort) {
     order <- order_agree(data = data, miss = miss, rev = rev, n = length(labels))
     labels <- labels[order]
     data <- matrix(data[, order], nrow=nrow(data))
-    if (!is.null(add_means) && add_means) means <- means[order]
+    if (!is.null(add_means) && any(add_means)) means <- means[order]
   }
   if (is.na(xrange)) xrange <- c(0, max(colSums(data))*1.099)
   if (nrow(data)==1 & (sort | !showLegend)) {  # new: add !showLegend to manage responsable_CC i.e. comparisons of a multiple answer question
@@ -1491,7 +1491,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
     bars <- add_trace(bars, x = data[i,], name=legend[i], text = values[,i], hoverinfo = 'text', hovertext = hovers[,i], marker = list(color = color[i]),
                       error_x = list(visible = error_margin, array=qnorm(1-0.05/2)*sqrt(data[i,]*(1-data[i,])/(N-1)), color = color_margin)) # width thickness (in px)
   } } # /!\ When data and vars are not provided, N cannot be computed, but error_margin=T still returns a (zero) confidence interval
-  if (!is.null(add_means) && add_means)  bars <- add_trace(bars, x = means, name = "mean", marker = list(color = 'black', size = 10, symbol = 'diamond'), showlegend = (!is.null(show_legend_means) && show_legend_means), type = 'scatter', mode = 'markers')
+  if (!is.null(add_means) && any(add_means))  bars <- add_trace(bars, x = means, name = name_mean, marker = list(color = 'black', size = 10, symbol = 'diamond'), showlegend = (!is.null(show_legend_means) && show_legend_means), type = 'scatter', mode = 'markers')
   if (online) { api_create(bars, filename=file, sharing="public") }
   if (!missing(file) & save) save_plotly(bars, filename = file) # new
   if (export_xls) {
@@ -1525,7 +1525,11 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
       else if (format == 'svg') {
         dev.copy(svg, filename = file, width = width/100, height = height/100) # save plot from R (not plotly)
         dev.off() } # TODO choose width height with PDF
-      else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
+      else if (format == 'pdf' & !is.null(plot)) {
+        pdf(file, width = width/105, height = height/105)
+        print(plot)
+        dev.off()
+      } else if (format == 'pdf') dev.print(pdf, file = file) # because dev.size('px')[1]/dev.size('in')[1] = 105 , width = width/105, height = height/105
     }
     else {
       server <- orca_serve() # doesn't work within a function because requires admin rights
@@ -2792,7 +2796,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
                        logit_margin = T, confidence = 0.95, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]], logT=T), 
                        heterogeneity_condition = "", order_y = NULL, order_along = NULL, point_size = 4, shapes = NULL, return_mean_ci = FALSE, print_name = FALSE, font_size = 14, 
                        legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T, levels_subsamples = NULL,
-                       legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', plotly = FALSE,
+                       legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', plotly = FALSE, no_label = FALSE,
                        width = dev.size('px')[1], height = dev.size('px')[2], save = T, no_legend = F) { # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
   # TODO multiple conditions, show legend for 20 countries (display UA!) even if there is less than 4 variables
   # TODO: automatic values when missing(legend_x), legend_y
@@ -2847,8 +2851,8 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) +
     geom_errorbar(aes(y = y, xmin = CI_low, xmax = CI_high, color = along), size = 0.4, width = if (length(unique(mean_ci$along)) > 1) .7 else .2, position = position_dodge2(width = .7, reverse = TRUE)) +
     geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
-    {if (length(unique(mean_ci$along)) > 1) geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = .2)} +
-    labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
+    {if (length(unique(mean_ci$y)) > 1) geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = .2)} +
+    labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text.y = if (no_label) element_blank() else element_text(), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
         legend.title = element_blank(), legend.position = ifelse(no_legend, "none", ifelse(legend_top, "top", "right")), legend.background = element_rect(color = if (legend_box) "black" else "white")) + 
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
@@ -2858,10 +2862,6 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }
-# plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = dev.size('px')[1], height = dev.size('px')[2], 
-           # covariates = "variant_warm_glow", invert_y_along = F, no_legend = T, origin = 0, plot_origin_line = T) 
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], legend_vertical = T)
-# plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = F, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2]) 
 #'
 #'
 #' # # var_to_decompose and group_of_interest: you need to input only one variable as a character

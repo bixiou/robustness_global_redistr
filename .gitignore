@@ -10,3 +10,6 @@ data/~$inflation_imf.xlsx
 *.Renviron
 deprecated/*IDs*.csv
 Adrien's/*
+code_robustness/split_few_averagesplit_few_average.xlsx
+
+figures/split_few_average.pdf

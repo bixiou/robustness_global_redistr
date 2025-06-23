@@ -5,8 +5,6 @@
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 
-# TODO: change Green liberty party
-
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
 # mean(e$convergence_support > 0)
@@ -393,14 +391,14 @@ define_var_lists <- function() {
   variables_duration <<- c("duration", "duration_consent", "duration_socios_demos", "duration_field", "duration_conjoint", "duration_global_tax", "duration_warm_glow_substitute", "duration_gcs", 
                            "duration_ics", "duration_warm_glow_realism", "duration_ncqg_maritime", "duration_wealth_tax", "duration_preferred_transfer_mean", "duration_radical_redistr", 
                            "duration_custom_redistr", "duration_well_being", "duration_scenarios_tax", "duration_end", "duration_extra", "duration_main_questions", "duration_feedback")
-  variables_split_few <<- c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
-                            "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global")
+  variables_split_few <<- rev(c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
+                            "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global"))
   variables_split_many_domestic <<- c("revenue_split_many_domestic_education", "revenue_split_many_domestic_healthcare", "revenue_split_many_domestic_defense", "revenue_split_many_domestic_deficit_reduction", 
                              "revenue_split_many_domestic_justice_police", "revenue_split_many_domestic_pensions", "revenue_split_many_domestic_welfare", "revenue_split_many_domestic_infrastructure", 
                              "revenue_split_many_domestic_tax_reduction")
   variables_split_many_global <<- c("revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
   "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
-  variables_split_many <<- c(variables_split_many_domestic, variables_split_many_global)
+  variables_split_many <<- c(variables_split_many_global, variables_split_many_domestic)
   variables_split_few_agg <<- paste0(variables_split_few, "_agg")
   variables_split_many_domestic_agg <<- paste0(variables_split_many_domestic, "_agg")
   variables_split_many_global_agg <<- paste0(variables_split_many_global, "_agg")
@@ -812,8 +810,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   e$split_nb_global <- rowSums(!is.na(e[, variables_split_many_global]))
   e$split_nb_global[e$variant_split == 1] <- NA
-  e$split_many_global <- rowSums(e[, variables_split_many_global], na.rm = T)
-  e$split_many_global[!e$split_nb_global %in% 1:4] <- NA
+  e$split_many_global <- e$split_many_global_when_appear <- rowSums(e[, variables_split_many_global], na.rm = T)
+  e$split_many_global_when_appear[!e$split_nb_global %in% 1:4] <- NA
   
   e$split_both_global <- ifelse(e$variant_split == 1, e$revenue_split_few_global, e$split_many_global)
   e$split_both_global[e$split_nb_global %in% 0] <- NA
