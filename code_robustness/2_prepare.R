@@ -4,6 +4,7 @@
 # TODO: sociodemos determinants (y.c. custom_redistr)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
+# TODO: RU education on 18+ (not 25-64)
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -924,7 +925,7 @@ Sys.time() - start_time # 10 min
 
 
 # US <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = F, weighting = T)
-# pilot_data_all <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
+# pilot_data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = F, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_all)
 
 # sum(duplicated(p$distr))

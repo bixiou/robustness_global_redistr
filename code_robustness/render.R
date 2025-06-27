@@ -386,6 +386,7 @@ barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, l
 # 5b. wealth tax by coverage: mean of variant (country + global)
 # 6. conjoint: foreign aid + global tax (per country + global)
 # 7. warm_glow: effect of info + display donation vs. control (per country + global)
+# 7bis: 2SLS
 # 8. solidarity_support (on control): heatmap
 # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
 # 10. group_defended: barresN or barres?
@@ -454,4 +455,8 @@ plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "coun
            covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
 plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
+           covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+# 7bis: 2SLS
+plot_along(along = "info_solidarity", vars = "likely_solidarity", condition = "> 0", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
