@@ -635,7 +635,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if ("race_black" %in% names(e)) {
     e$race <- "Other" # Hispanic include Hispanic blacks; therefore Other is a bit higher than (100% - White only - Black alone - Hispanic) and Black a bit lower, by 0.4% I think.
     e$race[e$race_white==T & e$race_asian == FALSE & e$race_native == FALSE & e$race_black == F & e$race_hispanic == F & e$race_hawaii == F & e$race_other == F] <- "White only"
-    e$race[e$race_black==T & e$race_hispanic==F & e$race_white==F & e$race_asian == FALSE & e$race_native == FALSE & e$race_hawaii == F & e$race_other == F] <- "Black only"
+    e$race[e$race_black==T & e$race_hispanic==F & e$race_white==F & e$race_asian == FALSE & e$race_native == FALSE & e$race_hawaii == F & e$race_other == F] <- "Black"
     e$race[e$race_hispanic==T] <- "Hispanic"
     if (any(e$race == "White only")) e$race <- relevel(as.factor(e$race), "White only")
     label(e$race) <- "race: White only/Hispanic/Black only/Other. True proportions: .584/.195/.133/.088"
@@ -910,8 +910,7 @@ Sys.time() - start_time # 10 min
 # save.image(".RData")
 
 # Oldies
-
-# CH <- prepare(country = "CH", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# US <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T, remove_id = T)
 
 # write.csv(CHa$id[CHa$excluded %in% "QuotaMet" & CHa$income_quartile < 3 & CHa$education_quota %in% "Below upper secondary"], "ID_CH_quotafull_below_upper.csv", quote = F, row.names = F)
 # write.csv(temp$id, "SA_IDs.csv", quote = F, row.names = F)
