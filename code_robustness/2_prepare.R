@@ -5,6 +5,7 @@
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 # TODO: RU education on 18+ (not 25-64)
+# TODO: give 10£ to Just One Tree
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -881,23 +882,24 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   return(e)
 }
 
+
 ##### Load data #####
-start_time <- Sys.time()
-survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
-                        fetch = T, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
-all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
-list2env(survey_data, envir = .GlobalEnv)
-all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
-
-e <- all
-beep()
-Sys.time() - start_time # 6 min
-
-all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
-beep()
-Sys.time() - start_time # 10 min
-
-# Pilots
+# start_time <- Sys.time()
+# survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final", 
+#                         fetch = T, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
+# all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
+# list2env(survey_data, envir = .GlobalEnv)
+# all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
+# 
+# e <- all
+# beep()
+# Sys.time() - start_time # 6 min
+# 
+# all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
+# beep()
+# Sys.time() - start_time # 10 min
+# 
+# # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
 # pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
 # list2env(pilot_data, envir = .GlobalEnv) # 35 in both pilot and all: 16 in PL, 14 in GB, 5 in US
@@ -906,51 +908,21 @@ Sys.time() - start_time # 10 min
 # data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
-# write.csv(all[, c("n", "country", "distr", "id", "interview")], "../Adrien's/all_id.csv", quote = F, row.names = F)
-# save.image(".RData")
 
-# Oldies
-# US <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = T, remove_id = T)
-
-# write.csv(CHa$id[CHa$excluded %in% "QuotaMet" & CHa$income_quartile < 3 & CHa$education_quota %in% "Below upper secondary"], "ID_CH_quotafull_below_upper.csv", quote = F, row.names = F)
-# write.csv(temp$id, "SA_IDs.csv", quote = F, row.names = F)
-
-# pilot_data_id <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", remove_id = F, fetch = T, convert = T, rename = T, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
-# i <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_id)
-# list2env(pilot_data, envir = .GlobalEnv)
-# write.csv(i[, c("id", "country")], "../deprecated/IDs_pilot.csv", row.names = F, quote = F)
-# sum(is.na(i$id))
-# sum(duplicated(i$distr))
-
-
-# US <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = F, weighting = T)
-# pilot_data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = F, weighting = FALSE) }), paste0(pilot_countries, "p")) # remove_id = F
-# a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data_all)
-
-# sum(duplicated(p$distr))
-
-# for (v in names(p)[1:80]) { print(decrit(v, p)); print("____________");}
-# for (v in names(p)[81:160]) { print(decrit(v, p)); print("____________");}
-# for (v in names(p)[161:211]) { print(decrit(v, p)); print("____________");}
-# for (c in paste0(pilot_countries, "p")) print(paste(c, mean(d(c)$gcs_support %in% "Yes")))
-# summary(lm(gcs_support %in% "Yes" ~ country, data = p))
-# summary(lm(ics_support %in% "Yes" ~ variant_ics, data = p))
+##### Lottery draw #####
+# sample(all$n[all$gcs_understood], 1) # PL229
+# sample(all$n[all$variant_warm_glow == "donation"], 1) # GB238
+# all$donation[all$n == "GB238"] # 10% to plant trees => 90£ for them
+# for (v in c("own", "US")) for (c in countries[-9]) all$gcs_actual_support[all$country == c & all$variant_belief == ifelse(v == "own", "Own", "US")] <- wtd.mean(d(c)[[paste0("gcs_belief_", tolower(v))]], weights = d(c)$weight)
+# sample(all$n[which(abs(all$gcs_actual_support - all$gcs_belief) == min(abs(all$gcs_actual_support - all$gcs_belief)))], 1) # US1257
 # 
-# for (i in 1:length(e)) {
-#   # label(e[[i]]) <- paste(names(e)[i], ": ", label(e[[i]]), e[[i]][1], sep="") #
-#   print(paste(i, label(e[[i]])))
-#   # print(names(e)[i])
-# }
-# list2env(setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = FALSE, convert = TRUE, pilot = TRUE, weighting = FALSE) }), paste0(pilot_countries, "p")), envir = .GlobalEnv)
-# p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, lapply(paste0(pilot_countries, "p"), function(c) d(c)))
-# USp <- prepare(country = "US", scope = "final", fetch = F, convert = T, pilot = TRUE, weighting = FALSE)
-# PLp <- prepare(country = "PL", scope = "final", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
-# GBp <- prepare(country = "GB", scope = "final", fetch = T, convert = T, pilot = TRUE, weighting = FALSE)
-# p <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, list(USp, PLp, GBp))
-
-
-##### Codebook #####
-# export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197)) 
+# temp <- prepare(country = "PL", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# as.character(temp$id[temp$n == "PL229"]) 
+# temp <- prepare(country = "GB", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# as.character(temp$id[temp$n == "GB238"]) 
+# temp <- prepare(country = "US", scope = "final", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = F, remove_id = F)
+# as.character(temp$id[temp$n == "US1257"]) 
+# rm(temp)
 
 
 ##### Conjoint analysis #####
@@ -973,3 +945,12 @@ call <- cbind(e, temp)
 call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociodemos_all, "country", "country_name", "n", 
         "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
 rm(temp)
+
+
+##### Codebook #####
+# export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197))
+export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
+
+
+##### Save #####
+# save.image(".RData")

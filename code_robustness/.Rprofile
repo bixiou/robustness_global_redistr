@@ -1329,7 +1329,7 @@ order_agree <- function(data, miss, rev = T, n = ncol(data)) { # used in barres
   return(order(agree, decreasing = rev)) }
 barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FALSE, hover=legend, nsp=TRUE, sort=TRUE, legend=hover, showLegend=T,
                    margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL, name_mean = "mean",
-                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T, 
+                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T,
                    weights = T, fr=F, rev=T, grouped = F, error_margin = F, color_margin = '#00000033', N = NA, font = 'Arial') { # default: Arial (also: Times, Latin Modern Sans, Computer Modern) # OECD: Computer Modern
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
   if (!missing(miss)) nsp <- miss
@@ -2720,19 +2720,19 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
 }
 
 
-# Two cases: with covariates (coefficients or constant+coefficients are shown, depending on origin = 0 or not, cf. mean_ci_along_regressions) 
+# Two cases: with covariates (coefficients or constant+coefficients are shown, depending on origin = 0 or not, cf. mean_ci_along_regressions)
 #         or without covariates (i.e. unconditional means of subgroups)
 # Four configurations: a. and b. one outcomes, two heterogeneities / c. and d. different outcomes, one heterogeneity (d. is invert_y_along = T)
 # a. one outcome, y: subsamples (e.g. countries), along: heterogeneity; b. one outcome, y: covariates, along = subsamples: heterogeneity (e.g. countries)
 # c. y: outcomes, along; d. y: heterogeneity, along: outcomes
 # For numerical outcomes (i.e. not dummies), set conditions to rep("", length(outcomes))
-mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_vars, conditions), covariates = NULL, subsamples = NULL, 
+mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_vars, conditions), covariates = NULL, subsamples = NULL,
                     conditions = c(""), invert_y_along = FALSE, df = e, labels = outcome_vars, factor_along = FALSE,
                     origin = 'others_at_mean', logit = c(FALSE), weight = 'weight', atmean = T, logit_margin = T, confidence = 0.95,
                     labels_along = levels_along, names_levels = paste0(along, levels_along), levels_subsamples = NULL,
                     levels_along = Levels(df[[along]], logT=T), heterogeneity_condition = "", order_y = NULL, order_along = NULL, print_regs = F) {
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
-  if (class(labels_along) == "list") labels_along <- names(levels_along) 
+  if (class(labels_along) == "list") labels_along <- names(levels_along)
   if (class(labels_along) == "list" && names_levels == paste0(along, labels_along)) names_levels <- paste0(along, labels_along)
   z <- qnorm(1-(1-confidence)/2)
   if (is.logical(df[[along]]) && all(labels_along == levels_along)) { labels_along <- paste0(along, ": ", levels_along) }
@@ -2791,10 +2791,10 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   return(mean_ci)
 }
 
-plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0(vars, conditions), covariates = NULL, subsamples = NULL, conditions = c(""), 
-                       invert_y_along = FALSE, df = e, labels = vars, factor_along = FALSE, origin = 'others_at_mean', logit = c(FALSE), weight = "weight", atmean = T, 
-                       logit_margin = T, confidence = 0.95, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]], logT=T), 
-                       heterogeneity_condition = "", order_y = NULL, order_along = NULL, point_size = 4, shapes = NULL, return_mean_ci = FALSE, print_name = FALSE, font_size = 14, 
+plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0(vars, conditions), covariates = NULL, subsamples = NULL, conditions = c(""),
+                       invert_y_along = FALSE, df = e, labels = vars, factor_along = FALSE, origin = 'others_at_mean', logit = c(FALSE), weight = "weight", atmean = T,
+                       logit_margin = T, confidence = 0.95, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]], logT=T),
+                       heterogeneity_condition = "", order_y = NULL, order_along = NULL, point_size = 4, shapes = NULL, return_mean_ci = FALSE, print_name = FALSE, font_size = 14,
                        legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T, levels_subsamples = NULL,
                        legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', plotly = FALSE, no_label = FALSE,
                        width = dev.size('px')[1], height = dev.size('px')[2], save = T, no_legend = F) { # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
@@ -2845,7 +2845,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   mean_ci <- mean_ci[rowSums(!is.pnr(mean_ci)) > 2, colSums(!is.pnr(mean_ci)) > 2] # Removes rows/columns with only NaN/NA
   if (exists("levels_default_list") && missing(colors) && identical(levels_along, levels_default_list) & !invert_y_along & length(unique(mean_ci$along)) > 2) colors <- c("black", "grey30", scales::hue_pal()(length(unique(mean_ci$along))-2))
   if (missing(shapes)) shapes <- if (exists("levels_default_list") && identical(levels_along, levels_default_list) & !invert_y_along) c(19, 15, 0:6, 17, 8, 18, 9:10, 12:13)[1:length(unique(mean_ci$along))] else c(19, 15, 17:18, 0:10, 12:13)[1:length(unique(mean_ci$along))] # c(19, 15, 0:10, 12:13, 17:18)[1:length(unique(mean_ci$along))]
-  
+
   plot <- ggplot(mean_ci) + lapply(origins, function(xint) geom_vline(xintercept = xint, linetype = "longdash", color = "grey50")) + # For plot, we need mean_ci (cols: mean, CI_low,high, variable, along), legend_x, legend_y. For save, we need: name, folder, width, height.
     # Use this instead of the next two lines to remove ticks/whiskers at the edge of the error bars
     # geom_pointrange(fatten = point_size, size = .4, aes(x = mean, y = y, color = along, shape = along, xmin = CI_low, xmax = CI_high,), position = position_dodge2(width = .5, reverse = T)) +
@@ -2853,12 +2853,12 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
     {if (length(unique(mean_ci$y)) > 1) geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = .2)} +
     labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text.y = if (no_label) element_blank() else element_text(), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
-        legend.title = element_blank(), legend.position = ifelse(no_legend, "none", ifelse(legend_top, "top", "right")), legend.background = element_rect(color = if (legend_box) "black" else "white")) + 
+        legend.title = element_blank(), legend.position = ifelse(no_legend, "none", ifelse(legend_top, "top", "right")), legend.background = element_rect(color = if (legend_box) "black" else "white")) +
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
-  if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
-  } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf') 
+  if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf')
+  } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf')
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }
@@ -2994,7 +2994,7 @@ reweighted_estimate <- function(predicted_var = NULL, country = "EU", variant = 
   freq_pop <- pop_freq[[sub("[0-9p]+", "", country)]]
   for (i in names(freq_pop)) names(freq_pop[[i]]) <- levels_quotas[[i]]
   if (paste0(c(country, variant), collapse = "_") %in% names(quotas)) country_variant <- paste0(c(country, variant), collapse = "_")
-  else country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant)) 
+  else country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant))
   vars_pop <- quotas[[country_variant]]
   # vars_pop <-  names(freq_pop)
   covariates <- vars_pop
