@@ -460,3 +460,6 @@ plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsa
 # 7bis: 2SLS
 plot_along(along = "info_solidarity", vars = "likely_solidarity", condition = "> 0", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+# 8. Realistic policies 1336 x 737
+heatmap_multiple(heatmaps_defs[c("solidarity_support")])
