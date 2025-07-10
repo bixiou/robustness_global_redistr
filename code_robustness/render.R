@@ -54,6 +54,7 @@ labels_vars <- c(
   # "vote_us_voters" = "Vote (voters)",
   # "vote_us_non_voters" = "Vote intention (non voters)",
   "revenue_split_few_domestic_tax_reduction" = "Domestic: Reduction in the income tax",
+  "revenue_split_few_domestic_tax_reduction_agg" = "Domestic: Reduction in the income tax",
   "split_many_global_when_appear" = "Share allocated to Global spending options\nwhen such options are part of the 5 (out of 13) randomly selected ones",
   "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected",
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
@@ -64,10 +65,10 @@ labels_vars <- c(
   "gcs_belief_own" = "Belief about GCS support in own country",
   "gcs_belief_us" = "Belief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
   "ncs_support" = "Supports the National Climate Scheme", 
-  "ics_high_support" = "$ atop('                    Supports the GCS if its other members* cover 64-72% of world emissions', 
-                               '*' * bold(High) * ': Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)')", 
   "ics_high_color_support" = "$ atop('     Supports the GCS if its other members* cover 64-72% of world emissions',          
                                      '*' * bold('High color') * ': High + Distributive effects displayed using colors on world map')", 
+  "ics_high_support" = "$ atop('                    Supports the GCS if its other members* cover 64-72% of world emissions', 
+                               '*' * bold(High) * ': Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)')", 
   "ics_mid_support" = "$ atop('Supports the GCS if its other members* cover 56% of world emissions', 
                               '                                                                   *' * bold('Mid') * ': Global South + China')", 
   "ics_low_support" = "$ atop('Supports the GCS if its other members* cover 25-33% of world emissions', 
@@ -150,6 +151,11 @@ labels_vars <- c(
   "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
   "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
   "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
+  "custom_redistr_winners" = "Preferred share of winners",
+  "custom_redistr_losers" = "Preferred share of losers",
+  "custom_redistr_degree" = "Preferred degree of redistribution",
+  "custom_redistr_income_min" = "Implied minimum income",
+  "custom_redistr_transfer" = "Implied transfer (in % of world income)",
   "well_being_gallup_0" = "Well-being: Gallup, 0-10 scale",
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
   "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
@@ -331,37 +337,36 @@ grid()
 
 ##### Presentation #####
 # Revenue split
-barres_multiple(barres_defs["split_few"])
-barres_multiple(barresN_defs["split_few"])
+barres_multiple(barres_defs["split_few"]) # 670 x 330
 
 # Warm glow -- moral substitute
 
 # International Climate Scheme
-heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")])
+heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")]) # 1700 x 650
 
 # Realistic global policies
-heatmap_multiple(heatmaps_defs[c("solidarity_support")])
+heatmap_multiple(heatmaps_defs[c("solidarity_support")]) # 1480 x 790
 
 # Warm glow -- realism
 
 # International wealth tax
-heatmap_multiple(heatmaps_defs[c("wealth_tax_support")])
+heatmap_multiple(heatmaps_defs[c("wealth_tax_support")]) # 1370 x 320
 
 # NCQG
-barres_multiple(barresN_defs[c("ncqg", "ncqg_full")])
+barres_multiple(barresN_defs[c("ncqg", "ncqg_full")]) # 850 x 610
 
 # Preferred means of transfers
-heatmap_multiple(heatmaps_defs[c("transfer_how")])
+heatmap_multiple(heatmaps_defs[c("transfer_how")]) # 1240 x 520
 
 # Radical redistribution
-heatmap_multiple(heatmaps_defs[c("radical_redistr")])
-heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F) # TODO! fix weights
+heatmap_multiple(heatmaps_defs[c("radical_redistr")]) 
+heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F) # 1550 x 450 TODO! fix weights
 
-barres_multiple(barresN_defs[c("group_defended")])
-heatmap_multiple(heatmaps_defs[c("global_movement")])
-heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")])
-heatmap_multiple(heatmaps_defs[c("sustainable_future")])
-barres_multiple(barresN_defs[c("vote_intl_coalition")])
+barres_multiple(barresN_defs[c("group_defended")]) # 1300 x 700
+heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
+heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")]) # 1200 x 380
+heatmap_multiple(heatmaps_defs[c("sustainable_future")]) # 1100 x 300
+barres_multiple(barresN_defs[c("vote_intl_coalition")], df = all[!all$country %in% c("SA", "RU"),]) # 800 x 500
 
 # Custom redistribution
 heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
@@ -422,9 +427,19 @@ barres(data = split_many, file = "../figures/country_comparison/split_many_bars"
 
 # 5a. ICS: mean of variant 
 # TODO: fix labels
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
-
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
+legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
+                        "Supports the GCS if its other members* cover 25-33% of world emissions<br>**Low**: Global South + EU",
+                        "Supports the GCS if its other members* cover 56% of world emissions<br>**Mid**: Global South + China",
+                        "Supports the GCS if its other members* cover 64-72% of world emissions<br>**High**: Global South + China + EU + various HICs (UK, Japan, South Korea, Canada...)",
+                        "Supports the GCS if its other members* cover 64-72% of world emissions<br>**High color**: High + Distributive effects displayed using colors on world map")
+legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
+                        "Supports the GCS if coverage is **Low**<br>Other members: Global South + EU<br>(25-33% of world emissions)",
+                        "Supports the GCS if coverage is **Mid**<br>Global South + China<br>(56% of world emissions)",
+                        "Supports the GCS if coverage is **High**<br>Global South + China + EU + various HICs<br>(UK, Japan, South Korea, Canada...; 64-72% of world emissions)",
+                        "Supports the GCS if coverage is **High**, **color** variant<br>Global South + China + EU + various HICs<br>+ Distributive effects displayed using colors on world map")
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1240, height = 480, origin = 50, plot_origin_line = T) 
+# Up: 1240 x 480 / Down: 750 x 790
+# plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
 
 
 # 5b. Wealth tax by coverage
@@ -432,13 +447,16 @@ plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_d
 # TODO save mean_ci .xlsx
 # TODO aesthetics: print axes
 # TODO handle missing values in subsamples with levels_along as list
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
+legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries", 
+                       "**High-income**:<br>All other HICs and<br>not some MICs (such as China)",
+                        "**International**:<br>Some countries (e.g. EU, UK, Brazil)<br>and not others (e.g. U.S., China)")
+plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
                        # confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
                        # legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', order_y = NULL, order_along = NULL)
-
-plot_along("country_name", vars = variables_wealth_tax_support, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
+# Up: 870 x 380 / Down: 1300 x 650
+# plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
 # 6. conjoint: foreign aid + global tax
 # TODO allow several colors
@@ -463,3 +481,19 @@ plot_along(along = "info_solidarity", vars = "likely_solidarity", condition = ">
 
 # 8. Realistic policies 1336 x 737
 heatmap_multiple(heatmaps_defs[c("solidarity_support")])
+
+
+## Tables
+# 2SLS
+first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)
+iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)
+# first_stage_f <- summary(iv_model, diagnostics = TRUE)$diagnostics["Weak instruments", "statistic"]
+ols_model <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
+direct_effect <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)
+stargazer(first_stage, iv_model, ols_model, direct_effect,
+          column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
+          keep.stat = c("n", "rsq", "f"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
+          type = "latex", style = "default", out = "../tables/iv.tex",
+          title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))

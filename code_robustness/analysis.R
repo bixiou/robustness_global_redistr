@@ -119,6 +119,8 @@ with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_
 # -> keep high scenario for all but RU-SA-US
 # => higher support for ICS than GCS. Why? loss less salient? more realistic? less alone? more countries than expected?
 # => Being without other HIC is worse than without China
+decrit("gcs_understood", all)
+decrit("survey_biased", all)
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_understood, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ncs_support, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_support, na.rm = T), 3))
@@ -146,10 +148,11 @@ sort(sapply(variables_solidarity_support, function(c) mean(e[[c]][e[[c]] != 0] >
 sapply(c("all", countries[-9]), function(c) mean(d(c)$solidarity_support_aviation_levy[d(c)$solidarity_support_aviation_levy != 0] > 0))
 with(e, summary(lm((likely_solidarity > 0) ~ info_solidarity)))
 with(e, summary(lm(likely_solidarity ~ info_solidarity)))
-with(e, summary(lm(share_solidarity_supported ~ info_solidarity))) 
+with(e, summary(lm(share_solidarity_supported ~ info_solidarity), weights = weight)) 
 with(e, summary(lm(share_solidarity_short_supported ~ variant_info_solidarity))) 
 with(e, summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0)))) 
-summary(ivreg(share_solidarity_short_supported ~ (likely_solidarity > 0) | info_solidarity, data = e))
+summary(ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = e$weight))
+summary(ivreg(share_solidarity_short_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = e$weight))
 summary(ivreg(share_solidarity_short_supported ~ likely_solidarity | info_solidarity, data = e))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e, subset = !info_solidarity))
@@ -224,8 +227,8 @@ sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip,
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers, na.rm = T), 3)) 
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree, na.rm = T), 3)) 
-sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 500
-sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 170
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 49
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 18
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 440-520: 500
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 160
@@ -255,13 +258,15 @@ decrit("custom_redistr_self_gain", all)
 decrit("custom_redistr_self_gain", all[all$custom_redistr_satisfied,])
 decrit("custom_redistr_self_lose", all)
 decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied,])
-# mean winners = non-losers: 71% / mean transfer: 4.84% / mean demogrant: $235/month
-(max_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 709
+# mean winners = non-losers: 72% / mean transfer: 5.08% / mean demogrant: $243/month
+(max_winners <- min(which(mean_custom_redistr[["all"]] < c(0, round(thousandile_world_disposable_inc))))) # 723
 current_inc[max_winners] # 18k
 100*sum(mean_custom_redistr[["all"]][1:mean_winners] - current[1:mean_winners])/sum(current[1:1000]) # 5% in transfer
-mean_custom_redistr[["all"]][1]/12 # 235
+mean_custom_redistr[["all"]][1]/12 # 243
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
+decrit("custom_redistr_satisfied", all) # 56%
+decrit("custom_redistr_skip", all) # 43%
 decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Far right")
 decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Center-right or Right")
 decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Left")

@@ -75,7 +75,7 @@ plot(amce$PL)
 plot(amce$ES) 
 plot(amce$GB)
 plot(amce$CH) 
-plot(amce$JP) # TODO: display
+plot(amce$JP) # TODO: display; English
 plot(amce$US) 
 plot(amce$GBp)
 plot(amce$PLp)

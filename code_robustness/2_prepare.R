@@ -410,7 +410,7 @@ define_var_lists <- function() {
   variables_split_agg <<- c(variables_split_few_agg, variables_split_many_agg)
   variables_numeric <<- c(variables_duration, "hh_size", "Nb_children__14", "donation", "gcs_belief_us", "gcs_belief_own", variables_split)
   variables_gcs_belief <<- c("gcs_belief_own", "gcs_belief_us")
-  variables_ics <<- c("ics_high_support", "ics_high_color_support", "ics_mid_support", "ics_low_support")
+  variables_ics <<- rev(c("ics_high_color_support", "ics_high_support", "ics_mid_support", "ics_low_support"))
   variables_gcs_all <<- c("gcs_support", variables_gcs_belief)
   variables_gcs_ics <<- c("gcs_support", variables_ics) # TODO! check where it's _control and not
   variables_gcs_ics_all <<- c("gcs_support", variables_gcs_belief, variables_ics)
@@ -749,7 +749,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("gcs_comprehension", labels = c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
   e$gcs_understood <- e$gcs_comprehension == 1
   e <- create_item("my_tax_global_nation", labels = c("Strongly disagree" = -2, "Disagree" = -1, "Neither agree nor disagree" = 0, "Agree" = 1, "Strongly agree" = 2), df = e)
-  e <- create_item("group_defended", labels = c("Family and self" = -2, "Region, continent or religion" = -1, "Fellow citizens" = 0, "Humans" = 1, "Sentient beings" = 2),
+  e <- create_item("group_defended", labels = c("Family and self" = -2, "Community (region, gender...)" = -1, "Fellow citizens" = 0, "Humans" = 1, "Sentient beings" = 2),
                    grep = T, values = c("family", "religion", "Americans", "Humans", "Sentient"), df = e) # In NHB 0-7, Relatives 1; Culture/religion 3; Europeans 5
   e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
 

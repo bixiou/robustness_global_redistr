@@ -4,6 +4,8 @@
 .RData
 .Ruserdata
 *.RDataTmp
+*.RDataTmp1
+*.RDataTmp2
 questionnaire/~$sources.xlsx
 data/~$inflation_imf.xlsx
 *qualtrics_credential.R

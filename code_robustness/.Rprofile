@@ -56,6 +56,7 @@ package("jsonlite") # fromJSON
 package("gmodels") # CrossTable
 package("ivreg") # ivreg
 package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), devtools::install_github("bixiou/cjoint")
+package("ggtext") # ggtext::element_markdown in plot
 #clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
@@ -113,7 +114,7 @@ package("readstata13") # read.dta13
 #' # package("rddtools") # not available
 #' # package("rddapp") # not available
 #' package("mets")
-# package("stargazer") # To fix the bug with is.na() on R 4.2, run the code below from https://gist.github.com/alexeyknorre/b0780836f4cec04d41a863a683f91b53
+package("stargazer") # To fix the bug with is.na() on R 4.2, run the code below from https://gist.github.com/alexeyknorre/b0780836f4cec04d41a863a683f91b53
 # temp <- getwd()
 # setwd(.libPaths()[2])
 # detach("package:stargazer",unload=T)
@@ -1581,7 +1582,7 @@ automatic_folder <- function(along = "country_name", data = e, several = "countr
 heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, percent = FALSE, colors = 'RdYlBu', nb_digits = NULL) { # type in full, upper, lower
   diag <- if(type=="full") T else F
   # color_lims <- if(proportion) c(0,1) else { if (min(data)>=2 & max(data)<= 2) c(-2,2) else c(min(0, data), max(data)) }
-  color_lims <- if(proportion) c(0,1) else { if (min(data, na.rm=T)>=2 & max(data, na.rm=T)<= 2) c(-2,2) else c(min(0, data, na.rm=T), max(data, na.rm=T)) }
+  color_lims <- if(proportion) c(0,1) else { if (min(data, na.rm=T)>=2 & max(data, na.rm=T)<= 2) c(-2,2) else { if (min(data, na.rm=T)>=0 & max(data, na.rm=T)<= 100) c(0, 100) else c(min(0, data, na.rm=T), max(data, na.rm=T)) }}
   if (missing(nb_digits) || is.null(nb_digits)) nb_digits <- if(proportion | percent) 0 else 1
   # color2 <- c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
   # col <- colorRampPalette(color2)(200)
@@ -1809,6 +1810,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
   }
   # We complete the missing fields of plots
   for (name in names(plots)) {
+    add_height <- !"height" %in% names(plots[[name]])
     vars <- if (name %in% names(df)) name else if (exists(paste0("variables_", sub("variables_", "", name)))) eval(str2expression(paste0("variables_", sub("variables_", "", name)))) else NULL
     if (!is.null(vars) && any(vars %in% names(df)) && sum(!is.na(df[, vars])) > 0) {
       if (!"vars" %in% names(plots[[name]])) plots[[name]]$vars <- vars
@@ -1821,7 +1823,9 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       # if (!"margin_l" %in% names(plots[[name]])) plots[[name]]$margin_l <- NA
       if (!"miss" %in% names(plots[[name]])) plots[[name]]$miss <- miss
       if (!"sort" %in% names(plots[[name]])) plots[[name]]$sort <- sort
-      if (!"along" %in% names(plots[[name]])) plots[[name]]$along <- along
+      if (!"along" %in% names(plots[[name]])) {
+        if (!is.null(along)) add_height <- T
+        plots[[name]]$along <- along }
       if (!"rev" %in% names(plots[[name]])) plots[[name]]$rev <- rev
       if (!"rev_color" %in% names(plots[[name]])) plots[[name]]$rev_color <- rev_color
       if (!"fr" %in% names(plots[[name]])) plots[[name]]$fr <- FALSE
@@ -1835,7 +1839,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
       if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
       # if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
-      if (!"height" %in% names(plots[[name]])) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
+      if (add_height) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
     } else {
       plots[[name]] <- NULL
       warning(paste(name, "not found, removing it."))
@@ -2852,7 +2856,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     geom_errorbar(aes(y = y, xmin = CI_low, xmax = CI_high, color = along), size = 0.4, width = if (length(unique(mean_ci$along)) > 1) .7 else .2, position = position_dodge2(width = .7, reverse = TRUE)) +
     geom_point(aes(x = mean, y = y, color = along, shape = along), size = point_size, position = position_dodge2(width = .7, reverse = TRUE)) +
     {if (length(unique(mean_ci$y)) > 1) geom_hline(yintercept = seq(1.5, length(unique(mean_ci$y)) - 0.5, 1), color = "gray80", size = .2)} +
-    labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text.y = if (no_label) element_blank() else element_text(), axis.text = element_text(color = "black"), legend.text = element_text(color = "black"), #legend.title = element_text(color = "black"),
+    labs(x = legend_x, y = legend_y) + theme_minimal(base_size = font_size) + theme(panel.grid.major.y = if (length(unique(mean_ci$along)) > 1) element_blank(), panel.grid.minor.y = if (length(unique(mean_ci$along)) > 1) element_blank(), text = element_text(color = "black"), axis.text.y = if (no_label) element_blank() else ggtext::element_markdown(), axis.text = ggtext::element_markdown(color = "black"), legend.text = ggtext::element_markdown(color = "black"), #legend.title = element_text(color = "black"),
         legend.title = element_blank(), legend.position = ifelse(no_legend, "none", ifelse(legend_top, "top", "right")), legend.background = element_rect(color = if (legend_box) "black" else "white")) +
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
