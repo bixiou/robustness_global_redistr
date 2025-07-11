@@ -884,7 +884,7 @@ gcs_comprehension_order_5,"gcs_comprehension_order_5: Comprehension question: on
 How would gasoline prices change as a result of the Global Climate Scheme? 
 Gasoline prices would... - Display Order - decrease",1 / 3
 my_tax_global_nation,"my_tax_global_nation: To what extent do you agree or disagree with the following statement? ""My taxes should go towards solving global problems.""",Strongly disagree / Disagree / Neither agree nor disagree / Agree / Strongly agree
-group_defended,group_defended: Which group of people do you advocate for when you vote?,"Family and self / Region, continent or religion / Fellow citizens / Humans / Sentient beings"
+group_defended,group_defended: Which group of people do you advocate for when you vote?,"Family and self / Community (region, gender...) / Fellow citizens / Humans / Sentient beings"
 interested_politics,interested_politics: To what extent are you interested in politics?,TRUE / FALSE / NA
 involvement_govt,"involvement_govt: Where would you rate yourself on a scale of 1 to 5, where 1 means you think the government should limit yourself to only providing the most basic government functions, and 5 means you think the government should take active steps in every area it can to enhance the lives of its citizens? - Desired involvement of government",TRUE / FALSE / NA
 Q93_First Click,Q93_First Click: Timing - First Click,min: 0 / max: 1960.342

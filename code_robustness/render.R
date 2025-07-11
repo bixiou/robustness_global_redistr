@@ -497,3 +497,7 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
           covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
           type = "latex", style = "default", out = "../tables/iv.tex",
           title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
+
+
+## Export custom_redistr
+for (v in names(mean_custom_redistr)) write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../data_ext/mean_custom_redistr/", v, ".csv"), row.names = F)
