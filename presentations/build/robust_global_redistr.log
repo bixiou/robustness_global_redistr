@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  10 JUL 2025 19:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  11 JUL 2025 16:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1634,7 +1634,7 @@ Overfull \vbox (11.26138pt too high) detected at line 355
 [56
 
  <../figures/questionnaire/survey_custom_redistr_bottom.png>]
-<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=624, 657.657pt x 546.843pt>
+<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=625, 657.657pt x 546.843pt>
 File: ../figures/questionnaire/survey_custom_redistr_median_zoom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_median_zoom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 355.
@@ -1652,7 +1652,7 @@ Overfull \vbox (12.76894pt too high) detected at line 355
 ] [60
 
 ]
-<../figures/FR/conjoint_FR.pdf, id=649, 1198.4775pt x 380.42125pt>
+<../figures/FR/conjoint_FR.pdf, id=652, 1198.4775pt x 380.42125pt>
 File: ../figures/FR/conjoint_FR.pdf Graphic file (type pdf)
 <use ../figures/FR/conjoint_FR.pdf>
 Package pdftex.def Info: ../figures/FR/conjoint_FR.pdf  used on input line 385.
@@ -1667,7 +1667,7 @@ Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 385.
  [62
 
 ]
-<../figures/IT/conjoint_IT.pdf, id=668, 1198.4775pt x 380.42125pt>
+<../figures/IT/conjoint_IT.pdf, id=671, 1198.4775pt x 380.42125pt>
 File: ../figures/IT/conjoint_IT.pdf Graphic file (type pdf)
 <use ../figures/IT/conjoint_IT.pdf>
 Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 385.
@@ -1675,7 +1675,7 @@ Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 385.
  [63
 
  <../figures/IT/conjoint_IT.pdf>]
-<../figures/PL/conjoint_PL.pdf, id=680, 1198.4775pt x 380.42125pt>
+<../figures/PL/conjoint_PL.pdf, id=683, 1198.4775pt x 380.42125pt>
 File: ../figures/PL/conjoint_PL.pdf Graphic file (type pdf)
 <use ../figures/PL/conjoint_PL.pdf>
 Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 385.
@@ -1683,7 +1683,7 @@ Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 385.
  [64
 
  <../figures/PL/conjoint_PL.pdf>]
-<../figures/ES/conjoint_ES.pdf, id=692, 1198.4775pt x 380.42125pt>
+<../figures/ES/conjoint_ES.pdf, id=695, 1198.4775pt x 380.42125pt>
 File: ../figures/ES/conjoint_ES.pdf Graphic file (type pdf)
 <use ../figures/ES/conjoint_ES.pdf>
 Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 385.
@@ -1691,7 +1691,7 @@ Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 385.
  [65
 
  <../figures/ES/conjoint_ES.pdf>]
-<../figures/GB/conjoint_GB.pdf, id=704, 1198.4775pt x 380.42125pt>
+<../figures/GB/conjoint_GB.pdf, id=707, 1198.4775pt x 380.42125pt>
 File: ../figures/GB/conjoint_GB.pdf Graphic file (type pdf)
 <use ../figures/GB/conjoint_GB.pdf>
 Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 385.
@@ -1699,7 +1699,7 @@ Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 385.
  [66
 
  <../figures/GB/conjoint_GB.pdf>]
-<../figures/CH/conjoint_CH.pdf, id=716, 1198.4775pt x 380.42125pt>
+<../figures/CH/conjoint_CH.pdf, id=719, 1198.4775pt x 380.42125pt>
 File: ../figures/CH/conjoint_CH.pdf Graphic file (type pdf)
 <use ../figures/CH/conjoint_CH.pdf>
 Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 385.
@@ -1707,7 +1707,7 @@ Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 385.
  [67
 
  <../figures/CH/conjoint_CH.pdf>]
-<../figures/US/conjoint_US.pdf, id=729, 1198.4775pt x 380.42125pt>
+<../figures/US/conjoint_US.pdf, id=732, 1198.4775pt x 380.42125pt>
 File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
 <use ../figures/US/conjoint_US.pdf>
 Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 385.
@@ -1721,7 +1721,7 @@ Overfull \vbox (8.43227pt too high) detected at line 412
 [69
 
 ]
-<../figures/country_comparison/solidarity_support_positive.pdf, id=748, 1004.75375pt x 556.0775pt>
+<../figures/country_comparison/solidarity_support_positive.pdf, id=751, 1004.75375pt x 556.0775pt>
 File: ../figures/country_comparison/solidarity_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 439.
@@ -1763,10 +1763,10 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  99i,15n,104p,634b,1057s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/robust_global_redistr.pdf (72 pages, 7499234 bytes).
+Output written on build/robust_global_redistr.pdf (72 pages, 7499717 bytes).
 PDF statistics:
- 845 PDF objects out of 1000 (max. 8388607)
- 610 compressed objects within 7 object streams
+ 848 PDF objects out of 1000 (max. 8388607)
+ 613 compressed objects within 7 object streams
  156 named destinations out of 1000 (max. 500000)
  303 words of extra memory for PDF output out of 10000 (max. 10000000)
 
