@@ -35,20 +35,20 @@ CNRS, CIRED \\ \quad \\ \quad \\
 
 % \section{}
 
-\begin{frame}{Data}
+\begin{frame}{Data\label{data}}
   \vspace{.1cm}
 \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_progress}}
 \bbvs
 \ip 11,000/12,000 respondents (Europe: 5,000; USA: 3,000; Japan: 2,000; Saudi Arabia, Russia: 1,000).
 \ip Data collected from April 15 to July 3, 2025.
-\ip Representative along: gender, age, income, education, urbanicity, region.
+\ip Representative along: gender, age, income, education, urbanicity, region. \hyperlink{representativeness}{\beamergotobutton{Representativeness tables}} 
 \ip Results on control group, weighted using quota variables and country population.
 \ip Median duration: 17 min. Inattentive or fast respondents excluded.
 \ip Analysis and hypotheses pre-registered.
 \ee
 \end{frame}
 
-% TODO: intro, literature, representativeness, attrition, biased
+% TODO: intro, literature, attrition, biased
 
 % Figures:
 % 1? coverage map
@@ -337,20 +337,26 @@ Sustainable future:
     \centering
     \only<+>{\begin{figure}
     \includegraphics[height=.93\textheight]{../figures/questionnaire/survey_custom_redistr_bottom.png}\end{figure}}
-    \only<+>{\begin{figure}\caption{Redistribution with median preferred parameters (among satisfied): 
+    \only<4>{\begin{figure}\caption{Redistribution with median preferred parameters (among satisfied): 
     winners 49\%; losers: 18\%; degree: 5.}
     \includegraphics[height=.83\textheight]{../figures/questionnaire/survey_custom_redistr_median_zoom.png}\end{figure}}
-    \only<+>{
-        \bbs \ip 56\% satisfied; 43\% skipped
-        \ip Share satisfied among:\\non-voters: 50\%; left: 60\%, right: 53\%, far right: 58\%.
-        \ip \blue{49\% lose} from their custom redistribution while only \rose{9\% win}.
-        \ip Average custom redistribution:
+    \only<7>{\begin{figure}\caption{Tax rates of radical redistribution proposals tested.}
+    \includegraphics[height=.83\textheight]{../figures/all/tax_radical_redistr.pdf}\end{figure}}
+    \only<6>{\begin{figure}\caption{Average custom redistribution} 
+      \begin{subfigure}{.2\textwidth}
         \bbs \ip \blue{Minimal income: \$243/month (i.e. \$8/day)}
         \ip \blue{5\% of world income transferred} from top 28\% \rose{to bottom 72\%}
-        \ee         \ee
+        \ee
+      \end{subfigure}\begin{subfigure}{.8\textwidth}
+        \includegraphics[height=.8\textheight]{../figures/all/custom_redistr_mean.png}
+      \end{subfigure}
+    \end{figure}}
+    \only<2->{
+        \bbsp \ip 56\% satisfied; 43\% skipped
+        \ip Share satisfied among:\\non-voters: 50\%; left: 60\%, right: 53\%, far right: 58\%. \pause
+        \ip \blue{49\% lose} from their custom redistribution while only \rose{9\% win}.
+        \ee
     }
-    % \only<+>{\caption{Average preferred redistribution} % TODO
-    % \includegraphics[width=\textwidth]{../figures/questionnaire/survey_custom_redistr_median_zoom.png}}
     % TODO update reforme_perso.js sur adrien-fabre.com
 \end{frame}
 
@@ -369,6 +375,25 @@ Sustainable future:
 
 \appendix 
 \section{Appendix}
+
+\begin{frame}{Representativeness (EU countries) \hyperlink{data}{\beamergotobutton{Go back}} \label{representativeness}}
+    \vspace{-.6cm}
+    \begin{table}[h]
+        \makebox[\textwidth][c]{
+            \resizebox*{!}{.97\textheight}{
+            \input{../tables/FR_DE_IT_PL_ES.tex}
+            }
+        }
+    \end{table}  
+\end{frame}
+
+\begin{frame}{Representativeness of vote (non-EU countries)  \hyperlink{data}{\beamergotobutton{Go back}}}
+\includegraphics[width=\textwidth]{../figures/country_comparison/vote_non_EU_pnr_out.pdf}
+\end{frame}
+
+\begin{frame}{Representativeness of vote (EU countries)  \hyperlink{data}{\beamergotobutton{Go back}}}
+\includegraphics[width=\textwidth]{../figures/country_comparison/vote_EU_pnr_out.pdf}
+\end{frame}
 
 \begin{frame}{Conjoint analyses\label{conjoint_countries} \hyperlink{conjoint_country}{\beamergotobutton{Go back}}} 
     \begin{figure}

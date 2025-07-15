@@ -63,7 +63,7 @@ labels_vars <- c(
   "gcs_support_control" = "Supports the Global Climate Scheme (GCS)",
   "gcs_belief" = "Belief about GCS support",
   "gcs_belief_own" = "Belief about GCS support in own country",
-  "gcs_belief_us" = "Belief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
+  "gcs_belief_us" = "\nBelief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
   "ncs_support" = "Supports the National Climate Scheme", 
   "ics_high_color_support" = "$ atop('     Supports the GCS if its other members* cover 64-72% of world emissions',          
                                      '*' * bold('High color') * ': High + Distributive effects displayed using colors on world map')", 
@@ -192,7 +192,7 @@ heatmaps_defs <- list(
   "gcs_support" = list(vars = "gcs_support", conditions = ">= 1"),
   "gcs_support_control" = list(vars = "gcs_support", conditions = ">= 1"),  
   "belief" = list(vars = variables_gcs_belief, conditions = "", nb_digits = 0), 
-  "gcs_belief" = list(vars = c("gcs_support", variables_gcs_belief), conditions = "", nb_digits = 0), 
+  "gcs_belief" = list(vars = c("gcs_support_control", variables_gcs_belief), conditions = "", nb_digits = 0), 
   "variables_ics" = list(vars = variables_ics, conditions = ">= 1"), 
   "gcs_all" = list(vars = variables_gcs_all, conditions = "", nb_digits = 0), 
   "gcs_ics" = list(vars = variables_gcs_ics, conditions = ">= 1"), 
@@ -271,7 +271,7 @@ barres_multiple(barres_defs["split_few"])
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs["gcs_ics_all"])
-heatmap_multiple(heatmaps_defs["gcs_belief"]) # TODO! fix colors
+heatmap_multiple(heatmaps_defs["gcs_belief"]) 
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all")])
 heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
@@ -319,17 +319,31 @@ lines(0:1000, log10(pmax(400*12, world_income_after_tax("top3"))), type = 'l', l
 plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2)), type = 'l', lwd = 2, ylim = c(0, .2), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 grid()
 
-plot(seq(0, 1e6, 1e3), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, ylim = c(0, .3), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
-lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "blue")
-lines(seq(0, 1e6, 1e3), tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1e6, 1e3)), type = 'l', lwd = 2, col = "purple")
-grid()
+par(mar = c(4.1, 4.1, .2, .5)) # 520 x 465
+plot(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1.1e6, 1e3)), xaxt = 'n', type = 'l', lwd = 2, xlim = c(4, 6), ylim = c(0, 36), ylab = "Tax rate (in %)", xlab = "Individualized yearly income (in PPP 2024 $)")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 3, col = "purple")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("approx_mean"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 4, col = "black")
+axis(1, at = setdiff(log10(c(seq(0, 1e4, 1e3), seq(0, 1e5, 1e4), seq(0, 1e6, 1e5))), log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6))), tcl= -0.3, labels=NA)
+axis(1, at = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), tcl= -.5, labels = c("1k", "3k", "10k", "30k", "100k", "300k", "1M"))
+abline(h = seq(0, 35, 5), v = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), col = "lightgray", lty = "dotted")
+legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
+save_plot(filename = "tax_radical_redistr", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
+
+plot((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, xlim = c(0, 1e6), ylim = c(0, 36), ylab = "Tax rate (in %)", xlab = "Individualized yearly income (in PPP 2024 $)")
+lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
+lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 3, col = "purple")
+lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("approx_mean"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 4, col = "black")
+grid() + legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
+save_plot(filename = "tax_radical_redistr_non_log", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
 
 plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2), marginal = T), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 grid() # ~ 7-8% above 25k & 15% above 40k
 
-plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = T, fct_income = F), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized income centile")
+plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = T, fct_income = F), type = 'l', lwd = 2, ylim = c(0, .5), ylab = "Tax rate", xlab = "Individualized income centile")
 grid() 
 
+# maybe also use this one?
 plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = F, fct_income = F), type = 'l', lwd = 2, ylim = c(-2, .5), ylab = "Tax rate", xlab = "Individualized income centile")
 grid() 
 
@@ -380,7 +394,32 @@ barres_defs[["solidarity_support_billionaire_tax"]]$labels <- "Un impôt minimum
 barres_defs[["solidarity_support_billionaire_tax"]]$legend <- c("Très opposé⋅e", "Plutôt opposé⋅e", "Indifférent⋅e ou ne sais pas", "Plutôt favorable", "Très favorable")
 barres_multiple(barres_defs[c("solidarity_support_billionaire_tax")], df = FR, levels = "France")
 
+# Vote representativeness
+vote_by_country_pnr_out <- dataNK("vote", df = c(list(all[all$country_name %in% countries_EU,]), lapply(countries[c(1:8,11)], function(c) d(c))), miss=F, weights = T, rev=F, weight_non_na = F)[c(2:4,1),]
+vote_by_country <- sweep(vote_by_country_pnr_out, 2, colSums(vote_by_country_pnr_out), FUN = "/")
+colnames(vote_by_country) <- c("EU", countries_names[c(1:8,11)])
+row.names(vote_by_country) <- c("Left", "Center-right or Right", "Far right", "Non-voter, PNR or Other")
+true_vote_by_country <- vote_by_country
+for (c in colnames(vote_by_country)[-1]) for (i in row.names(vote_by_country)) true_vote_by_country[i, c] <- replace_na(pop_freq[[names_countries[c]]]$vote[i], 0)
+true_vote_by_country[,"EU"] <- c(c(.2597, .368, .3264)*(1 - .4926)/sum(c(.2597, .368, .3264)), .4926) # Allocating Non-attached MEPs to groups in proportion to group sizes
+colnames(vote_by_country) <- colnames(vote_by_country_pnr_out) <- paste0(colnames(vote_by_country), ": Weighted sample")
+colnames(true_vote_by_country) <- paste0(colnames(true_vote_by_country), ": Election results")
+vote_data <- cbind(vote_by_country, true_vote_by_country)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
+vote_EU <- cbind(vote_by_country[,2:6], true_vote_by_country[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
+vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
+barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
+barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
+barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
 
+true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
+vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
+vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
+vote_pnr_out <- cbind(vote_by_country_pnr_out, true_vote_by_country_pnr_out)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
+barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
+barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
+barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
+
+  
 ##### Paper #####
 # 1? coverage map
 # 2. survey_flow
@@ -438,7 +477,8 @@ legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Gl
                         "Supports the GCS if coverage is **High**<br>Global South + China + EU + various HICs<br>(UK, Japan, South Korea, Canada...; 64-72% of world emissions)",
                         "Supports the GCS if coverage is **High**, **color** variant<br>Global South + China + EU + various HICs<br>+ Distributive effects displayed using colors on world map")
 plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1240, height = 480, origin = 50, plot_origin_line = T) 
-# Up: 1240 x 480 / Down: 750 x 790
+plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1240, height = 480, origin = 50, plot_origin_line = T) 
+# Up: 1240 x 480 / Down: 750 x 790 # TODO! correct CIs for _control
 # plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
 
 
@@ -501,3 +541,9 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 
 ## Export custom_redistr
 for (v in names(mean_custom_redistr)) write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../data_ext/mean_custom_redistr/", v, ".csv"), row.names = F)
+
+
+## Representativeness
+representativeness_table(countries[1:5])
+representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO nationality for SA; all; EU
+# TODO automatic bold cells that are not within +/- 20%

@@ -415,6 +415,7 @@ define_var_lists <- function() {
   variables_gcs_ics <<- c("gcs_support", variables_ics) # TODO! check where it's _control and not
   variables_gcs_ics_all <<- c("gcs_support", variables_gcs_belief, variables_ics)
   variables_ncs_gcs_ics <<- c("ncs_support", "gcs_support", variables_ics)
+  variables_ncs_gcs_ics_control <<- c("ncs_support", "gcs_support_control", variables_ics)
   variables_ncs_gcs_ics_all <<- c("ncs_support", "gcs_support_control", variables_gcs_belief, variables_ics)
   variables_well_being <<- c("well_being_gallup_0", "well_being_wvs_0", "well_being_gallup_1", "well_being_wvs_1")
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
@@ -514,8 +515,10 @@ tax_rates_custom_redistr <- function(future, current = current_inc, at = seq(0, 
 world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rates = NULL, current = current_inc) {
   if (tax == "top1") thresholds <- 120e3
   if (tax == "top3") thresholds <- c(80e3, 120e3, 1e6)
+  if (tax == "approx_mean") thresholds <- c(25e3, 40e3)
   if (tax == "top1") additional_rates <- .15
   if (tax == "top3") additional_rates <- c(.15, .15, .15)
+  if (tax == "approx_mean") additional_rates <- c(.07, .09)
   future <- current
   for (k in 1:length(thresholds)) future <- future - additional_rates[k]*pmax(0, current - thresholds[k])
   return(future)
@@ -582,15 +585,15 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
                                            "   income_threshold_winners:", income_threshold_winners, "   sum(current[1:winners]): ", sum(current[1:winners])))
     }
   }
-  df$custom_redistr_untouched <- custom_redistr_degree %in% c(2.1, 7.1)
+  df$custom_redistr_untouched <- df$custom_redistr_degree %in% c(2.1, 7.1)
   mean_redistr <- colSums(futures * df$weight, na.rm = T)/sum(df$weight)
   if (!is.null(name) && exists("mean_custom_redistr")) {
     mean_custom_redistr[[name]] <<- mean_redistr
-    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight)[df$custom_redistr_satisfied], na.rm = T)/sum(df$weight[df$custom_redistr_satisfied])
-    mean_custom_redistr[[paste0(name, "_untouched")]] <<- colSums((futures * df$weight)[df$custom_redistr_untouched], na.rm = T)/sum(df$weight[df$custom_redistr_untouched])
-    mean_custom_redistr[[paste0(name, "_satisfed_touched")]] <<- colSums((futures * df$weight)[df$custom_redistr_satisfied & !df$custom_redistr_untouched], na.rm = T)/sum(df$weight[df$custom_redistr_satisfied & !df$custom_redistr_untouched])
-    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight)[df$custom_redistr_self_gain], na.rm = T)/sum(df$weight[df$custom_redistr_self_gain])
-    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight)[df$custom_redistr_self_lose], na.rm = T)/sum(df$weight[df$custom_redistr_self_lose])
+    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_satisfied]/sum(df$weight[df$custom_redistr_satisfied])
+    mean_custom_redistr[[paste0(name, "_untouched")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_untouched]/sum(df$weight[df$custom_redistr_untouched])
+    mean_custom_redistr[[paste0(name, "_satisfed_touched")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_satisfied & !df$custom_redistr_untouched]/sum(df$weight[df$custom_redistr_satisfied & !df$custom_redistr_untouched])
+    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_self_gain]/sum(df$weight[df$custom_redistr_self_gain])
+    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_self_lose]/sum(df$weight[df$custom_redistr_self_lose])
   }
   
   if (return == "df") return(df)
@@ -654,7 +657,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
                    values = list(c("18 to 20", "21 to 24"), c("25 to 29", "30 to 34"), c("35 to 39", "40 to 44", "45 to 49"), c("50 to 54", "55 to 59", "60 to 64"), 
                                  c("65 to 69", "70 to 74", "75 to 79", "80 to 84", "85 to 89", "90 to 99", "100 or above")), df = e)
   e$age_factor <- relevel(as.factor(e$age), "35-49")
-  e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3", "4|5|6|7"), df = e)
+  e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3|4", "5|6|7"), df = e)
   e$post_secondary <- e$education %in% 2
   e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, 0)
   if (country == "JP") e$education_quota[e$education_quota %in% 1] <- 2 # In JP official stats, there is no one Below upper secondary. They'd have weights of 0 if we didn't relabeled them.

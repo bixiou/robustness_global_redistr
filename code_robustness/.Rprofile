@@ -190,7 +190,7 @@ package("Hmisc") # describe, decrit
 #' package("descr")
 package("knitr") # plot_crop, representativeness_table
 # options(knitr.kable.NA = '')
-# package("kableExtra") # add_header_above in
+package("kableExtra") # add_header_above in representativeness_table
 package("WDI") # World Development Indicators, WDI()
 # package("wbstats") # World Bank
 # package("rootSolve")
@@ -1336,7 +1336,8 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (!missing(miss)) nsp <- miss
   labels <- rev(unname(labels))
   if (!missing(vars)) vars <- rev(vars)
-  if (missing(data) & !missing(vars)) {
+  if (!missing(data)) data <- data[,ncol(data):1]
+  else if (!missing(vars)) {
     data <- dataKN(vars, data=df, miss=miss, weights = weights, return = "", fr=fr, rev=rev, weight_non_na = weight_non_na)
     N <- dataN(vars[1], data=df, miss=miss, weights = weights, return = "N")
     if ((missing(legend) || is.null(legend)) & missing(hover)) {
@@ -2924,7 +2925,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
 #' # }
 #'
 representativeness_table <- function(country_list, weighted = T, non_weighted = T, label_operator = union, all = FALSE, omit = c("Other", "Not 25-64", "Employment_18_64: Employed", "Employment_18_64: 65+", "PNR", "Urban: FALSE"),
-                                     filename = NULL, folder = "../tables/sample_composition/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL) {
+                                     filename = NULL, folder = "../tables/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL) {
   rows <- c()
   pop <- sample <- sample_weighted <- labels <- list()
   for (i in seq_along(country_list)) {
@@ -2935,7 +2936,7 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
     labels[[k]] <- "Sample size"
     pop[[k]] <- ""
     sample[[k]] <- sample_weighted[[k]] <- prettyNum(nrow(df), big.mark = ",")
-    quota_variables <- if (all & paste0(c, "_all") %in% names(quotas)) quotas[[paste0(c, "_all")]] else quotas[[c]]
+    quota_variables <- if (all & paste0(c, "_all") %in% names(quotas)) quotas[[paste0(c, "_all")]] else if (c %in% names(quotas)) quotas[[c]] else quotas$default
     for (q in quota_variables) {
       q_name <- ifelse(q %in% names(levels_quotas), q, paste0(c, "_", q))
       for (j in seq_along(levels_quotas[[q_name]])) {
@@ -2943,8 +2944,8 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
         if (pop_freq[[c]][[q_name]][j] > threshold_skip) {
           labels[[k]] <- c(labels[[k]], paste0(capitalize(q), ": ", levels_quotas[[q_name]][j]))
           pop[[k]] <- c(pop[[k]], sprintf("%.2f", round(pop_freq[[c]][[q_name]][j], digits = 2)))
-          sample[[k]] <- c(sample[[k]], sprintf("%.2f", round(mean(as.character(df[[q]]) == levels_quotas[[q_name]][j], na.rm = T), digits = 2)))
-          if (weighted) sample_weighted[[k]] <- c(sample_weighted[[k]], sprintf("%.2f", round(wtd.mean(as.character(df[[q]]) == levels_quotas[[q_name]][j], na.rm = T, weights = df[[weight_var]]), digits = 2)))
+          sample[[k]] <- c(sample[[k]], sprintf("%.2f", round(mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T), digits = 2)))
+          if (weighted) sample_weighted[[k]] <- c(sample_weighted[[k]], sprintf("%.2f", round(wtd.mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T, weights = df[[weight_var]]), digits = 2)))
         }
       }
     }
@@ -2972,6 +2973,7 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
 export_representativeness_table <- function(table, country_list, weighted = T, non_weighted = T, filename = NULL, folder = "../tables/sample_composition", abbr = NULL) {
   header <- c("", rep((1 + weighted + non_weighted), length(country_list)))
   names(header) <- c("", country_list)
+  names(header)[names(header) %in% countries] <- countries_names[names(header)[names(header) %in% countries]]
 
   line_sep <- c()
   for (i in 2:nrow(table)) {
