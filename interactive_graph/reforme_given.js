@@ -29,7 +29,7 @@
 		url:"interactive_graph/world_disposable_inc.csv", // https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ
 		success: function(data){
 	$j.ajax({
-		url:"interactive_graph/mean_custom_redistr/JP.csv", // 
+		url:"interactive_graph/mean_custom_redistr/all_satisfied_touched.csv", // 
 		success: function(data_apres){
 			var graph_width = $j('#graphe').width();
 			var graph_height = $j('#graphe').height();

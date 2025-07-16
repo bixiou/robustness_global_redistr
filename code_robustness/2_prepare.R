@@ -598,11 +598,11 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
   mean_redistr <- colSums(futures * df$weight, na.rm = T)/sum(df$weight)
   if (!is.null(name) && exists("mean_custom_redistr")) {
     mean_custom_redistr[[name]] <<- mean_redistr
-    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_satisfied]/sum(df$weight[df$custom_redistr_satisfied])
-    mean_custom_redistr[[paste0(name, "_untouched")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_untouched]/sum(df$weight[df$custom_redistr_untouched])
-    mean_custom_redistr[[paste0(name, "_satisfed_touched")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_satisfied & !df$custom_redistr_untouched]/sum(df$weight[df$custom_redistr_satisfied & !df$custom_redistr_untouched])
-    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_self_gain]/sum(df$weight[df$custom_redistr_self_gain])
-    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight), na.rm = T)[df$custom_redistr_self_lose]/sum(df$weight[df$custom_redistr_self_lose])
+    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied])
+    mean_custom_redistr[[paste0(name, "_touched")]] <<- colSums((futures * df$weight * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight[!df$custom_redistr_untouched])
+    mean_custom_redistr[[paste0(name, "_satisfied_touched")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied & !df$custom_redistr_untouched])
+    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight * df$custom_redistr_self_gain), na.rm = T)/sum(df$weight[df$custom_redistr_self_gain])
+    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight * df$custom_redistr_self_lose), na.rm = T)/sum(df$weight[df$custom_redistr_self_lose])
   }
   
   if (return == "df") return(df)
@@ -918,20 +918,20 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
 
 ##### Load data #####
-# start_time <- Sys.time()
-# survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final",
-#                         fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
-# all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
-# list2env(survey_data, envir = .GlobalEnv)
-# all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
-# 
-# e <- all
-# beep()
-# Sys.time() - start_time # 6 min
-# 
-# all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
-# beep()
-# Sys.time() - start_time # 10 min
+start_time <- Sys.time()
+survey_data <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "final",
+                        fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T) }), countries[-9]) # remove_id = F
+all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
+list2env(survey_data, envir = .GlobalEnv)
+all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
+
+e <- all
+beep()
+Sys.time() - start_time # 6 min
+
+all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
+beep()
+Sys.time() - start_time # 10 min
 # 
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
@@ -987,4 +987,4 @@ export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2,
 
 
 ##### Save #####
-# save.image(".RData")
+save.image(".RData")

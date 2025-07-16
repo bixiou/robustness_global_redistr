@@ -553,7 +553,12 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 
 
 ## Export custom_redistr
-for (v in names(mean_custom_redistr)) write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../data_ext/mean_custom_redistr/", v, ".csv"), row.names = F)
+mean_custom_redistr_stats <- list()
+for (v in names(mean_custom_redistr)) { 
+  write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
+  share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
+  mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
+}
 
 
 ## Representativeness
