@@ -129,6 +129,14 @@ sapply(c("all", countries[-9]), function(c) round(mean(d(c)$ics_support[d(c)$var
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_support[d(c)$variant_ics == "mid"], na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_belief_us, na.rm = T), 0))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$gcs_belief_own, na.rm = T), 0))
+summary(lm(gcs_support ~ gcs_understood, data = all, weights = weight)) # -6pp***
+summary(lm(ics_support ~ gcs_understood, data = all, weights = weight)) # -5pp***
+summary(lm(ics_low_support ~ gcs_understood, data = all, weights = weight)) # -7pp***
+summary(lm(ics_high_color_support ~ gcs_understood, data = all, weights = weight)) # -3pp
+summary(lm(reg_formula("gcs_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight))
+sapply(c("all", countries[-9]), function(c) round(wtd.mean(d(c)$gcs_support, d(c)$weight * d(c)$gcs_understood, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(wtd.mean(d(c)$ics_low_support, d(c)$weight, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(wtd.mean(d(c)$gcs_support, d(c)$weight * d(c)$gcs_understood, na.rm = T), 3))
 
 
 ##### ICS #####
@@ -148,7 +156,19 @@ sort(sapply(variables_solidarity_support, function(c) mean(e[[c]][e[[c]] != 0] >
 sapply(c("all", countries[-9]), function(c) mean(d(c)$solidarity_support_aviation_levy[d(c)$solidarity_support_aviation_levy != 0] > 0))
 with(e, summary(lm((likely_solidarity > 0) ~ info_solidarity)))
 with(e, summary(lm(likely_solidarity ~ info_solidarity)))
-with(e, summary(lm(share_solidarity_supported ~ info_solidarity), weights = weight)) 
+with(e, summary(lm(share_solidarity_supported ~ info_solidarity), weights = weight)) # +1.pp**
+with(e, summary(lm(share_solidarity_supported_no_commitment ~ info_solidarity), weights = weight)) # 0
+with(e, summary(lm(share_solidarity_supported_no_info ~ info_solidarity), weights = weight))  # 0
+with(e, summary(lm(share_solidarity_opposed ~ info_solidarity), weights = weight))  # 0
+with(e, summary(lm(share_solidarity_opposed_no_commitment ~ info_solidarity), weights = weight))  # 0
+with(e, summary(lm(share_solidarity_opposed_no_info ~ info_solidarity), weights = weight))  # 0
+# Effect of info driven by support for existing agreements. Effect on Bridgetown still shows possible effect on items without commitment. But no effect on non-mentioned items.
+# *: shipping_levy > 0, ncqg_300bn, loss_damage, bridgetown > 0, foreign_aid > 0, 
+# * opposite sign: corporate_tax
+for (v in variables_solidarity_support) {
+  print(v)
+  print(with(e, summary(lm(as.formula(paste(str2expression(v), "> 0 ~ info_solidarity"))), weights = weight)))
+  print(with(e, summary(lm(as.formula(paste(str2expression(v), "< 0 ~ info_solidarity"))), weights = weight))) }
 with(e, summary(lm(share_solidarity_short_supported ~ variant_info_solidarity))) 
 with(e, summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0)))) 
 summary(ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = e$weight))
@@ -322,16 +342,19 @@ summary(lm((transfer_how_govt_unconditional > 0) ~ (transfer_how_order_cash_unco
 
 ##### Attrition #####
 # vote = end sociodemos = 21; 26% dropout at 34 (revenue_split), 7% at 33 (conjoint), 8% at 49 (likely_solidarity), 5% at 59 (scenarios)
-100*round(table(a$progress[!a$progress %in% 100])/sum(!a$finished %in% c(TRUE, "TRUE", 1)), 2) 
-sum(!a$finished %in% c(TRUE, "TRUE", 1))/sum(is.na(a$excluded)) # 18.6% dropout
-sum(!a$finished %in% c(TRUE, "TRUE", 1) & a$progress > 21)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos
-sum(!a$finished %in% c(TRUE, "TRUE", 1) & a$progress == 34)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos, incl. 5% at revenue_split
-summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_US, data = a, subset = is.na(a$excluded)))
-summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_PL, data = a, subset = is.na(a$excluded)))
-summary(lm(!finished %in% c(TRUE, "TRUE", 1) ~ vote_GB, data = a, subset = is.na(a$excluded)))
+100*round(table(a$progress[!a$progress %in% 100])/sum(!a$finished), 2) 
+sum(!a$finished)/sum(is.na(a$excluded)) # 20.6% dropout
+sum(!a$finished & a$progress > 21)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos
+sum(!a$finished & a$progress == 39)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos, incl. 5% at revenue_split
+summary(lm(!finished ~ vote_US, data = a, subset = is.na(a$excluded)))
+summary(lm(!finished ~ vote_PL, data = a, subset = is.na(a$excluded)))
+summary(lm(!finished ~ vote_GB, data = a, subset = is.na(a$excluded)))
 decrit(a$revenue_split_few_global[a$progress == 34])
 decrit(US$finished[is.na(US$excluded)], miss= T)
-sum()
+summary(lm(reg_formula("!finished", variables_sociodemos), data = a, subset = is.na(a$excluded))) 
+# Non-voters are ~6pp more likely to drop out (left more likely than right); likely millionaires, man, young, rich, high educ less likely
+# Say there is differential attrition but unlikely to affect experiments as sociodemos explain under 12% of variance
+summary(lm(reg_formula("share_solidarity_supported", variables_sociodemos), data = all, weights = weight)) 
 
 
 ##### Most correlated variable #####
@@ -342,3 +365,10 @@ variables_interest <- c(variables_solidarity_support, variables_solidarity_suppo
 cors <- cor(e[, variables_interest], use = "pairwise.complete.obs")
 corrplot(cors)
 sort(rowMeans(abs(cors), na.rm = T)) # share_solidarity_supported .41, solidarity_support_ncqg_300bn .39, my_tax_global_nation .37, global_movement_no .36, vote_intl_coalition .35, 
+
+cor(my_taxes_global_nation, my_taxes_global_nation_2023, use = "complete.obs") # .72
+cor(my_taxes_global_nation[-9], global_nation[5,3:12], use = "complete.obs") # .81
+cor(my_taxes_global_nation_2023[-9], global_nation[5,3:12], use = "complete.obs") # .69
+wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T) # 55.7%
+wtd.mean(my_taxes_global_nation, adult_pop, na.rm = T) # 44.8%
+with(all[all$my_tax_global_nation != 0,], wtd.mean(my_tax_global_nation > 0, weight, na.rm = T)) # 59.5%

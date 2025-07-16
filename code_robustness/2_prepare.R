@@ -3,7 +3,6 @@
 # TODO: main figures and tables
 # TODO: sociodemos determinants (y.c. custom_redistr)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
-# TODO: Inverser Rural et Cities dans excel, .csv et R pour GB
 # TODO: RU education on 18+ (not 25-64)
 # TODO: give 10£ to Just One Tree
 
@@ -61,6 +60,8 @@ policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
 thousandile_world_disposable_inc <- as.numeric(read.csv2("../data_ext/world_disposable_inc.csv", header = FALSE)[2:1001, 2]) # created in questionnaire.R
 current <- c(0, thousandile_world_disposable_inc)
 mean_custom_redistr <- list()
+my_taxes_global_nation <- setNames(c(33, 37, 61, 40, 55, 44, NA, 53, NA, 58, 41), countries)/100
+my_taxes_global_nation_2023 <- setNames(c(43, 65, 76, 58, 60, 52, NA, 76, NA, NA, 44), countries)/100
 
 {
   levels_quotas <- list(
@@ -246,44 +247,48 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
 # write.csv(e$zipcode[e$urbanity %in% 0], "../data_ext/unrecognized_zipcodes_US.csv", quote = F, row.names = F)
 
 weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
-  if (!missing(variant)) print(variant)
-  country_variant <- paste0(c(country, variant), collapse = "_") 
-  if (!country_variant %in% names(quotas)) {
-    warning("No country-variant quotas found, using default variables.")
-    country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant)) }
-  vars <- quotas[[country_variant]]
-  freqs <- list()
-  for (v in vars) {
-    if (!(v %in% names(e))) warning(paste(v, "not in data"))
-    e[[v]] <- as.character(e[[v]], include.missings = T)
-    e[[v]][is.na(e[[v]])] <- "NA"
-    var <- ifelse(v %in% names(levels_quotas), v, paste(country, v, sep="_"))
-    if (!(var %in% names(levels_quotas))) warning(paste(var, "not in levels_quotas"))
-    levels_v <- as.character(levels_quotas[[var]])
-    levels_v <- levels_v[levels_v != 0]
-    missing_levels <- setdiff(levels(as.factor(e[[v]])), levels_v) 
-    present_levels <- which(levels_v %in% levels(as.factor(e[[v]]))) 
-    if (length(present_levels) != length(levels_v)) warning(paste0("Following levels are missing from data: ", var, ": ", 
-        paste(levels_v[!1:length(levels_v) %in% present_levels], collapse = ', '), " (for ", country, "). Weights are still computed, neglecting this category."))
-    prop_v <- pop_freq[[country]][[var]][present_levels]
-    if (min_weight_for_missing_level) freq_missing <- rep(0.000001, length(missing_levels)) # imputes 0 weight for levels present in data but not in the weight's definition
-    else freq_missing <- vapply(missing_levels, function(x) sum(e[[v]]==x), FUN.VALUE = c(0))
-    freq_v <- c(prop_v*(nrow(e)-sum(freq_missing)), freq_missing)
-    df <- data.frame(c(levels_v[present_levels], missing_levels), freq_v)
-    # df <- data.frame(c(levels_v, missing_levels), nrow(e)*c(pop_freq[[country]][[var]], rep(0.0001, length(missing_levels))))
-    names(df) <- c(v, "Freq")
-    freqs <- c(freqs, list(df))
+  if (nrow(e) == 0) return(1)
+  else {
+    if (!missing(variant)) print(variant)
+    country_variant <- paste0(c(country, variant), collapse = "_") 
+    if (!country_variant %in% names(quotas)) {
+      warning("No country-variant quotas found, using default variables.")
+      country_variant <- ifelse(is.null(variant), "default", paste0("default_", variant)) }
+    vars <- quotas[[country_variant]]
+    freqs <- list()
+    for (v in vars) {
+      if (!(v %in% names(e))) warning(paste(v, "not in data"))
+      e[[v]] <- as.character(e[[v]], include.missings = T)
+      e[[v]][is.na(e[[v]])] <- "NA"
+      var <- ifelse(v %in% names(levels_quotas), v, paste(country, v, sep="_"))
+      if (!(var %in% names(levels_quotas))) warning(paste(var, "not in levels_quotas"))
+      levels_v <- as.character(levels_quotas[[var]])
+      levels_v <- levels_v[levels_v != 0]
+      missing_levels <- setdiff(levels(as.factor(e[[v]])), levels_v) 
+      present_levels <- which(levels_v %in% levels(as.factor(e[[v]]))) 
+      if (length(present_levels) != length(levels_v)) warning(paste0("Following levels are missing from data: ", var, ": ", 
+                                                                     paste(levels_v[!1:length(levels_v) %in% present_levels], collapse = ', '), " (for ", country, "). Weights are still computed, neglecting this category."))
+      prop_v <- pop_freq[[country]][[var]][present_levels]
+      if (min_weight_for_missing_level) freq_missing <- rep(0.000001, length(missing_levels)) # imputes 0 weight for levels present in data but not in the weight's definition
+      else freq_missing <- vapply(missing_levels, function(x) sum(e[[v]]==x), FUN.VALUE = c(0))
+      freq_v <- c(prop_v*(nrow(e)-sum(freq_missing)), freq_missing)
+      df <- data.frame(c(levels_v[present_levels], missing_levels), freq_v)
+      # df <- data.frame(c(levels_v, missing_levels), nrow(e)*c(pop_freq[[country]][[var]], rep(0.0001, length(missing_levels))))
+      names(df) <- c(v, "Freq")
+      freqs <- c(freqs, list(df))
+    }
+    # print(freqs)
+    unweigthed <- svydesign(ids=~1, data=e)
+    raked <- rake(design= unweigthed, sample.margins = lapply(vars, function(x) return(as.formula(paste("~", x)))), population.margins = freqs)
+    
+    if (printWeights) {    print(summary(weights(raked))  )
+      print(paste("(mean w)^2 / (n * mean w^2): ", representativity_index(weights(raked)), " (pb if < 0.5)")) # <0.5 : problématique
+      print(paste("proportion not in [0.25; 4]: ", round(length(which(weights(raked)<0.25 | weights(raked)>4))/ length(weights(raked)), 3), "Nb obs. in sample: ", nrow(e)))
+    }
+    if (trim) return(weights(trimWeights(raked, lower=0.25, upper=4, strict=TRUE)))
+    else return(weights(raked, lower=0.25, upper=4, strict=TRUE))
+    
   }
-  # print(freqs)
-  unweigthed <- svydesign(ids=~1, data=e)
-  raked <- rake(design= unweigthed, sample.margins = lapply(vars, function(x) return(as.formula(paste("~", x)))), population.margins = freqs)
-  
-  if (printWeights) {    print(summary(weights(raked))  )
-    print(paste("(mean w)^2 / (n * mean w^2): ", representativity_index(weights(raked)), " (pb if < 0.5)")) # <0.5 : problématique
-    print(paste("proportion not in [0.25; 4]: ", round(length(which(weights(raked)<0.25 | weights(raked)>4))/ length(weights(raked)), 3), "Nb obs. in sample: ", nrow(e)))
-  }
-  if (trim) return(weights(trimWeights(raked, lower=0.25, upper=4, strict=TRUE)))
-  else return(weights(raked, lower=0.25, upper=4, strict=TRUE))
 }
 
 prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE, remove_id = NULL) { # scope: all, stayed, final
@@ -370,6 +375,9 @@ define_var_lists <- function() {
   text_pnr <<- c("Prefer not to say")
   variables_solidarity_support <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
     "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_loss_damage", "solidarity_support_ncqg_300bn", "solidarity_support_shipping_levy", "solidarity_support_aviation_levy")
+  variables_solidarity_no_commitment <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council",  
+                                     "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_aviation_levy")
+  variables_solidarity_no_info <<- c("solidarity_support_debt_relief", "solidarity_support_aviation_levy")
   variables_solidarity_support_control <<- paste0(variables_solidarity_support, "_control")
   variables_solidarity_support_short <<- paste0(c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
                                      "solidarity_support_bridgetown"), "_short")
@@ -454,6 +462,7 @@ define_var_lists <- function() {
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "millionaire", "nationality_SA", "voted", "vote")
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
+  variables_sociodemos <<- c("man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "region_factor", "millionaire_factor", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
   variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_voters", "vote_group", "vote_major", "vote_major_voters", "vote_major_candidate", "vote_leaning")
   covariates <<- c("country_name", "man", "age_factor", "income_quartile", "millionaire_agg", "education", "urban", "couple", "employment_agg", "voted", "vote_agg") # "race_white", "region"
@@ -669,6 +678,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  if (country == "GB") e$urbanity[e$urbanity %in% c(1,3)] <- ifelse(e$urbanity[e$urbanity %in% c(1,3)] %in% 1, 3, 1) # Correcting a mistake in Qualtrics encoding
   e$urban <- e$urbanity == 1
   e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e)
   if (country == "US") e$urbanity[e$urbanity %in% c(2, 4)] <- 3 
@@ -764,6 +774,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
                    grep = T, values = c("family", "religion", "Americans", "Humans", "Sentient"), df = e) # In NHB 0-7, Relatives 1; Culture/religion 3; Europeans 5
   e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
 
+  e$millionaire_factor <- factor(e$millionaire_agg)
+  e$urbanity_factor <- factor(e$urbanity)
+  e$education_factor <- factor(e$education)
+  e$income_factor <- factor(e$income_quartile)
+  e$region_factor <- factor(e$region)
+  
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
   
@@ -793,6 +809,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
   e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
   e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
+  e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0)  
+  e$share_solidarity_opposed_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) < 0)  
+  e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0)  
+  e$share_solidarity_opposed_no_info <- rowMeans((e[, variables_solidarity_no_info]) < 0)  
   for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
   
   if (pilot) {
@@ -812,7 +832,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   e$variant_wealth_tax <- e$wealth_tax_support <- NA
   for (v in variables_wealth_tax_support) e$variant_wealth_tax[!is.na(e[[v]])] <- sub("_tax_support", "", v)
-  for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
+  for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] %in% "Yes"
   e <- create_item("wealth_tax_support", labels = c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e)
   
   e$humanist <- grepl("Humans", e$group_defended)
@@ -856,11 +876,14 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in eval(str2expression(paste0("variables_", l)))) e[[v]][!e[[paste0(l, "_asked")]]] <- NA
   }
   
+  e$my_tax_global_nation_external <- my_taxes_global_nation[country]
+  e$my_tax_global_nation_2023 <- my_taxes_global_nation_2023[country]
+  
   e$custom_redistr_unsatisfied_unskip <- ifelse(e$custom_redistr_asked, !e$custom_redistr_satisfied & !e$custom_redistr_skip, NA)
   e$custom_redistr_both_satisfied_skip <- ifelse(e$custom_redistr_asked, e$custom_redistr_satisfied & e$custom_redistr_skip, NA) # flag bad quality
   e$variant_sliders <- ifelse(e$variant_sliders %in% 1, "concentrated", "diffuse")
   label(e$variant_sliders) <- "variant_sliders: Concentrated/Diffuse. Values of the initial position of sliders in custom_redistr. Concentrated/Diffuse: Winners: 40/60; Losers: 10/20; Degree: 7/2."
-  # e$income_qantile <- # TODO
+  # e$income_quantile <- # TODO
   # e$custom_redistr_winning <- e$income_qantile < e$custom_redistr_winners
   # e$custom_redistr_losing <- (100 - e$income_quantile) > e$custom_redistr_losers
   
@@ -916,7 +939,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 # list2env(pilot_data, envir = .GlobalEnv) # 35 in both pilot and all: 16 in PL, 14 in GB, 5 in US
 # beep()
 # 
-# data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = T, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
+# data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 
 

@@ -98,6 +98,7 @@ labels_vars <- c(
   "share_policies_supported" = "Share of policies supported",
   "dropout" = "Dropped out",
   "my_tax_global_nation" = '"My taxes should go towards solving global problems"',
+  "my_tax_global_nation_external" = '"My taxes ... global problems" (Global Nation, 2024)',
   "convergence_support" = '"Governments should actively cooperate to have\nall countries converge in terms of GDP per capita by the end of the century"',
   "nationalist" = "Fellow citizens", # "Nationalist",
   "universalist" = "Humans or Sentient beings", # "Universalist",
@@ -212,6 +213,7 @@ heatmaps_defs <- list(
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
   "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/")),
+  "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/")),
   "well_being" = list(vars = variables_well_being, conditions = ""),
   "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1"),
   "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1"),
@@ -374,7 +376,18 @@ heatmap_multiple(heatmaps_defs[c("transfer_how")]) # 1240 x 520
 
 # Radical redistribution
 heatmap_multiple(heatmaps_defs[c("radical_redistr")]) 
-heatmap_multiple(heatmaps_defs[c("radical_redistr_few")], weights = F) # 1550 x 450 TODO! fix weights
+heatmap_multiple(heatmaps_defs[c("radical_redistr_few")]) # 1550 x 450
+
+global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
+global_nation <- global_nation/(global_nation+heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1"))
+# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
+# In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
+# TODO use Stostad for another comparison
+global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
+row.names(global_nation)[6] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
+save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/radical_redistr_main")
+heatmap_plot(global_nation, proportion = T, percent = T)
+save_plot(filename = "country_comparison/radical_redistr_main", width = 1550, height = 500, format = "pdf", trim = T)
 
 barres_multiple(barresN_defs[c("group_defended")]) # 1300 x 700
 heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
@@ -432,7 +445,7 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 # 7. warm_glow: effect of info + display donation vs. control (per country + global)
 # 7bis: 2SLS
 # 8. solidarity_support (on control): heatmap
-# 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, TODO my_tax_global_nation other source?, convergence_support
+# 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad
 # 10. group_defended: barresN or barres?
 # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
 # 12. average custom_redistr

@@ -1741,7 +1741,7 @@ Southern <- c("08", "09")  # Baden-Württemberg, Bayern
 #                          Great Britain zipcode                              #
 ################################################################################
 #Original code : https://github.com/bixiou/oecd_climate/blob/main/code_oecd/zipcodes/UK_rural.R
-
+# TODO! /!\ Beware, it seems there is an inversion of the coding of Cities (should be 1 but is 3) and Rural
 
 # Charger les données pour  GB  (taille > 100 Mo) : 
 # Source: https://www.doogal.co.uk/postcodedownloads.php => 
