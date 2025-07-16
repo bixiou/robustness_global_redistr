@@ -2078,6 +2078,9 @@ INPUT ../figures/country_comparison/gcs_belief_mean.pdf
 INPUT ../figures/country_comparison/gcs_belief_mean.pdf
 INPUT ../figures/country_comparison/gcs_belief_mean.pdf
 INPUT ../figures/country_comparison/gcs_belief_mean.pdf
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
+INPUT c:/texlive/2022/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT ../figures/questionnaire/survey_ics_mid.png
 INPUT ../figures/questionnaire/survey_ics_mid.png
 INPUT ../figures/questionnaire/survey_ics_mid.png
@@ -2203,9 +2206,6 @@ INPUT ../figures/questionnaire/survey_custom_redistr_bottom.png
 INPUT ../figures/questionnaire/survey_custom_redistr_bottom.png
 INPUT ../figures/questionnaire/survey_custom_redistr_bottom.png
 INPUT ../figures/questionnaire/survey_custom_redistr_bottom.png
-INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
-INPUT c:/texlive/2022/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
-INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT ../figures/questionnaire/survey_custom_redistr_median_zoom.png
 INPUT ../figures/questionnaire/survey_custom_redistr_median_zoom.png
 INPUT ../figures/questionnaire/survey_custom_redistr_median_zoom.png
@@ -2301,6 +2301,14 @@ INPUT c:/texlive/2022/texmf-dist/fonts/vf/public/mathpazo/zplmr7m.vf
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/public/mathpazo/fplmri.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplri8r.tfm
+INPUT ../tables/determinants_omit_many.tex
+INPUT ../tables/determinants_omit_many.tex
+INPUT ../tables/determinants_omit_many.tex
+INPUT ../tables/determinants_omit_many.tex
+INPUT c:/texlive/2022/texmf-dist/fonts/vf/public/mathpazo/zplmr7y.vf
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/public/mathpazo/fplmr.tfm
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr8r.tfm
 OUTPUT build/robust_global_redistr.nav
 OUTPUT build/robust_global_redistr.toc
 OUTPUT build/robust_global_redistr.snm

@@ -2,6 +2,7 @@
 \beamer@slide {data}{22}
 \beamer@slide {conjoint_country}{34}
 \beamer@slide {cs}{40}
+\beamer@slide {gcs}{50}
 \beamer@slide {solidarity_support_relative}{62}
 \beamer@slide {warm_glow}{65}
 \beamer@slide {representativeness}{91}
@@ -10,3 +11,4 @@
 \beamer@slide {solidarity_support_absolute}{103}
 \beamer@slide {2SLS}{104}
 \beamer@slide {tab:iv}{104}
+\beamer@slide {determinants}{105}

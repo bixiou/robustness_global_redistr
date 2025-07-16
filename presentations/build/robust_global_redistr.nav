@@ -79,10 +79,12 @@
 \headcommand {\beamer@framepages {104}{104}}
 \headcommand {\slideentry {1}{0}{9}{105/105}{}{1}}
 \headcommand {\beamer@framepages {105}{105}}
-\headcommand {\beamer@partpages {90}{105}}
-\headcommand {\beamer@subsectionpages {90}{105}}
-\headcommand {\beamer@sectionpages {90}{105}}
-\headcommand {\beamer@documentpages {105}}
-\headcommand {\gdef \inserttotalframenumber {9}}
+\headcommand {\slideentry {1}{0}{10}{106/106}{}{1}}
+\headcommand {\beamer@framepages {106}{106}}
+\headcommand {\beamer@partpages {90}{106}}
+\headcommand {\beamer@subsectionpages {90}{106}}
+\headcommand {\beamer@sectionpages {90}{106}}
+\headcommand {\beamer@documentpages {106}}
+\headcommand {\gdef \inserttotalframenumber {10}}
 \headcommand {\gdef \inserttotalframenumber {27}}
-\headcommand {\gdef \appendixtotalframenumber {9}}
+\headcommand {\gdef \appendixtotalframenumber {10}}

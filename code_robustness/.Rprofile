@@ -175,7 +175,7 @@ package("corrplot") # heatmap #, github = 'taiyun')#, version = "0.88") # 0.92 i
 #' package("broom")
 #' package("tidytext")
 #' package("modelsummary")
-# package("dplR") # latexify, used in table_mean_lines_save
+package("dplR") # latexify, used in table_mean_lines_save hence in desc_table
 # package("tm") # must be loaded before memisc; used for wordcloud
 # package("wordcloud")
 package("xfun") # required by Hmisc, knitr
@@ -647,124 +647,124 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #' #'   if (return) return(output)
 #' #' }
 reg_formula <- function(dep_var, indep_vars) return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
-#' desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control_variables, indep_labels = NULL, weights = data$weight, add_lines = NULL, model.numbers = T, multicolumn = T, #!mean_above,
-#'                        save_folder = "../tables/", dep.var.labels = NULL, dep.var.caption = c(""), digits= 3, mean_control = FALSE, logit = FALSE, atmean = T, robust_SE = T, omit = c("Constant", "Race: Other"),
-#'                        mean_above = T, only_mean = F, keep = indep_vars, nolabel = F, indep_vars_included = T, no.space = T, print_regs = FALSE, replace_endAB = NULL, oecd_latex = FALSE) {
-#'   # Wrapper for stargazer
-#'   # /!\ always run first with nolabel = T to check that the order of indep_labels correspond to the one displayed
-#'   # dep_vars: either a variable name (automatically repeated if needed) or a list of variable names (of length the number of columns)
-#'   # (in)dep_vars accept expressions of type : var_name expression (e.g. "equal_quota %in% 0:1", but not "equal_quota == 0 | equal_quota==1)
-#'   # /!\ Interaction terms should be added with :, not *. There is a bug if the interaction terms are not at the end of indep_vars, also a bug if the unused indep variables in the first regression are not at the end
-#'   # /!\ To appear in the table, they should be written without parentheses and with due space, e.g. "var > 0" and not "(var>0)"
-#'   # indep_vars is the vector of potential covariates, they are by default all included by
-#'   # indep_vars_included can be set to a list (of length the number of columns) of booleans or variable names to specify which covariates to include in each column
-#'   # keep is a vector of regular expressions allowing to specify which covariates to display (by default, all except the Constant)
-#'   # mean_above=T displays the mean of the dependant var (for those which treatment=="control" if mean_control = T) at top rather than bottom of Table (only_mean=T only displays that)
-#'   # logit is either a boolean or a boolean vector
-#'   # data can be a list of data frames instead of a single one
-#'   if (missing(dep.var.labels) & !(is.character(dep_vars))) dep.var.labels <- dep_vars
-#'   dep.var.labels.include <- ifelse(is.null(dep.var.labels), F, T)
-#'   names(indep_vars) <- indep_vars
-#'   if (class(indep_vars_included)=="list") { if (length(dep_vars)==1) dep_vars <- rep(dep_vars[1], length(indep_vars_included))  }
-#'   else { indep_vars_included <- rep(list(rep(T, length(indep_vars))), length(dep_vars)) }
-#'   if (length(logit) == 1) logit <- rep(logit, length(dep_vars))
-#'   # if (length(indep_labels) > length(indep_vars)) indep_labels <- indep_labels[indep_vars]
-#'   models <- coefs <- SEs <- list()
-#'   means <- c()
-#'   for (i in seq_along(dep_vars)) {
-#'     df <- if (is.data.frame(data)) data else data[[i]]
-#'     if (is.null(weights)) weight_vec <- rep(1, nrow(df))
-#'     else weight_vec <- weights
-#'     if (is.character(weights) & !is.data.frame(data)) weight_vec <- df[[weights]]
-#'     if (is.character(indep_vars_included[[i]])) indep_vars_included[[i]] <- indep_vars %in% indep_vars_included[[i]]
-#'     formula_i <- as.formula(paste(dep_vars[i], "~", paste("(", indep_vars[indep_vars_included[[i]] & covariates_with_several_values(data = df, covariates = indep_vars)], ")", collapse = ' + ')))
-#'     if (logit[i]) {
-#'       models[[i]] <- glm(formula_i, data = df, family = binomial(link='logit'))
-#'       logit_margin_i <- logitmfx(formula_i, data = df, robust = robust_SE, atmean = atmean)$mfxest # TODO! weights with logit; NB: logitmfx computes White/robust SE when robust_SE == T
-#'       coefs[[i]] <- logit_margin_i[,1]
-#'       SEs[[i]] <- logit_margin_i[,2]
-#'     }
-#'     else {
-#'       models[[i]] <- lm(formula_i, data = df, weights = weight_vec)
-#'       coefs[[i]] <- models[[i]]$coefficients
-#'       if (robust_SE) SEs[[i]] <- coeftest(models[[i]], vcov = vcovHC(models[[i]], "HC1"))[,2]
-#'       else SEs[[i]] <- summary(models[[i]])$coefficients[,2]
-#'     }
-#'     if (print_regs) print(summary(models[[i]]))
-#'     if (mean_control==FALSE){
-#'       means[i] <- round(wtd.mean(eval(parse(text = paste( "df$", parse(text = dep_vars[i]), sep=""))), weights = weight_vec, na.rm = T), d = digits)
-#'       mean_text <- "Mean"
-#'     } else {
-#'       # means[i] <- round(wtd.mean(eval(parse(text = paste( "(df$", parse(text = dep_vars[i]), ")[df$treatment=='None']", sep=""))), weights = weight_vec[df$treatment=='None'], na.rm = T), d = digits)
-#'       means[i] <- round(wtd.mean(eval(parse(text = paste( "(df$", parse(text = dep_vars[i]), ")[df$branch_gcs=='nothing']", sep=""))), weights = weight_vec[df$branch_gcs=='nothing'], na.rm = T), d = digits)
-#'       mean_text <- "Control group mean"
-#'     }
-#'   }
-#'   if (missing(filename)) file_path <- NULL
-#'   else file_path <- paste0(save_folder, filename, ".tex")
-#'   keep <- gsub("(.*)", "\\\\\\Q\\1\\\\\\E", sub("^\\(", "", sub("\\)$", "", keep)))
-#'   if (exists("labels_vars") & is.null(indep_labels)) {
-#'     if (!is.data.frame(data)) data <- data[[1]]
-#'     model_total <- lm(as.formula(paste(dep_vars[1], "~", paste("(", indep_vars[covariates_with_several_values(data = data, covariates = indep_vars)], ")", collapse = ' + '))), data = data)
-#'     indep_labels <- create_covariate_labels(names(model_total$coefficients)[-1], regressors_names = labels_vars, keep = keep, omit = "Constant")
-#'
-#'     # i_max <- max_i <- 0
-#'     # for (i in seq_along(models)) {
-#'     #   if (length(models[[i]]$coefficients) > max_i) {
-#'     #     max_i <- length(models[[i]]$coefficients) # TODO!: /!\ pb: won't display the appropriate labels if some coefficients are missing in the regression with most covariates (e.g. due to keep or omit)
-#'     #     i_max <- i } }
-#'     # indep_labels <- labels_vars[names(models[[i_max]]$coefficients)[-1]]
-#'     # names(indep_labels) <- names(models[[i_max]]$coefficients)[-1]
-#'     # # if (!missing(keep)) indep_labels <- indep_labels[grepl(keep, indep_vars)]
-#'   }
-#'   if (only_mean) mean_above <- T
-#'   table <- do.call(stargazer, c(models, list(out=file_path, header=F, model.numbers = model.numbers,
-#'                                              covariate.labels = if (nolabel) NULL else gsub("\\{", "{", gsub("\\}", "}", gsub("\\$", "$", gsub("\\textbackslash ", "\\", latexify(indep_labels, doublebackslash = FALSE), fixed = T), fixed = T), fixed = T), fixed = T),
-#'                                              add.lines = if (!"\\QConstant\\E" %in% keep) list(c(mean_text, means)) else NULL,
-#'                                              coef = coefs, se = SEs,
-#'                                              dep.var.labels = dep.var.labels, dep.var.caption = dep.var.caption, dep.var.labels.include = dep.var.labels.include,
-#'                                              multicolumn = multicolumn, float = F, keep.stat = c("n", "rsq"), omit.table.layout = "n", keep=keep, no.space = no.space
-#'   )))
-#'   print(table)
-#'   if (!missing(replace_endAB) & length(table) != 54) warning(paste0("Wrong specification for replacement of the last lines: table of length ", length(table)))
-#'   if (!missing(replace_endAB) & length(table) == 54) table <- c(table[1:46], replace_endAB)
-#'   if (!nolabel) table <- table_mean_lines_save(table, mean_above = mean_above, only_mean = only_mean, indep_labels = indep_labels, indep_vars = indep_vars, add_lines = add_lines, file_path = file_path, oecd_latex = oecd_latex, nb_columns = length(indep_vars_included), omit = omit)
-#'   return(table)
-#' }
+desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control_variables, indep_labels = NULL, weights = data$weight, add_lines = NULL, model.numbers = T, multicolumn = T, #!mean_above,
+                       save_folder = "../tables/", dep.var.labels = NULL, dep.var.caption = c(""), digits= 3, mean_control = FALSE, logit = FALSE, atmean = T, robust_SE = T, omit = c("Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA"),
+                       mean_above = T, only_mean = F, keep = indep_vars, nolabel = F, indep_vars_included = T, no.space = T, print_regs = FALSE, replace_endAB = NULL, oecd_latex = FALSE) {
+  # Wrapper for stargazer
+  # /!\ always run first with nolabel = T to check that the order of indep_labels correspond to the one displayed
+  # dep_vars: either a variable name (automatically repeated if needed) or a list of variable names (of length the number of columns)
+  # (in)dep_vars accept expressions of type : var_name expression (e.g. "equal_quota %in% 0:1", but not "equal_quota == 0 | equal_quota==1)
+  # /!\ Interaction terms should be added with :, not *. There is a bug if the interaction terms are not at the end of indep_vars, also a bug if the unused indep variables in the first regression are not at the end
+  # /!\ To appear in the table, they should be written without parentheses and with due space, e.g. "var > 0" and not "(var>0)"
+  # indep_vars is the vector of potential covariates, they are by default all included by
+  # indep_vars_included can be set to a list (of length the number of columns) of booleans or variable names to specify which covariates to include in each column
+  # keep is a vector of regular expressions allowing to specify which covariates to display (by default, all except the Constant)
+  # mean_above=T displays the mean of the dependant var (for those which treatment=="control" if mean_control = T) at top rather than bottom of Table (only_mean=T only displays that)
+  # logit is either a boolean or a boolean vector
+  # data can be a list of data frames instead of a single one
+  if (missing(dep.var.labels) & !(is.character(dep_vars))) dep.var.labels <- dep_vars
+  dep.var.labels.include <- ifelse(is.null(dep.var.labels), F, T)
+  names(indep_vars) <- indep_vars
+  if (class(indep_vars_included)=="list") { if (length(dep_vars)==1) dep_vars <- rep(dep_vars[1], length(indep_vars_included))  }
+  else { indep_vars_included <- rep(list(rep(T, length(indep_vars))), length(dep_vars)) }
+  if (length(logit) == 1) logit <- rep(logit, length(dep_vars))
+  # if (length(indep_labels) > length(indep_vars)) indep_labels <- indep_labels[indep_vars]
+  models <- coefs <- SEs <- list()
+  means <- c()
+  for (i in seq_along(dep_vars)) {
+    df <- if (is.data.frame(data)) data else data[[i]]
+    if (is.null(weights)) weight_vec <- rep(1, nrow(df))
+    else weight_vec <- weights
+    if (is.character(weights) & !is.data.frame(data)) weight_vec <- df[[weights]]
+    if (is.character(indep_vars_included[[i]])) indep_vars_included[[i]] <- indep_vars %in% indep_vars_included[[i]]
+    formula_i <- as.formula(paste(dep_vars[i], "~", paste("(", indep_vars[indep_vars_included[[i]] & covariates_with_several_values(data = df, covariates = indep_vars)], ")", collapse = ' + ')))
+    if (logit[i]) {
+      models[[i]] <- glm(formula_i, data = df, family = binomial(link='logit'))
+      logit_margin_i <- logitmfx(formula_i, data = df, robust = robust_SE, atmean = atmean)$mfxest # TODO! weights with logit; NB: logitmfx computes White/robust SE when robust_SE == T
+      coefs[[i]] <- logit_margin_i[,1]
+      SEs[[i]] <- logit_margin_i[,2]
+    }
+    else {
+      models[[i]] <- lm(formula_i, data = df, weights = weight_vec)
+      coefs[[i]] <- models[[i]]$coefficients
+      if (robust_SE) SEs[[i]] <- coeftest(models[[i]], vcov = vcovHC(models[[i]], "HC1"))[,2]
+      else SEs[[i]] <- summary(models[[i]])$coefficients[,2]
+    }
+    if (print_regs) print(summary(models[[i]]))
+    if (mean_control==FALSE){
+      means[i] <- round(wtd.mean(eval(parse(text = paste( "df$", parse(text = dep_vars[i]), sep=""))), weights = weight_vec, na.rm = T), d = digits)
+      mean_text <- "Mean"
+    } else {
+      # means[i] <- round(wtd.mean(eval(parse(text = paste( "(df$", parse(text = dep_vars[i]), ")[df$treatment=='None']", sep=""))), weights = weight_vec[df$treatment=='None'], na.rm = T), d = digits)
+      means[i] <- round(wtd.mean(eval(parse(text = paste( "(df$", parse(text = dep_vars[i]), ")[df$branch_gcs=='nothing']", sep=""))), weights = weight_vec[df$branch_gcs=='nothing'], na.rm = T), d = digits)
+      mean_text <- "Control group mean"
+    }
+  }
+  if (missing(filename)) file_path <- NULL
+  else file_path <- paste0(save_folder, filename, ".tex")
+  keep <- gsub("(.*)", "\\\\\\Q\\1\\\\\\E", sub("^\\(", "", sub("\\)$", "", keep)))
+  if (exists("labels_vars") & is.null(indep_labels)) {
+    if (!is.data.frame(data)) data <- data[[1]]
+    model_total <- lm(as.formula(paste(dep_vars[1], "~", paste("(", indep_vars[covariates_with_several_values(data = data, covariates = indep_vars)], ")", collapse = ' + '))), data = data)
+    indep_labels <- create_covariate_labels(names(model_total$coefficients)[-1], regressors_names = labels_vars, keep = keep, omit = "Constant")
+
+    # i_max <- max_i <- 0
+    # for (i in seq_along(models)) {
+    #   if (length(models[[i]]$coefficients) > max_i) {
+    #     max_i <- length(models[[i]]$coefficients) # TODO!: /!\ pb: won't display the appropriate labels if some coefficients are missing in the regression with most covariates (e.g. due to keep or omit)
+    #     i_max <- i } }
+    # indep_labels <- labels_vars[names(models[[i_max]]$coefficients)[-1]]
+    # names(indep_labels) <- names(models[[i_max]]$coefficients)[-1]
+    # # if (!missing(keep)) indep_labels <- indep_labels[grepl(keep, indep_vars)]
+  }
+  if (only_mean) mean_above <- T
+  table <- do.call(stargazer, c(models, list(out=file_path, header=F, model.numbers = model.numbers,
+                                             covariate.labels = if (nolabel) NULL else gsub("\\{", "{", gsub("\\}", "}", gsub("\\$", "$", gsub("\\textbackslash ", "\\", latexify(indep_labels, doublebackslash = FALSE), fixed = T), fixed = T), fixed = T), fixed = T),
+                                             add.lines = if (!"\\QConstant\\E" %in% keep) list(c(mean_text, means)) else NULL,
+                                             coef = coefs, se = SEs,
+                                             dep.var.labels = dep.var.labels, dep.var.caption = dep.var.caption, dep.var.labels.include = dep.var.labels.include,
+                                             multicolumn = multicolumn, float = F, keep.stat = c("n", "rsq"), omit.table.layout = "n", keep=keep, no.space = no.space
+  )))
+  print(table)
+  if (!missing(replace_endAB) & length(table) != 54) warning(paste0("Wrong specification for replacement of the last lines: table of length ", length(table)))
+  if (!missing(replace_endAB) & length(table) == 54) table <- c(table[1:46], replace_endAB)
+  if (!nolabel) table <- table_mean_lines_save(table, mean_above = mean_above, only_mean = only_mean, indep_labels = indep_labels, indep_vars = indep_vars, add_lines = add_lines, file_path = file_path, oecd_latex = oecd_latex, nb_columns = length(indep_vars_included), omit = omit)
+  return(table)
+}
 multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lapply(patterns, function(x) which(grepl(x, vec))))))
-#' table_mean_lines_save <- function(table, mean_above = T, only_mean = FALSE, indep_vars = NULL, indep_labels = indep_vars, add_lines = NULL, file_path = NULL, oecd_latex = FALSE, nb_columns = 2, omit = c("Constant", "Gender: Other", "econ_leaningPNR", "Race: Other")) {
-#'   if (mean_above) {
-#'     mean_line <- regmatches(table, regexpr('(Mean|Control group mean) &[^\\]*', table))
-#'     first_lab <- ifelse(missing(indep_labels), latexify(indep_vars[1], doublebackslash = FALSE), paste0(latexify(indep_labels[1], doublebackslash = FALSE), " &")) # was: latexify(ifelse(missing(indep_labels), indep_vars[1], indep_labels[1]))
-#'     if (only_mean) { # removes coefs and leaves only the mean in the table
-#'       table <- write_clip(gsub(paste(first_lab, ".*"), paste(mean_line, '\\\\\\\\'), table), collapse=' ')
-#'       table <- table[c(1:grep('(Mean|Control group mean) &[^\\]*', table)[1], (length(table)-3):length(table))]
-#'     } else {
-#'       table <- gsub('(Mean|Control group mean) &.*', '', table)
-#'       table <- c(table[1:(grep(first_lab, table, fixed = T)[1]-1)], paste(mean_line, '\\\\ \\hline \\\\[-1.8ex]'), table[grep(first_lab, table, fixed = T)[1]:length(table)]) } # Before: fixed = F
-#'   }
-#'   for (l in add_lines) {
-#'     line <- if (length(gregexpr("&", l[2])[[1]]) == nb_columns) l[2] else { if (grepl("\\hline", table[as.numeric(l[1])+0*mean_above-1])) c("\\\\[1ex]", l[2]) else c(" \\\\[1ex] \\hline \\\\[1ex]",  paste("\\multicolumn{", nb_columns + 1, "}{l}{\\textbf{", l[2], "}} \\\\")) }
-#'     table <- c(table[1:(as.numeric(l[1])+0*mean_above-1)], line, table[(as.numeric(l[1])+0*mean_above):length(table)]) }
-#'   if (length(omit) > 0) {
-#'     omit_constant <- any(c("Constant", "(Intercept)") %in% omit)
-#'     omit <- omit[!omit %in% c("Constant", "(Intercept)")]
-#'     omitted_vars <- which(c(multi_grepl(omit, table), multi_grepl(indep_labels[omit], table)))
-#'     if (omit_constant) for (i in 1:length(table)) if (multi_grepl(c("Constant", "(Intercept)"), table[i]) & grepl("^  \\& \\(", table[i+1])) omitted_vars <- c(omitted_vars, i)
-#'     if (length(omitted_vars) > 0) table <- table[-c(omitted_vars, omitted_vars + 1)] }
-#'   cat(paste(table, collapse="\n"), file = file_path)
-#'   if (oecd_latex) cat(paste(table, collapse="\n"), file = sub("../", "../../oecd_latex/", file_path, fixed = T))
-#'   return(table)
-#' }
-#' covariates_with_several_values <- function(data, covariates) { # data is a data.frame and covariates a string list of variables, allowing those of the form "(example > 0)"
-#'   several_values <- c()
-#'   for (c in seq_along(covariates)) {
-#'     if (grepl("[:*]", covariates[c])) nb_values_c <- length(unique(eval(str2expression(sub(".*[:*](.*)", "data$\\1", covariates[c]))))) * length(unique(eval(str2expression(sub("(.*)[:*].*", "data$\\1", covariates[c])))))
-#'     else nb_values_c <- length(unique(eval(str2expression(sub("((.*\\()*)(.*)", "\\1data$\\3", covariates[c])))))
-#'     if (nb_values_c == 0 & j == 0) warning(paste(covariates[c], "is not in the dataset"))
-#'     several_values[c] <- nb_values_c > 1 }
-#'   return(several_values)
-#' }
+table_mean_lines_save <- function(table, mean_above = T, only_mean = FALSE, indep_vars = NULL, indep_labels = indep_vars, add_lines = NULL, file_path = NULL, oecd_latex = FALSE, nb_columns = 2, omit = c("Constant", "Gender: Other", "econ_leaningPNR", "Race: Other")) {
+  if (mean_above) {
+    mean_line <- regmatches(table, regexpr('(Mean|Control group mean) &[^\\]*', table))
+    first_lab <- ifelse(missing(indep_labels), latexify(indep_vars[1], doublebackslash = FALSE), paste0(latexify(indep_labels[1], doublebackslash = FALSE), " &")) # was: latexify(ifelse(missing(indep_labels), indep_vars[1], indep_labels[1]))
+    if (only_mean) { # removes coefs and leaves only the mean in the table
+      table <- write_clip(gsub(paste(first_lab, ".*"), paste(mean_line, '\\\\\\\\'), table), collapse=' ')
+      table <- table[c(1:grep('(Mean|Control group mean) &[^\\]*', table)[1], (length(table)-3):length(table))]
+    } else {
+      table <- gsub('(Mean|Control group mean) &.*', '', table)
+      table <- c(table[1:(grep(first_lab, table, fixed = T)[1]-1)], paste(mean_line, '\\\\ \\hline \\\\[-1.8ex]'), table[grep(first_lab, table, fixed = T)[1]:length(table)]) } # Before: fixed = F
+  }
+  for (l in add_lines) {
+    line <- if (length(gregexpr("&", l[2])[[1]]) == nb_columns) l[2] else { if (grepl("\\hline", table[as.numeric(l[1])+0*mean_above-1])) c("\\\\[1ex]", l[2]) else c(" \\\\[1ex] \\hline \\\\[1ex]",  paste("\\multicolumn{", nb_columns + 1, "}{l}{\\textbf{", l[2], "}} \\\\")) }
+    table <- c(table[1:(as.numeric(l[1])+0*mean_above-1)], line, table[(as.numeric(l[1])+0*mean_above):length(table)]) }
+  if (length(omit) > 0) {
+    omit_constant <- any(c("Constant", "(Intercept)") %in% omit)
+    omit <- omit[!omit %in% c("Constant", "(Intercept)")]
+    omitted_vars <- which(c(multi_grepl(omit, table), multi_grepl(indep_labels[omit], table)))
+    if (omit_constant) for (i in 1:length(table)) if (multi_grepl(c("Constant", "(Intercept)"), table[i]) & grepl("^  \\& \\(", table[i+1])) omitted_vars <- c(omitted_vars, i)
+    if (length(omitted_vars) > 0) table <- table[-c(omitted_vars, omitted_vars + 1)] }
+  cat(paste(table, collapse="\n"), file = file_path)
+  if (oecd_latex) cat(paste(table, collapse="\n"), file = sub("../", "../../oecd_latex/", file_path, fixed = T))
+  return(table)
+}
+covariates_with_several_values <- function(data, covariates) { # data is a data.frame and covariates a string list of variables, allowing those of the form "(example > 0)"
+  several_values <- c()
+  for (c in seq_along(covariates)) {
+    if (grepl("[:*]", covariates[c])) nb_values_c <- length(unique(eval(str2expression(sub(".*[:*](.*)", "data$\\1", covariates[c]))))) * length(unique(eval(str2expression(sub("(.*)[:*].*", "data$\\1", covariates[c])))))
+    else nb_values_c <- length(unique(eval(str2expression(sub("((.*\\()*)(.*)", "\\1data$\\3", covariates[c])))))
+    if (nb_values_c == 0 & j == 0) warning(paste(covariates[c], "is not in the dataset"))
+    several_values[c] <- nb_values_c > 1 }
+  return(several_values)
+}
 #' same_reg_subsamples <- function(dep.var, dep.var.caption = NULL, covariates = setA, data = all, data_list = NULL, along = "country3", along.levels = Levels(along, data), weights = "weight",
 #'                                 covariate.labels = NULL, nolabel = FALSE, include.total = FALSE, add_lines = NULL, mean_above = T, only_mean = FALSE, constant_instead_mean = T, report = NULL,
 #'                                 mean_control = T, dep.var.label = dep.var, logit = FALSE, robust_SE = T, atmean = T, keep = NULL, display_mean = FALSE, share_na_remove = 0.01, p_instead_SE = F,
@@ -827,21 +827,21 @@ multi_grepl <- function(patterns, vec) return(1:length(vec) %in% sort(unlist(lap
 #'   table <- table_mean_lines_save(table, omit = omit, mean_above = mean_above, only_mean = only_mean, indep_labels = covariate_labels, indep_vars = covariates, add_lines = add_lines, file_path = file_path, oecd_latex = FALSE, nb_columns = length(along.levels) + include.total)
 #'   return(table)
 #' }
-#' create_covariate_labels <- function(coefs_names, regressors_names = labels_vars, keep = NULL, omit = "Constant") {
-#'   if (any(c("Constant", "Intercept", "(Intercept)") %in% omit) & coefs_names[1] %in% c("Constant", "Intercept", "(Intercept)")) coefs_names <- coefs_names[-1]
-#'   missing_names <- setdiff(coefs_names, names(labels_vars))
-#'   names(missing_names) <- missing_names
-#'   if (length(missing_names) > 0) warning(paste("The following variables are missing from labels_vars (so their name will appear instead of their label):", paste(missing_names, collapse = ", ")))
-#'   covariate.labels <- c(labels_vars, missing_names)[coefs_names]
-#'   names(covariate.labels) <- coefs_names
-#'   if (is.null(keep)) covariate_labels <- covariate.labels
-#'   else covariate_labels <- c()
-#'   for (k in keep) covariate_labels <- c(covariate_labels, covariate.labels[(grepl(k, covariate.labels) | grepl(k, names(covariate.labels)))])
-#'   for (k in omit) covariate_labels <- covariate_labels[!grepl(k, covariate_labels) & !grepl(k, names(covariate_labels))]
-#'   covariate_labels <- unique(covariate_labels[c(which(!grepl("[:*]", names(covariate_labels))), which(grepl("[:*]", names(covariate_labels))))]) # unique is not necessary, it unnames the vector
-#'   if (covariate_labels[1] %in% c("Constant", "Intercept", "(Intercept)")) covariate_labels <- c(covariate_labels[-1], covariate_labels[1])
-#'   return(covariate_labels)
-#' }
+create_covariate_labels <- function(coefs_names, regressors_names = labels_vars, keep = NULL, omit = "Constant") {
+  if (any(c("Constant", "Intercept", "(Intercept)") %in% omit) & coefs_names[1] %in% c("Constant", "Intercept", "(Intercept)")) coefs_names <- coefs_names[-1]
+  missing_names <- setdiff(coefs_names, names(labels_vars))
+  names(missing_names) <- missing_names
+  if (length(missing_names) > 0) warning(paste("The following variables are missing from labels_vars (so their name will appear instead of their label):", paste(missing_names, collapse = ", ")))
+  covariate.labels <- c(labels_vars, missing_names)[coefs_names]
+  names(covariate.labels) <- coefs_names
+  if (is.null(keep)) covariate_labels <- covariate.labels
+  else covariate_labels <- c()
+  for (k in keep) covariate_labels <- c(covariate_labels, covariate.labels[(grepl(k, covariate.labels) | grepl(k, names(covariate.labels)))])
+  for (k in omit) covariate_labels <- covariate_labels[!grepl(k, covariate_labels) & !grepl(k, names(covariate_labels))]
+  covariate_labels <- unique(covariate_labels[c(which(!grepl("[:*]", names(covariate_labels))), which(grepl("[:*]", names(covariate_labels))))]) # unique is not necessary, it unnames the vector
+  if (covariate_labels[1] %in% c("Constant", "Intercept", "(Intercept)")) covariate_labels <- c(covariate_labels[-1], covariate_labels[1])
+  return(covariate_labels)
+}
 #' #' CImedian <- function(vec) { # 95% confidence interval
 #' #'   res <- tryCatch(unlist(ci.median(vec[!is.na(vec) & vec!=-1])), error=function(e) {print('NA')})
 #' #'   return(paste(res[paste('ci.lower')], res[paste('ci.median')], res[paste('ci.upper')], length(which(!is.na(vec) & vec!=-1))))

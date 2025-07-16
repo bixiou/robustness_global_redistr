@@ -463,6 +463,7 @@ define_var_lists <- function() {
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_sociodemos <<- c("man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "region_factor", "millionaire_factor", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
+  control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "country_name", "region_factor", "region_factor:country") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
   variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_voters", "vote_group", "vote_major", "vote_major_voters", "vote_major_candidate", "vote_leaning")
   covariates <<- c("country_name", "man", "age_factor", "income_quartile", "millionaire_agg", "education", "urban", "couple", "employment_agg", "voted", "vote_agg") # "race_white", "region"
@@ -722,7 +723,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e <- create_item("vote", labels = c("Non-voter, PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e)
     e$vote_agg_factor <- relevel(as.factor(as.character(e$vote_agg, include.missings = T)), "PNR or Other")
     e$vote_factor <- relevel(as.factor(as.character(e$vote, include.missings = T)), "Non-voter, PNR or Other") # Left
-  }
+  } else e$vote_factor <- "Non-voter, PNR or Other"
 
   if (country == "US") {
     # label(e$flipped_2024) <- "flipped_2024: T/F Lives in one of the 6 States that flipped from Democrat to Republican in the 2024 presidential election (AZ, GA, MI, NV, PA, WI)."
@@ -775,10 +776,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
 
   e$millionaire_factor <- factor(e$millionaire_agg)
-  e$urbanity_factor <- factor(e$urbanity)
+  e$urbanity_factor <- no.na(factor(e$urbanity), rep = "NA")
   e$education_factor <- factor(e$education)
   e$income_factor <- factor(e$income_quartile)
-  e$region_factor <- factor(e$region)
+  e$region_factor <- no.na(factor(e$region), rep = "NA")
   
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label

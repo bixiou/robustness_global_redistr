@@ -12,6 +12,11 @@ labels_vars <- c(
   "hh_size" = "Household size",
   "zipcode" = "Postal code",
   "urbanity" = "Degree of urbanization",
+  "urbanity_factor" = "Urbanicity",
+  "region_factor" = "Region",
+  "millionaire" = "Likelihood of becoming millionaire",
+  "millionaire_agg" = "Likelihood of becoming millionaire",
+  "millionaire_factor" = "Millionaire",
   "urban" = "Urban",
   "age" = "Age",
   "age_factor" = "Age",
@@ -19,9 +24,11 @@ labels_vars <- c(
   "income" = "Income",
   "income_factor" = "Income quartile",
   "income_quartile" = "Income quartile",
+  "income_factor" = "Income quartile",
   "income_decile" = "Income decile",
   "income_quartile" = "Income quartile",
   "education" = "Highest diploma",
+  "education_factor" = "Diploma",
   # "diploma" = "Highest diploma",
   "post_secondary" = "Education: Post secondary",
   # "diploma_25_64" = "Highest diploma among 25-64",
@@ -565,3 +572,21 @@ for (v in names(mean_custom_redistr)) {
 representativeness_table(countries[1:5])
 representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO nationality for SA; all; EU
 # TODO automatic bold cells that are not within +/- 20%
+
+
+## Determinants
+desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
+   "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
+           indep_vars = control_variables, filename = "determinants", nolabel = F) 
+
+desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
+                              "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
+           indep_vars = control_variables, filename = "determinants_omit_country", nolabel = F, omit = c("Country", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA")) 
+
+desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
+                              "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
+           indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Millionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA")) 
+# TODO? Add custom_redistr_satisfied? 

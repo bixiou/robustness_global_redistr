@@ -359,12 +359,12 @@ summary(lm(reg_formula("share_solidarity_supported", variables_sociodemos), data
 
 ##### Most correlated variable #####
 e$itw <- e$interview == "Yes"
-variables_interest <- c(variables_solidarity_support, variables_solidarity_support_short, "wealth_tax_support", "top_tax_support", "reparations_support", "ncs_support", "gcs_support", "ics_support", 
-                        variables_global_movement, variables_why_hic_help_lic, "revenue_split_few_global", variables_transfer_how, "sustainable_future", "likely_solidarity", "gcs_belief", 
-                        "ncqg", "vote_intl_coalition", "maritime_split_ldc", "my_tax_global_nation", "group_defended", "ncqg_fusion", "humanist", "share_solidarity_supported", "itw")
+variables_interest <- c(variables_solidarity_support, "wealth_tax_support", "top_tax_support", "reparations_support", "ncs_support", "gcs_support", "ics_support", "convergence_support",
+  variables_global_movement, variables_why_hic_help_lic, "revenue_split_few_global", variables_transfer_how, "sustainable_future", "likely_solidarity", "gcs_belief", "humanist", "universalist", 
+ "individualist", "nationalist", "ncqg", "vote_intl_coalition", "maritime_split_ldc", "my_tax_global_nation", "group_defended", "ncqg_fusion",  "share_solidarity_supported", "itw")
 cors <- cor(e[, variables_interest], use = "pairwise.complete.obs")
 corrplot(cors)
-sort(rowMeans(abs(cors), na.rm = T)) # share_solidarity_supported .41, solidarity_support_ncqg_300bn .39, my_tax_global_nation .37, global_movement_no .36, vote_intl_coalition .35, 
+sort(rowMeans(abs(cors), na.rm = T)) # share_solidarity_supported .42, solidarity_support_ncqg_300bn 40, my_tax_global_nation .35, vote_intl_coalition .35, ncqg .35, global_movement_no .34, 
 
 cor(my_taxes_global_nation, my_taxes_global_nation_2023, use = "complete.obs") # .72
 cor(my_taxes_global_nation[-9], global_nation[5,3:12], use = "complete.obs") # .81

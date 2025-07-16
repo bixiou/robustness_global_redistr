@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  16 JUL 2025 13:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  17 JUL 2025 00:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1401,7 +1401,7 @@ Package pdftex.def Info: ../figures/country_comparison/gcs_belief_mean.pdf  used
  [50
 
  <../figures/country_comparison/gcs_belief_mean.pdf>]
-<../figures/questionnaire/survey_ics_mid.png, id=408, 289.08pt x 385.44pt>
+<../figures/questionnaire/survey_ics_mid.png, id=410, 289.08pt x 385.44pt>
 File: ../figures/questionnaire/survey_ics_mid.png Graphic file (type png)
 <use ../figures/questionnaire/survey_ics_mid.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_ics_mid.png  used on input line 221.
@@ -1413,7 +1413,7 @@ Overfull \vbox (3.26138pt too high) detected at line 221
 [51
 
  <../figures/questionnaire/survey_ics_mid.png>]
-<../figures/maps_participation/GCS_low.png, id=415, 6033.54124pt x 3241.10875pt>
+<../figures/maps_participation/GCS_low.png, id=418, 6033.54124pt x 3241.10875pt>
 File: ../figures/maps_participation/GCS_low.png Graphic file (type png)
 <use ../figures/maps_participation/GCS_low.png>
 Package pdftex.def Info: ../figures/maps_participation/GCS_low.png  used on input line 221.
@@ -1421,7 +1421,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_low.png  used on inpu
  [52
 
  <../figures/maps_participation/GCS_low.png>]
-<../figures/maps_participation/GCS_mid.png, id=422, 6006.44pt x 3285.27374pt>
+<../figures/maps_participation/GCS_mid.png, id=425, 6006.44pt x 3285.27374pt>
 File: ../figures/maps_participation/GCS_mid.png Graphic file (type png)
 <use ../figures/maps_participation/GCS_mid.png>
 Package pdftex.def Info: ../figures/maps_participation/GCS_mid.png  used on input line 221.
@@ -1429,7 +1429,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_mid.png  used on inpu
  [53
 
  <../figures/maps_participation/GCS_mid.png>]
-<../figures/maps_participation/GCS_high.png, id=429, 1399.1472pt x 756.426pt>
+<../figures/maps_participation/GCS_high.png, id=432, 1399.1472pt x 756.426pt>
 File: ../figures/maps_participation/GCS_high.png Graphic file (type png)
 <use ../figures/maps_participation/GCS_high.png>
 Package pdftex.def Info: ../figures/maps_participation/GCS_high.png  used on input line 221.
@@ -1437,7 +1437,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_high.png  used on inp
  [54
 
  <../figures/maps_participation/GCS_high.png>]
-<../figures/maps_participation/GCS_high_color.pdf, id=436, 880.28876pt x 423.5825pt>
+<../figures/maps_participation/GCS_high_color.pdf, id=439, 880.28876pt x 423.5825pt>
 File: ../figures/maps_participation/GCS_high_color.pdf Graphic file (type pdf)
 <use ../figures/maps_participation/GCS_high_color.pdf>
 Package pdftex.def Info: ../figures/maps_participation/GCS_high_color.pdf  used on input line 221.
@@ -1445,7 +1445,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_high_color.pdf  used 
  [55
 
  <../figures/maps_participation/GCS_high_color.pdf>]
-<../figures/maps_participation/GCS_high_color_EN.pdf, id=448, 844.15375pt x 422.57875pt>
+<../figures/maps_participation/GCS_high_color_EN.pdf, id=452, 844.15375pt x 422.57875pt>
 File: ../figures/maps_participation/GCS_high_color_EN.pdf Graphic file (type pdf)
 <use ../figures/maps_participation/GCS_high_color_EN.pdf>
 Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_EN.pdf  used on input line 221.
@@ -1453,7 +1453,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_EN.pdf  us
  [56
 
  <../figures/maps_participation/GCS_high_color_EN.pdf>]
-<../figures/maps_participation/GCS_high_color_FR.pdf, id=458, 844.15375pt x 422.57875pt>
+<../figures/maps_participation/GCS_high_color_FR.pdf, id=461, 844.15375pt x 422.57875pt>
 File: ../figures/maps_participation/GCS_high_color_FR.pdf Graphic file (type pdf)
 <use ../figures/maps_participation/GCS_high_color_FR.pdf>
 Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_FR.pdf  used on input line 221.
@@ -1461,7 +1461,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_FR.pdf  us
  [57
 
  <../figures/maps_participation/GCS_high_color_FR.pdf>]
-<../figures/maps_participation/GCS_high_color_AR.pdf, id=467, 844.15375pt x 422.57875pt>
+<../figures/maps_participation/GCS_high_color_AR.pdf, id=470, 844.15375pt x 422.57875pt>
 File: ../figures/maps_participation/GCS_high_color_AR.pdf Graphic file (type pdf)
 <use ../figures/maps_participation/GCS_high_color_AR.pdf>
 Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_AR.pdf  used on input line 221.
@@ -1469,7 +1469,7 @@ Package pdftex.def Info: ../figures/maps_participation/GCS_high_color_AR.pdf  us
  [58
 
  <../figures/maps_participation/GCS_high_color_AR.pdf>]
-<../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf, id=476, 824.07875pt x 299.1175pt>
+<../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf, id=479, 824.07875pt x 299.1175pt>
 File: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf>
 Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf  used on input line 231.
@@ -1503,7 +1503,7 @@ Overfull \vbox (8.41096pt too high) detected at line 231
 [61
 
 ]
-<../figures/country_comparison/solidarity_support_share.pdf, id=502, 955.57pt x 508.90125pt>
+<../figures/country_comparison/solidarity_support_share.pdf, id=505, 955.57pt x 508.90125pt>
 File: ../figures/country_comparison/solidarity_support_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_share.pdf  used on input line 239.
@@ -1527,12 +1527,12 @@ Overfull \vbox (44.30368pt too high) detected at line 268
 [64
 
 ]
-<../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf, id=528, 305.22029pt x 283.0575pt>
+<../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf, id=531, 305.22029pt x 283.0575pt>
 File: ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf>
 Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf  used on input line 282.
 (pdftex.def)             Requested size: 211.29054pt x 195.94478pt.
-<../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf, id=531, 305.22029pt x 283.0575pt>
+<../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf, id=534, 305.22029pt x 283.0575pt>
 File: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf>
 Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf  used on input line 282.
@@ -1565,7 +1565,7 @@ Overfull \vbox (26.40732pt too high) detected at line 282
 [66
 
 ]
-<../figures/all/ncqg.pdf, id=568, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg.pdf, id=571, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg.pdf>
 Package pdftex.def Info: ../figures/all/ncqg.pdf  used on input line 288.
@@ -1576,7 +1576,7 @@ Package pdftex.def Info: ../figures/all/ncqg.pdf  used on input line 288.
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/ncqg.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >]
-<../figures/all/ncqg_full.pdf, id=593, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg_full.pdf, id=597, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg_full.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg_full.pdf>
 Package pdftex.def Info: ../figures/all/ncqg_full.pdf  used on input line 288.
@@ -1591,7 +1591,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 31
  (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<../figures/country_comparison/sustainable_future_positive.pdf, id=618, 840.13875pt x 157.58875pt>
+<../figures/country_comparison/sustainable_future_positive.pdf, id=621, 840.13875pt x 157.58875pt>
 File: ../figures/country_comparison/sustainable_future_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/sustainable_future_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/sustainable_future_positive.pdf  used on input line 312.
@@ -1603,7 +1603,7 @@ Overfull \vbox (13.75795pt too high) detected at line 312
 [69
 
  <../figures/country_comparison/sustainable_future_positive.pdf>]
-<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=630, 908.39375pt x 285.065pt>
+<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=633, 908.39375pt x 285.065pt>
 File: ../figures/country_comparison/why_hic_help_lic_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/why_hic_help_lic_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive.pdf  used on input line 317.
@@ -1611,7 +1611,7 @@ Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive
  [70
 
  <../figures/country_comparison/why_hic_help_lic_positive.pdf>]
-<../figures/country_comparison/transfer_how_positive.pdf, id=642, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_positive.pdf, id=645, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf  used on input line 326.
@@ -1623,7 +1623,7 @@ Overfull \vbox (7.29718pt too high) detected at line 326
 [71
 
  <../figures/country_comparison/transfer_how_positive.pdf>]
-<../figures/country_comparison/global_movement_positive.pdf, id=654, 817.0525pt x 311.1625pt>
+<../figures/country_comparison/global_movement_positive.pdf, id=657, 817.0525pt x 311.1625pt>
 File: ../figures/country_comparison/global_movement_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/global_movement_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.pdf  used on input line 344.
@@ -1631,7 +1631,7 @@ Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.
  [72
 
  <../figures/country_comparison/global_movement_positive.pdf>]
-<../figures/all/vote_intl_coalition.pdf, id=666, 644.4075pt x 425.67029pt>
+<../figures/all/vote_intl_coalition.pdf, id=669, 644.4075pt x 425.67029pt>
 File: ../figures/all/vote_intl_coalition.pdf Graphic file (type pdf)
 <use ../figures/all/vote_intl_coalition.pdf>
 Package pdftex.def Info: ../figures/all/vote_intl_coalition.pdf  used on input line 351.
@@ -1642,7 +1642,7 @@ Package pdftex.def Info: ../figures/all/vote_intl_coalition.pdf  used on input l
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/vote_intl_coalition.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >]
-<../figures/all/group_defended.pdf, id=691, 644.4075pt x 350.26859pt>
+<../figures/all/group_defended.pdf, id=694, 644.4075pt x 350.26859pt>
 File: ../figures/all/group_defended.pdf Graphic file (type pdf)
 <use ../figures/all/group_defended.pdf>
 Package pdftex.def Info: ../figures/all/group_defended.pdf  used on input line 358.
@@ -1653,15 +1653,15 @@ Package pdftex.def Info: ../figures/all/group_defended.pdf  used on input line 3
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/group_defended.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >]
-<../figures/country_comparison/radical_redistr_few_share.pdf, id=715, 1084.05pt x 296.10625pt>
+<../figures/country_comparison/radical_redistr_few_share.pdf, id=718, 1082.0425pt x 295.1025pt>
 File: ../figures/country_comparison/radical_redistr_few_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/radical_redistr_few_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/radical_redistr_few_share.pdf  used on input line 365.
-(pdftex.def)             Requested size: 449.55319pt x 122.79594pt.
+(pdftex.def)             Requested size: 449.55319pt x 122.60483pt.
  [75
 
  <../figures/country_comparison/radical_redistr_few_share.pdf>]
-<../figures/questionnaire/survey_custom_redistr_bottom.png, id=729, 293.29575pt x 479.99326pt>
+<../figures/questionnaire/survey_custom_redistr_bottom.png, id=732, 293.29575pt x 479.99326pt>
 File: ../figures/questionnaire/survey_custom_redistr_bottom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_bottom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_bottom.png  used on input line 393.
@@ -1677,7 +1677,7 @@ Overfull \vbox (11.26138pt too high) detected at line 393
 ] [78
 
 ]
-<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=753, 599.23875pt x 498.663pt>
+<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=756, 599.23875pt x 498.663pt>
 File: ../figures/questionnaire/survey_custom_redistr_median_zoom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_median_zoom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 393.
@@ -1691,7 +1691,7 @@ Overfull \vbox (96.53954pt too high) detected at line 393
  <../figures/questionnaire/survey_custom_redistr_median_zoom.png>] [80
 
 ]
-<../figures/all/custom_redistr_mean.png, id=770, 662.475pt x 530.58224pt>
+<../figures/all/custom_redistr_mean.png, id=773, 662.475pt x 530.58224pt>
 File: ../figures/all/custom_redistr_mean.png Graphic file (type png)
 <use ../figures/all/custom_redistr_mean.png>
 Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input line 393.
@@ -1703,7 +1703,7 @@ Overfull \vbox (89.19142pt too high) detected at line 393
 [81
 
  <../figures/all/custom_redistr_mean.png>]
-<../figures/all/tax_radical_redistr.pdf, id=779, 391.4625pt x 350.30875pt>
+<../figures/all/tax_radical_redistr.pdf, id=782, 391.4625pt x 350.30875pt>
 File: ../figures/all/tax_radical_redistr.pdf Graphic file (type pdf)
 <use ../figures/all/tax_radical_redistr.pdf>
 Package pdftex.def Info: ../figures/all/tax_radical_redistr.pdf  used on input line 393.
@@ -1737,7 +1737,7 @@ Overfull \vbox (16.59003pt too high) detected at line 420
 [91
 
 ]
-<../figures/country_comparison/vote_non_EU_pnr_out.pdf, id=841, 660.54776pt x 440.6061pt>
+<../figures/country_comparison/vote_non_EU_pnr_out.pdf, id=844, 660.54776pt x 440.6061pt>
 File: ../figures/country_comparison/vote_non_EU_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_non_EU_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_non_EU_pnr_out.pdf  used on input line 424.
@@ -1752,7 +1752,7 @@ Overfull \vbox (75.33292pt too high) detected at line 424
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_non_EU_pnr_out.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >]
-<../figures/country_comparison/vote_EU_pnr_out.pdf, id=861, 660.54776pt x 367.3725pt>
+<../figures/country_comparison/vote_EU_pnr_out.pdf, id=864, 660.54776pt x 367.3725pt>
 File: ../figures/country_comparison/vote_EU_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_EU_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_EU_pnr_out.pdf  used on input line 428.
@@ -1767,7 +1767,7 @@ Overfull \vbox (25.49113pt too high) detected at line 428
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_EU_pnr_out.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >]
-<../figures/FR/conjoint_FR.pdf, id=882, 1198.4775pt x 380.42125pt>
+<../figures/FR/conjoint_FR.pdf, id=885, 1198.4775pt x 380.42125pt>
 File: ../figures/FR/conjoint_FR.pdf Graphic file (type pdf)
 <use ../figures/FR/conjoint_FR.pdf>
 Package pdftex.def Info: ../figures/FR/conjoint_FR.pdf  used on input line 442.
@@ -1782,7 +1782,7 @@ Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 442.
  [95
 
 ]
-<../figures/IT/conjoint_IT.pdf, id=900, 1198.4775pt x 380.42125pt>
+<../figures/IT/conjoint_IT.pdf, id=903, 1198.4775pt x 380.42125pt>
 File: ../figures/IT/conjoint_IT.pdf Graphic file (type pdf)
 <use ../figures/IT/conjoint_IT.pdf>
 Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 442.
@@ -1790,7 +1790,7 @@ Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 442.
  [96
 
  <../figures/IT/conjoint_IT.pdf>]
-<../figures/PL/conjoint_PL.pdf, id=912, 1198.4775pt x 380.42125pt>
+<../figures/PL/conjoint_PL.pdf, id=915, 1198.4775pt x 380.42125pt>
 File: ../figures/PL/conjoint_PL.pdf Graphic file (type pdf)
 <use ../figures/PL/conjoint_PL.pdf>
 Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 442.
@@ -1798,7 +1798,7 @@ Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 442.
  [97
 
  <../figures/PL/conjoint_PL.pdf>]
-<../figures/ES/conjoint_ES.pdf, id=925, 1198.4775pt x 380.42125pt>
+<../figures/ES/conjoint_ES.pdf, id=928, 1198.4775pt x 380.42125pt>
 File: ../figures/ES/conjoint_ES.pdf Graphic file (type pdf)
 <use ../figures/ES/conjoint_ES.pdf>
 Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 442.
@@ -1806,7 +1806,7 @@ Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 442.
  [98
 
  <../figures/ES/conjoint_ES.pdf>]
-<../figures/GB/conjoint_GB.pdf, id=937, 1198.4775pt x 380.42125pt>
+<../figures/GB/conjoint_GB.pdf, id=940, 1198.4775pt x 380.42125pt>
 File: ../figures/GB/conjoint_GB.pdf Graphic file (type pdf)
 <use ../figures/GB/conjoint_GB.pdf>
 Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 442.
@@ -1814,7 +1814,7 @@ Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 442.
  [99
 
  <../figures/GB/conjoint_GB.pdf>]
-<../figures/CH/conjoint_CH.pdf, id=949, 1198.4775pt x 380.42125pt>
+<../figures/CH/conjoint_CH.pdf, id=952, 1198.4775pt x 380.42125pt>
 File: ../figures/CH/conjoint_CH.pdf Graphic file (type pdf)
 <use ../figures/CH/conjoint_CH.pdf>
 Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 442.
@@ -1822,7 +1822,7 @@ Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 442.
  [100
 
  <../figures/CH/conjoint_CH.pdf>]
-<../figures/US/conjoint_US.pdf, id=961, 1198.4775pt x 380.42125pt>
+<../figures/US/conjoint_US.pdf, id=964, 1198.4775pt x 380.42125pt>
 File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
 <use ../figures/US/conjoint_US.pdf>
 Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 442.
@@ -1836,7 +1836,7 @@ Overfull \vbox (8.43227pt too high) detected at line 469
 [102
 
 ]
-<../figures/country_comparison/solidarity_support_positive.pdf, id=979, 955.57pt x 508.90125pt>
+<../figures/country_comparison/solidarity_support_positive.pdf, id=982, 955.57pt x 508.90125pt>
 File: ../figures/country_comparison/solidarity_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 496.
@@ -1849,7 +1849,13 @@ Overfull \vbox (11.54543pt too high) detected at line 501
 
 [104
 
-] [105
+] (../tables/determinants_omit_many.tex)
+Overfull \vbox (15.94183pt too high) detected at line 513
+ []
+
+[105
+
+] [106
 
 ]
 \tf@nav=\write6
@@ -1866,18 +1872,18 @@ Package rerunfilecheck Info: File `robust_global_redistr.out' has not changed.
 (rerunfilecheck)             Checksum: AFCB8A377BDB8EBB5FC0EE96026EC962;172.
  ) 
 Here is how much of TeX's memory you used:
- 34378 strings out of 474968
- 693495 string characters out of 5780081
- 1016752 words of memory out of 5000000
- 54834 multiletter control sequences out of 15000+600000
- 561096 words of font info for 158 fonts, out of 8000000 for 9000
+ 34394 strings out of 474968
+ 693761 string characters out of 5780081
+ 1017806 words of memory out of 5000000
+ 54840 multiletter control sequences out of 15000+600000
+ 562269 words of font info for 161 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,104p,634b,1065s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/robust_global_redistr.pdf (105 pages, 7756275 bytes).
+Output written on build/robust_global_redistr.pdf (106 pages, 7756594 bytes).
 PDF statistics:
- 1098 PDF objects out of 1200 (max. 8388607)
- 810 compressed objects within 9 object streams
- 225 named destinations out of 1000 (max. 500000)
+ 1108 PDF objects out of 1200 (max. 8388607)
+ 819 compressed objects within 9 object streams
+ 229 named destinations out of 1000 (max. 500000)
  323 words of extra memory for PDF output out of 10000 (max. 10000000)
 
