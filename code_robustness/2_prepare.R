@@ -829,21 +829,24 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, ".xlsx"))
   # 4. Click on appropriate cells in the .xlsm
   # Merge English translations for CH (after copying/renaming CH-DEen into CHen)
-  wb <- loadWorkbook(paste0("../data_raw/fields/CHen.xlsm"))
-  wbit <- loadWorkbook(paste0("../data_raw/fields/CH-ITen.xlsm"))
-  wbfr <- loadWorkbook(paste0("../data_raw/fields/CH-FRen.xlsm"))
-  for (v in c(variables_field, "comment_field")) for (i in 1:4) {
-      wben <- read.xlsx(wbde, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
-      temp <- which(CH$language[seq(i, nrow(CH), 4)] %in% "IT-CH") + 1
-      test <- read.xlsx(wbit, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
-      wben[temp] <- test[temp]
-      temp <- which(CH$language[seq(i, nrow(CH), 4)] %in% "FR-CH") + 1
-      test <- read.xlsx(wbfr, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
-      wben[temp] <- test[temp]
-      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = wben, colNames = F)
-    }
-  }
-  saveWorkbook(wb, file = paste0("../data_raw/fields/CHen.xlsm"), overwrite = TRUE) 
+  # wb <- loadWorkbook(paste0("../data_raw/fields/CHen.xlsm"))
+  # wbit <- loadWorkbook(paste0("../data_raw/fields/CH-ITen.xlsm"))
+  # wbfr <- loadWorkbook(paste0("../data_raw/fields/CH-FRen.xlsm"))
+  # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+  #   wben <- read.xlsx(wb, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
+  #   temp <- which(CH$language[seq(i, nrow(CH), 4)] %in% "IT-CH") + 1
+  #   test <- read.xlsx(wbit, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
+  #   if (max(temp) > length(wben)) wben <- cbind(wben, t(rep("NA", max(temp) - length(wben))))
+  #   if (max(temp) > length(test)) test <- cbind(test, t(rep("NA", max(temp) - length(test))))
+  #   wben[temp] <- test[temp]
+  #   temp <- which(CH$language[seq(i, nrow(CH), 4)] %in% "FR-CH") + 1
+  #   test <- read.xlsx(wbfr, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
+  #   if (max(temp) > length(wben)) wben <- cbind(wben, t(rep("NA", max(temp) - length(wben))))
+  #   if (max(temp) > length(test)) test <- cbind(test, t(rep("NA", max(temp) - length(test))))
+  #   wben[temp] <- test[temp]
+  #   writeData(wb, sheet = paste0(sub("_field", "", v), i), x = wben, colNames = F, startRow = 1, keepNA = T, na.string = "NA")
+  # }
+  # saveWorkbook(wb, file = paste0("../data_raw/fields/CHen.xlsm"), overwrite = TRUE) 
   
   # 5. Import manually classified data
   field_names <<- c("display in excel" = "name")
@@ -851,7 +854,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   names(field_names_names) <<- field_names
   var_field_names <<- paste0("field_", field_names)
   e$field_english <- e$field
-  for (v in c(variables_field, "comment_field")) 
+  for (v in c(variables_field, "comment_field")) {
     recode_CC_field <- list()
     for (i in 1:4) {
       if (file.exists(paste0("../data_raw/fields/", country, "en.xlsm"))) recode_CC_field[[i]] <- read.xlsx(paste0("../data_raw/fields/", country, "en.xlsm"), sheet = paste0(sub("_field", "", v), i), rowNames = T, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
@@ -871,6 +874,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # Use lines below export CSV. 
   # for (c in c(countries[-9])) for (v in intersect(names(d(c)), c(variables_field, "comment_field"))) write.table(paste(c('"', paste(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]]))), collapse = '";"'), '"'), collapse=""),
   #    paste0("../data_raw/fields/", v, "_", c, ".csv"), row.names = F, quote = F, col.names = F, fileEncoding = "UTF-8")
+  # Propagate NAs
+  # for (c in countries[-c(6,7,9,11)]) { # c("CH", "CH-IT", "CH-FR")
+  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, ".xlsm"))
+  #   wben <- loadWorkbook(paste0("../data_raw/fields/", c, "en.xlsm"))
+  #   for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+  #     temp <- which(is.na(read.xlsx(wb, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F, na.strings = "#NA")[1,]))
+  #     test <- read.xlsx(wben, sheet = paste0(sub("_field", "", v), i), colNames = F, skipEmptyCols = F)[1,]
+  #     test[temp] <- "NA"
+  #     writeData(wben, sheet = paste0(sub("_field", "", v), i), x = test, colNames = F)
+  #   }
+  #   saveWorkbook(wben, file = paste0("../data_raw/fields/", c, "en.xlsm"), overwrite = TRUE)
+  # }
 
   if ("gcs_belief_own" %in% names(e)) {
     e$variant_belief_eu <- ifelse(e$variant_belief %in% 1, "US", "Own")
