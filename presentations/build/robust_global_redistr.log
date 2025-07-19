@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  17 JUL 2025 00:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.6)  18 JUL 2025 17:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1237,14 +1237,14 @@ Overfull \vbox (8.95184pt too high) detected at line 136
 [33
 
  <../figures/questionnaire/conjoint_US_1.png>]
-<../figures/DE/conjoint_DE.pdf, id=227, 1198.4775pt x 380.42125pt>
-File: ../figures/DE/conjoint_DE.pdf Graphic file (type pdf)
-<use ../figures/DE/conjoint_DE.pdf>
-Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 143.
+<../figures/US/conjoint_US.pdf, id=227, 1198.4775pt x 380.42125pt>
+File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
+<use ../figures/US/conjoint_US.pdf>
+Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 143.
 (pdftex.def)             Requested size: 449.55319pt x 142.69243pt.
  [34
 
- <../figures/DE/conjoint_DE.pdf>]
+ <../figures/US/conjoint_US.pdf>]
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
 (Font)              scaled to size 9.37807pt on input line 158.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
@@ -1741,9 +1741,9 @@ Overfull \vbox (16.59003pt too high) detected at line 420
 File: ../figures/country_comparison/vote_non_EU_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_non_EU_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_non_EU_pnr_out.pdf  used on input line 424.
-(pdftex.def)             Requested size: 449.55319pt x 299.87038pt.
+(pdftex.def)             Requested size: 356.20668pt x 237.59882pt.
 
-Overfull \vbox (75.33292pt too high) detected at line 424
+Overfull \vbox (13.06136pt too high) detected at line 424
  []
 
 [92
@@ -1756,9 +1756,9 @@ pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_non_EU_pnr
 File: ../figures/country_comparison/vote_EU_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_EU_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_EU_pnr_out.pdf  used on input line 428.
-(pdftex.def)             Requested size: 449.55319pt x 250.0286pt.
+(pdftex.def)             Requested size: 427.22426pt x 237.59882pt.
 
-Overfull \vbox (25.49113pt too high) detected at line 428
+Overfull \vbox (13.06136pt too high) detected at line 428
  []
 
 [93
@@ -1775,14 +1775,15 @@ Package pdftex.def Info: ../figures/FR/conjoint_FR.pdf  used on input line 442.
  [94
 
  <../figures/FR/conjoint_FR.pdf>]
+<../figures/DE/conjoint_DE.pdf, id=897, 1198.4775pt x 380.42125pt>
 File: ../figures/DE/conjoint_DE.pdf Graphic file (type pdf)
 <use ../figures/DE/conjoint_DE.pdf>
 Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 442.
 (pdftex.def)             Requested size: 449.55319pt x 142.69243pt.
  [95
 
-]
-<../figures/IT/conjoint_IT.pdf, id=903, 1198.4775pt x 380.42125pt>
+ <../figures/DE/conjoint_DE.pdf>]
+<../figures/IT/conjoint_IT.pdf, id=909, 1198.4775pt x 380.42125pt>
 File: ../figures/IT/conjoint_IT.pdf Graphic file (type pdf)
 <use ../figures/IT/conjoint_IT.pdf>
 Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 442.
@@ -1790,7 +1791,7 @@ Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 442.
  [96
 
  <../figures/IT/conjoint_IT.pdf>]
-<../figures/PL/conjoint_PL.pdf, id=915, 1198.4775pt x 380.42125pt>
+<../figures/PL/conjoint_PL.pdf, id=921, 1198.4775pt x 380.42125pt>
 File: ../figures/PL/conjoint_PL.pdf Graphic file (type pdf)
 <use ../figures/PL/conjoint_PL.pdf>
 Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 442.
@@ -1798,7 +1799,7 @@ Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 442.
  [97
 
  <../figures/PL/conjoint_PL.pdf>]
-<../figures/ES/conjoint_ES.pdf, id=928, 1198.4775pt x 380.42125pt>
+<../figures/ES/conjoint_ES.pdf, id=934, 1198.4775pt x 380.42125pt>
 File: ../figures/ES/conjoint_ES.pdf Graphic file (type pdf)
 <use ../figures/ES/conjoint_ES.pdf>
 Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 442.
@@ -1806,7 +1807,7 @@ Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 442.
  [98
 
  <../figures/ES/conjoint_ES.pdf>]
-<../figures/GB/conjoint_GB.pdf, id=940, 1198.4775pt x 380.42125pt>
+<../figures/GB/conjoint_GB.pdf, id=946, 1198.4775pt x 380.42125pt>
 File: ../figures/GB/conjoint_GB.pdf Graphic file (type pdf)
 <use ../figures/GB/conjoint_GB.pdf>
 Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 442.
@@ -1814,7 +1815,7 @@ Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 442.
  [99
 
  <../figures/GB/conjoint_GB.pdf>]
-<../figures/CH/conjoint_CH.pdf, id=952, 1198.4775pt x 380.42125pt>
+<../figures/CH/conjoint_CH.pdf, id=958, 1198.4775pt x 380.42125pt>
 File: ../figures/CH/conjoint_CH.pdf Graphic file (type pdf)
 <use ../figures/CH/conjoint_CH.pdf>
 Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 442.
@@ -1822,14 +1823,13 @@ Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 442.
  [100
 
  <../figures/CH/conjoint_CH.pdf>]
-<../figures/US/conjoint_US.pdf, id=964, 1198.4775pt x 380.42125pt>
 File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
 <use ../figures/US/conjoint_US.pdf>
 Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 442.
 (pdftex.def)             Requested size: 449.55319pt x 142.69243pt.
  [101
 
- <../figures/US/conjoint_US.pdf>]
+]
 Overfull \vbox (8.43227pt too high) detected at line 469
  []
 
@@ -1874,13 +1874,13 @@ Package rerunfilecheck Info: File `robust_global_redistr.out' has not changed.
 Here is how much of TeX's memory you used:
  34394 strings out of 474968
  693761 string characters out of 5780081
- 1017806 words of memory out of 5000000
+ 1017809 words of memory out of 5000000
  54840 multiletter control sequences out of 15000+600000
  562269 words of font info for 161 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,104p,634b,1065s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/robust_global_redistr.pdf (106 pages, 7756594 bytes).
+Output written on build/robust_global_redistr.pdf (106 pages, 7759654 bytes).
 PDF statistics:
  1108 PDF objects out of 1200 (max. 8388607)
  819 compressed objects within 9 object streams

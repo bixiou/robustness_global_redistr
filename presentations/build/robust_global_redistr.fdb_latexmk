@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1752703370 "c:/Users/fabre/Documents/www/robustness_global_redistr/presentations/robust_global_redistr.tex" "build/robust_global_redistr.pdf" "robust_global_redistr" 1752703378 0
+["pdflatex"] 1752853276 "c:/Users/fabre/Documents/www/robustness_global_redistr/presentations/robust_global_redistr.tex" "build/robust_global_redistr.pdf" "robust_global_redistr" 1752853283 0
   "../figures/CH/conjoint_CH.pdf" 1752226430 6527 6c13c024bbc559f6e457a6ae0ade6459 ""
   "../figures/DE/conjoint_DE.pdf" 1752226430 6765 f0e3e4254c6ee36e1be180dfbaab94cb ""
   "../figures/ES/conjoint_ES.pdf" 1752226430 6630 55c90fdaa72f22c5cbdf23ed32e98812 ""
@@ -55,10 +55,10 @@
   "../tables/FR_DE_IT_PL_ES.tex" 1752593248 3499 19283edf59d3430445f7e97e8bdc0c1f ""
   "../tables/determinants_omit_many.tex" 1752703269 3856 ae471a5fbf1ebcaa34859415f77668d1 ""
   "../tables/iv_highlighted.tex" 1752226430 1346 e8b10f9104a5c5bed9f8ecb613a86cef ""
-  "build/robust_global_redistr.aux" 1752703378 8258 395de36ce83971ef10e400b83334a553 "pdflatex"
-  "build/robust_global_redistr.nav" 1752703378 4188 5fc93eb44c2ef15a2533bfaf5683b669 "pdflatex"
-  "build/robust_global_redistr.out" 1752703378 172 afcb8a377bdb8ebb5fc0ee96026ec962 "pdflatex"
-  "c:/Users/fabre/Documents/www/robustness_global_redistr/presentations/robust_global_redistr.tex" 1752703368 29331 c9fffc51a21c91ba7e1a1b2d58e1aed7 ""
+  "build/robust_global_redistr.aux" 1752853283 8258 395de36ce83971ef10e400b83334a553 "pdflatex"
+  "build/robust_global_redistr.nav" 1752853283 4188 5fc93eb44c2ef15a2533bfaf5683b669 "pdflatex"
+  "build/robust_global_redistr.out" 1752853283 172 afcb8a377bdb8ebb5fc0ee96026ec962 "pdflatex"
+  "c:/Users/fabre/Documents/www/robustness_global_redistr/presentations/robust_global_redistr.tex" 1752853274 29366 d1c594f9117342fc0aa660fbdbebc7e7 ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1670336910 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1670337557 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm" 1670341705 1804 7b5f73028f6509167f47ace9d69509ed ""
@@ -347,7 +347,7 @@
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1670345276 3063323 6b2b6e0ebf0608d2b004d02eba85e55f ""
   "c:/texlive/2022/texmf.cnf" 1670344812 713 e69b156964470283e0530f5060668171 ""
   "preamble_slides.tex" 1750130109 17053 12a9974c21bf85d6fb4d62c5ef0c1e5d ""
-  "robust_global_redistr.tex" 1752703368 29331 c9fffc51a21c91ba7e1a1b2d58e1aed7 ""
+  "robust_global_redistr.tex" 1752853274 29366 d1c594f9117342fc0aa660fbdbebc7e7 ""
   (generated)
   "build/robust_global_redistr.aux"
   "build/robust_global_redistr.log"

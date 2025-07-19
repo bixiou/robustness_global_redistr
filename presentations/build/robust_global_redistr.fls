@@ -1995,11 +1995,11 @@ INPUT ../figures/questionnaire/conjoint_US_1.png
 INPUT ../figures/questionnaire/conjoint_US_1.png
 INPUT ../figures/questionnaire/conjoint_US_1.png
 INPUT ../figures/questionnaire/conjoint_US_1.png
-INPUT ../figures/DE/conjoint_DE.pdf
-INPUT ../figures/DE/conjoint_DE.pdf
-INPUT ../figures/DE/conjoint_DE.pdf
-INPUT ../figures/DE/conjoint_DE.pdf
-INPUT ../figures/DE/conjoint_DE.pdf
+INPUT ../figures/US/conjoint_US.pdf
+INPUT ../figures/US/conjoint_US.pdf
+INPUT ../figures/US/conjoint_US.pdf
+INPUT ../figures/US/conjoint_US.pdf
+INPUT ../figures/US/conjoint_US.pdf
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplr7t.tfm
@@ -2248,6 +2248,7 @@ INPUT ../figures/DE/conjoint_DE.pdf
 INPUT ../figures/DE/conjoint_DE.pdf
 INPUT ../figures/DE/conjoint_DE.pdf
 INPUT ../figures/DE/conjoint_DE.pdf
+INPUT ../figures/DE/conjoint_DE.pdf
 INPUT ../figures/IT/conjoint_IT.pdf
 INPUT ../figures/IT/conjoint_IT.pdf
 INPUT ../figures/IT/conjoint_IT.pdf
@@ -2273,7 +2274,6 @@ INPUT ../figures/CH/conjoint_CH.pdf
 INPUT ../figures/CH/conjoint_CH.pdf
 INPUT ../figures/CH/conjoint_CH.pdf
 INPUT ../figures/CH/conjoint_CH.pdf
-INPUT ../figures/US/conjoint_US.pdf
 INPUT ../figures/US/conjoint_US.pdf
 INPUT ../figures/US/conjoint_US.pdf
 INPUT ../figures/US/conjoint_US.pdf
