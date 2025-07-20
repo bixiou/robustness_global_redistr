@@ -1277,6 +1277,19 @@ for (i in 1:nrow(all)) { #
 }
 Sys.time() - start_time 
 
+# NB: Empty + Other: suspicious field (copy/paste from unrelated content)
+# Examples
+# SA summary: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
+# SA: Taking care of health, work, and reaching a high, prestigious position
+# SA: Injustice comes from the people closest to you and you have to live with it.
+# SA: I want to be a millionaire
+# SA: I have an excellent financial future.
+# SA: Sports\n Video Games\n Cooking\n
+# SA: Obtaining a prestigious social status and distinguished social comfort
+# SA: I want a palace with full servants for myself
+# SA: Hope society respects the elderly more, stop treating us as 'people who need care' – we can still share our wisdom and experience
+# SA: To obtain citizenship in the country in which I was born
+# SA: I wish to change my gender and wear my wife's clothes, put on her makeup, and live my femininity with complete freedom.
 
 ##### Save #####
 save.image(".RData")
