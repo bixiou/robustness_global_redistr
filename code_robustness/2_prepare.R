@@ -912,20 +912,19 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # for (v in c("field_field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
   # wb$save(paste0("../data_raw/fields/country1.xlsm"))
   # 2. Export the data to the .xlsm files
-  for (c in countries[-9]) {
-    file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
-    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
-    for (v in c("field", "comment_field")) for (i in "") { #
-    # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
-      # writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
-      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
-    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
-  }
+  # for (c in countries[-9]) {
+  #   file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
+  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
+  #   for (v in c("field", "comment_field")) for (i in "") { #
+  #   # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
+  # }
   # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
   for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
-  for (f in list.files("../data_raw/fields/")) if (grepl("1.en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
+  for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
   for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, "1.xlsx"))
   # 4. Click on appropriate cells in the .xlsm
   
