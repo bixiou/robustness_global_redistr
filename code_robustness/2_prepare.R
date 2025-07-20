@@ -784,6 +784,13 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
   
+  e$lang <- e$language
+  e$lang[grepl("EN|SQI", e$lang)] <- "EN"
+  e$lang[grepl("ES", e$lang)] <- "ES"
+  e$lang[grepl("FR", e$lang)] <- "FR"
+  e$lang[grepl("DE", e$lang)] <- "DE"
+  e$lang[grepl("IT", e$lang)] <- "IT"
+  
   e$variant_field <- e$field <- NA
   for (v in intersect(variables_field, names(e))) e$field[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
   for (v in intersect(variables_field, names(e))) e$variant_field[!is.na(e[[paste0("Open-endedfield_order_", v)]])] <- sub("_field", "", v)
@@ -812,30 +819,114 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   #   End If
   #   Application.EnableEvents = True
   # End Sub
+  
+  # write.csv(all[, c("lang", "field")], "../data_raw/fields/all.csv", na = "", row.names = F)
+  # write.csv(all[sample.int(11000, 750), c("lang", "field")], "../data_raw/fields/all_excerpt.csv", na = "", row.names = F)
+  # Categories proposed by GPT-4.1 based on the excerpt:
+  # Cost of Living / Inflation / Prices
+  # Employment / Unemployment / Job Security
+  # Income Inequality / Poverty / Wealth Distribution
+  # Health (Personal or Public) / Healthcare
+  # Immigration / Illegal Immigration
+  # Political Concerns / Government / Corruption
+  # Climate Change / Environment
+  # Education / Cost of Education / Access to Education
+  # Violence / Crime / Security / Law and Order
+  # Discrimination / Racism / Gender Inequality
+  # Housing / Homelessness
+  # Freedom / Rights / Civil Liberties
+  # Family / Children / Childcare
+  # Wishes for Personal Wellbeing / Happiness / Peace
+  # International Issues / War / Conflict
+  # Retirement / Elderly Care / Social Security
+  # Taxes / Tax System
+  # Social Support / Welfare / Government Support
+  # Misinformation / Media / Social Trust
+  # Other / None / Not Sure / Miscellaneous
+  
+  # Categories that we'll use (GPT proposed that I manually adjusted to add categories that I noticed myself):
+  # Cost of Living / Inflation / Prices / Own level of income
+  # cost_of_living
+  # Love / Relationships
+  # relationships
+  # Employment / Unemployment / Job Security
+  # employment
+  # Income Inequality / Poverty / Wealth Distribution
+  # income_inequality
+  # Global Inequality / Global poverty / Hunger or poverty in poor countries
+  # global_inequality
+  # Health (Personal or Public) / Healthcare
+  # healthcare
+  # Immigration / Illegal Immigration
+  # immigration
+  # Corruption / Distrust of government
+  # corruption
+  # Climate Change / Environment
+  # environment
+  # Violence / Crime / Security / Law and Order
+  # security
+  # Discrimination / Racism / Gender Inequality
+  # discrimination
+  # Freedom / Rights / Civil Liberties / Slavery
+  # freedom
+  # Happiness / Personal Wellbeing
+  # wellbeing
+  # War / Peace
+  # war_peace
+  # Taxes / Tax System / Social Security / Welfare benefits / Public services
+  # taxes_welfare
+  # Criticism of far right policies / Criticism of Donald Trump
+  # far_right_criticism
+  # Misinformation / Media / Social Trust
+  # misinformation
+  # Animals
+  # animals
+  # Religion
+  # religion
+  # Housing / Homelessness
+  # housing
+  # Education / Cost of Education / Access to Education
+  # education
+  # Retirement / Older age
+  # retirement
+  # Family / Children
+  # family
+  # Global issue / International issue
+  # global_issue
+  # Own country
+  # own_country
+  # Empty / Nothing in particular
+  # empty
+  # Other / Not Sure / Miscellaneous
+  # other
+  
   # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
-  field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
-  # health, money (incl. inflation, cost of living, getting more money), relationships/love, peace/war, global poverty/inequality, poverty/inequality, climate/environment, immigration, criticizes far right, happiness, nothing, animals, violence/crime/antisocial, other, religion, slavery/human rights, corruption
+  # field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
+  # health, money (incl. inflation, cost of living, getting more money), relationships/love, peace/war, global poverty/inequality, poverty/inequality, climate/environment, immigration, 
+  # criticizes far right, happiness, nothing, animals, violence/crime/antisocial, other, religion, slavery/human rights, corruption
   # field_names_names <<- names(field_names)
   # names(field_names_names) <<- field_names
   # var_field_names <<- paste0("field_", field_names)
   # wb <- wb_load("../data_raw/fields/country.xlsm")
-  # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$add_data(sheet = paste0(sub("_field", "", v), i), x = names(field_names), start_row = 2)
-  # # for (v in c("field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
-  # wb$save(paste0("../data_raw/fields/country.xlsm"))
+  # # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$add_data(sheet = paste0(sub("_field", "", v), i), x = names(field_names), start_row = 2)
+  # for (v in c("field_field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
+  # wb$save(paste0("../data_raw/fields/country1.xlsm"))
   # 2. Export the data to the .xlsm files
-  # for (c in countries[-9]) {
-  #   file.copy(from = "../data_raw/fields/country.xlsm", to = paste0("../data_raw/fields/", c, ".xlsm"), overwrite = TRUE)
-  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, ".xlsm"))
-  #   for (v in c(variables_field, "comment_field")) for (i in 1:4) { # for (i in "")
-  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
-  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 2:3001, widths = 60)}
-  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, ".xlsm"), overwrite = T)
-  # }
+  for (c in countries[-9]) {
+    file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
+    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
+    for (v in c("field", "comment_field")) for (i in "") { #
+    # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+      # writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
+  }
   # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
-  # for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, ".xlsm"), to = paste0("../data_raw/fields/", c, ".xlsx"), overwrite = TRUE)
-  # for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("\\..*\\.en\\.xlsx", "en.xlsm", f)))
-  # for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, ".xlsx"))
+  for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
+  for (f in list.files("../data_raw/fields/")) if (grepl("1.en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
+  for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, "1.xlsx"))
   # 4. Click on appropriate cells in the .xlsm
   
   # Merge English translations for CH (after copying/renaming CH-DEen into CHen)
@@ -1096,6 +1187,96 @@ rm(temp)
 ##### Codebook #####
 # export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197))
 export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
+
+
+##### NLP #####
+field_names <<- c("Cost of Living / Inflation / Prices / Own level of income" = "cost_of_living",
+                  "Love / Relationships" = "relationships",
+                  "Employment / Unemployment / Job Security" = "employment",
+                  "Income Inequality / Poverty / Wealth Distribution" = "income_inequality",
+                  "Inequality at the inetrnational level / Hunger or poverty in poor countries" = "global_inequality",
+                  "Health (Personal or Public) / Healthcare" = "healthcare",
+                  "Immigration / Illegal Immigration" = "immigration",
+                  "Corruption / Distrust of government" = "corruption",
+                  "Climate Change / Environment" = "environment",
+                  "Violence / Crime / Security / Law and Order" = "security",
+                  "Discrimination / Racism / Gender Inequality" = "discrimination",
+                  "Freedom / Rights / Civil Liberties / Slavery" = "freedom",
+                  "Happiness / Personal Wellbeing" = "happiness",
+                  "War / Peace" = "war_peace",
+                  "Taxes / Tax System / Social Security / Welfare benefits / Public services" = "taxes_welfare",
+                  "Criticism of far right policies / Criticism misinformation Donald Trump" = "far_right_criticism",
+                  "Misinformation / Media / Social Trust" = "mistrust",
+                  "Animals" = "animals",
+                  "Religion" = "religion",
+                  "Housing / Homelessness" = "housing",
+                  "Education / Cost of Education / Access to Education" = "education",
+                  "Retirement / Older age" = "old_age",
+                  "Family / Children" = "family",
+                  "Global issue / International issue" = "global_issue",
+                  "Own country" = "own_country",
+                  "Other / Not Sure / Miscellaneous" = "other",
+                  "Empty / Nothing in particular" = "nothing")
+# prediction <- text::text_classifier(all$field, labels = names(field_names), model = "xlarge") # uses xlm-roberta-large-xnli
+# for (i in seq_along(field_names)) all[[paste0("proba_", field_names[i])]] <- prediction$probabilities[,names(field_names)[i]]
+# for (i in seq_along(field_names)) all[[field_names[i]]] <- prediction$probabilities[,names(field_names)[i]] >= .3
+
+use_python("C:/ProgramData/Anaconda3")
+textModels()
+textModelsRemove("FacebookAI/xlm-roberta-base") # FacebookAI/xlm-roberta-base facebook/bart-large-mnli
+
+# temp <- text::textZeroShot(sequences = all$field[1:20], names(field_names), model = "FacebookAI/xlm-roberta-base", hypothesis_template = "This text is about {}.", multi_label = T, tokenizer_parallelism = T, logging_level = "error", set_seed = 42)
+# View(temp)
+
+for (k in field_names) all[[paste0("field_", k)]] <- F
+
+classify_gpt <- function(prompt, max_tokens = 250) {
+  res <- POST(
+    url = "https://api.openai.com/v1/chat/completions",
+    add_headers(Authorization = paste("Bearer", readLines("openai_key.txt")), `Content-Type` = "application/json"),
+    body = toJSON(list(model = "gpt-4.1", messages = list(list(role = "user", content = prompt)), max_tokens = max_tokens, temperature = 0), auto_unbox = TRUE))
+  stop_for_status(res)
+  resp <- content(res, as = "text", encoding = "UTF-8")
+  resp_list <- fromJSON(resp)
+  resp_list$choices$message$content
+}
+
+# -- PROMPT CONSTRUCTION -- #
+gpt_prompt <- function(response_text) {
+  lbls <- paste0("* ", field_names, ": ", names(field_names), collapse = "\n")
+  paste0(
+    "Given the following survey responses, classify them into all applicable categories from the list below. ",
+    "Return a machine-readable comma-separated list of category keywords (use the keywords only, not the descriptions).",
+    "Each response can be classified in multiple categories.",
+    "\n\nSurvey response: \"", response_text, "\"\n\nCategories:\n", lbls,
+    "\n\nCategory keywords:"
+  )
+}
+
+# results <- list()
+start_time <- Sys.time()
+for (i in 1:nrow(all)) { # 
+  text <- as.character(all$field[i])
+  if (!is.na(text) && nchar(trimws(text)) > 0) {
+    prompt <- gpt_prompt(text)
+    cat(sprintf("Classifying row %d/%d...\n", i, nrow(df)))
+    tryCatch({
+      gpt_result <- classify_gpt(prompt)
+      kwords <- unique(trimws(unlist(strsplit(gpt_result, ","))))
+      for (k in kwords) all[i, paste0("field_", k)] <- T
+      # # Build result row
+      # row_out <- as.list(rep(0, length(field_names)))
+      # names(row_out) <- field_names
+      # for (k in kwords) if (k %in% field_names) row_out[[k]] <- T
+      # results[[i]] <- row_out
+    }, error = function(e) {
+      cat("Classification failed for row", i, ":", conditionMessage(e), "\n")
+      # results[[i]] <- c(setNames(rep(NA, length(field_names)), field_names))
+    })
+    Sys.sleep(1.2) # Stay within API limits (60/min for GPT-3.5-turbo); adjust if needed
+  } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
+}
+Sys.time() - start_time 
 
 
 ##### Save #####

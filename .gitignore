@@ -13,5 +13,6 @@ data/~$inflation_imf.xlsx
 deprecated/*IDs*.csv
 Adrien's/*
 code_robustness/split_few_averagesplit_few_average.xlsx
+*openai_key.txt
 
 figures/split_few_average.pdf

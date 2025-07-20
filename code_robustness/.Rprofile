@@ -190,6 +190,8 @@ package("Hmisc") # describe, decrit
 #' package("modi")
 #' package("descr")
 package("knitr") # plot_crop, representativeness_table
+package("reticulate") # use_python, used for NLP
+package("text") # text_classifier, NLP. /!\ Requires the last version of "topics"
 # options(knitr.kable.NA = '')
 package("kableExtra") # add_header_above in representativeness_table
 package("WDI") # World Development Indicators, WDI()
