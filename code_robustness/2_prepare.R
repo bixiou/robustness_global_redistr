@@ -791,7 +791,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # To recode fields (pre-treatment necessary so the following code works): ~2h/country
   # 0. Create the different sheets in .xlsm (copying sheets in R doesn't preserve macros): first run the lines below, then copy/paste the macro VBA in each sheet
   # wb <- wb_load("../data_raw/fields/template.xlsm")
+  # # Version 4
   # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$clone_worksheet(old = "ex", new = paste0(sub("_field", "", v), i))
+  # # # Version 1 # Perhaps in 2 for US?
+  # # for (v in c("field", "comment_field")) wb$clone_worksheet(old = "ex", new = paste0(sub("_field", "", v)))
   # wb$save(paste0("../data_raw/fields/country.xlsm"))
   # # Open VBA (Alt+F11) then for each sheet of country.xlsm, save:
   # Private Sub Worksheet_SelectionChange(ByVal Target As Excel.Range)
@@ -810,18 +813,24 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   #   Application.EnableEvents = True
   # End Sub
   # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
+  field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
+  # health, money (incl. inflation, cost of living, getting more money), relationships/love, peace/war, global poverty/inequality, poverty/inequality, climate/environment, immigration, criticizes far right, happiness, nothing, animals, violence/crime/antisocial, other, religion, slavery/human rights, corruption
+  # field_names_names <<- names(field_names)
+  # names(field_names_names) <<- field_names
+  # var_field_names <<- paste0("field_", field_names)
   # wb <- wb_load("../data_raw/fields/country.xlsm")
-  # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$add_data(sheet = paste0(sub("_field", "", v), i), x = c("example", "categories"), start_row = 2)
+  # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$add_data(sheet = paste0(sub("_field", "", v), i), x = names(field_names), start_row = 2)
+  # # for (v in c("field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
   # wb$save(paste0("../data_raw/fields/country.xlsm"))
   # 2. Export the data to the .xlsm files
   # for (c in countries[-9]) {
   #   file.copy(from = "../data_raw/fields/country.xlsm", to = paste0("../data_raw/fields/", c, ".xlsm"), overwrite = TRUE)
   #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, ".xlsm"))
-  #   for (v in c(variables_field, "comment_field")) for (i in 1:4) {
-  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:751)
-  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 2:751, widths = 60)}
-  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, ".xlsm"), overwrite = T) 
+  #   for (v in c(variables_field, "comment_field")) for (i in 1:4) { # for (i in "")
+  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[ifelse(i == "", 1:nrow(d(c)), seq(i, nrow(d(c)), 4))])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 2:3001, widths = 60)}
+  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, ".xlsm"), overwrite = T)
   # }
   # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
   # for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, ".xlsm"), to = paste0("../data_raw/fields/", c, ".xlsx"), overwrite = TRUE)
@@ -850,22 +859,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # saveWorkbook(wb, file = paste0("../data_raw/fields/CHen.xlsm"), overwrite = TRUE) 
   
   # 5. Import manually classified data
-  field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
-  # field_names_names <<- names(field_names)
-  # names(field_names_names) <<- field_names
-  # var_field_names <<- paste0("field_", field_names)
-  for (v in intersect(names(e), c(variables_field, "comment_field"))) {
+  for (v in intersect(names(e), c(variables_field, "comment_field"))) { # "field"
     e[[paste0(v, "_en")]] <- e[[v]]
-    for (i in 1:4) {
+    for (i in 1:4) { # for (i in "") {
       if (file.exists(paste0("../data_raw/fields/", country, "en.xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, "en.xlsm"), sheet = paste0(sub("_field", "", v), i), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
       else if (file.exists(paste0("../data_raw/fields/", country, ".xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, ".xlsm"), sheet = paste0(sub("_field", "", v), i), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
       else print("No file found for recoding of field.")
-      indices_i <- i+4*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
+      indices_i <- ifelse(i == "", 1:(ncol(recode_field)-1), i+4*((1:ncol(recode_field)-1))) # seq(i, nrow(e), 4)
       if (file.exists(paste0("../data_raw/fields/", country, "en.xlsm"))) e[[paste0(v, "_en")]][indices_i] <- as.character(recode_field[1,])
       recode_field <- recode_field[-1,]
       row.names(recode_field) <- field_names[row.names(recode_field)]
       recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
-      if (i == 1) for (k in names(recode_field)) e[[paste0(v, "_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
+      if (i %in% c(1, "")) for (k in names(recode_field)) e[[paste0(v, "_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
       for (k in names(recode_field)) e[[paste0(v, "_", k)]][indices_i] <- recode_field[[k]] %in% 1
       # e[[paste0("field_empty")]][indices_i][recode_field[["empty"]]==2] <- 2 # TODO?
     } 
