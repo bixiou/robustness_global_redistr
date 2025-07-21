@@ -1284,7 +1284,7 @@ all <- readRDS("all_gpt.rds")
 # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
 # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
 # DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
-# US: Trump; breaches to the constitution; abortion; gun control; 
+# US: The economy; Trump; breaches to the constitution; abortion; gun control; 
 # Examples
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
@@ -1319,6 +1319,12 @@ all <- readRDS("all_gpt.rds")
 # US: To live in peace
 # US: To leave a positive legacy.
 # US: The economy
+# US: I only wish to safe enough money to be able to retire in the next few years confortably
+# US: People. People suck. The world is crazy and scary.
+# US: We are just on SS. Getting through each month is a struggle.But the Lord answers our prayers and people help us with food.
+# US: One of the issues is me
+# US: Trump getting us into a war with Iran. I voted for Trump and feel betrayed by his actions. I deeply regret voting for him at this point but just couldn't justify a vote for Kamala as she seemed objectively worse. Beyond that, financials like bills and raising two young children is expensive these days.
+
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
@@ -1345,11 +1351,12 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "education|school|exam|universit",
               "old age|pension|retire",
               "family|child", # my child?
-              "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east",
+              "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east|Iran",
               "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
               "^nothing$|^no$|^.$|^-$",
-              "econom",
+              "econom", # in the U.S., not manually assigned to any category
               "Trump",
+              "tariff",
               "Palestine|Gaza",
               "car",
               "mental health",
