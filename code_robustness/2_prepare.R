@@ -807,7 +807,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # Private Sub Worksheet_SelectionChange(ByVal Target As Excel.Range)
   #   Application.EnableEvents = False
   #   If Target.Cells.Count = 1 Then
-  #     If Not Intersect(Target, Range("B2:ZZ50")) Is Nothing Then
+  #     If Not Intersect(Target, Range("B2:DKK50")) Is Nothing Then
   #       Select Case Target.Value
   #       Case ""
   #         Target.Value = "1"
@@ -1276,11 +1276,14 @@ for (i in 1:nrow(all)) { #
   } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
 }
 Sys.time() - start_time 
-saveRDS(all, "all.rds")
+saveRDS(all, "all_gpt.rds")
+all <- readRDS("all_gpt.rds")
 
 # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
+# Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
+# SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
+# DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
 # Examples
-# SA summary: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
 # SA: I want to be a millionaire
@@ -1291,6 +1294,59 @@ saveRDS(all, "all.rds")
 # SA: Hope society respects the elderly more, stop treating us as 'people who need care' – we can still share our wisdom and experience
 # SA: To obtain citizenship in the country in which I was born
 # SA: I wish to change my gender and wear my wife's clothes, put on her makeup, and live my femininity with complete freedom.
+# DE: Exploitation of poorer countries for our prosperity
+# DE: that politicians are too concerned with their own interests and are deliberately trying to keep us stupid and uninformed.
+# DE: I am very concerned about climate change and immigration in the country
+# DE: More money, more free time
+# DE: the gap between rich and poor
+# DE: Health
+# DE: That those who already have enough always want more
+# DE: That Germany helps more foreigners than us Germans ourselves.
+# DE: Money, as people with a lot of money are often preferred
+# DE: That the government thinks about the people, about its OWN, not just about others and the money goes to waste - the Ukrainians need help, no questions asked, but not in the form of indiscriminately handing out money.\n Germany has not been at the top for a long time, we are at the bottom of the list in everything\n education, health, etc.
+# DE: 
+
+# keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
+keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
+              "relationship|husband|wife",
+              "business|work|employ|job",
+              "poverty|inequalit|poor|social justice",
+              "global poverty|global inequal|hunger|drinking water|starv",
+              "health|sick|disease", 
+              "migration|migrant|asylum|refugee",
+              "corruption",
+              "environment|climate|pollution",
+              "safe|murder|crime|criminal",
+              "gender|raci|scrimination|women|xenophob",
+              "freedom|rights|democra",
+              "happiness|happy",
+              "peace|war",
+              "tax|social benefit|social security",
+              "Trump|AfD|populist|far right|",
+              "social division|social cohesion|media|fake news",
+              "animal",
+              "religion| god|self injustice|self-injustice|theism|disbelief",
+              "internet|media",
+              "hous|apartment|real estate|mortgage",
+              "education|school|exam|universit",
+              "old age|pension|retire",
+              "family|child", # my child?
+              "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east",
+              "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|American|U.S.| USA|United States", 
+              "^nothing$|^no$|^.$|^-$",
+              "econom",
+              "Trump",
+              "Palestine|Gaza",
+              "car",
+              "mental health",
+              "sport|soccer",
+              "travel|vacation",
+              "politic",
+              "illionaire",
+              "free time|leisure|more time",
+              "inflation|rising price|cost of living"
+              )
+# ne pas respecter la casse
 
 ##### Save #####
 save.image(".RData")
