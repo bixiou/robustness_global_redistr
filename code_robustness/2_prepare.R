@@ -1276,6 +1276,7 @@ for (i in 1:nrow(all)) { #
   } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
 }
 Sys.time() - start_time 
+saveRDS(all, "all.rds")
 
 # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
 # Examples
