@@ -912,16 +912,16 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # for (v in c("field_field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
   # wb$save(paste0("../data_raw/fields/country1.xlsm"))
   # 2. Export the data to the .xlsm files
-  # for (c in countries[-9]) {
-  #   file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
-  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
-  #   for (v in c("field", "comment_field")) for (i in "") { #
-  #   # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
-  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
-  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
-  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
-  # }
+  for (c in countries[-9]) { # TODO: functionalize
+    file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
+    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
+    for (v in c("field", "comment_field")) for (i in "") { #
+    # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
+  }
   # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
   for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
   for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
@@ -1279,10 +1279,12 @@ Sys.time() - start_time
 saveRDS(all, "all_gpt.rds")
 all <- readRDS("all_gpt.rds")
 
+# ~3h/1k respondents
 # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
 # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
 # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
 # DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
+# US: Trump; breaches to the constitution; abortion; gun control; 
 # Examples
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
@@ -1304,7 +1306,19 @@ all <- readRDS("all_gpt.rds")
 # DE: That Germany helps more foreigners than us Germans ourselves.
 # DE: Money, as people with a lot of money are often preferred
 # DE: That the government thinks about the people, about its OWN, not just about others and the money goes to waste - the Ukrainians need help, no questions asked, but not in the form of indiscriminately handing out money.\n Germany has not been at the top for a long time, we are at the bottom of the list in everything\n education, health, etc.
-# DE: 
+# US: Trump is trying to become a DICK-tator and he is ruining the world and the economy.
+# US: I am afraid of losing my job because it is my source of livelihood
+# US: Being punished for something you didn’t do.
+# US: I wish my daughter would beat her illness.  I wish I was a widow.  I wish I did not have a stepdaughter.
+# US: I want the stock market to go up for my 401k and for the government to fix social security so I can retire in a few years
+# US: That people go hungry every day and there is plenty of money floating around for stupid things
+# US: To find a purpose
+# US: Being born without my consent (the world is a mess and I don't want to be a part of it).
+# US: I would love to live a happy healthy fulfilling life that makes a difference in the world that is long lasting
+# US: Since my health is good, and my income exceeds my needs, I have no concerns.
+# US: To live in peace
+# US: To leave a positive legacy.
+# US: The economy
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
@@ -1313,16 +1327,16 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "poverty|inequalit|poor|social justice",
               "global poverty|global inequal|hunger|drinking water|starv",
               "health|sick|disease", 
-              "migration|migrant|asylum|refugee",
+              "migration|migrant|asylum|refugee|alien",
               "corruption",
-              "environment|climate|pollution",
-              "safe|murder|crime|criminal",
-              "gender|raci|scrimination|women|xenophob",
+              "environment|climate|pollution|warming",
+              "safe|murder|crime|criminal|fraud|rape",
+              "gender|raci|scrimination|women|xenophob|LGB",
               "freedom|rights|democra",
               "happiness|happy",
-              "peace|war",
+              "peace|war|WW",
               "tax|social benefit|social security",
-              "Trump|AfD|populist|far right|",
+              "Trump|AfD|populist|far right|tariff",
               "social division|social cohesion|media|fake news",
               "animal",
               "religion| god|self injustice|self-injustice|theism|disbelief",
@@ -1332,7 +1346,7 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "old age|pension|retire",
               "family|child", # my child?
               "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east",
-              "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|American|U.S.| USA|United States", 
+              "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
               "^nothing$|^no$|^.$|^-$",
               "econom",
               "Trump",
@@ -1344,7 +1358,8 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "politic",
               "illionaire",
               "free time|leisure|more time",
-              "inflation|rising price|cost of living"
+              "inflation|rising price|cost of living",
+              "abort"
               )
 # ne pas respecter la casse
 
