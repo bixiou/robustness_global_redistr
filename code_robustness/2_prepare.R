@@ -1285,6 +1285,11 @@ all <- readRDS("all_gpt.rds")
 # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
 # DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
 # US: The economy; Trump; breaches to the constitution; abortion; gun control; 
+# PL: health; war; inequality; immigration; holiday; truthfulness/honesty; disable people
+# JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
+# CH: equality; immigration; gender equality
+# Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
+#              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
 # Examples
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
@@ -1324,6 +1329,38 @@ all <- readRDS("all_gpt.rds")
 # US: We are just on SS. Getting through each month is a struggle.But the Lord answers our prayers and people help us with food.
 # US: One of the issues is me
 # US: Trump getting us into a war with Iran. I voted for Trump and feel betrayed by his actions. I deeply regret voting for him at this point but just couldn't justify a vote for Kamala as she seemed objectively worse. Beyond that, financials like bills and raising two young children is expensive these days.
+# PL: Probably not🩷But I prefer not to answer the previous question because it is my personal matter. I hope you understand that ❤️
+# PL: That people mock the poorer ones
+# PL: The suffering of children living in poverty and violence.
+# PL: I dream of achieving peace in my life. I would like to be calm and free, without obligations, live day to day, have plenty of money, be able to help my family and animals, and care for the environment.
+# PL: About peace and being alone for a month.
+# PL: I dream of having enough money for new windows someday because I don't have much, I even have to live from paycheck to paycheck.
+# PL: The descent of Poland and Europe into the abyss of totalitarian neo-communism
+# PL: I dream of good health
+# PL: In my opinion, the greatest injustice in the world is disease, war, and professional inequality (e.g., an influencer earns more than a doctor).
+# PL: That some people have everything handed to them on a golden platter, and good people often suffer and work hard.
+# PL: I don't need anything anymore and I don't dream of anything anymore
+# JP: Do not reduce the consumption tax
+# JP: The answer is to increase disposable income. To that end, I would like the Liberal Democratic Party to realize the increase in the basic deduction to 1.71 million yen without any income restrictions, as advocated by the Democratic Party for the People.
+# JP: There is nothing fair about it, and that is to be expected.
+# JP: Having one-sided judgments from others negatively affect one's own behavior and social life
+# JP: A peaceful society, a society where it is easy to raise children, and a society where children can live in peace. \n When it comes to family, I would like to have a home where we have cheerful and fun conversations, and go on domestic and overseas trips.
+# JP: Tax exploitation of people with high incomes. The idea that high income is bad
+# JP: A future where our children will not have to worry. We are being taxed even though our income is not increasing, so I would like an easy-to-understand explanation as to why taxes are being increased and what they are being used for.
+# JP: When you're not feeling well, your methodology can be biased.
+# JP: What will happen to pensions and health insurance in the future?
+# JP: It's not something I particularly wish for, but if I had to say, I just want my children to be happy.
+# JP: A society where only a limited number of certain people can gain or benefit.
+# JP: The value of one vote should be changed based on age.
+# JP: I cannot understand why the abbreviations for both the Constitutional Democratic Party and the Democratic Party for the People were "Democratic Party" in the last election. \n The votes that should have gone to the Constitutional Democratic Party were split with the Democratic Party for the People. \n I feel very uncomfortable about this.
+# JP: The price of rice
+# JP: People who work hard aren't rewarded
+# CH: Inequality of opportunity in education and unequal tax distribution in the cantons.
+# CH: Je ne ferai pas le bien de mon pays
+# CH: j'ai besoin que la Suisse pense aux Suisse avant les autres
+# CH: Prendre soin de mamille, voir mes enfants grandir, aimer chaque jour un peu plus ma femme et mes investissements
+# CH: Pourquoi est-il si difficile d'admettre, que les chemintrails sont néfastes et dangereux pour la santé, par la conseil fédéral
+# CH: qu on aide 1 peu plus les retraite en suisse avant d aider les autres pays baisser les caisses maladie 1 quart de salaire pour ma part inadmissible
 
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
@@ -1335,38 +1372,40 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "health|sick|disease", 
               "migration|migrant|asylum|refugee|alien",
               "corruption",
-              "environment|climate|pollution|warming",
+              "environment|climat|pollution|warming|drought",
               "safe|murder|crime|criminal|fraud|rape",
               "gender|raci|scrimination|women|xenophob|LGB",
               "freedom|rights|democra",
               "happiness|happy",
               "peace|war|WW",
               "tax|social benefit|social security",
-              "Trump|AfD|populist|far right|tariff",
+              "Trump|AfD|populist|far right|tariff| PiS ",
               "social division|social cohesion|media|fake news",
               "animal",
               "religion| god|self injustice|self-injustice|theism|disbelief",
               "internet|media",
               "hous|apartment|real estate|mortgage",
               "education|school|exam|universit",
-              "old age|pension|retire",
+              "old age|pension|retire| aging| ageing",
               "family|child", # my child?
               "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east|Iran",
               "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
-              "^nothing$|^no$|^.$|^-$",
+              "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$",
               "econom", # in the U.S., not manually assigned to any category
               "Trump",
-              "tariff",
+              "tariff|customs dut|custom dut",
               "Palestine|Gaza",
               "car",
               "mental health",
               "sport|soccer",
-              "travel|vacation",
+              "travel|vacation|holiday| rest",
+              "free time|leisure|more time", # merge with previous?
               "politic",
               "illionaire",
-              "free time|leisure|more time",
               "inflation|rising price|cost of living",
-              "abort"
+              "abort", 
+              "investment|asset|stock",
+              "birth rate|birthrate"
               )
 # ne pas respecter la casse
 
