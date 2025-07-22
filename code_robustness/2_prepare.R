@@ -1288,6 +1288,7 @@ all <- readRDS("all_gpt.rds")
 # PL: health; war; inequality; immigration; holiday; truthfulness/honesty; disable people
 # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
 # CH: equality; immigration; gender equality
+# ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
 # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
 #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
 # Examples
@@ -1361,7 +1362,18 @@ all <- readRDS("all_gpt.rds")
 # CH: Prendre soin de mamille, voir mes enfants grandir, aimer chaque jour un peu plus ma femme et mes investissements
 # CH: Pourquoi est-il si difficile d'admettre, que les chemintrails sont néfastes et dangereux pour la santé, par la conseil fédéral
 # CH: qu on aide 1 peu plus les retraite en suisse avant d aider les autres pays baisser les caisses maladie 1 quart de salaire pour ma part inadmissible
-
+# ES: La miseria y el sufrimiento de los niños en todo el mundo
+# ES: Salud, dinero, y amor
+# ES: I need less choice in the capitalist system. It forces me to use time in my personal life for minimal enjoyment within what my socioeconomic class can offer. I wish I had more personal time since I use 80% of it to survive: mostly I use it to replenish energy for the next effort I will need to make. I would like a little more tradition in my life. Personally, I would need a lot more life around me.
+# ES: mi trabajo, me genera mucho estrés
+# ES: accused of murder
+# ES: Más sexo en mi vida
+# ES: La desigualdad entre los países ricos y los pobres, los que pueden evitar que los otros pasen hambre
+# ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
+# ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
+# ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
+# Absent: sex; have more kids (except perhaps in SA)
+# Almost absent: love; loneliness; depression
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
@@ -1379,7 +1391,7 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "happiness|happy",
               "peace|war|WW",
               "tax|social benefit|social security",
-              "Trump|AfD|populist|far right|tariff| PiS ",
+              "Trump|AfD|populist|far right|radical right|extreme right|tariff| PiS |fascism",
               "social division|social cohesion|media|fake news",
               "animal",
               "religion| god|self injustice|self-injustice|theism|disbelief",
@@ -1405,7 +1417,9 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "inflation|rising price|cost of living",
               "abort", 
               "investment|asset|stock",
-              "birth rate|birthrate"
+              "birth rate|birthrate",
+              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump",
+              "hunger" # do they mean in the world or in their country? 
               )
 # ne pas respecter la casse
 
