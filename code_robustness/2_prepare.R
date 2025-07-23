@@ -1299,7 +1299,8 @@ all <- readRDS("all_gpt.rds")
 # IT: Healthcare, lack of general practitioners
 # IT: The extreme poverty of some peoples
 # IT: None, you know there are also intelligent people who live without unnecessary worries
-
+# IT: sea sun
+# IT: a lot of money to be able to attend university without working
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
 # SA: I want to be a millionaire
@@ -1424,9 +1425,10 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "abort", 
               "investment|asset|stock",
               "birth rate|birthrate",
-              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump",
+              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump|Meloni",
               "hunger", # do they mean in the world or in their country? 
-              "stability|stabl"
+              "stability|stabl", 
+              "wage|salar"
               )
 # ne pas respecter la casse
 
