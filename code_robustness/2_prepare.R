@@ -1292,11 +1292,20 @@ all <- readRDS("all_gpt.rds")
 # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
 # IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
 # GB: cost of living; immigration; comfortable life; NHS; mental health; holocaust; dangerous road and driving; being unjustly imprisoned; cut in winter fuel allowance
+# FR: nothing; insecurity; holidays/time; public deficit; equality; gender equality
 # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
 #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
 # Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference; solutions to stop climate change
 # Almost absent: love; loneliness; depression; tax the rich or raise minimum wage (most people mention inequality/poverty but not solutions)
 # Examples
+# FR: Pourquoi il y a un dogme de la réduction du déficit ? Faut il absolument le réduire, pourquoi et comment ?
+# FR: J'ai besoin de donner du sens à ma vie. Je souhaite davantage de justice sociale
+# FR: la vie en elle-même est injuste, car nous ne sommes pas égaux face à la maladie, les risques géo-politiques, ... en fonction de notre lieu de naissance et de notre héritage génétique
+# FR: Trouver un mec
+# FR: Ces jours-ci je n'ai aucun préoccupation .
+# FR: j ai besoin d assez d argent pour vivre normalement sans stresser pour les fins de mois
+# FR: La France va mal
+# FR: La pauvreté
 # GB: In my opinion, the greatest injustice of all is that hard work is not rewarded in this country. We penalise those who work hard by raising their taxes (thus encouraging people to emigrate) while raising living costs left, right and centre. It's impossible to have a good quality of life in this country unless you were lucky enough to be born wealthy.
 # GB: I wish to be the better father to my kids which a kind of experience i didn't have, I also need to be able to provide everything my family want.
 # GB: A lottery win; Keir Starmer to call a General Election; Palestine to evaporate\n 
@@ -1412,7 +1421,7 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "corruption",
               "environment|climat|pollution|warming|drought",
               "safe|murder|crime|criminal|fraud|rape|terrorism",
-              "gender|raci|scrimination|women|xenophob|LGB|machism",
+              "gender|raci|scrimination|women|xenophob|LGB|machism|antisemit",
               "freedom|rights|democra",
               "happiness|happy|serenity|peace of mind|tranquility|inner peace|relax", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
               "peace|war|WW",
@@ -1426,7 +1435,7 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "education|school|exam|universit",
               "old age|pension|retire| aging| ageing",
               "family|child|daughter| son|parent|mother|father|loved ones|kids", # my child?
-              "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran",
+              "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran|geopol",
               "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
               "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
               "econom", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power?
@@ -1437,7 +1446,7 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               " mental |mental health",
               "sport|soccer",
               "travel|vacation|holiday| rest",
-              "free time|leisure|more time", # merge with previous?
+              " time|leisure", # merge with previous?
               "politic",
               "illionaire",
               "inflation|rising price|cost of living",
