@@ -1279,7 +1279,7 @@ Sys.time() - start_time
 saveRDS(all, "all_gpt.rds")
 all <- readRDS("all_gpt.rds")
 
-# ~3h/1k respondents
+# 2-3h/1k respondents
 # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
 # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
 # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
@@ -1289,9 +1289,15 @@ all <- readRDS("all_gpt.rds")
 # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
 # CH: equality; immigration; gender equality
 # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
+# IT: health; safety; money; war; work stress; world hunger; mental health
 # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
 #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
 # Examples
+# IT: world hunger
+# IT: Healthcare, lack of general practitioners
+# IT: The extreme poverty of some peoples
+# IT: None, you know there are also intelligent people who live without unnecessary worries
+
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
 # SA: I want to be a millionaire
@@ -1377,7 +1383,7 @@ all <- readRDS("all_gpt.rds")
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
-              "relationship|husband|wife",
+              "relationship|husband|wife|love|partner", # also includes emotions
               "business|work|employ|job",
               "poverty|inequalit|poor|social justice",
               "global poverty|global inequal|hunger|drinking water|starv",
@@ -1386,9 +1392,9 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "corruption",
               "environment|climat|pollution|warming|drought",
               "safe|murder|crime|criminal|fraud|rape",
-              "gender|raci|scrimination|women|xenophob|LGB",
+              "gender|raci|scrimination|women|xenophob|LGB|machism",
               "freedom|rights|democra",
-              "happiness|happy",
+              "happiness|happy|serenity|peace of mind|tranquility",
               "peace|war|WW",
               "tax|social benefit|social security",
               "Trump|AfD|populist|far right|radical right|extreme right|tariff| PiS |fascism",
@@ -1399,16 +1405,16 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "hous|apartment|real estate|mortgage",
               "education|school|exam|universit",
               "old age|pension|retire| aging| ageing",
-              "family|child", # my child?
+              "family|child|daughter| son|parent|mother|father|loved ones", # my child?
               "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east|Iran",
               "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
-              "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$",
+              "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
               "econom", # in the U.S., not manually assigned to any category
               "Trump",
               "tariff|customs dut|custom dut",
               "Palestine|Gaza",
-              "car",
-              "mental health",
+              " car",
+              " mental |mental health",
               "sport|soccer",
               "travel|vacation|holiday| rest",
               "free time|leisure|more time", # merge with previous?

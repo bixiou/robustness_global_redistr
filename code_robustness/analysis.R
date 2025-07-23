@@ -17,7 +17,7 @@
 #         major: 1 iff the candidate obtained >5% (if you think that another threshold makes more sense for a country, tell me); leaning: 0 if Left, 1 if Center-right or Right, 2 if Far right. 
 
 # TODO: Conjoint analysis: analyze the effect of having an inconsistent program (left+right pols) on conjoint choice and subsequent questions
-
+# TODO: Conjoint analysis: apply method of de la Cuesta et al. to discount inconsistent programs
 export_quotas()
 
 ##### Duration #####
