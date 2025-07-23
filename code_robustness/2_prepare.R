@@ -5,6 +5,7 @@
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: give 10£ to Just One Tree
+# TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -1289,18 +1290,35 @@ all <- readRDS("all_gpt.rds")
 # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
 # CH: equality; immigration; gender equality
 # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
-# IT: health; safety; money; war; work stress; world hunger; mental health; more time
+# IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
+# GB: cost of living; immigration; comfortable life; NHS; mental health; holocaust; dangerous road and driving; being unjustly imprisoned; cut in winter fuel allowance
 # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
 #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
-# Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference
-# Almost absent: love; loneliness; depression
+# Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference; solutions to stop climate change
+# Almost absent: love; loneliness; depression; tax the rich or raise minimum wage (most people mention inequality/poverty but not solutions)
 # Examples
+# GB: In my opinion, the greatest injustice of all is that hard work is not rewarded in this country. We penalise those who work hard by raising their taxes (thus encouraging people to emigrate) while raising living costs left, right and centre. It's impossible to have a good quality of life in this country unless you were lucky enough to be born wealthy.
+# GB: I wish to be the better father to my kids which a kind of experience i didn't have, I also need to be able to provide everything my family want.
+# GB: A lottery win; Keir Starmer to call a General Election; Palestine to evaporate\n 
+# GB: I need food, water and a warm house. I wish to be able to provide these things for myself without the help of benefits.
+# GB: Local councils not giving priority to mothers with toddlers that's classed as being homeless and give empty coucil homes to people that's not even lived in this area before
+# GB: allowing undocumented invading scroungers to remain in this country
+# GB: to live a long healthy, meaningful life
+# GB: I have a disability and several other conditions and am therefore unfit for work. My main concern is my government which I voted for impoverishing me or trying to force me back to work, which will likely kill me
+# GB: Boat loads of useless scroungers landing here every day, cost of living going up, bills going up, useless bus service, useless train service, roads in a mess, nhs in a mess, scammers ringing me up every day, cost of beer, cost of fish and chips and chinese take aways, useless labour party... need I go one?
+# GB: Indifference to suffering, where the powerful ignore the cries of the weak.
+# GB: Climate change
+# GB: Immigration and cost of living
+# GB: Cost of living, being able to purchase my own home, a good future for my child
+# GB: Being unjustly imprisoned.
+# GB: Cost of living
 # IT: world hunger
 # IT: Healthcare, lack of general practitioners
 # IT: The extreme poverty of some peoples
 # IT: None, you know there are also intelligent people who live without unnecessary worries
 # IT: sea sun
 # IT: a lot of money to be able to attend university without working
+# IT: After-school or full-time. An afternoon service for working parents, anyway. Instead, they prefer to give money to those who stay at home. Giving that money to childcare centers and babysitting would boost the economy.
 # SA: Taking care of health, work, and reaching a high, prestigious position
 # SA: Injustice comes from the people closest to you and you have to live with it.
 # SA: I want to be a millionaire
@@ -1381,6 +1399,7 @@ all <- readRDS("all_gpt.rds")
 # ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
 # ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
 # ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
+# TODO: go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
@@ -1388,14 +1407,14 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "business|work|employ|job",
               "poverty|inequalit|poor|social justice",
               "global poverty|global inequal|hunger|drinking water|starv",
-              "health|sick|disease", 
+              "health|sick|disease|NHS|medica", 
               "migration|migrant|asylum|refugee|alien",
               "corruption",
               "environment|climat|pollution|warming|drought",
-              "safe|murder|crime|criminal|fraud|rape",
+              "safe|murder|crime|criminal|fraud|rape|terrorism",
               "gender|raci|scrimination|women|xenophob|LGB|machism",
               "freedom|rights|democra",
-              "happiness|happy|serenity|peace of mind|tranquility",
+              "happiness|happy|serenity|peace of mind|tranquility|inner peace|relax", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
               "peace|war|WW",
               "tax|social benefit|social security",
               "Trump|AfD|populist|far right|radical right|extreme right|tariff| PiS |fascism",
@@ -1406,11 +1425,11 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "hous|apartment|real estate|mortgage",
               "education|school|exam|universit",
               "old age|pension|retire| aging| ageing",
-              "family|child|daughter| son|parent|mother|father|loved ones", # my child?
-              "world|humanity|foreign|countries|Ukraine|Gaza|Palestine|Hamas|Israel|Yemen|Sudan|middle east|Iran",
+              "family|child|daughter| son|parent|mother|father|loved ones|kids", # my child?
+              "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran",
               "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
               "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
-              "econom", # in the U.S., not manually assigned to any category
+              "econom", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power?
               "Trump",
               "tariff|customs dut|custom dut",
               "Palestine|Gaza",
@@ -1425,10 +1444,11 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "abort", 
               "investment|asset|stock",
               "birth rate|birthrate",
-              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump|Meloni",
+              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump|Meloni|Starmer|Labour",
               "hunger", # do they mean in the world or in their country? 
-              "stability|stabl", 
-              "wage|salar"
+              "stability|stabl", # What do people mean by economic stability (or financial security)? Is it job security, stable earnings, higher wealth...?
+              "wage|salar",
+              "young|youth"
               )
 # ne pas respecter la casse
 
