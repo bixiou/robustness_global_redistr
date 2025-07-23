@@ -1289,9 +1289,11 @@ all <- readRDS("all_gpt.rds")
 # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
 # CH: equality; immigration; gender equality
 # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
-# IT: health; safety; money; war; work stress; world hunger; mental health
+# IT: health; safety; money; war; work stress; world hunger; mental health; more time
 # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
 #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
+# Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference
+# Almost absent: love; loneliness; depression
 # Examples
 # IT: world hunger
 # IT: Healthcare, lack of general practitioners
@@ -1378,12 +1380,10 @@ all <- readRDS("all_gpt.rds")
 # ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
 # ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
 # ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
-# Absent: sex; have more kids (except perhaps in SA)
-# Almost absent: love; loneliness; depression
 
 # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
-              "relationship|husband|wife|love|partner", # also includes emotions
+              "relationship|husband|wife|love|partner|emotion", # also includes emotions
               "business|work|employ|job",
               "poverty|inequalit|poor|social justice",
               "global poverty|global inequal|hunger|drinking water|starv",
@@ -1425,7 +1425,8 @@ keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|finan
               "investment|asset|stock",
               "birth rate|birthrate",
               "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump",
-              "hunger" # do they mean in the world or in their country? 
+              "hunger", # do they mean in the world or in their country? 
+              "stability|stabl"
               )
 # ne pas respecter la casse
 
