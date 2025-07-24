@@ -168,6 +168,33 @@ labels_vars <- c(
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
   "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
   "well_being_wvs_1" = "Well-being: World Values Survey, 1-10 scale",
+  # "money" = "Money; own income; cost of living; inflation",
+  # "relationships" = "Relationships; love; emotions", # also includes emotions
+  # "job" = "Work; (un)employment; business",
+  # "inequality" = "Poverty; inequality",
+  # "global_inequality" = "Global poverty; hunger; global inequality",
+  # "health" = "Health; healthcare system", 
+  # "immigration" = "Criticism of immigration; national preference",
+  # "corruption" = "Corruption; criticism of the government",
+  # "environment" = "Environment; climate change",
+  # "security" = "Security; violence; crime; judicial system",
+  # "discrimination" = "Discrimination; gender inequality; racism; LGBT",
+  # "rights" = "Rights; democracy; freedom; slavery",
+  # "happiness" = "Happiness; peace of mind", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
+  # "war_peace" = "War; peace",
+  # "taxes_welfare" = "Tax system; welfare benefits; public services",
+  # "far_right_criticism" = "Criticism of far right; Trump; tariffs",
+  # "mistrust" = "Social division; fake news; (social) media",
+  # "animals" = "Animal welfare",
+  # "religion" = "Religion; sin; God",
+  # "housing" = "Housing",
+  # "education" = "Education",
+  # "old_age" = "Old age; retirement; ageing society",
+  # "family" = "Family; children; childcare", # my child?
+  # "global_issue" = "International issues",
+  # "own_country" = "Own country referred", 
+  # "other" = "Other topic; unclear; vague",
+  # "nothing" = "Nothing; don't know; empty",
   setNames(names(all), names(all))
 )
 for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
@@ -178,6 +205,7 @@ for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)),
     if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
   }
 }
+for (v in variables_field) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
 
 
 ##### labels_vars_short_html #####

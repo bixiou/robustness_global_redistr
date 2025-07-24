@@ -1,13 +1,14 @@
 Variable,Label,Levels
-date,date: Start Date,[unknown variable type]
+n,,[string variable]
+status_response,status_response: Response Type,IP Address
 progress,progress: Progress,100
 duration,duration: Duration (in min),min: 6 / max: 14165.967
-finished,finished: Finished,TRUE / FALSE
-name,name: Recipient Last Name,TRUE / FALSE / NA
-lang,lang: User Language,[string variable]
-hidden_country,hidden_country: What is your country?,ES / IT / DE / PL / GB / CH / US / FR / SA / JP
+date_recorded,date_recorded: Recorded Date,[unknown variable type]
+distr,distr: Distribution Channel,anonymous
+gender,gender: What is your gender?,Man / Woman / Other
+hidden_country,hidden_country: What is your country?,CH / DE / US / ES / FR / GB / IT / JP / PL / SA
 age_exact,age_exact: What is your age?,[string variable]
-foreign,foreign: Were you or your parents born in a foreign country?,"No, I was born in this country and my parents too / Yes, I was born in a foreign country / Not me but one of my parents was born in a foreign country / Not me but both my parents were born in a foreign country"
+foreign,foreign: Were you or your parents born in a foreign country?,"Not me but one of my parents was born in a foreign country / No, I was born in this country and my parents too / Yes, I was born in a foreign country / Not me but both my parents were born in a foreign country"
 couple,couple: Do you live with your partner (if you have one)?,PNR / No / Yes
 hh_size,"hh_size: How many people are there in your household? 
 The household includes: you, your spouse, your family members who live with you, and your dependents (not flatmates).",1 / 2 / 3 / 4 / 5
@@ -22,9 +23,9 @@ race_other,race_other: What race or ethnicity do you identify with? (Multiple an
 race_pnr,race_pnr: What race or ethnicity do you identify with? (Multiple answers are possible) - Prefer not to say,TRUE / FALSE / NA
 income,"income: What is the [periodicity_text: monthly] [income_type: gross] income of your household, [income_type_long: after taxes and transfers]?
 
-This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources.",less than $100 / between $201 and $250 / between $251 and $300 / between $100 and $200 / between $601 and $700 / between $301 and $400 / between $751 and $800 / between $401 and $500 / between $801 and $900 / between $701 and $750 / between $501 and $600 / more than $900
+This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources.",between $401 and $500 / less than $100 / between $701 and $750 / between $301 and $400 / between $601 and $700 / between $801 and $900 / between $751 and $800 / between $501 and $600 / more than $900 / between $100 and $200 / between $201 and $250 / between $251 and $300
 education,education: What is your highest completed education level?,Below upper secondary / Upper secondary / Above upper secondary
-employment_status,employment_status: What is your employment status?,Part-time employed / Full-time employed / Retired / Self-employed / Inactive (not searching for a job) / Student / Unemployed (searching for a job)
+employment_status,employment_status: What is your employment status?,Full-time employed / Part-time employed / Retired / Self-employed / Inactive (not searching for a job) / Student / Unemployed (searching for a job)
 zipcode,"zipcode: What is your zipcode?
 
 We ask for the zipcode to balance the sample in terms of degree of urbanization (rural, town or city). The survey will be terminated if your zipcode is not recognized.",[string variable]
@@ -37,23 +38,23 @@ voted,,TRUE / FALSE
 nationality_SA,"nationality_SA: What is your nationality?
 If you have both the Saudi and a foreign nationality, choose ""Saudi"".",[string variable]
 vote_US,"vote_US: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / Trump / Prefer not to say / Harris / Other
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / Trump / Harris / Prefer not to say / Other
 vote_GB,"vote_GB: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / Reform UK / Labour / Liberal Democrats / Conservative / Green / Prefer not to say / Plaid Cymru / SNP / Other / Sinn Féin / Alliance Party of Northern Ireland / DUP
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / Labour / Conservative / Reform UK / Liberal Democrats / Green / Prefer not to say / SNP / Plaid Cymru / Sinn Féin / Other / Alliance Party of Northern Ireland / DUP
 vote_FR,"vote_FR: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","NA / Rassemblement National / Prefer not to say / Reconquête / Renaissance, MoDem & Horizons / La France insoumise / Parti Socaliste & Place publique / Les Écologistes – EÉLV / Résistons (Jean Lassalle) / Les Républicains / Other / Parti animaliste / Parti Communiste Français"
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","NA / Rassemblement National / Résistons (Jean Lassalle) / Les Écologistes – EÉLV / Les Républicains / Parti Socaliste & Place publique / Parti Communiste Français / Renaissance, MoDem & Horizons / La France insoumise / Reconquête / Prefer not to say / Parti animaliste / Other"
 vote_CH,"vote_CH: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / Swiss People's Party / Prefer not to say / Green Party / The Liberals / The Centre / Other / Federal Democratic Union / Social Democratic Party / Green Liberal Party / Evangelical People's Party
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",Swiss People's Party / The Liberals / Social Democratic Party / The Centre / Green Liberal Party / Federal Democratic Union / Green Party / Prefer not to say / Other / Evangelical People's Party / NA
 vote_PL,"vote_PL: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","NA / Prefer not to say / Civic Coalition (Civic Platform, Polish Initiative...) / United Right (Law and Justice, Sovereign Poland...) / The Left (New Left...) / Confederation (New Hope, National Movement, Confederation of the Polish Crown...) / Polish People's Party / Poland 2050 / Other"
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]","NA / Civic Coalition (Civic Platform, Polish Initiative...) / The Left (New Left...) / Confederation (New Hope, National Movement, Confederation of the Polish Crown...) / Prefer not to say / United Right (Law and Justice, Sovereign Poland...) / Other / Polish People's Party / Poland 2050"
 vote_IT,"vote_IT: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / FI – NM / FdI / M5S / AVS / Prefer not to say / Other / PD / League / PTD / Libertà / Azione / SUE
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / FI – NM / League / Prefer not to say / FdI / Other / Azione / PD / AVS / M5S / SUE / PTD / Libertà
 vote_ES,"vote_ES: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",PSOE / NA / PP / Other / Prefer not to say / Podemos / Vox / SALF / Junts UE / Sumar / Ahora Repúblicas / CEUS
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / PSOE / PP / Ahora Repúblicas / Sumar / Vox / Other / Prefer not to say / CEUS / Podemos / Junts UE / SALF
 vote_DE,"vote_DE: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
 Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",[string variable]
 vote_JP,"vote_JP: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / CPJ / DPFP / LDP / Prefer not to say / Other / Ishin JIP / CDP / Komeito / JCP / Reiwa Shinsengumi / Sanseitō / SDP
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / LDP / Ishin JIP / CDP / DPFP / Prefer not to say / Reiwa Shinsengumi / Other / CPJ / SDP / Komeito / JCP / Sanseitō
 concerns_field,concerns_field: What are your main concerns these days?,[string variable]
 wish_field,wish_field: What are your needs or wishes?,[string variable]
 issue_field,issue_field: Can you name an issue that is important to you but is neglected in the public debate?,[string variable]
@@ -95,7 +96,7 @@ Which of these candidates would you vote for?
 
 [Field-F-1-1-5]
 [Field-F-1-2-5]
-[Field-F-1-5]",Candidate A / Neither of them / Candidate B / NA
+[Field-F-1-5]",Candidate A / Candidate B / Neither of them / NA
 revenue_split_few_domestic_education_healthcare,"revenue_split_few_domestic_education_healthcare: Imagine a wealth tax applied to households with a net worth above [tax_threshold: $5 million], implemented in every country around the world.
 
 
@@ -596,7 +597,7 @@ In 2009, developed countries agreed to mobilize $100 billion per year in climate
 At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
 
 If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose?","Stop / Reduce / Maintain ($26 bn) / Meet goal ($100 bn) / Intermediate ($200 bn) / Developing ($600 bn) / NGOs ($1,000 bn)"
-ncqg_order,,increasing / decreasing / NA
+ncqg_order,,increasing / NA / decreasing
 ncqg_order_4,"ncqg_order_4: ""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
 
 There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. 
@@ -670,7 +671,7 @@ Since 2025, no additional policies are implemented to address climate change or 
 
 Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). 
 
-Which scenario do you prefer for the future?",NA / Scenario B / Scenario A
+Which scenario do you prefer for the future?",Scenario B / NA / Scenario A
 sustainable_future_b,"sustainable_future_b: Consider two possible scenarios for the world for the next 20 years. 
 
 Scenario A:
@@ -681,7 +682,7 @@ Most countries implement coordinated policies to limit global warming to +2°C a
 
 Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). 
 
-Which scenario do you prefer for the future?",Scenario B / NA / Scenario A
+Which scenario do you prefer for the future?",NA / Scenario A / Scenario B
 top1_tax_support,"top1_tax_support: Currently, 2 billion people live in acute poverty, with less than [lcu_250: $250][periodicity: per month].
 The Sustainable Development Goals, adopted by all countries in 2015, aim to alleviate poverty and give access to healthcare, education, drinking water, and sanitation for all by 2030. Due to lack of funding, the world is not on track to meet these poverty reduction goals.
 
@@ -884,25 +885,25 @@ gcs_comprehension_order_5,"gcs_comprehension_order_5: Comprehension question: on
 How would gasoline prices change as a result of the Global Climate Scheme? 
 Gasoline prices would... - Display Order - decrease",1 / 3
 my_tax_global_nation,"my_tax_global_nation: To what extent do you agree or disagree with the following statement? ""My taxes should go towards solving global problems.""",Strongly disagree / Disagree / Neither agree nor disagree / Agree / Strongly agree
-group_defended,group_defended: Which group of people do you advocate for when you vote?,"Family and self / Community (region, gender...) / Fellow citizens / Humans / Sentient beings"
+donation_charities,donation_charities: How much did you give to charitable organizations in 2022?,TRUE / FALSE / NA
 interested_politics,interested_politics: To what extent are you interested in politics?,TRUE / FALSE / NA
 involvement_govt,"involvement_govt: Where would you rate yourself on a scale of 1 to 5, where 1 means you think the government should limit yourself to only providing the most basic government functions, and 5 means you think the government should take active steps in every area it can to enhance the lives of its citizens? - Desired involvement of government",TRUE / FALSE / NA
 Q93_First Click,Q93_First Click: Timing - First Click,min: 0 / max: 1960.342
 Q93_Last Click,Q93_Last Click: Timing - Last Click,min: 0 / max: 1970.017
 Q93_Page Submit,Q93_Page Submit: Timing - Page Submit,min: 1.66 / max: 1983.265
 Q93_Click Count,Q93_Click Count: Timing - Click Count,min: 0 / max: 70
-survey_biased,survey_biased: Do you feel that this survey was politically biased?,"Yes, left / Yes, right / No"
+comment_field,"comment_field: The survey is nearing completion. You can now enter any comments, thoughts, or suggestions in the field below.",[string variable]
 interview,interview: ,TRUE / FALSE
 custom_redistr_winners,custom_redistr_winners: custom_redistr_winners,min: 0 / max: 100
 custom_redistr_losers,custom_redistr_losers: custom_redistr_losers,min: 0 / max: 100
 custom_redistr_degree,custom_redistr_degree: custom_redistr_degree,min: 0 / max: 10
-complete,complete: complete,141675_42c39cf0 / 141675_1b08093a / 141675_437f93c0 / 141675_7448816f / 141675_a5ba9fb1 / 141675_9296f505 / 141675_0b52994e / 141675_16cf2478 / 7a5f2b60-b8ac-43ee-90bc-09308949c9f8 / 141675_ef93e391
-quotasfull,quotasfull: quotasfull,141675_283108da / 141675_7a58aa50 / 141675_cce9bb55 / 141675_91345278 / 141675_c94f5b9e / 141675_111222b9 / 141675_299a18e6 / 141675_51ac1728 / a69eb573-75ad-28a0-faf4-61b35a379d18 / 141675
-screenout,screenout: screenout,141675_4dd06d5d / 141675_1b220755 / 141675_1756c4fe / 141675_a28e9cb8 / 141675_184b0070 / 141675_b27297df / 141675_74b02dc5 / 141675_c1d80f8b / a69eb573-75ad-28a0-faf4-61b35a379d18 / 141675
+complete,complete: complete,141675_9296f505 / 141675_437f93c0 / 141675_42c39cf0 / 141675_16cf2478 / 141675_a5ba9fb1 / 141675_1b08093a / 141675_ef93e391 / 141675_7448816f / 7a5f2b60-b8ac-43ee-90bc-09308949c9f8 / 141675_0b52994e
+quotasfull,quotasfull: quotasfull,141675_111222b9 / 141675_cce9bb55 / 141675_283108da / 141675_51ac1728 / 141675_c94f5b9e / 141675_7a58aa50 / 141675 / 141675_91345278 / a69eb573-75ad-28a0-faf4-61b35a379d18 / 141675_299a18e6
+screenout,screenout: screenout,141675_b27297df / 141675_1756c4fe / 141675_4dd06d5d / 141675_c1d80f8b / 141675_184b0070 / 141675_1b220755 / 141675 / 141675_a28e9cb8 / a69eb573-75ad-28a0-faf4-61b35a379d18 / 141675_74b02dc5
 speeder,speeder: speeder,141675 / a69eb573-75ad-28a0-faf4-61b35a379d18
 Q_TotalDuration,Q_TotalDuration: Q_TotalDuration,min: 360 / max: 849958
 excluded,excluded: Q_TerminateFlag,NA
-country,,ES / IT / DE / PL / GB / CH / US / FR / SA / JP
+country,,CH / DE / ES / FR / GB / IT / JP / PL / SA / US
 region,region: region,0 / 1 / 2 / 3 / 4 / 5
 urbanity,urbanity: urbanity,Cities / Towns and suburbs / Rural
 cut,cut: cut,0
@@ -912,17 +913,17 @@ variant_warm_glow,,None / NCS / donation
 variant_realism,variant_realism: variant_realism,0 / 1
 variant_ncqg_maritime,,Short / Full
 variant_radical_redistr,variant_radical_redistr: variant_radical_redistr,0 / 1
-variant_ics,variant_ics: variant_gcs,low / high_color / mid / high / NA
+variant_ics,variant_ics: variant_gcs,mid / high_color / high / low / NA
 variant_sliders,variant_sliders: Concentrated/Diffuse. Values of the initial position of sliders in custom_redistr. Concentrated/Diffuse: Winners: 40/60; Losers: 10/20; Degree: 7/2.,diffuse / concentrated
 variant_radical_transfer,variant_radical_transfer: variant_radical_transfer,0 / 1
 variant_synthetic,variant_synthetic: variant_synthetic,0 / 1
 variant_comprehension,variant_comprehension: variant_comprehension,0 / 1
-variant_belief,,Own / US
-F-1-1,,tax_system / society_issues / foreign_policy / econ_issues / climate_pol / NA
-F-1-2,,climate_pol / society_issues / tax_system / foreign_policy / econ_issues / NA
+variant_belief,,US / Own
+F-1-1,,econ_issues / society_issues / climate_pol / foreign_policy / tax_system / NA
+F-1-2,,tax_system / climate_pol / foreign_policy / econ_issues / society_issues / NA
 F-1-3,,foreign_policy / tax_system / econ_issues / climate_pol / society_issues / NA
-F-1-4,,society_issues / foreign_policy / climate_pol / tax_system / econ_issues / NA
-F-1-5,,econ_issues / climate_pol / society_issues / foreign_policy / tax_system / NA
+F-1-4,,climate_pol / foreign_policy / society_issues / tax_system / econ_issues / NA
+F-1-5,,society_issues / econ_issues / climate_pol / foreign_policy / tax_system / NA
 F-1-6,F-1-6: F-1-6,TRUE / FALSE / NA
 F-1-1-1,,[string variable]
 F-1-1-2,,[string variable]
@@ -994,14 +995,14 @@ dropout,dropout: T/F Chose to leave the survey (is.na(excluded) & !finished),TRU
 stayed,stayed: T/F Did not drop out (excluded != QuotaMet & finished),TRUE / FALSE
 final,final: T/F In Final sample (!excluded & finished),TRUE / FALSE
 variant_long,,TRUE / FALSE
-country_name,,Spain / Italy / Germany / Poland / United Kingdom / Switzerland / USA / France / Saudi Arabia / Japan
+country_name,,Switzerland / Germany / Spain / France / United Kingdom / Italy / Japan / Poland / Saudi Arabia / USA
 duration_feedback,duration: Duration (in min),min: -87322153.547 / max: 39.561
 attentive,,TRUE / FALSE
 man,,TRUE / FALSE
-race,race: White only/Hispanic/Black only/Other. True proportions: .584/.195/.133/.088,NA / White only / Hispanic / Black / Other
+race,race: White only/Hispanic/Black only/Other. True proportions: .584/.195/.133/.088,NA / White only / Black / Hispanic / Other
 age,age_exact: What is your age?,18-24 / 25-34 / 35-49 / 50-64 / 65+
 age_factor,,35-49 / 18-24 / 25-34 / 50-64 / 65+
-education_original,education: What is your highest completed education level?,6 Bachelor's / 7-8 Master's or higher / 3-4 Vocational training / 2 Medium school / 3 High school diploma / 2 Some high school / 4 Professional diploma / 5 Short-cycle tertiary / 0-1 Primary or less / 3 Vocational training / 2 Medium school or Some high school
+education_original,education: What is your highest completed education level?,3-4 Vocational training / 7-8 Master's or higher / 6 Bachelor's / 3 High school diploma / 2 Some high school / 0-1 Primary or less / 5 Short-cycle tertiary / 2 Medium school / 4 Professional diploma / 3 Vocational training / 2 Medium school or Some high school
 post_secondary,,TRUE / FALSE
 education_quota,,Not 25-64 / Below upper secondary / Upper secondary / Post secondary
 income_quartile,"income: What is the [periodicity_text: monthly] [income_type: gross] income of your household, [income_type_long: after taxes and transfers]?
@@ -1018,6 +1019,7 @@ working,,TRUE / FALSE
 employment_18_64,"employment_18_64: 65+ / Inactive (Inactive, Student or Retired) / Unemployed / Employed (full-time, part-time, or self-employed). Built from employment_status.",Employed / 65+ / Inactive / Unemployed
 owner,owner: Owner or Landlord renting out property to: Are you a homeowner or a tenant?,TRUE / FALSE
 voted_original,voted: Did you vote in the [election: 2024 presidential election]?,No right / PNR / No / Yes
+vote_factor,,"Non-voter, PNR or Other / Center-right or Right / Far right / Left"
 millionaire_agg,millionaire: How likely are you to become a millionaire at some point in your life?,Unlikely / Likely / Already
 ncqg_original,"ncqg: ""Climate finance"" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
 
@@ -1026,7 +1028,7 @@ There are two kinds of climate finance: grants (that is, donations) and loans. T
 In 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035. None of the goals specify which share should be provided as grants. 
 At international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.
 
-If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose?","Meet the newly agreed goal by tripling grants and loans ($100 billion in grants, or 0.15% of GDP). / Reduce the provision of climate finance. / Increase climate finance to match what developing countries are asking for ($600 billion in grants, or 0.9% of GDP). / NA / Increase climate finance to a level between what developed countries have agreed and what developing countries are asking for ($300 billion in grants, or 0.45% of GDP). / Stop all provision of climate finance. / Maintain current contributions ($26 billion per year in grants, that is 0.04% of developed countries' GDP, and $80 billion in loans, or 0.1% of GDP). / Increase climate finance to match what NGOs are asking for (at least $1,000 billion per year in grants, that is 1.4% of GDP, is what Greenpeace, Oxfam, WWF, and the World Council of Churches ask for)."
+If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose?","Reduce the provision of climate finance. / NA / Maintain current contributions ($26 billion per year in grants, that is 0.04% of developed countries' GDP, and $80 billion in loans, or 0.1% of GDP). / Increase climate finance to match what developing countries are asking for ($600 billion in grants, or 0.9% of GDP). / Increase climate finance to match what NGOs are asking for (at least $1,000 billion per year in grants, that is 1.4% of GDP, is what Greenpeace, Oxfam, WWF, and the World Council of Churches ask for). / Increase climate finance to a level between what developed countries have agreed and what developing countries are asking for ($300 billion in grants, or 0.45% of GDP). / Meet the newly agreed goal by tripling grants and loans ($100 billion in grants, or 0.15% of GDP). / Stop all provision of climate finance."
 ncqg_full_original,"ncqg_full: At international climate negotiations, developing countries call for larger provision of ""climate finance"": the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]
 
 There are two kinds of climate finance: grants (that is, donations) and loans. In 2022, $26 billion was provided as grants and the rest as loans, for a total of $116 billion. 
@@ -1042,24 +1044,107 @@ Below are different positions on the amount of climate finance that should be pr
 - $1,000 billion (1.43% of GDP): The goal called for by Climate Action Network (a network of NGOs including Greenpeace, Oxfam, and WWF).
 - $5,000 billion (7.14% of GDP): The goal called for by Demand Climate Justice (a network of NGOs including 350.org and the World Council of Churches)
 
-If you could choose the amount of climate finance provided by developed countries to developing countries in 2035, what amount would you choose (in grant-equivalent terms)?","NA / $26 billion / $300 billion / $600 billion / $100 billion / $0 / $1,000 billion / $5,000 billion"
+If you could choose the amount of climate finance provided by developed countries to developing countries in 2035, what amount would you choose (in grant-equivalent terms)?","NA / $100 billion / $600 billion / $300 billion / $26 billion / $0 / $1,000 billion / $5,000 billion"
 variant_ncqg,"variant_ncqg: Full/Short. Full: A lot of explanations, answers in numerical grant-equivalent; Short: Shorter, answers in terms of who defends them or what they mean.",Short / Full
 ncqg_fusion,,"$0 / Less / Stable / More loans / $100 bn / $200 bn / 300 bn / $600 bn / $1,000 bn / $5,000 bn"
-variant_sustainable_future,variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points).,b / a
+variant_sustainable_future,variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points).,a / b
 sustainable_future,,TRUE / FALSE
 vote_intl_coalition_less_likely,,TRUE / FALSE / NA
 gcs_understood,,TRUE / FALSE
+millionaire_factor,,Unlikely / Likely / Already
+urbanity_factor,,Cities / Towns and suburbs / Rural / NA
+education_factor,,Below upper secondary / Upper secondary / Above upper secondary
+income_factor,,Q1 / Q2 / Q3 / Q4
+region_factor,,1 / 2 / 3 / NA / 4 / 5 / 0
 well_being_gallup_0_original,"well_being_gallup_0: Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
 
-On which step of the ladder would you say you personally feel you stand at this time?",NA / 5 / 7 / 2 / 6 / 8 / 3 / 4 / 1 / Best possible10 / 9 / Worst possible0
-well_being_wvs_0_original,"well_being_wvs_0: All things considered, how satisfied are you with your life as a whole these days?",6 / NA / 7 / 5 / 4 / Completely satisfied10 / 8 / 3 / 9 / 1 / Completely dissatisfied0 / 2
+On which step of the ladder would you say you personally feel you stand at this time?",8 / NA / 7 / Best possible10 / 6 / 9 / 2 / 4 / 5 / 3 / Worst possible0 / 1
+well_being_wvs_0_original,"well_being_wvs_0: All things considered, how satisfied are you with your life as a whole these days?",NA / 5 / 9 / 7 / 4 / Completely satisfied10 / 8 / 6 / 1 / 2 / 3 / Completely dissatisfied0
 well_being_gallup_1_original,"well_being_gallup_1: Please imagine a ladder, with steps numbered from 1 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
 
-On which step of the ladder would you say you personally feel you stand at this time?",NA / 5 / 8 / 2 / 6 / 7 / 4 / 3 / 9 / Worst possible1 / Best possible10
-well_being_wvs_1_original,"well_being_wvs_1: All things considered, how satisfied are you with your life as a whole these days?",NA / 6 / 8 / Completely satisfied10 / 7 / 3 / 2 / 5 / 9 / Completely dissatisfied1 / 4
+On which step of the ladder would you say you personally feel you stand at this time?",NA / 6 / 9 / 8 / 4 / 7 / 5 / Best possible10 / 3 / 2 / Worst possible1
+well_being_wvs_1_original,"well_being_wvs_1: All things considered, how satisfied are you with your life as a whole these days?",NA / 7 / 8 / Completely satisfied10 / 9 / 5 / 6 / 2 / 3 / Completely dissatisfied1 / 4
 field,,[string variable]
-variant_field,,issue / injustice / wish / concerns
-variant_belief_eu,,Own / US / EU
+variant_field,,concerns / issue / injustice / wish
+field_en,,[string variable]
+field_manual_money,,TRUE / FALSE / NA
+field_manual_relationships,,TRUE / FALSE / NA
+field_manual_job,,TRUE / FALSE / NA
+field_manual_inequality,,TRUE / FALSE / NA
+field_manual_global_inequality,,TRUE / FALSE / NA
+field_manual_health,,TRUE / FALSE / NA
+field_manual_immigration,,TRUE / FALSE / NA
+field_manual_corruption,,TRUE / FALSE / NA
+field_manual_environment,,TRUE / FALSE / NA
+field_manual_security,,TRUE / FALSE / NA
+field_manual_discrimination,,TRUE / FALSE / NA
+field_manual_rights,,TRUE / FALSE / NA
+field_manual_happiness,,TRUE / FALSE / NA
+field_manual_war_peace,,TRUE / FALSE / NA
+field_manual_taxes_welfare,,TRUE / FALSE / NA
+field_manual_far_right_criticism,,TRUE / FALSE / NA
+field_manual_mistrust,,TRUE / FALSE / NA
+field_manual_animals,,TRUE / FALSE / NA
+field_manual_religion,,TRUE / FALSE / NA
+field_manual_housing,,TRUE / FALSE / NA
+field_manual_education,,TRUE / FALSE / NA
+field_manual_old_age,,TRUE / FALSE / NA
+field_manual_family,,TRUE / FALSE / NA
+field_manual_global_issue,,TRUE / FALSE / NA
+field_manual_own_country,,TRUE / FALSE / NA
+field_manual_other,,TRUE / FALSE / NA
+field_manual_nothing,,TRUE / FALSE / NA
+field_keyword_money,,TRUE / FALSE / NA
+field_keyword_relationships,,TRUE / FALSE / NA
+field_keyword_job,,TRUE / FALSE / NA
+field_keyword_inequality,,TRUE / FALSE / NA
+field_keyword_global_inequality,,TRUE / FALSE / NA
+field_keyword_health,,TRUE / FALSE / NA
+field_keyword_immigration,,TRUE / FALSE / NA
+field_keyword_corruption,,TRUE / FALSE / NA
+field_keyword_environment,,TRUE / FALSE / NA
+field_keyword_security,,TRUE / FALSE / NA
+field_keyword_discrimination,,TRUE / FALSE / NA
+field_keyword_rights,,TRUE / FALSE / NA
+field_keyword_happiness,,TRUE / FALSE / NA
+field_keyword_war_peace,,TRUE / FALSE / NA
+field_keyword_taxes_welfare,,TRUE / FALSE / NA
+field_keyword_far_right_criticism,,TRUE / FALSE / NA
+field_keyword_mistrust,,TRUE / FALSE / NA
+field_keyword_animals,,TRUE / FALSE / NA
+field_keyword_religion,,TRUE / FALSE / NA
+field_keyword_housing,,TRUE / FALSE / NA
+field_keyword_education,,TRUE / FALSE / NA
+field_keyword_old_age,,TRUE / FALSE / NA
+field_keyword_family,,TRUE / FALSE / NA
+field_keyword_global_issue,,TRUE / FALSE / NA
+field_keyword_own_country,,TRUE / FALSE / NA
+field_keyword_nothing,,TRUE / FALSE / NA
+field_keyword_economy,,TRUE / FALSE / NA
+field_keyword_media,,TRUE / FALSE / NA
+field_keyword_trump,,TRUE / FALSE / NA
+field_keyword_tariff,,TRUE / FALSE / NA
+field_keyword_gaza,,TRUE / FALSE / NA
+field_keyword_car,,TRUE / FALSE / NA
+field_keyword_mental,,TRUE / FALSE / NA
+field_keyword_sport,,TRUE / FALSE / NA
+field_keyword_holiday,,TRUE / FALSE / NA
+field_keyword_time,,TRUE / FALSE / NA
+field_keyword_politics,,TRUE / FALSE / NA
+field_keyword_millionaire,,TRUE / FALSE / NA
+field_keyword_inflation,,TRUE / FALSE / NA
+field_keyword_abortion,,TRUE / FALSE / NA
+field_keyword_stock,,TRUE / FALSE / NA
+field_keyword_birthrate,,TRUE / FALSE / NA
+field_keyword_government,,TRUE / FALSE / NA
+field_keyword_hunger,,TRUE / FALSE / NA
+field_keyword_stability,,TRUE / FALSE / NA
+field_keyword_wage,,TRUE / FALSE / NA
+field_keyword_youth,,TRUE / FALSE / NA
+field_nb_keywords,,
+field_nb_manual,,0 / 1 / 3
+nchar_field,,min: 1 / max: 1464
+variant_belief_eu,,US / Own / EU
 gcs_belief,,min: 0 / max: 100
 info_solidarity,,TRUE / FALSE
 gcs_support_control,,0 / 100
@@ -1071,6 +1156,10 @@ share_solidarity_short_supported,,0 / 0.2 / 0.4 / 0.6 / 0.8 / 1
 share_solidarity_short_opposed,,0 / 0.2 / 0.4 / 0.6 / 0.8 / 1
 share_solidarity_supported,,0 / 0.1 / 0.2 / 0.3 / 0.4 / 0.5 / 0.6 / 0.7 / 0.8 / 0.9 / 1
 share_solidarity_opposed,,0 / 0.1 / 0.2 / 0.3 / 0.4 / 0.5 / 0.6 / 0.7 / 0.8 / 0.9 / 1
+share_solidarity_supported_no_commitment,,0 / 0.167 / 0.333 / 0.5 / 0.667 / 0.833 / 1
+share_solidarity_opposed_no_commitment,,0 / 0.167 / 0.333 / 0.5 / 0.667 / 0.833 / 1
+share_solidarity_supported_no_info,,0 / 0.5 / 1
+share_solidarity_opposed_no_info,,0 / 0.5 / 1
 solidarity_support_billionaire_tax_control,,-2 / -1 / 0 / 1 / 2
 solidarity_support_corporate_tax_control,,-2 / -1 / 0 / 1 / 2
 solidarity_support_expanding_security_council_control,,-2 / -1 / 0 / 1 / 2
@@ -1082,14 +1171,14 @@ solidarity_support_ncqg_300bn_control,,-2 / -1 / 0 / 1 / 2
 solidarity_support_shipping_levy_control,,-2 / -1 / 0 / 1 / 2
 solidarity_support_aviation_levy_control,,-2 / -1 / 0 / 1 / 2
 top_tax_support,,-2 / -1 / 0 / 1 / 2
-variant_top_tax,,top1 / top3
-variant_top_tax_full,,top1_long / top3_long
-variant_well_being,,wvs_0 / gallup_0 / gallup_1 / wvs_1
+variant_top_tax,,top3 / top1
+variant_top_tax_full,,top3_long / top1_long
+variant_well_being,,gallup_0 / gallup_1 / wvs_1 / wvs_0
 well_being,,0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10
 variant_well_being_scale,,0 / 1
-variant_well_being_wording,,WVS / Gallup
+variant_well_being_wording,,Gallup / WVS
 wealth_tax_support,,No / Yes
-variant_wealth_tax,,global / intl / hic
+variant_wealth_tax,,hic / intl / global
 humanist,,TRUE / FALSE
 universalist,,TRUE / FALSE
 antispecist,,TRUE / FALSE
@@ -1276,17 +1365,18 @@ What percentage of the global wealth tax revenue should be allocated to each cat
 The total allocation must sum to
 100%. - Domestic: Income tax reduction",0 / 5 / 10 / 15 / 20 / 25 / 30 / 35-100
 mean_order_many_global,,min: 1 / max: 5
-transfer_how_order,,global_first / local_first
-vote_intl_coalition_order,,less_first / more_first / NA
+transfer_how_order,,local_first / global_first
+vote_intl_coalition_order,,more_first / less_first / NA
 race_asked,,TRUE / FALSE
 custom_redistr_asked,,TRUE / FALSE
 global_movement_asked,,TRUE / FALSE
 why_hic_help_lic_asked,,TRUE / FALSE
 radical_redistr_asked,,TRUE / FALSE
+my_tax_global_nation_external,,0.33 / 0.37 / 0.4 / 0.41 / 0.44 / 0.53 / 0.55 / 0.58 / 0.61
+my_tax_global_nation_2023,,0.43 / 0.44 / 0.52 / 0.58 / 0.6 / 0.65 / 0.76
 custom_redistr_unsatisfied_unskip,,TRUE / FALSE
 custom_redistr_both_satisfied_skip,,TRUE / FALSE
-n,,[string variable]
-weight,"weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country].",min: 0.06 / max: 4.126
+weight,"weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country].",min: 0.06 / max: 2.411
 weight_country,"weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country].",min: 0.25 / max: 4
 custom_redistr_current_income,,min: 0 / max: 800000010000
 custom_redistr_income_min,,min: 0 / max: 17189.612
@@ -1295,6 +1385,7 @@ custom_redistr_self_gain,,TRUE / FALSE
 custom_redistr_self_lose,,TRUE / FALSE
 custom_redistr_self_unaffected,,TRUE / FALSE
 custom_redistr_transfer,,min: 0 / max: 48.04
+custom_redistr_untouched,,TRUE / FALSE
 vote_original,"vote_FR: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
 Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",[string variable]
 vote_agg,,PNR or Other / Left / Center-right or Right / Far right
@@ -1305,7 +1396,6 @@ vote_voters,,[string variable]
 vote_major_voters,,[string variable]
 vote,,"Non-voter, PNR or Other / Left / Center-right or Right / Far right"
 vote_agg_factor,,PNR or Other / Center-right or Right / Far right / Left
-vote_factor,,"Non-voter, PNR or Other / Center-right or Right / Far right / Left"
 conjoint_number,,1 / 2
 conjoint_misleading,,1 / 2
 F-1-1_original,F-1-1: F-1-1,[string variable]
@@ -1326,9 +1416,36 @@ F-1-2-5_original,F-1-2-5: F-1-2-5,[string variable]
 weight_vote,,min: 0.25 / max: 4
 ics_NA_support,,TRUE / FALSE / NA
 saudi,,TRUE / FALSE / NA
-gender_nationality,,"NA / Man, Saudi / Man, non-Saudi / Woman, non-Saudi / Woman, Saudi / Man, NA"
+gender_nationality,,"NA / Man, Saudi / Woman, non-Saudi / Man, non-Saudi / Woman, Saudi / Man, NA"
 swing_state,"swing_state_5pp: T/F Lives in one of the 8 States around the tipping-point one: with less than 5 p.p. difference in margin with the national one at the 2024 Presidential election (NH, WI, MI, PA, GA, NV, NC, AZ).",TRUE / FALSE / NA
 democratic_state,democratic_state: T/F Lives in one of the 14 States with Democratic margin >10pp in 2024 Presidential election: California + Illinois + New York + Washington + Massachusetts + Oregon + Connecticut + Delaware + Hawaii + Rhose Island + DC + Vermont + Maryland + Colorado,TRUE / FALSE / NA
+field_gpt_relationships,,TRUE / FALSE
+field_gpt_global_inequality,,TRUE / FALSE
+field_gpt_immigration,,TRUE / FALSE
+field_gpt_corruption,,TRUE / FALSE
+field_gpt_environment,,TRUE / FALSE
+field_gpt_security,,TRUE / FALSE
+field_gpt_discrimination,,TRUE / FALSE
+field_gpt_happiness,,TRUE / FALSE
+field_gpt_war_peace,,TRUE / FALSE
+field_gpt_taxes_welfare,,TRUE / FALSE
+field_gpt_far_right_criticism,,TRUE / FALSE
+field_gpt_mistrust,,TRUE / FALSE
+field_gpt_animals,,TRUE / FALSE
+field_gpt_religion,,TRUE / FALSE
+field_gpt_housing,,TRUE / FALSE
+field_gpt_education,,TRUE / FALSE
+field_gpt_old_age,,TRUE / FALSE
+field_gpt_family,,TRUE / FALSE
+field_gpt_global_issue,,TRUE / FALSE
+field_gpt_own_country,,TRUE / FALSE
+field_gpt_other,,TRUE / FALSE
+field_gpt_nothing,,TRUE / FALSE
+field_gpt_rights,,TRUE / FALSE
+field_gpt_health,,TRUE / FALSE
+field_gpt_inequality,,TRUE / FALSE
+field_gpt_job,,TRUE / FALSE
+field_gpt_money,,TRUE / FALSE
 NA,NA,NA
 NA,NA,NA
 NA,NA,NA

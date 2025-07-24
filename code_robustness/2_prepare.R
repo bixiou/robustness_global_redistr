@@ -293,6 +293,7 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
 }
 
 prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE, remove_id = NULL) { # scope: all, stayed, final
+  print(country)
   sample_name <- paste0(country, if (pilot) "p" else NULL)
   if (is.null(remove_id)) remove_id <- sample_name != "USp"
   if (fetch) {
@@ -459,6 +460,213 @@ define_var_lists <- function() {
                         "Défiscaliser" = "tax_system1", # "Défiscaliser les primes jusqu’à 10 000 € par an",
                         "moteur" = "climate_pol1") # "Éliminer progressivement les voitures à moteur à combustion d'ici à 2040")
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
+
+  # Categories proposed by GPT-4.1 based on the excerpt:
+  {
+  # Cost of Living / Inflation / Prices
+  # Employment / Unemployment / Job Security
+  # Income Inequality / Poverty / Wealth Distribution
+  # Health (Personal or Public) / Healthcare
+  # Immigration / Illegal Immigration
+  # Political Concerns / Government / Corruption
+  # Climate Change / Environment
+  # Education / Cost of Education / Access to Education
+  # Violence / Crime / Security / Law and Order
+  # Discrimination / Racism / Gender Inequality
+  # Housing / Homelessness
+  # Freedom / Rights / Civil Liberties
+  # Family / Children / Childcare
+  # Wishes for Personal Wellbeing / Happiness / Peace
+  # International Issues / War / Conflict
+  # Retirement / Elderly Care / Social Security
+  # Taxes / Tax System
+  # Social Support / Welfare / Government Support
+  # Misinformation / Media / Social Trust
+  # Other / None / Not Sure / Miscellaneous
+  
+  # Categories that used for GPT classification (GPT proposed that I manually adjusted to add categories that I noticed myself):
+  # Cost of Living / Inflation / Prices / Own level of income
+  # cost_of_living
+  # Love / Relationships
+  # relationships
+  # Employment / Unemployment / Job Security
+  # employment
+  # Income Inequality / Poverty / Wealth Distribution
+  # income_inequality
+  # Global Inequality / Global poverty / Hunger or poverty in poor countries
+  # global_inequality
+  # Health (Personal or Public) / Healthcare
+  # healthcare
+  # Immigration / Illegal Immigration
+  # immigration
+  # Corruption / Distrust of government
+  # corruption
+  # Climate Change / Environment
+  # environment
+  # Violence / Crime / Security / Law and Order
+  # security
+  # Discrimination / Racism / Gender Inequality
+  # discrimination
+  # Freedom / Rights / Civil Liberties / Slavery
+  # freedom
+  # Happiness / Personal Wellbeing
+  # wellbeing
+  # War / Peace
+  # war_peace
+  # Taxes / Tax System / Social Security / Welfare benefits / Public services
+  # taxes_welfare
+  # Criticism of far right policies / Criticism of Donald Trump
+  # far_right_criticism
+  # Misinformation / Media / Social Trust
+  # misinformation
+  # Animals
+  # animals
+  # Religion
+  # religion
+  # Housing / Homelessness
+  # housing
+  # Education / Cost of Education / Access to Education
+  # education
+  # Retirement / Older age
+  # retirement
+  # Family / Children
+  # family
+  # Global issue / International issue
+  # global_issue
+  # Own country
+  # own_country
+  # Empty / Nothing in particular
+  # empty
+  # Other / Not Sure / Miscellaneous
+  # other
+  # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
+}
+  keywords <<- c("money" = "money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
+                 "relationships" = "relationship|husband|wife|love|partner|emotion", # also includes emotions
+                 "job" = "business|work|employ|job",
+                 "inequality" = "poverty|inequalit|poor|social justice",
+                 "global_inequality" = "global poverty|global inequal|hunger|drinking water|starv",
+                 "health" = "health|sick|disease|NHS|medica", 
+                 "immigration" = "migration|migrant|asylum|refugee|alien",
+                 "corruption" = "corruption",
+                 "environment" = "environment|climat|pollution|warming|drought",
+                 "security" = "safe|murder|crime|criminal|fraud|rape|terrorism",
+                 "discrimination" = "gender|raci|scrimination|women|xenophob|LGB|machism|antisemit",
+                 "rights" = "freedom|rights|democra",
+                 "happiness" = "happiness|happy|serenity|peace of mind|tranquility|inner peace|relax", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
+                 "war_peace" = "peace|war|WW",
+                 "taxes_welfare" = "tax|social benefit|social security",
+                 "far_right_criticism" = "Trump|AfD|populist|far right|radical right|extreme right|tariff| PiS |fascism",
+                 "mistrust" = "social division|social cohesion|media|fake news",
+                 "animals" = "animal",
+                 "religion" = "religion| god|self injustice|self-injustice|theism|disbelief",
+                 "housing" = "hous|apartment|real estate|mortgage",
+                 "education" = "education|school|exam|universit",
+                 "old_age" = "old age|pension|retire| aging| ageing",
+                 "family" = "family|child|daughter| son|parent|mother|father|loved ones|kids", # my child?
+                 "global_issue" = "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran|geopol",
+                 "own_country" = "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
+                 "nothing" = "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
+                 "economy" = "econom", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power?
+                 "media" = "internet|media",
+                 "trump" = "Trump",
+                 "tariff" = "tariff|customs dut|custom dut",
+                 "gaza" = "Palestine|Gaza",
+                 "car" = " car",
+                 "mental" = " mental |mental health",
+                 "sport" = "sport|soccer",
+                 "holiday" = "travel|vacation|holiday| rest",
+                 "time" = " time|leisure", # merge with previous?
+                 "politics" = "politic",
+                 "millionaire" = "illionaire",
+                 "inflation" = "inflation|rising price|cost of living",
+                 "abortion" = "abort", 
+                 "stock" = "investment|asset|stock",
+                 "birthrate" = "birth rate|birthrate",
+                 "government" = "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump|Meloni|Starmer|Labour",
+                 "hunger" = "hunger", # do they mean in the world or in their country? 
+                 "stability" = "stability|stabl", # What do people mean by economic stability (or financial security)? Is it job security, stable earnings, higher wealth...?
+                 "wage" = "wage|salar",
+                 "youth" = "young|youth") 
+  variables_keyword <<- paste0("field_keyword_", names(keywords))
+  keywords_labels <<- c("money" = "Money; own income; cost of living; inflation",
+                        "relationships" = "Relationships; love; emotions", 
+                        "job" = "Work; (un)employment; business",
+                        "inequality" = "Poverty; inequality",
+                        "global_inequality" = "Global poverty; hunger; global inequality",
+                        "health" = "Health; healthcare system", 
+                        "immigration" = "Criticism of immigration; national preference",
+                        "corruption" = "Corruption; criticism of the government",
+                        "environment" = "Environment; climate change",
+                        "security" = "Security; violence; crime; judicial system",
+                        "discrimination" = "Discrimination; gender inequality; racism; LGBT",
+                        "rights" = "Rights; democracy; freedom; slavery",
+                        "happiness" = "Happiness; peace of mind", 
+                        "war_peace" = "War; peace",
+                        "taxes_welfare" = "Tax system; welfare benefits; public services",
+                        "far_right_criticism" = "Criticism of far right; Trump; tariffs",
+                        "mistrust" = "Social division; fake news; (social) media",
+                        "animals" = "Animal welfare",
+                        "religion" = "Religion; sin; God",
+                        "housing" = "Housing",
+                        "education" = "Education",
+                        "old_age" = "Old age; retirement; ageing society",
+                        "family" = "Family; children; childcare", 
+                        "global_issue" = "International issues",
+                        "own_country" = "Own country referred", 
+                        "other" = "Other topic; unclear; vague",
+                        "nothing" = "Nothing; don't know; empty",
+                        
+                        "economy" = "Economy", 
+                        "media" = "Media",
+                        "trump" = "Trump",
+                        "tariff" = "Tariffs",
+                        "gaza" = "Palestine",
+                        "car" = "Car",
+                        "mental" = "Mental health",
+                        "sport" = "Sport",
+                        "holiday" = "Holiday; travel",
+                        "time" = "Time; more free time", 
+                        "politics" = "Politics",
+                        "millionaire" = "Millionaire; billionaire",
+                        "inflation" = "Inflation; cost of living",
+                        "abortion" = "Abortion", 
+                        "stock" = "Stock; investment",
+                        "birthrate" = "Birthrate",
+                        "government" = "Government; president",
+                        "hunger" = "Hunger",
+                        "stability" = "Stability", 
+                        "wage" = "Wage",
+                        "youth" = "Youth")
+  field_names <<- c("Cost of Living / Inflation / Prices / Own level of income" = "money",
+                    "Love / Relationships" = "relationships",
+                    "Employment / Unemployment / Job Security" = "job",
+                    "Income Inequality / Poverty / Wealth Distribution" = "inequality",
+                    "Inequality at the inetrnational level / Hunger or poverty in poor countries" = "global_inequality",
+                    "Health (Personal or Public) / Healthcare" = "health",
+                    "Immigration / Illegal Immigration" = "immigration",
+                    "Corruption / Distrust of government" = "corruption",
+                    "Climate Change / Environment" = "environment",
+                    "Violence / Crime / Security / Law and Order" = "security",
+                    "Discrimination / Racism / Gender Inequality" = "discrimination",
+                    "Freedom / Rights / Civil Liberties / Slavery" = "rights",
+                    "Happiness / Personal Wellbeing" = "happiness",
+                    "War / Peace" = "war_peace",
+                    "Taxes / Tax System / Social Security / Welfare benefits / Public services" = "taxes_welfare",
+                    "Criticism of far right policies / Criticism misinformation Donald Trump" = "far_right_criticism",
+                    "Misinformation / Media / Social Trust" = "mistrust",
+                    "Animals" = "animals",
+                    "Religion" = "religion",
+                    "Housing / Homelessness" = "housing",
+                    "Education / Cost of Education / Access to Education" = "education",
+                    "Retirement / Older age" = "old_age",
+                    "Family / Children" = "family",
+                    "Global issue / International issue" = "global_issue",
+                    "Own country" = "own_country",
+                    "Other / Not Sure / Miscellaneous" = "other",
+                    "Empty / Nothing in particular" = "nothing")
+  variables_field_gpt <<- paste0("field_gpt_", field_names)
+  variables_field_manual <<- paste0("field_manual_", field_names)
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "millionaire", "nationality_SA", "voted", "vote")
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
@@ -823,83 +1031,136 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # write.csv(all[, c("lang", "field")], "../data_raw/fields/all.csv", na = "", row.names = F)
   # write.csv(all[sample.int(11000, 750), c("lang", "field")], "../data_raw/fields/all_excerpt.csv", na = "", row.names = F)
-  # Categories proposed by GPT-4.1 based on the excerpt:
-  # Cost of Living / Inflation / Prices
-  # Employment / Unemployment / Job Security
-  # Income Inequality / Poverty / Wealth Distribution
-  # Health (Personal or Public) / Healthcare
-  # Immigration / Illegal Immigration
-  # Political Concerns / Government / Corruption
-  # Climate Change / Environment
-  # Education / Cost of Education / Access to Education
-  # Violence / Crime / Security / Law and Order
-  # Discrimination / Racism / Gender Inequality
-  # Housing / Homelessness
-  # Freedom / Rights / Civil Liberties
-  # Family / Children / Childcare
-  # Wishes for Personal Wellbeing / Happiness / Peace
-  # International Issues / War / Conflict
-  # Retirement / Elderly Care / Social Security
-  # Taxes / Tax System
-  # Social Support / Welfare / Government Support
-  # Misinformation / Media / Social Trust
-  # Other / None / Not Sure / Miscellaneous
-  
-  # Categories that we'll use (GPT proposed that I manually adjusted to add categories that I noticed myself):
-  # Cost of Living / Inflation / Prices / Own level of income
-  # cost_of_living
-  # Love / Relationships
-  # relationships
-  # Employment / Unemployment / Job Security
-  # employment
-  # Income Inequality / Poverty / Wealth Distribution
-  # income_inequality
-  # Global Inequality / Global poverty / Hunger or poverty in poor countries
-  # global_inequality
-  # Health (Personal or Public) / Healthcare
-  # healthcare
-  # Immigration / Illegal Immigration
-  # immigration
-  # Corruption / Distrust of government
-  # corruption
-  # Climate Change / Environment
-  # environment
-  # Violence / Crime / Security / Law and Order
-  # security
-  # Discrimination / Racism / Gender Inequality
-  # discrimination
-  # Freedom / Rights / Civil Liberties / Slavery
-  # freedom
-  # Happiness / Personal Wellbeing
-  # wellbeing
-  # War / Peace
-  # war_peace
-  # Taxes / Tax System / Social Security / Welfare benefits / Public services
-  # taxes_welfare
-  # Criticism of far right policies / Criticism of Donald Trump
-  # far_right_criticism
-  # Misinformation / Media / Social Trust
-  # misinformation
-  # Animals
-  # animals
-  # Religion
-  # religion
-  # Housing / Homelessness
-  # housing
-  # Education / Cost of Education / Access to Education
-  # education
-  # Retirement / Older age
-  # retirement
-  # Family / Children
-  # family
-  # Global issue / International issue
-  # global_issue
-  # Own country
-  # own_country
-  # Empty / Nothing in particular
-  # empty
-  # Other / Not Sure / Miscellaneous
-  # other
+  { # 2-3h/1k respondents
+    # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
+    # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
+    # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
+    # DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
+    # US: The economy; Trump; breaches to the constitution; abortion; gun control; 
+    # PL: health; war; inequality; immigration; holiday; truthfulness/honesty; disable people
+    # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
+    # CH: equality; immigration; gender equality
+    # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
+    # IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
+    # GB: cost of living; immigration; comfortable life; NHS; mental health; holocaust; dangerous road and driving; being unjustly imprisoned; cut in winter fuel allowance
+    # FR: nothing; insecurity; holidays/time; public deficit; equality; gender equality
+    # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
+    #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
+    # Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference; solutions to stop climate change
+    # Almost absent: love; loneliness; depression; tax the rich or raise minimum wage (most people mention inequality/poverty but not solutions)
+    # Examples
+    # FR: Pourquoi il y a un dogme de la réduction du déficit ? Faut il absolument le réduire, pourquoi et comment ?
+    # FR: J'ai besoin de donner du sens à ma vie. Je souhaite davantage de justice sociale
+    # FR: la vie en elle-même est injuste, car nous ne sommes pas égaux face à la maladie, les risques géo-politiques, ... en fonction de notre lieu de naissance et de notre héritage génétique
+    # FR: Trouver un mec
+    # FR: Ces jours-ci je n'ai aucun préoccupation .
+    # FR: j ai besoin d assez d argent pour vivre normalement sans stresser pour les fins de mois
+    # FR: La France va mal
+    # FR: La pauvreté
+    # GB: In my opinion, the greatest injustice of all is that hard work is not rewarded in this country. We penalise those who work hard by raising their taxes (thus encouraging people to emigrate) while raising living costs left, right and centre. It's impossible to have a good quality of life in this country unless you were lucky enough to be born wealthy.
+    # GB: I wish to be the better father to my kids which a kind of experience i didn't have, I also need to be able to provide everything my family want.
+    # GB: A lottery win; Keir Starmer to call a General Election; Palestine to evaporate\n 
+    # GB: I need food, water and a warm house. I wish to be able to provide these things for myself without the help of benefits.
+    # GB: Local councils not giving priority to mothers with toddlers that's classed as being homeless and give empty coucil homes to people that's not even lived in this area before
+    # GB: allowing undocumented invading scroungers to remain in this country
+    # GB: to live a long healthy, meaningful life
+    # GB: I have a disability and several other conditions and am therefore unfit for work. My main concern is my government which I voted for impoverishing me or trying to force me back to work, which will likely kill me
+    # GB: Boat loads of useless scroungers landing here every day, cost of living going up, bills going up, useless bus service, useless train service, roads in a mess, nhs in a mess, scammers ringing me up every day, cost of beer, cost of fish and chips and chinese take aways, useless labour party... need I go one?
+    # GB: Indifference to suffering, where the powerful ignore the cries of the weak.
+    # GB: Climate change
+    # GB: Immigration and cost of living
+    # GB: Cost of living, being able to purchase my own home, a good future for my child
+    # GB: Being unjustly imprisoned.
+    # GB: Cost of living
+    # IT: world hunger
+    # IT: Healthcare, lack of general practitioners
+    # IT: The extreme poverty of some peoples
+    # IT: None, you know there are also intelligent people who live without unnecessary worries
+    # IT: sea sun
+    # IT: a lot of money to be able to attend university without working
+    # IT: After-school or full-time. An afternoon service for working parents, anyway. Instead, they prefer to give money to those who stay at home. Giving that money to childcare centers and babysitting would boost the economy.
+    # SA: Taking care of health, work, and reaching a high, prestigious position
+    # SA: Injustice comes from the people closest to you and you have to live with it.
+    # SA: I want to be a millionaire
+    # SA: I have an excellent financial future.
+    # SA: Sports\n Video Games\n Cooking\n
+    # SA: Obtaining a prestigious social status and distinguished social comfort
+    # SA: I want a palace with full servants for myself
+    # SA: Hope society respects the elderly more, stop treating us as 'people who need care' – we can still share our wisdom and experience
+    # SA: To obtain citizenship in the country in which I was born
+    # SA: I wish to change my gender and wear my wife's clothes, put on her makeup, and live my femininity with complete freedom.
+    # DE: Exploitation of poorer countries for our prosperity
+    # DE: that politicians are too concerned with their own interests and are deliberately trying to keep us stupid and uninformed.
+    # DE: I am very concerned about climate change and immigration in the country
+    # DE: More money, more free time
+    # DE: the gap between rich and poor
+    # DE: Health
+    # DE: That those who already have enough always want more
+    # DE: That Germany helps more foreigners than us Germans ourselves.
+    # DE: Money, as people with a lot of money are often preferred
+    # DE: That the government thinks about the people, about its OWN, not just about others and the money goes to waste - the Ukrainians need help, no questions asked, but not in the form of indiscriminately handing out money.\n Germany has not been at the top for a long time, we are at the bottom of the list in everything\n education, health, etc.
+    # US: Trump is trying to become a DICK-tator and he is ruining the world and the economy.
+    # US: I am afraid of losing my job because it is my source of livelihood
+    # US: Being punished for something you didn’t do.
+    # US: I wish my daughter would beat her illness.  I wish I was a widow.  I wish I did not have a stepdaughter.
+    # US: I want the stock market to go up for my 401k and for the government to fix social security so I can retire in a few years
+    # US: That people go hungry every day and there is plenty of money floating around for stupid things
+    # US: To find a purpose
+    # US: Being born without my consent (the world is a mess and I don't want to be a part of it).
+    # US: I would love to live a happy healthy fulfilling life that makes a difference in the world that is long lasting
+    # US: Since my health is good, and my income exceeds my needs, I have no concerns.
+    # US: To live in peace
+    # US: To leave a positive legacy.
+    # US: The economy
+    # US: I only wish to safe enough money to be able to retire in the next few years confortably
+    # US: People. People suck. The world is crazy and scary.
+    # US: We are just on SS. Getting through each month is a struggle.But the Lord answers our prayers and people help us with food.
+    # US: One of the issues is me
+    # US: Trump getting us into a war with Iran. I voted for Trump and feel betrayed by his actions. I deeply regret voting for him at this point but just couldn't justify a vote for Kamala as she seemed objectively worse. Beyond that, financials like bills and raising two young children is expensive these days.
+    # PL: Probably not🩷But I prefer not to answer the previous question because it is my personal matter. I hope you understand that ❤️
+    # PL: That people mock the poorer ones
+    # PL: The suffering of children living in poverty and violence.
+    # PL: I dream of achieving peace in my life. I would like to be calm and free, without obligations, live day to day, have plenty of money, be able to help my family and animals, and care for the environment.
+    # PL: About peace and being alone for a month.
+    # PL: I dream of having enough money for new windows someday because I don't have much, I even have to live from paycheck to paycheck.
+    # PL: The descent of Poland and Europe into the abyss of totalitarian neo-communism
+    # PL: I dream of good health
+    # PL: In my opinion, the greatest injustice in the world is disease, war, and professional inequality (e.g., an influencer earns more than a doctor).
+    # PL: That some people have everything handed to them on a golden platter, and good people often suffer and work hard.
+    # PL: I don't need anything anymore and I don't dream of anything anymore
+    # JP: Do not reduce the consumption tax
+    # JP: The answer is to increase disposable income. To that end, I would like the Liberal Democratic Party to realize the increase in the basic deduction to 1.71 million yen without any income restrictions, as advocated by the Democratic Party for the People.
+    # JP: There is nothing fair about it, and that is to be expected.
+    # JP: Having one-sided judgments from others negatively affect one's own behavior and social life
+    # JP: A peaceful society, a society where it is easy to raise children, and a society where children can live in peace. \n When it comes to family, I would like to have a home where we have cheerful and fun conversations, and go on domestic and overseas trips.
+    # JP: Tax exploitation of people with high incomes. The idea that high income is bad
+    # JP: A future where our children will not have to worry. We are being taxed even though our income is not increasing, so I would like an easy-to-understand explanation as to why taxes are being increased and what they are being used for.
+    # JP: When you're not feeling well, your methodology can be biased.
+    # JP: What will happen to pensions and health insurance in the future?
+    # JP: It's not something I particularly wish for, but if I had to say, I just want my children to be happy.
+    # JP: A society where only a limited number of certain people can gain or benefit.
+    # JP: The value of one vote should be changed based on age.
+    # JP: I cannot understand why the abbreviations for both the Constitutional Democratic Party and the Democratic Party for the People were "Democratic Party" in the last election. \n The votes that should have gone to the Constitutional Democratic Party were split with the Democratic Party for the People. \n I feel very uncomfortable about this.
+    # JP: The price of rice
+    # JP: People who work hard aren't rewarded
+    # CH: Inequality of opportunity in education and unequal tax distribution in the cantons.
+    # CH: Je ne ferai pas le bien de mon pays
+    # CH: j'ai besoin que la Suisse pense aux Suisse avant les autres
+    # CH: Prendre soin de mamille, voir mes enfants grandir, aimer chaque jour un peu plus ma femme et mes investissements
+    # CH: Pourquoi est-il si difficile d'admettre, que les chemintrails sont néfastes et dangereux pour la santé, par la conseil fédéral
+    # CH: qu on aide 1 peu plus les retraite en suisse avant d aider les autres pays baisser les caisses maladie 1 quart de salaire pour ma part inadmissible
+    # ES: La miseria y el sufrimiento de los niños en todo el mundo
+    # ES: Salud, dinero, y amor
+    # ES: I need less choice in the capitalist system. It forces me to use time in my personal life for minimal enjoyment within what my socioeconomic class can offer. I wish I had more personal time since I use 80% of it to survive: mostly I use it to replenish energy for the next effort I will need to make. I would like a little more tradition in my life. Personally, I would need a lot more life around me.
+    # ES: mi trabajo, me genera mucho estrés
+    # ES: accused of murder
+    # ES: Más sexo en mi vida
+    # ES: La desigualdad entre los países ricos y los pobres, los que pueden evitar que los otros pasen hambre
+    # ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
+    # ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
+    # ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
+    # TODO: go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
+  }  
   
   # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
   # field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
@@ -913,20 +1174,20 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # for (v in c("field_field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
   # wb$save(paste0("../data_raw/fields/country1.xlsm"))
   # 2. Export the data to the .xlsm files
-  for (c in countries[-9]) { # TODO: functionalize
-    file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
-    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
-    for (v in c("field", "comment_field")) for (i in "") { #
-    # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
-      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
-      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
-    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
-  }
+  # for (c in countries[-9]) { # TODO: functionalize
+  #   file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
+  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
+  #   for (v in c("field", "comment_field")) for (i in "") { #
+  #   # for (v in c(variables_field, "comment_field")) for (i in 1:4) {
+  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 4)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
+  # }
   # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
-  for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
-  for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
-  for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, "1.xlsx"))
+  # for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
+  # for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
+  # for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, "1.xlsx"))
   # 4. Click on appropriate cells in the .xlsm
   
   # Merge English translations for CH (after copying/renaming CH-DEen into CHen)
@@ -950,28 +1211,32 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # saveWorkbook(wb, file = paste0("../data_raw/fields/CHen.xlsm"), overwrite = TRUE) 
   
   # 5. Import manually classified data
-  for (v in intersect(names(e), c(variables_field, "comment_field"))) { # "field"
+  i <- if (country %in% c("US", "JP")) 2 else 1
+  f <- if (country %in% c("US", "JP")) "1" else ""
+  l <- if (country %in% c("US", "GB")) "" else "en"
+  if (file.exists(paste0("../data_raw/fields/", country, i, l, ".xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, i, l, ".xlsm"), sheet = paste0("field", f), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
+  else print("No file found for recoding of field.")
+  indices_i <- ifelse(i == 1, 1:(ncol(recode_field)-1), 1+2*((1:ncol(recode_field)-1))) # seq(i, nrow(e), 4)
+  if (l == "en") e$field_en[indices_i] <- as.character(recode_field[1,])
+  recode_field <- recode_field[-1,]
+  row.names(recode_field) <- field_names[row.names(recode_field)]
+  if (!all(row.names(recode_field) %in% names(field_names))) warning(paste("Unrecognized field_names for field in ", country))
+  recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
+  for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
+  for (k in names(recode_field)) e[[paste0("field_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
+
+  for (v in intersect(names(e), c("field", "comment"))) { # Translation into English
     e[[paste0(v, "_en")]] <- e[[v]]
-    for (i in 1:4) { # for (i in "") {
-      if (file.exists(paste0("../data_raw/fields/", country, "en.xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, "en.xlsm"), sheet = paste0(sub("_field", "", v), i), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-      else if (file.exists(paste0("../data_raw/fields/", country, ".xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, ".xlsm"), sheet = paste0(sub("_field", "", v), i), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-      else print("No file found for recoding of field.")
-      indices_i <- ifelse(i == "", 1:(ncol(recode_field)-1), i+4*((1:ncol(recode_field)-1))) # seq(i, nrow(e), 4)
-      if (file.exists(paste0("../data_raw/fields/", country, "en.xlsm"))) e[[paste0(v, "_en")]][indices_i] <- as.character(recode_field[1,])
-      recode_field <- recode_field[-1,]
-      row.names(recode_field) <- field_names[row.names(recode_field)]
-      recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
-      if (i %in% c(1, "")) for (k in names(recode_field)) e[[paste0(v, "_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
-      for (k in names(recode_field)) e[[paste0(v, "_", k)]][indices_i] <- recode_field[[k]] %in% 1
-      # e[[paste0("field_empty")]][indices_i][recode_field[["empty"]]==2] <- 2 # TODO?
-    } 
-    for (k in names(recode_field)) e[[paste0(v, "_", k)]][e$variant_field != sub("_field", "", v)] <- NA  
+    if (!country %in% c("US", "GB")) {
+      translated_field <- read.xlsx(paste0("../data_raw/fields/", country, "1en.xlsm"), sheet = v, rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
+      e[[paste0(v, "_en")]][1:(ncol(translated_field)-1)] <- as.character(translated_field[1,])
+      e[[paste0(v, "_en")]][is.na(e[[v]])] <- NA }
   }
-  for (k in field_names) {
-    e[[paste0("field_", k)]] <- e$field_en <- NA
-    for (v in unique(e$variant_field)) e$field_en[e$variant_field %in% v] <- e[[paste0(v, "_field_en")]][e$variant_field %in% v]
-    for (v in unique(e$variant_field)) e[[paste0("field_", k)]][e$variant_field %in% v] <- e[[paste0(v, "_field_", k)]][e$variant_field %in% v]
-  }
+  
+  for (k in names(keywords)) e[[paste0("field_keyword_", k)]] <- grepl(keywords[v], e$field_en, ignore.case = T)
+  e$field_nb_keywords <- rowSums(e[, variables_keyword])
+  e$field_nb_manual <- rowSums(e[, variables_field_manual])
+  e$nchar_field <- nchar(e$field_en)
   
   # Deprecated:
   # Use lines below export CSV. 
@@ -1135,7 +1400,7 @@ Sys.time() - start_time # 6 min
 all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
 beep()
 Sys.time() - start_time # 10 min
-# 
+
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
 # pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
@@ -1184,52 +1449,7 @@ call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociod
 rm(temp)
 
 
-##### Codebook #####
-# export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197))
-export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
-
-
 ##### NLP #####
-field_names <<- c("Cost of Living / Inflation / Prices / Own level of income" = "cost_of_living",
-                  "Love / Relationships" = "relationships",
-                  "Employment / Unemployment / Job Security" = "employment",
-                  "Income Inequality / Poverty / Wealth Distribution" = "income_inequality",
-                  "Inequality at the inetrnational level / Hunger or poverty in poor countries" = "global_inequality",
-                  "Health (Personal or Public) / Healthcare" = "healthcare",
-                  "Immigration / Illegal Immigration" = "immigration",
-                  "Corruption / Distrust of government" = "corruption",
-                  "Climate Change / Environment" = "environment",
-                  "Violence / Crime / Security / Law and Order" = "security",
-                  "Discrimination / Racism / Gender Inequality" = "discrimination",
-                  "Freedom / Rights / Civil Liberties / Slavery" = "freedom",
-                  "Happiness / Personal Wellbeing" = "happiness",
-                  "War / Peace" = "war_peace",
-                  "Taxes / Tax System / Social Security / Welfare benefits / Public services" = "taxes_welfare",
-                  "Criticism of far right policies / Criticism misinformation Donald Trump" = "far_right_criticism",
-                  "Misinformation / Media / Social Trust" = "mistrust",
-                  "Animals" = "animals",
-                  "Religion" = "religion",
-                  "Housing / Homelessness" = "housing",
-                  "Education / Cost of Education / Access to Education" = "education",
-                  "Retirement / Older age" = "old_age",
-                  "Family / Children" = "family",
-                  "Global issue / International issue" = "global_issue",
-                  "Own country" = "own_country",
-                  "Other / Not Sure / Miscellaneous" = "other",
-                  "Empty / Nothing in particular" = "nothing")
-# prediction <- text::text_classifier(all$field, labels = names(field_names), model = "xlarge") # uses xlm-roberta-large-xnli
-# for (i in seq_along(field_names)) all[[paste0("proba_", field_names[i])]] <- prediction$probabilities[,names(field_names)[i]]
-# for (i in seq_along(field_names)) all[[field_names[i]]] <- prediction$probabilities[,names(field_names)[i]] >= .3
-
-use_python("C:/ProgramData/Anaconda3")
-textModels()
-textModelsRemove("FacebookAI/xlm-roberta-base") # FacebookAI/xlm-roberta-base facebook/bart-large-mnli
-
-# temp <- text::textZeroShot(sequences = all$field[1:20], names(field_names), model = "FacebookAI/xlm-roberta-base", hypothesis_template = "This text is about {}.", multi_label = T, tokenizer_parallelism = T, logging_level = "error", set_seed = 42)
-# View(temp)
-
-for (k in field_names) all[[paste0("field_", k)]] <- F
-
 classify_gpt <- function(prompt, max_tokens = 250) {
   res <- POST(
     url = "https://api.openai.com/v1/chat/completions",
@@ -1240,226 +1460,48 @@ classify_gpt <- function(prompt, max_tokens = 250) {
   resp_list <- fromJSON(resp)
   resp_list$choices$message$content
 }
-
-# -- PROMPT CONSTRUCTION -- #
 gpt_prompt <- function(response_text) {
   lbls <- paste0("* ", field_names, ": ", names(field_names), collapse = "\n")
-  paste0(
-    "Given the following survey responses, classify them into all applicable categories from the list below. ",
-    "Return a machine-readable comma-separated list of category keywords (use the keywords only, not the descriptions).",
-    "Each response can be classified in multiple categories.",
-    "\n\nSurvey response: \"", response_text, "\"\n\nCategories:\n", lbls,
-    "\n\nCategory keywords:"
-  )
+  paste0("Given the following survey responses, classify them into all applicable categories from the list below. Return a machine-readable comma-separated list of category keywords (use the keywords only, not the descriptions).",
+    "Each response can be classified in multiple categories.\n\nSurvey response: \"", response_text, "\"\n\nCategories:\n", lbls, "\n\nCategory keywords:")
 }
+# start_time <- Sys.time()
+# for (k in field_names) all[[paste0("field_gpt_", k)]] <- F
+# for (i in 1:nrow(all)) { # 
+#   text <- as.character(all$field[i])
+#   if (!is.na(text) && nchar(trimws(text)) > 0) {
+#     prompt <- gpt_prompt(text)
+#     cat(sprintf("Classifying row %d/%d...\n", i, nrow(df)))
+#     tryCatch({
+#       gpt_result <- classify_gpt(prompt)
+#       kwords <- unique(trimws(unlist(strsplit(gpt_result, ","))))
+#       for (k in kwords) all[i, paste0("field_gpt_", k)] <- T
+#       # # Build result row
+#       # row_out <- as.list(rep(0, length(field_names)))
+#       # names(row_out) <- field_names
+#       # for (k in kwords) if (k %in% field_names) row_out[[k]] <- T
+#       # results[[i]] <- row_out
+#     }, error = function(e) {
+#       cat("Classification failed for row", i, ":", conditionMessage(e), "\n")
+#       # results[[i]] <- c(setNames(rep(NA, length(field_names)), field_names))
+#     })
+#     Sys.sleep(1.2) # Stay within API limits (60/min for GPT-3.5-turbo); adjust if needed
+#   } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
+# }
+# Sys.time() - start_time  # ~5h?
+# all <- all[, setdiff(names(all), setdiff(names(all)[grepl("field_gpt_", names(all))], variables_field_gpt))] # purge extra variables that GPT created by mistake
+# all_gpt <- all[, c("n", variables_field_gpt)]
+# all_gpt$field_nb_gpt <- rowSums(all_gpt[, variables_field_gpt])
+# saveRDS(all_gpt, "../data_raw/fields/all_gpt.rds")
 
-# results <- list()
-start_time <- Sys.time()
-for (i in 1:nrow(all)) { # 
-  text <- as.character(all$field[i])
-  if (!is.na(text) && nchar(trimws(text)) > 0) {
-    prompt <- gpt_prompt(text)
-    cat(sprintf("Classifying row %d/%d...\n", i, nrow(df)))
-    tryCatch({
-      gpt_result <- classify_gpt(prompt)
-      kwords <- unique(trimws(unlist(strsplit(gpt_result, ","))))
-      for (k in kwords) all[i, paste0("field_", k)] <- T
-      # # Build result row
-      # row_out <- as.list(rep(0, length(field_names)))
-      # names(row_out) <- field_names
-      # for (k in kwords) if (k %in% field_names) row_out[[k]] <- T
-      # results[[i]] <- row_out
-    }, error = function(e) {
-      cat("Classification failed for row", i, ":", conditionMessage(e), "\n")
-      # results[[i]] <- c(setNames(rep(NA, length(field_names)), field_names))
-    })
-    Sys.sleep(1.2) # Stay within API limits (60/min for GPT-3.5-turbo); adjust if needed
-  } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
-}
-Sys.time() - start_time 
-saveRDS(all, "all_gpt.rds")
-all <- readRDS("all_gpt.rds")
+all_gpt <- readRDS("../data_raw/fields/all_gpt.rds")
+all <- merge(all, all_gpt)
 
-# 2-3h/1k respondents
-# NB: Empty + Other: suspicious field (copy/paste from unrelated content)
-# Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
-# SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
-# DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
-# US: The economy; Trump; breaches to the constitution; abortion; gun control; 
-# PL: health; war; inequality; immigration; holiday; truthfulness/honesty; disable people
-# JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
-# CH: equality; immigration; gender equality
-# ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
-# IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
-# GB: cost of living; immigration; comfortable life; NHS; mental health; holocaust; dangerous road and driving; being unjustly imprisoned; cut in winter fuel allowance
-# FR: nothing; insecurity; holidays/time; public deficit; equality; gender equality
-# Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
-#              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
-# Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference; solutions to stop climate change
-# Almost absent: love; loneliness; depression; tax the rich or raise minimum wage (most people mention inequality/poverty but not solutions)
-# Examples
-# FR: Pourquoi il y a un dogme de la réduction du déficit ? Faut il absolument le réduire, pourquoi et comment ?
-# FR: J'ai besoin de donner du sens à ma vie. Je souhaite davantage de justice sociale
-# FR: la vie en elle-même est injuste, car nous ne sommes pas égaux face à la maladie, les risques géo-politiques, ... en fonction de notre lieu de naissance et de notre héritage génétique
-# FR: Trouver un mec
-# FR: Ces jours-ci je n'ai aucun préoccupation .
-# FR: j ai besoin d assez d argent pour vivre normalement sans stresser pour les fins de mois
-# FR: La France va mal
-# FR: La pauvreté
-# GB: In my opinion, the greatest injustice of all is that hard work is not rewarded in this country. We penalise those who work hard by raising their taxes (thus encouraging people to emigrate) while raising living costs left, right and centre. It's impossible to have a good quality of life in this country unless you were lucky enough to be born wealthy.
-# GB: I wish to be the better father to my kids which a kind of experience i didn't have, I also need to be able to provide everything my family want.
-# GB: A lottery win; Keir Starmer to call a General Election; Palestine to evaporate\n 
-# GB: I need food, water and a warm house. I wish to be able to provide these things for myself without the help of benefits.
-# GB: Local councils not giving priority to mothers with toddlers that's classed as being homeless and give empty coucil homes to people that's not even lived in this area before
-# GB: allowing undocumented invading scroungers to remain in this country
-# GB: to live a long healthy, meaningful life
-# GB: I have a disability and several other conditions and am therefore unfit for work. My main concern is my government which I voted for impoverishing me or trying to force me back to work, which will likely kill me
-# GB: Boat loads of useless scroungers landing here every day, cost of living going up, bills going up, useless bus service, useless train service, roads in a mess, nhs in a mess, scammers ringing me up every day, cost of beer, cost of fish and chips and chinese take aways, useless labour party... need I go one?
-# GB: Indifference to suffering, where the powerful ignore the cries of the weak.
-# GB: Climate change
-# GB: Immigration and cost of living
-# GB: Cost of living, being able to purchase my own home, a good future for my child
-# GB: Being unjustly imprisoned.
-# GB: Cost of living
-# IT: world hunger
-# IT: Healthcare, lack of general practitioners
-# IT: The extreme poverty of some peoples
-# IT: None, you know there are also intelligent people who live without unnecessary worries
-# IT: sea sun
-# IT: a lot of money to be able to attend university without working
-# IT: After-school or full-time. An afternoon service for working parents, anyway. Instead, they prefer to give money to those who stay at home. Giving that money to childcare centers and babysitting would boost the economy.
-# SA: Taking care of health, work, and reaching a high, prestigious position
-# SA: Injustice comes from the people closest to you and you have to live with it.
-# SA: I want to be a millionaire
-# SA: I have an excellent financial future.
-# SA: Sports\n Video Games\n Cooking\n
-# SA: Obtaining a prestigious social status and distinguished social comfort
-# SA: I want a palace with full servants for myself
-# SA: Hope society respects the elderly more, stop treating us as 'people who need care' – we can still share our wisdom and experience
-# SA: To obtain citizenship in the country in which I was born
-# SA: I wish to change my gender and wear my wife's clothes, put on her makeup, and live my femininity with complete freedom.
-# DE: Exploitation of poorer countries for our prosperity
-# DE: that politicians are too concerned with their own interests and are deliberately trying to keep us stupid and uninformed.
-# DE: I am very concerned about climate change and immigration in the country
-# DE: More money, more free time
-# DE: the gap between rich and poor
-# DE: Health
-# DE: That those who already have enough always want more
-# DE: That Germany helps more foreigners than us Germans ourselves.
-# DE: Money, as people with a lot of money are often preferred
-# DE: That the government thinks about the people, about its OWN, not just about others and the money goes to waste - the Ukrainians need help, no questions asked, but not in the form of indiscriminately handing out money.\n Germany has not been at the top for a long time, we are at the bottom of the list in everything\n education, health, etc.
-# US: Trump is trying to become a DICK-tator and he is ruining the world and the economy.
-# US: I am afraid of losing my job because it is my source of livelihood
-# US: Being punished for something you didn’t do.
-# US: I wish my daughter would beat her illness.  I wish I was a widow.  I wish I did not have a stepdaughter.
-# US: I want the stock market to go up for my 401k and for the government to fix social security so I can retire in a few years
-# US: That people go hungry every day and there is plenty of money floating around for stupid things
-# US: To find a purpose
-# US: Being born without my consent (the world is a mess and I don't want to be a part of it).
-# US: I would love to live a happy healthy fulfilling life that makes a difference in the world that is long lasting
-# US: Since my health is good, and my income exceeds my needs, I have no concerns.
-# US: To live in peace
-# US: To leave a positive legacy.
-# US: The economy
-# US: I only wish to safe enough money to be able to retire in the next few years confortably
-# US: People. People suck. The world is crazy and scary.
-# US: We are just on SS. Getting through each month is a struggle.But the Lord answers our prayers and people help us with food.
-# US: One of the issues is me
-# US: Trump getting us into a war with Iran. I voted for Trump and feel betrayed by his actions. I deeply regret voting for him at this point but just couldn't justify a vote for Kamala as she seemed objectively worse. Beyond that, financials like bills and raising two young children is expensive these days.
-# PL: Probably not🩷But I prefer not to answer the previous question because it is my personal matter. I hope you understand that ❤️
-# PL: That people mock the poorer ones
-# PL: The suffering of children living in poverty and violence.
-# PL: I dream of achieving peace in my life. I would like to be calm and free, without obligations, live day to day, have plenty of money, be able to help my family and animals, and care for the environment.
-# PL: About peace and being alone for a month.
-# PL: I dream of having enough money for new windows someday because I don't have much, I even have to live from paycheck to paycheck.
-# PL: The descent of Poland and Europe into the abyss of totalitarian neo-communism
-# PL: I dream of good health
-# PL: In my opinion, the greatest injustice in the world is disease, war, and professional inequality (e.g., an influencer earns more than a doctor).
-# PL: That some people have everything handed to them on a golden platter, and good people often suffer and work hard.
-# PL: I don't need anything anymore and I don't dream of anything anymore
-# JP: Do not reduce the consumption tax
-# JP: The answer is to increase disposable income. To that end, I would like the Liberal Democratic Party to realize the increase in the basic deduction to 1.71 million yen without any income restrictions, as advocated by the Democratic Party for the People.
-# JP: There is nothing fair about it, and that is to be expected.
-# JP: Having one-sided judgments from others negatively affect one's own behavior and social life
-# JP: A peaceful society, a society where it is easy to raise children, and a society where children can live in peace. \n When it comes to family, I would like to have a home where we have cheerful and fun conversations, and go on domestic and overseas trips.
-# JP: Tax exploitation of people with high incomes. The idea that high income is bad
-# JP: A future where our children will not have to worry. We are being taxed even though our income is not increasing, so I would like an easy-to-understand explanation as to why taxes are being increased and what they are being used for.
-# JP: When you're not feeling well, your methodology can be biased.
-# JP: What will happen to pensions and health insurance in the future?
-# JP: It's not something I particularly wish for, but if I had to say, I just want my children to be happy.
-# JP: A society where only a limited number of certain people can gain or benefit.
-# JP: The value of one vote should be changed based on age.
-# JP: I cannot understand why the abbreviations for both the Constitutional Democratic Party and the Democratic Party for the People were "Democratic Party" in the last election. \n The votes that should have gone to the Constitutional Democratic Party were split with the Democratic Party for the People. \n I feel very uncomfortable about this.
-# JP: The price of rice
-# JP: People who work hard aren't rewarded
-# CH: Inequality of opportunity in education and unequal tax distribution in the cantons.
-# CH: Je ne ferai pas le bien de mon pays
-# CH: j'ai besoin que la Suisse pense aux Suisse avant les autres
-# CH: Prendre soin de mamille, voir mes enfants grandir, aimer chaque jour un peu plus ma femme et mes investissements
-# CH: Pourquoi est-il si difficile d'admettre, que les chemintrails sont néfastes et dangereux pour la santé, par la conseil fédéral
-# CH: qu on aide 1 peu plus les retraite en suisse avant d aider les autres pays baisser les caisses maladie 1 quart de salaire pour ma part inadmissible
-# ES: La miseria y el sufrimiento de los niños en todo el mundo
-# ES: Salud, dinero, y amor
-# ES: I need less choice in the capitalist system. It forces me to use time in my personal life for minimal enjoyment within what my socioeconomic class can offer. I wish I had more personal time since I use 80% of it to survive: mostly I use it to replenish energy for the next effort I will need to make. I would like a little more tradition in my life. Personally, I would need a lot more life around me.
-# ES: mi trabajo, me genera mucho estrés
-# ES: accused of murder
-# ES: Más sexo en mi vida
-# ES: La desigualdad entre los países ricos y los pobres, los que pueden evitar que los otros pasen hambre
-# ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
-# ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
-# ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
-# TODO: go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 
-# keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
-keywords <- c("money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
-              "relationship|husband|wife|love|partner|emotion", # also includes emotions
-              "business|work|employ|job",
-              "poverty|inequalit|poor|social justice",
-              "global poverty|global inequal|hunger|drinking water|starv",
-              "health|sick|disease|NHS|medica", 
-              "migration|migrant|asylum|refugee|alien",
-              "corruption",
-              "environment|climat|pollution|warming|drought",
-              "safe|murder|crime|criminal|fraud|rape|terrorism",
-              "gender|raci|scrimination|women|xenophob|LGB|machism|antisemit",
-              "freedom|rights|democra",
-              "happiness|happy|serenity|peace of mind|tranquility|inner peace|relax", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
-              "peace|war|WW",
-              "tax|social benefit|social security",
-              "Trump|AfD|populist|far right|radical right|extreme right|tariff| PiS |fascism",
-              "social division|social cohesion|media|fake news",
-              "animal",
-              "religion| god|self injustice|self-injustice|theism|disbelief",
-              "internet|media",
-              "hous|apartment|real estate|mortgage",
-              "education|school|exam|universit",
-              "old age|pension|retire| aging| ageing",
-              "family|child|daughter| son|parent|mother|father|loved ones|kids", # my child?
-              "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran|geopol",
-              "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
-              "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
-              "econom", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power?
-              "Trump",
-              "tariff|customs dut|custom dut",
-              "Palestine|Gaza",
-              " car",
-              " mental |mental health",
-              "sport|soccer",
-              "travel|vacation|holiday| rest",
-              " time|leisure", # merge with previous?
-              "politic",
-              "illionaire",
-              "inflation|rising price|cost of living",
-              "abort", 
-              "investment|asset|stock",
-              "birth rate|birthrate",
-              "government|president|PSOE|Sanchez|Sánchez|Liberal Democratic Party|LDP|Komeito|Tusk|Nawrocki| PO |Macron|Trump|Meloni|Starmer|Labour",
-              "hunger", # do they mean in the world or in their country? 
-              "stability|stabl", # What do people mean by economic stability (or financial security)? Is it job security, stable earnings, higher wealth...?
-              "wage|salar",
-              "young|youth"
-              )
-# ne pas respecter la casse
+##### Codebook #####
+# export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197))
+export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
+
 
 ##### Save #####
 save.image(".RData")

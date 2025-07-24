@@ -372,3 +372,17 @@ cor(my_taxes_global_nation_2023[-9], global_nation[5,3:12], use = "complete.obs"
 wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T) # 55.7%
 wtd.mean(my_taxes_global_nation, adult_pop, na.rm = T) # 44.8%
 with(all[all$my_tax_global_nation != 0,], wtd.mean(my_tax_global_nation > 0, weight, na.rm = T)) # 59.5%
+
+
+##### Deprecated: NLP #####
+
+# prediction <- text::text_classifier(all$field, labels = names(field_names), model = "xlarge") # uses xlm-roberta-large-xnli
+# for (i in seq_along(field_names)) all[[paste0("proba_", field_names[i])]] <- prediction$probabilities[,names(field_names)[i]]
+# for (i in seq_along(field_names)) all[[field_names[i]]] <- prediction$probabilities[,names(field_names)[i]] >= .3
+
+use_python("C:/ProgramData/Anaconda3")
+textModels()
+textModelsRemove("FacebookAI/xlm-roberta-base") # FacebookAI/xlm-roberta-base facebook/bart-large-mnli
+
+# temp <- text::textZeroShot(sequences = all$field[1:20], names(field_names), model = "FacebookAI/xlm-roberta-base", hypothesis_template = "This text is about {}.", multi_label = T, tokenizer_parallelism = T, logging_level = "error", set_seed = 42)
+# View(temp)
