@@ -205,8 +205,9 @@ for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)),
     if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
   }
 }
-for (v in variables_field) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
-
+for (v in field_names) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
+for (v in names(keywords_labels)) labels_vars[paste0("field_keyword_", v)] <- keywords_labels[v]
+  
 
 ##### labels_vars_short_html #####
 # labels_vars_short_html <- c(
@@ -255,7 +256,11 @@ heatmaps_defs <- list(
   "group_defended_5" = list(vars = variables_group_defended_5, conditions = ">= 1"),
   "split_few" = list(vars = variables_split_few, conditions = c("", ">= 1")), # white color at 20
   "split_many" = list(vars = variables_split_many, conditions = c("", ">= 1")),
-  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1"))
+  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1")),
+  "field_manual" = list(vars = variables_field_manual, conditions = ">= 1", sort = T),
+  "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T),
+  "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T),
+  "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T)
 )
 # TODO! vote, fields
 
@@ -265,7 +270,6 @@ vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
-heatmap_multiple(heatmaps_defs)
 # heatmap_multiple(heatmaps_defs)
 
 
@@ -387,6 +391,16 @@ grid()
 
 
 ##### Presentation #####
+# Field
+heatmap_multiple(heatmaps_defs["field_gpt"]) # 
+heatmap_multiple(heatmaps_defs["field_manual"]) # 
+heatmap_multiple(heatmaps_defs["field_keyword"]) # 
+heatmap_multiple(heatmaps_defs["field_keyword_main"]) # 
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "concerns",], name = "field_concerns_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
+
 # Revenue split
 barres_multiple(barres_defs["split_few"]) # 670 x 330
 

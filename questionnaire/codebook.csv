@@ -1066,7 +1066,6 @@ On which step of the ladder would you say you personally feel you stand at this 
 well_being_wvs_1_original,"well_being_wvs_1: All things considered, how satisfied are you with your life as a whole these days?",NA / 7 / 8 / Completely satisfied10 / 9 / 5 / 6 / 2 / 3 / Completely dissatisfied1 / 4
 field,,[string variable]
 variant_field,,concerns / issue / injustice / wish
-field_en,,[string variable]
 field_manual_money,,TRUE / FALSE / NA
 field_manual_relationships,,TRUE / FALSE / NA
 field_manual_job,,TRUE / FALSE / NA
@@ -1094,55 +1093,56 @@ field_manual_global_issue,,TRUE / FALSE / NA
 field_manual_own_country,,TRUE / FALSE / NA
 field_manual_other,,TRUE / FALSE / NA
 field_manual_nothing,,TRUE / FALSE / NA
-field_keyword_money,,TRUE / FALSE / NA
-field_keyword_relationships,,TRUE / FALSE / NA
-field_keyword_job,,TRUE / FALSE / NA
-field_keyword_inequality,,TRUE / FALSE / NA
-field_keyword_global_inequality,,TRUE / FALSE / NA
-field_keyword_health,,TRUE / FALSE / NA
-field_keyword_immigration,,TRUE / FALSE / NA
-field_keyword_corruption,,TRUE / FALSE / NA
-field_keyword_environment,,TRUE / FALSE / NA
-field_keyword_security,,TRUE / FALSE / NA
-field_keyword_discrimination,,TRUE / FALSE / NA
-field_keyword_rights,,TRUE / FALSE / NA
-field_keyword_happiness,,TRUE / FALSE / NA
-field_keyword_war_peace,,TRUE / FALSE / NA
-field_keyword_taxes_welfare,,TRUE / FALSE / NA
-field_keyword_far_right_criticism,,TRUE / FALSE / NA
-field_keyword_mistrust,,TRUE / FALSE / NA
-field_keyword_animals,,TRUE / FALSE / NA
-field_keyword_religion,,TRUE / FALSE / NA
-field_keyword_housing,,TRUE / FALSE / NA
-field_keyword_education,,TRUE / FALSE / NA
-field_keyword_old_age,,TRUE / FALSE / NA
-field_keyword_family,,TRUE / FALSE / NA
-field_keyword_global_issue,,TRUE / FALSE / NA
-field_keyword_own_country,,TRUE / FALSE / NA
-field_keyword_nothing,,TRUE / FALSE / NA
-field_keyword_economy,,TRUE / FALSE / NA
-field_keyword_media,,TRUE / FALSE / NA
-field_keyword_trump,,TRUE / FALSE / NA
-field_keyword_tariff,,TRUE / FALSE / NA
-field_keyword_gaza,,TRUE / FALSE / NA
-field_keyword_car,,TRUE / FALSE / NA
-field_keyword_mental,,TRUE / FALSE / NA
-field_keyword_sport,,TRUE / FALSE / NA
-field_keyword_holiday,,TRUE / FALSE / NA
-field_keyword_time,,TRUE / FALSE / NA
-field_keyword_politics,,TRUE / FALSE / NA
-field_keyword_millionaire,,TRUE / FALSE / NA
-field_keyword_inflation,,TRUE / FALSE / NA
-field_keyword_abortion,,TRUE / FALSE / NA
-field_keyword_stock,,TRUE / FALSE / NA
-field_keyword_birthrate,,TRUE / FALSE / NA
-field_keyword_government,,TRUE / FALSE / NA
-field_keyword_hunger,,TRUE / FALSE / NA
-field_keyword_stability,,TRUE / FALSE / NA
-field_keyword_wage,,TRUE / FALSE / NA
-field_keyword_youth,,TRUE / FALSE / NA
-field_nb_keywords,,
-field_nb_manual,,0 / 1 / 3
+field_en,,[string variable]
+field_keyword_money,,TRUE / FALSE
+field_keyword_relationships,,TRUE / FALSE
+field_keyword_job,,TRUE / FALSE
+field_keyword_inequality,,TRUE / FALSE
+field_keyword_global_inequality,,TRUE / FALSE
+field_keyword_health,,TRUE / FALSE
+field_keyword_immigration,,TRUE / FALSE
+field_keyword_corruption,,TRUE / FALSE
+field_keyword_environment,,TRUE / FALSE
+field_keyword_security,,TRUE / FALSE
+field_keyword_discrimination,,TRUE / FALSE
+field_keyword_rights,,TRUE / FALSE
+field_keyword_happiness,,TRUE / FALSE
+field_keyword_war_peace,,TRUE / FALSE
+field_keyword_taxes_welfare,,TRUE / FALSE
+field_keyword_far_right_criticism,,TRUE / FALSE
+field_keyword_mistrust,,TRUE / FALSE
+field_keyword_animals,,TRUE / FALSE
+field_keyword_religion,,TRUE / FALSE
+field_keyword_housing,,TRUE / FALSE
+field_keyword_education,,TRUE / FALSE
+field_keyword_old_age,,TRUE / FALSE
+field_keyword_family,,TRUE / FALSE
+field_keyword_global_issue,,TRUE / FALSE
+field_keyword_own_country,,TRUE / FALSE
+field_keyword_nothing,,TRUE / FALSE
+field_keyword_economy,,TRUE / FALSE
+field_keyword_media,,TRUE / FALSE
+field_keyword_trump,,TRUE / FALSE
+field_keyword_tariff,,TRUE / FALSE
+field_keyword_gaza,,TRUE / FALSE
+field_keyword_car,,TRUE / FALSE
+field_keyword_mental,,TRUE / FALSE
+field_keyword_sport,,TRUE / FALSE
+field_keyword_holiday,,TRUE / FALSE
+field_keyword_time,,TRUE / FALSE
+field_keyword_politics,,TRUE / FALSE
+field_keyword_millionaire,,TRUE / FALSE
+field_keyword_inflation,,TRUE / FALSE
+field_keyword_abortion,,TRUE / FALSE
+field_keyword_stock,,TRUE / FALSE
+field_keyword_birthrate,,TRUE / FALSE
+field_keyword_government,,TRUE / FALSE
+field_keyword_hunger,,TRUE / FALSE
+field_keyword_stability,,TRUE / FALSE
+field_keyword_wage,,TRUE / FALSE
+field_keyword_youth,,TRUE / FALSE
+field_nb_keywords,,0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 12 / 13
+field_nb_manual,,0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8
 nchar_field,,min: 1 / max: 1464
 variant_belief_eu,,US / Own / EU
 gcs_belief,,min: 0 / max: 100

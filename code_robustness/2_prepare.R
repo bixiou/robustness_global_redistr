@@ -588,7 +588,9 @@ define_var_lists <- function() {
                  "stability" = "stability|stabl", # What do people mean by economic stability (or financial security)? Is it job security, stable earnings, higher wealth...?
                  "wage" = "wage|salar",
                  "youth" = "young|youth") 
-  variables_keyword <<- paste0("field_keyword_", names(keywords))
+  variables_field_keyword <<- paste0("field_keyword_", names(keywords))
+  variables_field_keyword_main <<- paste0("field_keyword_", c("money", "health", "own_country", "family", "war_peace", "job", "nothing", "government", "economy", "inflation", "global_issue", "inequality",
+                                                         "taxes_welfare", "immigration", "security", "far_right_criticism", "environment", "old_age", "rights", "discrimination", "housing", "trump", "happiness", "relationships"))
   keywords_labels <<- c("money" = "Money; own income; cost of living; inflation",
                         "relationships" = "Relationships; love; emotions", 
                         "job" = "Work; (un)employment; business",
@@ -1216,11 +1218,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   l <- if (country %in% c("US", "GB")) "" else "en"
   if (file.exists(paste0("../data_raw/fields/", country, i, l, ".xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, i, l, ".xlsm"), sheet = paste0("field", f), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
   else print("No file found for recoding of field.")
-  indices_i <- ifelse(i == 1, 1:(ncol(recode_field)-1), 1+2*((1:ncol(recode_field)-1))) # seq(i, nrow(e), 4)
-  if (l == "en") e$field_en[indices_i] <- as.character(recode_field[1,])
+  indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else 1+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
   recode_field <- recode_field[-1,]
-  row.names(recode_field) <- field_names[row.names(recode_field)]
   if (!all(row.names(recode_field) %in% names(field_names))) warning(paste("Unrecognized field_names for field in ", country))
+  row.names(recode_field) <- field_names[row.names(recode_field)]
   recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
   for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
   for (k in names(recode_field)) e[[paste0("field_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
@@ -1233,8 +1234,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       e[[paste0(v, "_en")]][is.na(e[[v]])] <- NA }
   }
   
-  for (k in names(keywords)) e[[paste0("field_keyword_", k)]] <- grepl(keywords[v], e$field_en, ignore.case = T)
-  e$field_nb_keywords <- rowSums(e[, variables_keyword])
+  for (k in names(keywords)) e[[paste0("field_keyword_", k)]] <- grepl(keywords[k], e$field_en, ignore.case = T)
+  e$field_nb_keywords <- rowSums(e[, variables_field_keyword])
   e$field_nb_manual <- rowSums(e[, variables_field_manual])
   e$nchar_field <- nchar(e$field_en)
   
@@ -1495,7 +1496,7 @@ gpt_prompt <- function(response_text) {
 # saveRDS(all_gpt, "../data_raw/fields/all_gpt.rds")
 
 all_gpt <- readRDS("../data_raw/fields/all_gpt.rds")
-all <- merge(all, all_gpt)
+e <- all <- merge(all, all_gpt)
 
 
 ##### Codebook #####
