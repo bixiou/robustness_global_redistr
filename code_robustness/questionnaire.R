@@ -238,3 +238,9 @@ write.table(features, "../questionnaire/features.csv", sep="|",  col.names=FALSE
 features_inc <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", colNames = F))
 write.table(features_inc, "../questionnaire/income.csv", sep="|",  col.names=FALSE, row.names = F, quote = F, na = "")
 
+
+##### Convert .qsf to .tex #####
+questions_df <- parse_questionnaire()
+View(questions_df)
+writeClipboard(questionnaire_to_latex(questions_df[1:80,]))
+cat(questionnaire_to_latex(questions_df[1:80,]))

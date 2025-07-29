@@ -79,7 +79,8 @@ package("ggtext") # ggtext::element_markdown in plot
 #' package("pastecs")
 #' package("lsr")
 #' package("ggplot2")
-#' package("stringr")
+package("stringr") # str_trim, parse_question
+package("purrr") # %||%, parse_question
 #' package("survey")
 #' Sys.setenv("PATH" = paste(Sys.getenv("PATH"), "C:/RTools42/usr/bin", sep = .Platform$path.sep))
 #' Sys.setenv("PATH" = paste(Sys.getenv("PATH"), "/home/adrien/anaconda3/bin", sep = .Platform$path.sep))
@@ -3040,3 +3041,97 @@ reweighted_estimate <- function(predicted_var = NULL, country = "EU", variant = 
   }
 }
 
+
+parse_questionnaire <- function(qsf = "../questionnaire/questionnaire.qsf") {
+  # Requires that blocks be numbered from "0 Name_of_first_block" to "[n] Name_of_nth_block"
+  questionnaire_json <- fromJSON("../questionnaire/questionnaire.qsf", simplifyVector = FALSE)
+  questions_json <- keep(questionnaire_json$SurveyElements, ~ .x$Element == "SQ")
+  
+  parse_question <- function(el) {
+    payload <- el$Payload
+    question_text <- payload$QuestionText %||% NA
+    
+    choices <- payload$Choices %||% list()
+    choices_text <- map_chr(choices, ~ .x$Display)
+    choices_concat <- paste(choices_text, collapse = "; ")
+    
+    langs <- names(payload$Language)
+    
+    lang_cols <- map_dfc(langs, function(lang) {
+      qtext <- payload$Language[[lang]]$QuestionText %||% ""
+      ctext <- payload$Language[[lang]]$Choices %||% list()
+      choices_disp <- map_chr(ctext, ~ .x$Display)
+      choices_joined <- paste(choices_disp, collapse = "; ")
+      full_text <- str_trim(paste(qtext, choices_joined, sep = " \\ "))
+      tibble(!!lang := full_text)
+    })
+    
+    tibble(id = el$PrimaryAttribute, question = question_text, var = payload$DataExportTag %||% NA, choices = choices_concat, block = NA, position_in_block = NA) %>% bind_cols(lang_cols)
+  }
+  
+  questions_df <- map_dfr(questions_json, parse_question)
+  
+  blocks_json <- keep(questionnaire_json$SurveyElements, ~ .x$Element == "BL")
+  blocks_json <- blocks_json[[1]]$Payload
+  
+  for (block in blocks_json) {  if (!is.null(block$BlockElements)) {
+    position <- 1
+    for (element in block$BlockElements) {  if (element$Type == "Question") {
+      questions_df$block[questions_df$id %in% element$QuestionID] <- block$Description
+      questions_df$position_in_block[questions_df$id %in% element$QuestionID] <- position
+      position <- position + 1
+    } }
+  } }
+  
+  return(questions_df[order(as.numeric(sub("^([0-9]+).*", "\\1", questions_df$block)), questions_df$position_in_block),])
+}
+
+questionnaire_to_latex <- function(questions_df, language = NULL) {
+  rows <- apply(questions_df, 1, function(row) {
+    label <- row[["var"]]
+    
+    if (is.null(language)) {
+      question <- convert_html_to_latex(row[["question"]])
+      choices <- convert_html_to_latex(row[["choices"]])
+    } else {
+      lang_col <- row[[language]]
+      if (is.null(lang_col) || is.na(lang_col)) {
+        question <- "(translation missing)"
+        choices <- ""
+      } else {
+        split_parts <- strsplit(lang_col, " \\\\ ")[[1]]
+        question <- convert_html_to_latex(split_parts[1])
+        choices <- if (length(split_parts) > 1) convert_html_to_latex(split_parts[2]) else ""
+      }
+    }
+    
+    question_latex <- paste0("\\item  \\label{q:", label, "} ", question, " [", "\\textit{Figure \\ref{fig:", label, "}}", "; \n", "\\verb|", label, "|]")
+    choices_latex <- if (choices != "") paste0("  \\\\ \\textit{", choices, "}") else ""
+    item <- paste0(question_latex, "\n", choices_latex)
+    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) != "0") item <- paste0(paste0("\\end{enumerate} \n\n \\subsection*{", sub("^[0-9]+ ", "", row[["block"]]), "} \n \\begin{enumerate}[resume] \n"), item)
+    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) == "0") item <- paste0(paste0("\\subsection*{", sub("^[0-9]+ ", "", row[["block"]]), "} \n \\begin{enumerate} \n"), item)
+    return(item)
+  })
+  return(paste0(paste(rows, collapse = "\n\n"), "\n \\end{enumerate} \n"))
+}
+
+convert_html_to_latex <- function(text) {
+  if (is.null(text) || is.na(text)) return("")
+  text <- gsub("<br ?/?>", "\\\\\\\\", text, ignore.case = TRUE)
+  text <- gsub("<b>(.*?)</b>", "\\\\textbf{\\1}", text)
+  text <- gsub("<i>(.*?)</i>", "\\\\textit{\\1}", text)
+  text <- gsub("<[^>]+>", "", text)
+  text <- gsub("\\$", "\\\\$", text)
+  text <- gsub("&#39;", "'", text)
+  text <- gsub("_", "\\\\_", text)
+  text <- gsub("&", "\\\\&", text)
+  text <- gsub("#", "\\\\#", text)
+  text <- gsub("%", "\\\\%", text)
+  text <- gsub("\\^", "\\\\^{}", text)
+  text <- gsub("~", "\\\\~{}", text)
+  text <- gsub("&nbsp;", "~", text)
+  # text <- gsub(' \\"', "``", text)
+  # text <- gsub('\\"', "''", text)
+  text <- trimws(text)
+  return(text)
+}
