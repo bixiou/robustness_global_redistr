@@ -3108,11 +3108,12 @@ questionnaire_to_latex <- function(questions_df, language = NULL) {
     question_latex <- paste0("\\item  \\label{q:", label, "} ", question, " [", "\\textit{Figure \\ref{fig:", label, "}}", "; \n", "\\verb|", label, "|]")
     choices_latex <- if (choices != "") paste0("  \\\\ \\textit{", choices, "}") else ""
     item <- paste0(question_latex, "\n", choices_latex)
-    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) != "0") item <- paste0(paste0("\\end{enumerate} \n\n \\subsection*{", sub("^[0-9]+ ", "", row[["block"]]), "} \n \\begin{enumerate}[resume] \n"), item)
-    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) == "0") item <- paste0(paste0("\\subsection*{", sub("^[0-9]+ ", "", row[["block"]]), "} \n \\begin{enumerate} \n"), item)
+    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) != "0") item <- paste0(paste0("\\end{enumerate} \n\n \\subsection*{", sub("^[0-9]+ ", "", convert_html_to_latex(row[["block"]])), "} \n \\begin{enumerate}[resume] \n"), item)
+    if (as.numeric(row[["position_in_block"]]) == 1 & substr(row[["block"]], 1, 1) == "0") item <- paste0(paste0("\\subsection*{", sub("^[0-9]+ ", "", convert_html_to_latex(row[["block"]])), "} \n \\begin{enumerate} \n"), item)
     return(item)
   })
-  return(paste0(paste(rows, collapse = "\n\n"), "\n \\end{enumerate} \n"))
+  return(gsub("\n\\\\\\\\", "\n~\\\\\\\\", gsub("\\\\\\s*\\[", "\\\\ \n~[", paste0(paste(rows, collapse = "\n\n"), "\n \\end{enumerate} \n"))))
+  # return(paste0(paste(rows, collapse = "\n\n"), "\n \\end{enumerate} \n"))
 }
 
 convert_html_to_latex <- function(text) {
@@ -3129,9 +3130,13 @@ convert_html_to_latex <- function(text) {
   text <- gsub("%", "\\\\%", text)
   text <- gsub("\\^", "\\\\^{}", text)
   text <- gsub("~", "\\\\~{}", text)
+  text <- gsub("\\\\&nbsp;", "~", text)
   text <- gsub("&nbsp;", "~", text)
+  text <- gsub("°", "\\\\textdegree{}", text)
   # text <- gsub(' \\"', "``", text)
   # text <- gsub('\\"', "''", text)
   text <- trimws(text)
+  # text <- gsub("\\\\\\s*\\[", "\\\\ \n [", text)
   return(text)
 }
+writeClipboard(questionnaire_to_latex(questions_df[1:80,]))

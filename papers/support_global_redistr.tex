@@ -1,0 +1,240 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% WORKING PAPER FORMAT %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Comment "% NCCcomment" lines, uncomment "% WPcomment" lines as well as the lines below
+\documentclass[12pt,english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tgpagella} % Palatino text only
+\usepackage{mathpazo}  % Palatino math & text
+\usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
+% \linespread{1.5}
+\usepackage[super,compress]{natbib} % WPcomment
+\usepackage{bibunits} % To get multiple bibliography
+% \usepackage[round,sort&compress]{natbib} % NCCcomment
+\usepackage{url} % [hyphens]
+\usepackage[hyperpageref]{backref} % back references biblio. Needs latexmk at compilation. 
+\usepackage[pagebackref]{hyperref} 
+
+% Lines below required to make pagebackref compatible with bibunits
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\Hy@backout{\@auxout}{\@mainaux}{}{\fail}
+\patchcmd\Hy@backout{\@auxout}{\@mainaux}{}{\fail} %yes twice the same line
+\makeatother
+
+% \usepackage{hyperref}
+% \usepackage{multibib} % incompatible with backref
+\hypersetup{
+  colorlinks=true, % breaklinks=true,
+  urlcolor=purple,    % color of external links
+  linkcolor=blue,  % color of toc, list of figs etc.
+  citecolor=violet,   % color of links to bibliography
+}
+\usepackage{bm}
+\usepackage{indentfirst}
+\usepackage{tocbibind}
+\setcitestyle{aysep={}} 
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+\usepackage{eurosym}
+\usepackage{amsfonts}
+% \usepackage{fontspec} 
+\usepackage{hwemoji} % for emojis
+\usepackage{enumerate}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{supertabular}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{dsfont}
+\usepackage{fancyvrb}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{comment}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{gensymb}
+\usepackage{textcomp}
+
+\usepackage{tabulary}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{fullpage}
+\usepackage{morefloats}
+\usepackage{makecell}
+\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{titletoc}
+\usepackage[export]{adjustbox}
+\usepackage[anythingbreaks]{breakurl} % for links
+\usepackage{multicol}
+\usepackage{lineno}
+% \linenumbers
+\newsavebox\ltmcbox % For net gain table over two columns
+%\usepackage[nomarkers,figuresonly]{endfloat} % Figures at the end
+%\usepackage[section,below]{placeins} % Floats placed in the section they appear in.
+\renewcommand{\floatpagefraction}{.99}
+\newenvironment{stretchpars}{\par\setlength{\parfillskip}{0pt}}{\par} % to justify a line
+
+\newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
+\newcommand\citeRt[1]{\citeauthor{#1} (\citeyear{#1})}
+\newcommand\citeRp[1]{(\citeauthor{#1} \citeyear{#1})}
+\newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
+\defaultbibliographystyle{unsrtnat}
+\defaultbibliography{global_tax_attitudes}
+
+\title{Support for Global Redistribution\\
+in High-Income Countries
+}
+% \author{Adrien Fabre$^{1,2}$, Thomas Douenne$^3$ and Linus Mattauch$^{4,5,6}$} % WPcomment
+\author{Adrien Fabre\footnote{CNRS, CIRED. E-mail: adrien.fabre@cnrs.fr (corresponding author).}
+% ~~\thanks{The project is approved by Economics \& Business Ethics Committee (EBEC) at the University of Amsterdam (EB-1113) and %is approved by IRB at Harvard University (IRB21-0137), and 
+} % NCCcomment
+
+\date{\today} % NCCcomment
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+{\textbf{\href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/papers/support_global_redistr.pdf}{Link to most recent version}}}
+\end{center}
+
+
+% WPcomment
+% \begin{affiliations}
+% \item CNRS
+% \item CIRED
+% \item University of Amsterdam
+% \item Technical University Berlin
+% \item Potsdam Institute for Climate Impact Research 
+% \item University of Oxford
+% \end{affiliations}
+
+% \begin{small} % NCCcomment
+\begin{abstract}
+ 
+\end{abstract}
+
+% \textbf{JEL codes:} P48, Q58, H23, Q54 % NCCcomment
+% Q54 Climate • Natural Disasters and Their Management • Global Warming
+% Q58 Government Policy (Q is Environmental econ)
+% D78 Positive Analysis of Policy Formulation and Implementation
+% H23 Externalities • Redistributive Effects • Environmental Taxes and Subsidies (H is public econ)
+% P48 Political Economy • Legal Institutions • Property Rights • Natural Resources • Energy • Environment • Regional Studies (P4 is Other economic systems)
+% H41 Public Goods
+% H54 Infrastructures • Other Public Investment and Capital Stock
+
+% \textbf{Keywords:} Climate change, global policies, cap-and-trade, attitudes, survey.%, inequality, wealth tax. % NCCcomment
+
+\clearpage
+\tableofcontents
+
+\onehalfspacing % NCCcomment
+
+%\clearpage
+\begin{bibunit}
+
+\section{Introduction}% NCCcomment
+bla
+
+\paragraph{Literature} 
+
+\section{Results}
+
+
+\section{Discussion} % Summary, conclusion
+
+
+% \begin{methods}  % WPcomment
+  \begin{small} % NCCcomment
+%Put methods in here.  If you are going to subsection it, use \subsection commands.  Methods section should be less than 800 words and if it is less than 200 words, it can be incorporated into the main text.
+\section*{\normalsize Methods}\label{sec:methods} % NCCcomment
+\addcontentsline{toc}{section}{\nameref{sec:methods}}
+
+\paragraph{\small Pre-registration.}
+The project is approved by Economics \& Business Ethics Committee (EBEC) at the University of Amsterdam (EB-1113) and %is approved by IRB at Harvard University (IRB21-0137), and 
+was preregistered in the Open Science Foundation registry (\href{https://osf.io/fy6gd}{osf.io/fy6gd}). The study did not deviate from the registration: the questionnaires and the hypotheses tests used are the same as the ones \href{https://osf.io/2b6vq}{given \textit{ex ante}}. Informed consent was obtained from all respondents, randomized treatment branches were unkown to the respondents, and our research complies with all relevant ethical regulations. Respondents were compensated with gift certificates for a value of \euro{}1 after participation. No statistical methods were used to pre-determine sample sizes but our sample sizes match those reported in similar publications.\citep{dechezlepretre_fighting_2025,issp_international_2010,beiser-mcgrath_could_2019,sivonen_attitudes_2022,douenne_yellow_2022}
+% \subsection{Data collection.} % WPcomment
+
+\paragraph{\small Data collection.} % NCCcomment
+
+The paper utilizes two sets of surveys: the \textit{global} survey and the \textit{Western} surveys. The \textit{global} surveys consist of two U.S. surveys, \textit{US1} and \textit{US2}, and one European survey, \textit{Eu}. The \textit{global} survey was conducted from March 2021 to March 2022 on 40,680 respondents from 20 countries (with 1,465 to 2,488 respondents per country). \textit{US1} collected responses from 3,000 respondents between January and March 2023, while \textit{US2} gathered data from 2,000 respondents between March and April 2023. \textit{Eu} included 3,000 respondents and was conducted from February to March 2023. We used the survey companies \emph{Dynata} and \emph{Bilendi}. To ensure representative samples, we employed stratified quotas based on gender, age (5 brackets), income (4), region (4), education level (3), and ethnicity (3) for the U.S. We also incorporated survey weights throughout the analysis to account for any remaining imbalances. These weights were constructed using the quota variables as well as the degree of urbanization, and trimmed between 0.25 and 4. Stratified quotas followed by reweighting is the usual method to reduce selection bias from opt-in online panels, when better sampling methods (such as compulsory participation of random dwellings) are unavailable.\cite{scherpenzeel_how_2010} By applying weights, the results are fully representative of the respective countries along the above mentioned dimensions. %. 
+Results at the European level apply different weights which ensure  representativeness of the combined four European countries. Appendix \ref{app:representativeness} shows how our samples compare to actual population frequencies. They match the actual frequencies, except for some imbalances in specific quota demographics ---such as gender in the UK (43\% of women instead of 50\%) or urbanity in Spain (15\% rural instead of 26\%)--- that are corrected through our survey weights, and in the U.S. vote (which does not affect our results, as shown by the results reweighted by vote in the \textit{Support for the GCS} section below). 
+% confirms that our samples are representative of the population. %\footnote{We trim weights so that no respondent receives a weight below 0.25 or above 4. Overall, trimming changes the weights for xx\% of the respondents.} 
+% TODO? that our samples closely match population frequencies in high-income countries. In middle-income countries, the samples are only representative of the online population (young, graduated and urban people are over-represented).
+Appendix \ref{app:balance} shows that the treatment branches are balanced. Appendix \ref{app:placebo} runs placebo tests of the effects of each treatment on unrelated outcomes. We do not find effects of earlier treatments on unrelated outcomes arriving later in the survey. Appendix \ref{app:extended} shows that our results are unchanged when including inattentive respondents.
+
+
+% \subsection*{\small Data quality.} % WPcomment % TODO attrition analysis
+\paragraph{\small Data quality.} % NCCcomment
+The median duration is 28 minutes for the \textit{global} survey, 14 min for \textit{US1}, 11 min for \textit{US2}, and 20 min for \textit{Eu}. To ensure the best possible data quality, we exclude 14\% respondents who fail an attention test or rush through the survey (i.e., answer in less than 11.5 minutes in the \textit{global} survey, 4 minutes in \textit{US1} or \textit{US2}, 6 minutes in \textit{Eu}). %All the results and analyses use survey weights, defined to make the results fully representative of the country (or of Eu in the case of results at the Eu level) along the quota variables. Weights are trimmed to be between .25 and 4. 
+%\textit{Ex post}, we checked that there were only a few careless response patterns (such as choosing the same answer for all items in a matrix of questions; see Appendix \ref{app:data_quality}). 
+At the end of the survey, we ask whether respondents thought that our survey was politically biased and offer to provide some feedback. 69\% of the respondents found the survey unbiased. 24\% found it left-wing biased, and 8\% found it right-wing biased.
+
+
+
+% \subsection*{\small Questionnaires and raw results.} % WPcomment
+\paragraph{\small Questionnaires and raw results.} % NCCcomment
+% Possible confusion in the questionnaire: people confuse GCS with the four policies together (so support for GCS can suffer from dislike of death penalty), although this confusion is mitigating by the fact that we right after ask about NR; people may answer about revenue-use rather than the whole measure for ETS2 support; people may answer that GCS will or will not have the effects proposed rather than these effects being important or not in their attitude towards GCS; they may answer that it's important that others (not them) get more information; the minimum wage could be reduced at 50% of local median wage.
+%.\cite{dechezlepretre_fighting_2025} 
+The raw results are reported in Appendix \ref{app:raw_results} while the surveys' structures and questionnaires are given in Appendices \ref{app:questionnaire_oecd} and \ref{app:questionnaire}. Details on the \textit{global} survey can be found in the Appendix of Dechezleprêtre et al. (forthcoming).\citep{dechezlepretre_fighting_2025} Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}. %The questionnaires are the same as the ones given \textit{ex ante} in the registration plan (\href{https://osf.io/fy6gd}{osf.io/fy6gd}).
+
+
+\section*{\normalsize Data and code availability}
+
+All data and code of the \textit{global} surveys as well as figures of the paper are available on \href{https://zenodo.org/doi/10.5281/zenodo.11202245}{10.5281/zenodo.11202245}. %\\ \href{https://github.com/bixiou/international_attitudes_toward_global_policies}{github.com/bixiou/global\_tax\_attitudes}. 
+Data and code for the \textit{g} survey will be made public upon publication. % 
+
+\section*{\normalsize Acknowledgements}
+bla
+
+% \section*{\normalsize Competing interests} Fabre declares that he also serves as treasurer of Global Redistribution Advocates.
+
+% \end{methods} % WPcomment
+\end{small}  % NCCcomment
+
+% \bibliographystyle{naturemag_noURL} % nature class works only with style naturemag or naturemag_noURL, and naturemag bugs if there are certain URLs (like .pdf). Also, nature class only works with \cite, not \citet or \citep.  % WPcomment
+\renewcommand{\url}[1]{\href{#1}{Link}} % NCCcomment
+% \bibliographystyle{unsrtnat} % NCCcomment
+% \bibliography{global_tax_attitudes}
+
+\clearpage
+
+\putbib
+\end{bibunit}
+
+\begin{bibunit}[plainnaturl_clean]
+
+\appendix % NCCcomment
+% \renewcommand{\thetable}{ED\arabic{table}}
+% \renewcommand{\thefigure}{ED\arabic{figure}}
+% \setcounter{figure}{0}
+% \setcounter{table}{0}
+
+
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+
+\input{app} 
+
+\renewcommand{\url}[1]{\href{#1}{Link}} 
+\putbib
+\end{bibunit}
+
+% \clearpage
+\listoftables
+\listoffigures
+
+
+\end{document}
