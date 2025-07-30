@@ -6,6 +6,7 @@
 # TODO: RU education on 18+ (not 25-64)
 # TODO: give 10£ to Just One Tree
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
+# TODO: correlation donation / support
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -396,7 +397,7 @@ define_var_lists <- function() {
   variables_custom_redistr_param <<- c("custom_redistr_winners", "custom_redistr_losers", "custom_redistr_degree")
   variables_custom_redistr_all <<- c(variables_custom_redistr_param, "custom_redistr_income_min", "custom_redistr_transfer", variables_custom_redistr)
   variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_ics", "variant_sliders", "variant_radical_transfer", 
-                          "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field", "variant_sliders")
+                          "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field", "variant_sliders", "variant_wealth_tax")
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
   #                                "variant_synthetic", "variant_comprehension", "variant_belief")
   variables_binary <<- c(variables_race[-1], variables_home, variables_global_movement, variables_why_hic_help_lic, variables_custom_redistr)

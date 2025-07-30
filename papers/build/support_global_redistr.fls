@@ -1757,6 +1757,9 @@ INPUT c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
 INPUT c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
 INPUT c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
 INPUT c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplbi7t.tfm
+INPUT c:/texlive/2022/texmf-dist/fonts/vf/adobe/palatino/pplbi7t.vf
+INPUT c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplbi8r.tfm
 INPUT build/bu2.aux
 INPUT build/bu2.aux
 INPUT build/bu2.aux

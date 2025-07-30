@@ -3139,4 +3139,4 @@ convert_html_to_latex <- function(text) {
   # text <- gsub("\\\\\\s*\\[", "\\\\ \n [", text)
   return(text)
 }
-writeClipboard(questionnaire_to_latex(questions_df[1:80,]))
+

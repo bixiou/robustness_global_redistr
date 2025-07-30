@@ -1,34 +1,34 @@
 # Fdb version 3
-["bibtex build/bu1"] 1753911133 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1753911478
-  "build/bu1.aux" 1753911476 744 b99f817ac2fc65df1a0ccfcca45a6205 "pdflatex"
+["bibtex build/bu1"] 1753918944 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1753919203
+  "build/bu1.aux" 1753919201 744 b99f817ac2fc65df1a0ccfcca45a6205 "pdflatex"
   "c:/texlive/2022/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1663543339 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   "global_tax_attitudes.bib" 1753889932 263221 119598f3e8b4acfb179b2e899b8c4e76 ""
   (generated)
   "build/bu1.bbl"
   "build/bu1.blg"
-["bibtex build/bu2"] 1753911133 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1753911478
+["bibtex build/bu2"] 1753918944 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1753919203
   "./plainnaturl_clean.bst" 1586094986 24654 4b2b0914a35465b0a6a8366fb04efb16 ""
-  "build/bu2.aux" 1753911476 60 e29b4fb148c8ec6183d031eeedbf5e9e "pdflatex"
+  "build/bu2.aux" 1753919202 60 e29b4fb148c8ec6183d031eeedbf5e9e "pdflatex"
   "global_tax_attitudes.bib" 1753889932 263221 119598f3e8b4acfb179b2e899b8c4e76 ""
   (generated)
   "build/bu2.bbl"
   "build/bu2.blg"
-["pdflatex"] 1753911473 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1753911478
-  "app.tex" 1753891338 7731 1644ffe2dfa0988ad608ba9a2d54f4f6 ""
-  "app_questionnaire.tex" 1753911471 53292 a3cb73eb20d6e89c0ba8b71e60df27b6 ""
+["pdflatex"] 1753919198 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1753919203
+  "app.tex" 1753913199 8506 9f917ba5f5017de7a04b90491a4ccb54 ""
+  "app_questionnaire.tex" 1753919185 54282 6a82a55861830422f54b4f2dd11ff987 ""
   "bu.aux" 0 -1 0 ""
   "build/bu.aux" 0 -1 0 ""
-  "build/bu1.aux" 1753911476 744 b99f817ac2fc65df1a0ccfcca45a6205 "pdflatex"
-  "build/bu1.bbl" 1753911134 2630 c260d34184c634184b8767f1373771a9 "bibtex build/bu1"
-  "build/bu2.aux" 1753911476 60 e29b4fb148c8ec6183d031eeedbf5e9e "pdflatex"
-  "build/bu2.bbl" 1753911133 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex build/bu2"
-  "build/support_global_redistr.aux" 1753911476 9234 b2e4f16f1178e5c5997818e42a975527 "pdflatex"
-  "build/support_global_redistr.brf" 1753911476 228 19990f9465a4126c68e66529a76bb061 "pdflatex"
-  "build/support_global_redistr.lof" 1753911476 47 7a93bd25d0798768a37bc21d08fca155 "pdflatex"
-  "build/support_global_redistr.lot" 1753911476 47 7a93bd25d0798768a37bc21d08fca155 "pdflatex"
-  "build/support_global_redistr.out" 1753911476 2106 2ff7e8fda763d3e7522f79dd9c9886f1 "pdflatex"
-  "build/support_global_redistr.toc" 1753911476 1545 2e676ef7faae3ebca0d8626eefb43e77 "pdflatex"
-  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1753910532 14499 9e51c09a0f4343868c95fb34595570fc ""
+  "build/bu1.aux" 1753919201 744 b99f817ac2fc65df1a0ccfcca45a6205 "pdflatex"
+  "build/bu1.bbl" 1753918945 2630 c260d34184c634184b8767f1373771a9 "bibtex build/bu1"
+  "build/bu2.aux" 1753919202 60 e29b4fb148c8ec6183d031eeedbf5e9e "pdflatex"
+  "build/bu2.bbl" 1753918944 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex build/bu2"
+  "build/support_global_redistr.aux" 1753919202 8426 e10b44d45b2b842fbc0e6b4a84ba6647 "pdflatex"
+  "build/support_global_redistr.brf" 1753919202 228 19990f9465a4126c68e66529a76bb061 "pdflatex"
+  "build/support_global_redistr.lof" 1753919202 47 7a93bd25d0798768a37bc21d08fca155 "pdflatex"
+  "build/support_global_redistr.lot" 1753919202 47 7a93bd25d0798768a37bc21d08fca155 "pdflatex"
+  "build/support_global_redistr.out" 1753919202 2106 2ff7e8fda763d3e7522f79dd9c9886f1 "pdflatex"
+  "build/support_global_redistr.toc" 1753919202 1545 1584345dcebaa7323a59fa375ee6a8e8 "pdflatex"
+  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1753912625 14499 9e51c09a0f4343868c95fb34595570fc ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1663542048 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1663542332 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplb7t.tfm" 1663543501 1616 371d1ee60c04b008c8fd760060cd34f1 ""
@@ -267,7 +267,7 @@
   "c:/texlive/2022/texmf.cnf" 1663544940 713 e69b156964470283e0530f5060668171 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf" 1668177306 6743391 b8e7d99287f3b550481b4954d37759c6 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji.sty" 1668188664 964927 78fa325c736c643075e219a1c1da6a16 ""
-  "support_global_redistr.tex" 1753910532 14499 9e51c09a0f4343868c95fb34595570fc ""
+  "support_global_redistr.tex" 1753912625 14499 9e51c09a0f4343868c95fb34595570fc ""
   (generated)
   "build/bu1.aux"
   "build/bu2.aux"
