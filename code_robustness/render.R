@@ -1,3 +1,4 @@
+# TODO: split_many atop; donation; barres convergence_support; income_exact; gcs_comprehension; survey_biased
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -16,7 +17,7 @@ labels_vars <- c(
   "region_factor" = "Region",
   "millionaire" = "Likelihood of becoming millionaire",
   "millionaire_agg" = "Likelihood of becoming millionaire",
-  "millionaire_factor" = "Millionaire",
+  "millionaire_factor" = "Will become millionaire",
   "urban" = "Urban",
   "age" = "Age",
   "age_factor" = "Age",
@@ -244,7 +245,7 @@ heatmaps_defs <- list(
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
   "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1"), 
-  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = ">= 1"),
+  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/")),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1"),
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
@@ -256,7 +257,7 @@ heatmaps_defs <- list(
   "group_defended_5" = list(vars = variables_group_defended_5, conditions = ">= 1"),
   "split_few" = list(vars = variables_split_few, conditions = c("", ">= 1")), # white color at 20
   "split_many" = list(vars = variables_split_many, conditions = c("", ">= 1")),
-  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1")),
+  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1")), # TODO: update
   "field_manual" = list(vars = variables_field_manual, conditions = ">= 1", sort = T),
   "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T),
   "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T),
@@ -402,7 +403,7 @@ heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == 
 heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
 
 # Revenue split
-barres_multiple(barres_defs["split_few"]) # 670 x 330
+barres_multiple(barres_defs["split_few"]) # 670 x 330 # TODO (also split_many): add means
 
 # Warm glow -- moral substitute
 
@@ -499,7 +500,7 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns)
 # 12. average custom_redistr
 
-# 4. Revenue split
+# 4. Revenue split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
            name = "split_main_means", levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
@@ -625,10 +626,10 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
                               "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
-           indep_vars = control_variables, filename = "determinants_omit_country", nolabel = F, omit = c("Country", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA")) 
+           indep_vars = control_variables, filename = "determinants_omit_country", nolabel = F, omit = c("Country", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
                               "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
-           indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Millionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA")) 
+           indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 # TODO? Add custom_redistr_satisfied? 

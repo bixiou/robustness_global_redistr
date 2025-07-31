@@ -335,8 +335,8 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     e$final <- is.na(e$excluded) & e$finished %in% c(TRUE, "TRUE", 1, "1") 
     label(e$final) <- "final: T/F In Final sample (!excluded & finished)"
     # progress_socio <- if (country == "US1") 19 else { if (country == "US2") 14 else 15 }
-    # e$dropout_late <- (e$attention_test == "A little" | is.na(e$attention_test)) & is.na(e$excluded) & e$finished != "1" & n(e$progress) >= progress_socio
-    # label(e$dropout_late) <- "dropout: Respondent who did not complete the survey though was not excluded, and who dropped out after the socio-demographic questions." }
+    e$dropout_late <- e$dropout & e$progress >= 30
+    label(e$dropout_late) <- "dropout: Respondent who did not complete the survey though was not excluded, and who dropped out after the socio-demographic questions." 
     if (scope %in% names(e)) e <- e[e[[scope]] == T,]
     
     e <- convert(e, country = country, pilot = pilot, weighting = weighting)

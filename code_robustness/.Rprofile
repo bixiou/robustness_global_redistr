@@ -840,7 +840,7 @@ create_covariate_labels <- function(coefs_names, regressors_names = labels_vars,
   names(covariate.labels) <- coefs_names
   if (is.null(keep)) covariate_labels <- covariate.labels
   else covariate_labels <- c()
-  for (k in keep) covariate_labels <- c(covariate_labels, covariate.labels[(grepl(k, covariate.labels) | grepl(k, names(covariate.labels)))])
+  for (k in keep) covariate_labels <- c(covariate_labels, if (paste0(gsub("\\\\Q|\\\\E", "", k), "TRUE") %in% names(covariate.labels)) covariate.labels[paste0(gsub("\\\\Q|\\\\E", "", k), "TRUE")] else covariate.labels[(grepl(k, covariate.labels) | grepl(k, names(covariate.labels)))]) # The "if ..." handles the bug that "Germany" matches variables "man"
   for (k in omit) covariate_labels <- covariate_labels[!grepl(k, covariate_labels) & !grepl(k, names(covariate_labels))]
   covariate_labels <- unique(covariate_labels[c(which(!grepl("[:*]", names(covariate_labels))), which(grepl("[:*]", names(covariate_labels))))]) # unique is not necessary, it unnames the vector
   if (covariate_labels[1] %in% c("Constant", "Intercept", "(Intercept)")) covariate_labels <- c(covariate_labels[-1], covariate_labels[1])
@@ -1688,6 +1688,8 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
                                 cond == "median" ~ "median",
                                 cond == "> 0" ~ "positive",
                                 cond == ">= 1" ~ "positive",
+                                cond == "> 1" ~ "above_one",
+                                cond == "< -1" ~ "below_minus_one",
                                 cond == "< 0" ~ "negative",
                                 cond == "<= -1" ~ "negative",
                                 cond == ">= 0" ~ "non-negative",
@@ -2988,10 +2990,11 @@ export_representativeness_table <- function(table, country_list, weighted = T, n
 
   row.names(table) <- gsub("_", "\\_", row.names(table), fixed = T)
   if (is.null(abbr)) abbr <- length(country_list) > 3
-  latex_output <- kbl(table, "latex", caption = NULL, position = "b", escape = F, booktabs = T,
+  options(knitr.kable.NA = '')
+  latex_output <- kbl(table, "latex", caption = NULL, position = "b", escape = F, booktabs = T, align = "c",
                       col.names = rep(c("Pop.", if (non_weighted) {if (abbr) "Sam." else ("Sample")}, if (weighted) {if (abbr) "\\makecell{Wght.\\\\sam.}" else "\\makecell{Weighted\\\\sample}"}), length(country_list)),
                       linesep = line_sep) %>% add_header_above(header)
-
+  latex_output <- gsub("Education\\_quota", "Diploma\\_25-64", gsub("0.", ".", latex_output, fixed = T), fixed = T)
   if (is.null(filename)) filename <- paste(country_list, collapse = "_")
   if (filename == "_all") filename <- paste0(paste(country_list, collapse = "_"), "_all")
   cat(paste(latex_output, collapse="\n"), file = paste0(folder, filename, ".tex"))
@@ -3046,17 +3049,17 @@ parse_questionnaire <- function(qsf = "../questionnaire/questionnaire.qsf") {
   # Requires that blocks be numbered from "0 Name_of_first_block" to "[n] Name_of_nth_block"
   questionnaire_json <- fromJSON("../questionnaire/questionnaire.qsf", simplifyVector = FALSE)
   questions_json <- keep(questionnaire_json$SurveyElements, ~ .x$Element == "SQ")
-  
+
   parse_question <- function(el) {
     payload <- el$Payload
     question_text <- payload$QuestionText %||% NA
-    
+
     choices <- payload$Choices %||% list()
     choices_text <- map_chr(choices, ~ .x$Display)
     choices_concat <- paste(choices_text, collapse = "; ")
-    
+
     langs <- names(payload$Language)
-    
+
     lang_cols <- map_dfc(langs, function(lang) {
       qtext <- payload$Language[[lang]]$QuestionText %||% ""
       ctext <- payload$Language[[lang]]$Choices %||% list()
@@ -3065,15 +3068,15 @@ parse_questionnaire <- function(qsf = "../questionnaire/questionnaire.qsf") {
       full_text <- str_trim(paste(qtext, choices_joined, sep = " \\ "))
       tibble(!!lang := full_text)
     })
-    
+
     tibble(id = el$PrimaryAttribute, question = question_text, var = payload$DataExportTag %||% NA, choices = choices_concat, block = NA, position_in_block = NA) %>% bind_cols(lang_cols)
   }
-  
+
   questions_df <- map_dfr(questions_json, parse_question)
-  
+
   blocks_json <- keep(questionnaire_json$SurveyElements, ~ .x$Element == "BL")
   blocks_json <- blocks_json[[1]]$Payload
-  
+
   for (block in blocks_json) {  if (!is.null(block$BlockElements)) {
     position <- 1
     for (element in block$BlockElements) {  if (element$Type == "Question") {
@@ -3082,14 +3085,14 @@ parse_questionnaire <- function(qsf = "../questionnaire/questionnaire.qsf") {
       position <- position + 1
     } }
   } }
-  
+
   return(questions_df[order(as.numeric(sub("^([0-9]+).*", "\\1", questions_df$block)), questions_df$position_in_block),])
 }
 
 questionnaire_to_latex <- function(questions_df, language = NULL) {
   rows <- apply(questions_df, 1, function(row) {
     label <- row[["var"]]
-    
+
     if (is.null(language)) {
       question <- convert_html_to_latex(row[["question"]])
       choices <- convert_html_to_latex(row[["choices"]])
@@ -3104,7 +3107,7 @@ questionnaire_to_latex <- function(questions_df, language = NULL) {
         choices <- if (length(split_parts) > 1) convert_html_to_latex(split_parts[2]) else ""
       }
     }
-    
+
     question_latex <- paste0("\\item  \\label{q:", label, "} ", question, " [", "\\textit{Figure \\ref{fig:", label, "}}", "; \n", "\\verb|", label, "|]")
     choices_latex <- if (choices != "") paste0("  \\\\ \\textit{", choices, "}") else ""
     item <- paste0(question_latex, "\n", choices_latex)

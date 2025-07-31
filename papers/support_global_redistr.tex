@@ -150,6 +150,62 @@ bla
 
 \section{Results}
 
+% FIGURES
+% # 1? coverage map
+% # 2. survey_flow
+% # 3. keywords in fields (taken jointly)
+% # 4. revenue_split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
+\begin{figure}
+  \caption{
+  } 
+  \begin{subfigure}{.68\textwidth}
+    \caption[]{}
+    \includegraphics[width=\textwidth]{../figures/country_comparison/split_main_means_nolegend.pdf}
+  \end{subfigure} 
+  \begin{subfigure}{.30\textwidth}
+    \caption[]{} 
+    \includegraphics[width=\textwidth]{../figures/country_comparison/split_main_nb0_nolabel.pdf}
+  \end{subfigure}
+\end{figure}
+% # 5a. ICS: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country}
+% # 5b. wealth tax by coverage: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country}
+% # 6. conjoint: foreign aid + global tax (per country + global)
+    \begin{figure}
+\caption{\rose{Effect on} the \rose{likelihood that a} political \rose{program is preferred} of containing the following policy%\\(compared to no foreign policy in the program):
+} \vspace{-.3cm}
+\begin{subfigure}{.48\textwidth}
+  \caption[]{\blue{Cut development aid}: $-$5 pp*** \quad \green{\checkmark H1a}}\vspace{-.3cm}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
+\end{subfigure} \pause
+\begin{subfigure}{.50\textwidth}
+  \caption[]{\blue{International tax on millionaires with 30\% financing} health and education in \blue{low-income countries}: +5 pp*** \quad \green{\checkmark H1b}} \vspace{-.3cm}
+  \includegraphics[width=.95\textwidth]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}
+\end{subfigure}
+\end{figure}
+% # 7. warm_glow: effect of info + display donation vs. control (per country + global)
+    \begin{figure}
+% \caption{}
+\begin{subfigure}{.47\textwidth}
+  \caption[]{Effect of a \blue{\textit{Donation lottery} treatment} on support for the \rose{Global Climate Scheme}: +3p.p.*** \quad \green{\checkmark H5a}}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
+\end{subfigure} \quad \pause
+\begin{subfigure}{.47\textwidth}
+  \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of plausible \rose{global policies} supported: +1p.p.** \quad \green{\checkmark H5b} \hyperlink{2SLS}{\beamergotobutton{2SLS}}}
+  \includegraphics[width=\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+\end{subfigure}
+\end{figure}
+% # 7bis: 2SLS \input{../tables/iv_highlighted.tex}
+% # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
+\begin{figure}[h!]
+    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} resposnes). (Question \ref{q:solidarity_support}).
+    }\label{fig:solidarity_support_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}} 
+\end{figure}
+% # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
+% # 10. group_defended: barresN or barres? \includegraphics[height=.9\textheight]{../figures/all/group_defended}
+% # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns) \includegraphics[width=\textwidth]{../figures/country_comparison/transfer_how_positive}
+% # 12. average custom_redistr \includegraphics[height=.8\textheight]{../figures/all/custom_redistr_mean.png}
+
 
 \section{Discussion} % Summary, conclusion
 
