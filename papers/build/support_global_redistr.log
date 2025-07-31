@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  31 JUL 2025 19:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  31 JUL 2025 19:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -3165,21 +3165,11 @@ LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 81.
 
 LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 81.
 
-
-LaTeX Warning: File `../figures/UK/conjoint_UK.pdf' not found on input line 82.
-
-
-./app.tex:82: Package pdftex.def Error: File `../figures/UK/conjoint_UK.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.82 ...textwidth]{../figures/UK/conjoint_UK.pdf}}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<../figures/GB/conjoint_GB.pdf, id=169, 1198.4775pt x 380.42125pt>
+File: ../figures/GB/conjoint_GB.pdf Graphic file (type pdf)
+<use ../figures/GB/conjoint_GB.pdf>
+Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 82.
+(pdftex.def)             Requested size: 469.75502pt x 149.10669pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3189,7 +3179,7 @@ LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 87.
 
 LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 87.
 
-<../figures/CH/conjoint_CH.pdf, id=169, 1198.4775pt x 380.42125pt>
+<../figures/CH/conjoint_CH.pdf, id=170, 1198.4775pt x 380.42125pt>
 File: ../figures/CH/conjoint_CH.pdf Graphic file (type pdf)
 <use ../figures/CH/conjoint_CH.pdf>
 Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 88.
@@ -3203,7 +3193,7 @@ LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 93.
 
 LaTeX Warning: Reference `q:conjoint' on page 7 undefined on input line 93.
 
-<../figures/US/conjoint_US.pdf, id=170, 1198.4775pt x 380.42125pt>
+<../figures/US/conjoint_US.pdf, id=171, 1198.4775pt x 380.42125pt>
 File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
 <use ../figures/US/conjoint_US.pdf>
 Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 94.
@@ -3217,7 +3207,7 @@ LaTeX Warning: Reference `q:revenue_split_few' on page 7 undefined on input line
 
 LaTeX Warning: Reference `q:revenue_split_few' on page 7 undefined on input line 100.
 
-<../figures/country_comparison/split_few_bars_nb0.pdf, id=171, 927.465pt x 466.62328pt>
+<../figures/country_comparison/split_few_bars_nb0.pdf, id=172, 927.465pt x 466.62328pt>
 File: ../figures/country_comparison/split_few_bars_nb0.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_few_bars_nb0.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_few_bars_nb0.pdf  used on input line 101.
@@ -3231,21 +3221,11 @@ LaTeX Warning: Reference `q:revenue_split_few' on page 7 undefined on input line
 
 LaTeX Warning: Reference `q:revenue_split_few' on page 7 undefined on input line 106.
 
-
-LaTeX Warning: File `../figures/country_comparison/split_few.pdf' not found on input line 107.
-
-
-./app.tex:107: Package pdftex.def Error: File `../figures/country_comparison/split_few.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.107 ...igures/country_comparison/split_few.pdf}}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<../figures/all/split_few.pdf, id=173, 644.4075pt x 275.10779pt>
+File: ../figures/all/split_few.pdf Graphic file (type pdf)
+<use ../figures/all/split_few.pdf>
+Package pdftex.def Info: ../figures/all/split_few.pdf  used on input line 107.
+(pdftex.def)             Requested size: 469.75502pt x 200.55414pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3255,21 +3235,11 @@ LaTeX Warning: Reference `q:revenue_split_many' on page 7 undefined on input lin
 
 LaTeX Warning: Reference `q:revenue_split_many' on page 7 undefined on input line 112.
 
-
-LaTeX Warning: File `../figures/country_comparison/split_many.pdf' not found on input line 113.
-
-
-./app.tex:113: Package pdftex.def Error: File `../figures/country_comparison/split_many.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.113 ...gures/country_comparison/split_many.pdf}}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<../figures/all/split_many.pdf, id=174, 644.4075pt x 516.00781pt>
+File: ../figures/all/split_many.pdf Graphic file (type pdf)
+<use ../figures/all/split_many.pdf>
+Package pdftex.def Info: ../figures/all/split_many.pdf  used on input line 113.
+(pdftex.def)             Requested size: 422.77664pt x 338.55055pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3279,7 +3249,7 @@ LaTeX Warning: Reference `q:revenue_split_many' on page 7 undefined on input lin
 
 LaTeX Warning: Reference `q:revenue_split_many' on page 7 undefined on input line 118.
 
-<../figures/country_comparison/split_many_global_mean.pdf, id=172, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/split_many_global_mean.pdf, id=175, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/split_many_global_mean.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_many_global_mean.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_many_global_mean.pdf  used on input line 119.
@@ -3299,7 +3269,7 @@ LaTeX Warning: Reference `q:ncs_support' on page 7 undefined on input line 142.
 
 LaTeX Warning: Reference `q:ics_support' on page 7 undefined on input line 142.
 
-<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=173, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=176, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/ncs_gcs_ics_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/ncs_gcs_ics_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf  used on input line 143.
@@ -3313,7 +3283,7 @@ LaTeX Warning: Reference `q:solidarity_support' on page 7 undefined on input lin
 
 LaTeX Warning: Reference `q:solidarity_support' on page 7 undefined on input line 148.
 
-<../figures/country_comparison/solidarity_support_positive.pdf, id=174, 955.57pt x 508.90125pt>
+<../figures/country_comparison/solidarity_support_positive.pdf, id=177, 955.57pt x 508.90125pt>
 File: ../figures/country_comparison/solidarity_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 149.
@@ -3327,7 +3297,7 @@ LaTeX Warning: Reference `q:ncqg' on page 7 undefined on input line 154.
 
 LaTeX Warning: Reference `q:ncqg' on page 7 undefined on input line 154.
 
-<../figures/all/ncqg.pdf, id=175, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg.pdf, id=178, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg.pdf>
 Package pdftex.def Info: ../figures/all/ncqg.pdf  used on input line 155.
@@ -3341,7 +3311,7 @@ LaTeX Warning: Reference `q:ncqg_full' on page 7 undefined on input line 160.
 
 LaTeX Warning: Reference `q:ncqg_full' on page 7 undefined on input line 160.
 
-<../figures/all/ncqg_full.pdf, id=176, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg_full.pdf, id=179, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg_full.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg_full.pdf>
 Package pdftex.def Info: ../figures/all/ncqg_full.pdf  used on input line 161.
@@ -3361,7 +3331,7 @@ LaTeX Warning: Reference `q:global_tax_support' on page 7 undefined on input lin
 
 LaTeX Warning: Reference `q:intl_tax_support' on page 7 undefined on input line 166.
 
-<../figures/country_comparison/wealth_tax_support_positive.pdf, id=177, 1116.17pt x 598.235pt>
+<../figures/country_comparison/wealth_tax_support_positive.pdf, id=180, 1116.17pt x 598.235pt>
 File: ../figures/country_comparison/wealth_tax_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/wealth_tax_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/wealth_tax_support_positive.pdf  used on input line 167.
@@ -3375,21 +3345,11 @@ LaTeX Warning: Reference `q:sustainable_future' on page 7 undefined on input lin
 
 LaTeX Warning: Reference `q:sustainable_future' on page 7 undefined on input line 172.
 
-
-LaTeX Warning: File `../figures/country_comparison/sustainable_future.pdf' not found on input line 173.
-
-
-./app.tex:173: Package pdftex.def Error: File `../figures/country_comparison/sustainable_future.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.173 ...untry_comparison/sustainable_future.pdf}}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<../figures/all/sustainable_future.pdf, id=181, 644.4075pt x 109.3686pt>
+File: ../figures/all/sustainable_future.pdf Graphic file (type pdf)
+<use ../figures/all/sustainable_future.pdf>
+Package pdftex.def Info: ../figures/all/sustainable_future.pdf  used on input line 173.
+(pdftex.def)             Requested size: 422.77664pt x 71.75626pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3435,7 +3395,7 @@ LaTeX Warning: Reference `q:top1_tax_support' on page 7 undefined on input line 
 
 LaTeX Warning: Reference `q:top3_tax_support' on page 7 undefined on input line 184.
 
-<../figures/country_comparison/top_tax_positive.pdf, id=178, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/top_tax_positive.pdf, id=182, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/top_tax_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/top_tax_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/top_tax_positive.pdf  used on input line 185.
@@ -3449,7 +3409,7 @@ LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 190.
 
 LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 190.
 
-<../figures/country_comparison/transfer_how_positive.pdf, id=179, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_positive.pdf, id=183, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf  used on input line 191.
@@ -3463,7 +3423,7 @@ LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 196.
 
 LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 196.
 
-<../figures/country_comparison/transfer_how_above_one.pdf, id=180, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_above_one.pdf, id=184, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_above_one.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_above_one.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_above_one.pdf  used on input line 197.
@@ -3477,7 +3437,7 @@ LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 202.
 
 LaTeX Warning: Reference `q:transfer_how' on page 7 undefined on input line 202.
 
-<../figures/country_comparison/transfer_how_negative.pdf, id=181, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_negative.pdf, id=185, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_negative.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_negative.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_negative.pdf  used on input line 203.
@@ -3515,7 +3475,7 @@ LaTeX Warning: Reference `q:global_movement' on page 7 undefined on input line 2
 
 LaTeX Warning: Reference `q:global_movement' on page 7 undefined on input line 214.
 
-<../figures/country_comparison/global_movement_positive.pdf, id=182, 817.0525pt x 311.1625pt>
+<../figures/country_comparison/global_movement_positive.pdf, id=186, 817.0525pt x 311.1625pt>
 File: ../figures/country_comparison/global_movement_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/global_movement_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.pdf  used on input line 215.
@@ -3534,7 +3494,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 220--220
 
  []
 
-<../figures/all/vote_intl_coalition.pdf, id=183, 644.4075pt x 425.67029pt>
+<../figures/all/vote_intl_coalition.pdf, id=187, 644.4075pt x 425.67029pt>
 File: ../figures/all/vote_intl_coalition.pdf Graphic file (type pdf)
 <use ../figures/all/vote_intl_coalition.pdf>
 Package pdftex.def Info: ../figures/all/vote_intl_coalition.pdf  used on input line 221.
@@ -3548,7 +3508,7 @@ LaTeX Warning: Reference `q:why_hic_help_lic' on page 7 undefined on input line 
 
 LaTeX Warning: Reference `q:why_hic_help_lic' on page 7 undefined on input line 226.
 
-<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=184, 908.39375pt x 285.065pt>
+<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=188, 908.39375pt x 285.065pt>
 File: ../figures/country_comparison/why_hic_help_lic_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/why_hic_help_lic_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive.pdf  used on input line 227.
@@ -3562,7 +3522,7 @@ LaTeX Warning: Reference `q:custom_redistr' on page 7 undefined on input line 23
 
 LaTeX Warning: Reference `q:custom_redistr' on page 7 undefined on input line 232.
 
-<../figures/all/custom_redistr_mean.png, id=185, 662.475pt x 530.58224pt>
+<../figures/all/custom_redistr_mean.png, id=189, 662.475pt x 530.58224pt>
 File: ../figures/all/custom_redistr_mean.png Graphic file (type png)
 <use ../figures/all/custom_redistr_mean.png>
 Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input line 233.
@@ -3576,7 +3536,7 @@ LaTeX Warning: Reference `q:custom_redistr' on page 7 undefined on input line 23
 
 LaTeX Warning: Reference `q:custom_redistr' on page 7 undefined on input line 238.
 
-<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=187, 599.23875pt x 498.663pt>
+<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=191, 599.23875pt x 498.663pt>
 File: ../figures/questionnaire/survey_custom_redistr_median_zoom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_median_zoom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 239.
@@ -3595,7 +3555,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 250--250
 
  []
 
-<../figures/all/gcs_comprehension.pdf, id=188, 644.4075pt x 109.3686pt>
+<../figures/all/gcs_comprehension.pdf, id=192, 644.4075pt x 109.3686pt>
 File: ../figures/all/gcs_comprehension.pdf Graphic file (type pdf)
 <use ../figures/all/gcs_comprehension.pdf>
 Package pdftex.def Info: ../figures/all/gcs_comprehension.pdf  used on input line 251.
@@ -3609,7 +3569,7 @@ LaTeX Warning: Reference `q:my_tax_global_nation' on page 7 undefined on input l
 
 LaTeX Warning: Reference `q:my_tax_global_nation' on page 7 undefined on input line 256.
 
-<../figures/country_comparison/my_tax_global_nation_share.pdf, id=189, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/my_tax_global_nation_share.pdf, id=193, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/my_tax_global_nation_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_share.pdf  used on input line 257.
@@ -3623,7 +3583,7 @@ LaTeX Warning: Reference `q:my_tax_global_nation' on page 7 undefined on input l
 
 LaTeX Warning: Reference `q:my_tax_global_nation' on page 7 undefined on input line 262.
 
-<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=190, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=194, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/my_tax_global_nation_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_positive.pdf  used on input line 263.
@@ -3637,7 +3597,7 @@ LaTeX Warning: Reference `q:group_defended' on page 7 undefined on input line 26
 
 LaTeX Warning: Reference `q:group_defended' on page 7 undefined on input line 268.
 
-<../figures/all/group_defended.pdf, id=191, 644.4075pt x 350.26859pt>
+<../figures/all/group_defended.pdf, id=195, 644.4075pt x 350.26859pt>
 File: ../figures/all/group_defended.pdf Graphic file (type pdf)
 <use ../figures/all/group_defended.pdf>
 Package pdftex.def Info: ../figures/all/group_defended.pdf  used on input line 269.
@@ -3651,7 +3611,7 @@ LaTeX Warning: Reference `q:survey_biased' on page 7 undefined on input line 280
 
 LaTeX Warning: Reference `q:survey_biased' on page 7 undefined on input line 280.
 
-<../figures/all/survey_biased.pdf, id=192, 644.4075pt x 109.3686pt>
+<../figures/all/survey_biased.pdf, id=196, 644.4075pt x 109.3686pt>
 File: ../figures/all/survey_biased.pdf Graphic file (type pdf)
 <use ../figures/all/survey_biased.pdf>
 Package pdftex.def Info: ../figures/all/survey_biased.pdf  used on input line 281.
@@ -3671,7 +3631,7 @@ LaTeX Warning: Reference `q:voted' on page 7 undefined on input line 292.
 
 LaTeX Warning: Reference `q:vote' on page 7 undefined on input line 292.
 
-<../figures/country_comparison/vote_representativeness.pdf, id=193, 660.54776pt x 636.45775pt>
+<../figures/country_comparison/vote_representativeness.pdf, id=197, 660.54776pt x 636.45775pt>
 File: ../figures/country_comparison/vote_representativeness.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_representativeness.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_representativeness.pdf  used on input line 293.
@@ -3691,7 +3651,7 @@ LaTeX Warning: Reference `q:voted' on page 7 undefined on input line 298.
 
 LaTeX Warning: Reference `q:vote' on page 7 undefined on input line 298.
 
-<../figures/country_comparison/vote_pnr_out.pdf, id=194, 660.54776pt x 636.45775pt>
+<../figures/country_comparison/vote_pnr_out.pdf, id=198, 660.54776pt x 636.45775pt>
 File: ../figures/country_comparison/vote_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_pnr_out.pdf  used on input line 299.
@@ -3701,31 +3661,40 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7
 
- <../figures/country_comparison/field_keyword_main_positive.pdf>] [8 <../figures/country_comparison/field_gpt_positive.pdf>] [9 <../figures/country_comparison/field_manual_positive.pdf>] [10 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [11 <../figures/country_comparison/field_wish_manual_positive.pdf>] [12 <../figures/country_comparison/field_issue_manual_positive.pdf>] [13] [14 <../figures/FR/conjoint_FR.pdf> <../figures/DE/conjoint_DE.pdf> <../figures/IT/conjoint_IT.pdf>] [15 <../figures/PL/conjoint_PL.pdf> <../figures/ES/conjoint_ES.pdf>] [16] [17 <../figures/CH/conjoint_CH.pdf> <../figures/US/conjoint_US.pdf>] [18 <../figures/country_comparison/split_few_bars_nb0.pdf
+ <../figures/country_comparison/field_keyword_main_positive.pdf>] [8 <../figures/country_comparison/field_gpt_positive.pdf>] [9 <../figures/country_comparison/field_manual_positive.pdf>] [10 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [11 <../figures/country_comparison/field_wish_manual_positive.pdf>] [12 <../figures/country_comparison/field_issue_manual_positive.pdf>] [13] [14 <../figures/FR/conjoint_FR.pdf> <../figures/DE/conjoint_DE.pdf> <../figures/IT/conjoint_IT.pdf>] [15 <../figures/PL/conjoint_PL.pdf> <../figures/ES/conjoint_ES.pdf> <../figures/GB/conjoint_GB.pdf>] [16 <../figures/CH/conjoint_CH.pdf> <../figures/US/conjoint_US.pdf>] [17 <../figures/country_comparison/split_few_bars_nb0.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/split_few_bars_nb0.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [19] [20] [21 <../figures/country_comparison/split_many_global_mean.pdf> <../figures/country_comparison/ncs_gcs_ics_positive.pdf>] [22 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/all/ncqg.pdf
+> <../figures/all/split_few.pdf
+
+pdfTeX warning: pdflatex.exe (file ../figures/all/split_few.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
+>] [18 <../figures/all/split_many.pdf
+
+pdfTeX warning: pdflatex.exe (file ../figures/all/split_many.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
+>] [19 <../figures/country_comparison/split_many_global_mean.pdf> <../figures/country_comparison/ncs_gcs_ics_positive.pdf>] [20 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/all/ncqg.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/ncqg.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [23 <../figures/all/ncqg_full.pdf
+>] [21 <../figures/all/ncqg_full.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/ncqg_full.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
-> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [24] [25] [26 <../figures/country_comparison/top_tax_positive.pdf> <../figures/country_comparison/transfer_how_positive.pdf>] [27 <../figures/country_comparison/transfer_how_above_one.pdf> <../figures/country_comparison/transfer_how_negative.pdf>] [28] [29 <../figures/country_comparison/global_movement_positive.pdf> <../figures/all/vote_intl_coalition.pdf
+> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [22 <../figures/all/sustainable_future.pdf
+
+pdfTeX warning: pdflatex.exe (file ../figures/all/sustainable_future.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
+>] [23] [24 <../figures/country_comparison/top_tax_positive.pdf> <../figures/country_comparison/transfer_how_positive.pdf>] [25 <../figures/country_comparison/transfer_how_above_one.pdf> <../figures/country_comparison/transfer_how_negative.pdf>] [26] [27 <../figures/country_comparison/global_movement_positive.pdf> <../figures/all/vote_intl_coalition.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/vote_intl_coalition.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [30 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/all/custom_redistr_mean.png>] [31 <../figures/questionnaire/survey_custom_redistr_median_zoom.png> <../figures/all/gcs_comprehension.pdf
+>] [28 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/all/custom_redistr_mean.png>] [29 <../figures/questionnaire/survey_custom_redistr_median_zoom.png> <../figures/all/gcs_comprehension.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/gcs_comprehension.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [32 <../figures/country_comparison/my_tax_global_nation_share.pdf> <../figures/country_comparison/my_tax_global_nation_positive.pdf>] [33 <../figures/all/group_defended.pdf
+>] [30 <../figures/country_comparison/my_tax_global_nation_share.pdf> <../figures/country_comparison/my_tax_global_nation_positive.pdf>] [31 <../figures/all/group_defended.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/group_defended.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 > <../figures/all/survey_biased.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/survey_biased.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [34 <../figures/country_comparison/vote_representativeness.pdf
+>] [32 <../figures/country_comparison/vote_representativeness.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_representativeness.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [35 <../figures/country_comparison/vote_pnr_out.pdf
+>] [33 <../figures/country_comparison/vote_pnr_out.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_pnr_out.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >] (./app_questionnaire.tex
@@ -3748,11 +3717,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--14
 
  []
 
-[36
+[34
 
 ]
 
-LaTeX Warning: Reference `fig:foreign' on page 37 undefined on input line 31.
+LaTeX Warning: Reference `fig:foreign' on page 35 undefined on input line 31.
 
 
 Overfull \hbox (1.97209pt too wide) in paragraph at lines 51--52
@@ -3760,45 +3729,45 @@ Overfull \hbox (1.97209pt too wide) in paragraph at lines 51--52
  []
 
 
-LaTeX Warning: Reference `fig:income' on page 37 undefined on input line 53.
+LaTeX Warning: Reference `fig:income' on page 35 undefined on input line 53.
 
 
-LaTeX Warning: Reference `q:couple' on page 37 undefined on input line 55.
+LaTeX Warning: Reference `q:couple' on page 35 undefined on input line 55.
 
 
-LaTeX Warning: Reference `q:Nb_children__14' on page 37 undefined on input line 55.
+LaTeX Warning: Reference `q:Nb_children__14' on page 35 undefined on input line 55.
 
 
-LaTeX Warning: Reference `fig:education' on page 37 undefined on input line 57.
+LaTeX Warning: Reference `fig:education' on page 35 undefined on input line 57.
 
-[37]
+[35]
 
-LaTeX Warning: Reference `fig:employment_status' on page 38 undefined on input line 61.
-
-
-LaTeX Warning: Reference `fig:millionaire' on page 38 undefined on input line 74.
+LaTeX Warning: Reference `fig:employment_status' on page 36 undefined on input line 61.
 
 
-LaTeX Warning: Reference `fig:voted' on page 38 undefined on input line 78.
+LaTeX Warning: Reference `fig:millionaire' on page 36 undefined on input line 74.
 
 
-LaTeX Warning: Reference `fig:nationality_SA' on page 38 undefined on input line 86.
+LaTeX Warning: Reference `fig:voted' on page 36 undefined on input line 78.
 
 
-LaTeX Warning: Reference `fig:vote_representativeness' on page 38 undefined on input line 90.
+LaTeX Warning: Reference `fig:nationality_SA' on page 36 undefined on input line 86.
 
 
-LaTeX Warning: Reference `fig:vote_pnr_out' on page 38 undefined on input line 90.
-
-[38]
-
-LaTeX Warning: Reference `fig:field_keyword' on page 39 undefined on input line 129.
+LaTeX Warning: Reference `fig:vote_representativeness' on page 36 undefined on input line 90.
 
 
-LaTeX Warning: Reference `fig:injustice_field' on page 39 undefined on input line 129.
+LaTeX Warning: Reference `fig:vote_pnr_out' on page 36 undefined on input line 90.
+
+[36]
+
+LaTeX Warning: Reference `fig:field_keyword' on page 37 undefined on input line 129.
 
 
-LaTeX Warning: Reference `fig:concerns_field' on page 39 undefined on input line 132.
+LaTeX Warning: Reference `fig:injustice_field' on page 37 undefined on input line 129.
+
+
+LaTeX Warning: Reference `fig:concerns_field' on page 37 undefined on input line 132.
 
 
 Overfull \hbox (26.5984pt too wide) in paragraph at lines 132--134
@@ -3806,18 +3775,13 @@ Overfull \hbox (26.5984pt too wide) in paragraph at lines 132--134
  []
 
 
-LaTeX Warning: Reference `fig:wish_field' on page 39 undefined on input line 136.
+LaTeX Warning: Reference `fig:wish_field' on page 37 undefined on input line 136.
 
 
-LaTeX Warning: Reference `fig:issue_field' on page 39 undefined on input line 140.
+LaTeX Warning: Reference `fig:issue_field' on page 37 undefined on input line 140.
 
 
-LaTeX Warning: Reference `fig:injustice_field' on page 39 undefined on input line 145.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 153--155
-
- []
+LaTeX Warning: Reference `fig:injustice_field' on page 37 undefined on input line 145.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 153--155
@@ -3825,7 +3789,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 153--155
  []
 
 
-LaTeX Warning: Reference `fig:conjoint' on page 39 undefined on input line 166.
+Underfull \hbox (badness 10000) in paragraph at lines 153--155
+
+ []
+
+
+LaTeX Warning: Reference `fig:conjoint' on page 37 undefined on input line 166.
 
 
 Overfull \hbox (0.85156pt too wide) in paragraph at lines 156--169
@@ -3833,15 +3802,10 @@ Overfull \hbox (0.85156pt too wide) in paragraph at lines 156--169
  []
 
 
-LaTeX Warning: Reference `fig:split_few_bars_nb0' on page 39 undefined on input line 180.
+LaTeX Warning: Reference `fig:split_few_bars_nb0' on page 37 undefined on input line 180.
 
 
-LaTeX Warning: Reference `fig:split_few' on page 39 undefined on input line 180.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 175--183
-
- []
+LaTeX Warning: Reference `fig:split_few' on page 37 undefined on input line 180.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 175--183
@@ -3853,12 +3817,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 175--183
 
  []
 
-[39]
 
-LaTeX Warning: Reference `fig:split_many' on page 40 undefined on input line 190.
+Underfull \hbox (badness 10000) in paragraph at lines 175--183
+
+ []
+
+[37]
+
+LaTeX Warning: Reference `fig:split_many' on page 38 undefined on input line 190.
 
 
-LaTeX Warning: Reference `fig:split_many_global_mean' on page 40 undefined on input line 190.
+LaTeX Warning: Reference `fig:split_many_global_mean' on page 38 undefined on input line 190.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 184--193
@@ -3875,7 +3844,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--193
 
  []
 
-[40]
+[38]
 Overfull \hbox (29.7619pt too wide) in paragraph at lines 200--209
 \OT1/ppl/m/n/12 ri-od-ic-ity: per month], thereby off-set-ting price in-creases for the av-er-age [coun-try[]adjective:
  []
@@ -3890,14 +3859,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 210--213
 
  []
 
-[41]
+[39]
 
-LaTeX Warning: Reference `fig:ncs_gcs_ics' on page 42 undefined on input line 232.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 218--233
-
- []
+LaTeX Warning: Reference `fig:ncs_gcs_ics' on page 40 undefined on input line 232.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 218--233
@@ -3929,7 +3893,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--233
 
  []
 
-[42]
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--233
+
+ []
+
+[40]
 Underfull \hbox (badness 10000) in paragraph at lines 247--253
 
  []
@@ -3969,7 +3938,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 254--259
 
  []
 
-[43]
+[41]
 Underfull \hbox (badness 10000) in paragraph at lines 260--265
 
  []
@@ -4019,8 +3988,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 266--270
 
  []
 
-[44]
-<hwemoji-assets.pdf, id=745, page=2198, 27.10126pt x 27.10126pt>
+[42]
+<hwemoji-assets.pdf, id=789, page=2198, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 283.
@@ -4029,7 +3998,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 283.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=746, page=1754, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=790, page=1754, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 283.
@@ -4038,7 +4007,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 283.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=747, page=364, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=791, page=364, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 284.
@@ -4047,7 +4016,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=748, page=1724, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=792, page=1724, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 284.
@@ -4056,7 +4025,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=749, page=1651, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=793, page=1651, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 284.
@@ -4065,7 +4034,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=750, page=333, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=794, page=333, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 285.
@@ -4074,7 +4043,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=751, page=1783, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=795, page=1783, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1783>
 Package pdftex.def Info: hwemoji-assets.pdf , page1783 used on input line 285.
@@ -4099,9 +4068,9 @@ Overfull \hbox (15.16885pt too wide) in paragraph at lines 282--287
  []
 
 
-LaTeX Warning: Reference `fig:likely_solidarity' on page 45 undefined on input line 289.
+LaTeX Warning: Reference `fig:likely_solidarity' on page 43 undefined on input line 289.
 
-[45 <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf> <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
+[43 <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf> <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
 
 pdfTeX warning: pdflatex.exe (file c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
@@ -4121,62 +4090,62 @@ pdfTeX warning: pdflatex.exe (file c:/texlive/texmf-local/tex/latex/hwemoji/hwem
 pdfTeX warning: pdflatex.exe (file c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
 
-LaTeX Warning: Reference `fig:solidarity_support_share' on page 46 undefined on input line 295.
+LaTeX Warning: Reference `fig:solidarity_support_share' on page 44 undefined on input line 295.
 
 
-LaTeX Warning: Reference `fig:solidarity_support_positive' on page 46 undefined on input line 295.
+LaTeX Warning: Reference `fig:solidarity_support_positive' on page 44 undefined on input line 295.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 293--299
 
  []
 
+[44]
+
+LaTeX Warning: Reference `fig:ncqg_full' on page 45 undefined on input line 323.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--327
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--327
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--327
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--327
+
+ []
+
+[45]
+
+LaTeX Warning: Reference `fig:ncqg' on page 46 undefined on input line 329.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--333
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--333
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--333
+
+ []
+
 [46]
 
-LaTeX Warning: Reference `fig:ncqg_full' on page 47 undefined on input line 323.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--327
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--327
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--327
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--327
-
- []
-
-[47]
-
-LaTeX Warning: Reference `fig:ncqg' on page 48 undefined on input line 329.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--333
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--333
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--333
-
- []
-
-[48]
-
-LaTeX Warning: Reference `fig:wealth_tax' on page 49 undefined on input line 337.
+LaTeX Warning: Reference `fig:wealth_tax' on page 47 undefined on input line 337.
 
 
 Overfull \hbox (49.12059pt too wide) in paragraph at lines 337--339
@@ -4198,15 +4167,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 346--348
 
  []
 
-[49]
+[47]
 
-LaTeX Warning: Reference `fig:sustainable_future' on page 50 undefined on input line 354.
-
-
-LaTeX Warning: Reference `fig:top_tax_share' on page 50 undefined on input line 360.
+LaTeX Warning: Reference `fig:sustainable_future' on page 48 undefined on input line 354.
 
 
-LaTeX Warning: Reference `fig:top_tax_positive' on page 50 undefined on input line 360.
+LaTeX Warning: Reference `fig:top_tax_share' on page 48 undefined on input line 360.
+
+
+LaTeX Warning: Reference `fig:top_tax_positive' on page 48 undefined on input line 360.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 354--362
@@ -4238,7 +4207,7 @@ Overfull \hbox (60.31287pt too wide) in paragraph at lines 354--362
 \OT1/ppl/m/n/12 [new page] [\OT1/ppl/m/it/12 Two ran-dom branches: top1; top3\OT1/ppl/m/n/12 ; \OT1/ppl/m/it/12 Fig-ures []-[]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 top_tax_support, variant_top_tax[]\OT1/ppl/m/n/12 ] 
  []
 
-[50]
+[48]
 Underfull \hbox (badness 10000) in paragraph at lines 362--364
 
  []
@@ -4259,7 +4228,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 362--364
  []
 
 
-LaTeX Warning: Reference `fig:top3_tax_support' on page 51 undefined on input line 366.
+LaTeX Warning: Reference `fig:top3_tax_support' on page 49 undefined on input line 366.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 365--369
@@ -4281,17 +4250,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 365--369
 
  []
 
-[51]
+[49]
 
-LaTeX Warning: Reference `fig:attention_test' on page 52 undefined on input line 370.
-
-
-LaTeX Warning: Reference `fig:transfer_how_positive' on page 52 undefined on input line 379.
+LaTeX Warning: Reference `fig:attention_test' on page 50 undefined on input line 370.
 
 
-LaTeX Warning: Reference `fig:transfer_how_negative' on page 52 undefined on input line 379.
+LaTeX Warning: Reference `fig:transfer_how_positive' on page 50 undefined on input line 379.
 
-[52]
+
+LaTeX Warning: Reference `fig:transfer_how_negative' on page 50 undefined on input line 379.
+
+[50]
 Overfull \hbox (10.27632pt too wide) in paragraph at lines 383--384
 []\OT1/ppl/m/n/12 Transfers to pub-lic de-vel-op-ment aid agen-cies which then fi-nance suit-able projects 
  []
@@ -4302,25 +4271,25 @@ Overfull \hbox (6.7727pt too wide) in paragraph at lines 384--385
  []
 
 
-LaTeX Warning: Reference `fig:convergence_support' on page 53 undefined on input line 397.
+LaTeX Warning: Reference `fig:convergence_support' on page 51 undefined on input line 397.
 
 
-LaTeX Warning: Reference `fig:global_movement' on page 53 undefined on input line 401.
+LaTeX Warning: Reference `fig:global_movement' on page 51 undefined on input line 401.
 
 
-LaTeX Warning: Reference `fig:vote_intl_coalition' on page 53 undefined on input line 406.
+LaTeX Warning: Reference `fig:vote_intl_coalition' on page 51 undefined on input line 406.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 405--410
 
  []
 
-[53]
+[51]
 
-LaTeX Warning: Reference `fig:why_hic_help_lic' on page 54 undefined on input line 411.
+LaTeX Warning: Reference `fig:why_hic_help_lic' on page 52 undefined on input line 411.
 
 
-LaTeX Warning: Reference `fig:reparations_support' on page 54 undefined on input line 417.
+LaTeX Warning: Reference `fig:reparations_support' on page 52 undefined on input line 417.
 
 
 Overfull \hbox (6.08736pt too wide) in paragraph at lines 416--420
@@ -4333,7 +4302,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 416--420
  []
 
 
-LaTeX Warning: Reference `fig:income_exact' on page 54 undefined on input line 426.
+LaTeX Warning: Reference `fig:income_exact' on page 52 undefined on input line 426.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 429--432
@@ -4365,14 +4334,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 429--432
 
  []
 
-[54]
+[52]
 
-LaTeX Warning: Reference `fig:custom_redistr_mean' on page 55 undefined on input line 447.
+LaTeX Warning: Reference `fig:custom_redistr_mean' on page 53 undefined on input line 447.
 
 
-LaTeX Warning: Reference `fig:custom_redistr_median' on page 55 undefined on input line 447.
+LaTeX Warning: Reference `fig:custom_redistr_median' on page 53 undefined on input line 447.
 
-[55]
+[53]
 Overfull \hbox (18.51324pt too wide) in paragraph at lines 455--457
 []\OT1/ppl/m/n/12 [\OT1/ppl/m/it/12 Four ran-dom branches: gallup[]0; gallup[]1; wvs[]0; wvs[]1\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 well_being, variant_well_being[]\OT1/ppl/m/n/12 ] 
  []
@@ -4388,22 +4357,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 462--465
  []
 
 
-LaTeX Warning: Reference `fig:gcs_comprehension' on page 56 undefined on input line 478.
+LaTeX Warning: Reference `fig:gcs_comprehension' on page 54 undefined on input line 478.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 478--482
 
  []
 
-[56]
+[54]
 
-LaTeX Warning: Reference `fig:my_tax_global_nation_share' on page 57 undefined on input line 487.
-
-
-LaTeX Warning: Reference `fig:my_tax_global_nation_positive' on page 57 undefined on input line 487.
+LaTeX Warning: Reference `fig:my_tax_global_nation_share' on page 55 undefined on input line 487.
 
 
-LaTeX Warning: Reference `fig:group_defended' on page 57 undefined on input line 491.
+LaTeX Warning: Reference `fig:my_tax_global_nation_positive' on page 55 undefined on input line 487.
+
+
+LaTeX Warning: Reference `fig:group_defended' on page 55 undefined on input line 491.
 
 
 Overfull \hbox (19.87787pt too wide) in paragraph at lines 491--494
@@ -4411,52 +4380,52 @@ Overfull \hbox (19.87787pt too wide) in paragraph at lines 491--494
  []
 
 
-LaTeX Warning: Reference `fig:survey_biased' on page 57 undefined on input line 499.
+LaTeX Warning: Reference `fig:survey_biased' on page 55 undefined on input line 499.
 
 
-LaTeX Warning: Reference `fig:comment_field' on page 57 undefined on input line 503.
+LaTeX Warning: Reference `fig:comment_field' on page 55 undefined on input line 503.
 
-) [57]
+) [55]
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 321.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 321.
 
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 321.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 321.
 
 (../tables/FR_DE_IT.tex)
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 333.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 333.
 
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 333.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 333.
 
 (../tables/PL_ES_GB_CH.tex)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 341.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 341.
 
 
-LaTeX Warning: Reference `subsec:data' on page 58 undefined on input line 341.
+LaTeX Warning: Reference `subsec:data' on page 56 undefined on input line 341.
 
 (../tables/JP_SA_US.tex)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[58
+[56
 
-] [59] [60] (../tables/determinants_paper.tex) [61
+] [57] [58] (../tables/determinants_paper.tex) [59
 
-] (../tables/attrition.tex) [62
+] (../tables/attrition.tex) [60
 
 ] (../tables/balance.tex)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[63
+[61
 
-] [64]) (build/bu2.aux)
+] [62]) (build/bu2.aux)
 \openout3 = `bu2.aux'.
 
  (build/bu2.bbl (build/support_global_redistr.brf)
@@ -4476,7 +4445,7 @@ No file support_global_redistr.lof.
 
 Package natbib Warning: There were multiply defined citations.
 
-[65
+[63
 
 ] (build/support_global_redistr.aux)
 
@@ -4502,10 +4471,10 @@ Package rerunfilecheck Info: Checksums for `support_global_redistr.brf':
 (rerunfilecheck)             After:  9CCC56BC416CB6C9136F8BCF0E347686;229.
  ) 
 Here is how much of TeX's memory you used:
- 39756 strings out of 475075
- 803033 string characters out of 5783001
+ 39654 strings out of 475075
+ 797673 string characters out of 5783001
  1122564 words of memory out of 5000000
- 60184 multiletter control sequences out of 15000+600000
+ 60088 multiletter control sequences out of 15000+600000
  528880 words of font info for 180 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,104p,2136b,781s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -4513,10 +4482,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{2SLS} has been referenced but does not exist, replaced by a fixed one
 
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/eurosym/feymr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on build/support_global_redistr.pdf (65 pages, 1237544 bytes).
+Output written on build/support_global_redistr.pdf (63 pages, 1413251 bytes).
 PDF statistics:
- 993 PDF objects out of 1000 (max. 8388607)
- 761 compressed objects within 8 object streams
- 234 named destinations out of 1000 (max. 500000)
- 263 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1038 PDF objects out of 1200 (max. 8388607)
+ 789 compressed objects within 8 object streams
+ 232 named destinations out of 1000 (max. 500000)
+ 283 words of extra memory for PDF output out of 10000 (max. 10000000)
 

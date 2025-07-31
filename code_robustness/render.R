@@ -1,4 +1,4 @@
-# TODO: split_many atop; donation; barres convergence_support; income_exact; gcs_comprehension; survey_biased
+# TODO: split_many atop; donation; barres convergence_support; top_tax_share; income_exact; gcs_comprehension; survey_biased
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
