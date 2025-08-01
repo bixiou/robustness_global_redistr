@@ -1,5 +1,5 @@
 # donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
-# TODO: income_exact; transfer_how one-liner; field_gpt
+# TODO: income_exact; transfer_how one-liner
 # trim
 ##### labels_vars #####
 labels_vars <- c(
