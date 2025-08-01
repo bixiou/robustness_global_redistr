@@ -1,5 +1,5 @@
 # donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
-# TODO: income_exact; transfer_how one-liner
+# TODO: income_exact
 # trim
 ##### labels_vars #####
 labels_vars <- c(
@@ -663,3 +663,8 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
                               "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
            indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 # TODO? Add custom_redistr_satisfied? 
+
+##### Rename cropped files #####
+for (folder in c("../figures/country_comparison/cropped", "../figures/all/cropped")) { # "C:/Users/fabre/Downloads") { # 
+  for (file in list.files(folder)) file.rename(file.path(folder, file), file.path(folder, sub(" \\(cropped\\) \\(pdfresizer\\.com\\)", "", file)))
+}
