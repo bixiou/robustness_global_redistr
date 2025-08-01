@@ -28,7 +28,7 @@ By clicking on the button below, you consent to the terms and conditions.
 \verb|age_exact, age|]
   \\ \textit{Below 18; 18 to 20; 21 to 24; 25 to 29; 30 to 34; 35 to 39; 40 to 44; 45 to 49; 50 to 54; 55 to 59; 60 to 64; 65 to 69; 70 to 74; 75 to 79; 80 to 84; 85 to 89; 90 to 99; 100 or above}
 
-\item  \label{q:foreign} Were you or your parents born in a foreign country?~ [\textit{Figure \ref{fig:foreign}}; 
+\item  \label{q:foreign} Were you or your parents born in a foreign country?~ [%\textit{Figure \ref{fig:foreign}}; % TODO
 \verb|foreign|]
   \\ \textit{Yes, I was born in a foreign country; Not me but both my parents were born in a foreign country; Not me but one of my parents was born in a foreign country; No, I was born in this country and my parents too}
 
@@ -50,15 +50,15 @@ By clicking on the button below, you consent to the terms and conditions.
 
 \item  \label{q:income} What is the \textbf{[periodicity\_text: monthly] [income\_type: gross] income of your household}, [income\_type\_long: after taxes and transfers]?
 
-This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources. [\textit{Figure \ref{fig:income}}; 
+This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources. [%\textit{Figure \ref{fig:income}}; 
 \verb|income|]
   \\ ~[\textit{All but RU, US}: Custom thresholds, taking into account household composition Questions \ref{q:couple}-\ref{q:Nb_children__14}, and corresponding to the country's deciles and quartiles of standard of living, cf. the sheet ``Income'' in \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/source.xlsx}{this spreadsheet}; \\ \textit{RU, US}: Items based on household total income deciles and quartiles, namely in US: \textit{Less than \$17,000; between \$17,001 and \$30,000; between \$30,001 and \$36,000; between \$36,001 and \$43,000; between \$43,001 and \$56,000; between \$56,001 and \$72,000; between \$72,001 and \$91,000; between \$91,001 and \$115,000; between \$115,001 and \$130,000; between \$130,001 and \$150,000; between \$150,001 and \$213,000; More than \$213,000; I prefer not to answer}]
 
-\item  \label{q:education} What is your highest completed education level? [\textit{Figure \ref{fig:education}}; 
+\item  \label{q:education} What is your highest completed education level? [%\textit{Figure \ref{fig:education}}; 
 \verb|education|]
   \\ ~[Country-specific, usually: 0-1 Primary or less; 2 Medium school; 2 Some high school; 3 High school diploma; 3-4 Vocational training; 5 Short-cycle tertiary; 6 Bachelor's; 7-8 Master's or higher]
 
-\item  \label{q:employment_status} What is your employment status? [\textit{Figure \ref{fig:employment_status}}; 
+\item  \label{q:employment_status} What is your employment status? [%\textit{Figure \ref{fig:employment_status}}; 
 \verb|employment_status|]
   \\ \textit{Full-time employed; Part-time employed; Self-employed; Unemployed (searching for a job); Student; Retired; Inactive (not searching for a job)}
 
@@ -71,11 +71,11 @@ We ask for the zipcode to balance the sample in terms of degree of urbanization 
 \verb|home_owner|]
   \\ \textit{Tenant; Owner; Landlord renting out property; Hosted free of charge}
 
-\item ~[new page] \label{q:millionaire} How likely are you to become a millionaire at some point in your life? [\textit{Figure \ref{fig:millionaire}}; 
-\verb|millionaire|]
+\item ~[new page] \label{q:millionaire} How likely are you to become a millionaire at some point in your life? [%\textit{Figure \ref{fig:millionaire}}; 
+\verb|millionaire|]% TODO
   \\ \textit{Very unlikely; Unlikely; Likely; Very likely; I am already a millionaire}
 
-\item  \label{q:voted} [\textit{Except in: RU, SA}] Did you vote in the [election: 2024 presidential election]? [\textit{Figure \ref{fig:voted}}; 
+\item  \label{q:voted} [\textit{Except in: RU, SA}] Did you vote in the [election: 2024 presidential election]? [\textit{Figures \ref{fig:vote_representativeness}-\ref{fig:vote_pnr_out}}; 
 \verb|voted|]
   \\ \textit{Yes; No; Prefer not to say; I didn't have the right to vote in [country\_name: the United States].}
 
@@ -83,7 +83,7 @@ We ask for the zipcode to balance the sample in terms of degree of urbanization 
 
  \subsection*{Vote} 
  \begin{enumerate}[resume] 
-\item  \label{q:nationality_SA} [\textit{Only in: SA}] What is your nationality?\\If you have both the Saudi and a foreign nationality, choose "Saudi". [\textit{Figure \ref{fig:nationality_SA}}; 
+\item  \label{q:nationality_SA} [\textit{Only in: SA}] What is your nationality?\\If you have both the Saudi and a foreign nationality, choose "Saudi". [%\textit{Figure \ref{fig:nationality_SA}}; 
 \verb|nationality_SA|]
   \\ \textit{Saudi; India; Bangladesh; Syria; Yemen; Egypt; Pakistan; Indonesia; Philippines; Sudan; Myanmar; Jordan; Sri Lanka; Nepal; Turkey; Somalia; Lebanon; Other}
 
@@ -163,7 +163,8 @@ We ask for the zipcode to balance the sample in terms of degree of urbanization 
     ~[Random policy] & [Random policy] & [Policy field in random order] \\ 
     \hline 
 \end{tabular}  
-[\textit{Figure \ref{fig:conjoint}}; 
+
+~\\~[\textit{Figures \ref{fig:conjoint}, \ref{fig:conjoint_FR}-\ref{fig:conjoint_US}}; 
 \verb|conjoint|]
   \\ \textit{Candidate A; Candidate B; Neither of them}
 
@@ -177,7 +178,7 @@ We ask for the zipcode to balance the sample in terms of degree of urbanization 
 ~[tax\_country\_name: In the U.S.], the tax revenues collected would be [tax\_revenue: \$514 billion] per year (that is, [tax\_revenue\_gdp: 2]\% of [tax\_country\_gdp: U.S. GDP]), while it would be [LIC\_revenue: \$1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
 Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development in low-income countries.
 ~\\\\\textbf{What percentage of the global wealth tax revenue should be allocated to each category?} \\\textbf{The total allocation must sum to 100\%.}\\\\ 
-~[\textit{Figures \ref{fig:split_few_bars_nb0}-\ref{fig:split_few}}; 
+~[\textit{Figures \ref{fig:split}, \ref{fig:split_few_bars_nb0}-\ref{fig:split_few}}; 
 \verb|revenue_split_few|]
   \\ \textit{Domestic: Education and Healthcare; Domestic: Social welfare programs; Domestic: Reduction in the federal income tax; Domestic: Reduction of the deficit; Global: Education, Healthcare and Renewable energy in low-income countries}
 
@@ -187,7 +188,7 @@ Each country would retain part of the revenues it collects and use it for differ
 Each country would retain part of the revenues it collects and use it for different domestic purposes. The remaining part would be pooled globally to finance sustainable development.
 ~\\\\\textbf{What percentage of the global wealth tax revenue should be allocated to each category?}~\\\textbf{The total allocation must sum to
 100\%.}\\\\ 
-~[\textit{Figures \ref{fig:split_many}-\ref{fig:split_many_global_mean}}; 
+~[\textit{Figures \ref{fig:split}, \ref{fig:split_many}-\ref{fig:split_many_global_mean}}; 
 \verb|revenue_split_many|]
   \\ ~[Five items are chosen at random among the 13 possible ones: \textit{Domestic: Education and Research; Domestic: Healthcare; Domestic: Defense; Domestic: Deficit reduction; Domestic: Justice and Police; Domestic: Retirement pensions; Domestic: Social welfare programs; Domestic: Infrastructure (public transport, water systems...); Domestic: Income tax reduction; Global: Education and Healthcare in low-income countries; Global: Renewable energy and infrastructure to cope with climate change; Global: Loss and Damage Fund (to rebuild after climate disasters); Global: Forestation and biodiversity projects}]
 
@@ -203,11 +204,12 @@ Climate Scheme:~\\
 To meet the national climate target, a limited number of permits to emit greenhouse gases would be issued nationally. Polluting firms would be required to buy permits to cover their greenhouse gas emissions. Such a policy would~make fossil fuel companies pay~for their emissions and gradually raise the price of fossil fuels.~Higher prices would encourage people and companies to use less fossil fuels, reducing greenhouse gas emissions.\\
 The revenues generated by the sale of permits would finance an equal cash transfer.\textbf{~}Each [country\_adjective: American] would receive [amount\_expenses: \$115][periodicity: per month], thereby offsetting~price increases for the average [country\_adjective: American].\\
 ~\\
-\textbf{Do you support the Climate Scheme?} [%\textit{Figure \ref{fig:ncs_support}}; 
+\textbf{Do you support the Climate Scheme?} [\textit{Figures \ref{fig:ics}, \ref{fig:ncs_gcs_ics}}; 
 \verb|ncs_support|]
   \\ \textit{Yes; No}
 
-\item ~[Branch: Donation] \label{q:donation} By taking this survey, you will be automatically entered into a lottery to win up to [amount\_lottery: \$100]. \\Should you be selected in the lottery, you will have the option to channel a part of this additional compensation to the charity \textit{Just One Tree} to plant trees.\\\\\textbf{In case you win the lottery, what share of the [amount\_lottery: \$100 prize] would you donate to plant trees?} [%\textit{Figure \ref{fig:donation}}; 
+\item ~[Branch: Donation] \label{q:donation} By taking this survey, you will be automatically entered into a lottery to win up to [amount\_lottery: \$100]. \\Should you be selected in the lottery, you will have the option to channel a part of this additional compensation to the charity \textit{Just One Tree} to plant trees.\\\\\textbf{In case you win the lottery, what share of the [amount\_lottery: \$100 prize] would you donate to plant trees?} [\textit{Figures \ref{fig:warm_glow_substitute}, %\ref{fig:donation} % TODO
+}; 
 \verb|donation|]
   \\ \textit{Share to plant trees}
 
@@ -226,7 +228,7 @@ The typical [national: American] would lose out financially [amount\_lost: \$105
 The policy could be implemented as soon as 100 countries agree to it. Countries that would refuse to take part in the policy could face sanctions (like tariffs) from the rest of the world and would be excluded from the basic income program.\\\\
 ~\\\textbf{
 Do you support the Global Climate Scheme?
-} [%\textit{Figure \ref{fig:gcs_support}}; 
+} [\textit{Figures \ref{fig:ics}, \ref{fig:warm_glow_substitute}, \ref{fig:ncs_gcs_ics}}; 
 \verb|gcs_support|]
   \\ \textit{Yes; No}\\\\
 ~[new page] [\textit{Two random branches: own; US}; \textit{Figure \ref{fig:ncs_gcs_ics}}; \verb|gcs_belief, variant_belief|] 
@@ -241,7 +243,7 @@ Do you support the Global Climate Scheme?
 \end{enumerate} 
 
  \subsection*{Cap \& Share non-universal} 
- ~[\textit{Four random branches: low; mid; high; high\_color}; %\textit{Figure \ref{fig:field}}; 
+ ~[\textit{Four random branches: low; mid; high; high\_color}; \textit{Figures \ref{fig:ics}, \ref{fig:ncs_gcs_ics}}; 
  \verb|ics_support|] 
  \begin{enumerate}[resume] 
 \item ~[Branch: low]  \label{q:gcs_low} Below is a map showing a possible set of countries that would participate in the Global Climate Scheme previously described.\\
@@ -249,7 +251,6 @@ Do you support the Global Climate Scheme?
 These countries include India, the European Union, as well as all Africa, Latin America, South-Asia and South-East Asia.\\
 Collectively, these [nb\_countries\_low: 145] countries account for [emissions\_low\_without: 40]\% of global emissions (if [ics\_country: the U.S.] joined them, [emissions\_low\_with: 40]\% of global emissions would be covered).\\
 ~\\ 
-% TODO: figures
 
 \item ~[Branch: mid] \label{q:gcs_mid} Below is a map showing a possible set of countries that would participate in the Global Climate Scheme previously described.\\
 ~\\
@@ -269,7 +270,7 @@ These countries include China, India, [text\_countries\_high: the European Union
 Collectively, these [nb\_countries\_high: 153] countries account for [emissions\_high\_without: 72]\% of global emissions (if [ics\_country: the U.S.] joined them, [emissions\_high\_with: 86]\% of global emissions would be covered).\\\\Note that a provision would prevent the Global Climate Scheme from harming low- and middle-income countries: this is why countries like China, Mexico, or Egypt are in white on the map (they would neither win nor lose financially).\\
 
 
-\item  \label{q:ics_support} Do you support [ics\_country: the U.S.] joining the Global Climate Scheme, in case it is adopted by the above countries? [%\textit{Figure \ref{fig:ics_support}}; 
+\item  \label{q:ics_support} Do you support [ics\_country: the U.S.] joining the Global Climate Scheme, in case it is adopted by the above countries? [\textit{Figures \ref{fig:ics}, \ref{fig:ncs_gcs_ics}}; 
 \verb|ics_support|]
   \\ \textit{Yes; No}
 
@@ -282,11 +283,11 @@ Collectively, these [nb\_countries\_high: 153] countries account for [emissions\
 ~\\\\In several international organizations, \textbf{countries have agreed to demonstrate some degree of solidarity in addressing global challenges}.\\
 Negotiations are ongoing to implement specific mechanisms for sustainable development.\\\\Here are a few examples:\\🚢~In 2025, to reduce carbon emissions from shipping, \textbf{the International Maritime Organization adopted an international levy on excess emissions from maritime fuel, that should partly finance low-income countries}.\\📦~Since 1970, \textbf{developed countries have agreed to contribute 0.7\% of their GDP in foreign aid} and development assistance.\\
 🌱 In international climate negotiations, \textbf{developed countries have committed to finance climate action in developing countries}. In 2009, they committed to provide \$100 billion per year by 2020. In 2023, all countries agreed to set up a fund to help vulnerable countries cope with loss and damage from climate change. In 2024, the \$100 billion goal was increased to \$300 billion per year by 2035.\\📈~In 2021, 136 countries adopted a minimum tax rate of 15\% on multinational profits.\\💎 In 2024, under the leadership of Brazil, \textbf{the G20 considered the introduction of a global tax} of 2\% \textbf{on }the wealth of \textbf{billionaires}.
-~\\🌐~In 2024, the UN General Assembly adopted the Pact for the Future, which foresees a reform of the UN Security Council to limit the power of its five permanent member and expand it to new members.\\🔄 Led by the Prime Minister of Barbados and supported by the UN Secretary General, the Bridgetown initiative seeks a new financial system that would drive financial resources towards climate action and sustainable development. [%\textit{Figure \ref{fig:info_solidarity}}; 
+~\\🌐~In 2024, the UN General Assembly adopted the Pact for the Future, which foresees a reform of the UN Security Council to limit the power of its five permanent member and expand it to new members.\\🔄 Led by the Prime Minister of Barbados and supported by the UN Secretary General, the Bridgetown initiative seeks a new financial system that would drive financial resources towards climate action and sustainable development. [\textit{Figure \ref{fig:warm_glow_realism}}; 
 \verb|info_solidarity|]
 
 
-\item  \label{q:likely_solidarity} According to you, how likely is it that international policies involving significant transfers from high-income countries to low-income countries will be introduced in the next 15 years? [\textit{Figure \ref{fig:likely_solidarity}}; 
+\item  \label{q:likely_solidarity} According to you, how likely is it that international policies involving significant transfers from high-income countries to low-income countries will be introduced in the next 15 years? [\textit{Figure \ref{fig:warm_glow_realism}}; 
 \verb|likely_solidarity|]
   \\ \textit{Very unlikely; Unlikely; Likely; Very likely}
 
@@ -334,7 +335,7 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
 \end{enumerate} 
 
  \subsection*{Wealth tax depending on sets of countries} 
- [\textit{Three random branches: Global; HIC; Int'l}; \textit{Figure \ref{fig:wealth_tax}}; 
+ [\textit{Three random branches: Global; HIC; Int'l}; \textit{Figures \ref{fig:wealth_tax}, \ref{fig:wealth_tax_heatmap}}; 
  \verb|wealth_tax_support, variant_wealth_tax|] 
  \begin{enumerate}[resume] % TODO: plus condensé ?
 \item ~[Branch: Global] \label{q:global_tax_support} \textbf{Imagine an international tax on individuals with net worth above [wealth\_threshold: \$1 million].~}\\Only wealth above [wealth\_threshold: \$1 million] would be taxed, at a rate of 2\%. Each country would retain 70\% of the revenues it collects, while 30\% would be pooled at the global level to finance public services in low-income countries (in particular, access to drinking water, healthcare, and education in Africa). \\\\Say we are in 2030. \textbf{Imagine that all other countries in the world adopt this policy. \\Do you support [country\_name: the United States] adopting this international tax on millionaires?}
@@ -351,23 +352,23 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
  \subsection*{Scenarios \& radical tax} 
  [\textit{Scenario A \& B are randomly interverted.}]
  \begin{enumerate}[resume] 
-\item  \label{q:sustainable_future} \textbf{Consider two possible scenarios for the world for the next 20 years.~\\\\Scenario A}: \\Most countries implement coordinated policies to limit global warming to +2\textdegree{}C and reduce inequality. The world greatly reduces greenhouse gas emissions and is on track to meet its climate target. Taxes on millionaires fund the installation of heat pumps, the thermal insulation of buildings, and improved public transportation. Yachts and private jets are phased out worldwide. Cars are all electric by 2045, and they are about the same price as internal combustion cars nowadays. By 2045, environmental regulations gradually double the price heating fuel or gas, air travel, and beef. As a result, people fly half as much, eat half as much meat, and use more public transportation in 2045 than they did in 2025. Despite higher prices for polluting goods, the overall purchasing power is preserved, thanks to a decrease in sales tax that reduces the prices of non-polluting goods.\\\\\textbf{Scenario B}:\\Since 2025, no additional policies are implemented to address climate change or inequality. People maintain the same lifestyles as in 2025. For example, most people continue to drive cars with internal combustion engines. Greenhouse gas emissions are stable. Global warming is expected to reach +3\textdegree{}C by 2100 and higher levels beyond that date. A warmer climate will cause more frequent and more severe droughts, heatwaves, wildfires, and floodings.\\\\Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). \\\\\textbf{Which scenario do you prefer for the future?} [\textit{Figure \ref{fig:sustainable_future}}; 
+\item  \label{q:sustainable_future} \textbf{Consider two possible scenarios for the world for the next 20 years.~\\\\Scenario A}: \\Most countries implement coordinated policies to limit global warming to +2\textdegree{}C and reduce inequality. The world greatly reduces greenhouse gas emissions and is on track to meet its climate target. Taxes on millionaires fund the installation of heat pumps, the thermal insulation of buildings, and improved public transportation. Yachts and private jets are phased out worldwide. Cars are all electric by 2045, and they are about the same price as internal combustion cars nowadays. By 2045, environmental regulations gradually double the price heating fuel or gas, air travel, and beef. As a result, people fly half as much, eat half as much meat, and use more public transportation in 2045 than they did in 2025. Despite higher prices for polluting goods, the overall purchasing power is preserved, thanks to a decrease in sales tax that reduces the prices of non-polluting goods.\\\\\textbf{Scenario B}:\\Since 2025, no additional policies are implemented to address climate change or inequality. People maintain the same lifestyles as in 2025. For example, most people continue to drive cars with internal combustion engines. Greenhouse gas emissions are stable. Global warming is expected to reach +3\textdegree{}C by 2100 and higher levels beyond that date. A warmer climate will cause more frequent and more severe droughts, heatwaves, wildfires, and floodings.\\\\Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). \\\\\textbf{Which scenario do you prefer for the future?} [\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:sustainable_future}}; 
 \verb|sustainable_future|]
   \\ \textit{Scenario A; Scenario B} \\\\
 % \item  \label{q:sustainable_future_b} \textbf{Consider two possible scenarios for the world for the next 20 years.~\\\\Scenario A}:\\Since 2025, no additional policies are implemented to address climate change or inequality. People maintain the same lifestyles as in 2025. For example, most people continue to drive cars with internal combustion engines. Greenhouse gas emissions are stable. Global warming is expected to reach +3\textdegree{}C by 2100 and higher levels beyond that date. A warmer climate will cause more frequent and more severe droughts, heatwaves, wildfires, and floodings.\\\\\textbf{Scenario B}: \\Most countries implement coordinated policies to limit global warming to +2\textdegree{}C and reduce inequality. The world greatly reduces greenhouse gas emissions and is on track to meet its climate target. Taxes on millionaires fund the installation of heat pumps, the thermal insulation of buildings, and improved public transportation. Yachts and private jets are phased out worldwide. Cars are all electric by 2045, and they are about the same price as internal combustion cars nowadays. By 2045, environmental regulations gradually double the price of heating fuel or gas, air travel, and beef. As a result, people fly half as much, eat half as much meat, and use more public transportation in 2045 than they did in 2025. Despite higher prices for polluting goods, the overall purchasing power is preserved, thanks to a decrease in sales tax that reduces the prices of non-polluting goods.\\\\Apart from the elements described, the two scenarios are the same (for example, in terms of unemployment or crime). \\\\\textbf{Which scenario do you prefer for the future?} [\textit{Figure \ref{fig:sustainable_future_b}}; 
 % \verb|sustainable_future_b|]
 %   \\ \textit{Scenario A; Scenario B}
-  ~[new page] [\textit{Two random branches: top1; top3}; \textit{Figures \ref{fig:top_tax_share}-\ref{fig:top_tax_positive}}; 
-\verb|top_tax_support, variant_top_tax|]
+  ~[new page] [\textit{Two random branches: top1; top3}; \textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:top_tax_share}-\ref{fig:top_tax_positive}}; 
+\verb|top_tax_support|, \verb|variant_top_tax|]
 \item ~[Branch: top1] \label{q:top1_tax_support} Currently, 2 billion people live in acute poverty, with less than [lcu\_250: \$250][periodicity: per month].\\The Sustainable Development Goals, adopted by all countries in 2015, aim to alleviate poverty and give access to healthcare, education, drinking water, and sanitation for all by 2030.~Due to lack of funding, the world is not on track to meet these poverty reduction goals.\\\\\textbf{Poverty reduction could be funded by a global tax on individual income above [lcu\_120k: \$120,000][periodicity\_tax: per year].~\\The tax rate would be 15\% for every [currency: dollar] over [lcu\_120k: \$120,000] of income} after existing taxes.~\\For example, a single person earning [lcu\_130k: \$130,000][periodicity\_tax: per year] after taxes would pay [lcu\_1500: \$1,500] in additional taxes, or 15\% of [lcu\_10k: \$10,000] = [lcu\_130k: \$130,000]~\&ndash;~[lcu\_120k: \$120,000]. Meanwhile, a married couple earning [lcu\_200k: \$200,000][periodicity\_tax: per year], [lcu\_100k: \$100,000] for each of them, would go untaxed.\\This tax would apply to the richest 1\% of the world's population. [tax\_country\_name: In the United States], it would affect the richest [affected\_top1: 8]\% and redistribute [transfer\_top1: 3]\% of GDP to lower-income countries.\\\\\textbf{Do you support or oppose such a global tax on the richest people to finance global poverty reduction?}\\ 
   \\ \textit{Strongly oppose; Somewhat support; Strongly support; Somewhat oppose; Indifferent}
 
 \item ~[Branch: top3] \label{q:top3_tax_support} Currently, 3 billion people live in deep poverty, with less than [lcu\_400: \$400][periodicity: per month].\\The Sustainable Development Goals, adopted by all countries in 2015, aim to alleviate poverty and achieve access to healthcare, education, drinking water, and sanitation for all by 2030.~Due to lack of funding, the world is not on track to meet these poverty reduction goals.\\\\\textbf{Poverty reduction could be funded by a global tax on individual income above [lcu\_80k: \$80,000][periodicity\_tax: per year].~\\The tax rate would be 15\% for every [currency: dollar] over [lcu\_80k: \$80,000] of income} after existing taxes, \textbf{30\% over [lcu\_120k: \$120,000], and 45\% over [lcu\_1M: \$1 million].~}\\For example, a single person earning [lcu\_90k: \$90,000][periodicity\_tax: per year] after taxes would pay [lcu\_1500\_top3: \$1,500] in additional taxes, or 15\% of [lcu\_10k\_top3: \$10,000] = [lcu\_90k: \$90,000]~\&ndash;~[lcu\_80k: \$80,000]. Meanwhile, a married couple earning [lcu\_150k: \$150,000][periodicity\_tax: per year], [lcu\_75k: \$75,000] for each of them, would go untaxed.\\This tax would apply to the richest 3\% of the world's population. [tax\_country\_name: In the United States], it would affect the richest [affected\_top3: 18]\% and redistribute [transfer\_top3: 8]\% of GDP to lower-income countries.\\\\\textbf{Do you support or oppose such a global tax on the richest people to finance global poverty reduction?}\\ 
-~[\textit{Figure \ref{fig:top3_tax_support}}; 
+~[\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:top_tax_share}-\ref{fig:top_tax_positive}}; 
 \verb|top3_tax_support|]
   \\ \textit{Strongly oppose; Somewhat support; Strongly support; Somewhat oppose; Indifferent}
 
-\item  \label{q:attention_test} To show that you are attentive, please select "A little" in the following list: [\textit{Figure \ref{fig:attention_test}}; 
+\item  \label{q:attention_test} To show that you are attentive, please select "A little" in the following list: [%\textit{Figure \ref{fig:attention_test}}; 
 \verb|attention_test|]
   \\ \textit{Not at all; A little; A lot; A great deal}
 
@@ -376,7 +377,7 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
  \subsection*{Preferred transfer means to LICs} 
  \begin{enumerate}[resume] 
 \item  \label{q:transfer_how} Below are different ways to transfer resources to help reduce poverty in a low-income country.~\\How do you evaluate each of these options?\\ 
-~[\textit{Figures \ref{fig:transfer_how_positive}-\ref{fig:transfer_how_negative}}; 
+~[\textit{Figures \ref{fig:transfer_how}, \ref{fig:transfer_how_positive}-\ref{fig:transfer_how_negative}}; 
 \verb|transfer_how|]
 ~[Item order is randomly flipped or not]
 \begin{itemize}
@@ -394,16 +395,16 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
 
  \subsection*{Radical redistribution} 
  \begin{enumerate}[resume] 
-\item  \label{q:convergence_support} Should governments actively cooperate to have all countries converge in terms of GDP per capita by the end of the century? [\textit{Figure \ref{fig:convergence_support}}; 
+\item  \label{q:convergence_support} Should governments actively cooperate to have all countries converge in terms of GDP per capita by the end of the century? [\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:convergence_support}}; 
 \verb|convergence_support|]
   \\ \textit{Yes; No; I prefer not to answer}
 
-\item  \label{q:global_movement} If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) [\textit{Figure \ref{fig:global_movement}}; 
+\item  \label{q:global_movement} If there was a worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries, to what extent would you be willing to be part of that movement? (Multiple answers possible) [\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:global_movement}}; 
 \verb|global_movement|]
   \\ \textit{I would \textit{not} support such a movement.; I could sign a petition and spread ideas.; I could attend a demonstration.; I could go on strike.; I could donate [amount\_lottery: \$100] to a strike fund.}
 
 \item ~[\textit{Except in: RU, SA}] \label{q:vote_intl_coalition} Let us call "your political party" the party you voted for in the last election, or the party that represents your views most closely.~\\\textbf{Imagine }there was \textbf{a worldwide coalition} of political parties in favor of a common program \textbf{to tackle climate change, implement taxes on millionaires and fund poverty reduction in low-income countries}.~\\\\\textbf{Would you be more likely to vote for your party if it were part of that coalition?}\\ 
-~[\textit{Figure \ref{fig:vote_intl_coalition}}; 
+~[\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:vote_intl_coalition}}; 
 \verb|vote_intl_coalition|]
 ~[Item order is randomly flipped or not]
   \\ \textit{Yes, I would be \textbf{more likely} to vote for my party if it joined that coalition (or to vote for another party if only that other party joined the coalition).; \\My choice would \textbf{not depend} on which parties are part of that coalition.; \\No, I would be \textbf{less likely} to vote for my party if it joined that coalition.}
@@ -414,7 +415,7 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
   \\ \textit{High-income countries have a historical responsibility for the current situation in low-income countries.; \\In the long run, it is in the interest of high-income countries to help low-income countries.; \\Helping those in need is the right thing to do. This is also true at the international level.; \\None of the above.}
 
 \item ~[\textit{Only in: FR, DE, IT, ES, GB, US}] \label{q:reparations_support} Some people argue that Western countries owe reparations for colonization and slavery to former colonies and descendants of slaves. \\Reparations could take the form of funding education and facilitating technology transfers, to address unequal opportunities passed down from the past. \\\\\textbf{Do you support or oppose reparations} of this kind \textbf{for colonization and slavery?~}\\ 
-~[\textit{Figure \ref{fig:reparations_support}}; 
+~[\textit{Figures \ref{fig:radical_redistr_share}}; %, \ref{fig:reparations_support}}; % TODO
 \verb|reparations_support|]
   \\ \textit{Strongly oppose; Somewhat oppose; Indifferent; Somewhat support; Strongly support}
 
@@ -423,7 +424,7 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
  \subsection*{[\textit{Except in: RU}] Custom redistribution} 
  \begin{enumerate}[resume] 
 \item \label{q:income_exact} What is the \textit{[periodicity\_text: yearly]} income of your household \textbf{after taxes and social benefits}?\\This includes all sources of income: salaries, pensions, allowances, welfare benefits, property income, etc.\\My household earns ... [text\_unit: \$ per year] (answer with no comma, no space, no period):\\ 
-~[\textit{Figure \ref{fig:income_exact}}; 
+~[%\textit{Figure \ref{fig:income_exact}}; % TODO
 \verb|income_exact|]
 
 \item ~[new page] \label{q:custom_redistr} If you could redistribute income at the global level, what would you do? In this question, we let you choose your preferred parameters for a redistribution of income at the world level.~\\If you prefer to skip this question, check the corresponding box at the bottom of the page.\\\\The worldwide redistribution of income would take the form of additional policies, taxes, and transfers, on top of existing ones.\\These policies would lower the income of the richest (the losers from the redistribution) and increase the income of the poorest (the winners).~\\\\Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green.~\\The first two sliders~control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest.~\\If you do not want new policies to reduce global inequality, you can set the third slider to zero.~\\\\\textbf{You need to move the sliders} (by holding the mouse down on the little squares and moving to the side) to make the green curve evolve: the idea is to move the sliders \textbf{until you get a green curve you are satisfied with}. \\\\
@@ -444,14 +445,14 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
 
 % ~ [\textit{Figure \ref{fig:custom_redistr}}; 
 % \verb|custom_redistr|]
-~[\textit{Figures \ref{fig:custom_redistr_mean}-\ref{fig:custom_redistr_median}} 
+~[\textit{Figures \ref{fig:custom_redistr_question}, \ref{fig:custom_redistr_mean}-\ref{fig:custom_redistr_median}} 
 % \verb|variables_custom_redistr|
 ]
 \textit{I am satisfied with my custom redistribution.; \\I want to skip this question.}
 
 \end{enumerate} 
 
- \subsection*{Well-being} 
+ \subsection*{Well-being (\textit{for another project})} 
   [\textit{Four random branches: gallup\_0; gallup\_1; wvs\_0; wvs\_1}; %\textit{Figure \ref{fig:well_being}}; 
  \verb|well_being, variant_well_being|] 
  \begin{enumerate}[resume] % TODO? condenser?
@@ -484,11 +485,11 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
 
  \subsection*{Synthetic questions} 
  \begin{enumerate}[resume] 
-\item  \label{q:my_tax_global_nation} To what extent do you agree or disagree with the following statement? "My taxes should go towards solving global problems." [\textit{Figures \ref{fig:my_tax_global_nation_share}-\ref{fig:my_tax_global_nation_positive}}; 
+\item  \label{q:my_tax_global_nation} To what extent do you agree or disagree with the following statement? "My taxes should go towards solving global problems." [\textit{Figures \ref{fig:radical_redistr_share}, \ref{fig:my_tax_global_nation_share}-\ref{fig:my_tax_global_nation_positive}}; 
 \verb|my_tax_global_nation|]
   \\ \textit{Strongly agree; Agree; Neither agree nor disagree; Disagree; Strongly disagree}
 
-\item  \label{q:group_defended} Which group of people do you advocate for when you vote? [\textit{Figure \ref{fig:group_defended}}; 
+\item  \label{q:group_defended} Which group of people do you advocate for when you vote? [\textit{Figures \ref{fig:group_defended}, \ref{fig:group_defended_all}}; 
 \verb|group_defended|]
   \\ \textit{Sentient beings (humans and animals); Humans; [country\_adjective\_plural: Americans]; People from my community (for example my region, my religion, my gender…); My family and myself}
 
@@ -496,11 +497,11 @@ Negotiations are ongoing to implement specific mechanisms for sustainable develo
 
  \subsection*{Feedback} 
  \begin{enumerate}[resume] 
-\item  \label{q:survey_biased} Do you feel that this survey was~politically~biased? [\textit{Figure \ref{fig:survey_biased}}; 
+\item  \label{q:survey_biased} Do you feel that this survey was politically biased? [\textit{Figure \ref{fig:survey_biased}}; 
 \verb|survey_biased|]
   \\ \textit{Yes, left-wing biased; Yes, right-wing biased; No, I do not feel it was biased}
 
-\item  \label{q:comment_field} The survey is nearing completion. You can now enter any comments, thoughts, or suggestions in the field below. [\textit{Figure \ref{fig:comment_field}}; 
+\item  \label{q:comment_field} The survey is nearing completion. You can now enter any comments, thoughts, or suggestions in the field below. [%\textit{Figure \ref{fig:comment_field}}; % TODO
 \verb|comment_field|]
 
 

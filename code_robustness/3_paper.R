@@ -2,6 +2,21 @@
 
 
 
+# 2SLS
+first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)
+iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)
+# first_stage_f <- summary(iv_model, diagnostics = TRUE)$diagnostics["Weak instruments", "statistic"]
+ols_model <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
+direct_effect <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)
+stargazer(first_stage, iv_model, ols_model, direct_effect,
+          column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
+          keep.stat = c("n", "rsq", "f"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
+          type = "latex", style = "default", out = "../tables/IV.tex", float = FALSE,
+          title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
+
+
 ##### Representativeness ######
 representativeness_table(countries[1:3])
 representativeness_table(countries[4:7])

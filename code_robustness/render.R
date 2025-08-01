@@ -1,4 +1,6 @@
-# TODO: split_many atop; donation; barres convergence_support; top_tax_share; income_exact; gcs_comprehension; survey_biased
+# TODO: split_many atop; donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; 
+# income_exact; gcs_comprehension; survey_biased; transfer_how one-liner; EN conjoint; radical_redistr full; field_gpt
+# trim
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -439,7 +441,8 @@ save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/r
 heatmap_plot(global_nation, proportion = T, percent = T)
 save_plot(filename = "country_comparison/radical_redistr_main", width = 1550, height = 500, format = "pdf", trim = T)
 
-barres_multiple(barresN_defs[c("group_defended")]) # 1300 x 700
+barres_multiple(barresN_defs[c("group_defended")], folder = "../figures/country_comparison") # 870 x 600
+barres_multiple(barres_defs[c("group_defended")], folder = "../figures/all") # 870 x 130
 heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
 heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")]) # 1200 x 380
 heatmap_multiple(heatmaps_defs[c("sustainable_future")]) # 1100 x 300

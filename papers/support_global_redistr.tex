@@ -152,59 +152,113 @@ bla
 
 % FIGURES
 % # 1? coverage map
+\begin{figure}[h!]
+    \caption[Country coverage]{Country coverage of the survey.
+    }\label{fig:country_coverage}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_censored.png}} 
+\end{figure}
 % # 2. survey_flow
+\begin{figure}[h!]
+    \caption[Survey flow]{Survey flow.
+    }\label{fig:flow}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/questionnaire/survey_flow.pdf}} 
+\end{figure}
 % # 3. keywords in fields (taken jointly)
 % # 4. revenue_split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
 \begin{figure}
-  \caption{
-  } 
-  \begin{subfigure}{.68\textwidth}
-    \caption[]{}
-    \includegraphics[width=\textwidth]{../figures/country_comparison/split_main_means_nolegend.pdf}
-  \end{subfigure} 
-  \begin{subfigure}{.30\textwidth}
-    \caption[]{} 
-    \includegraphics[width=\textwidth]{../figures/country_comparison/split_main_nb0_nolabel.pdf}
+  \caption[Preferred split of revenue of an international wealth tax]{Preferred split of revenue of an international wealth tax. The first two items are from the variant \textit{Few} with 5 fixed items (the \textit{Global} one and the most preferred one are displayed); the last four items are from the variant \textit{Many} with 5 items taken at random out of 13 (the 4 \textit{Global} ones are displayed). \hfill (Questions \ref{q:revenue_split_few}-\ref{q:revenue_split_many})} \label{fig:split}
+
+  % \begin{subfigure}{.45\textwidth}
+  %   \caption[]{Average preferred allocation (in \%).}
+  %   \begin{flushleft}
+  %   \includegraphics[height=.36\textheight]{../figures/country_comparison/split_main_means_nolegend.pdf}\end{flushleft}
+  % \end{subfigure} 
+  % \begin{subfigure}{.55\textwidth}
+  %   \caption[]{Share of respondents allocating 0 revenue (in \%).} 
+  %   \begin{flushright}
+  %   \includegraphics[height=.36\textheight]{../figures/country_comparison/split_main_nb0_nolabel.pdf}\end{flushright}
+
+    \begin{subfigure}{.6\textwidth}
+    \caption[]{Average preferred allocation (in \%).}
+    \includegraphics[height=.34\textheight]{../figures/country_comparison/split_main_means_nolegend.pdf}
+    \end{subfigure} 
+  \begin{subfigure}{.4\textwidth}
+    \caption[]{Share of respondents allocating 0 revenue (in \%).} 
+    \includegraphics[height=.34\textheight]{../figures/country_comparison/split_main_nb0_nolabel.pdf}
+
   \end{subfigure}
 \end{figure}
 % # 5a. ICS: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country}
+\begin{figure}[h!]
+    \caption[Support for the NCS, GCS, ICS]{Support for the National, Global, and International Climate Schemes (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:ncs_support}-\ref{q:ics_support}).
+    }\label{fig:ics}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf}} 
+\end{figure}
 % # 5b. wealth tax by coverage: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country}
+\begin{figure}[h!]
+    \caption[Support for an international wealth depending on country coverage]{Support for an international wealth tax with 30\% of revenue funding LICs, depending on the country coverage (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:global_tax_support}-\ref{q:intl_tax_support}).
+    }\label{fig:wealth_tax}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country.pdf}} 
+\end{figure}
 % # 6. conjoint: foreign aid + global tax (per country + global)
     \begin{figure}
-\caption{\rose{Effect on} the \rose{likelihood that a} political \rose{program is preferred} of containing the following policy%\\(compared to no foreign policy in the program):
-} 
-\begin{subfigure}{.48\textwidth}
-  \caption[]{\blue{Cut development aid}: $-$5 pp*** \quad \green{\checkmark H1a}}
-  \includegraphics[width=\textwidth]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
+\caption[Conjoint analysis: effect of development aid and millionaire tax]{Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint}
+\begin{subfigure}{.49\textwidth}
+  \caption[]{Cut development aid}
+  \includegraphics[height=.36\textheight]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
 \end{subfigure} 
-\begin{subfigure}{.50\textwidth}
-  \caption[]{\blue{International tax on millionaires with 30\% financing} health and education in \blue{low-income countries}: +5 pp*** \quad \green{\checkmark H1b}} 
-  \includegraphics[width=.95\textwidth]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}
+\begin{subfigure}{.49\textwidth}
+  \caption[]{International tax on millionaires with 30\% financing health and education in low-income countries}%\begin{flushright}
+  \includegraphics[height=.36\textheight]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}%\end{flushright}
 \end{subfigure}
 \end{figure}
 % # 7. warm_glow: effect of info + display donation vs. control (per country + global)
-    \begin{figure}
-% \caption{}
-\begin{subfigure}{.47\textwidth}
-  \caption[]{Effect of a \blue{\textit{Donation lottery} treatment} on support for the \rose{Global Climate Scheme}: +3p.p.*** \quad \green{\checkmark H5a}}
-  \includegraphics[width=\textwidth]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
-\end{subfigure} 
-\begin{subfigure}{.47\textwidth}
-  \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of plausible \rose{global policies} supported: +1p.p.** \quad \green{\checkmark H5b} \hyperlink{2SLS}{\beamergotobutton{2SLS}}}
-  \includegraphics[width=\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+    \begin{figure}\label{fig:warm_glow}
+\caption[Testing warm glow]{Testing warm glow (negative effects would indicate the presence of warm glow).}
+\begin{subfigure}{.45\textwidth}
+  \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute}}
+  \includegraphics[height=.36\textheight]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.49\textwidth}
+  \caption[]{Effect of information about ongoing global redistribution initiatives on the share of plausible global policies supported. (Questions \ref{q:info_solidarity}-\ref{q:solidarity_support})\label{fig:warm_glow_realism}}
+  \includegraphics[height=.36\textheight]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
 \end{subfigure}
 \end{figure}
-% # 7bis: 2SLS \input{../tables/iv_highlighted.tex}
+% # 7bis: 2SLS 
+\begin{table}[!htbp] 
+  \caption{Effect on support for global redistribution of believing that it is likely.}\label{tab:iv} 
+  \makebox[\textwidth][c]{\input{../tables/iv.tex}}
+\end{table}
 % # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
 \begin{figure}[h!]
-    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} resposnes). (Question \ref{q:solidarity_support}).
+    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
     }\label{fig:solidarity_support_share}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}} 
 \end{figure}
 % # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
+\begin{figure}[h!]
+    \caption[Support for broad or radical global redistribution]{Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
+    }\label{fig:radical_redistr_share} 
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_share.pdf}} 
+\end{figure}
 % # 10. group_defended: barresN or barres? \includegraphics[height=.9\textheight]{../figures/all/group_defended}
+\begin{figure}[h!]
+    \caption[Moral circle]{Moral circle. (Question \ref{q:group_defended}).
+    }\label{fig:group_defended}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/all/group_defended.pdf}} 
+\end{figure}
 % # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns) \includegraphics[width=\textwidth]{../figures/country_comparison/transfer_how_positive}
+\begin{figure}[h!]
+    \caption[\textit{Right} or \textit{Best} way to transfer resources to LICs (global average)]{``How do you evaluate each of these channels to transfer resources to reduce poverty in LICs?''\\ Percentage of \textit{Right} or \textit{Best} way (other options: \textit{Wrong} or \textit{Acceptable} way). (Question \ref{q:transfer_how}).
+    }\label{fig:transfer_how}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/transfer_how_positive.pdf}} 
+\end{figure}
 % # 12. average custom_redistr \includegraphics[height=.8\textheight]{../figures/all/custom_redistr_mean.png}
+\begin{figure}[h!]
+   \caption[Average custom redistribution]{Average custom global redistribution. (Question \ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_question}
+    \makebox[\textwidth][c]{\includegraphics[height=.85\textheight]{../figures/questionnaire/survey_custom_redistr_bottom.png}} % bottom2 is without the choice options satisfied/skip
+\end{figure}
 
 
 \section{Discussion} % Summary, conclusion
@@ -242,7 +296,8 @@ At the end of the survey, we ask whether respondents thought that our survey was
 \paragraph{\small Questionnaires and raw results.} % NCCcomment
 % Possible confusion in the questionnaire: people confuse GCS with the four policies together (so support for GCS can suffer from dislike of death penalty), although this confusion is mitigating by the fact that we right after ask about NR; people may answer about revenue-use rather than the whole measure for ETS2 support; people may answer that GCS will or will not have the effects proposed rather than these effects being important or not in their attitude towards GCS; they may answer that it's important that others (not them) get more information; the minimum wage could be reduced at 50% of local median wage.
 %.\cite{dechezlepretre_fighting_2025} 
-The raw results are reported in Appendix \ref{app:raw_results} while the surveys' structures and questionnaires are given in Appendices \ref{app:questionnaire_oecd} and \ref{app:questionnaire}. Details on the \textit{global} survey can be found in the Appendix of Dechezleprêtre et al. (forthcoming).\citep{dechezlepretre_fighting_2025} Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}. %The questionnaires are the same as the ones given \textit{ex ante} in the registration plan (\href{https://osf.io/fy6gd}{osf.io/fy6gd}).
+The raw results are reported in Appendix \ref{app:raw_results} while the questionnaire is given in Appendix {app:questionnaire}. 
+% Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}. %The questionnaires are the same as the ones given \textit{ex ante} in the registration plan (\href{https://osf.io/fy6gd}{osf.io/fy6gd}).
 
 
 \section*{\normalsize Data and code availability}
