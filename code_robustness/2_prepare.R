@@ -757,6 +757,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
     df$custom_redistr_current_income[k] <- df$income_exact[k]/ifelse(df$couple[k] > 0, 2, 1) * as.numeric(features["period_custom", languages_country[[df$country[k]]][1]]) * as.numeric(features["unit", languages_country[[df$country[k]]][1]]) # in $/year individualized
+    df$income_exact_thousandile_world <- sapply(head(e$custom_redistr_current_income), function(y) min(which(y < current)))
     if (!is.na(winners)) {
       income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
       income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
@@ -974,6 +975,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item(variables_transfer_how, labels = c("Wrong" = -1, "Acceptable" = 0, "Right" = 1, "Best" = 2), grep = T, values = c("wrong", "acceptable", "right", "best"), df = e)
   e$variant_sustainable_future <- ifelse(!is.na(e$sustainable_future_a), "a", ifelse(!is.na(e$sustainable_future_b), "b", "s")) # variant_radical_redistr
   label(e$variant_sustainable_future) <- "variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points)."
+  e$sustainable_future_A <- e$sustainable_future_a == "Scenario A"
+  e$sustainable_future_B <- e$sustainable_future_b == "Scenario B"
   if (pilot) e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
   else e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("A", e$sustainable_future_a), T, F)
   e <- create_item("vote_intl_coalition", labels = c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
@@ -1271,6 +1274,9 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$variant_warm_glow <- as.factor(e$variant_warm_glow)
   e$gcs_support_control <- ifelse(e$variant_warm_glow == "None", e$gcs_support, NA)
   
+  e$donation_agg <- e$donation*(e$donation %in% c(0, 10, 20, 50, 100)) + 5*(e$donation %[]% c(1, 9)) + 15*(e$donation %[]% c(11, 19)) + 35*(e$donation %[]% c(21, 49)) + 75*(e$donation %[]% c(51, 99))
+  e <- create_item("donation_agg", labels = c("0" = 0, "1-9" = 5, "10" = 10, "11-19" = 15, "20" = 20, "21-49" = 35, "50" = 50, "51-99" = 75, "100" = 100), values = c(0, 5, 10, 15, 20, 35, 50, 75, 100), missing.values = c("", NA), df = e)
+
   for (v in unique(e$variant_ics)) e[[paste0("ics_", v, "_support")]] <- ifelse(e$variant_ics == v, e$ics_support, NA)
   
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]

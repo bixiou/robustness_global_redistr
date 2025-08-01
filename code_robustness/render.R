@@ -1,5 +1,5 @@
-# TODO: split_many atop; donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; 
-# income_exact; gcs_comprehension; survey_biased; transfer_how one-liner; EN conjoint; radical_redistr full; field_gpt
+# donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
+# TODO: income_exact; transfer_how one-liner; field_gpt
 # trim
 ##### labels_vars #####
 labels_vars <- c(
@@ -66,7 +66,7 @@ labels_vars <- c(
   "revenue_split_few_domestic_tax_reduction" = "Domestic: Reduction in the income tax",
   "revenue_split_few_domestic_tax_reduction_agg" = "Domestic: Reduction in the income tax",
   "split_many_global_when_appear" = "Share allocated to Global spending options\nwhen such options are part of the 5 (out of 13) randomly selected ones",
-  "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected",
+  "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected\n(4 out of 13 being of Global nature)",
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
   # "gcs_support_100" = "Support for the GCS",
   # "gcs_support_90" = "Support for a Global Climate Scheme at $90/tCO2",
@@ -158,6 +158,8 @@ labels_vars <- c(
   "transfer_how_social_protection" = "Targeted cash transfers (child allowances, disability & elderly pensions)", # Cash transfers to parents (child allowances), to the disabled and to the elderly
   "transfer_how_cash_unconditional" = "Unconditional cash transfers to each household", # Unconditional cash transfers to each household
   "sustainable_future" = "Prefers sustainable future", 
+  "sustainable_future_A" = "Prefers sustainable future\n(Variant: Scenario A = Sustainable)", 
+  "sustainable_future_B" = "Prefers sustainable future\n(Variant: Scenario B = Sustainable)", 
   "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
   "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
   "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
@@ -251,6 +253,7 @@ heatmaps_defs <- list(
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1"),
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
+  # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/")),
   "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/")),
   "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/")),
   "well_being" = list(vars = variables_well_being, conditions = ""),
@@ -263,12 +266,13 @@ heatmaps_defs <- list(
   "field_manual" = list(vars = variables_field_manual, conditions = ">= 1", sort = T),
   "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T),
   "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T),
-  "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T)
+  "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T),
+  "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1")
 )
 # TODO! vote, fields
 
 ##### vars_heatmaps #####
-vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation", "reparations_support") 
+vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation", "reparations_support", "sustainable_future") 
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
@@ -295,14 +299,28 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", 
-                 "group_defended", "reparations_support", "gcs_support_control", "gcs_comprehension", "survey_biased") # 
+vars_barres <- c("maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", "sustainable_future",
+                 "group_defended", "reparations_support", "gcs_support_control", "gcs_comprehension", "survey_biased", "donation_agg", "convergence_support", "gcs_comprehension") # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
 barresN_defs <- fill_barres(vars_barres, along = "country_name")
 
 vars_barres1 <- c("split_few", "split_many", "split_many_global") # , "maritime_split" TODO: no error when variable not found
 vars_barresN <- setdiff(names(barres_defs), vars_barres1)
+
+# TODO
+barres_multiple(barres_defs["donation_agg"]) # 1100 x 130
+barres_multiple(barres_defs["convergence_support"]) # 1100 x 130
+barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
+barres_multiple(barres_defs["survey_biased"]) # 650 x 130
+barres_multiple(barresN_defs["donation_agg"]) # 1100 x 550
+barres_multiple(barresN_defs["convergence_support"]) # 1200 x 550
+barres_multiple(barresN_defs["gcs_comprehension"]) # 750 x 550 TODO pb Europe
+barres_multiple(barresN_defs["survey_biased"]) # 650 x 550
+barres_multiple(barresN_defs["sustainable_future"]) # 550 x 550
+heatmap_multiple(heatmaps_defs["sustainable_futures"]) # 1030 x 310
+heatmap_multiple(heatmaps_defs["top_tax"]) # 1450 x 270
+heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
 
 ##### Plot #####
 # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
@@ -405,7 +423,8 @@ heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == 
 heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
 
 # Revenue split
-barres_multiple(barres_defs["split_few"]) # 670 x 330 # TODO (also split_many): add means
+barres_multiple(barres_defs["split_few"]) # 670 x 330 TODO add means
+barres_multiple(barres_defs["split_many"]) # 860 x 600
 
 # Warm glow -- moral substitute
 
@@ -432,14 +451,22 @@ heatmap_multiple(heatmaps_defs[c("radical_redistr_few")]) # 1550 x 450
 
 global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
 global_nation <- global_nation/(global_nation+heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1"))
-# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
-# In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
-# TODO use Stostad for another comparison
 global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
 row.names(global_nation)[6] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/radical_redistr_main")
 heatmap_plot(global_nation, proportion = T, percent = T)
 save_plot(filename = "country_comparison/radical_redistr_main", width = 1550, height = 500, format = "pdf", trim = T)
+
+global_nation_all <- heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
+global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1")))[-c(3,5),]
+# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
+# In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
+# TODO use Stostad for another comparison
+global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
+row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
+save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
+heatmap_plot(global_nation_all, proportion = T, percent = T)
+save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
 
 barres_multiple(barresN_defs[c("group_defended")], folder = "../figures/country_comparison") # 870 x 600
 barres_multiple(barres_defs[c("group_defended")], folder = "../figures/all") # 870 x 130

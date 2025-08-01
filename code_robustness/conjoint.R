@@ -22,7 +22,6 @@ amce <- ca <- list() # We should have "Old qualtrics format detected." (otherwis
 for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("SA", "RU")], paste0(pilot_countries, "p"))
   print(df)
   main_language <- languages_country[[sub("p", "", df)]][1]
-  policies_l <- c(unlist(setNames(policies_conjoint[[main_language]], conjoint_attributes)), "-" = "-")
   csv.path <- paste0("../conjoint_analysis/ca_", df, ".csv")
   write.csv(d(df)[, c(variables_conjoint_all, 'conjoint_misleading', 'conjoint', 'n')], csv.path, row.names = FALSE) # !is.na(d(df)$conjoint_number) 'conjoint_number', 
   temp <- readLines(csv.path)
@@ -56,17 +55,18 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
   if (include_indifferent) ca[[df]]$selected[ca[[df]]$conjoint %in% "Neither of them"] <- .5
   else ca[[df]] <- ca[[df]][!ca[[df]]$conjoint %in% "Neither of them",]
   if (any(is.na(ca[[df]]))) warning(paste("/!\\", sum(sapply(1:nrow(ca[[df]]), function(i) any(is.na(ca[[df]][i,]))))), "rows with some NAs have been removed in ", df)
-  amce[[df]] <- amce(formula_cjoint, ca[[df]][sapply(1:nrow(ca[[df]]), function(i) !any(is.na(ca[[df]][i,]))),], design = design_cjoint, cluster = FALSE, weights = NULL)
-  # if (lang == "main") 
-  for (i in 1:length(amce[[df]]$attributes)) amce[[df]]$user.names[[i+1]] <- names(policies_conjoint[[main_language]])[i]
-  for (i in 1:length(amce[[df]]$user.levels)) amce[[df]]$user.levels[[i]] <- policies_l[amce[[df]]$user.levels[[i]]]
-  # else if (lang == "english") # TODO
+  for (lang in c(paste0("EN-", df), main_language)) if (lang %in% names(policies_conjoint)) {
+    amce[[lang]] <- amce(formula_cjoint, ca[[df]][sapply(1:nrow(ca[[df]]), function(i) !any(is.na(ca[[df]][i,]))),], design = design_cjoint, cluster = FALSE, weights = NULL)
+    policies_l <- c(unlist(setNames(policies_conjoint[[lang]], conjoint_attributes)), "-" = "-")
+    for (i in 1:length(amce[[lang]]$attributes)) amce[[lang]]$user.names[[i+1]] <- names(policies_conjoint[[lang]])[i]
+    for (i in 1:length(amce[[lang]]$user.levels)) amce[[lang]]$user.levels[[i]] <- policies_l[amce[[lang]]$user.levels[[i]]]
+  }
 }
 
-for (df in countries[!countries %in% c("SA", "RU")]) {
-  plot(amce[[df]], xlab = "Average Marginal Component Effect", text.size = 16)
-  save_plot (filename = paste0("conjoint_", df), folder = paste0('../figures/', df, '/'), width = 1100, height = 500, method='dev', trim = T, format = 'pdf') 
-}
+for (df in countries[!countries %in% c("SA", "RU")]) { for (lang in c(paste0("EN-", df), languages_country[[sub("p", "", df)]][1])) if (lang %in% names(policies_conjoint)) {
+  plot(amce[[lang]], xlab = "Average Marginal Component Effect", text.size = 16)
+  save_plot (filename = paste0("conjoint_", lang), folder = paste0('../figures/', df, '/'), width = 1200, height = 500, method='dev', trim = T, format = 'pdf') 
+} }
 
 plot(amce$FR) 
 plot(amce$DE) 
@@ -75,11 +75,16 @@ plot(amce$PL)
 plot(amce$ES) 
 plot(amce$GB)
 plot(amce$CH) 
-plot(amce$JP) # TODO: display; English
+plot(amce$JP) # TODO
 plot(amce$US) 
 plot(amce$GBp)
 plot(amce$PLp)
 plot(amce$USp)
+plot(amce$EN-FR) 
+plot(amce$EN-DE) 
+plot(amce$EN-IT)
+plot(amce$EN-PL)
+plot(amce$EN-ES) 
 
 View(ca[[df]])
 
