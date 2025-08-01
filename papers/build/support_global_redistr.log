@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  1 AUG 2025 18:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  1 AUG 2025 18:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2717,378 +2717,386 @@ Package pdftex.def Info: ../figures/country_comparison/field_concerns_manual_pos
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/FR/conjoint_EN-FR.pdf, id=440, 1220.56pt x 398.48875pt>
+<../figures/FR/conjoint_EN-FR.pdf, id=442, 1206.5075pt x 398.48875pt>
 File: ../figures/FR/conjoint_EN-FR.pdf Graphic file (type pdf)
 <use ../figures/FR/conjoint_EN-FR.pdf>
 Package pdftex.def Info: ../figures/FR/conjoint_EN-FR.pdf  used on input line 52.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/DE/conjoint_EN-DE.pdf, id=443, 1220.56pt x 398.48875pt>
+<../figures/DE/conjoint_EN-DE.pdf, id=447, 1206.5075pt x 398.48875pt>
 File: ../figures/DE/conjoint_EN-DE.pdf Graphic file (type pdf)
 <use ../figures/DE/conjoint_EN-DE.pdf>
 Package pdftex.def Info: ../figures/DE/conjoint_EN-DE.pdf  used on input line 58.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/IT/conjoint_EN-IT.pdf, id=446, 1220.56pt x 398.48875pt>
+<../figures/IT/conjoint_EN-IT.pdf, id=452, 1206.5075pt x 398.48875pt>
 File: ../figures/IT/conjoint_EN-IT.pdf Graphic file (type pdf)
 <use ../figures/IT/conjoint_EN-IT.pdf>
 Package pdftex.def Info: ../figures/IT/conjoint_EN-IT.pdf  used on input line 64.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/PL/conjoint_EN-PL.pdf, id=449, 1220.56pt x 398.48875pt>
+<../figures/PL/conjoint_EN-PL.pdf, id=457, 1206.5075pt x 398.48875pt>
 File: ../figures/PL/conjoint_EN-PL.pdf Graphic file (type pdf)
 <use ../figures/PL/conjoint_EN-PL.pdf>
 Package pdftex.def Info: ../figures/PL/conjoint_EN-PL.pdf  used on input line 70.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/ES/conjoint_EN-ES.pdf, id=452, 1220.56pt x 398.48875pt>
+<../figures/ES/conjoint_EN-ES.pdf, id=462, 1206.5075pt x 398.48875pt>
 File: ../figures/ES/conjoint_EN-ES.pdf Graphic file (type pdf)
 <use ../figures/ES/conjoint_EN-ES.pdf>
 Package pdftex.def Info: ../figures/ES/conjoint_EN-ES.pdf  used on input line 76.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/GB/conjoint_GB.pdf, id=455, 839.135pt x 398.48875pt>
-File: ../figures/GB/conjoint_GB.pdf Graphic file (type pdf)
-<use ../figures/GB/conjoint_GB.pdf>
-Package pdftex.def Info: ../figures/GB/conjoint_GB.pdf  used on input line 82.
-(pdftex.def)             Requested size: 469.75502pt x 223.07921pt.
+<../figures/GB/conjoint_EN-GB.pdf, id=465, 1206.5075pt x 398.48875pt>
+File: ../figures/GB/conjoint_EN-GB.pdf Graphic file (type pdf)
+<use ../figures/GB/conjoint_EN-GB.pdf>
+Package pdftex.def Info: ../figures/GB/conjoint_EN-GB.pdf  used on input line 82.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/CH/conjoint_CH.pdf, id=458, 839.135pt x 398.48875pt>
-File: ../figures/CH/conjoint_CH.pdf Graphic file (type pdf)
-<use ../figures/CH/conjoint_CH.pdf>
-Package pdftex.def Info: ../figures/CH/conjoint_CH.pdf  used on input line 88.
-(pdftex.def)             Requested size: 469.75502pt x 223.07921pt.
+<../figures/CH/conjoint_EN-CH.pdf, id=468, 1206.5075pt x 398.48875pt>
+File: ../figures/CH/conjoint_EN-CH.pdf Graphic file (type pdf)
+<use ../figures/CH/conjoint_EN-CH.pdf>
+Package pdftex.def Info: ../figures/CH/conjoint_EN-CH.pdf  used on input line 88.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/US/conjoint_US.pdf, id=461, 839.135pt x 398.48875pt>
-File: ../figures/US/conjoint_US.pdf Graphic file (type pdf)
-<use ../figures/US/conjoint_US.pdf>
-Package pdftex.def Info: ../figures/US/conjoint_US.pdf  used on input line 94.
-(pdftex.def)             Requested size: 469.75502pt x 223.07921pt.
+<../figures/JP/conjoint_EN-JA.pdf, id=471, 1206.5075pt x 398.48875pt>
+File: ../figures/JP/conjoint_EN-JA.pdf Graphic file (type pdf)
+<use ../figures/JP/conjoint_EN-JA.pdf>
+Package pdftex.def Info: ../figures/JP/conjoint_EN-JA.pdf  used on input line 94.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/FR/conjoint_FR.pdf, id=464, 1220.56pt x 398.48875pt>
+<../figures/US/conjoint_EN.pdf, id=474, 1206.5075pt x 398.48875pt>
+File: ../figures/US/conjoint_EN.pdf Graphic file (type pdf)
+<use ../figures/US/conjoint_EN.pdf>
+Package pdftex.def Info: ../figures/US/conjoint_EN.pdf  used on input line 99.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../figures/FR/conjoint_FR.pdf, id=479, 1206.5075pt x 398.48875pt>
 File: ../figures/FR/conjoint_FR.pdf Graphic file (type pdf)
 <use ../figures/FR/conjoint_FR.pdf>
-Package pdftex.def Info: ../figures/FR/conjoint_FR.pdf  used on input line 100.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+Package pdftex.def Info: ../figures/FR/conjoint_FR.pdf  used on input line 105.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/DE/conjoint_DE.pdf, id=467, 1220.56pt x 398.48875pt>
+<../figures/DE/conjoint_DE.pdf, id=484, 1206.5075pt x 398.48875pt>
 File: ../figures/DE/conjoint_DE.pdf Graphic file (type pdf)
 <use ../figures/DE/conjoint_DE.pdf>
-Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 106.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+Package pdftex.def Info: ../figures/DE/conjoint_DE.pdf  used on input line 111.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/IT/conjoint_IT.pdf, id=470, 1220.56pt x 398.48875pt>
+<../figures/IT/conjoint_IT.pdf, id=489, 1206.5075pt x 398.48875pt>
 File: ../figures/IT/conjoint_IT.pdf Graphic file (type pdf)
 <use ../figures/IT/conjoint_IT.pdf>
-Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 112.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+Package pdftex.def Info: ../figures/IT/conjoint_IT.pdf  used on input line 117.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/PL/conjoint_PL.pdf, id=473, 1220.56pt x 398.48875pt>
+<../figures/PL/conjoint_PL.pdf, id=494, 1206.5075pt x 398.48875pt>
 File: ../figures/PL/conjoint_PL.pdf Graphic file (type pdf)
 <use ../figures/PL/conjoint_PL.pdf>
-Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 118.
-(pdftex.def)             Requested size: 469.75502pt x 153.36696pt.
+Package pdftex.def Info: ../figures/PL/conjoint_PL.pdf  used on input line 123.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/ES/conjoint_ES.pdf, id=476, 839.135pt x 398.48875pt>
-File: ../figures/ES/conjoint_ES.pdf Graphic file (type pdf)
-<use ../figures/ES/conjoint_ES.pdf>
-Package pdftex.def Info: ../figures/ES/conjoint_ES.pdf  used on input line 124.
-(pdftex.def)             Requested size: 469.75502pt x 223.07921pt.
+<../figures/ES/conjoint_ES-ES.pdf, id=499, 1206.5075pt x 398.48875pt>
+File: ../figures/ES/conjoint_ES-ES.pdf Graphic file (type pdf)
+<use ../figures/ES/conjoint_ES-ES.pdf>
+Package pdftex.def Info: ../figures/ES/conjoint_ES-ES.pdf  used on input line 129.
+(pdftex.def)             Requested size: 469.75502pt x 155.14853pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/split_few_bars_nb0.pdf, id=479, 927.465pt x 466.62328pt>
+<../figures/country_comparison/split_few_bars_nb0.pdf, id=502, 927.465pt x 466.62328pt>
 File: ../figures/country_comparison/split_few_bars_nb0.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_few_bars_nb0.pdf>
-Package pdftex.def Info: ../figures/country_comparison/split_few_bars_nb0.pdf  used on input line 131.
+Package pdftex.def Info: ../figures/country_comparison/split_few_bars_nb0.pdf  used on input line 136.
 (pdftex.def)             Requested size: 375.80544pt x 189.07394pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/split_few.pdf, id=482, 644.4075pt x 275.10779pt>
+<../figures/all/split_few.pdf, id=505, 644.4075pt x 275.10779pt>
 File: ../figures/all/split_few.pdf Graphic file (type pdf)
 <use ../figures/all/split_few.pdf>
-Package pdftex.def Info: ../figures/all/split_few.pdf  used on input line 137.
+Package pdftex.def Info: ../figures/all/split_few.pdf  used on input line 142.
 (pdftex.def)             Requested size: 469.75502pt x 200.55414pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/split_many.pdf, id=485, 644.4075pt x 516.00781pt>
+<../figures/all/split_many.pdf, id=508, 644.4075pt x 516.00781pt>
 File: ../figures/all/split_many.pdf Graphic file (type pdf)
 <use ../figures/all/split_many.pdf>
-Package pdftex.def Info: ../figures/all/split_many.pdf  used on input line 143.
+Package pdftex.def Info: ../figures/all/split_many.pdf  used on input line 148.
 (pdftex.def)             Requested size: 422.77664pt x 338.55055pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/split_many_global_mean.pdf, id=488, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/split_many_global_mean.pdf, id=511, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/split_many_global_mean.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_many_global_mean.pdf>
-Package pdftex.def Info: ../figures/country_comparison/split_many_global_mean.pdf  used on input line 149.
+Package pdftex.def Info: ../figures/country_comparison/split_many_global_mean.pdf  used on input line 154.
 (pdftex.def)             Requested size: 469.75502pt x 227.0294pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=493, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=516, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/ncs_gcs_ics_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/ncs_gcs_ics_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf  used on input line 173.
+Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf  used on input line 178.
 (pdftex.def)             Requested size: 469.75502pt x 227.0294pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/solidarity_support_positive.pdf, id=496, 955.57pt x 508.90125pt>
+<../figures/country_comparison/solidarity_support_positive.pdf, id=519, 955.57pt x 508.90125pt>
 File: ../figures/country_comparison/solidarity_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 179.
+Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 184.
 (pdftex.def)             Requested size: 469.75502pt x 250.17137pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/ncqg.pdf, id=499, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg.pdf, id=522, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg.pdf>
-Package pdftex.def Info: ../figures/all/ncqg.pdf  used on input line 185.
+Package pdftex.def Info: ../figures/all/ncqg.pdf  used on input line 190.
 (pdftex.def)             Requested size: 422.77664pt x 253.64566pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/ncqg_full.pdf, id=502, 809.9058pt x 485.89528pt>
+<../figures/all/ncqg_full.pdf, id=525, 809.9058pt x 485.89528pt>
 File: ../figures/all/ncqg_full.pdf Graphic file (type pdf)
 <use ../figures/all/ncqg_full.pdf>
-Package pdftex.def Info: ../figures/all/ncqg_full.pdf  used on input line 191.
+Package pdftex.def Info: ../figures/all/ncqg_full.pdf  used on input line 196.
 (pdftex.def)             Requested size: 422.77664pt x 253.64566pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/wealth_tax_support_positive.pdf, id=507, 1116.17pt x 598.235pt>
+<../figures/country_comparison/wealth_tax_support_positive.pdf, id=530, 1116.17pt x 598.235pt>
 File: ../figures/country_comparison/wealth_tax_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/wealth_tax_support_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/wealth_tax_support_positive.pdf  used on input line 197.
+Package pdftex.def Info: ../figures/country_comparison/wealth_tax_support_positive.pdf  used on input line 202.
 (pdftex.def)             Requested size: 469.75502pt x 251.7773pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/sustainable_future.pdf, id=510, 644.4075pt x 350.26859pt>
+<../figures/all/sustainable_future.pdf, id=533, 644.4075pt x 350.26859pt>
 File: ../figures/all/sustainable_future.pdf Graphic file (type pdf)
 <use ../figures/all/sustainable_future.pdf>
-Package pdftex.def Info: ../figures/all/sustainable_future.pdf  used on input line 203.
+Package pdftex.def Info: ../figures/all/sustainable_future.pdf  used on input line 208.
 (pdftex.def)             Requested size: 422.77664pt x 229.80974pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/top_tax_share.pdf, id=515, 1092.08pt x 199.74625pt>
+<../figures/country_comparison/top_tax_share.pdf, id=538, 1092.08pt x 199.74625pt>
 File: ../figures/country_comparison/top_tax_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/top_tax_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/top_tax_share.pdf  used on input line 209.
+Package pdftex.def Info: ../figures/country_comparison/top_tax_share.pdf  used on input line 214.
 (pdftex.def)             Requested size: 469.75502pt x 85.91968pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/top_tax_positive.pdf, id=520, 1092.08pt x 199.74625pt>
+<../figures/country_comparison/top_tax_positive.pdf, id=543, 1092.08pt x 199.74625pt>
 File: ../figures/country_comparison/top_tax_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/top_tax_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/top_tax_positive.pdf  used on input line 215.
+Package pdftex.def Info: ../figures/country_comparison/top_tax_positive.pdf  used on input line 220.
 (pdftex.def)             Requested size: 469.75502pt x 85.91968pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: ../figures/country_comparison/transfer_how_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf  used on input line 221.
+Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf  used on input line 226.
 (pdftex.def)             Requested size: 422.77664pt x 176.8368pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/transfer_how_above_one.pdf, id=525, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_above_one.pdf, id=548, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_above_one.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_above_one.pdf>
-Package pdftex.def Info: ../figures/country_comparison/transfer_how_above_one.pdf  used on input line 227.
+Package pdftex.def Info: ../figures/country_comparison/transfer_how_above_one.pdf  used on input line 232.
 (pdftex.def)             Requested size: 422.77664pt x 176.8368pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/transfer_how_negative.pdf, id=528, 933.4875pt x 390.45876pt>
+<../figures/country_comparison/transfer_how_negative.pdf, id=551, 933.4875pt x 390.45876pt>
 File: ../figures/country_comparison/transfer_how_negative.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_negative.pdf>
-Package pdftex.def Info: ../figures/country_comparison/transfer_how_negative.pdf  used on input line 233.
+Package pdftex.def Info: ../figures/country_comparison/transfer_how_negative.pdf  used on input line 238.
 (pdftex.def)             Requested size: 422.77664pt x 176.8368pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/convergence_support.pdf, id=531, 644.4075pt x 350.26859pt>
+<../figures/all/convergence_support.pdf, id=554, 644.4075pt x 350.26859pt>
 File: ../figures/all/convergence_support.pdf Graphic file (type pdf)
 <use ../figures/all/convergence_support.pdf>
-Package pdftex.def Info: ../figures/all/convergence_support.pdf  used on input line 239.
+Package pdftex.def Info: ../figures/all/convergence_support.pdf  used on input line 244.
 (pdftex.def)             Requested size: 375.80544pt x 204.27829pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/global_movement_positive.pdf, id=534, 817.0525pt x 311.1625pt>
+<../figures/country_comparison/global_movement_positive.pdf, id=557, 817.0525pt x 311.1625pt>
 File: ../figures/country_comparison/global_movement_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/global_movement_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.pdf  used on input line 245.
+Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.pdf  used on input line 250.
 (pdftex.def)             Requested size: 375.80544pt x 143.12224pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
+Underfull \hbox (badness 10000) in paragraph at lines 255--255
 
  []
 
-<../figures/all/vote_intl_coalition.pdf, id=537, 644.4075pt x 425.67029pt>
+<../figures/all/vote_intl_coalition.pdf, id=560, 644.4075pt x 425.67029pt>
 File: ../figures/all/vote_intl_coalition.pdf Graphic file (type pdf)
 <use ../figures/all/vote_intl_coalition.pdf>
-Package pdftex.def Info: ../figures/all/vote_intl_coalition.pdf  used on input line 251.
+Package pdftex.def Info: ../figures/all/vote_intl_coalition.pdf  used on input line 256.
 (pdftex.def)             Requested size: 328.82707pt x 217.21887pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=540, 908.39375pt x 285.065pt>
+<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=563, 908.39375pt x 285.065pt>
 File: ../figures/country_comparison/why_hic_help_lic_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/why_hic_help_lic_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive.pdf  used on input line 257.
+Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive.pdf  used on input line 262.
 (pdftex.def)             Requested size: 469.75502pt x 147.4169pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/custom_redistr_mean.png, id=543, 662.475pt x 530.58224pt>
+<../figures/all/custom_redistr_mean.png, id=566, 662.475pt x 530.58224pt>
 File: ../figures/all/custom_redistr_mean.png Graphic file (type png)
 <use ../figures/all/custom_redistr_mean.png>
-Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input line 263.
+Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input line 268.
 (pdftex.def)             Requested size: 422.77664pt x 338.59995pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=546, 599.23875pt x 498.663pt>
+<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=569, 599.23875pt x 498.663pt>
 File: ../figures/questionnaire/survey_custom_redistr_median_zoom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_median_zoom.png>
-Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 269.
+Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 274.
 (pdftex.def)             Requested size: 422.77664pt x 351.82378pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--280
+Underfull \hbox (badness 10000) in paragraph at lines 285--285
 
  []
 
-<../figures/all/gcs_comprehension.pdf, id=549, 644.4075pt x 350.26859pt>
+<../figures/all/gcs_comprehension.pdf, id=572, 644.4075pt x 350.26859pt>
 File: ../figures/all/gcs_comprehension.pdf Graphic file (type pdf)
 <use ../figures/all/gcs_comprehension.pdf>
-Package pdftex.def Info: ../figures/all/gcs_comprehension.pdf  used on input line 281.
+Package pdftex.def Info: ../figures/all/gcs_comprehension.pdf  used on input line 286.
 (pdftex.def)             Requested size: 328.82707pt x 178.7415pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/my_tax_global_nation_share.pdf, id=552, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/my_tax_global_nation_share.pdf, id=575, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/my_tax_global_nation_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_share.pdf  used on input line 287.
+Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_share.pdf  used on input line 292.
 (pdftex.def)             Requested size: 422.77664pt x 204.32732pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=555, 1142.2675pt x 552.0625pt>
+<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=578, 1142.2675pt x 552.0625pt>
 File: ../figures/country_comparison/my_tax_global_nation_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_positive.pdf  used on input line 293.
+Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_positive.pdf  used on input line 298.
 (pdftex.def)             Requested size: 422.77664pt x 204.32732pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: ../figures/all/group_defended.pdf Graphic file (type pdf)
 <use ../figures/all/group_defended.pdf>
-Package pdftex.def Info: ../figures/all/group_defended.pdf  used on input line 299.
+Package pdftex.def Info: ../figures/all/group_defended.pdf  used on input line 304.
 (pdftex.def)             Requested size: 422.77664pt x 229.80974pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/survey_biased.pdf, id=560, 644.4075pt x 350.26859pt>
+<../figures/all/survey_biased.pdf, id=583, 644.4075pt x 350.26859pt>
 File: ../figures/all/survey_biased.pdf Graphic file (type pdf)
 <use ../figures/all/survey_biased.pdf>
-Package pdftex.def Info: ../figures/all/survey_biased.pdf  used on input line 311.
+Package pdftex.def Info: ../figures/all/survey_biased.pdf  used on input line 316.
 (pdftex.def)             Requested size: 375.80544pt x 204.27829pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/vote_representativeness.pdf, id=565, 660.54776pt x 636.45775pt>
+<../figures/country_comparison/vote_representativeness.pdf, id=588, 660.54776pt x 636.45775pt>
 File: ../figures/country_comparison/vote_representativeness.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_representativeness.pdf>
-Package pdftex.def Info: ../figures/country_comparison/vote_representativeness.pdf  used on input line 323.
+Package pdftex.def Info: ../figures/country_comparison/vote_representativeness.pdf  used on input line 328.
 (pdftex.def)             Requested size: 422.77664pt x 407.3607pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/vote_pnr_out.pdf, id=570, 660.54776pt x 636.45775pt>
+<../figures/country_comparison/vote_pnr_out.pdf, id=593, 660.54776pt x 636.45775pt>
 File: ../figures/country_comparison/vote_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_pnr_out.pdf>
-Package pdftex.def Info: ../figures/country_comparison/vote_pnr_out.pdf  used on input line 329.
+Package pdftex.def Info: ../figures/country_comparison/vote_pnr_out.pdf  used on input line 334.
 (pdftex.def)             Requested size: 422.77664pt x 407.3607pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [13
 
- <../figures/country_comparison/field_keyword_main_positive.pdf>] [14 <../figures/country_comparison/field_gpt_positive.pdf>] [15 <../figures/country_comparison/field_manual_positive.pdf>] [16 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [17 <../figures/country_comparison/field_wish_manual_positive.pdf>] [18 <../figures/country_comparison/field_issue_manual_positive.pdf>] [19] [20 <../figures/FR/conjoint_EN-FR.pdf> <../figures/DE/conjoint_EN-DE.pdf> <../figures/IT/conjoint_EN-IT.pdf>] [21 <../figures/PL/conjoint_EN-PL.pdf> <../figures/ES/conjoint_EN-ES.pdf>] [22 <../figures/GB/conjoint_GB.pdf> <../figures/CH/conjoint_CH.pdf>] [23 <../figures/US/conjoint_US.pdf> <../figures/FR/conjoint_FR.pdf>] [24 <../figures/DE/conjoint_DE.pdf> <../figures/IT/conjoint_IT.pdf> <../figures/PL/conjoint_PL.pdf>] [25 <../figures/ES/conjoint_ES.pdf> <../figures/country_comparison/split_few_bars_nb0.pdf
+ <../figures/country_comparison/field_keyword_main_positive.pdf>] [14 <../figures/country_comparison/field_gpt_positive.pdf>] [15 <../figures/country_comparison/field_manual_positive.pdf>] [16 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [17 <../figures/country_comparison/field_wish_manual_positive.pdf>] [18 <../figures/country_comparison/field_issue_manual_positive.pdf>] [19] [20 <../figures/FR/conjoint_EN-FR.pdf> <../figures/DE/conjoint_EN-DE.pdf> <../figures/IT/conjoint_EN-IT.pdf>] [21 <../figures/PL/conjoint_EN-PL.pdf> <../figures/ES/conjoint_EN-ES.pdf> <../figures/GB/conjoint_EN-GB.pdf>] [22 <../figures/CH/conjoint_EN-CH.pdf> <../figures/JP/conjoint_EN-JA.pdf> <../figures/US/conjoint_EN.pdf>] [23 <../figures/FR/conjoint_FR.pdf> <../figures/DE/conjoint_DE.pdf> <../figures/IT/conjoint_IT.pdf>] [24 <../figures/PL/conjoint_PL.pdf> <../figures/ES/conjoint_ES-ES.pdf>] [25 <../figures/country_comparison/split_few_bars_nb0.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/split_few_bars_nb0.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [26 <../figures/all/split_few.pdf
+> <../figures/all/split_few.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/split_few.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [27 <../figures/all/split_many.pdf
+>] [26 <../figures/all/split_many.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/split_many.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [28 <../figures/country_comparison/split_many_global_mean.pdf> <../figures/country_comparison/ncs_gcs_ics_positive.pdf>] [29 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/all/ncqg.pdf
+>] [27 <../figures/country_comparison/split_many_global_mean.pdf> <../figures/country_comparison/ncs_gcs_ics_positive.pdf>] [28 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/all/ncqg.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/ncqg.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [30 <../figures/all/ncqg_full.pdf
+>] [29 <../figures/all/ncqg_full.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/ncqg_full.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
-> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [31 <../figures/all/sustainable_future.pdf
+> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [30 <../figures/all/sustainable_future.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/sustainable_future.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
-> <../figures/country_comparison/top_tax_share.pdf> <../figures/country_comparison/top_tax_positive.pdf>] [32 <../figures/country_comparison/transfer_how_above_one.pdf>] [33 <../figures/country_comparison/transfer_how_negative.pdf> <../figures/all/convergence_support.pdf
+> <../figures/country_comparison/top_tax_share.pdf> <../figures/country_comparison/top_tax_positive.pdf>] [31 <../figures/country_comparison/transfer_how_above_one.pdf>] [32 <../figures/country_comparison/transfer_how_negative.pdf> <../figures/all/convergence_support.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/convergence_support.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [34 <../figures/country_comparison/global_movement_positive.pdf> <../figures/all/vote_intl_coalition.pdf
+>] [33 <../figures/country_comparison/global_movement_positive.pdf> <../figures/all/vote_intl_coalition.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/vote_intl_coalition.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [35 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/all/custom_redistr_mean.png>] [36 <../figures/questionnaire/survey_custom_redistr_median_zoom.png>] [37 <../figures/all/gcs_comprehension.pdf
+>] [34 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/all/custom_redistr_mean.png>] [35 <../figures/questionnaire/survey_custom_redistr_median_zoom.png>] [36 <../figures/all/gcs_comprehension.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/gcs_comprehension.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
-> <../figures/country_comparison/my_tax_global_nation_share.pdf>] [38 <../figures/country_comparison/my_tax_global_nation_positive.pdf>] [39 <../figures/all/survey_biased.pdf
+> <../figures/country_comparison/my_tax_global_nation_share.pdf>] [37 <../figures/country_comparison/my_tax_global_nation_positive.pdf>] [38 <../figures/all/survey_biased.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/all/survey_biased.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [40 <../figures/country_comparison/vote_representativeness.pdf
+>] [39 <../figures/country_comparison/vote_representativeness.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_representativeness.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
->] [41 <../figures/country_comparison/vote_pnr_out.pdf
+>] [40 <../figures/country_comparison/vote_pnr_out.pdf
 
 pdfTeX warning: pdflatex.exe (file ../figures/country_comparison/vote_pnr_out.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >] (./app_questionnaire.tex
@@ -3111,19 +3119,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--14
 
  []
 
-[42
+[41
 
 ]
 Overfull \hbox (1.97209pt too wide) in paragraph at lines 51--52
 []\OT1/ppl/m/n/12 What is the \OT1/ppl/b/n/12 [pe-ri-od-ic-ity[]text: monthly] [in-come[]type: gross] in-come of your house-
  []
 
-[43]
+[42]
 Overfull \hbox (12.9183pt too wide) in paragraph at lines 86--89
 \OT1/ppl/m/n/12 If you have both the Saudi and a for-eign na-tion-al-ity, choose "Saudi". [[][]\OT1/cmtt/m/n/12 nationality_SA[]\OT1/ppl/m/n/12 ] 
  []
 
-[44]
+[43]
 Overfull \hbox (28.61447pt too wide) in paragraph at lines 132--134
 [] \OT1/ppl/m/n/12 [Branch: con-cerns] What are your main con-cerns these days? [\OT1/ppl/m/it/12 Fig-ure [][]S4[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 concerns_field[]\OT1/ppl/m/n/12 ] 
  []
@@ -3138,37 +3146,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 153--155
 
  []
 
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
+
+ []
+
 [45]
-Underfull \hbox (badness 10000) in paragraph at lines 176--184
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--184
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--184
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--194
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--194
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--194
-
- []
-
-[46]
 Overfull \hbox (29.7619pt too wide) in paragraph at lines 201--210
 \OT1/ppl/m/n/12 ri-od-ic-ity: per month], thereby off-set-ting price in-creases for the av-er-age [coun-try[]adjective:
  []
@@ -3183,7 +3191,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 211--215
 
  []
 
-[47]
+[46]
 Underfull \hbox (badness 10000) in paragraph at lines 220--235
 
  []
@@ -3220,10 +3228,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 220--235
 
 
 Overfull \hbox (5.74307pt too wide) in paragraph at lines 220--235
-\OT1/ppl/m/n/12 [new page] [\OT1/ppl/m/it/12 Two ran-dom branches: own; US\OT1/ppl/m/n/12 ; \OT1/ppl/m/it/12 Fig-ure [][]S25[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 gcs_belief, variant_belief[]\OT1/ppl/m/n/12 ] 
+\OT1/ppl/m/n/12 [new page] [\OT1/ppl/m/it/12 Two ran-dom branches: own; US\OT1/ppl/m/n/12 ; \OT1/ppl/m/it/12 Fig-ure [][]S26[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 gcs_belief, variant_belief[]\OT1/ppl/m/n/12 ] 
  []
 
-[48]
+[47]
 Underfull \hbox (badness 10000) in paragraph at lines 249--254
 
  []
@@ -3263,7 +3271,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 255--260
 
  []
 
-[49]
+[48]
 Underfull \hbox (badness 10000) in paragraph at lines 261--266
 
  []
@@ -3313,8 +3321,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 267--271
 
  []
 
-[50]
-<hwemoji-assets.pdf, id=1233, page=2198, 27.10126pt x 27.10126pt>
+[49]
+<hwemoji-assets.pdf, id=1258, page=2198, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 284.
@@ -3323,7 +3331,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1234, page=1754, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1259, page=1754, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 284.
@@ -3332,7 +3340,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1235, page=364, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1260, page=364, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 285.
@@ -3341,7 +3349,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1236, page=1724, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1261, page=1724, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 285.
@@ -3350,7 +3358,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1237, page=1651, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1262, page=1651, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 285.
@@ -3359,7 +3367,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1238, page=333, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1263, page=333, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 286.
@@ -3368,7 +3376,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 286.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1239, page=1783, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1264, page=1783, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1783>
 Package pdftex.def Info: hwemoji-assets.pdf , page1783 used on input line 286.
@@ -3387,7 +3395,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 283--288
 
  []
 
-[51 <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf> <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
+[50 <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf> <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
 
 pdfTeX warning: pdflatex.exe (file c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf
@@ -3410,44 +3418,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 294--300
 
  []
 
+[51]
+Underfull \hbox (badness 10000) in paragraph at lines 323--328
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--328
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--328
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--328
+
+ []
+
 [52]
-Underfull \hbox (badness 10000) in paragraph at lines 323--328
+Underfull \hbox (badness 10000) in paragraph at lines 329--334
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--328
+Underfull \hbox (badness 10000) in paragraph at lines 329--334
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--328
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 323--328
+Underfull \hbox (badness 10000) in paragraph at lines 329--334
 
  []
 
 [53]
-Underfull \hbox (badness 10000) in paragraph at lines 329--334
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 329--334
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 329--334
-
- []
-
-[54]
 Overfull \hbox (73.22856pt too wide) in paragraph at lines 338--340
-[]\OT1/ppl/m/n/12 [\OT1/ppl/m/it/12 Three ran-dom branches: Global; HIC; Int'l\OT1/ppl/m/n/12 ; \OT1/ppl/m/it/12 Fig-ures [][]5[][], [][]S29[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 wealth_tax_support, variant_wealth_tax[]\OT1/ppl/m/n/12 ] 
+[]\OT1/ppl/m/n/12 [\OT1/ppl/m/it/12 Three ran-dom branches: Global; HIC; Int'l\OT1/ppl/m/n/12 ; \OT1/ppl/m/it/12 Fig-ures [][]5[][], [][]S30[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 wealth_tax_support, variant_wealth_tax[]\OT1/ppl/m/n/12 ] 
  []
 
 
@@ -3465,32 +3473,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 347--349
 
  []
 
+[54]
+Underfull \hbox (badness 10000) in paragraph at lines 355--363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 355--363
+
+ []
+
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 355--363
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--363
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--363
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--363
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--363
-
- []
-
-[56]
 Underfull \hbox (badness 10000) in paragraph at lines 363--365
 
  []
@@ -3510,7 +3518,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 363--365
 
  []
 
-[57]
+[56]
 Underfull \hbox (badness 10000) in paragraph at lines 366--370
 
  []
@@ -3535,7 +3543,7 @@ Overfull \hbox (40.99599pt too wide) in paragraph at lines 371--374
 []\OT1/ppl/m/n/12 To show that you are at-ten-tive, please se-lect "A lit-tle" in the fol-low-ing list: [[][]\OT1/cmtt/m/n/12 attention_test[]\OT1/ppl/m/n/12 ] 
  []
 
-[58]
+[57]
 Overfull \hbox (10.27632pt too wide) in paragraph at lines 384--385
 []\OT1/ppl/m/n/12 Transfers to pub-lic de-vel-op-ment aid agen-cies which then fi-nance suit-able projects 
  []
@@ -3550,7 +3558,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 406--411
 
  []
 
-[59]
+[58]
 Overfull \hbox (6.08736pt too wide) in paragraph at lines 417--421
 \OT1/ppl/m/n/12 repa-ra-tions for col-o-niza-tion and slav-ery to for-mer colonies and de-scen-dants of slaves. 
  []
@@ -3560,37 +3568,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 417--421
 
  []
 
+[59]
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+
+ []
+
 [60]
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
-
- []
-
-[61]
 Overfull \hbox (18.51324pt too wide) in paragraph at lines 456--458
 []\OT1/ppl/m/n/12 [\OT1/ppl/m/it/12 Four ran-dom branches: gallup[]0; gallup[]1; wvs[]0; wvs[]1\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 well_being, variant_well_being[]\OT1/ppl/m/n/12 ] 
  []
@@ -3605,17 +3613,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 463--466
 
  []
 
-[62]
+[61]
 Underfull \hbox (badness 10000) in paragraph at lines 479--483
 
  []
 
 
 Overfull \hbox (25.89664pt too wide) in paragraph at lines 488--491
-\OT1/ppl/m/n/12 should go to-wards solv-ing global prob-lems." [\OT1/ppl/m/it/12 Fig-ures [][]9[][], [][]S43[][]-[][]S44[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 my_tax_global_nation[]\OT1/ppl/m/n/12 ] 
+\OT1/ppl/m/n/12 should go to-wards solv-ing global prob-lems." [\OT1/ppl/m/it/12 Fig-ures [][]9[][], [][]S44[][]-[][]S45[][]\OT1/ppl/m/n/12 ; [][]\OT1/cmtt/m/n/12 my_tax_global_nation[]\OT1/ppl/m/n/12 ] 
  []
 
-) [63] (../tables/FR_DE_IT.tex) (../tables/PL_ES_GB_CH.tex)
+) [62] (../tables/FR_DE_IT.tex) (../tables/PL_ES_GB_CH.tex)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3623,13 +3631,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[64
+[63
 
-] [65] [66] (../tables/determinants_paper.tex) [67
+] [64] [65] (../tables/determinants_paper.tex) [66
 
-] (../tables/attrition.tex) [68
+] (../tables/attrition.tex) [67
 
-] (../tables/balance.tex) [69
+] (../tables/balance.tex) [68
 
 ]) (build/bu2.aux)
 \openout3 = `bu2.aux'.
@@ -3644,9 +3652,9 @@ No file bu.aux.
 \tf@lot=\write10
 \openout10 = `support_global_redistr.lot'.
 
- (build/support_global_redistr.lof [70
+ (build/support_global_redistr.lof [69
 
-] [71])
+] [70])
 \tf@lof=\write11
 \openout11 = `support_global_redistr.lof'.
 
@@ -3654,25 +3662,25 @@ No file bu.aux.
 
 Package natbib Warning: There were multiply defined citations.
 
-[72] (build/support_global_redistr.aux)
+[71] (build/support_global_redistr.aux)
 Package rerunfilecheck Info: File `support_global_redistr.out' has not changed.
-(rerunfilecheck)             Checksum: CAF125DF2A16093591EC19E8CD29B9CE;2108.
+(rerunfilecheck)             Checksum: CBC9F5E4B349975640CE49DFB2CD2AEA;2109.
 Package rerunfilecheck Info: File `support_global_redistr.brf' has not changed.
 (rerunfilecheck)             Checksum: 2494EC3A0073E722374E3966C016D992;170.
  ) 
 Here is how much of TeX's memory you used:
- 39725 strings out of 475075
- 800022 string characters out of 5783001
- 1132164 words of memory out of 5000000
- 60127 multiletter control sequences out of 15000+600000
+ 39734 strings out of 475075
+ 800393 string characters out of 5783001
+ 1132224 words of memory out of 5000000
+ 60134 multiletter control sequences out of 15000+600000
  528741 words of font info for 179 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,104p,2136b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/eurosym/feymr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on build/support_global_redistr.pdf (72 pages, 2385099 bytes).
+Output written on build/support_global_redistr.pdf (71 pages, 2391050 bytes).
 PDF statistics:
- 1562 PDF objects out of 1728 (max. 8388607)
- 1189 compressed objects within 12 object streams
+ 1589 PDF objects out of 1728 (max. 8388607)
+ 1203 compressed objects within 13 object streams
  254 named destinations out of 1000 (max. 500000)
- 484 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 489 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -55,7 +55,7 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
   if (include_indifferent) ca[[df]]$selected[ca[[df]]$conjoint %in% "Neither of them"] <- .5
   else ca[[df]] <- ca[[df]][!ca[[df]]$conjoint %in% "Neither of them",]
   if (any(is.na(ca[[df]]))) warning(paste("/!\\", sum(sapply(1:nrow(ca[[df]]), function(i) any(is.na(ca[[df]][i,]))))), "rows with some NAs have been removed in ", df)
-  for (lang in c(paste0("EN-", df), main_language)) if (lang %in% names(policies_conjoint)) {
+  for (lang in c(paste0("EN-", ifelse(df == "JP", "JA", df)), main_language)) if (lang %in% names(policies_conjoint)) {
     amce[[lang]] <- amce(formula_cjoint, ca[[df]][sapply(1:nrow(ca[[df]]), function(i) !any(is.na(ca[[df]][i,]))),], design = design_cjoint, cluster = FALSE, weights = NULL)
     policies_l <- c(unlist(setNames(policies_conjoint[[lang]], conjoint_attributes)), "-" = "-")
     for (i in 1:length(amce[[lang]]$attributes)) amce[[lang]]$user.names[[i+1]] <- names(policies_conjoint[[lang]])[i]
@@ -63,9 +63,9 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
   }
 }
 
-for (df in countries[!countries %in% c("SA", "RU")]) { for (lang in c(paste0("EN-", df), languages_country[[sub("p", "", df)]][1])) if (lang %in% names(policies_conjoint)) {
+for (df in countries[!countries %in% c("SA", "RU")]) { for (lang in c(paste0("EN-", ifelse(df == "JP", "JA", df)), languages_country[[sub("p", "", df)]][1])) if (lang %in% names(policies_conjoint)) {
   plot(amce[[lang]], xlab = "Average Marginal Component Effect", text.size = 16)
-  save_plot (filename = paste0("conjoint_", lang), folder = paste0('../figures/', df, '/'), width = 1200, height = 500, method='dev', trim = T, format = 'pdf') 
+  save_plot (filename = paste0("conjoint_", lang), folder = paste0('../figures/', df, '/'), width = 1100, height = 500, method='dev', trim = T, format = 'pdf') 
 } }
 
 plot(amce$FR) 
@@ -85,6 +85,7 @@ plot(amce$EN-DE)
 plot(amce$EN-IT)
 plot(amce$EN-PL)
 plot(amce$EN-ES) 
+plot(amce$EN-JA) 
 
 View(ca[[df]])
 

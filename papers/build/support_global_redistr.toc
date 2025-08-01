@@ -11,14 +11,14 @@
 \contentsline {paragraph}{\small Questionnaires and raw results.}{9}{section*.20}%
 \contentsline {section}{Bibliography}{12}{section*.23}%
 \contentsline {section}{\numberline {A}Raw results}{13}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{42}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{64}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{67}{appendix.D}%
-\contentsline {section}{\numberline {E}Attrition analysis}{68}{appendix.E}%
-\contentsline {section}{\numberline {F}Balance analysis}{69}{appendix.F}%
-\contentsline {section}{\numberline {G}Placebo tests}{70}{appendix.G}%
-\contentsline {section}{\numberline {H}Main results on the extended sample}{70}{appendix.H}%
-\contentsline {section}{Bibliography}{70}{section*.98}%
-\contentsline {section}{List of Tables}{70}{section*.99}%
-\contentsline {section}{List of Figures}{70}{section*.100}%
+\contentsline {section}{\numberline {B}Questionnaire}{41}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{63}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{66}{appendix.D}%
+\contentsline {section}{\numberline {E}Attrition analysis}{67}{appendix.E}%
+\contentsline {section}{\numberline {F}Balance analysis}{68}{appendix.F}%
+\contentsline {section}{\numberline {G}Placebo tests}{69}{appendix.G}%
+\contentsline {section}{\numberline {H}Main results on the extended sample}{69}{appendix.H}%
+\contentsline {section}{Bibliography}{69}{section*.99}%
+\contentsline {section}{List of Tables}{69}{section*.100}%
+\contentsline {section}{List of Figures}{69}{section*.101}%
 \contentsfinish 
