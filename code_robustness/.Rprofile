@@ -1600,9 +1600,9 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
   # col <- colorRampPalette(color2)(200)
   # # if (proportion) col <- colorRampPalette(c(rep("#67001F", 10), col2))(200)
   par(xpd=TRUE)
-  return(corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors),
+  corrplot(data, method='color', col = if(colors %in% c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')) COL2(colors) else COL1(colors),
         tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat,
-        sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F) ) #  cl.pos = 'n' removes the scale # cex # mar ...1.1
+        sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F)  #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
 heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", # on_control = FALSE, alphabetical = T,
                           export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, weight_non_na = T, remove_na = T, transpose = FALSE) {
@@ -1681,7 +1681,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
 heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, levels = NULL,
                             conditions = c("", ">= 1", "/"), data = e, width = NULL, height = NULL, #alphabetical = T, on_control = FALSE,
                             export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
-                            colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T) {
+                            colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T, save = T) {
   # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
   # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
   # Longest label: "Richest countries should pay even more to help vulnerable ones" (62 characters, variables_burden_sharing_few).
@@ -1723,7 +1723,11 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
       if (sort) temp <- temp[order(-temp[,1]),, drop = FALSE]
       if (export_xls) save_plot(as.data.frame(temp), filename = sub("figures", "xlsx", paste0(folder, filename)))
       heatmap_plot(temp, proportion = ifelse(is.null(proportion), !cond %in% c("median", ""), proportion), percent = percent, nb_digits = nb_digits, colors = colors)
-      save_plot(filename = paste0(folder, filename), width = width, height = height, format = format, trim = trim)
+
+      # save_plot(filename = paste0(folder, filename), width = width, height = height, format = format, trim = trim)
+      pdf(paste0(folder, filename, ".pdf"), width = width/72, height = height/72)
+      heatmap_plot(temp, proportion = ifelse(is.null(proportion), !cond %in% c("median", ""), proportion), percent = percent, nb_digits = nb_digits, colors = colors)
+      invisible(dev.off())
       print(paste0(filename, ": success"))
     }, error = function(x) { print(paste0(filename, ": fail. ", x)) } )
   }
@@ -1770,7 +1774,7 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
     vars_present <- heatmap$vars %in% names(data)
     # if (any(c("gcs_support", "nr_support", "gcs_support_100") %in% heatmap$vars)) data <- data[data$wave != "US2",]
     heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort,
-                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, trim = trim, weights = weights, weight_non_na = T, folder = folder, along = along)
+                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, width = heatmap$width, height = heatmap$height, trim = trim, weights = weights, weight_non_na = T, folder = folder, along = along)
   }
 }
 

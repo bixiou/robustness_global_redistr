@@ -1,5 +1,5 @@
 # donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
-# TODO: income_exact; foreign; millionaire; donation; reparations_support
+# TODO!: income_exact
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -234,53 +234,62 @@ for (v in names(keywords_labels)) labels_vars[paste0("field_keyword_", v)] <- ke
 ##### heatmaps_defs #####
 heatmaps_defs <- list()
 heatmaps_defs <- list(
-  "gcs_support" = list(vars = "gcs_support", conditions = ">= 1"),
-  "gcs_support_control" = list(vars = "gcs_support", conditions = ">= 1"),  
-  "belief" = list(vars = variables_gcs_belief, conditions = "", nb_digits = 0), 
-  "gcs_belief" = list(vars = c("gcs_support_control", variables_gcs_belief), conditions = "", nb_digits = 0), 
-  "variables_ics" = list(vars = variables_ics, conditions = ">= 1"), 
-  "gcs_all" = list(vars = variables_gcs_all, conditions = "", nb_digits = 0), 
-  "gcs_ics" = list(vars = variables_gcs_ics, conditions = ">= 1"), 
-  "gcs_ics_all" = list(vars = variables_gcs_ics_all, conditions = "", nb_digits = 0), 
-  "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1"), 
-  "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0), 
-  "duration" = list(vars = variables_duration, conditions = ""),
-  "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c("")),
-  "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T), 
-  "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T),
-  "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T),
-  "global_movement" = list(vars = variables_global_movement, conditions = ">= 1"), 
-  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1"), 
-  "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1"), 
-  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/")),
-  "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1"),
-  "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = ""),
-  "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/")),
-  # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/")),
-  "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/")),
-  "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/")),
-  "well_being" = list(vars = variables_well_being, conditions = ""),
-  "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1"),
-  "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1"),
-  "group_defended_5" = list(vars = variables_group_defended_5, conditions = ">= 1"),
-  "split_few" = list(vars = variables_split_few, conditions = c("", ">= 1")), # white color at 20
-  "split_many" = list(vars = variables_split_many, conditions = c("", ">= 1")),
-  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1")), # TODO: update
-  "field_manual" = list(vars = variables_field_manual, conditions = ">= 1", sort = T),
-  "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T),
-  "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T),
-  "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T),
-  "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1")
+  "gcs_support" = list(vars = "gcs_support", conditions = ">= 1", width = 900, height = 150),
+  "gcs_support_control" = list(vars = "gcs_support", conditions = ">= 1", width = 900, height = 150),  
+  "belief" = list(vars = variables_gcs_belief, conditions = "", nb_digits = 0, width = 1000, height = 230), 
+  "gcs_belief" = list(vars = c("gcs_support_control", variables_gcs_belief), conditions = "", nb_digits = 0, width = 1000, height = 250), 
+  "variables_ics" = list(vars = variables_ics, conditions = ">= 1", width = 1550, height = 340), 
+  "gcs_all" = list(vars = variables_gcs_all, conditions = "", nb_digits = 0, width = 1000, height = 300), 
+  "gcs_ics" = list(vars = variables_gcs_ics, conditions = ">= 1", width = 1550, height = 400), 
+  "gcs_ics_all" = list(vars = variables_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 500), 
+  "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1", width = 1550, height = 430), 
+  "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 550), 
+  "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),
+  "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
+  "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
+  "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T, width = 1200, height = 650),
+  "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T, width = 1200, height = 650),
+  "global_movement" = list(vars = variables_global_movement, conditions = ">= 1", width = 1000, height = 320), 
+  "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1", width = 1100, height = 270), 
+  "reparations_support" = list(vars = "reparations_support", conditions = c("", ">= 1", "/"), width = 1000, height = 170), 
+  "my_tax_global_nation" = list(vars = "my_tax_global_nation", conditions = c("", ">= 1", "/"), width = 1050, height = 170), 
+  "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
+  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 210),
+  "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
+  "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = "", width = 1200, height = 500),
+  "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1300, height = 500),
+  # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
+  "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1300, height = 400),
+  "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1300, height = 430), # TODO
+  "well_being" = list(vars = variables_well_being, conditions = "", width = 1000, height = 300),
+  "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1", width = 900, height = 250),
+  "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1", width = 900, height = 270),
+  "group_defended_5" = list(vars = variables_group_defended_5, conditions = ">= 1", width = 900, height = 350),
+  "split_few" = list(vars = variables_split_few, conditions = c("", ">= 1"), width = 1000, height = 350), # white color at 20
+  "split_many" = list(vars = variables_split_many, conditions = c("", ">= 1"), width = 1000, height = 700),
+  "split_many_global" = list(vars = variables_split_many_global, conditions = c("", ">= 1"), width = 1100, height = 380), 
+  "field_manual" = list(vars = variables_field_manual, conditions = ">= 1", sort = T, width = 850, height = 900),
+  "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T, width = 850, height = 1300),
+  "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T, width = 850, height = 900),
+  "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T, width = 850, height = 900),
+  "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
+  "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
-# TODO! vote, fields
+heatmaps_defs <- fill_heatmaps(c(), heatmaps_defs)
+heatmap_multiple(heatmaps_defs["radical_redistr"])
+
+heatmap_multiple(heatmaps_defs[c("gcs_belief", "gcs_all", "belief", "ncs_gcs_ics_all", "radical_redistr", "why_hic_help_lic", "global_movement", 
+                                 "radical_redistr_few", "wealth_tax_support", "top_tax", "sustainable_futures", "field_gpt", "field_keyword", "radical_redistr_main", 
+                                 "split_few", "split_many_global", "group_defended_5", "group_defended_4", "group_defended_3", "well_being")])
+
 
 ##### vars_heatmaps #####
-vars_heatmaps <- c("transfer_how", "solidarity_support", "global_movement", "why_hic_help_lic", "convergence_support", "my_tax_global_nation", "reparations_support", "sustainable_future") 
+vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparations_support") 
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
-# heatmap_multiple(heatmaps_defs)
+heatmap_multiple(heatmaps_defs)
 
 
 ##### barres_defs #####
@@ -467,7 +476,7 @@ heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == 
 heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
 
 # Revenue split
-barres_multiple(barres_defs["split_few"]) # 670 x 330 TODO add means
+barres_multiple(barres_defs["split_few"]) # 670 x 330 TODO! add means
 barres_multiple(barres_defs["split_many"]) # 860 x 600
 
 # Warm glow -- moral substitute
@@ -509,8 +518,10 @@ global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_tab
 global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
 row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
+pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/72, height = 650/72)
 heatmap_plot(global_nation_all, proportion = T, percent = T)
-save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
+invisible(dev.off())
+# save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
 
 # barres_multiple(barresN_defs[c("group_defended")]) 
 # barres_multiple(barres_defs[c("group_defended")]) 
@@ -556,6 +567,7 @@ barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = coln
 barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
 barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
 # TODO: representativeness by group at EU Parliament
+
   
 ##### Paper #####
 # 1? coverage map
@@ -595,8 +607,7 @@ split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with
 # dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
 # dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
 
-# TODO: bold for special_levels
-# TODO: width & height in barres
+# TODO!: bold for special_levels
 # TODO: specify width, height
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
@@ -638,8 +649,7 @@ plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_
 
 # 6. conjoint: foreign aid + global tax
 # TODO allow several colors
-# TODO bold all/Europe
-# TODO remove labels for one of them
+# TODO! bold all/Europe
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
