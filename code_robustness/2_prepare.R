@@ -1,5 +1,5 @@
 # TODO: labels
-# TODO: fields
+# TODO: comment fields; remaining fields US, JP
 # TODO: main figures and tables
 # TODO: sociodemos determinants (y.c. custom_redistr)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -757,7 +757,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
     df$custom_redistr_current_income[k] <- df$income_exact[k]/ifelse(df$couple[k] > 0, 2, 1) * as.numeric(features["period_custom", languages_country[[df$country[k]]][1]]) * as.numeric(features["unit", languages_country[[df$country[k]]][1]]) # in $/year individualized
-    df$income_exact_thousandile_world <- sapply(head(e$custom_redistr_current_income), function(y) min(which(y < current)))
+    df$income_exact_thousandile_world <- sapply(df$custom_redistr_current_income, function(y) min(which(y < current)))
     if (!is.na(winners)) {
       income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
       income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)

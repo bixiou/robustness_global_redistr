@@ -1260,8 +1260,8 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
   #   levels <- sub("^\\*", "", rev(levels))
   # }
   if (!is.null(levels) & !missing(along)) {
-    levels <- rev(levels)
     data <- lapply(levels, function(l) if (exists("special_levels") && l %in% names(special_levels)) df[[1]][df[[1]][[special_levels[[l]]$var]] %in% special_levels[[l]]$value,] else df[[1]][df[[1]][[along]]==l,])
+    levels <- rev(levels)
   } else if (!missing(along)) {
     levels <- Levels(df[[1]][[along]])
     levels <- sub("^\\*", "", rev(levels))
@@ -1286,7 +1286,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
     } else {
       not_nan <- sapply(c(1:ncol(plotted_data)), function(j) any(!is.nan(plotted_data[,j])))
       plotted_data <- plotted_data[, not_nan, drop=FALSE]
-      return(barres(data = plotted_data, labels=labels[rev(not_nan)], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
+      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
                     miss=miss, weights = weights, fr=fr, rev=rev, color=color, rev_color = rev_color, hover=hover, sort=F, thin=thin, showLegend=showLegend, export_xls = export_xls, error_margin = error_margin))
     } }
 }
@@ -1514,6 +1514,10 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
 #' #' # dev.copy(png, filename="test.png") # save plot from R (not plotly)
 #' #' # dev.off()
 #' #' # orca(example, file = "image.png") # BEST METHOD, cf. below
+pdf_crop <- function(file) {
+  if (Sys.which("pdfcrop") != "") system2("pdfcrop", args = shQuote(c(file, file)), stdout = "nul")
+  else plot_crop(file)
+}
 fig_height <- function(nb_bars, large = F) return(ifelse(nb_bars == 1, 140, 220 + 30*(nb_bars - 2)) + 10*nb_bars*large) # barres # 2 ~ 220, 3 ~ 250, 4 ~ 280, 5 ~ 325, 6 ~ 360, 7 ~ 380, TRUE ~ 400 # 2 ~ 200-240, 3 ~ 240-275, 4 ~ 270-340, 5 ~ 320-340, 6 ~ 400, 7 ~ 340-430,
 save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='dev', trim = T, format = 'png') {
   # used in heatmap_wrapper
@@ -1543,7 +1547,7 @@ save_plot <- function(plot=NULL, filename = deparse(substitute(plot)), folder = 
       server$close()
     }
     if (trim & format %in% c('png')) image_write(image_trim(image_read(file)), file) # , 'svg'
-    if (trim & format == 'pdf') plot_crop(file) } # to crop pdf, see also figures/crop_pdf.sh and run it in the desired folder
+    if (trim & format == 'pdf') pdf_crop(file) } # to crop pdf, see also figures/crop_pdf.sh and run it in the desired folder
 }
 save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '../figures/', width = dev.size('px')[1], height = dev.size('px')[2], method='orca', format = 'pdf', trim = T) { # used in barres; in case connection refused, turn off Windows Defender on private networks
   if (any(class(plot) == "data.frame")) {
@@ -1565,7 +1569,7 @@ save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '..
       server$close()
     }
     if (trim & format == 'png') image_write(image_trim(image_read(file)), file)
-    if (trim & format == 'pdf') plot_crop(file) }
+    if (trim & format == 'pdf') pdf_crop(file) }
 }
 #' #' correlogram <- function(grep = NULL, vars = NULL, df = e) {
 #' #'   if (missing(vars)) vars <- names(df)[grepl(grep, names(df)) & !grepl("_funding|_correct", names(df))]
@@ -1575,14 +1579,17 @@ save_plotly <- function(plot, filename = deparse(substitute(plot)), folder = '..
 #' #'   p.mat <- cor.mtest(data) # corrplot does not work when some packages are loaded before 'corrplot' => if it doesn't work, restart R and load only corrplot.
 #' #'   corrplot(corr, method='color', p.mat = p.mat, sig.level = 0.01, diag=FALSE, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = T, type='upper') #, order='hclust'
 #' #' }
-automatic_folder <- function(along = "country_name", data = e, several = "country_comparison") {
+automatic_folder <- function(along = "country", data = e, several = "country_comparison") {
   # used in heatmap_multiple
-  if (along %in% c("country", "country_name", "wave")) {
+  if (!is.null(along) && along %in% c("country", "country_name", "wave")) {
     folder <- unique(data[[along]])
     if (length(folder) > 1) folder <- paste0('../figures/', several, '/')
     else folder <- paste0("../figures/", folder, "/")
     return(folder)
-  } else warning("'folder' missing")
+  } else {
+    if (length(unique(data$country)) == 1) return(paste0('../figures/', unique(data$country), '/'))
+    else return(paste0('../figures/all/'))
+  }
 }
 heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, percent = FALSE, colors = 'RdYlBu', nb_digits = NULL) { # type in full, upper, lower
   diag <- if(type=="full") T else F
@@ -1768,19 +1775,18 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
 }
 
 barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T, nolabel = F, levels = levels_default) {
-  if (missing(folder)) folder <- automatic_folder(along = "country", data = df, several = "all")
   for (def in barres) {
-    # tryCatch({
-    vars_present <- def$vars %in% names(df)
-    if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
-                                                 miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
-    else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
-                         miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
-    if (print) print(plot)
-    save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = def$height, method = method, trim = trim, format = format)
-    #   print(paste0(def$name, ": success"))
-    # }
-    # , error = function(cond) { print(paste0(def$name, ": failed.")) } )
+    if (missing(folder)) folder <- automatic_folder(along = def$along, data = df)
+    tryCatch({
+      vars_present <- def$vars %in% names(df)
+      if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
+                                                   miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
+      else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
+                           miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
+      if (print) print(plot)
+      save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 130 else def$height, method = method, trim = trim, format = format)
+      print(paste0(def$name, ": success"))
+    }, error = function(cond) { print(paste0(def$name, ": failed.")) } )
   }
 }
 
@@ -1842,7 +1848,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       if (!"legend" %in% names(plots[[name]]) & !is.na(var_example)) plots[[name]]$legend <- dataKN(vars = vars_in, data=df, miss=plots[[name]]$miss, return = "legend", fr = plots[[name]]$fr, rev = plots[[name]]$rev, rev_legend = plots[[name]]$rev)
       # yes_no <- setequal(plots[[name]]$legend, c('Yes', 'No', 'PNR')) | setequal(plots[[name]]$legend, c('Oui', 'Non', 'NSP')) | setequal(plots[[name]]$legend, c('Yes', 'No')) | setequal(plots[[name]]$legend, c('Oui', 'Non'))
       # if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example))  T else (!is.binary(df[[var_example]]) | yes_no)
-      if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
+      if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- T # if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
       if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
       if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
       # if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth

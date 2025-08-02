@@ -1,6 +1,5 @@
 # donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
-# TODO: income_exact
-# trim
+# TODO: income_exact; foreign; millionaire; donation; reparations_support
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -45,6 +44,8 @@ labels_vars <- c(
   "race_black" = "Race: Black",
   "race_hispanic" = "Race: Hispanic",
   "race_asian" = "Race: Asian",
+  "foreign" = "Were you or your parents born in a foreign country?",
+  "foreign_born_family" = "Were you or your parents born in a foreign country?",
   "home_tenant" = "Home: tenant",
   "home_owner" = "Home: owner",
   "home_landlord" = "Home: landlord",
@@ -67,6 +68,8 @@ labels_vars <- c(
   "revenue_split_few_domestic_tax_reduction_agg" = "Domestic: Reduction in the income tax",
   "split_many_global_when_appear" = "Share allocated to Global spending options\nwhen such options are part of the 5 (out of 13) randomly selected ones",
   "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected\n(4 out of 13 being of Global nature)",
+  "donation" = "Share donated to plant trees",
+  "donation_agg" = "Share donated to plant trees",
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
   # "gcs_support_100" = "Support for the GCS",
   # "gcs_support_90" = "Support for a Global Climate Scheme at $90/tCO2",
@@ -288,8 +291,24 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "maritime_split_ldc" = list(height = 250),
   "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
   "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T),
-  "ncqg" = list(vars = "ncqg", width = 1070, height = 640),
-  "ncqg_full" = list(vars = "ncqg_full", width = 1070, height = 640)
+  # "ncqg" = list(vars = "ncqg", width = 1070, height = 640),
+  # "ncqg_full" = list(vars = "ncqg_full", width = 1070, height = 640),
+  "group_defended" = list(vars = "group_defended", width = 870, height = 600),
+  "donation_agg" = list(vars = "donation_agg", width = 900, height = 550),
+  "foreign_born_family" = list(vars = "foreign_born_family", width = 900, height = 550),
+  "reparations_support" = list(vars = "reparations_support", width = 880, height = 450),
+  "millionaire" = list(vars = "millionaire", width = 770, height = 550),
+  "sustainable_future" = list(vars = "sustainable_future", width = 550, height = 550),
+  "survey_biased" = list(vars = "survey_biased", width = 650, height = 550),
+  "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750, height = 550),
+  "convergence_support" = list(vars = "convergence_support", width = 1200, height = 550),
+  "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 810, height = 550),
+  "ncqg_full" = list(vars = "ncqg_full", width = 850, height = 550),
+  "ncqg" = list(vars = "ncqg", width = 850, height = 550),
+  "gcs_support_control" = list(vars = "gcs_support_control", width = 700, height = 550),
+  "solidarity_support_aviation_levy" = list(vars = "solidarity_support_aviation_levy", width = 920, height = 550),
+  "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
+  "maritime_split" = list(vars = "maritime_split", width = 850, height = 550)
   # ncqg: rev = F, rev_color = T
   # "split_many"
   # "split_many_global
@@ -299,36 +318,48 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
-vars_barres <- c("maritime_split", "solidarity_support_aviation_levy", "solidarity_support_billionaire_tax", "sustainable_future", "vote_intl_coalition", "sustainable_future",
-                 "group_defended", "reparations_support", "gcs_support_control", "gcs_comprehension", "survey_biased", "donation_agg", "convergence_support", "gcs_comprehension") # 
+vars_barres <- c() # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
-barresN_defs <- fill_barres(vars_barres, along = "country_name")
+barresN_defs <- fill_barres(vars_barres, barres_defs, along = "country_name")
 
 vars_barres1 <- c("split_few", "split_many", "split_many_global") # , "maritime_split" TODO: no error when variable not found
 vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 
-# TODO
-barres_multiple(barres_defs["donation_agg"]) # 1100 x 130
-barres_multiple(barres_defs["convergence_support"]) # 1100 x 130
-barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
-barres_multiple(barres_defs["survey_biased"]) # 650 x 130
-barres_multiple(barresN_defs["donation_agg"]) # 1100 x 550
-barres_multiple(barresN_defs["convergence_support"]) # 1200 x 550
-barres_multiple(barresN_defs["gcs_comprehension"]) # 750 x 550 TODO pb Europe
-barres_multiple(barresN_defs["survey_biased"]) # 650 x 550
-barres_multiple(barresN_defs["sustainable_future"]) # 550 x 550
+
+##### Plot all barres #####
+barres_multiple(barres_defs)
+barres_multiple(barresN_defs[vars_barresN])
+ 
+# barres_multiple(barres_defs["donation_agg"]) # 900 x 130
+# barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
+# barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
+# barres_multiple(barres_defs["survey_biased"]) # 650 x 130
+# barres_multiple(barres_defs["millionaire"]) # 930 x 130
+# barres_multiple(barres_defs["reparations_support"]) # 800 x 130
+# barres_multiple(barres_defs["donation_agg"]) # 900 x 130
+# barres_multiple(barres_defs["foreign_born_family"]) # 800 x 130
+# barres_multiple(barresN_defs["convergence_support"]) # 1200 x 550
+# barres_multiple(barresN_defs["gcs_comprehension"]) # 750 x 550 
+# barres_multiple(barresN_defs["survey_biased"]) # 650 x 550
+# barres_multiple(barresN_defs["sustainable_future"]) # 550 x 550
+# barres_multiple(barresN_defs["millionaire"]) # 770 x 130
+# barres_multiple(barresN_defs["reparations_support"]) # 880 x 130
+# barres_multiple(barresN_defs["donation_agg"]) # 900 x 130
+# barres_multiple(barresN_defs["foreign_born_family"]) # 900 x 130
+
 heatmap_multiple(heatmaps_defs["sustainable_futures"]) # 1030 x 310
 heatmap_multiple(heatmaps_defs["top_tax"]) # 1450 x 270
 heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
 
+
 ##### Plot #####
-# barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
-barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
-barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_barres1]], nolabel = T)
-# barres_multiple(barres_defs)
-barres_multiple(barresN_defs["gcs_support_control"])
-barres_multiple(barres_defs["split_few"])
+# # barres_multiple(barresN_defs[c("foreign_aid_raise_support")])
+# barres_multiple(barres_defs[vars_barres1]) # TODO: pb maritime_split => avoid error when variables not present
+# barres_multiple(barresN_defs[names(barresN_defs)[!names(barresN_defs) %in% vars_barres1]], nolabel = T)
+# # barres_multiple(barres_defs)
+# barres_multiple(barresN_defs["gcs_support_control"])
+# barres_multiple(barres_defs["split_few"])
 
 # heatmap_multiple(heatmaps_defs["var"])
 heatmap_multiple(heatmaps_defs["solidarity_support"])
@@ -409,6 +440,19 @@ grid()
 plot(seq(0, 99.9, .1), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = 1:1000, marginal = F, fct_income = F), type = 'l', lwd = 2, ylim = c(-2, .5), ylab = "Tax rate", xlab = "Individualized income centile")
 grid() 
 
+## Density
+current_inc <- c(0, round(thousandile_world_disposable_inc))
+plot(0:1000, current_inc, type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
+lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")
+par(new = TRUE)
+plot(density(all$income_exact_thousandile_world, weights = all$weight), type = 'l')
+axis(4)
+grid()
+
+thousandile_survey_disposable_inc <- wtd.quantile(all$income_exact_thousandile_world, weights = all$weight, probs = seq(0, 1, .001))
+plot(0:1000, current_inc, type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
+lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")
+lines(0:1000, thousandile_survey_disposable_inc, type = 'l', lwd = 2, col = "blue")
 
 
 ##### Presentation #####
@@ -468,12 +512,12 @@ save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparis
 heatmap_plot(global_nation_all, proportion = T, percent = T)
 save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
 
-barres_multiple(barresN_defs[c("group_defended")], folder = "../figures/country_comparison") # 870 x 600
-barres_multiple(barres_defs[c("group_defended")], folder = "../figures/all") # 870 x 130
+# barres_multiple(barresN_defs[c("group_defended")]) 
+# barres_multiple(barres_defs[c("group_defended")]) 
 heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
 heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")]) # 1200 x 380
 heatmap_multiple(heatmaps_defs[c("sustainable_future")]) # 1100 x 300
-barres_multiple(barresN_defs[c("vote_intl_coalition")], df = all[!all$country %in% c("SA", "RU"),]) # 800 x 500
+# barres_multiple(barres_defs[c("vote_intl_coalition")]) # 800 x 500
 
 # Custom redistribution
 heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
@@ -503,7 +547,7 @@ vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10
 barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
 barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
 barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
-
+# TODO: specify width, height
 true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
 vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
@@ -553,6 +597,7 @@ split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with
 
 # TODO: bold for special_levels
 # TODO: width & height in barres
+# TODO: specify width, height
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
 barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list))
@@ -601,7 +646,7 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
-# 7. Warm glow
+# 7. Warm glow 
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
            covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
@@ -663,6 +708,7 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
                               "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
            indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 # TODO? Add custom_redistr_satisfied? 
+
 
 ##### Rename cropped files #####
 for (folder in c("../figures/country_comparison/cropped", "../figures/all/cropped")) { # "C:/Users/fabre/Downloads") { # 
