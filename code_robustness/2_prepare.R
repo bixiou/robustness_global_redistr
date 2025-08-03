@@ -27,8 +27,8 @@ countries_EU <- countries_names[1:5]
 countries_Eu <- countries_names[1:7]
 pilot_countries <- c("PL", "GB", "US")
 pilot_countries_all <- c(pilot_countries, "")
-special_levels <- list("All" = list("var" = "country_name", "value" = countries_names), "$ bold('All')" = list("var" = "country_name", "value" = countries_names),
-                       "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), 
+special_levels <- list("All" = list("var" = "country_name", "value" = countries_names), "$ bold('All')" = list("var" = "country_name", "value" = countries_names), "<b>All</b>" = list("var" = "country_name", "value" = countries_names),
+                       "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), "<b>Europe</b>" = list("var" = "country_name", "value" = countries_Eu), 
                        "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU),
                        "Saudi citizens" = list("var" = "saudi", "value" = T),
                        "U.S. Democrats" = list("var" = "vote_voters", "value" = "Harris"),
@@ -36,7 +36,9 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
                        "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
 levels_plain <- c("All", "Europe", countries_names[-9])
-levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
+# levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
+levels_html <- c("<b>All</b>", "<b>Europe</b>", countries_names[-9])
+levels_default_list <- setNames(lapply(levels_html, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_html)
 # levels_default_list <- setNames(lapply(levels_plain[!levels_plain %in% "Russia"], function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain[!levels_plain %in% "Russia"])
 levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
 levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
@@ -757,7 +759,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
     df$custom_redistr_current_income[k] <- df$income_exact[k]/ifelse(df$couple[k] > 0, 2, 1) * as.numeric(features["period_custom", languages_country[[df$country[k]]][1]]) * as.numeric(features["unit", languages_country[[df$country[k]]][1]]) # in $/year individualized
-    df$income_exact_thousandile_world <- sapply(df$custom_redistr_current_income, function(y) min(which(y < current)))
+    df$income_exact_thousandile_world[k] <- min(c(1000, which(df$custom_redistr_current_income[k] < current))) # pmin(1000, sapply(df$custom_redistr_current_income, function(y) min(which(y < current))))
     if (!is.na(winners)) {
       income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
       income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
@@ -892,6 +894,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
+  if (country == "JP") e$income_exact[e$income_exact_misinterpreted] <- e$income_exact[e$income_exact_misinterpreted]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
   if (country == "GB") e$urbanity[e$urbanity %in% c(1,3)] <- ifelse(e$urbanity[e$urbanity %in% c(1,3)] %in% 1, 3, 1) # Correcting a mistake in Qualtrics encoding
   e$urban <- e$urbanity == 1
   e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e)

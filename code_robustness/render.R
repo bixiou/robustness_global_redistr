@@ -1,4 +1,3 @@
-# TODO!: income_exact
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -284,14 +283,14 @@ heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
 ##### barres_defs #####
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
-  "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T), #, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)) TODO add var name in transform_mean to use non _agg var and compute true mean
+  "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T, add_means = T, show_legend_means = T, transform_mean = function(x) {x/100}), 
   "maritime_split_decarbonization" = list(height = 250),
   "maritime_split_companies" = list(height = 250),
   "maritime_split_ldc" = list(height = 250),
-  "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
-  "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T),
+  "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T, add_means = T, show_legend_means = T, transform_mean = function(x) {x/100}),
+  "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T, add_means = T, show_legend_means = T, transform_mean = function(x) {x/100}),
   "group_defended" = list(vars = "group_defended", width = 870, height = 600),
-  "donation_agg" = list(vars = "donation_agg", width = 900, height = 550),
+  "donation_agg" = list(vars = "donation_agg", width = 900, height = 550, add_means = T, transform_mean = function(x) {x/100}),
   "foreign_born_family" = list(vars = "foreign_born_family", width = 900, height = 550),
   "reparations_support" = list(vars = "reparations_support", width = 880, height = 450),
   "millionaire" = list(vars = "millionaire", width = 770, height = 550),
@@ -352,6 +351,7 @@ barres_multiple(barresN_defs_nolabel, nolabel = T)
 heatmap_multiple(heatmaps_defs)
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
+barres_multiple(barresN_defs["donation_agg"])
 # barres_multiple(barres_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
 # barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
@@ -463,11 +463,17 @@ grid()
 
 ## Density
 current_inc <- c(0, round(thousandile_world_disposable_inc))
+hist_income <- hist(all$income_exact_thousandile_world, breaks = seq(0, 1000, 10),  plot = FALSE, weights = all$weight)
 plot(0:1000, current_inc, type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
 lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")
 par(new = TRUE)
-plot(density(all$income_exact_thousandile_world, weights = all$weight), type = 'l')
-axis(4)
+plot(hist_income$mids, hist_income$counts, type = "h", lwd = 1, col = rgb(0, 0, 1, 0.4), 
+     axes = FALSE, xlab = "", ylab = "", ylim = c(0, max(hist_income$counts)))
+axis(side = 4, col = "blue", col.axis = "blue", las = 1)
+mtext("Weighted Frequency", side = 4, line = 3, col = "blue")
+# plot(density(all$income_exact_thousandile_world, weights = all$weight), type = 'l')
+# plot(hist(all$income_exact_thousandile_world, breaks = 100, freq = F), type = 'l')
+# axis(4)
 grid()
 
 thousandile_survey_disposable_inc <- wtd.quantile(all$income_exact_thousandile_world, weights = all$weight, probs = seq(0, 1, .001))
@@ -489,7 +495,7 @@ heatmap_multiple(heatmaps_defs["field_keyword_main"]) #
 # heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
 
 # Revenue split
-barres_multiple(barres_defs["split_few"]) # 670 x 330 TODO! add means
+barres_multiple(barres_defs["split_few"]) # 670 x 330 
 barres_multiple(barres_defs["split_many"]) # 860 x 600
 
 # Warm glow -- moral substitute

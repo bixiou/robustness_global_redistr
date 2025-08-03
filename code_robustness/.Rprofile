@@ -1248,7 +1248,7 @@ labelsN <- function(labels, levels, parentheses = T) {
   return(rev(new_labels)) # version var (lev1) / (lev2) / ...
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
-barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL,
+barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL, add_means = NULL, transform_mean = NULL, show_legend_means = T, 
                     rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F, levels = NULL, weight_non_na = T) {
   if (nolabel & length(labels)==1) labels <- ""
   if (is.data.frame(df)) df <- list(df)
@@ -1275,6 +1275,7 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
   if (missing(legend) & missing(hover)) {
     if (is.logical(df[[1]][[vars[1]]])) { showLegend = F; legend <- "True"; hover <- labels; } # data1(var = vars[1], data=df, weights = weights) # before: uncommented and "else" next line
     else hover <- legend <- dataN(var = vars[1], data=df[[1]], miss=miss, weights = weights, return = "legend", fr=fr, rev_legend = rev) }
+  if (!is.null(add_means) && any(add_means) && is.null(transform_mean)) transform_mean <- identity
   agree <- order_agree(data = data1, miss = miss)
   if (is.logical(df[[1]][[vars[1]]])) agree <- rev(agree)
   if (return=="levels") {if (is.null(levels)) {return(labels)} else {return(levels)}}
@@ -1286,7 +1287,8 @@ barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover,
     } else {
       not_nan <- sapply(c(1:ncol(plotted_data)), function(j) any(!is.nan(plotted_data[,j])))
       plotted_data <- plotted_data[, not_nan, drop=FALSE]
-      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
+      if (!is.null(add_means) && any(add_means)) add_means <- if (is.numeric(add_means)) add_means else rev(sapply(data, function(d) sapply(vars, function(v) return(transform_mean(wtd.mean(d[[sub("_agg", "", v)]], weights = d[["weight"]])))))[not_nan])
+      return(barres(data = plotted_data, labels=labels[not_nan], legend=legend, share_labels= share_labels, margin_l = margin_l, file = file, add_means = add_means, transform_mean = transform_mean, show_legend_means = show_legend_means, # labels12(labels[agree], en = !fr, comp = comp, orig = orig) # /!\ doesn't currently support multiple vars
                     miss=miss, weights = weights, fr=fr, rev=rev, color=color, rev_color = rev_color, hover=hover, sort=F, thin=thin, showLegend=showLegend, export_xls = export_xls, error_margin = error_margin))
     } }
 }
@@ -1333,7 +1335,7 @@ order_agree <- function(data, miss, rev = T, n = ncol(data)) { # used in barres
     else { for (i in 1:n) { agree <- c(agree, data[1, i]) } } }
   return(order(agree, decreasing = rev)) }
 barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FALSE, hover=legend, nsp=TRUE, sort=TRUE, legend=hover, showLegend=T,
-                   margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL, name_mean = "mean",
+                   margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL, name_mean = "Mean",
                    display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T,
                    weights = T, fr=F, rev=T, grouped = F, error_margin = F, color_margin = '#00000033', N = NA, font = 'Arial') { # default: Arial (also: Times, Latin Modern Sans, Computer Modern) # OECD: Computer Modern
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
@@ -1372,7 +1374,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (!showLegend) { margin_t <- max(0, margin_t - 70) }
   if (ncol(data)==1) legendY <- 1 # 1.5 + 0.3*thin
   if (!is.null(add_means) && any(add_means) && is.null(transform_mean)) transform_mean <- identity
-  if (!is.null(add_means) && any(add_means)) means <- if (is.numeric(add_means)) add_means else sapply(vars, function(v) return(transform_mean(wtd.mean(df[[v]], weights = df[["weight"]]))))
+  if (!is.null(add_means) && any(add_means)) means <- if (is.numeric(add_means)) add_means else sapply(vars, function(v) return(transform_mean(wtd.mean(df[[sub("_agg", "", v)]], weights = df[["weight"]]))))
   if (sort) {
     order <- order_agree(data = data, miss = miss, rev = rev, n = length(labels))
     labels <- labels[order]
@@ -1781,17 +1783,17 @@ heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, w
 barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/country_comparison", print = T, export_xls = FALSE, trim = T, method = 'orca', format = 'pdf', weights = T, nolabel = F, levels = levels_default) {
   for (def in barres) {
     if (missing(folder)) folder <- automatic_folder(along = def$along, data = df)
-    tryCatch({
+    # tryCatch({
       vars_present <- def$vars %in% names(df)
       if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = if (nolabel & length(vars_present) == 1) " " else def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
                                                    miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
-      else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
+      else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
                            miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
       if (print) print(plot)
       filename <- paste0(def$name, if (nolabel) "_nolabel")
       save_plotly(plot, filename = filename, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 135 else def$height, method = method, trim = trim, format = format)
-      print(paste0(filename, ": success"))
-    }, error = function(cond) { print(paste0(filename, ": failed.")) } )
+    #   print(paste0(filename, ": success"))
+    # }, error = function(cond) { print(paste0(filename, ": failed.")) } )
   }
 }
 
@@ -1854,6 +1856,9 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       # yes_no <- setequal(plots[[name]]$legend, c('Yes', 'No', 'PNR')) | setequal(plots[[name]]$legend, c('Oui', 'Non', 'NSP')) | setequal(plots[[name]]$legend, c('Yes', 'No')) | setequal(plots[[name]]$legend, c('Oui', 'Non'))
       # if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- if (is.na(var_example))  T else (!is.binary(df[[var_example]]) | yes_no)
       if (!"showLegend" %in% names(plots[[name]])) plots[[name]]$showLegend <- T # if (is.na(var_example)) T else (!is.logical(df[[var_example]]))
+      # if (!"show_legend_means" %in% names(plots[[name]])) plots[[name]]$show_legend_means <- T
+      # if (!"transform_mean" %in% names(plots[[name]])) plots[[name]]$transform_mean <- NULL
+      # if (!"add_means" %in% names(plots[[name]])) plots[[name]]$add_means <- FALSE
       if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
       if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
       # if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
