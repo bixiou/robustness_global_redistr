@@ -738,6 +738,15 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
            indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 # TODO? Add custom_redistr_satisfied? 
 
+##### Placebo tests #####
+# gcs_support ~ variant_field
+# gcs_support ~ variant_split
+# ics_support ~ variant_belief
+# share_policies_supported ~ variant_warm_glow
+# share_policies_supported ~ variant_ics
+# wealth_tax_support ~ variant_ics
+# gcs_support ~ info_solidarity
+
 
 ##### Main results weighted by vote ######
 # Main results: variables_ncs_gcs_ics_by_country, variables_wealth_tax_support_by_country, program_preferred_by.., gcs_support_by_variant_warm_glow, share_solidarity_supported_by_info_solidarity, solidarity_support_share, radical_redistr_all_share
