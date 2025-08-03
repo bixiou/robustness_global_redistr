@@ -1788,9 +1788,10 @@ barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/c
       else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
                            miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
       if (print) print(plot)
-      save_plotly(plot, filename = def$name, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 130 else def$height, method = method, trim = trim, format = format)
-      print(paste0(def$name, ": success"))
-    }, error = function(cond) { print(paste0(def$name, ": failed.")) } )
+      filename <- paste0(def$name, if (nolabel) "_nolabel")
+      save_plotly(plot, filename = filename, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 130 else def$height, method = method, trim = trim, format = format)
+      print(paste0(filename, ": success"))
+    }, error = function(cond) { print(paste0(filename, ": failed.")) } )
   }
 }
 

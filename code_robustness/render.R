@@ -1,5 +1,5 @@
-# donation; barres convergence_support; sustainable; comprehension; survey_biased; top_tax_share; gcs_comprehension; survey_biased; radical_redistr full; EN conjoint
 # TODO!: income_exact
+# TODO: split_main_means_nolegend, variables_ncs_gcs_ics_by_country
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -290,6 +290,7 @@ vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparat
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 
 heatmap_multiple(heatmaps_defs)
+for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 
 ##### barres_defs #####
@@ -339,6 +340,8 @@ vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 ##### Plot all barres #####
 barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
+barres_multiple(barres_defs, nolabel = T)
+barres_multiple(barresN_defs[vars_barresN], nolabel = T)
  
 # barres_multiple(barres_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
@@ -470,10 +473,11 @@ heatmap_multiple(heatmaps_defs["field_gpt"]) #
 heatmap_multiple(heatmaps_defs["field_manual"]) # 
 heatmap_multiple(heatmaps_defs["field_keyword"]) # 
 heatmap_multiple(heatmaps_defs["field_keyword_main"]) # 
-heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
-heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
-heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "concerns",], name = "field_concerns_manual")
-heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
+
+# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
+# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
+# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "concerns",], name = "field_concerns_manual")
+# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
 
 # Revenue split
 barres_multiple(barres_defs["split_few"]) # 670 x 330 TODO! add means

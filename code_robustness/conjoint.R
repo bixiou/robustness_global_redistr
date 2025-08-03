@@ -59,14 +59,16 @@ for (df in countries[!countries %in% c("SA", "RU")]) { # c([!countries %in% c("S
     amce[[lang]] <- amce(formula_cjoint, ca[[df]][sapply(1:nrow(ca[[df]]), function(i) !any(is.na(ca[[df]][i,]))),], design = design_cjoint, cluster = FALSE, weights = NULL)
     policies_l <- c(unlist(setNames(policies_conjoint[[lang]], conjoint_attributes)), "-" = "-")
     for (i in 1:length(amce[[lang]]$attributes)) amce[[lang]]$user.names[[i+1]] <- names(policies_conjoint[[lang]])[i]
-    for (i in 1:length(amce[[lang]]$user.levels)) amce[[lang]]$user.levels[[i]] <- policies_l[amce[[lang]]$user.levels[[i]]]
+    for (i in 1:length(amce[[lang]]$user.levels)) amce[[lang]]$user.levels[[i]] <- break_strings(policies_l[amce[[lang]]$user.levels[[i]]], max_length = 75, sep = "\n")
   }
 }
 
 for (df in countries[!countries %in% c("SA", "RU")]) { for (lang in c(paste0("EN-", ifelse(df == "JP", "JA", df)), languages_country[[sub("p", "", df)]][1])) if (lang %in% names(policies_conjoint)) {
+  pdf(paste0('../figures/', df, '/', "conjoint_", lang, ".pdf"), width = 1200/72, height = 800/72)
   plot(amce[[lang]], xlab = "Average Marginal Component Effect", text.size = 16)
-  save_plot (filename = paste0("conjoint_", lang), folder = paste0('../figures/', df, '/'), width = 1100, height = 500, method='dev', trim = T, format = 'pdf') 
-} }
+  invisible(dev.off())
+  # save_plot(filename = paste0("conjoint_", lang), folder = paste0('../figures/', df, '/'), width = 1100, height = 700, method='dev', trim = F, format = 'pdf') 
+} } # /!\ The pane window should be appropriately wide when running the lines
 
 plot(amce$FR) 
 plot(amce$DE) 
@@ -75,7 +77,7 @@ plot(amce$PL)
 plot(amce$ES) 
 plot(amce$GB)
 plot(amce$CH) 
-plot(amce$JP) # TODO
+plot(amce$JA) 
 plot(amce$US) 
 plot(amce$GBp)
 plot(amce$PLp)
