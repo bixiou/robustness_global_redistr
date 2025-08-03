@@ -1,12 +1,11 @@
 # TODO: labels
 # TODO: comment fields; remaining fields US, JP
-# TODO: main figures and tables
-# TODO: sociodemos determinants (y.c. custom_redistr)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: give 10£ to Just One Tree
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
 # TODO: correlation donation / support
+# TODO: sociodemos determinants custom_redistr
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -253,7 +252,7 @@ stats_exclude <- function(data_name, all = F, old_names = F) {
 weighting <- function(e, country = e$country[1], printWeights = T, variant = NULL, min_weight_for_missing_level = F, trim = T) {
   if (nrow(e) == 0) return(1)
   else {
-    if (!missing(variant)) print(variant)
+    if (!missing(variant) & printWeights) print(variant)
     country_variant <- paste0(c(country, variant), collapse = "_") 
     if (!country_variant %in% names(quotas)) {
       warning("No country-variant quotas found, using default variables.")
@@ -351,6 +350,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     label(e$weight) <- "weight: Weight for the international sample: weight_country is rescaled so that each country is weighted according to its adult population. Sums to nrow(all). (Created outside 'prepare')"
     # e$weight_all <- weighting(e, country, variant = "all") # TODO
     if ("vote" %in% names(e)) e$weight_vote <- weighting(e, country, variant = "vote") # ("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))
+    else e$weight_vote <- e$weight
     # if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
     if (any(e$custom_redistr_asked) & !pilot) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p")) # TODO make it work for pilot
   } else {
@@ -1421,6 +1421,7 @@ Sys.time() - start_time # 10 min
 # 
 # data_all <- setNames(lapply(countries[-9], function(c) { prepare(country = c, scope = "all", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries[-9]) # remove_id = F
 # a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
+# a$weight <- 1
 
 
 ##### Lottery draw #####
@@ -1440,25 +1441,29 @@ Sys.time() - start_time # 10 min
 
 
 ##### Conjoint analysis #####
-e$program_a <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-1-", 1:5)], collapse = ' ')})
-e$program_b <- sapply(1:nrow(e), function(n) {paste(e[n, paste0("F-1-2-", 1:5)], collapse = ' ')})
-e$millionaire_tax_in_a <- grepl("foreign_policy1", e$program_a)
-e$millionaire_tax_in_b <- grepl("foreign_policy1", e$program_b)
-e$cut_aid_in_a <- grepl("foreign_policy2", e$program_a)
-e$cut_aid_in_b <- grepl("foreign_policy2", e$program_b)
-e$millionaire_tax_in_program <- e$millionaire_tax_in_a
-e$cut_aid_in_program <- e$cut_aid_in_a
-e$program <- e$program_a
-e$program_preferred <- e$conjoint == "Candidate A"
-temp <- e
-temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
-temp$cut_aid_in_program <- temp$cut_aid_in_b
-temp$program <- temp$program_b
-temp$program_preferred <- temp$conjoint == "Candidate B"
-call <- cbind(e, temp)
-call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociodemos_all, "country", "country_name", "n", 
-        "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
-rm(temp)
+create_conjoint_sample <- function(df = all) {
+  df$program_a <- sapply(1:nrow(df), function(n) {paste(df[n, paste0("F-1-1-", 1:5)], collapse = ' ')})
+  df$program_b <- sapply(1:nrow(df), function(n) {paste(df[n, paste0("F-1-2-", 1:5)], collapse = ' ')})
+  df$millionaire_tax_in_a <- grepl("foreign_policy1", df$program_a)
+  df$millionaire_tax_in_b <- grepl("foreign_policy1", df$program_b)
+  df$cut_aid_in_a <- grepl("foreign_policy2", df$program_a)
+  df$cut_aid_in_b <- grepl("foreign_policy2", df$program_b)
+  df$millionaire_tax_in_program <- df$millionaire_tax_in_a
+  df$cut_aid_in_program <- df$cut_aid_in_a
+  df$program <- df$program_a
+  df$program_preferred <- df$conjoint == "Candidate A"
+  temp <- df
+  temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
+  temp$cut_aid_in_program <- temp$cut_aid_in_b
+  temp$program <- temp$program_b
+  temp$program_preferred <- temp$conjoint == "Candidate B"
+  call <- cbind(df, temp)
+  call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociodemos_all, "country", "country_name", "n", "stayed",
+                                          "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
+  return(call)
+}
+call <- create_conjoint_sample(all)
+calla <- create_conjoint_sample(a)
 
 
 ##### NLP #####

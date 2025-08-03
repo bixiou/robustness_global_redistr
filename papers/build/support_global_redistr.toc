@@ -17,8 +17,9 @@
 \contentsline {section}{\numberline {E}Attrition analysis}{79}{appendix.E}%
 \contentsline {section}{\numberline {F}Balance analysis}{80}{appendix.F}%
 \contentsline {section}{\numberline {G}Placebo tests}{81}{appendix.G}%
-\contentsline {section}{\numberline {H}Main results on the extended sample}{81}{appendix.H}%
-\contentsline {section}{Bibliography}{81}{section*.104}%
-\contentsline {section}{List of Tables}{81}{section*.105}%
-\contentsline {section}{List of Figures}{81}{section*.106}%
+\contentsline {section}{\numberline {H}Main results weighted by vote}{82}{appendix.H}%
+\contentsline {section}{\numberline {I}Main results on the extended sample}{85}{appendix.I}%
+\contentsline {section}{Bibliography}{88}{section*.116}%
+\contentsline {section}{List of Tables}{88}{section*.117}%
+\contentsline {section}{List of Figures}{88}{section*.118}%
 \contentsfinish 

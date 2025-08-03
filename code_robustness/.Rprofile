@@ -1606,7 +1606,7 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
         tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat,
         sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F)  #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
-heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", # on_control = FALSE, alphabetical = T,
+heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", variant_weight = NULL, # on_control = FALSE, alphabetical = T,
                           export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, weight_non_na = T, remove_na = T, transpose = FALSE) {
   # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
   # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
@@ -1657,7 +1657,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
       #   df_c <- df_c[df_c$wave != "US2",] }
       var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
       if (weights && weight_non_na && !is.null(df_c) && exists("countries_names") && c %in% countries_names && sum(is.na(df_c[[vars[v]]])) > 0.1*nrow(df_c)) {
-        df_c$weight[!is.na(df_c[[vars[v]]])] <- weighting(df_c[!is.na(df_c[[vars[v]]]),], names_countries[c], printWeights = F) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
+        df_c$weight[!is.na(df_c[[vars[v]]])] <- weighting(df_c[!is.na(df_c[[vars[v]]]),], names_countries[c], printWeights = F, variant = variant_weight) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
       } # /!\ We do not redefine weights for special_levels (as it would require to pre-compute all possible weights and find the corresponding weight vector)
       if (conditions[v] == "median") {
         # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
@@ -1683,7 +1683,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
 heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, levels = NULL,
                             conditions = c("", ">= 1", "/"), data = e, width = NULL, height = NULL, #alphabetical = T, on_control = FALSE,
                             export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
-                            colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T, save = T) {
+                            colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T, save = T, variant_weight = NULL) {
   # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
   # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
   # Longest label: "Richest countries should pay even more to help vulnerable ones" (62 characters, variables_burden_sharing_few).
@@ -1711,8 +1711,8 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
                                 TRUE ~ "unknown"), sep = "_")
     tryCatch({
       if (cond %in% c("/", "-", "//")) {
-        pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = ">= 1", sort = FALSE, weights = weights, weight_non_na = weight_non_na) # on_control = on_control, alphabetical = alphabetical,
-        neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = "<= -1", sort = FALSE, weights = weights, weight_non_na = weight_non_na) # on_control = on_control, alphabetical = alphabetical,
+        pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = ">= 1", sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight) # on_control = on_control, alphabetical = alphabetical,
+        neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = "<= -1", sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight) # on_control = on_control, alphabetical = alphabetical,
         if (cond == "-") temp <- pos - neg else temp <- pos / (pos + neg)
         if (cond == "/") {
           binary_rows <- which(rowMeans(neg)==0)
@@ -1720,7 +1720,7 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
           row.names(temp)[binary_rows] <- paste0(row.names(temp)[binary_rows], "*")
         }
         for (i in 1:length(vars)) if (is.logical(data[[vars[i]]])) temp[i, ] <- pos[i, ]
-      } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = cond, sort = FALSE, weights = weights) } # on_control = on_control, alphabetical = alphabetical,
+      } else {  temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = cond, sort = FALSE, weights = weights, variant_weight = variant_weight) } # on_control = on_control, alphabetical = alphabetical,
       if (!missing(labels_along) & length(labels_along) == ncol(temp)) colnames(temp) <- labels_along
       if (sort) temp <- temp[order(-temp[,1]),, drop = FALSE]
       if (export_xls) save_plot(as.data.frame(temp), filename = sub("figures", "xlsx", paste0(folder, filename)))
@@ -1771,11 +1771,11 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
   return(heatmaps)
 }
 
-heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, weights = T, folder = NULL, name = NULL, along = "country_name", levels = levels_default) {
+heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, weights = T, folder = NULL, name = NULL, along = "country_name", levels = levels_default, variant_weight = NULL) {
   for (heatmap in heatmaps) {
     vars_present <- heatmap$vars %in% names(data)
     # if (any(c("gcs_support", "nr_support", "gcs_support_100") %in% heatmap$vars)) data <- data[data$wave != "US2",]
-    heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort,
+    heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort, variant_weight = variant_weight,
                     percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, width = heatmap$width, height = heatmap$height, trim = trim, weights = weights, weight_non_na = T, folder = folder, along = along)
   }
 }
@@ -2843,7 +2843,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   name <- sub("rev(", "", sub(")", "", sub("country_name", "country", name, fixed = T), fixed = T), fixed = T)
   if (print_name) print(name) # TODO: name with subsamples
 
-  if (missing(folder) & deparse(substitute(df)) %in% tolower(countries)) folder <- paste0("../figures/", toupper(deparse(substitute(df))), "/")
+  if (missing(folder) && deparse(substitute(df)) %in% tolower(countries)) folder <- paste0("../figures/", toupper(deparse(substitute(df))), "/")
 
   if (missing(mean_ci)) mean_ci <- mean_ci(along = along, outcome_vars = vars, outcomes = outcomes, covariates = covariates, subsamples = subsamples, conditions = conditions, invert_y_along = invert_y_along, df = df, labels = labels, factor_along = factor_along,
                                            origin = origin, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, confidence = confidence, order_y = order_y, order_along = order_along,
