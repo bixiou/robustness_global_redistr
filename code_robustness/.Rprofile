@@ -1783,13 +1783,13 @@ barres_multiple <- function(barres = barres_defs, df = e, folder = "../figures/c
     if (missing(folder)) folder <- automatic_folder(along = def$along, data = df)
     tryCatch({
       vars_present <- def$vars %in% names(df)
-      if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
+      if (!"along" %in% names(def)) plot <- barres(vars = def$vars[vars_present], df = df, export_xls = export_xls, labels = if (nolabel & length(vars_present) == 1) " " else def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l, add_means = def$add_means, show_legend_means = def$show_legend_means, transform_mean = def$transform_mean,
                                                    miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, title = def$title, weights = weights, file = NULL)
       else plot <- barresN(vars = def$vars[vars_present], df = df, along = def$along, levels = levels, export_xls = export_xls, labels = def$labels[vars_present], share_labels = def$share_labels, margin_l = def$margin_l,
                            miss = def$miss, sort = def$sort, rev = def$rev, rev_color = def$rev_color, legend = def$legend, showLegend = def$showLegend, thin = def$thin, weights = weights, file = NULL, nolabel = nolabel)
       if (print) print(plot)
       filename <- paste0(def$name, if (nolabel) "_nolabel")
-      save_plotly(plot, filename = filename, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 130 else def$height, method = method, trim = trim, format = format)
+      save_plotly(plot, filename = filename, folder = folder, width = def$width, height = if (length(def$vars) == 1 & !"along" %in% names(def)) 135 else def$height, method = method, trim = trim, format = format)
       print(paste0(filename, ": success"))
     }, error = function(cond) { print(paste0(filename, ": failed.")) } )
   }
@@ -1857,7 +1857,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
       if (!"thin" %in% names(plots[[name]])) plots[[name]]$thin <- thin #& !yes_no
       if (!"width" %in% names(plots[[name]])) plots[[name]]$width <- width
       # if (!"height" %in% names(plots[[name]]) & "heigth" %in% names(plots[[name]])) plots[[name]]$height <- plots[[name]]$heigth
-      if (add_height) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(Levels(df[[along]])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
+      if (add_height) plots[[name]]$height <- fig_height(nb_bars = if (!is.null(along)) length(unique(df[[along]][!is.na(df[[vars[1]]])])) else length(plots[[name]]$labels), large = any(grepl("<br>", plots[[name]]$labels))) # height
     } else {
       plots[[name]] <- NULL
       warning(paste(name, "not found, removing it."))
@@ -2879,8 +2879,8 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
-  if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf')
-  } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = T, format = 'pdf')
+  if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = F, format = 'pdf')
+  } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = F, format = 'pdf')
   if (return_mean_ci) return(mean_ci)
   else return(plot)
 }

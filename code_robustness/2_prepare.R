@@ -1318,8 +1318,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$individualist <- grepl("self", e$group_defended)
   
   e$split_nb_global <- rowSums(!is.na(e[, variables_split_many_global]))
-  e$split_nb_global[e$variant_split == 1] <- NA
   e$split_many_global <- e$split_many_global_when_appear <- rowSums(e[, variables_split_many_global], na.rm = T)
+  e$split_many_global[e$variant_split %in% c(1, "Few")] <- e$split_nb_global[e$variant_split %in% c(1, "Few")] <- NA
   e$split_many_global_when_appear[!e$split_nb_global %in% 1:4] <- NA
   
   e$split_both_global <- ifelse(e$variant_split == 1, e$revenue_split_few_global, e$split_many_global)

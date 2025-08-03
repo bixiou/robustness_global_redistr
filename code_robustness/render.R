@@ -1,5 +1,4 @@
 # TODO!: income_exact
-# TODO: split_main_means_nolegend, variables_ncs_gcs_ics_by_country
 ##### labels_vars #####
 labels_vars <- c(
   "(Intercept)" = "Constant",
@@ -67,7 +66,7 @@ labels_vars <- c(
   "revenue_split_few_domestic_tax_reduction" = "Domestic: Reduction in the income tax",
   "revenue_split_few_domestic_tax_reduction_agg" = "Domestic: Reduction in the income tax",
   "split_many_global_when_appear" = "Share allocated to Global spending options\nwhen such options are part of the 5 (out of 13) randomly selected ones",
-  "split_many_global" = "Share allocated to Global spending options\nwhen 5 out of 13 options are randomly selected\n(4 out of 13 being of Global nature)",
+  "split_many_global" = "Share allocated to Global spending options<br>when 5 out of 13 options are randomly selected<br>(4 out of 13 being of Global nature)",
   "donation" = "Share donated to plant trees",
   "donation_agg" = "Share donated to plant trees",
   "gcs_support" = "Global climate scheme (GCS)", # "Supports the Global Climate Plan", # "Soutient le Plan mondial pour le climat", #"Global climate scheme (GCS)", # 
@@ -247,14 +246,14 @@ heatmaps_defs <- list(
   "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
   "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
-  "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T, width = 1200, height = 650),
-  "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T, width = 1200, height = 650),
+  "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T, width = 1200, height = 540),
+  "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T, width = 1200, height = 540),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1", width = 1000, height = 320), 
   "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1", width = 1100, height = 270), 
   "reparations_support" = list(vars = "reparations_support", conditions = c("", ">= 1", "/"), width = 1000, height = 170), 
   "my_tax_global_nation" = list(vars = "my_tax_global_nation", conditions = c("", ">= 1", "/"), width = 1050, height = 170), 
   "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
-  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 210),
+  "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = "", width = 1200, height = 500),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1300, height = 500),
@@ -275,22 +274,12 @@ heatmaps_defs <- list(
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
   "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
-heatmaps_defs <- fill_heatmaps(c(), heatmaps_defs)
-heatmap_multiple(heatmaps_defs["radical_redistr"])
-
-heatmap_multiple(heatmaps_defs[c("gcs_belief", "gcs_all", "belief", "ncs_gcs_ics_all", "radical_redistr", "why_hic_help_lic", "global_movement", 
-                                 "radical_redistr_few", "wealth_tax_support", "top_tax", "sustainable_futures", "field_gpt", "field_keyword", "radical_redistr_main", 
-                                 "split_few", "split_many_global", "group_defended_5", "group_defended_4", "group_defended_3", "well_being")])
-
 
 ##### vars_heatmaps #####
 vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparations_support") 
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
-
-heatmap_multiple(heatmaps_defs)
-for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 
 ##### barres_defs #####
@@ -301,8 +290,6 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "maritime_split_ldc" = list(height = 250),
   "split_many" = list(vars = variables_split_many_agg, width = 850, rev_color = T),
   "split_many_global" = list(vars = variables_split_many_global_agg, width = 850, rev_color = T),
-  # "ncqg" = list(vars = "ncqg", width = 1070, height = 640),
-  # "ncqg_full" = list(vars = "ncqg_full", width = 1070, height = 640),
   "group_defended" = list(vars = "group_defended", width = 870, height = 600),
   "donation_agg" = list(vars = "donation_agg", width = 900, height = 550),
   "foreign_born_family" = list(vars = "foreign_born_family", width = 900, height = 550),
@@ -319,13 +306,6 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "solidarity_support_aviation_levy" = list(vars = "solidarity_support_aviation_levy", width = 920, height = 550),
   "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
   "maritime_split" = list(vars = "maritime_split", width = 850, height = 550)
-  # ncqg: rev = F, rev_color = T
-  # "split_many"
-  # "split_many_global
-  # "solidarity_support_shipping_levy" = list(height = 250, width = 870)
-  # "understood_each" = list(vars = variables_understood, width = 850), 
-  # "negotiation" = list(width = 940), 
-  # "points_mean" = list(vars = variables_points_us_agg, width = 850, sort = FALSE, add_means = T, show_legend_means = T, transform_mean = function(x) return(x/100)), # 1080 points_us
 )
 
 vars_barres <- c() # 
@@ -336,13 +316,42 @@ barresN_defs <- fill_barres(vars_barres, barres_defs, along = "country_name")
 vars_barres1 <- c("split_few", "split_many", "split_many_global") # , "maritime_split" TODO: no error when variable not found
 vars_barresN <- setdiff(names(barres_defs), vars_barres1)
 
+barres_defs_nolabel <- list( 
+  "group_defended" = list(vars = "group_defended", width = 980),
+  "ncqg_full" = list(vars = "ncqg_full", width = 800),
+  "ncqg" = list(vars = "ncqg", width = 1270),
+  "convergence_support" = list(vars = "convergence_support", width = 400),
+  "donation_agg" = list(vars = "donation_agg", width = 720),
+  "reparations_support" = list(vars = "reparations_support", width = 910),
+  "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 450),
+  "sustainable_future" = list(vars = "sustainable_future", width = 400)
+)
+barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
+  "ncqg_full" = list(vars = "ncqg_full", width = 1200),
+  "ncqg" = list(vars = "ncqg", width = 1180),
+  "convergence_support" = list(vars = "convergence_support", width = 1000),
+  "group_defended" = list(vars = "group_defended", width = 1600, height = 600),
+  "donation_agg" = list(vars = "donation_agg", width = 1000),
+  "foreign_born_family" = list(vars = "foreign_born_family", width = 800),
+  "reparations_support" = list(vars = "reparations_support", width = 1500),
+  "millionaire" = list(vars = "millionaire", width = 1200),
+  "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 810),
+  "sustainable_future" = list(vars = "sustainable_future", width = 550),
+  "survey_biased" = list(vars = "survey_biased", width = 650),
+  "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750)
+)
+barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
+barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
+
 
 ##### Plot all barres #####
 barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
-barres_multiple(barres_defs, nolabel = T)
-barres_multiple(barresN_defs[vars_barresN], nolabel = T)
- 
+barres_multiple(barres_defs_nolabel, nolabel = T)
+barres_multiple(barresN_defs_nolabel, nolabel = T)
+heatmap_multiple(heatmaps_defs)
+for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
+
 # barres_multiple(barres_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
 # barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
@@ -522,7 +531,7 @@ global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_tab
 global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
 row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
-pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/72, height = 650/72)
+pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/72, height = 500/72)
 heatmap_plot(global_nation_all, proportion = T, percent = T)
 invisible(dev.off())
 # save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
@@ -592,14 +601,16 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 
 # 4. Revenue split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           labels = break_strings(labels_vars[c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global)], max_length = 46, sep = "<br>"),
+           name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 600, height = 500) 
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+           name = "split_main_nb0_nolabel", no_label = T, conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 370, height = 500) 
+
+# Alternatives:
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
            name = "split_main_means", levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
-           name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 900, height = 650) 
-
-plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
            name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
-plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
-           name = "split_main_nb0_nolabel", no_label = T, conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 500, height = 650) 
 
 # 4bis. 
 split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, rev(names(levels_default_list))))
@@ -627,10 +638,10 @@ legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Gl
 legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
                         "Supports the GCS if coverage is **Low**<br>Other members: Global South + EU<br>(25-33% of world emissions)",
                         "Supports the GCS if coverage is **Mid**<br>Global South + China<br>(56% of world emissions)",
-                        "Supports the GCS if coverage is **High**<br>Global South + China + EU + various HICs<br>(UK, Japan, South Korea, Canada...; 64-72% of world emissions)",
-                        "Supports the GCS if coverage is **High**, **color** variant<br>Global South + China + EU + various HICs<br>+ Distributive effects displayed using colors on world map")
-plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1240, height = 480, origin = 50, plot_origin_line = T) 
-plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1240, height = 480, origin = 50, plot_origin_line = T) 
+                        "Supports the GCS if coverage is **High**<br>Global South + China + EU + various HICs<br>(UK, Japan, Korea, Canada...; 64-72% of emissions)",
+                        "Supports the GCS if coverage is **High**, **color** variant<br>Global South + China + EU + various HICs<br>+ Distributive effects shown using colors on world map")
+plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
+plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
 # Up: 1240 x 480 / Down: 750 x 790 # TODO! correct CIs for _control
 # plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
 
