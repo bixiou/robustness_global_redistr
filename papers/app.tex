@@ -190,6 +190,18 @@
 \end{figure}
 
 \begin{figure}[h!]
+    \caption[Share of plausible global policies supported]{Share of plausible global redistribution policies supported (\textit{somewhat} or \textit{strongly}). (Question~\ref{q:solidarity_support}).
+    }\label{fig:share_solidarity_supported}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/share_solidarity_supported_nolabel.pdf}} 
+\end{figure}
+
+\begin{figure}[h!]
+    \caption[Share of plausible global policies opposed]{Share of plausible global redistribution policies opposed (\textit{somewhat} or \textit{strongly}). (Question~\ref{q:solidarity_support}).
+    }\label{fig:share_solidarity_opposed}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/share_solidarity_opposed_nolabel.pdf}} 
+\end{figure}
+
+\begin{figure}[h!]
     \caption[Preferred NCQG]{Preferred North-to-South climate grant funding in 2035, specified in qualitative terms or in terms of who advocates for that amount (NCQG, variant \textit{Short}). (Question~\ref{q:ncqg}).
     }\label{fig:ncqg}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/ncqg_nolabel.pdf}} 
@@ -409,11 +421,24 @@ Unless otherwise specified, response is compulsory and a single response much be
 \clearpage
 \section{Determinants of support}\label{app:determinants}
 
+
+\begin{figure}[h!]\label{fig:lmg}
+\caption[Variance decomposition]{Variance decomposition: share of the variance explained by each covariate.}
+\begin{subfigure}{.49\textwidth}
+  \caption[]{Support for the Global Climate Scheme (11\% of this variable's variance is explained by that linear model). (Question \ref{q:gcs_support})\label{fig:lmg_gcs}}
+  \includegraphics[width=\textwidth]{../figures/all/lmg_gcs_support_few.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.49\textwidth}
+  \caption[]{Share of plausible global policies supported (17\% of this variable's variance is explained by that linear model). (Question \ref{q:solidarity_support})\label{fig:lmg_solidarity}}
+  \includegraphics[width=\textwidth]{../figures/all/lmg_share_solidarity_supported_few.pdf}
+\end{subfigure}
+\end{figure}
+
 \begin{table}[h]\label{tab:determinant}
     \caption[Correlates of support for global redistribution]{Correlates of support for global redistribution (multivariate OLS regressions). %(Back to \ref{subsec:gcs_stated_support})
     } 
     \makebox[\textwidth][c]{
-\resizebox*{!}{.67\textheight}{ 
+\resizebox*{!}{.73\textheight}{ % .67 if on same page as title
         \input{../tables/determinants_paper.tex}
         }
     }

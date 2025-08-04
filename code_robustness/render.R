@@ -5,6 +5,7 @@ labels_vars <- c(
   "excluded" = "Excluded",
   "country" = "Country",
   "region" = "Region",
+  "country_region" = "Region",
   "gender" = "Gender",
   "age_exact" = "Age",
   "country_name" = "Country",
@@ -13,6 +14,7 @@ labels_vars <- c(
   "zipcode" = "Postal code",
   "urbanity" = "Degree of urbanization",
   "urbanity_factor" = "Urbanicity",
+  "urbanity_na_as_city" = "Urbanicity",
   "region_factor" = "Region",
   "millionaire" = "Likelihood of becoming millionaire",
   "millionaire_agg" = "Likelihood of becoming millionaire",
@@ -42,7 +44,7 @@ labels_vars <- c(
   "race_black" = "Race: Black",
   "race_hispanic" = "Race: Hispanic",
   "race_asian" = "Race: Asian",
-  "foreign" = "Were you or your parents born in a foreign country?",
+  "foreign" = "Foreign origin",
   "foreign_born_family" = "Were you or your parents born in a foreign country?",
   "home_tenant" = "Home: tenant",
   "home_owner" = "Home: owner",
@@ -51,6 +53,7 @@ labels_vars <- c(
   "owner" = "Owner",
   "swing_state" = "Swing State",
   "vote" = "Vote",
+  "vote_original" = "Vote",
   "vote_factor" = "Vote",
   "vote3" = "Vote",
   "vote_all" = "Vote (actual and hypothetical)",
@@ -149,6 +152,8 @@ labels_vars <- c(
   "solidarity_support_shipping_levy" = "International levy on shipping carbon emissions, returned to countries based on population", # An international levy on carbon emissions from shipping, funding national budgets in proportion to population
   # "solidarity_support_shipping_levy" = "International levy on carbon emissions from shipping,\nfinancing countries' budgets in proportion to their population", # "Global maritime fuel levy with equal pc revenue sharing", # 
   "solidarity_support_aviation_levy" = "International levy on aviation carbon emissions, raising prices by 30%, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
+  "share_solidarity_supported" = "Share of plausible global policies supported",
+  "share_solidarity_opposed" = "Share of plausible global policies opposed",
   "ncqg" = "Preferred North-to-South climate grant funding in 2035", # Preferred North-to-South climate funding
   "ncqg_full" = "Preferred North-to-South climate grant funding in 2035",
   "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
@@ -174,6 +179,7 @@ labels_vars <- c(
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
   "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
   "well_being_wvs_1" = "Well-being: World Values Survey, 1-10 scale",
+  "well_being" = "Subjective well-being",
   "variant_field" = "Open-ended field variant",
   "variant_split" = "Revenue split variant",
   "variant_belief" = "GCS belief variant",
@@ -310,7 +316,9 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "gcs_support_control" = list(vars = "gcs_support_control", width = 700, height = 550),
   "solidarity_support_aviation_levy" = list(vars = "solidarity_support_aviation_levy", width = 920, height = 550),
   "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
-  "maritime_split" = list(vars = "maritime_split", width = 850, height = 550)
+  "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 820, height = 500, add_means = T, show_legend_means = T),
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 820, height = 500, add_means = T, show_legend_means = T)
 )
 
 vars_barres <- c() # 
@@ -329,7 +337,9 @@ barres_defs_nolabel <- list(
   "donation_agg" = list(vars = "donation_agg", width = 720),
   "reparations_support" = list(vars = "reparations_support", width = 910),
   "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 450),
-  "sustainable_future" = list(vars = "sustainable_future", width = 400)
+  "sustainable_future" = list(vars = "sustainable_future", width = 400),
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 860, add_means = T, show_legend_means = T),
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 860, add_means = T, show_legend_means = T)
 )
 barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
   "ncqg_full" = list(vars = "ncqg_full", width = 1200),
@@ -343,7 +353,9 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 810),
   "sustainable_future" = list(vars = "sustainable_future", width = 550),
   "survey_biased" = list(vars = "survey_biased", width = 650),
-  "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750)
+  "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 1450, add_means = T, show_legend_means = T),
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 1450, add_means = T, show_legend_means = T)
 )
 barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
 barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
@@ -357,7 +369,10 @@ barres_multiple(barresN_defs_nolabel, nolabel = T)
 heatmap_multiple(heatmaps_defs)
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
-barres_multiple(barresN_defs["donation_agg"])
+barres_multiple(barresN_defs["share_solidarity_supported"])
+barres_multiple(barres_defs["share_solidarity_supported"])
+barres_multiple(barresN_defs_nolabel["share_solidarity_supported"], nolabel = T)
+barres_multiple(barres_defs_nolabel["share_solidarity_supported"], nolabel = T)
 # barres_multiple(barres_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
 # barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
@@ -801,6 +816,43 @@ plot_along(along = "info_solidarity", df = a[a$stayed,], vars = "share_solidarit
 
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_extended", data = a[a$stayed,])
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_extended", data = a[a$stayed,])
+
+
+##### Variance decomposition #####
+# In case of error, define the dep_var as binary/numeric; and remove variables that are potentially colinear (e.g. urbanity when region is present, due to NA being colinear)
+lmgs <- list() # ~1 min per run
+variance_decomposition <- function(dep_var, covariates, filename = NULL, reuse = F, df = all, width = 500, height = 500, labels = NULL) {
+  if (is.null(labels) & exists("labels_vars")) labels <- labels_vars[sort(covariates)]
+  if (reuse && exists("lmgs") && !is.null(filename) && filename %in% names(lmgs)) lmg <- lmgs$filename
+  else lmg <- calc.relimp(lm(reg_formula(dep_var, covariates, as_factor = T), data = df, weights = weight), type = c("lmg"), rela = F, rank= F) 
+  plot <- barres(data = t(as.matrix(lmg@lmg[sort(names(lmg@lmg))])), labels = labels, legend = "% of response variances", show_ticks = F, rev = F, digits = 1)
+  print(plot)
+  save_plotly(plot, width = width, height = height, folder = paste0("../figures/", deparse(substitute(df)), "/"), filename = filename)
+  write.csv(rbind(sort(lmg@lmg, decreasing = T), c("R^2", lmg@R2)), paste0("../tables/", deparse(substitute(df)), "/", filename, ".csv"))
+  if (exists("lmgs") & !is.null(filename)) lmgs[filename] <<- lmg
+  else return(lmg)
+}
+variance_decomposition(dep_var = "share_solidarity_supported", covariates = control_variables_lmg[-17], filename = "lmg_share_solidarity_supported_country")
+variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(control_variables_lmg[-c(8,16)], "urbanity_na_as_city"), filename = "lmg_share_solidarity_supported_region")
+variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(control_variables_lmg[-c(1,16,17)], "vote_original"), filename = "lmg_share_solidarity_supported_vote_exact")
+variance_decomposition(dep_var = "share_solidarity_supported", covariates = control_variables_lmg[c(1,3:9,16)], height = 370, filename = "lmg_share_solidarity_supported_few")
+
+variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[-17], filename = "lmg_gcs_support_country")
+variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[-c(8,16)], "urbanity_na_as_city"), filename = "lmg_gcs_support_region")
+variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[-c(1,16,17)], "vote_original"), filename = "lmg_gcs_support_vote_exact")
+variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[c(1,3:9,16)], height = 370, filename = "lmg_gcs_support_few")
+
+for (l in names(lmgs)) print(paste0("R² ", l, ": ", round(lmgs[[l]]@R2, 4)))
+summary(lm(reg_formula("gcs_support > 0", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .11 (simple R²: .12)
+summary(lm(reg_formula("gcs_support > 0", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .13 (simple R²: .22)
+summary(lm(reg_formula("share_solidarity_supported", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .17 (simple R²: .18)
+summary(lm(reg_formula("share_solidarity_supported", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .21 (simple R²: .29)
+
+
+##### Decision trees #####
+rpart.plot(tree_share_solidarity_supported <- rpart(reg_formula("share_solidarity_supported", control_variables_lmg[-17]), all))
+# prp(tree_share_solidarity_supported, box.palette = "Blues", tweak = 1.2)
+rpart.plot(tree_gcs_support <- rpart(reg_formula("gcs_support", control_variables_lmg[-17]), all))
 
 
 ##### Rename cropped files #####

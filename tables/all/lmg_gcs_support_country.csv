@@ -1,0 +1,17 @@
+"","x"
+"factor(country_name)",0.0366911961827039
+"factor(vote_factor)",0.029013606090106
+"factor(age_exact)",0.016582644766283
+"factor(urbanity_factor)",0.00673158222927665
+"factor(millionaire)",0.00666688931954028
+"factor(Nb_children__14)",0.00466691778004034
+"factor(employment_status)",0.00444709922666867
+"factor(education_original)",0.00402676085785564
+"factor(well_being)",0.00312697584676389
+"factor(income)",0.00259177287650509
+"factor(foreign)",0.00209045002304464
+"factor(hh_size)",0.00182014482704679
+"factor(owner)",0.000992289841482062
+"factor(gender)",0.000941110253980922
+"factor(voted)",0.000320546096244254
+"factor(couple)",0.000270838096697616

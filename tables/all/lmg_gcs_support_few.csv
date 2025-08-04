@@ -1,0 +1,10 @@
+"","x"
+"factor(country_name)",0.0368597582337925
+"factor(vote_factor)",0.0295011533548554
+"factor(age_exact)",0.021682506291551
+"factor(millionaire)",0.00826673973838112
+"factor(urbanity_factor)",0.00761348734500809
+"factor(education_original)",0.00435451519310949
+"factor(well_being)",0.00292689948393461
+"factor(income)",0.00287455314206134
+"factor(gender)",0.000851934746821631

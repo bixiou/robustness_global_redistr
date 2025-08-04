@@ -167,7 +167,7 @@ package("corrplot") # heatmap #, github = 'taiyun')#, version = "0.88") # 0.92 i
 #' package("caTools")
 #' package("party")
 #' package("partykit")
-#' package("rpart.plot")
+package("rpart.plot") # Regression trees
 #' package("Peacock.test")
 #' package("devtools")
 #' package("janitor")
@@ -185,7 +185,7 @@ package("Hmisc") # describe, decrit
 # package("readxl")
 #' package("ggpubr")
 #' package("RStata")
-#' package("relaimpo") # works well with 21 variables, not much more. install from: install.packages("https://prof.bht-berlin.de/fileadmin/prof/groemp/downloads/relaimpo_2.2-5.zip", repos = NULL)
+package("relaimpo") # Variance decomposition works well with 21 variables, not much more. install from: install.packages("https://prof.bht-berlin.de/fileadmin/prof/groemp/downloads/relaimpo_2.2-5.zip", repos = NULL)
 #' package("missMDA") # PCA
 #' package("forcats")
 #' package("modi")
@@ -650,7 +650,10 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 #' #'     nb_manquants <<- des_miss     }
 #' #'   if (return) return(output)
 #' #' }
-reg_formula <- function(dep_var, indep_vars) return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
+reg_formula <- function(dep_var, indep_vars, as_factor = FALSE) {
+  if (as_factor) return(as.formula(paste(dep_var, "~ factor(", paste(indep_vars, collapse = ') + factor('), ")")))
+  else return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
+} 
 desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control_variables, indep_labels = NULL, weights = data$weight, add_lines = NULL, model.numbers = T, multicolumn = T, #!mean_above,
                        save_folder = "../tables/", dep.var.labels = NULL, dep.var.caption = c(""), digits= 3, mean_control = FALSE, logit = FALSE, atmean = T, robust_SE = T, omit = c("Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA"),
                        mean_above = T, only_mean = F, keep = indep_vars, nolabel = F, indep_vars_included = T, no.space = T, print_regs = FALSE, replace_endAB = NULL, oecd_latex = FALSE) {
@@ -1342,7 +1345,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   if (!missing(miss)) nsp <- miss
   labels <- rev(unname(labels))
   if (!missing(vars)) vars <- rev(vars)
-  if (!missing(data)) data <- data[,ncol(data):1]
+  if (!missing(data)) data <- data[, ncol(data):1, drop = FALSE]
   else if (!missing(vars)) {
     data <- dataKN(vars, data=df, miss=miss, weights = weights, return = "", fr=fr, rev=rev, weight_non_na = weight_non_na)
     N <- dataN(vars[1], data=df, miss=miss, weights = weights, return = "N")
@@ -1372,7 +1375,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   legendX <- .96 # overwrites the previous legendX that was defined with xanchor = 'left'
   if (!is.na(legend_x)) legendX <- legend_x
   if (!showLegend) { margin_t <- max(0, margin_t - 70) }
-  if (ncol(data)==1) legendY <- 1 # 1.5 + 0.3*thin
+  if (ncol(data) == 1) legendY <- 1 # 1.5 + 0.3*thin
   if (!is.null(add_means) && any(add_means) && is.null(transform_mean)) transform_mean <- identity
   if (!is.null(add_means) && any(add_means)) means <- if (is.numeric(add_means)) add_means else sapply(vars, function(v) return(transform_mean(wtd.mean(df[[sub("_agg", "", v)]], weights = df[["weight"]]))))
   if (sort) {

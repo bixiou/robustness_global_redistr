@@ -1,4 +1,3 @@
-# TODO: variance decomposition
 # TODO: labels
 # TODO: comment fields; remaining fields US, JP
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -66,6 +65,8 @@ current <- c(0, thousandile_world_disposable_inc)
 mean_custom_redistr <- list()
 my_taxes_global_nation <- setNames(c(33, 37, 61, 40, 55, 44, NA, 53, NA, 58, 41), countries)/100
 my_taxes_global_nation_2023 <- setNames(c(43, 65, 76, 58, 60, 52, NA, 76, NA, NA, 44), countries)/100
+stostad_billionaire_tax_absolute <- setNames(c(76, 81, 74, 63, 68, 76, NA, 60, NA, NA, 66), countries)/100 # “International organizations and governments have recently proposed a coordinated tax targeting the world’s wealthiest individuals. This tax would require those with a wealth exceeding US $1 billion, or the approximately 3000 richest individuals in the world, to pay a minimum of 2% of their wealth in taxes every year.
+# [Absolute support] Do you support or oppose this policy? [Strongly support / Somewhat support / Neither support nor oppose / Somewhat oppose / Strongly oppose / Do not understand]”
 
 {
   levels_quotas <- list(
@@ -678,7 +679,9 @@ define_var_lists <- function() {
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_sociodemos <<- c("man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "region_factor", "millionaire_factor", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
-  control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "country_name", "region_factor", "region_factor:country") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
+  control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
+  control_variables_lmg <<- c("vote_factor", "voted", "well_being", "gender", "age_exact", "income", "education_original", "urbanity_factor", "millionaire", "couple", "employment_status", "foreign", "hh_size", "Nb_children__14", "owner", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
+  control_variables_lmg_few <<- c("vote_factor", "gender", "age", "income_factor", "education_factor", "urbanity_factor", "millionaire_agg", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
   variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_voters", "vote_group", "vote_major", "vote_major_voters", "vote_major_candidate", "vote_leaning")
   covariates <<- c("country_name", "man", "age_factor", "income_quartile", "millionaire_agg", "education", "urban", "couple", "employment_agg", "voted", "vote_agg") # "race_white", "region"
@@ -996,10 +999,13 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
 
   e$millionaire_factor <- factor(e$millionaire_agg)
-  e$urbanity_factor <- no.na(factor(e$urbanity), rep = "NA")
+  e$urbanity_factor <- e$urbanity_na_as_city <- no.na(factor(e$urbanity), rep = "NA")
   e$education_factor <- factor(e$education)
   e$income_factor <- factor(e$income_quartile)
   e$region_factor <- no.na(factor(e$region), rep = "NA")
+  e$country_region <- paste(e$country, e$region_factor)
+  e$urbanity_na_as_city[is.na(e$urbanity)] <- "Cities"
+  # for (i in unique(e$country_region)) if (sum(e$country_region %in% i) <= 3) e$country_region[e$country_region %in% i] <- NA
   
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) e[[v]] <- as.numeric(gsub("[^0-9]", "", e[[v]])) # TODO: label
