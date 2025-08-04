@@ -182,7 +182,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "income_exact",
       "Q94_First Click",
       "Q94_Last Click",
-      "Q94_Page Submit", # TODO
+      "Q94_Page Submit", 
       "Q94_Click Count",
       "custom_redistr_satisfied",
       "custom_redistr_skip",
@@ -201,7 +201,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "involvement_govt",
       "Q93_First Click",
       "Q93_Last Click",
-      "Q93_Page Submit", # TODO
+      "Q93_Page Submit", 
       "Q93_Click Count",
       "survey_biased",
       "comment_field",
@@ -249,7 +249,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "F-1-2-4",
       "F-1-2-5",
       "F-1-2-6",
-      "language", # TODO?
+      "language", 
       "time_start",
       "duration_consent",
       "time_consent",
@@ -409,7 +409,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "donation",
       "gcs_support",
       "gcs_belief_us",
-      "gcs_belief_own", # TODO
+      "gcs_belief_own", 
       "ics_support",
       "likely_solidarity",
       "solidarity_support_billionaire_tax",
@@ -491,7 +491,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "income_exact",
       "Q94_First Click",
       "Q94_Last Click",
-      "Q94_Page Submit", # TODO
+      "Q94_Page Submit", 
       "Q94_Click Count",
       "custom_redistr_satisfied",
       "custom_redistr_skip",
@@ -510,7 +510,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "involvement_govt",
       "Q93_First Click",
       "Q93_Last Click",
-      "Q93_Page Submit", # TODO
+      "Q93_Page Submit", 
       "Q93_Click Count",
       "survey_biased",
       "comment_field",
@@ -558,7 +558,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "F-1-2-4",
       "F-1-2-5",
       "F-1-2-6",
-      "language", # TODO?
+      "language", 
       "time_start",
       "duration_consent",
       "time_consent",
@@ -589,7 +589,7 @@ rename_survey <- function(e, pilot = FALSE) {
       "duration_custom_redistr",
       "time_custom_redistr",
       "duration_scenarios_tax",
-      "time_scenarios_tax", # TODO
+      "time_scenarios_tax", 
       "duration_end",
       "time_end",
       "duration_main_questions",

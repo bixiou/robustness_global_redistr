@@ -1,3 +1,4 @@
+# TODO: variance decomposition
 # TODO: labels
 # TODO: comment fields; remaining fields US, JP
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -1363,7 +1364,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$custom_redistr_both_satisfied_skip <- ifelse(e$custom_redistr_asked, e$custom_redistr_satisfied & e$custom_redistr_skip, NA) # flag bad quality
   e$variant_sliders <- ifelse(e$variant_sliders %in% 1, "concentrated", "diffuse")
   label(e$variant_sliders) <- "variant_sliders: Concentrated/Diffuse. Values of the initial position of sliders in custom_redistr. Concentrated/Diffuse: Winners: 40/60; Losers: 10/20; Degree: 7/2."
-  # e$income_quantile <- # TODO
+  # e$income_quantile <- # TODO!
   # e$custom_redistr_winning <- e$income_qantile < e$custom_redistr_winners
   # e$custom_redistr_losing <- (100 - e$income_quantile) > e$custom_redistr_losers
   

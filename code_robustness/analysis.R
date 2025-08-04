@@ -186,7 +186,7 @@ sapply(c("all", countries[-9]), function(c) print(decrit(d(c)$solidarity_support
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3))
-with(e, summary(lm(wealth_tax_support ~ variant_wealth_tax))) # TODO! bug
+with(e, summary(lm(wealth_tax_support ~ variant_wealth_tax))) 
 
 
 ##### NCQG, Maritime #####

@@ -174,6 +174,12 @@ labels_vars <- c(
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
   "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
   "well_being_wvs_1" = "Well-being: World Values Survey, 1-10 scale",
+  "variant_field" = "Open-ended field variant",
+  "variant_split" = "Revenue split variant",
+  "variant_belief" = "GCS belief variant",
+  "variant_warm_glow" = "Warm glow variant",
+  "variant_ics" = "Int'l CS variant",
+  "info_solidarity" = "Info on global policies",
   # "money" = "Money; own income; cost of living; inflation",
   # "relationships" = "Relationships; love; emotions", # also includes emotions
   # "job" = "Work; (un)employment; business",
@@ -533,7 +539,7 @@ global_nation_all <- heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$var
 global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1")))[-c(3,5),]
 # global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
 # In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
-# TODO use Stostad for another comparison
+# TODO!! use Stostad for another comparison
 global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
 row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
@@ -577,7 +583,7 @@ vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10
 barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
 barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
 barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
-# TODO: specify width, height
+# TODO! specify width, height
 true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
 vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
@@ -628,13 +634,12 @@ split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with
 # dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
 # dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
 
-# TODO: specify width, height
+# TODO! specify width, height
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
 barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list))
 
 # 5a. ICS: mean of variant 
-# TODO: fix labels
 legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
                         "Supports the GCS if its other members* cover 25-33% of world emissions<br>**Low**: Global South + EU",
                         "Supports the GCS if its other members* cover 56% of world emissions<br>**Mid**: Global South + China",
@@ -652,8 +657,8 @@ plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = 
 
 
 # 5b. Wealth tax by coverage
-# TODO weight (_control) for mean_ci
-# TODO save mean_ci .xlsx
+# TODO! weight (_control) for mean_ci
+# TODO! save mean_ci .xlsx
 # TODO aesthetics: print axes
 # TODO handle missing values in subsamples with levels_along as list
 legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries", 
@@ -718,7 +723,7 @@ for (v in names(mean_custom_redistr)) {
 ## Representativeness
 representativeness_table(countries[1:5])
 representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO nationality for SA; all; EU
-# TODO automatic bold cells that are not within +/- 20%
+# TODO! automatic bold cells that are not within +/- 20%
 
 
 ## Determinants
@@ -739,13 +744,23 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 # TODO? Add custom_redistr_satisfied? 
 
 ##### Placebo tests #####
-# gcs_support ~ variant_field
-# gcs_support ~ variant_split
-# ics_support ~ variant_belief
-# share_policies_supported ~ variant_warm_glow
-# share_policies_supported ~ variant_ics
-# wealth_tax_support ~ variant_ics
-# gcs_support ~ info_solidarity
+gcs_field <- lm(gcs_support > 0 ~ variant_field, data = all, weights = weight)
+gcs_split <- lm(gcs_support > 0 ~ variant_split, data = all, weights = weight)
+ics_belief <- lm(ics_support > 0 ~ variant_belief, data = all, weights = weight)
+solidarity_warm_glow <- lm(share_solidarity_supported ~ variant_warm_glow, data = all, weights = weight)
+solidarity_ics <- lm(share_solidarity_supported ~ variant_ics, data = all, weights = weight)
+wealth_ics <- lm(wealth_tax_support > 0 ~ variant_ics, data = all, weights = weight)
+# gcs_info <- lm(gcs_support > 0 ~ info_solidarity, data = all, weights = weight)
+stargazer(gcs_field, gcs_split, ics_belief, solidarity_warm_glow, solidarity_ics, wealth_ics, type = "latex", style = "default", out = "../tables/placebo.tex",
+          keep.stat = c("n", "rsq"), label = "tab:placebo", dep.var.caption = "", model.names = FALSE, no.space = TRUE, float = FALSE, #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Supports\\\\the Int'l\\\\Clim. Sch.}",
+                             "\\makecell{Share of\\\\policies\\\\supported}", "\\makecell{Supports\\\\the int'l\\\\wealth tax}"),
+          covariate.labels = c("Open-ended field variant: Injustice", "Open-ended field variant: Issue", "Open-ended field variant: Wish", "Revenue split variant: Many", "GCS belief variant: U.S.",
+                               "Warm glow variant: National CS", "Warm glow variant: Donation", "Int'l CS variant: High color", "Int'l CS variant: Low", "Int'l CS variant: Mid", "(Intercept)"),
+          title = "Placebo tests of treatments on unrelated outcomes (simple OLS regressions).") 
+
+for (v in variables_solidarity_support) { print(v); print(summary(lm(reg_formula(v, "variant_ics"), data = all, weights = weight))) }
+# Effects on: shipping, NCQG, loss & damage, Bridgetown
 
 
 ##### Main results weighted by vote ######
