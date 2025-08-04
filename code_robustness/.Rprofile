@@ -1248,7 +1248,7 @@ labelsN <- function(labels, levels, parentheses = T) {
   return(rev(new_labels)) # version var (lev1) / (lev2) / ...
   # return(sapply(labels, function(l) {return(paste(l, levels, sep=": "))})) # version var: lev1 / var: lev2 / ...
 }
-barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL, add_means = NULL, transform_mean = NULL, show_legend_means = T, 
+barresN <- function(vars, along = NULL, df=list(e), labels = NULL, legend=hover, miss=T, weights = T, fr=F, rev=T, color=c(), share_labels = NULL, margin_l = NULL, sort = F, file = NULL, add_means = NULL, transform_mean = NULL, show_legend_means = T,
                     rev_color = FALSE, hover=legend, thin=T, return="", showLegend=T, export_xls = F, parentheses = F, nolabel = F, error_margin = F, alphabetical = F, levels = NULL, weight_non_na = T) {
   if (nolabel & length(labels)==1) labels <- ""
   if (is.data.frame(df)) df <- list(df)
@@ -2781,9 +2781,11 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
       if (is.character(y_loop)) y_loop <- paste0("'", y_loop, "'")
       cond <- sapply(y_loop, function(y) paste0("[x$", subsamples, "%in% c(", paste0("'", y, "'", collapse=", "), ")]"))
       configurations <- paste0("(x$", outcome, ")", cond, ", w = x[[weight]]", cond)
+      sizes <- paste0("sum(x[[weight]][!is.na(x$", outcome, ")])")
     } else { # Configuration c.
       y_loop <- outcomes
       configurations <- paste0("x$", y_loop, ", w = x[[weight]]")
+      sizes <- paste0("sum(x[[weight]][!is.na(x$", y_loop, ")])")
     }
     i <- 0
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
@@ -2792,7 +2794,7 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
       i <- i + 1
       dfs <- if (class(levels_along) == "list") lapply(levels_along, function(i) df[df[[along]] %in% i,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
       mean_ci_reg <- as.data.frame(sapply(dfs, function(x) c(eval(str2expression(paste("wtd.mean(", configuration, ", na.rm=T)"))),
-                                                        eval(str2expression(paste("sqrt(modi::weighted.var(", configuration,", na.rm=T))/sqrt(NROW(x))"))))))
+                                                        eval(str2expression(paste("sqrt(modi::weighted.var(", configuration,", na.rm=T))/sqrt(", sizes[i], ")"))))))
       mean_ci_reg <- as.data.frame(t(apply(mean_ci_reg, 2, function(x) c(x[1],x[1]-z*x[2], x[1]+z*x[2])))) # /!\ This is a CI for a normal distribution, only an approximation in cases of binomial distributions
       mean_ci_reg <- tibble::rownames_to_column(mean_ci_reg, along)
       mean_ci_reg$y <- labels[i]

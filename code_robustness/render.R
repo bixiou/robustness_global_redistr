@@ -647,7 +647,7 @@ legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Gl
                         "Supports the GCS if coverage is **High**, **color** variant<br>Global South + China + EU + various HICs<br>+ Distributive effects shown using colors on world map")
 plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
 plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
-# Up: 1240 x 480 / Down: 750 x 790 # TODO! correct CIs for _control
+# Up: 1240 x 480 / Down: 750 x 790
 # plot_along("country_name", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = 780, height = 650, legend_vertical = T, origin = 50, plot_origin_line = T) 
 
 
