@@ -699,7 +699,6 @@ plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = 
 
 
 # 5b. Wealth tax by coverage
-# TODO! weight (_control) for mean_ci
 # TODO aesthetics: print axes
 # TODO handle missing values in subsamples with levels_along as list
 legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries", 
@@ -764,7 +763,6 @@ for (v in names(mean_custom_redistr)) {
 ## Representativeness
 representativeness_table(countries[1:5])
 representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO nationality for SA; all; EU
-# TODO! automatic bold cells that are not within +/- 20%
 
 
 ## Determinants

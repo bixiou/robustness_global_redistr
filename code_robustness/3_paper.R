@@ -20,7 +20,7 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 ##### Representativeness ######
 representativeness_table(countries[1:3])
 representativeness_table(countries[4:7])
-representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO all; EU; vote; employment; bold cells that are not within +/- 20%
+representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO all; EU; vote; employment
   
 
 ##### Determinants #####

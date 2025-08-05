@@ -2957,7 +2957,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
 #' # }
 #'
 representativeness_table <- function(country_list, weighted = T, non_weighted = T, label_operator = union, all = FALSE, omit = c("Other", "Not 25-64", "Employment_18_64: Employed", "Employment_18_64: 65+", "PNR", "Urban: FALSE"),
-                                     filename = NULL, folder = "../tables/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL) {
+                                     filename = NULL, folder = "../tables/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL, bold = .2, bold_additive = FALSE) {
   rows <- c()
   pop <- sample <- sample_weighted <- labels <- list()
   for (i in seq_along(country_list)) {
@@ -2975,9 +2975,9 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
         # print(paste(c, q_name, j))
         if (pop_freq[[c]][[q_name]][j] > threshold_skip) {
           labels[[k]] <- c(labels[[k]], paste0(capitalize(q), ": ", levels_quotas[[q_name]][j]))
-          pop[[k]] <- c(pop[[k]], sprintf("%.2f", round(pop_freq[[c]][[q_name]][j], digits = 2)))
-          sample[[k]] <- c(sample[[k]], sprintf("%.2f", round(mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T), digits = 2)))
-          if (weighted) sample_weighted[[k]] <- c(sample_weighted[[k]], sprintf("%.2f", round(wtd.mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T, weights = df[[weight_var]]), digits = 2)))
+          pop[[k]] <- c(pop[[k]], pop_freq[[c]][[q_name]][j]) # sprintf("%.2f", round(pop_freq[[c]][[q_name]][j], digits = 2)))
+          sample[[k]] <- c(sample[[k]], mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T)) # sprintf("%.2f", round(mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T), digits = 2)))
+          if (weighted) sample_weighted[[k]] <- c(sample_weighted[[k]], wtd.mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T, weights = df[[weight_var]])) # sprintf("%.2f", round(wtd.mean(as.character(df[[q]]) %in% levels_quotas[[q_name]][j], na.rm = T, weights = df[[weight_var]]), digits = 2)))
         }
       }
     }
@@ -2999,13 +2999,31 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
 
   table <- table[!multi_grepl(omit, row.names(table)),]
   if (return_table) return(table)
-  else export_representativeness_table(table = table, country_list = country_list, weighted = weighted, non_weighted = non_weighted, filename = if (all) paste0(filename, "_all") else filename, folder = folder, abbr = abbr)
+  else export_representativeness_table(table = table, country_list = country_list, weighted = weighted, non_weighted = non_weighted, filename = if (all) paste0(filename, "_all") else filename, folder = folder, abbr = abbr, bold = bold, bold_additive = bold_additive)
 }
 # representativeness_table(c("US1"), return_table = T)
-export_representativeness_table <- function(table, country_list, weighted = T, non_weighted = T, filename = NULL, folder = "../tables/sample_composition", abbr = NULL) {
-  header <- c("", rep((1 + weighted + non_weighted), length(country_list)))
+export_representativeness_table <- function(table, country_list, weighted = T, non_weighted = T, filename = NULL, folder = "../tables/sample_composition", abbr = NULL, bold = .2, bold_additive = FALSE) {
+  nb_types <- 1 + weighted + non_weighted
+  header <- c("", rep(nb_types, length(country_list)))
   names(header) <- c("", country_list)
   names(header)[names(header) %in% countries] <- countries_names[names(header)[names(header) %in% countries]]
+  
+  if (bold > 0) { # Put in bold the cells that diverge by more than 'bold' from population frequencies
+    if (bold > 1) bold <- bold/100
+    for (i in 0:(ncol(table)/nb_types - 1)) {
+      pop_i <- as.numeric(table[[1+i*nb_types]])
+      margins <- if (bold_additive) bold else pop_i*bold
+      for (j in 2:nb_types) {
+        freq_j <- as.numeric(table[[j+i*nb_types]])
+        table[[j+i*nb_types]][!is.na(freq_j) & !is.na(margins) & (freq_j < pop_i - margins | freq_j > pop_i + margins)] <- 1 + freq_j[!is.na(freq_j) & !is.na(margins) & (freq_j < pop_i - margins | freq_j > pop_i + margins)]
+      } 
+    }
+  }
+  print(table)
+  for (j in 1:ncol(table)) {
+    na_j <- is.na(table[,j])
+    table[2:nrow(table),j] <- sprintf("%.2f", round(as.numeric(table[2:nrow(table),j]), 2))
+    table[na_j,j] <- NA }
 
   line_sep <- c()
   for (i in 2:nrow(table)) {
@@ -3020,10 +3038,11 @@ export_representativeness_table <- function(table, country_list, weighted = T, n
   latex_output <- kbl(table, "latex", caption = NULL, position = "b", escape = F, booktabs = T, align = "c",
                       col.names = rep(c("Pop.", if (non_weighted) {if (abbr) "Sam." else ("Sample")}, if (weighted) {if (abbr) "\\makecell{Wght.\\\\sam.}" else "\\makecell{Weighted\\\\sample}"}), length(country_list)),
                       linesep = line_sep) %>% add_header_above(header)
+  if (bold > 0) latex_output <- gsub(" 2\\.00", " \\\\textbf{1.00}", gsub(" 1\\.([0-9]*)", " \\\\textbf{0\\.\\1}", latex_output))
   latex_output <- gsub("Education\\_quota", "Diploma\\_25-64", gsub("0.", ".", latex_output, fixed = T), fixed = T)
   if (is.null(filename)) filename <- paste(country_list, collapse = "_")
   if (filename == "_all") filename <- paste0(paste(country_list, collapse = "_"), "_all")
-  cat(paste(latex_output, collapse="\n"), file = paste0(folder, filename, ".tex"))
+  cat(paste(latex_output, collapse="\n"), file = paste0(folder, filename, if (bold > 0) "_bold", ".tex"))
 }
 
 reweighted_estimate <- function(predicted_var = NULL, country = "EU", variant = NULL, weights = FALSE, verbose = FALSE, omit = c()) {
