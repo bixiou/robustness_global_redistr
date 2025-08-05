@@ -2,7 +2,6 @@
 # TODO: comment fields; remaining fields US, JP
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
-# TODO: give 10£ to Just One Tree
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
 # TODO: correlation donation / support
 # TODO: sociodemos determinants custom_redistr
@@ -65,8 +64,14 @@ current <- c(0, thousandile_world_disposable_inc)
 mean_custom_redistr <- list()
 my_taxes_global_nation <- setNames(c(33, 37, 61, 40, 55, 44, NA, 53, NA, 58, 41), countries)/100
 my_taxes_global_nation_2023 <- setNames(c(43, 65, 76, 58, 60, 52, NA, 76, NA, NA, 44), countries)/100
-stostad_billionaire_tax_absolute <- setNames(c(76, 81, 74, 63, 68, 76, NA, 60, NA, NA, 66), countries)/100 # “International organizations and governments have recently proposed a coordinated tax targeting the world’s wealthiest individuals. This tax would require those with a wealth exceeding US $1 billion, or the approximately 3000 richest individuals in the world, to pay a minimum of 2% of their wealth in taxes every year.
+my_taxes_global_nation_2023_absolute <- setNames(c(28, 46, 54, 41, 39, 32, NA, 43, NA, NA, 30), countries)/100
+stostad <- read.dta13("../data_ext/stostad.dta")
+stostad$iso[stostad$iso == "UK"] <- "GB"
+stostad_billionaire_tax_absolute <- sapply(countries, function(c) if (c %in% stostad$iso) (stostad$agree1 + stostad$vagree1)[stostad$iso == c] else NA)# “International organizations and governments have recently proposed a coordinated tax targeting the world’s wealthiest individuals. This tax would require those with a wealth exceeding US $1 billion, or the approximately 3000 richest individuals in the world, to pay a minimum of 2% of their wealth in taxes every year.
 # [Absolute support] Do you support or oppose this policy? [Strongly support / Somewhat support / Neither support nor oppose / Somewhat oppose / Strongly oppose / Do not understand]”
+stostad_billionaire_tax_oppose <- sapply(countries, function(c) if (c %in% stostad$iso) (stostad$disagree1 + stostad$vdisagree1)[stostad$iso == c] else NA) 
+stostad_billionaire_tax_relative <- stostad_billionaire_tax_absolute / (stostad_billionaire_tax_absolute + stostad_billionaire_tax_oppose)
+
 
 {
   levels_quotas <- list(
@@ -1371,8 +1376,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$variant_sliders <- ifelse(e$variant_sliders %in% 1, "concentrated", "diffuse")
   label(e$variant_sliders) <- "variant_sliders: Concentrated/Diffuse. Values of the initial position of sliders in custom_redistr. Concentrated/Diffuse: Winners: 40/60; Losers: 10/20; Degree: 7/2."
   # e$income_quantile <- # TODO!
-  # e$custom_redistr_winning <- e$income_qantile < e$custom_redistr_winners
-  # e$custom_redistr_losing <- (100 - e$income_quantile) > e$custom_redistr_losers
   
   # unused: variant_radical_transfer, variant_comprehension, variant_synthetic
   e$variant_split <- ifelse(e$variant_split == 2, "Many", "Few") 

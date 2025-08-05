@@ -653,7 +653,7 @@ export_codebook <- function(data, file = "../data/codebook.csv", stata = TRUE, d
 reg_formula <- function(dep_var, indep_vars, as_factor = FALSE) {
   if (as_factor) return(as.formula(paste(dep_var, "~ factor(", paste(indep_vars, collapse = ') + factor('), ")")))
   else return(as.formula(paste(dep_var, "~", paste(indep_vars, collapse = '+'))))
-} 
+}
 desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control_variables, indep_labels = NULL, weights = data$weight, add_lines = NULL, model.numbers = T, multicolumn = T, #!mean_above,
                        save_folder = "../tables/", dep.var.labels = NULL, dep.var.caption = c(""), digits= 3, mean_control = FALSE, logit = FALSE, atmean = T, robust_SE = T, omit = c("Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA"),
                        mean_above = T, only_mean = F, keep = indep_vars, nolabel = F, indep_vars_included = T, no.space = T, print_regs = FALSE, replace_endAB = NULL, oecd_latex = FALSE) {
@@ -1339,7 +1339,7 @@ order_agree <- function(data, miss, rev = T, n = ncol(data)) { # used in barres
   return(order(agree, decreasing = rev)) }
 barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FALSE, hover=legend, nsp=TRUE, sort=TRUE, legend=hover, showLegend=T,
                    margin_r=0, margin_l=NULL, share_labels = NULL, online=FALSE, export_xls = F, digits = 0, add_means = FALSE, show_legend_means = T, transform_mean = NULL, name_mean = "Mean",
-                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T,
+                   display_values=T, thin=T, legend_x=NA, show_ticks=T, xrange=NA, save = FALSE, df=e, miss=T, weight_non_na = T, width = dev.size('px')[1], height = dev.size('px')[2],
                    weights = T, fr=F, rev=T, grouped = F, error_margin = F, color_margin = '#00000033', N = NA, font = 'Arial') { # default: Arial (also: Times, Latin Modern Sans, Computer Modern) # OECD: Computer Modern
   if (missing(vars) & missing(legend) & missing(hover)) warning('hover or legend must be given')
   if (!missing(miss)) nsp <- miss
@@ -1504,7 +1504,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
   } } # /!\ When data and vars are not provided, N cannot be computed, but error_margin=T still returns a (zero) confidence interval
   if (!is.null(add_means) && any(add_means))  bars <- add_trace(bars, x = means, name = name_mean, marker = list(color = 'black', size = 10, symbol = 'diamond'), showlegend = (!is.null(show_legend_means) && show_legend_means), type = 'scatter', mode = 'markers')
   if (online) { api_create(bars, filename=file, sharing="public") }
-  if (!missing(file) & save) save_plotly(bars, filename = file) # new
+  if (!missing(file) & save) save_plotly(bars, filename = file, width = width, height = height) # new
   if (export_xls) {
     table <- as.data.frame(data, row.names = legend)
     names(table) <- labels
@@ -2604,7 +2604,7 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 # outcomes, covariates: string vectors / subsamples: variable name
 # /!\ when logit_margin = T, we don't take weight into account (haven't found an R function that gives the marginal logit effects with weight)
 
-regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, logit = c(FALSE), weight = 'weight', atmean = T, logit_margin = T, summary = FALSE, levels_subsamples = NULL) {
+regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, logit = c(FALSE), weight = 'weight', atmean = T, logit_margin = T, summary = FALSE, levels_subsamples = NULL, weight_non_na = T) {
   # TODO! handle outcomes of type "future_richness" (so that they are understood as as.numeric(future_richness))
   # TODO! handle along of type "income" (so that they are understood as as.factor(income)) => this can be done using , names_levels = paste0("as.factor(income)", c("Q1", "Q2", "Q3", "Q4"))
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
@@ -2616,13 +2616,14 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
       warning("subsamples should not be in covariates")
       covariates <- covariates[covariates!=subsamples] }
     for (s in levels_subsamples) {
-      regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[subsamples]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin))
+      regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[subsamples]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin, weight_non_na = weight_non_na))
       i <- i + 1   }
   } else for (y in outcomes) {
     several_values <- c()
     for (c in seq_along(covariates)) several_values[c] <- length(unique(df[[covariates[c]]])) > 1
     covariates <- covariates[several_values]
     if ("double.item" %in% class(df[[y]])) dependent_var <- paste0("as.numeric(", y, ")") else dependent_var <- y
+    if (sum(is.na(df[[dependent_var]])) > .1*nrow(df) && "country" %in% names(df) && length(unique(df$country)) == 1) df[[weight]][!is.na(df[[dependent_var]])] <- weighting(df[!is.na(df[[dependent_var]]),], unique(df$country), printWeights = F, variant = if (weight == "weight") NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
     formula <- reg_formula(dependent_var, covariates)
     i <- i + 1
     if (logit[i]) {
@@ -2639,7 +2640,7 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
 
 # Given a set of regressions with one common variable (along), gives the coefs and CI of the levels of that variable.
 #   or, if subsamples == along & !missing(covariates), gives the coefs/CI of all covariates with one regression for each subsample
-mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'others_at_mean', logit = c(FALSE), logit_margin = T, confidence = 0.95, factor_along = FALSE, covariates = NULL,
+mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'others_at_mean', logit = c(FALSE), logit_margin = T, confidence = 0.95, factor_along = FALSE, covariates = NULL, weight_non_na = T,
                                       subsamples = NULL, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]], logT=T), weight = 'weight', print_regs = FALSE, levels_subsamples = NULL) { # to handle numeric variables: levels_along = ifelse(is.numeric(df[[along]]), c(), Levels(df[[along]]))
   # names_levels[1] should correspond to the control group (concatenation of along and the omitted level)
   # origin can be 0, 'intercept': the intercept, the 'control_mean': true (or predicted) mean of the control group, or 'others_at_mean': all variables at their mean except along (at 0 i.e. the control group)
@@ -2651,7 +2652,7 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
   if (!is.null(subsamples) && subsamples == along && !is.null(covariates)) {
     mean_ci <- data.frame()
     for (v in covariates) {
-      mean_ci_v <- mean_ci_along_regressions(regs = regs, along = v, labels = levels_along, subsamples = subsamples, df = df, covariates = NULL, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, factor_along = factor_along, weight = weight, levels_subsamples = levels_subsamples)
+      mean_ci_v <- mean_ci_along_regressions(regs = regs, along = v, labels = levels_along, subsamples = subsamples, df = df, covariates = NULL, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, factor_along = factor_along, weight = weight, levels_subsamples = levels_subsamples, weight_non_na = weight_non_na)
       mean_ci_v$along <- paste0(v, mean_ci_v$along)
       if (exists("labels_vars")) mean_ci_v$along <- labels_vars[mean_ci_v$along]
       names(mean_ci_v) <- c("along", "mean", "CI_low", "CI_high", "y")
@@ -2679,6 +2680,8 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
       label <- rep(labels[i], length(levels_along))
       if (!is.null(subsamples)) data_s <- df[df[[subsamples]] %in% levels_subsamples[[i]],] else data_s <- df
       if (!("weight" %in% names(data_s))) data_s$weight <- 1
+      else if (weight_non_na && "country" %in% names(data_s) && length(unique(data_s$country)) == 1 && unique(data_s$country) %in% countries && "na.action" %in% names(r) && length(temp$na.action) > .1*nrow(data_s)) {
+        data_s$weight[-as.numeric(temp$na.action)] <- weighting(data_s[-as.numeric(temp$na.action),], unique(data_s$country), printWeights = F)    }  # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
       if (logit[i] & logit_margin) {
         regmxf <- r$mfxest
         reg <- r$fit }
@@ -2757,7 +2760,7 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
 # c. y: outcomes, along; d. y: heterogeneity, along: outcomes
 # For numerical outcomes (i.e. not dummies), set conditions to rep("", length(outcomes))
 mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_vars, conditions), covariates = NULL, subsamples = NULL,
-                    conditions = c(""), invert_y_along = FALSE, df = e, labels = outcome_vars, factor_along = FALSE,
+                    conditions = c(""), invert_y_along = FALSE, df = e, labels = outcome_vars, factor_along = FALSE, weight_non_na = T, 
                     origin = 'others_at_mean', logit = c(FALSE), weight = 'weight', atmean = T, logit_margin = T, confidence = 0.95,
                     labels_along = levels_along, names_levels = paste0(along, levels_along), levels_subsamples = NULL,
                     levels_along = Levels(df[[along]], logT=T), heterogeneity_condition = "", order_y = NULL, order_along = NULL, print_regs = F) {
@@ -2772,8 +2775,8 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
     if (any(logit) & !logit_margin) print("Warning: Are you sure you want the logit coefficients rather than the marginal effects? If not, set logit_margin = T.")
     if (!is.null(subsamples) & (missing(labels) | identical(labels, outcome_vars))) labels <- if (class(levels_subsamples)=="list") names(levels_subsamples) else Levels(df[[subsamples]])
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
-    regs <- regressions_list(outcomes = outcomes, covariates = covariates, subsamples = subsamples, df = df, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, summary = FALSE, levels_subsamples = levels_subsamples)
-    mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = labels, df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, print_regs = print_regs, levels_subsamples = levels_subsamples)
+    regs <- regressions_list(outcomes = outcomes, covariates = covariates, subsamples = subsamples, df = df, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, summary = FALSE, levels_subsamples = levels_subsamples, weight_non_na = weight_non_na)
+    mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = labels, df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, weight_non_na = weight_non_na, print_regs = print_regs, levels_subsamples = levels_subsamples)
     mean_ci$along <- labels_along[as.character(mean_ci$along)]
   } else { # If unconditional (subgroup means)
     if (!is.null(subsamples)) { # Configuration a.
@@ -2784,20 +2787,21 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
       if (is.character(y_loop)) y_loop <- paste0("'", y_loop, "'")
       cond <- sapply(y_loop, function(y) paste0("[x$", subsamples, "%in% c(", paste0("'", y, "'", collapse=", "), ")]"))
       configurations <- paste0("(x$", outcome, ")", cond, ", w = x[[weight]]", cond)
-      sizes <- paste0("sum(x[[weight]][!is.na(x$", outcome, ")])")
     } else { # Configuration c.
       y_loop <- outcomes
       configurations <- paste0("x$", y_loop, ", w = x[[weight]]")
-      sizes <- paste0("sum(x[[weight]][!is.na(x$", y_loop, ")])")
     }
     i <- 0
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
     mean_ci <- data.frame()
     for (configuration in configurations) {
       i <- i + 1
-      dfs <- if (class(levels_along) == "list") lapply(levels_along, function(i) df[df[[along]] %in% i,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
+      dfs <- if (class(levels_along) == "list") lapply(levels_along, function(k) df[df[[along]] %in% k,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
+      if (weight_non_na) for (j in seq_along(dfs)) if ("country" %in% names(df) && length(unique(dfs[[j]]$country)) == 1 && exists("countries") && unique(dfs[[j]]$country) %in% countries && (sum(is.na(dfs[[j]][[outcomes[i]]])) > .1*nrow(dfs[[j]]))) {
+        dfs[[j]]$weight[!is.na(dfs[[j]][[outcomes[i]]])] <- weighting(dfs[[j]][!is.na(dfs[[j]][[outcomes[i]]]),], unique(dfs[[j]]$country), printWeights = F, variant = if (weight == 'weight') NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
+      }
       mean_ci_reg <- as.data.frame(sapply(dfs, function(x) c(eval(str2expression(paste("wtd.mean(", configuration, ", na.rm=T)"))),
-                                                        eval(str2expression(paste("sqrt(modi::weighted.var(", configuration,", na.rm=T))/sqrt(", sizes[i], ")"))))))
+                                                        eval(str2expression(paste("sqrt(modi::weighted.var(", configuration,", na.rm=T))/sqrt(sum(x[[weight]][!is.na(x$", outcomes[i], ")]))"))))))
       mean_ci_reg <- as.data.frame(t(apply(mean_ci_reg, 2, function(x) c(x[1],x[1]-z*x[2], x[1]+z*x[2])))) # /!\ This is a CI for a normal distribution, only an approximation in cases of binomial distributions
       mean_ci_reg <- tibble::rownames_to_column(mean_ci_reg, along)
       mean_ci_reg$y <- labels[i]
@@ -2829,7 +2833,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
                        heterogeneity_condition = "", order_y = NULL, order_along = NULL, point_size = 4, shapes = NULL, return_mean_ci = FALSE, print_name = FALSE, font_size = 14,
                        legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE, legend_vertical = FALSE, legend_box = T, levels_subsamples = NULL,
                        legend_x = '', legend_y = '', plot_origin_line = FALSE, name = NULL, folder = '../figures/country_comparison/', plotly = FALSE, no_label = FALSE,
-                       width = dev.size('px')[1], height = dev.size('px')[2], save = T, no_legend = F) { # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
+                       width = dev.size('px')[1], height = dev.size('px')[2], save = T, no_legend = F, weight_non_na = T) { # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
   # TODO multiple conditions, show legend for 20 countries (display UA!) even if there is less than 4 variables
   # TODO: automatic values when missing(legend_x), legend_y
   # TODO! make invert_y_along work for regressions/covariates
@@ -2848,10 +2852,10 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   name <- sub("rev(", "", sub(")", "", sub("country_name", "country", name, fixed = T), fixed = T), fixed = T)
   if (print_name) print(name) # TODO: name with subsamples
 
-  if (missing(folder) && deparse(substitute(df)) %in% tolower(countries)) folder <- paste0("../figures/", toupper(deparse(substitute(df))), "/")
+  if (missing(folder) && exists("countries") && length(deparse(substitute(df))) == 1 && deparse(substitute(df)) %in% tolower(countries)) folder <- paste0("../figures/", toupper(deparse(substitute(df))), "/")
 
   if (missing(mean_ci)) mean_ci <- mean_ci(along = along, outcome_vars = vars, outcomes = outcomes, covariates = covariates, subsamples = subsamples, conditions = conditions, invert_y_along = invert_y_along, df = df, labels = labels, factor_along = factor_along,
-                                           origin = origin, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, confidence = confidence, order_y = order_y, order_along = order_along,
+                                           origin = origin, logit = logit, weight = weight, weight_non_na = weight_non_na, atmean = atmean, logit_margin = logit_margin, confidence = confidence, order_y = order_y, order_along = order_along,
                                            names_levels = names_levels, labels_along = labels_along, levels_along = levels_along, heterogeneity_condition = heterogeneity_condition, print_regs = return_mean_ci, levels_subsamples = levels_subsamples)
 
   #  if (missing(mean_ci)) {
@@ -2889,6 +2893,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
     guides(color = guide_legend(direction = if (legend_vertical) "vertical", override.aes = list(shape = shapes, linetype = 0)), shape = "none") + scale_shape_manual(values = (shapes)) +  {if (!missing(colors)) scale_color_manual(values = (colors))} # + scale_color_manual(values = color(length(levels_along), theme='rainbow')) # can be theme = 'rainbow', 'RdBu', 'default' or any brewer theme, but the issue with RdBu/default is that the middle one is white for odd number of categories
   # scale_color_manual(labels = Levels(df[[along]]), values = color(length(Levels(df[[along]])), theme='rainbow'))# BUG when we specify labels: the legend does not correspond to the colors
   plot
+  if (save) write.xlsx(mean_ci, paste0(sub("figures", "xlsx", folder), name, ".xlsx"), overwrite = T)
   if (save) if (plotly) { save_plotly(plot, filename = name, folder = folder, width = width, height = height, trim = F, format = 'pdf')
   } else save_plot(plot, filename = name, folder = folder, width = width, height = height, trim = F, format = 'pdf')
   if (return_mean_ci) return(mean_ci)

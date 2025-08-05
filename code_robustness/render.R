@@ -554,7 +554,6 @@ global_nation_all <- heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$var
 global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1")))[-c(3,5),]
 # global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
 # In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
-# TODO!! use Stostad for another comparison
 global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
 row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
@@ -562,6 +561,35 @@ pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/
 heatmap_plot(global_nation_all, proportion = T, percent = T)
 invisible(dev.off())
 # save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
+
+par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
+plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Global Nation (2023)", xlim = c(.43, .8), ylim = c(.43, .8)) 
+grid()
+points(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], pch = 18)
+text(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], labels = countries[-9], pos = 4)
+save_plot(filename = "../figures/all/my_tax_global_nation_comparison", width = 330, height = 330, format = "pdf", trim = FALSE)
+cor(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], use = "complete.obs") # .70
+
+par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
+plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Cappelen, Støstad & Tungodden", xlim = c(.54, .815), ylim = c(.54, .815))
+grid()
+points(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], pch = 18)
+text(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], labels = countries[-9], pos = 4)
+save_plot(filename = "../figures/all/billionaire_stostad", width = 330, height = 330, format = "pdf", trim = FALSE)
+cor(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], use = "complete.obs") # .86
+# plot(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative[-9])
+# lines(0:1, 0:1, type = 'l')
+
+stostad2 <- read.dta13("../data_ext/stostad2.dta")
+stostad2$iso[stostad2$iso == "UK"] <- "GB"
+stostad0_billionaire_tax_absolute <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$agree1 + stostad2$vagree1)[stostad2$iso == c & stostad2$Survey2 == 0] else NA)
+stostad0_billionaire_tax_oppose <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$disagree1 + stostad2$vdisagree1)[stostad2$iso == c & stostad2$Survey2 == 0] else NA) 
+stostad0_billionaire_tax_relative <- stostad0_billionaire_tax_absolute / (stostad0_billionaire_tax_absolute + stostad0_billionaire_tax_oppose)
+stostad1_billionaire_tax_absolute <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$agree1 + stostad2$vagree1)[stostad2$iso == c & stostad2$Survey2 == 1] else NA)
+stostad1_billionaire_tax_oppose <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$disagree1 + stostad2$vdisagree1)[stostad2$iso == c & stostad2$Survey2 == 1] else NA) 
+stostad1_billionaire_tax_relative <- stostad1_billionaire_tax_absolute / (stostad1_billionaire_tax_absolute + stostad1_billionaire_tax_oppose)
+cor(stostad0_billionaire_tax_absolute, stostad1_billionaire_tax_absolute, use = "complete.obs") # .91
+cor(stostad0_billionaire_tax_absolute[countries], stostad1_billionaire_tax_absolute[countries], use = "complete.obs") # .90
 
 # barres_multiple(barresN_defs[c("group_defended")]) 
 # barres_multiple(barres_defs[c("group_defended")]) 
@@ -595,17 +623,17 @@ colnames(true_vote_by_country) <- paste0(colnames(true_vote_by_country), ": Elec
 vote_data <- cbind(vote_by_country, true_vote_by_country)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
 vote_EU <- cbind(vote_by_country[,2:6], true_vote_by_country[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
-barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
-barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
-barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F)
-# TODO! specify width, height
+barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 680, height = 430)
+barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 430)
+barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 680)
+
 true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
 vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_pnr_out <- cbind(vote_by_country_pnr_out, true_vote_by_country_pnr_out)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
-barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
-barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
-barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F)
+barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1200, height = 430)
+barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1300, height = 430)
+barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1500, height = 680)
 # TODO: representativeness by group at EU Parliament
 
   
@@ -649,10 +677,9 @@ split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with
 # dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
 # dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
 
-# TODO! specify width, height
-barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
-barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list))
-barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list))
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list), width = 1200, height = 550)
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list), width = 1200, height = 600)
+barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list), width = 1200, height = 800)
 
 # 5a. ICS: mean of variant 
 legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
@@ -673,7 +700,6 @@ plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = 
 
 # 5b. Wealth tax by coverage
 # TODO! weight (_control) for mean_ci
-# TODO! save mean_ci .xlsx
 # TODO aesthetics: print axes
 # TODO handle missing values in subsamples with levels_along as list
 legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries", 
@@ -758,6 +784,7 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
            indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 # TODO? Add custom_redistr_satisfied? 
 
+
 ##### Placebo tests #####
 gcs_field <- lm(gcs_support > 0 ~ variant_field, data = all, weights = weight)
 gcs_split <- lm(gcs_support > 0 ~ variant_split, data = all, weights = weight)
@@ -774,8 +801,39 @@ stargazer(gcs_field, gcs_split, ics_belief, solidarity_warm_glow, solidarity_ics
                                "Warm glow variant: National CS", "Warm glow variant: Donation", "Int'l CS variant: High color", "Int'l CS variant: Low", "Int'l CS variant: Mid", "(Intercept)"),
           title = "Placebo tests of treatments on unrelated outcomes (simple OLS regressions).") 
 
+gcs_field_control <- lm(reg_formula("gcs_support > 0", c("variant_field", control_variables)), data = all, weights = weight)
+gcs_split_control <- lm(reg_formula("gcs_support > 0", c("variant_split", control_variables)), data = all, weights = weight)
+ics_belief_control <- lm(reg_formula("ics_support > 0", c("variant_belief", control_variables)), data = all, weights = weight)
+solidarity_warm_glow_control <- lm(reg_formula("share_solidarity_supported", c("variant_warm_glow", control_variables)), data = all, weights = weight)
+solidarity_ics_control <- lm(reg_formula("share_solidarity_supported", c("variant_ics", control_variables)), data = all, weights = weight)
+wealth_ics_control <- lm(reg_formula("wealth_tax_support > 0", c("variant_ics", control_variables)), data = all, weights = weight)
+stargazer(gcs_field_control, gcs_split_control, ics_belief_control, solidarity_warm_glow_control, solidarity_ics_control, wealth_ics_control, type = "latex", style = "default", out = "../tables/placebo_control.tex",
+          keep.stat = c("n", "rsq"), label = "tab:placebo_control", dep.var.caption = "", model.names = FALSE, no.space = TRUE, float = FALSE, #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Supports\\\\the Int'l\\\\Clim. Sch.}",
+                             "\\makecell{Share of\\\\policies\\\\supported}", "\\makecell{Supports\\\\the int'l\\\\wealth tax}"), omit = control_variables,
+          covariate.labels = c("Open-ended field variant: Injustice", "Open-ended field variant: Issue", "Open-ended field variant: Wish", "Revenue split variant: Many", "GCS belief variant: U.S.",
+                               "Warm glow variant: National CS", "Warm glow variant: Donation", "Int'l CS variant: High color", "Int'l CS variant: Low", "Int'l CS variant: Mid", "(Intercept)"),
+          title = "Placebo tests of treatments on unrelated outcomes (simple OLS regressions).") 
+
 for (v in variables_solidarity_support) { print(v); print(summary(lm(reg_formula(v, "variant_ics"), data = all, weights = weight))) }
 # Effects on: shipping, NCQG, loss & damage, Bridgetown
+
+summary(lm(split_both_global ~ variant_field, data = all, weights = weight))
+summary(lm(ics_support > 0 ~ variant_field, data = all, weights = weight)) # wish +5pp***
+summary(lm(share_solidarity_supported ~ variant_field, data = all, weights = weight)) # injustice -1.6pp*
+summary(lm(sustainable_future ~ variant_field, data = all, weights = weight)) # wish +3pp***
+summary(lm(top_tax_support > 0 ~ variant_field, data = all, weights = weight))
+summary(lm(universalist ~ variant_field, data = all, weights = weight))
+summary(lm(sustainable_future ~ variant_ics, data = all, weights = weight)) # high color -2.7pp*
+summary(lm(top_tax_support > 0 ~ variant_ics, data = all, weights = weight)) # low +3pp*
+summary(lm(universalist ~ variant_ics, data = all, weights = weight))
+
+summary(lm(reg_formula("gcs_support > 0", c("variant_field", control_variables)), data = all[all$country != "US",], weights = weight))
+
+summary(lm(reg_formula("variant_field == 'issue'", control_variables), data = all, weights = weight))
+summary(lm(reg_formula("variant_field == 'wish'", control_variables), data = all, weights = weight)) # Left 4pp**, US -7pp*, Q4 4pp**
+summary(lm(reg_formula("variant_field == 'injustice'", control_variables), data = all, weights = weight))
+summary(lm(reg_formula("variant_field == 'concerns'", control_variables), data = all, weights = weight)) # Left -3pp**
 
 
 ##### Main results weighted by vote ######
@@ -805,14 +863,14 @@ plot_along("country_name", df = a[a$stayed,], name = "variables_ncs_gcs_ics_by_c
 plot_along("country_name", df = a[a$stayed,], name = "variables_wealth_tax_support_by_country_extended",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, width = 820, height = 380, origin = 50, plot_origin_line = T) 
 
 plot_along(along = "millionaire_tax_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
-           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+           name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 plot_along(along = "cut_aid_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
-           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_extended", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+           name = "program_preferred_by_cut_aid_in_program_extended", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 
 plot_along(along = "variant_warm_glow", df = a[a$variant_warm_glow != "NCS" & a$country != "SA" & a$stayed,], vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
-           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_extended", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+           name = "gcs_support_by_variant_warm_glow_extended", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 plot_along(along = "info_solidarity", df = a[a$stayed,], vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
-           weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_extended", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+           name = "share_solidarity_supported_by_info_solidarity_extended", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_extended", data = a[a$stayed,])
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_extended", data = a[a$stayed,])

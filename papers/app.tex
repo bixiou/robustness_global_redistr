@@ -360,7 +360,7 @@
 \begin{figure}[h!]
     \caption[Vote in the last election compared to actual results (among voters)]{Vote in the last election, compared to actual results among voters. (Questions~\ref{q:voted}, \ref{q:vote}).
     }\label{fig:vote_pnr_out}
-    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/vote_pnr_out.pdf}} 
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/vote_pnr_out.pdf}} 
 \end{figure}
 
 \begin{figure}[h!]
@@ -446,6 +446,19 @@ Unless otherwise specified, response is compulsory and a single response much be
     }
 \end{table}
 
+\clearpage
+\section{Comparison with other surveys}\label{app:comparison}
+\begin{figure}[h!]
+\caption[Comparison with other surveys]{Comparison with similar questions in other surveys.} \label{fig:conjoint}
+\begin{subfigure}{.45\textwidth}
+  \caption[]{Absolute support for an international 2\% tax on billionaire wealth (cross-country correlation between this survey and \cite{cappelen_majority_2025}: .86). \hfill (Question~\ref{q:solidarity_support})}
+  \includegraphics[width=\textwidth]{../figures/all/billionaire_stostad.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.45\textwidth}
+  \caption[]{Relative agreement that ``My taxes should go towards solving global problems'' (cross-country correlation with \cite{global_nation_global_2023}: .70). \hfill (Question~\ref{q:my_tax_global_nation})}%\begin{flushright}
+  \includegraphics[width=\textwidth]{../figures/all/my_tax_global_nation_comparison.pdf}%\end{flushright}
+\end{subfigure}
+\end{figure}
 
 \clearpage
 \section{Attrition analysis}\label{app:attrition}
@@ -486,18 +499,18 @@ Unless otherwise specified, response is compulsory and a single response much be
 
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Support for the NCS, GCS, ICS]{[Weighted by vote] Support for the National, Global, and International Climate Schemes (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:ncs_support}-\ref{q:ics_support}).
-    }\label{fig:ics}
+    }\label{fig:ics_weight_vote}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf}} 
 \end{figure}
 
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Support for an int'l wealth tax depending on coverage]{[Weighted by vote] Support for an international wealth tax with 30\% of revenue funding LICs, depending on the country coverage (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:global_tax_support}-\ref{q:intl_tax_support}).
-    }\label{fig:wealth_tax}
+    }\label{fig:wealth_tax_weight_vote}
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf}} 
 \end{figure}
 
 \begin{figure}[h!]
-\caption[{[}Weighted by vote{]} Conjoint analysis]{[Weighted by vote] Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint}
+\caption[{[}Weighted by vote{]} Conjoint analysis]{[Weighted by vote] Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint_weight_vote}
 \begin{subfigure}{.49\textwidth}
   \caption[]{Cut development aid}
   \includegraphics[height=.33\textheight]{../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf}
@@ -508,27 +521,27 @@ Unless otherwise specified, response is compulsory and a single response much be
 \end{subfigure}
 \end{figure}
 
-\begin{figure}[h!]\label{fig:warm_glow}
+\begin{figure}[h!]\label{fig:warm_glow_weight_vote}
 \caption[{[}Weighted by vote{]} Testing warm glow]{[Weighted by vote] Testing warm glow (negative effects would indicate the presence of warm glow).}
 \begin{subfigure}{.45\textwidth}
-  \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute}}
+  \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute_weight_vote}}
   \includegraphics[height=.33\textheight]{../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf}
 \end{subfigure} \quad
 \begin{subfigure}{.49\textwidth}
-  \caption[]{Effect of information about ongoing global redistribution initiatives on the share of plausible global policies supported. (Questions \ref{q:info_solidarity}-\ref{q:solidarity_support})\label{fig:warm_glow_realism}}
+  \caption[]{Effect of information about ongoing global redistribution initiatives on the share of plausible global policies supported. (Questions \ref{q:info_solidarity}-\ref{q:solidarity_support})\label{fig:warm_glow_realism_weight_vote}}
   \includegraphics[height=.33\textheight]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf}
 \end{subfigure}
 \end{figure}
 
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Relative support for plausible global policies]{[Weighted by vote] Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
-    }\label{fig:solidarity_support_share}
+    }\label{fig:solidarity_support_share_weight_vote}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_weight_vote_share.pdf}} 
 \end{figure}
 % # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Support for broad or radical global redistribution]{[Weighted by vote] Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
-    }\label{fig:radical_redistr_share} 
+    }\label{fig:radical_redistr_share_weight_vote} 
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_weight_vote_share.pdf}} 
 \end{figure}
 
@@ -545,18 +558,18 @@ Unless otherwise specified, response is compulsory and a single response much be
 
 \begin{figure}[h!]
     \caption[{[}Extended sample{]} Support for the NCS, GCS, ICS]{[Extended sample] Support for the National, Global, and International Climate Schemes (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:ncs_support}-\ref{q:ics_support}).
-    }\label{fig:ics}
+    }\label{fig:ics_extended}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf}} 
 \end{figure}
 
 \begin{figure}[h!]
     \caption[{[}Extended sample{]} Support for an int'l wealth tax depending on coverage]{[Extended sample] Support for an international wealth tax with 30\% of revenue funding LICs, depending on the country coverage (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:global_tax_support}-\ref{q:intl_tax_support}).
-    }\label{fig:wealth_tax}
+    }\label{fig:wealth_tax_extended}
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf}} 
 \end{figure}
 
 \begin{figure}[h!]
-\caption[{[}Extended sample{]} Conjoint analysis]{[Extended sample] Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint}
+\caption[{[}Extended sample{]} Conjoint analysis]{[Extended sample] Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint_extended}
 \begin{subfigure}{.49\textwidth}
   \caption[]{Cut development aid}
   \includegraphics[height=.3\textheight]{../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf}
@@ -567,26 +580,26 @@ Unless otherwise specified, response is compulsory and a single response much be
 \end{subfigure}
 \end{figure}
 
-\begin{figure}[h!]\label{fig:warm_glow}
+\begin{figure}[h!]\label{fig:warm_glow_extended}
 \caption[{[}Extended sample{]} Testing warm glow]{[Extended sample] Testing warm glow (negative effects would indicate the presence of warm glow).}
 \begin{subfigure}{.45\textwidth}
-  \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute}}
+  \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute_extended}}
   \includegraphics[height=.3\textheight]{../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf}
 \end{subfigure} \quad
 \begin{subfigure}{.49\textwidth}
-  \caption[]{Effect of information about ongoing global redistribution initiatives on the share of plausible global policies supported. (Questions \ref{q:info_solidarity}-\ref{q:solidarity_support})\label{fig:warm_glow_realism}}
+  \caption[]{Effect of information about ongoing global redistribution initiatives on the share of plausible global policies supported. (Questions \ref{q:info_solidarity}-\ref{q:solidarity_support})\label{fig:warm_glow_realism_extended}}
   \includegraphics[height=.3\textheight]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf}
 \end{subfigure}
 \end{figure}
 
 \begin{figure}[h!]
     \caption[{[}Extended sample{]} Relative support for plausible global policies]{[Extended sample] Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
-    }\label{fig:solidarity_support_share}
+    }\label{fig:solidarity_support_share_extended}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_extended_share.pdf}} 
 \end{figure}
 % # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
 \begin{figure}[h!]
     \caption[{[}Extended sample{]} Support for broad or radical global redistribution]{[Extended sample] Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
-    }\label{fig:radical_redistr_share} 
+    }\label{fig:radical_redistr_share_extended} 
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_extended_share.pdf}} 
 \end{figure}
