@@ -2760,7 +2760,7 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
 # c. y: outcomes, along; d. y: heterogeneity, along: outcomes
 # For numerical outcomes (i.e. not dummies), set conditions to rep("", length(outcomes))
 mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_vars, conditions), covariates = NULL, subsamples = NULL,
-                    conditions = c(""), invert_y_along = FALSE, df = e, labels = outcome_vars, factor_along = FALSE, weight_non_na = T, 
+                    conditions = c(""), invert_y_along = FALSE, df = e, labels = outcome_vars, factor_along = FALSE, weight_non_na = T,
                     origin = 'others_at_mean', logit = c(FALSE), weight = 'weight', atmean = T, logit_margin = T, confidence = 0.95,
                     labels_along = levels_along, names_levels = paste0(along, levels_along), levels_subsamples = NULL,
                     levels_along = Levels(df[[along]], logT=T), heterogeneity_condition = "", order_y = NULL, order_along = NULL, print_regs = F) {
@@ -3007,7 +3007,7 @@ export_representativeness_table <- function(table, country_list, weighted = T, n
   header <- c("", rep(nb_types, length(country_list)))
   names(header) <- c("", country_list)
   names(header)[names(header) %in% countries] <- countries_names[names(header)[names(header) %in% countries]]
-  
+
   if (bold > 0) { # Put in bold the cells that diverge by more than 'bold' from population frequencies
     if (bold > 1) bold <- bold/100
     for (i in 0:(ncol(table)/nb_types - 1)) {
@@ -3016,7 +3016,7 @@ export_representativeness_table <- function(table, country_list, weighted = T, n
       for (j in 2:nb_types) {
         freq_j <- as.numeric(table[[j+i*nb_types]])
         table[[j+i*nb_types]][!is.na(freq_j) & !is.na(margins) & (freq_j < pop_i - margins | freq_j > pop_i + margins)] <- 1 + freq_j[!is.na(freq_j) & !is.na(margins) & (freq_j < pop_i - margins | freq_j > pop_i + margins)]
-      } 
+      }
     }
   }
   print(table)

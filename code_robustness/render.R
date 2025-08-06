@@ -580,6 +580,7 @@ cor(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionai
 # plot(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative[-9])
 # lines(0:1, 0:1, type = 'l')
 
+# Study 1 was conducted between August 9th and September 15th, 2024, and Study 2 between May 12th and June 21st, 2025
 stostad2 <- read.dta13("../data_ext/stostad2.dta")
 stostad2$iso[stostad2$iso == "UK"] <- "GB"
 stostad0_billionaire_tax_absolute <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$agree1 + stostad2$vagree1)[stostad2$iso == c & stostad2$Survey2 == 0] else NA)
@@ -590,6 +591,8 @@ stostad1_billionaire_tax_oppose <- sapply(stostad2$iso, function(c) if (c %in% s
 stostad1_billionaire_tax_relative <- stostad1_billionaire_tax_absolute / (stostad1_billionaire_tax_absolute + stostad1_billionaire_tax_oppose)
 cor(stostad0_billionaire_tax_absolute, stostad1_billionaire_tax_absolute, use = "complete.obs") # .91
 cor(stostad0_billionaire_tax_absolute[countries], stostad1_billionaire_tax_absolute[countries], use = "complete.obs") # .90
+cor(sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad1_billionaire_tax_absolute[countries[-c(7,9,10)]]) # .86
+cor(stostad0_billionaire_tax_absolute[countries[-c(7,9,10)]], sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight))) # .83
 
 # barres_multiple(barresN_defs[c("group_defended")]) 
 # barres_multiple(barres_defs[c("group_defended")]) 

@@ -1,4 +1,9 @@
 # TODO: labels
+# TODO: main results with U.S. Dems, Saudis, etc.
+# TODO: wordclouds
+# TODO: appendix algo custom redistr
+# TODO: conjoint consistent
+# TODO: influence of order
 # TODO: comment fields; remaining fields US, JP
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -1053,7 +1058,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # write.csv(all[, c("lang", "field")], "../data_raw/fields/all.csv", na = "", row.names = F)
   # write.csv(all[sample.int(11000, 750), c("lang", "field")], "../data_raw/fields/all_excerpt.csv", na = "", row.names = F)
-  { # 2-3h/1k respondents
+  { # field # 2-3h/1k respondents
     # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
     # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
     # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
@@ -1183,11 +1188,94 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
     # TODO: go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
   }  
+  { # comment_field (keywords: good, interest, thank, difficult|confus, no comment|nothing in particular|^nothing$|^none$, thought provoking|food for though|informative|learn, corrupt)
+    # US: I skipped the income redistribution question because I think it should be based on WEALTH not income.
+    # US: It's a good survey but not an easy one
+    # US: I'm not against providing support for low-income nations.  We need to figure out as a nation who we should send aid to.  For example, some nations would gladly take out Americans due to their hate towards them, but still receive aid from the US.  Why??
+    # US: Great survey!!
+    # US: People don’t owe these turd worlders a damn thing
+    # US: The ideas presented were quite intriguing, and I don't know what I would do if the choices were real.
+    # US: Very thought provoking, hard to value what i am ready to give up to help less fortunate countries- this survey helped mething about it a little differently.
+    # US: It was a thought-provoking survey. I always worry about corruption when sending money to not only my country, but others as well. It doesn't seem to trickle down as intended.
+    # US: I should not pay taxes for something that I get no benefit from. I am happy to help other people, but let me make that decision to help them. Don’t tell me that I have to help them and take the money from me in taxes. I help others because I am a Christian and it’s the right thing to do.
+    # US: I had not thought much about my country’s financial responsibility to poorer countries, and I enjoyed this survey because it made me consider that. As a Christian American raised by conservatives, I definitely feel torn between my religious duty to other humans who need help, and my desire not to fiscally punish who have worked for hard the wealth they have accumulated.
+    # US: La encuesta muy segada sobre la izquierda, esas personas que dicen defender el medio ambiente, son los que mas consumen aguas, combustible y electricidad, incluso son los que más daño le hacen al medio ambiente. Tienen la falta de respeto que cuando se reúnen la mayoría asisten en sus aviones particulares.
+    # US: I don't think the rich should be taxed more they work just as hard as the poor.
+    # US: The survey was perfect.
+    # US: This survey alone can be an educational course. I have learned much.
+    # US: What a disaster all this climate shake down stuff is.  If one believes that the climate is warming based on cyclical patterns from thousands of years then all of this is a lie.  We should help people out of the generosity of our hearts, not compulsion from a godless corrupt government.   Sieg heil
+    # US: Redistribution of wealth should not be allowed it is never worked. The people that gives us jobs in this country or the richest ones. The top one percent pay 60% of our taxes in this country how is it fair to make them pay more we do not have a revenue problem we have a spending problem.
+    # US: The issue for me in the whole project is, neither my wife or myself have any children or family, thus the care is not there for the future. We also struggle to live a decent life in a an area where crime is low. With the rise of prices we will ahve an issue in retiring and enjoying life.
+    # US: It was definitely a survey that made me question my stance on world equality. I usually focus my donations and help to the USA
+    # US: Of all the issues going on i. The world this is what your focusing on. Must be nice to waste money on things like this lol
+    # US: I support improving the environment and looking for ways to cut back climate change but not implementing additional taxes on other people's money. So the questions are very difficult because the two are lumped together in ways that they shouldn't be.
+    # US: Some interesting ideas, some go too far.  I don't see any really happening, this country is going the opposite direction lately
+    # US: I am not about spending my hard earned money on programs to benefit everyone
+    # US: This was the most interesting survey I've taken so far. Thank you!
+    # US: I do not support America redistrubing wealth to other nations. I would be slightly more amicable to some level of wealth redistribution based on income that benefits all working class citizens, especially WHITE CAUCASIAN working class citizens. \n \n Black people ALREADY have affirmative action and DEI, they do not need additional handouts targeted specifically at them. 
+    #     They can get a job. Any potential future basic income has to be targeted an all working class citizens universally, as we automate the workforce ramping up productivity. \n \n I am in favor of domestic policy to address climate change, like investing in upgrading our energy grids and energy production to renewable sources of energy. And also policies like tax credits to companies who innovate in green energy. 
+    #     In am 100% opposed to White Americans resdributing wealth to non-white Americans, and im opposed to Americans as a whole redistributing wealth to non Americans. \n \n The only forms of minor wealth redistribution i would consider is some redistribution from billionaires to universal programs that benefit all working class Americans.
+    # GB: The survey covers important and thought-provoking topics, but some questions could benefit from more neutral phrasing to avoid subtly guiding responses, particularly the one about reparations. Additionally, providing options like \'I'm unsure\' or \'I prefer not to answer\' could help ensure that respondents feel more comfortable giving honest, reflective answers.
+    # GB: I hope a scheme is created whereby every nation will benefit from including the UK. The rich and the poor can always be equally satisfied.
+    # GB: The survey raised important global issues, especially around climate change, inequality, and international cooperation. However, the framing felt quite one-sided at times, leaning heavily toward left-wing solutions without presenting alternative viewpoints. It would be helpful to include a more balanced perspective to allow respondents to engage more critically with the topics. Overall, I appreciated the opportunity to reflect on global challenges.
+    # SA: This survey is one of the best and most useful surveys in the world.
+    # SA: People should learn to help one another and be kind to others
+    # SA: We come together we save the world
+    # JP: I would like to see low-income earners separated from those who have low income because they are having fun and those who have low income because of disabilities, etc., instead of lumping them all together. I don't want to cover up those who are having fun.
+    # JP: I think it's an ideal, a utopia. If you don't aim for an ideal, a utopia, reality won't move in that direction. Even if you think it would be ideal to realize that utopia, you're in a dilemma because you have to prioritize yourself and your family.
+    # JP: I agree with distributing income to low-income countries, but the method is important. Some powerful leaders of low-income countries will put it in their own pockets, and it will not reach the common people who really need it.
+    # JP: I'm so busy trying to make ends meet every day that the content of this research is something I would never normally think about.
+    # JP: An equal world is impossible. It's just a dream. Rich people don't want their money to be used by someone else. They don't want to help someone else's success. Because someone will always try to steal it. In the end, rich people want to spend their money on themselves.
+    # JP: I was made to think that conflicts do not arise because those who have nothing try to take from those who have, but because those who have something fear losing what they could have.
+    # JP: I felt a great deal of distrust due to the lack of data to support the background of the questions and the fact that some of the questions were written in an arbitrary and misleading way.
+    # JP: I felt that this theme had a strong religious element to it. It has a strong Christian concept, and I wonder if Islamic and Buddhist countries would agree with it.
+    # JP: It was a good opportunity to take a critical look at myself.
+    # JP: It's an interesting survey as an attempt, but it's hard to agree with all of the specific measures.
+    # JP: I think that global taxation to close the gap between poor and rich countries would be a great way to prevent illegal immigration.
+    # JP: This is a topic that we don't come across on a daily basis, but I believe questions like this will help change people's attitudes.
+    # JP: The translation into Japanese is rough and there are many parts that are hard to understand.
+    # JP: I think it is quite difficult to come up with a policy that satisfies all of humanity.
+    # JP: He is such a kind person.
+    # JP: The gap between rich and poor leads to poverty of spirit.
+    # JP: I used to be a right-winger, but after reading about various global environmental issues through the questions, my views have changed considerably.
+    # JP: By participating in this survey, I realized that we need to pay close attention to global issues, so I would like to start collecting information little by little from now on.
+    # JP: The questions were difficult but fascinating, and made me realize that I am just one member of the global community.
+    # CH: Pas assez de proposition dans certaine question, le sentiment de passez pour un méchant dans les réponses allant a l'encontre du sauvetage mondial car pas de proposition intermédiaire.
+    # CH: I'm a generous person and I like to support others, those in need, NGOs, etc. But I want to decide for myself where and how my money is used. I volunteer and see a lot even in wealthy Switzerland. I want to ensure social justice, job security, and the elderly in Switzerland first, 
+    #     rather than supporting the environment, climate, and poor countries! I see many Swiss people who have worked for years and have practically nothing. They should be helped first, not third world countries, which are often dictatorial or corrupt, robbing their own people. I don't feel responsible for that. I prefer to donate abroad in a way that ensures I know exactly where and how the funds are being used.
+    # CH: This enquête est clairement biasée car on passe pour une mauvaise personne si on est pas d'accord d'aider les other pays, aidons nos citoyens plutôt que les other pays
+    # CH: L'enquête n'étais pas vraiment biasée et cela est bien, chacun peu donner son avis sur chaque question
+    # CH: It would be fantastic if such conditions existed, but unfortunately it won't be possible; the egoism is too great!
+    # CH: Poverty: I don't want more people to survive; there are already too many people on our planet.\n Climate change: It's quite possible that humans aren't solely responsible for the change, but that solar activity has an even greater influence. For example, 10,500 years ago, it was so warm on Diavolezza that large trees could grow there. However, scientists at the University of Bern have been banned from publishing this.
+    # CH: I thought the chart was great. I also really liked the automatically adjusted income!
+    # CH: Je n'ai encore jamais eut un sondage aussi terrible que celui-ci: aussi mal traduit et ressemblant plus à n'importe quoi. C'est, je pense, the sommet des sondages qui n'en n'ont rien à foutre des réponses. J'adore! typique de la vie currentuelle: on balance et on s'en fou
+    # PL: The survey was impartial, but I'll be honest, I'm afraid to explain what's supposed to change. If someone wants to help, they should do it on their own, not take someone else's money, even for a higher purpose. I love my gasoline-powered cars, I love cash, I love meat, and I love my way of life. Unfortunately, for the good of the world, modern-day global slavery is being introduced by restricting basic rights under the guise of improvements or environmental protection.
+    # PL: My not-so-positive attitude towards the redistribution problem stems from the lack of participation of all (China).
+    # PL: A very interesting survey that gives food for thought.
+    # PL: nice and pleasant survey great because you could win something
+    # FR: On a été des coloniaux, nous avons développé ces pays qui nous crache dessus aujourd'hui.\n Alors qu'ils se démerde maintenant
+    # FR: questions difficiles à comprendre et certaines informations assez difficiles à croire
+    # FR: pour pouvoir subventionner le plan climat mondial, la France devrait commencer par réduire sa dette drastiquement : il faut que la France se redonne les moyens d'être généreux, ce qui n'est pas possible avec le poids de la dette actuelle.
+    # FR: Je pense que, naturellement, nous avons tous en nous un désir profond d’aider notre prochain. C’est une impulsion humaine fondamentale, liée à l’empathie et à la solidarité. Cependant, la réalité de la vie — avec ses contraintes, ses peurs et ses incertitudes — fait souvent que nous mettons nos propres besoins en priorité. On pense d’abord à soi, parfois par instinct de survie ou simplement parce qu’on est submergé par nos propres difficultés.
+    # FR: Le concept est très intéressant, mais, je ne suis absolument pas certain que les humains des pays riches acceptent d'aider les humains des pays pauvres !\n Le capitalisme a diviser les gens depuis le bas de l'échelle sociale, dans les pays riches. A tel point qu'ils ne pensent qu'a eux et à leur famille ainsi que leur bien matériel... et malheureusement, ils ne pensent, en aucun cas, aux humains des pays pauvres... 
+    #     Et concernant la planète, (nature, faune etc), ils n'en ont rien à faire. Il faudrait leur enlever la TV ainsi que la voiture et la piscine, pour qu'ils réalisent.. Bref, je suis plutôt très pessimiste concernant l'évolution du monde.. Merci
+    # IT: Interesting but a bit utopian.
+    # IT: I support taxing billionaires and those who hold global wealth for the benefit of the poor in other countries, especially in Africa, Asia, and other areas that suffer most from the exploitation perpetrated over centuries by so-called developed countries. I am strongly opposed to the environmental revolution aimed at eliminating motor vehicles. Much more needs to be done; in many respects, electric cars represent a potential future environmental problem. 
+    #     The real environmental problem is being ignored: the industrial system and, to some extent, the agricultural system.
+    # IT: I am in favor of regulating births in the poorest countries.
+    # IT: The program is well-structured and fair, but I don't believe in the honesty of those who will manage these huge sums of money; in the end, seventy percent will end up in the pockets of those who manage it all, and only thirty percent will be used for the intended purposes, and it will be used late or incorrectly. This is what is happening in Italy with the National Research Council (PNR).
+    # ES: Why do they want a comment, what's the point, will they even read it?
+    # DE: The correct spelling is \'wealth tax\' with an \'s\': the tax on wealth and not the tax of assets! (Die richtige Schreibweise ist \'Vermögensteuer\' mit einem \'s\': Die Steuer auf das Vermögen und nicht die Steuer des Vermögens!)
+    # DE: Politics, environmental protection, etc., are not models that can be adjusted with a few 'sliders.' Changing ONE 'adjustment screw' has unimagined, overly complex, global consequences that cannot be predicted in the laboratory (see the current situation in the USA).
+    # DE: You should try to implement these ideas.
+    # DE: Eat the Rich
+    # DE: I am poor and will remain poor by German standards.\n But I'm still doing well.\n I want poor people in other countries to have a better life, because they have neither clean water nor sanitation.
+    # DE: Having traveled extensively in third-world countries, I understand the concerns there. Education is the best step toward improving the situation there. Out with churches and in with schools. Support for education, yes, but a blanket distribution of value creation, no. Water, yes, but no wine.
+
+  }
   
-  # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
+  # # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
   # field_names <<- c("example" = "ex", "categories" = "cat", "bias" = "bias", "problem" = "pb") # "display in excel" = "name"
-  # health, money (incl. inflation, cost of living, getting more money), relationships/love, peace/war, global poverty/inequality, poverty/inequality, climate/environment, immigration, 
-  # criticizes far right, happiness, nothing, animals, violence/crime/antisocial, other, religion, slavery/human rights, corruption
   # field_names_names <<- names(field_names)
   # names(field_names_names) <<- field_names
   # var_field_names <<- paste0("field_", field_names)
@@ -1195,7 +1283,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # # for (v in c(variables_field, "comment_field")) for (i in 1:4) wb$add_data(sheet = paste0(sub("_field", "", v), i), x = names(field_names), start_row = 2)
   # for (v in c("field_field", "comment_field")) wb$add_data(sheet = paste0(sub("_field", "", v)), x = names(field_names), start_row = 2)
   # wb$save(paste0("../data_raw/fields/country1.xlsm"))
-  # 2. Export the data to the .xlsm files
+  # # 2. Export the data to the .xlsm files
   # for (c in countries[-9]) { # TODO: functionalize
   #   file.copy(from = "../data_raw/fields/country1.xlsm", to = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = TRUE)
   #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "1.xlsm"))
@@ -1206,11 +1294,26 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
   #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "1.xlsm"), overwrite = T)
   # }
-  # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
+  # # 3. If needed, translate to English: rename .xlsm into .xslx using the line below, translate on https://www.onlinedoctranslator.com/en/translationform, rename back to .xlsm using the second line below
   # for (c in countries[-9]) file.copy(from = paste0("../data_raw/fields/", c, "1.xlsm"), to = paste0("../data_raw/fields/", c, "1.xlsx"), overwrite = TRUE)
   # for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("1\\..*\\.en\\.xlsx", "1en.xlsm", f)))
   # for (c in countries[-9]) file.remove(paste0("../data_raw/fields/", c, "1.xlsx"))
-  # 4. Click on appropriate cells in the .xlsm
+  # # 4. Click on appropriate cells in the .xlsm
+  
+  # no comment; confusing/difficult; thank you; praise survey; criticize survey; pro global redistr; doubt global redistr; pro climate; doubt climate; other
+  for (c in countries[-c(8,9,11)]) {
+    file.copy(from = "../data_raw/fields/country2.xlsm", to = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = TRUE)
+    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "2.xlsm"))
+    # for (v in c("field", "comment_field")) for (i in "") { #
+    for (v in c("field", "comment_field")) for (i in 1:2) {
+      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 2)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = T)
+  }
+  for (c in countries[-c(8,9,11)]) file.copy(from = paste0("../data_raw/fields/", c, "2.xlsm"), to = paste0("../data_raw/fields/", c, "2.xlsx"), overwrite = TRUE)
+  for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("2\\..*\\.en\\.xlsx", "2en.xlsm", f)))
+  for (c in countries[-c(8,9,11)]) file.remove(paste0("../data_raw/fields/", c, "2.xlsx"))
   
   # Merge English translations for CH (after copying/renaming CH-DEen into CHen)
   # wb <- loadWorkbook(paste0("../data_raw/fields/CHen.xlsm"))
