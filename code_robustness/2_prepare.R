@@ -1,3 +1,4 @@
+# TODO: new field classifications; NA => T
 # TODO: labels
 # TODO: main results with U.S. Dems, Saudis, etc.
 # TODO: wordclouds
@@ -10,6 +11,8 @@
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
 # TODO: correlation donation / support
 # TODO: sociodemos determinants custom_redistr
+# TODO: correlation field with other variables e.g. discrimination/foreign; inequality/left; family/group_defended
+# TODO: website random answers to field
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -567,7 +570,7 @@ define_var_lists <- function() {
                  "environment" = "environment|climat|pollution|warming|drought",
                  "security" = "safe|murder|crime|criminal|fraud|rape|terrorism",
                  "discrimination" = "gender|raci|scrimination|women|xenophob|LGB|machism|antisemit",
-                 "rights" = "freedom|rights|democra",
+                 "rights" = "freedom|rights|democra|dictator",
                  "happiness" = "happiness|happy|serenity|peace of mind|tranquility|inner peace|relax", # What do people mean by inner peace? What hassles occupy their mind? In what sense is their life not peaceful?
                  "war_peace" = "peace|war|WW",
                  "taxes_welfare" = "tax|social benefit|social security",
@@ -582,7 +585,7 @@ define_var_lists <- function() {
                  "global_issue" = "world|humanity|foreign|countries|Ukraine|Gaza|Palestin|Hamas|Israel|Yemen|Sudan|middle east|Iran|geopol",
                  "own_country" = "country|German|Saudi|France|French|Ital|Poland|Polish|Spain|Spanish| UK|U.K.|Great Britain|England|British|Japan|Russia|America|U.S.| USA|United States", 
                  "nothing" = "^nothing$|^no$|^.$|^-$|^do not have$|^nothing in particular$|^None$|^I don't know$|^I would not know$",
-                 "economy" = "econom", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power?
+                 "economy" = "econom|growth", # Not manually assigned to any category. What do people mean by "the economy"? purchasing power? hint: "Stable economic growth will ensure that current savings do not depreciate and funds for retirement are secured."
                  "media" = "internet|media",
                  "trump" = "Trump",
                  "tariff" = "tariff|customs dut|custom dut",
@@ -1065,7 +1068,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # DE: Old age poverty; immigration; climate; the return of growth / economic situation; free time; war (in Europe); bureaucracy
     # US: The economy; Trump; breaches to the constitution; abortion; gun control; 
     # PL: health; war; inequality; immigration; holiday; truthfulness/honesty; disable people
-    # JP: (consumption) tax cut; rice price increases; declining birth rate; reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
+    # JP: pension level; (consumption) tax cut; rice price increases; declining birth rate; childcare support reduce number of parliament members; preferential treatment of foreigners; social assistance is too strong / hard work unrewarded (~1% answers); stock prices
     # CH: equality; immigration; gender equality
     # ES: health; housing; "Salud, dinero y amor"; corruption; water access; global poverty; squatters
     # IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
@@ -1186,6 +1189,29 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # ES: la incapacidad de los políticos en arreglar los problemas de los otros países para que la gente de esos países tenga que emigrar y que eso este causando problemas en mi país de sobrepoblación o mas vandalismo o menos puestos de trabajo
     # ES: Que los países del mundo miren hacia otro lado cuando en África hay más de 10 millones de personas en pobreza extrema y hambruna
     # ES: Que seres  humanos no tengan los beneficios que tenemos otros seres humanos
+    # JP: Stable economic growth
+    # JP: Being discriminated against for things you can't change through your own efforts
+    # JP: The rights of each individual are not equal, there is discrimination and prejudice, and there are always exploiters and exploited.
+    # JP: Stable economic growth will ensure that current savings do not depreciate and funds for retirement are secured.
+    # JP: I am currently living with an incurable disease, but I want to put an end to it somehow. Because of the disease, I can't speak, I can't eat, I can't move my body at all, and I can't breathe, so I'm getting discouraged as I spend my days in bed. I'm not going to let this disease get the better of me, and I'm going to survive until the day I'm cured, so that's all I can hope for. 
+    #     When I can stand up, I'll take a deep breath and drink as much water as I can. That's all I think about every day.
+    # JP: I was unfairly fired from my job just now.
+    # JP: The government benefits are always given to people who don't pay taxes. I'm a pensioner, but I'm always ineligible because my income is just a little above the eligible amount. I've been paying into my pension diligently for the past 40 years, but my pension is less than that of people on welfare, and I don't understand why people on welfare get to pay for their monthly health insurance, medical expenses, and medicine for free. 
+    #     There are many people on welfare who are able to work.　
+    # JP: People who work hard are not rewarded.
+    # US: All of my needs in life are taken care of, I wish to see society shift it's mindstate towards helping others and treating each other with kindness and love.
+    # US: My needs are basic needs of every person, food, shelter, water, clothes, friendship and love.  My wishes are for peace and love.
+    # US: I have simple needs - food, clothing, shelter, healthcare. I have much more than that. I wish for world peace and for the end of hunger both here and in the world.
+    # US: A sexy woman next to me that Is all mine
+    # US: I wish I lived on a small farm and make it self sufficient so I don't have to deal with people.
+    # US: 911. We, Americans, do our damnedest to set a good example for other countries, assist in their wars, even give them food and money, just to be terrorized.
+    # US: When people you care about dont put your best interest at heart
+    # US: To be left alone
+    # US [white woman 65-69]: Entire sections of the population being singled out for false accusations without the ability to defend themselves
+    # US: It depends upon what you mean by that question as it is pretty nosy for a survey question
+    # US [hunger]: That homelessness and famine is still a large issue in the USA. 
+    # US: To be completely honest, I don't know what injustice really means
+    # US: Wrongful convictions
     # TODO: go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
   }  
   { # comment_field (keywords: good, interest, thank, difficult|confus, no comment|nothing in particular|^nothing$|^none$, thought provoking|food for though|informative|learn, corrupt)
@@ -1271,7 +1297,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # DE: Eat the Rich
     # DE: I am poor and will remain poor by German standards.\n But I'm still doing well.\n I want poor people in other countries to have a better life, because they have neither clean water nor sanitation.
     # DE: Having traveled extensively in third-world countries, I understand the concerns there. Education is the best step toward improving the situation there. Out with churches and in with schools. Support for education, yes, but a blanket distribution of value creation, no. Water, yes, but no wine.
-
   }
   
   # # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
