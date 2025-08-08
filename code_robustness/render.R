@@ -225,7 +225,8 @@ for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)),
 }
 for (v in field_names) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
 for (v in names(keywords_labels)) labels_vars[paste0("field_keyword_", v)] <- keywords_labels[v]
-  
+for (v in names(keywords_comment_labels)) labels_vars[paste0("comment_keyword_", v)] <- keywords_comment_labels[v]
+
 
 ##### labels_vars_short_html #####
 # labels_vars_short_html <- c(
@@ -912,6 +913,26 @@ summary(lm(reg_formula("share_solidarity_supported", c(control_variables_lmg, "a
 rpart.plot(tree_share_solidarity_supported <- rpart(reg_formula("share_solidarity_supported", control_variables_lmg[-17]), all))
 # prp(tree_share_solidarity_supported, box.palette = "Blues", tweak = 1.2)
 rpart.plot(tree_gcs_support <- rpart(reg_formula("gcs_support", control_variables_lmg[-17]), all))
+
+
+##### Word clouds and vote #####
+stopwords <- c(unlist(sapply(c("french", "english", "german", "spanish", "russian", "italian", "arabic"), function(v) stopwords::stopwords(v))), # Polish & Japanese not supported
+  "people", "survey", ".......", "....", "...", "..", "need", "wish", "needs", "wishes", "want", "greatest", "injustice", "important", "issue", "issues", "neglected", "think", "nothing", "particular", "umfrage", "dass", "plus", "encuesta", "comments", "nie", "brak", "ankieta", "mam", "bardzo", "że", "jest", "sondaggio", "enquête")
+
+for (c in c("all", countries[-9])) for (v in paste0(c("field", "comment_field"), c("", "", "_en", "_en"))) {
+  size_wordcloud <- if (grepl("comment", v)) 250/72 else 350/72
+  pdf(paste0("../figures/", c, "/", v, ".pdf"), width = size_wordcloud, height = size_wordcloud)
+  rquery.wordcloud(d(c)[[v]], max.words = 70, colorPalette = "Blues", excludeWords = stopwords, weights = d(c)$weight) 
+  invisible(dev.off())
+}
+for (c in c("all", countries[-9])) for (v in sub("_field", "", variables_field)) for (var in c("field", "field_en")) {
+  size_wordcloud <- if (v %in% c("injustice", "concerns")) 250/72 else 400/72
+  pdf(paste0("../figures/", c, "/", v, "_", var, ".pdf"), width = size_wordcloud, height = size_wordcloud)
+  rquery.wordcloud(d(c)[[var]][d(c)$variant_field %in% v], weights = d(c)$weight[d(c)$variant_field %in% v], max.words = 70, colorPalette = "Blues", excludeWords = c(stopwords)) 
+  invisible(dev.off())
+} 
+# US concerns: - / injustice: + (field -)
+# all comment, injusi: + / concer: - (field -)
 
 
 ##### Rename cropped files #####

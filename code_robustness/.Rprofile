@@ -172,14 +172,14 @@ package("rpart.plot") # Regression trees
 #' package("devtools")
 #' package("janitor")
 #' # LDA
-# package("quanteda") # stopwords
+package("quanteda") # stopwords for wordcloud
 #' package("topicmodels")
 #' package("broom")
 #' package("tidytext")
 #' package("modelsummary")
 package("dplR") # latexify, used in table_mean_lines_save hence in desc_table
-# package("tm") # must be loaded before memisc; used for wordcloud
-# package("wordcloud")
+package("tm") # must be loaded before memisc; used for wordcloud
+package("wordcloud2")
 package("xfun") # required by Hmisc, knitr
 package("Hmisc") # describe, decrit
 # package("readxl")
@@ -2307,46 +2307,47 @@ fill_barres <- function(list_var_list = NULL, plots = barres_defs, df = e, count
 #' #   colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
 #' #   p.mat
 #' # }
-#' # rquery.wordcloud <- function(x, type=c("text", "url", "file"), lang="english", excludeWords=NULL,
-#' #                              textStemming=FALSE,  colorPalette="Dark2", min.freq=3, max.words=200) {
-#' #   # http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need
-#' #   if(type[1]=="file") text <- readLines(x)
-#' #   else if(type[1]=="url") text <- html_to_text(x)
-#' #   else if(type[1]=="text") text <- x
-#' #
-#' #   # Load the text as a corpus
-#' #   docs <- Corpus(VectorSource(text))
-#' #   # Convert the text to lower case
-#' #   docs <- tm_map(docs, content_transformer(tolower))
-#' #   # Remove numbers
-#' #   docs <- tm_map(docs, removeNumbers)
-#' #   # Remove stopwords for the language
-#' #   docs <- tm_map(docs, removeWords, stopwords(lang))
-#' #   # Remove punctuations
-#' #   docs <- tm_map(docs, removePunctuation)
-#' #   # Eliminate extra white spaces
-#' #   docs <- tm_map(docs, stripWhitespace)
-#' #   # Remove your own stopwords
-#' #   if(!is.null(excludeWords))
-#' #     docs <- tm_map(docs, removeWords, excludeWords)
-#' #   # Text stemming
-#' #   if(textStemming) docs <- tm_map(docs, stemDocument)
-#' #   # Create term-document matrix
-#' #   tdm <- TermDocumentMatrix(docs)
-#' #   m <- as.matrix(tdm)
-#' #   v <- sort(rowSums(m),decreasing=TRUE)
-#' #   d <- data.frame(word = names(v),freq=v)
-#' #   # check the color palette name
-#' #   if(!colorPalette %in% rownames(brewer.pal.info)) colors = colorPalette
-#' #   else colors = brewer.pal(8, colorPalette)
-#' #   # Plot the word cloud
-#' #   set.seed(1234)
-#' #   wordcloud(d$word,d$freq, min.freq=min.freq, max.words=max.words,
-#' #             random.order=FALSE, rot.per=0, #0.35,
-#' #             use.r.layout=FALSE, colors=colors)
-#' #
-#' #   invisible(list(tdm=tdm, freqTable = d))
-#' # }
+rquery.wordcloud <- function(x, type=c("text", "url", "file"), lang="english", excludeWords=NULL, weights = NULL,
+                             textStemming=FALSE,  colorPalette="Dark2", min.freq=3, max.words=200) {
+  # http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need
+  if(type[1]=="file") text <- readLines(x)
+  else if(type[1]=="url") text <- html_to_text(x)
+  else if(type[1]=="text") text <- x
+
+  # Load the text as a corpus
+  docs <- Corpus(VectorSource(text))
+  # Convert the text to lower case
+  docs <- tm_map(docs, content_transformer(tolower))
+  # Remove numbers
+  docs <- tm_map(docs, removeNumbers)
+  # Remove stopwords for the language
+  docs <- tm_map(docs, removeWords, stopwords(lang))
+  # Remove punctuations
+  docs <- tm_map(docs, removePunctuation)
+  # Eliminate extra white spaces
+  docs <- tm_map(docs, stripWhitespace)
+  # Remove your own stopwords
+  if(!is.null(excludeWords))
+    docs <- tm_map(docs, removeWords, excludeWords)
+  # Text stemming
+  if(textStemming) docs <- tm_map(docs, stemDocument)
+  # Create term-document matrix
+  tdm <- TermDocumentMatrix(docs)
+  m <- as.matrix(tdm)
+  if (!is.null(weights)) v <- sort(setNames(tdm %*% weights, row.names(tdm)), decreasing=TRUE)
+  else v <- sort(rowSums(m),decreasing=TRUE)
+  d <- data.frame(word = names(v),freq=v)
+  # check the color palette name
+  if(!colorPalette %in% rownames(brewer.pal.info)) colors = colorPalette
+  else colors = brewer.pal(8, colorPalette)
+  # Plot the word cloud
+  set.seed(42)
+  wordcloud(d$word,d$freq, min.freq=min.freq, max.words=max.words,
+            random.order=FALSE, rot.per=0, #0.35,
+            use.r.layout=FALSE, colors=colors)
+
+  invisible(list(tdm=tdm, freqTable = d))
+}
 #' #
 #' plot_world_map <- function(var, condition = "", df = sm, on_control = FALSE, save = T, continuous = FALSE, width = dev.size('px')[1], height = dev.size('px')[2], legend_x = .05, rev_color = FALSE, colors = NULL,
 #'                            breaks = NULL, labels = NULL, legend = NULL, limits = NULL, fill_na = FALSE, format = "png", trim = T, na_label = "NA", parties = NULL, filename = NULL, negative_stripes = FALSE) {

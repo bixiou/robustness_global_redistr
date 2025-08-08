@@ -4,23 +4,23 @@
 \contentsline {paragraph}{Literature}{3}{section*.2}%
 \contentsline {section}{\numberline {2}Results}{3}{section.2}%
 \contentsline {section}{\numberline {3}Discussion}{4}{section.3}%
-\contentsline {section}{\nameref {sec:methods}}{4}{section*.16}%
-\contentsline {paragraph}{\small Pre-registration.}{4}{section*.17}%
-\contentsline {paragraph}{\small Data collection.}{4}{section*.18}%
-\contentsline {paragraph}{\small Data quality.}{10}{section*.19}%
-\contentsline {paragraph}{\small Questionnaires and raw results.}{10}{section*.20}%
-\contentsline {section}{Bibliography}{11}{section*.23}%
-\contentsline {section}{\numberline {A}Raw results}{12}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{54}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{76}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{79}{appendix.D}%
-\contentsline {section}{\numberline {E}Comparison with other surveys}{81}{appendix.E}%
-\contentsline {section}{\numberline {F}Attrition analysis}{82}{appendix.F}%
-\contentsline {section}{\numberline {G}Balance analysis}{83}{appendix.G}%
-\contentsline {section}{\numberline {H}Placebo tests}{84}{appendix.H}%
-\contentsline {section}{\numberline {I}Main results weighted by vote}{85}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on the extended sample}{88}{appendix.J}%
-\contentsline {section}{Bibliography}{91}{section*.121}%
-\contentsline {section}{List of Tables}{91}{section*.122}%
-\contentsline {section}{List of Figures}{91}{section*.123}%
+\contentsline {section}{\nameref {sec:methods}}{4}{section*.17}%
+\contentsline {paragraph}{\small Pre-registration.}{4}{section*.18}%
+\contentsline {paragraph}{\small Data collection.}{4}{section*.19}%
+\contentsline {paragraph}{\small Data quality.}{5}{section*.20}%
+\contentsline {paragraph}{\small Questionnaires and raw results.}{5}{section*.21}%
+\contentsline {section}{Bibliography}{13}{section*.24}%
+\contentsline {section}{\numberline {A}Raw results}{14}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{56}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{78}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{81}{appendix.D}%
+\contentsline {section}{\numberline {E}Comparison with other surveys}{83}{appendix.E}%
+\contentsline {section}{\numberline {F}Attrition analysis}{84}{appendix.F}%
+\contentsline {section}{\numberline {G}Balance analysis}{85}{appendix.G}%
+\contentsline {section}{\numberline {H}Placebo tests}{86}{appendix.H}%
+\contentsline {section}{\numberline {I}Main results weighted by vote}{87}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on the extended sample}{90}{appendix.J}%
+\contentsline {section}{Bibliography}{93}{section*.122}%
+\contentsline {section}{List of Tables}{93}{section*.123}%
+\contentsline {section}{List of Figures}{93}{section*.124}%
 \contentsfinish 

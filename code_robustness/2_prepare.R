@@ -1,11 +1,8 @@
-# TODO: new field classifications; NA => T
 # TODO: labels
 # TODO: main results with U.S. Dems, Saudis, etc.
-# TODO: wordclouds
 # TODO: appendix algo custom redistr
 # TODO: conjoint consistent
 # TODO: influence of order
-# TODO: comment fields; remaining fields US, JP
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
@@ -405,7 +402,7 @@ define_var_lists <- function() {
   variables_wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
   variables_top_tax_support <<- c("top1_tax_support", "top3_tax_support")
   variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
-  variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", wealth_tax_support, "couple")
+  variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", variables_wealth_tax_support, "couple")
   variables_race <<- c("race", "race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
   variables_global_movement <<- c("global_movement_no", "global_movement_spread", "global_movement_demonstrate", "global_movement_strike", "global_movement_donate")
@@ -559,7 +556,7 @@ define_var_lists <- function() {
   # other
   # keywords <- c("ealth", "country|German|german|saudi|Saudi|France|French|france|french|Ital|ital|poland|Poland|Polish|polish|Spain")
 }
-  keywords <<- c("money" = "money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
+   keywords <<- c("money" = "money|inflation|price|wage|wealth|income|salar|finance|cost|financial|afford|illionaire|expensive",
                  "relationships" = "relationship|husband|wife|love|partner|emotion", # also includes emotions
                  "job" = "business|work|employ|job",
                  "inequality" = "poverty|inequalit|poor|social justice",
@@ -687,6 +684,36 @@ define_var_lists <- function() {
                     "Empty / Nothing in particular" = "nothing")
   variables_field_gpt <<- paste0("field_gpt_", field_names)
   variables_field_manual <<- paste0("field_manual_", field_names)
+  
+  keywords_comment <<- c("good" = "good|great|amazing|best survey| fun|love|enjoy",
+                         "interesting" = "interest|thought provoking|food for though|informative|learn",
+                         "thanks" = "thank",
+                         "difficult" = "difficult|confus",
+                         "nothing" = "no comment|nothing in particular|^nothing$|^none$",
+                         # "witty" = "thought provoking|food for though|informative|learn",
+                         "empty" = "^$",
+                         "corruption" = "corrupt")
+  variables_comment_keyword <<- paste0("comment_keyword_", names(keywords_comment))
+  keywords_comment_labels <<- c("good" = "Compliment",
+                                "interesting" = "Interesting",
+                                "thanks" = "Thank",
+                                "difficult" = "Difficult",
+                                "nothing" = "Nothing",
+                                # "witty" = "thought provoking|food for though|informative|learn",
+                                "empty" = "Empty",
+                                "corruption" = "Corruption")
+  comment_names <<- c("Nothing / No comment" = "nothing",
+                      "Thank you" = "thanks",
+                      "Praise survey" = "praise",
+                      "Criticize survey" = "criticize",
+                      "Confusing/difficult" = "difficult",
+                      "Pro global redistribution" = "pro_global_redistr",
+                      "Doubt global redistribution" = "anti_global_redistr",
+                      "Pro climate action" = "pro_climate",
+                      "Doubt climate action" = "anti_climate",
+                      "Other / Vague / Unclassifiable" = "other")
+  variables_comment_gpt <<- paste0("comment_gpt_", comment_names)
+  variables_comment_manual <<- paste0("comment_manual_", comment_names)
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "millionaire", "nationality_SA", "voted", "vote")
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
@@ -1326,19 +1353,19 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # # 4. Click on appropriate cells in the .xlsm
   
   # no comment; confusing/difficult; thank you; praise survey; criticize survey; pro global redistr; doubt global redistr; pro climate; doubt climate; other
-  for (c in countries[-c(8,9,11)]) {
-    file.copy(from = "../data_raw/fields/country2.xlsm", to = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = TRUE)
-    wb <- loadWorkbook(paste0("../data_raw/fields/", c, "2.xlsm"))
-    # for (v in c("field", "comment_field")) for (i in "") { #
-    for (v in c("field", "comment_field")) for (i in 1:2) {
-      writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 2)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
-      addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
-      setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
-    saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = T)
-  }
-  for (c in countries[-c(8,9,11)]) file.copy(from = paste0("../data_raw/fields/", c, "2.xlsm"), to = paste0("../data_raw/fields/", c, "2.xlsx"), overwrite = TRUE)
-  for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("2\\..*\\.en\\.xlsx", "2en.xlsm", f)))
-  for (c in countries[-c(8,9,11)]) file.remove(paste0("../data_raw/fields/", c, "2.xlsx"))
+  # for (c in countries[-c(8,9,11)]) {
+  #   file.copy(from = "../data_raw/fields/country2.xlsm", to = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = TRUE)
+  #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "2.xlsm"))
+  #   # for (v in c("field", "comment_field")) for (i in "") { #
+  #   for (v in c("field", "comment_field")) for (i in 1:2) {
+  #     writeData(wb, sheet = paste0(sub("_field", "", v), i), x = t(as.vector(gsub("\n", "\\\\\\n ", gsub("\r", " ", gsub('\"', "\\\\\\'", d(c)[[v]])))[if(i == "") 1:nrow(d(c)) else seq(i, nrow(d(c)), 2)])), startCol = 2, colNames = F, na.string = "NA", keepNA = T)
+  #     addStyle(wb, sheet = paste0(sub("_field", "", v), i), style = createStyle(wrapText = TRUE, ), rows = 1, cols = 2:3001)
+  #     setColWidths(wb, sheet = paste0(sub("_field", "", v), i), cols = 1:3001, widths = 60)}
+  #   saveWorkbook(wb, file = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = T)
+  # }
+  # for (c in countries[-c(8,9,11)]) file.copy(from = paste0("../data_raw/fields/", c, "2.xlsm"), to = paste0("../data_raw/fields/", c, "2.xlsx"), overwrite = TRUE)
+  # for (f in list.files("../data_raw/fields/")) if (grepl(".en.xlsx", f, fixed = T)) file.rename(paste0("../data_raw/fields/", f), paste0("../data_raw/fields/", sub("2\\..*\\.en\\.xlsx", "2en.xlsm", f)))
+  # for (c in countries[-c(8,9,11)]) file.remove(paste0("../data_raw/fields/", c, "2.xlsx"))
   
   # Merge English translations for CH (after copying/renaming CH-DEen into CHen)
   # wb <- loadWorkbook(paste0("../data_raw/fields/CHen.xlsm"))
@@ -1362,23 +1389,39 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # 5. Import manually classified data
   i <- if (country %in% c("US", "JP")) 2 else 1
-  f <- if (country %in% c("US", "JP")) "1" else ""
+  fs <- if (country %in% c("US", "JP")) c(1, 2) else ""
   l <- if (country %in% c("US", "GB")) "" else "en"
-  if (file.exists(paste0("../data_raw/fields/", country, i, l, ".xlsm"))) recode_field <- read.xlsx(paste0("../data_raw/fields/", country, i, l, ".xlsm"), sheet = paste0("field", f), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-  else print("No file found for recoding of field.")
-  indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else 1+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
-  recode_field <- recode_field[-1,]
-  if (!all(row.names(recode_field) %in% names(field_names))) warning(paste("Unrecognized field_names for field in ", country))
-  row.names(recode_field) <- field_names[row.names(recode_field)]
-  recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
-  for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
-  for (k in names(recode_field)) e[[paste0("field_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
+  if (file.exists(paste0("../data_raw/fields/", country, i, l, ".xlsm"))) for (f in fs) {
+    recode_field <- read.xlsx(paste0("../data_raw/fields/", country, i, l, ".xlsm"), sheet = paste0("field", f), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
+    indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else f+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
+    recode_field <- recode_field[-1,]
+    if (!all(row.names(recode_field) %in% names(field_names))) warning(paste("Unrecognized field_names for field in ", country))
+    row.names(recode_field) <- field_names[row.names(recode_field)]
+    recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
+    for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
+    for (k in names(recode_field)) e[[paste0("field_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
+  } else print("No file found for recoding of field.")
 
-  for (v in intersect(names(e), c("field", "comment"))) { # Translation into English
+  e$comment_keyword_empty <- is.na(e$comment_field)
+  l <- if (country %in% c("US", "GB", "FR")) "" else "en"
+  if (file.exists(paste0("../data_raw/fields/", country, 2, l, ".xlsm"))) {
+    recode_field <- read.xlsx(paste0("../data_raw/fields/", country, 2, l, ".xlsm"), sheet = "comment1", rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
+    indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else 1+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
+    recode_field <- recode_field[-1,]
+    if (!all(row.names(recode_field) %in% names(comment_names))) warning(paste("Unrecognized comment_names for field in ", country))
+    row.names(recode_field) <- comment_names[row.names(recode_field)]
+    recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
+    for (k in names(recode_field)) e[[paste0("comment_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
+    for (k in names(recode_field)) e[[paste0("comment_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
+    e$comment_manual_empty <- NA
+    e$comment_manual_empty[indices_i] <- e$comment_keyword_empty[indices_i]
+  } else print("No file found for recoding of field.")
+  
+  for (v in intersect(names(e), c("field", "comment_field"))) { # Translation into English
     e[[paste0(v, "_en")]] <- e[[v]]
     if (!country %in% c("US", "GB")) {
-      translated_field <- read.xlsx(paste0("../data_raw/fields/", country, "1en.xlsm"), sheet = v, rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-      e[[paste0(v, "_en")]][1:(ncol(translated_field)-1)] <- as.character(translated_field[1,])
+      translated_field <- read.xlsx(paste0("../data_raw/fields/", country, "1en.xlsm"), sheet = sub("_field", "", v), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
+      e[[paste0(v, "_en")]][1:ncol(translated_field)] <- as.character(translated_field[1,])
       e[[paste0(v, "_en")]][is.na(e[[v]])] <- NA }
   }
   
@@ -1386,6 +1429,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$field_nb_keywords <- rowSums(e[, variables_field_keyword])
   e$field_nb_manual <- rowSums(e[, variables_field_manual])
   e$nchar_field <- nchar(e$field_en)
+  for (k in names(keywords_comment)) e[[paste0("comment_keyword_", k)]] <- grepl(keywords_comment[k], e$comment_field_en, ignore.case = T)
+  e$comment_nb_keywords <- rowSums(e[, variables_comment_keyword])
+  e$comment_nb_manual <- rowSums(e[, variables_comment_manual])
+  e$nchar_comment <- nchar(e$comment_field_en)
   
   # Deprecated:
   # Use lines below export CSV. 
