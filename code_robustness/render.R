@@ -787,6 +787,24 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 # TODO? Add custom_redistr_satisfied? 
 
 
+###### Conjoint on consistent programs #####
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent") 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent") 
+
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent_strict") 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent_strict") 
+
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call, weights = weight))
+# Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call, weights = weight, subset = call$consistent_conjoints))
+# The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict))
+
+
 ##### Placebo tests #####
 gcs_field <- lm(gcs_support > 0 ~ variant_field, data = all, weights = weight)
 gcs_split <- lm(gcs_support > 0 ~ variant_split, data = all, weights = weight)

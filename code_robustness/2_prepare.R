@@ -1,7 +1,6 @@
 # TODO: labels
 # TODO: main results with U.S. Dems, Saudis, etc.
 # TODO: appendix algo custom redistr
-# TODO: conjoint consistent
 # TODO: influence of order
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -9,7 +8,6 @@
 # TODO: correlation donation / support
 # TODO: sociodemos determinants custom_redistr
 # TODO: correlation field with other variables e.g. discrimination/foreign; inequality/left; family/group_defended
-# TODO: website random answers to field
 
 # check:
 # no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
@@ -62,6 +60,8 @@ for (l in languages[!languages %in% c("RU", "EN-SA", "AR")]) {
   policies_code <- c(policies_code, setNames(names(policies_l), policies_l))
 }
 policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
+policies_leaning <- policies_leaning_strict <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning", rowNames = T, cols = c(1, 2*1:9))
+policies_leaning_strict[c("foreign_policy1", "foreign_policy2"),] <- c(0, 2)
 # policies_main_language <- policies_english <- c()
 # for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
 thousandile_world_disposable_inc <- as.numeric(read.csv2("../data_ext/world_disposable_inc.csv", header = FALSE)[2:1001, 2]) # created in questionnaire.R
@@ -166,7 +166,6 @@ remove_id <- function(file, folder = "../data_raw/") {
 } 
 
 
-##### Load data #####
 # survey_list <- all_surveys()
 # pilots <- paste0(c("PL", "GB", "US"), "p")
 # pilot_names <- setNames(paste0(c("PL", "GB", "US"), "_pilot"), pilots)
@@ -453,6 +452,8 @@ define_var_lists <- function() {
   variables_field <<- paste0(c("wish", "issue", "concerns", "injustice"), "_field")
   variables_field_all <<- c(variables_field, "comment_field")
   variables_conjoint_domains <<- c("F-1-1", "F-1-2", "F-1-3", "F-1-4", "F-1-5") # , "F-1-6"
+  variables_conjoint_policies_1 <<- c("F-1-1-1", "F-1-1-2", "F-1-1-3", "F-1-1-4", "F-1-1-5")
+  variables_conjoint_policies_2 <<- c("F-1-2-1", "F-1-2-2", "F-1-2-3", "F-1-2-4", "F-1-2-5")
   variables_conjoint_policies <<- c("F-1-1-1", "F-1-1-2", "F-1-1-3", "F-1-1-4", "F-1-1-5", "F-1-2-1", "F-1-2-2", "F-1-2-3", "F-1-2-4", "F-1-2-5") #, "F-1-1-6", "F-1-2-6"
   variables_conjoint_policies_original <<- paste0(variables_conjoint_policies, "_original")
   # View(all[sapply(1:nrow(all), function(i) any(is.na(all[i, variables_conjoint_policies])) & all$country[i]!="SA"), c(as.vector(sapply(variables_conjoint_policies, function(v) c(v, paste0(v, "_original")))), "n", "conjoint_misleading")])
@@ -475,6 +476,9 @@ define_var_lists <- function() {
                         "Défiscaliser" = "tax_system1", # "Défiscaliser les primes jusqu’à 10 000 € par an",
                         "moteur" = "climate_pol1") # "Éliminer progressivement les voitures à moteur à combustion d'ici à 2040")
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
+  variables_conjoint_consistency <<- c("consistent_conjoints", paste0(c("consistent_conjoint_", "leaning_conjoint_"), c(1,1,2,2)))
+  variables_conjoint_consistency_strict <<- paste0(variables_conjoint_consistency, "_strict")
+  variables_conjoint_consistency_all <<- c(variables_conjoint_consistency, variables_conjoint_consistency_strict)
 
   # Categories proposed by GPT-4.1 based on the excerpt:
   {
@@ -1572,6 +1576,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       for (j in names(correct_policies)) e[[v]][grepl(j, e[[paste0(v, "_original")]])] <- correct_policies[j]
       # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
     }  
+    for (i in 1:2) for (leaning in c("", "_strict")) { 
+      e[[paste0("leaning_conjoint_", i, leaning)]] <- 1
+      max_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, max)
+      min_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, min)
+      e[[paste0("leaning_conjoint_", i, leaning)]][max_i == 2] <- 2
+      e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0
+      e[[paste0("leaning_conjoint_", i, leaning)]][max_i - min_i == 2] <- -1
+      e <- create_item(paste0("leaning_conjoint_", i, leaning), labels = c("Inconsistent" = -1, "Left" = 0, "Unclear" = 1, "Right" = 2), values = -1:2, df = e)
+      e[[paste0("consistent_conjoint_", i, leaning)]] <- e[[paste0("leaning_conjoint_", i, leaning)]] != -1
+    }
+    e$consistent_conjoints <- e$consistent_conjoint_1 & e$consistent_conjoint_2
+    e$consistent_conjoints_strict <- e$consistent_conjoint_1_strict & e$consistent_conjoint_2_strict
   }
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
   # e$global_movement_any[!e$global_movement_asked] <- NA 
@@ -1643,12 +1659,17 @@ create_conjoint_sample <- function(df = all) {
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
   call <- cbind(df, temp)
-  call <- call[, intersect(names(call), c(variables_conjoint_all, variables_sociodemos_all, "country", "country_name", "n", "stayed",
+  call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed",
                                           "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
   return(call)
 }
 call <- create_conjoint_sample(all)
 calla <- create_conjoint_sample(a)
+
+
+##### Export fields #####
+write.csv(all[,c("country_name", "field", "comment_field", "variant_field")], "../data_raw/fields/fields.csv")
+write.csv(all[,c("country_name", "field_en", "comment_field_en", "variant_field")], "../data_raw/fields/fields_en.csv")
 
 
 ##### NLP #####
