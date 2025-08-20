@@ -281,7 +281,7 @@ decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied,])
 # mean winners = non-losers: 72% / mean transfer: 5.08% / mean demogrant: $243/month
 (max_winners <- min(which(mean_custom_redistr[["all"]] < current_inc))) # 725
 current_inc[max_winners] # 18k
-100*sum(mean_custom_redistr[["all"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5% in transfer
+100*sum(mean_custom_redistr[["all"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5.1 in transfer
 mean_custom_redistr[["all"]][1]/12 # 243
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))

@@ -204,7 +204,7 @@ $j(document).ready(function($j){
 					if ((apres[i-1]-avant[i-1]) < (apres[i]-avant[i])) { affine = 0; 
 					} // new
 				}
-				if (affine) { for (i=0;i<winners;i++) { futur[i] = apres[i]; }	}
+				{ for (i=0;i<winners;i++) { futur[i] = apres[i]; }	}
 				var diff = new Array(winners);
 				for (i=0; i<winners; i++) { diff[i] = futur[i] - avant[i] ; }
 				var econ = integrale(diff, 0, winners-1) + economisable(futur, "d");

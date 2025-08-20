@@ -16,13 +16,13 @@
 \contentsline {section}{\numberline {D}Determinants of support}{81}{appendix.D}%
 \contentsline {section}{\numberline {E}The determination of a custom redistribution}{83}{appendix.E}%
 \contentsline {paragraph}{Algorithm Dis/Adv}{84}{section*.106}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{86}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{87}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{88}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{89}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results weighted by vote}{90}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results on the extended sample}{93}{appendix.K}%
-\contentsline {section}{Bibliography}{96}{section*.124}%
-\contentsline {section}{List of Tables}{96}{section*.125}%
-\contentsline {section}{List of Figures}{96}{section*.126}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{87}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{88}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{89}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{90}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results weighted by vote}{91}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results on the extended sample}{94}{appendix.K}%
+\contentsline {section}{Bibliography}{97}{section*.125}%
+\contentsline {section}{List of Tables}{97}{section*.126}%
+\contentsline {section}{List of Figures}{97}{section*.127}%
 \contentsfinish 
