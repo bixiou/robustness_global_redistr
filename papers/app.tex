@@ -447,6 +447,42 @@ Unless otherwise specified, response is compulsory and a single response much be
 \end{table}
 
 \clearpage
+\section{The determination of a custom redistribution}\label{app:algo}
+
+In Question \ref{q:custom_redistr}, respondents are asked for their preferred redistribution of the world's post-tax income. This custom redistribution is determined by modifying the current distribution using the respondent's three input parameters:
+\begin{itemize}
+    \item The \textit{proportion of winners}, i.e. the share of people (at the bottom of the distribution) advantaged by the custom redistribution;
+    \item The \textit{proportion of losers}, i.e. the share of people (at the top) disadvantaged by the redistribution;
+    \item The \textit{degree of redistribution}, ranging from 0/10 (no redistribution) to 10/10 (maximal redistribution).
+\end{itemize}
+
+The determination of the custom distribution given these parameters relies on the algorithm \textit{Dis/adv} introduced by \cite{fabre_french_2022}. In that paper, \cite{fabre_french_2022} surveyed two representative samples of French respondents. The first survey uncovered the median preferred parameters for a national income redistribution.\footnote{The median preferred proportions of winners and losers were 50\% and 10\%, respectively. The median preferred degree of redistribution was defined indirectly, using the median preferred demogrant: \euro{}800/month. The resulting redistribution entailed 12\% of GDP redistributed from the top 10\% to the bottom 50\%.} The second survey showed that 52\% supported the income redistribution defined using these parameters while only 26\% opposed it. Furthermore, a majority among the French respondents who expressed an opinion agreed that it is a good idea to ``determine the citizens' preferred tax schedule from a survey and then submit the proposal that would emerge from the survey to a referendum.'' Therefore, the algorithm \textit{Dis/adv} applied to median preferred parameters has been validated both through the support for the resulting redistribution and through the support for such democratic method of preference aggregation to determine an income redistribution. Nonetheless, the algorithm \textit{Dis/adv} is just a first attempt to adjust the tax schedule by aggregating citizens' preferences, and more appropriate methods may be proposed. Although \cite{fabre_french_2022} finds that the algorithm \textit{Dis/adv} fares better than another algorithm tested, the method still suffers from some limitations. In particular, the current method is difficult to understand for the users, and it only allows for redistribution from the rich to the poor (it would thus be inappropriate if the level of inequality were considered too low). Below, I describe the algorithm \textit{Dis/adv}, available for use at \href{https://adrien-fabre.com/custom_global_redistr.html}{bit.ly/custom\_redistr}, and implemented in the R function \verb|compute_custom_redistr| on \href{https://github.com/bixiou/robustness_global_redistr/raw/main/code_robustness/2_prepare.R}{github.com/bixiou/robustness\_global\_redistr/raw/main/code\_robustness/2\_prepare.R}.
+
+\paragraph{Algorithm Dis/Adv} 
+
+It is worth reminding that on a range of income (concerning people that are neither winner nor loser from the reform), both current and custom distributions coincide. The algorithm proceeds as follows:
+
+\begin{figure}[b!]
+  \caption[Algorithm for the custom redistribution]{Algorithm for the custom redistribution, with parameters \textit{winners}: 60\%, \textit{losers}: 20\%, \textit{degree}: 4/10.} \label{fig:algo} 
+  \begin{subfigure}{.49\textwidth}
+    \caption[]{Steps 1 and 2.}
+    \includegraphics[width=\textwidth]{../figures/questionnaire/algo_1-2.PNG}
+  \end{subfigure} 
+  \begin{subfigure}{.49\textwidth}
+    \caption[]{Steps 3 and 4.}
+    \includegraphics[width=\textwidth]{../figures/questionnaire/algo_3-4_full.PNG}
+  \end{subfigure}
+\end{figure}
+
+\begin{enumerate}
+    \item Define the \textit{extreme distribution} as the current distribution bounded by the income thresholds of winners and losers. In other words, draw two horizontal lines at each end of the distribution, by setting the incomes of winners to the income of the richest winner, and those of losers to income of the poorest loser.
+    \item Compute what can be redistributed on either side as the area between the extreme and current distributions: what can be given to winners on the left side ($L$) or taken on the right side ($R$). If and only if what can be given is lower than what can be taken ($L < R$, as in Figure \ref{fig:algo}), the left side is binding, and it determines the \textit{amount transferred} from the rich to the poor: $\min\{L;\,R\} \cdot degree$.
+    \item On the binding side, define the custom distribution as a linear mixture between the current and extreme distributions, with the mixture parameter set by the \textit{degree of redistribution}. In other words, starting from the current distribution, narrow the gap with the extreme distribution by a factor \textit{degree}.
+    \item Adjust the non-binding side by narrowing the gap with the extreme distribution, using the unique mixture parameter that preserves aggregate income (so that the amount transferred is the same on both sides).\footnote{While we do not account for behavioral responses, one can adjust the algorithm to account for them. It suffices define a post-reform aggregate income, which can be lower than the pre-reform one if the reform disincentivizes economic activity.}
+    \item ~[Optional step, used in the survey.] To increase the demogrant (i.e. the lowest income) and make the reform more progressive on the left side, try to replace the left side by a straight line. In other words, find the demogrant and the straight line between the demogrant and the threshold of winners that respects the amount transferred. If this straight line crosses the current distribution or if it implies a regressive redistribution (in that some income would increase less than a higher income), abandon the straight line and keep the custom redistribution as is.
+\end{enumerate}
+
+\clearpage
 \section{Comparison with other surveys}\label{app:comparison}
 \begin{figure}[h!]
 \caption[Comparison with other surveys]{Comparison with similar questions in other surveys.} \label{fig:conjoint}

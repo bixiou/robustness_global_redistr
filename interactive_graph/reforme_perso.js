@@ -192,6 +192,9 @@ $j(document).ready(function($j){
 				var max_1 = (G <= R) ? winners : 1001; 
 				var min_2 = (G <= R) ? non_losers : 0;
 				var max_2 = (G <= R) ? 1001 : winners; 
+				for (i=min_1; i<max_1; i++) { futur[i] = avant[i] + degree/10 * (futur[i] - avant[i]); }
+				for (i=min_2; i<max_2; i++) { futur[i] -= (1 - Math.min(G/R, R/G)) * (futur[i] - avant[i]); }
+				for (i=min_2; i<max_2; i++) { futur[i] = avant[i] + degree/10 * (futur[i] - avant[i]); }
 				rdb = 2*(Math.min(G,R)*(degree/10)+integrale(avant, 0, winners))/winners-Na_r
 				var apres = new Array(1001);
 				var affine = 1;
@@ -201,9 +204,6 @@ $j(document).ready(function($j){
 					if ((apres[i-1]-avant[i-1]) < (apres[i]-avant[i])) { affine = 0; 
 					} // new
 				}
-				for (i=min_1; i<max_1; i++) { futur[i] -= (10-degree)/10 * (futur[i] - avant[i]); }
-				for (i=min_2; i<max_2; i++) { futur[i] -= (1 - Math.min(G/R, R/G)) * (futur[i] - avant[i]); }
-				for (i=min_2; i<max_2; i++) { futur[i] -= (10-degree)/10 * (futur[i] - avant[i]); }
 				if (affine) { for (i=0;i<winners;i++) { futur[i] = apres[i]; }	}
 				var diff = new Array(winners);
 				for (i=0; i<winners; i++) { diff[i] = futur[i] - avant[i] ; }

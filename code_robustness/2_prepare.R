@@ -1,6 +1,5 @@
 # TODO: labels
 # TODO: main results with U.S. Dems, Saudis, etc.
-# TODO: appendix algo custom redistr
 # TODO: influence of order
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -796,7 +795,7 @@ world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rat
   return(future)
 }
 
-compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
+  compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
   # TODO: check we get same results as with .js (e.g. check values of L/G and R, own_after...) - I have checked on one example
   current <- c(0, round(thousandile_world_disposable_inc)) # corresponds to c(0, thousandile_world_disposable_inc) created in questionnaire.R
   e$custom_redistr_transfer <- e$custom_redistr_future_income <- e$custom_redistr_income_min <- NA #rep(NA, nrow(df))
@@ -826,6 +825,12 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       max_1 <- ifelse(L <= R, winners-1, 1000)
       min_2 <- ifelse(L <= R, non_losers, 0)
       max_2 <- ifelse(L <= R, 1000, winners-1)
+      # We make the future line closer to the current one compared to the horizontal "new" line, to the extent degree is small, on the binding side
+      for (i in min_1:max_1) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
+      # Then we adjust the non-binding side twice: first by having the maximal redistribution (given the other, binding side potential),
+      for (i in min_2:max_2) future[i+1] <- future[i+1] - (1 - min(L/max(1e-9, R), R/max(1e-9, L))) * (future[i+1] - current[i+1])
+      # then by accounting for the desired degree of redistr (as above)
+      for (i in min_2:max_2) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
       # Define the demogrant given what is economizable and the desired degree of redistribution
       demogrant <- if (winners > 0) 2*(min(L, R) * (degree/10) + sum(current[1:winners]))/winners - income_threshold_winners else 0
       # Draw a straight line between the demogrant and the threshold of winners
@@ -836,12 +841,6 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
         if (i > 0 && new[i+1] < current[i+1]) affine <- FALSE
         if (i > 0 && new[i] - current[i] < new[i+1] - current[i+1]) affine <- FALSE
       }
-      # We make the future line closer to the current one compared to the horizontal "new" line, to the extent degree is small, on the binding side
-      for (i in min_1:max_1) future[i+1] <- future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1])
-      # Then we adjust the non-binding side twice: first by having the maximal redistribution (given the other, binding side potential),
-      for (i in min_2:max_2) future[i+1] <- future[i+1] - (1 - min(L/max(1e-9, R), R/max(1e-9, L))) * (future[i+1] - current[i+1])
-      # then by accounting for the desired degree of redistr (as above)
-      for (i in min_2:max_2) future[i+1] <- future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1])
       if (affine) for (i in 0:winners) future[i+1] <- new[i+1]
       # diff <- future - current
       # econ <- integral(diff, 0, winners - 1) + economizable(future, "right")
