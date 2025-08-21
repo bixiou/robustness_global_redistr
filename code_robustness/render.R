@@ -79,6 +79,7 @@ labels_vars <- c(
   "gcs_belief_own" = "Belief about GCS support in own country",
   "gcs_belief_us" = "\nBelief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
   "ncs_support" = "Supports the National Climate Scheme", 
+  "ics_support" = "Supports int'l climate scheme (any variant)",
   "ics_high_color_support" = "$ atop('     Supports the GCS if its other members* cover 64-72% of world emissions',          
                                      '*' * bold('High color') * ': High + Distributive effects displayed using colors on world map')", 
   "ics_high_support" = "$ atop('                    Supports the GCS if its other members* cover 64-72% of world emissions', 
@@ -98,6 +99,7 @@ labels_vars <- c(
   "global_tax_support" = "Global: implemented by all other countries",
   "hic_tax_support" = "High-income: implemented by all other HICs and not by some MICs (such as China)",
   "intl_tax_support" = "International: implemented by some (e.g. EU, UK, Brazil) and not by others (e.g. U.S., China)",
+  "wealth_tax_support" = "Supports int'l tax on millionaires with 30% funding LICs (any variant)",
   # "global_tax_global_share" = "Preferred share of global tax for LICs (in %)",
   "group_defended" = "Group defended when voting",
   "survey_biased" = "Survey biased", 
@@ -268,6 +270,7 @@ heatmaps_defs <- list(
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
   "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = "", width = 1200, height = 500),
+  "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1300, height = 700),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1300, height = 500),
   # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
   "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1300, height = 400),
@@ -894,6 +897,26 @@ plot_along(along = "info_solidarity", df = a[a$stayed,], vars = "share_solidarit
 
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_extended", data = a[a$stayed,])
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_extended", data = a[a$stayed,])
+
+
+##### Main results along selected vote or demographics ######
+# plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_pol", vars = variables_ncs_gcs_ics, levels_along = levels_pol, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
+# 
+# plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_pol, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T) 
+# # TODO: make these work
+# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+#            weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+#            weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+# 
+# plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
+#            weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+# plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
+#            weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_pol", levels = levels_pol)
 
 
 ##### Variance decomposition #####

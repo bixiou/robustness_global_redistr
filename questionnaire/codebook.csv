@@ -54,7 +54,7 @@ Even if you did not vote in the [election: 2024 European Parliament election], p
 vote_DE,"vote_DE: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
 Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",[string variable]
 vote_JP,"vote_JP: [text_vote: Which candidate did you vote for in the [election: 2024 European Parliament election]?
-Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",NA / LDP / Ishin JIP / CDP / DPFP / Prefer not to say / Reiwa Shinsengumi / Other / CPJ / SDP / Komeito / JCP / Sanseitō
+Even if you did not vote in the [election: 2024 European Parliament election], please indicate the candidate that you were most likely to have voted for or who represents your views more closely.]",-1 / 0 / 1 / 2
 concerns_field,concerns_field: What are your main concerns these days?,[string variable]
 wish_field,wish_field: What are your needs or wishes?,[string variable]
 issue_field,issue_field: Can you name an issue that is important to you but is neglected in the public debate?,[string variable]
@@ -994,6 +994,7 @@ legit,legit: T/F Not excluded (not quota met nor screened) (is.na(excluded)),TRU
 dropout,dropout: T/F Chose to leave the survey (is.na(excluded) & !finished),TRUE / FALSE
 stayed,stayed: T/F Did not drop out (excluded != QuotaMet & finished),TRUE / FALSE
 final,final: T/F In Final sample (!excluded & finished),TRUE / FALSE
+dropout_late,"dropout: Respondent who did not complete the survey though was not excluded, and who dropped out after the socio-demographic questions.",TRUE / FALSE
 variant_long,,TRUE / FALSE
 country_name,,Switzerland / Germany / Spain / France / United Kingdom / Italy / Japan / Poland / Saudi Arabia / USA
 duration_feedback,duration: Duration (in min),min: -87322153.547 / max: 39.561
@@ -1048,14 +1049,18 @@ If you could choose the amount of climate finance provided by developed countrie
 variant_ncqg,"variant_ncqg: Full/Short. Full: A lot of explanations, answers in numerical grant-equivalent; Short: Shorter, answers in terms of who defends them or what they mean.",Short / Full
 ncqg_fusion,,"$0 / Less / Stable / More loans / $100 bn / $200 bn / 300 bn / $600 bn / $1,000 bn / $5,000 bn"
 variant_sustainable_future,variant_sustainable_future: a/b/s a: A == sustainable / b: B == sustainable / s: B == sustainable and shorter (bullet points).,a / b
+sustainable_future_A,,TRUE / FALSE / NA
+sustainable_future_B,,TRUE / FALSE / NA
 sustainable_future,,TRUE / FALSE
 vote_intl_coalition_less_likely,,TRUE / FALSE / NA
 gcs_understood,,TRUE / FALSE
 millionaire_factor,,Unlikely / Likely / Already
+urbanity_na_as_city,,Cities / Towns and suburbs / Rural
 urbanity_factor,,Cities / Towns and suburbs / Rural / NA
 education_factor,,Below upper secondary / Upper secondary / Above upper secondary
 income_factor,,Q1 / Q2 / Q3 / Q4
 region_factor,,1 / 2 / 3 / NA / 4 / 5 / 0
+country_region,,[string variable]
 well_being_gallup_0_original,"well_being_gallup_0: Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
 
 On which step of the ladder would you say you personally feel you stand at this time?",8 / NA / 7 / Best possible10 / 6 / 9 / 2 / 4 / 5 / 3 / Worst possible0 / 1
@@ -1093,6 +1098,19 @@ field_manual_global_issue,,TRUE / FALSE / NA
 field_manual_own_country,,TRUE / FALSE / NA
 field_manual_other,,TRUE / FALSE / NA
 field_manual_nothing,,TRUE / FALSE / NA
+comment_keyword_empty,,TRUE / FALSE
+comment_manual_nothing,,TRUE / FALSE / NA
+comment_manual_thanks,,TRUE / FALSE / NA
+comment_manual_praise,,TRUE / FALSE / NA
+comment_manual_criticize,,TRUE / FALSE / NA
+comment_manual_difficult,,TRUE / FALSE / NA
+comment_manual_pro_global_redistr,,TRUE / FALSE / NA
+comment_manual_anti_global_redistr,,TRUE / FALSE / NA
+comment_manual_pro_climate,,TRUE / FALSE / NA
+comment_manual_anti_climate,,TRUE / FALSE / NA
+comment_manual_other,,TRUE / FALSE / NA
+comment_manual_empty,,TRUE / FALSE / NA
+comment_field_en,"comment_field: The survey is nearing completion. You can now enter any comments, thoughts, or suggestions in the field below.",[string variable]
 field_en,,[string variable]
 field_keyword_money,,TRUE / FALSE
 field_keyword_relationships,,TRUE / FALSE
@@ -1144,10 +1162,23 @@ field_keyword_youth,,TRUE / FALSE
 field_nb_keywords,,0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 12 / 13
 field_nb_manual,,0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8
 nchar_field,,min: 1 / max: 1464
+comment_keyword_good,,TRUE / FALSE
+comment_keyword_interesting,,TRUE / FALSE
+comment_keyword_thanks,,TRUE / FALSE
+comment_keyword_difficult,,TRUE / FALSE
+comment_keyword_nothing,,TRUE / FALSE
+comment_keyword_corruption,,TRUE / FALSE
+comment_nb_keywords,,0 / 1 / 2 / 3
+comment_nb_manual,,0 / 1 / 2 / 3
+nchar_comment,,min: 1 / max: 2170
 variant_belief_eu,,US / Own / EU
 gcs_belief,,min: 0 / max: 100
 info_solidarity,,TRUE / FALSE
 gcs_support_control,,0 / 100
+donation_agg,"donation: By taking this survey, you will be automatically entered into a lottery to win up to [amount_lottery: $100]. 
+Should you be selected in the lottery, you will have the option to channel a part of this additional compensation to the charity Just One Tree to plant trees.
+
+In case you win the lottery, what share of the [amount_lottery: $100 prize] would you donate to plant trees? - Share to plant trees",0 / 1-9 / 10 / 11-19 / 20 / 21-49 / 50 / 51-99 / 100
 ics_low_support,,0 / 100
 ics_mid_support,,0 / 100
 ics_high_support,,0 / 100
@@ -1378,7 +1409,9 @@ custom_redistr_unsatisfied_unskip,,TRUE / FALSE
 custom_redistr_both_satisfied_skip,,TRUE / FALSE
 weight,"weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country].",min: 0.06 / max: 2.411
 weight_country,"weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country].",min: 0.25 / max: 4
+weight_vote,,min: 0.25 / max: 4
 custom_redistr_current_income,,min: 0 / max: 800000010000
+income_exact_thousandile_world,,min: 3 / max: 1000
 custom_redistr_income_min,,min: 0 / max: 17189.612
 custom_redistr_future_income,,min: 0 / max: 1155887
 custom_redistr_self_gain,,TRUE / FALSE
@@ -1413,8 +1446,21 @@ F-1-2-2_original,F-1-2-2: F-1-2-2,[string variable]
 F-1-2-3_original,F-1-2-3: F-1-2-3,[string variable]
 F-1-2-4_original,F-1-2-4: F-1-2-4,[string variable]
 F-1-2-5_original,F-1-2-5: F-1-2-5,[string variable]
-weight_vote,,min: 0.25 / max: 4
+leaning_conjoint_1,,Inconsistent / Left / Unclear / Right
+consistent_conjoint_1,,TRUE / FALSE / NA
+leaning_conjoint_1_strict,,Inconsistent / Left / Unclear / Right
+consistent_conjoint_1_strict,,TRUE / FALSE / NA
+leaning_conjoint_2,,Inconsistent / Left / Unclear / Right
+consistent_conjoint_2,,TRUE / FALSE / NA
+leaning_conjoint_2_strict,,Inconsistent / Left / Unclear / Right
+consistent_conjoint_2_strict,,TRUE / FALSE / NA
+consistent_conjoints,,TRUE / FALSE / NA
+consistent_conjoints_strict,,TRUE / FALSE / NA
 ics_NA_support,,TRUE / FALSE / NA
+vote_Eu,,"Non-voter, PNR or Other / Left / Center-right or Right / Far right"
+vote_agg_Eu,,PNR or Other / Left / Center-right or Right / Far right
+income_exact_misinterpreted,,TRUE / FALSE / NA
+vote_agg_JP,,PNR or Other / Left / Center-right or Right / Far right
 saudi,,TRUE / FALSE / NA
 gender_nationality,,"NA / Man, Saudi / Woman, non-Saudi / Man, non-Saudi / Woman, Saudi / Man, NA"
 swing_state,"swing_state_5pp: T/F Lives in one of the 8 States around the tipping-point one: with less than 5 p.p. difference in margin with the national one at the 2024 Presidential election (NH, WI, MI, PA, GA, NV, NC, AZ).",TRUE / FALSE / NA

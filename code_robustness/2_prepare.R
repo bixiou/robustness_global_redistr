@@ -1,5 +1,5 @@
 # TODO: labels
-# TODO: main results with U.S. Dems, Saudis, etc.
+# TODO: plot_along levels_list => main results with U.S. Dems, Saudis, etc.
 # TODO: influence of order
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -30,10 +30,10 @@ pilot_countries_all <- c(pilot_countries, "")
 special_levels <- list("All" = list("var" = "country_name", "value" = countries_names), "$ bold('All')" = list("var" = "country_name", "value" = countries_names), "<b>All</b>" = list("var" = "country_name", "value" = countries_names),
                        "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), "<b>Europe</b>" = list("var" = "country_name", "value" = countries_Eu), 
                        "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU),
-                       "Saudi citizens" = list("var" = "saudi", "value" = T),
-                       "U.S. Democrats" = list("var" = "vote_voters", "value" = "Harris"),
-                       "U.S. Republicans" = list("var" = "vote_voters", "value" = "Trump"),
-                       "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"))
+                       "Saudi citizens" = list("var" = "saudi", "value" = T), "Millionaires" = list("var" = "millionaire_agg", "value" = "Already"),
+                       "U.S. Harris" = list("var" = "vote_voters", "value" = "Harris"), "U.S. Trump" = list("var" = "vote_voters", "value" = "Trump"), "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"),
+                       "Europe Left" = list("var" = "vote_Eu", "value" = "Left"), "Europe Center/Right" = list("var" = "vote_Eu", "value" = "Center-right or Right"), "Europe Far right" = list("var" = "vote_Eu", "value" = "Far right"), "Europe Non-voters" = list("var" = "vote_Eu", "value" = "Non-voter, PNR or Other"),
+                       "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
 levels_plain <- c("All", "Europe", countries_names[-9])
 # levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
@@ -42,7 +42,8 @@ levels_default_list <- setNames(lapply(levels_html, function(i) if (i %in% names
 # levels_default_list <- setNames(lapply(levels_plain[!levels_plain %in% "Russia"], function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain[!levels_plain %in% "Russia"])
 levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
 levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
-levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])      
+levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])
+levels_pol <- c("$ bold('All')", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
                   
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
@@ -1001,6 +1002,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # Other notable states: FL (32-34), MN (550-567), CO (80-81), NJ (07-08), NE-2 (68007, 68010, 68022, 68028, 68046, 68059, 68064, 68069, 68102, 68104, 68105, 68106, 68107, 68108, 68110, 68111, 68112, 68114, 68116, 68117, 68118, 68122, 68123, 68124, 68127, 68128, 68130, 68131, 68132, 68133, 68134, 68135, 68136, 68137, 68138, 68142, 68144, 68147, 68152, 68154, 68157, 68164, 68178) # https://statisticalatlas.com/congressional-district/Nebraska/Congressional-District-2/Overview
     # sources: https://en.wikipedia.org/wiki/Swing_state#Swing_states_by_results, https://en.wikipedia.org/wiki/2024_United_States_presidential_election#Results_by_state, zipcodes: https://www.mapsofworld.com/usa/zipcodes/
   }
+  if (country %in% names(countries_Eu)) e$vote_Eu <- e$vote
+  if (country %in% names(countries_Eu)) e$vote_agg_Eu <- e$vote_agg
+  if (country %in% "JP") e$vote_JP <- e$vote
+  if (country %in% "JP") e$vote_agg_JP <- e$vote_agg
 
   # Other variables
   if (country == "SA") e$saudi <- e$nationality_SA == "Saudi"
