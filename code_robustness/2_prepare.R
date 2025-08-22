@@ -1,6 +1,5 @@
 # TODO: labels
 # TODO: plot_along levels_list => main results with U.S. Dems, Saudis, etc.
-# TODO: influence of order
 # TODO: consistency income income_exact
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -8,14 +7,7 @@
 # TODO: correlation donation / support
 # TODO: sociodemos determinants custom_redistr
 # TODO: correlation field with other variables e.g. discrimination/foreign; inequality/left; family/group_defended
-
-# check:
-# no NA in well_being, group_defended, also in pilots sum(is.na(all$well_being))
-# mean(e$convergence_support > 0)
-# sapply(countries[-9], function(c) round(mean(d(c)$convergence_support > 0, na.rm = T), 3))
-# results of global_tax_attitudes with new def of swing_state / dem
-# /!\ missing urbanity, region: decrit(e$country[is.na(e$region)]) GB$zipcode[is.na(GB$region)]
-# quota education JP
+# TODO: check results of global_tax_attitudes with new def of swing_state / dem
 
 
 ##### Parameters #####
@@ -1060,6 +1052,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$education_factor <- factor(e$education)
   e$income_factor <- factor(e$income_quartile)
   e$region_factor <- no.na(factor(e$region), rep = "NA")
+  e$region_factor[e$region_factor == "0"] <- "NA"
   e$country_region <- paste(e$country, e$region_factor)
   e$urbanity_na_as_city[is.na(e$urbanity)] <- "Cities"
   # for (i in unique(e$country_region)) if (sum(e$country_region %in% i) <= 3) e$country_region[e$country_region %in% i] <- NA
