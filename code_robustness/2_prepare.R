@@ -1,6 +1,7 @@
 # TODO: labels
 # TODO: plot_along levels_list => main results with U.S. Dems, Saudis, etc.
 # TODO: influence of order
+# TODO: consistency income income_exact
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
@@ -389,8 +390,9 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
 define_var_lists <- function() {
   text_support <<- c("Strongly oppose","Somewhat oppose","Indifferent","Somewhat support","Strongly support")
   text_pnr <<- c("Prefer not to say")
-  variables_solidarity_support <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council", "solidarity_support_foreign_aid", 
-    "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_loss_damage", "solidarity_support_ncqg_300bn", "solidarity_support_shipping_levy", "solidarity_support_aviation_levy")
+  base_solidarity_support <<- c("billionaire_tax", "corporate_tax", "expanding_security_council", "foreign_aid", "debt_relief", "bridgetown", "loss_damage", "ncqg_300bn", "shipping_levy", "aviation_levy")
+  variables_solidarity_support <<- paste0("solidarity_support_", base_solidarity_support)
+  variables_solidarity_support_order <<- paste0("solidarity_support_order_", base_solidarity_support)
   variables_solidarity_no_commitment <<- c("solidarity_support_billionaire_tax", "solidarity_support_corporate_tax", "solidarity_support_expanding_security_council",  
                                      "solidarity_support_debt_relief", "solidarity_support_bridgetown", "solidarity_support_aviation_levy")
   variables_solidarity_no_info <<- c("solidarity_support_debt_relief", "solidarity_support_aviation_levy")
@@ -417,14 +419,21 @@ define_var_lists <- function() {
   variables_duration <<- c("duration", "duration_consent", "duration_socios_demos", "duration_field", "duration_conjoint", "duration_global_tax", "duration_warm_glow_substitute", "duration_gcs", 
                            "duration_ics", "duration_warm_glow_realism", "duration_ncqg_maritime", "duration_wealth_tax", "duration_preferred_transfer_mean", "duration_radical_redistr", 
                            "duration_custom_redistr", "duration_well_being", "duration_scenarios_tax", "duration_end", "duration_extra", "duration_main_questions", "duration_feedback")
-  variables_split_few <<- rev(c("revenue_split_few_domestic_education_healthcare", "revenue_split_few_domestic_welfare", "revenue_split_few_domestic_tax_reduction", 
-                            "revenue_split_few_domestic_deficit_reduction", "revenue_split_few_global"))
-  variables_split_many_domestic <<- c("revenue_split_many_domestic_education", "revenue_split_many_domestic_healthcare", "revenue_split_many_domestic_defense", "revenue_split_many_domestic_deficit_reduction", 
-                             "revenue_split_many_domestic_justice_police", "revenue_split_many_domestic_pensions", "revenue_split_many_domestic_welfare", "revenue_split_many_domestic_infrastructure", 
-                             "revenue_split_many_domestic_tax_reduction")
-  variables_split_many_global <<- c("revenue_split_many_global_education_healthcare", "revenue_split_many_global_renewables_adaptation", 
-  "revenue_split_many_global_loss_damage", "revenue_split_many_global_forestation")
+  base_split_many_global <<- c("education_healthcare", "renewables_adaptation", "loss_damage", "forestation")
+  base_split_many_domestic <<- c("education", "healthcare", "defense", "deficit_reduction", "justice_police", "pensions", "welfare", "infrastructure", "tax_reduction")
+  base_split_many <<- c(paste0("domestic_", base_split_many_domestic), paste0("global_", base_split_many_global))
+  base_split_few <<- rev(c("domestic_education_healthcare", "domestic_welfare", "domestic_tax_reduction", "domestic_deficit_reduction", "global"))
+  variables_split_few <<- paste0("revenue_split_few_", base_split_few)
+  variables_split_many_domestic <<- paste0("revenue_split_many_domestic_", base_split_many_domestic)
+  variables_split_many_global <<- paste0("revenue_split_many_global_", base_split_many_global)
   variables_split_many <<- c(variables_split_many_global, variables_split_many_domestic)
+  variables_split_many_order <<- paste0("revenue_split_many_order_", base_split_many)
+  variables_split_few_order <<- paste0("revenue_split_few_order_", base_split_few)
+  variables_random_order <<- c(variables_solidarity_support_order, variables_split_few_order, variables_split_many_order)
+  list_random_order <<- list("solidarity_support_" = base_solidarity_support, "revenue_split_few_" = base_split_few, "revenue_split_many_" = base_split_many)
+  variables_split_few_by_order <<- paste0("revenue_split_few_order_", 1:5)
+  variables_split_many_by_order <<- paste0("revenue_split_many_order_", 1:5)
+  variables_solidarity_support_by_order <<- paste0("solidarity_support_order_", 1:length(base_solidarity_support))
   variables_split_few_agg <<- paste0(variables_split_few, "_agg")
   variables_split_many_domestic_agg <<- paste0(variables_split_many_domestic, "_agg")
   variables_split_many_global_agg <<- paste0(variables_split_many_global, "_agg")
@@ -1024,7 +1033,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     label(e$variant_ncqg) <- "variant_ncqg: Full/Short. Full: A lot of explanations, answers in numerical grant-equivalent; Short: Shorter, answers in terms of who defends them or what they mean."
     # e$ncqg_fusion <- as.character(e$ncqg_original)
     # e$ncqg_fusion[e$variant_ncqg %in% "full"] <- as.character(e$ncqg_full_original)[e$variant_ncqg %in% "full"]
-    e$ncqg_fusion <- ifelse(e$variant_ncqg %in% "full", as.character(e$ncqg_full_original), as.character(e$ncqg_original))
+    e$ncqg_fusion <- ifelse(e$variant_ncqg %in% "Full", as.character(e$ncqg_full_original), as.character(e$ncqg_original))
     e <- create_item("ncqg_fusion", labels = c("$0" = 0, "Less" = 10, "Stable" = 26, "More loans" = 30, "$100 bn" = 100, "$200 bn" = 200, "300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1e3, "$5,000 bn" = 5e3),
                    grep = T, values = c("Stop|\\$0", "Reduce", "\\$26", "Increase loans", "\\$100", "\\$200", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
   }
@@ -1538,6 +1547,17 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$transfer_how_order <- ifelse(e$transfer_how_order_agencies == 1, "global_first", "local_first")
   e$vote_intl_coalition_order <- ifelse(e$vote_intl_coalition_order_more_likely == 1, "more_first", "less_first")
   e$gcs_comprehension_order <- ifelse(e$gcs_comprehension_order %in% 1, "increase_first", "decrease_first")
+  
+  # for (j in names(list_random_order)) {
+  #   max_j <- if (j == "solidarity_support_") 10 else 5
+  #   for (k in 1:max_j) e[[paste0(j, "order_", k)]] <- NA
+  #   for (var in list_random_order[[j]]) {
+  #     for (order in 1:max_j) {
+  #       rows <- which(e[[paste0(j, "order_", var)]] == order)
+  #       e[rows, paste0(j, "order_", order)] <- as.numeric(e[[paste0(j, var)]][rows])
+  #     }
+  #   }
+  # }
   
   # NAs for questions not asked
   # TODO update for RU

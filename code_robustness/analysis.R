@@ -339,6 +339,38 @@ summary(lm((transfer_how_agencies > 0) ~ (transfer_how_order_cash_unconditional 
 summary(lm((transfer_how_govt_conditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = e))
 summary(lm((transfer_how_govt_unconditional > 0) ~ (transfer_how_order_cash_unconditional == 7), data = e))
 
+vote_intl_coalition_order <- lm(vote_intl_coalition > 0 ~ vote_intl_coalition_order, data = all, weights = weight)
+split_few_global_order <- lm(revenue_split_few_global > 15 ~ (revenue_split_few_order_global < 3), data = all, weights = weight)
+solidarity_support_aviation_levy_order <- lm(solidarity_support_aviation_levy > 0 ~ (solidarity_support_order_aviation_levy <= 5), data = all, weights = weight)
+solidarity_support_aviation_levy_order2 <- lm(solidarity_support_aviation_levy > 0 ~ (solidarity_support_order_aviation_levy <= 2), data = all, weights = weight)
+summary(ncqg_order) # 9pp less likely to choose >= 100 bn if increasing order (simple version)
+summary(sustainable_future_variant) # 3pp more likely to choose sustainable if it is scenario A
+summary(transfer_how_cash_unconditional_order) # 9pp less likely to consider UCT right way if it's the first option
+summary(vote_intl_coalition_order) # 5pp more likely to say "more likely" if it's the first option
+summary(gcs_comprehension_order) # 3pp more likely to be correct if it's first option
+summary(ncqg_fusion_variant) # 8pp more likely to choose >= 100 bn in long version
+summary(lm(unlist(all[,variables_split_few]) ~ factor(unlist(all[,variables_split_few_order])), weights = rep(all$weight, 5)))
+summary(split_few_global_order <- lm(revenue_split_few_global ~ (revenue_split_few_order_global == 1), data = all, weights = weight))
+summary(lm(revenue_split_few_global > 15 ~ (revenue_split_few_order_global < 3), data = all, weights = weight)) # 8pp more likely to choose > 15% if first or second option
+summary(lm(solidarity_support_aviation_levy > 0 ~ (solidarity_support_order_aviation_levy < 5), data = all, weights = weight)) # 2pp less likely to support aviation tax if in first half
+summary(lm(why_hic_help_lic_duty ~ (why_hic_help_lic_order_duty == 1), data = all, weights = weight)) # no effect
+summary(lm(why_hic_help_lic_duty ~ (why_hic_help_lic_order_duty == 3), data = all, weights = weight)) # 5pp less likely to choose duty if last option
+summary(lm(unlist(all[,variables_split_few]) > 15 ~ factor(unlist(all[,variables_split_few_order])), weights = rep(all$weight, 5))) # 
+summary(lm(unlist(all[,variables_split_many]) > 15 ~ factor(unlist(all[,variables_split_many_order])), weights = rep(all$weight, 5))) # 
+summary(lm(unlist(all[,variables_solidarity_support]) > 0 ~ factor(unlist(all[,variables_solidarity_support_order])), weights = rep(all$weight, 10))) # support 2pp less likely if first
+summary(lm(unlist(all[,variables_solidarity_support]) < 0 ~ factor(unlist(all[,variables_solidarity_support_order])), weights = rep(all$weight, 10))) # opposition more likely if last half
+summary(lm(unlist(all[,variables_solidarity_support]) == 0 ~ factor(unlist(all[,variables_solidarity_support_order])), weights = rep(all$weight, 10))) # indifference 2pp more likely if first or last half
+sort(sapply(base_solidarity_support, function(v) unname(lm(reg_formula(paste0("solidarity_support_", v, " > 0"), paste0("solidarity_support_order_", v, " > 5")), data = all, weights = weight)$coefficients[2]))) # aviation most influenceable
+sort(sapply(base_solidarity_support, function(v) unname(summary(lm(reg_formula(paste0("solidarity_support_", v, " > 0"), paste0("solidarity_support_order_", v, " > 5")), data = all, weights = weight))$fstatistic[1])))
+sort(sapply(countries[-9], function(c) unname(lm(unlist(d(c)[,variables_solidarity_support]) > 0 ~ unlist(d(c)[,variables_solidarity_support_order]), weights = rep(d(c)$weight, length(variables_solidarity_support_order)))$coefficients[2])))
+sort(sapply(countries[-9], function(c) unname(summary(lm(unlist(d(c)[,variables_solidarity_support]) > 0 ~ unlist(d(c)[,variables_solidarity_support_order]), weights = rep(d(c)$weight, length(variables_solidarity_support_order))))$fstatistic[1])))
+sort(sapply(base_split_few, function(v) unname(lm(reg_formula(paste0("revenue_split_few_", v, " > 15"), paste0("revenue_split_few_order_", v, " == 1")), data = all, weights = weight)$coefficients[2])))
+sort(sapply(base_split_few, function(v) unname(summary(lm(reg_formula(paste0("revenue_split_few_", v, " > 15"), paste0("revenue_split_few_order_", v, " == 1")), data = all, weights = weight))$fstatistic[1])))
+sort(sapply(base_split_many, function(v) unname(lm(reg_formula(paste0("revenue_split_many_", v, " > 15"), paste0("revenue_split_many_order_", v, " == 1")), data = all, weights = weight)$coefficients[2])))
+sort(sapply(base_split_many, function(v) unname(summary(lm(reg_formula(paste0("revenue_split_many_", v, " > 15"), paste0("revenue_split_many_order_", v, " == 1")), data = all, weights = weight))$fstatistic[1])))
+sort(sapply(countries[-9], function(c) unname(lm(unlist(d(c)[,c(variables_split_few, variables_split_many)]) > 0 ~ unlist(d(c)[,c(variables_split_few_order, variables_split_many_order)]), weights = rep(d(c)$weight, 18))$coefficients[2])))
+sort(sapply(countries[-9], function(c) unname(summary(lm(unlist(d(c)[,c(variables_split_few, variables_split_many)]) > 0 ~ unlist(d(c)[,c(variables_split_few_order, variables_split_many_order)]), weights = rep(d(c)$weight, 18)))$fstatistic[1])))
+
 
 ##### Attrition #####
 # vote = end sociodemos = 21; 26% dropout at 34 (revenue_split), 7% at 33 (conjoint), 8% at 49 (likely_solidarity), 5% at 59 (scenarios)

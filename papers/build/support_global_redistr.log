@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  20 AUG 2025 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  22 AUG 2025 02:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2473,12 +2473,12 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
  [2
 
 ]
-<../figures/maps_participation/country_coverage_progress.png, id=120, 1051.67906pt x 264.23718pt>
+<../figures/maps_participation/country_coverage_progress.png, id=130, 1051.67906pt x 264.23718pt>
 File: ../figures/maps_participation/country_coverage_progress.png Graphic file (type png)
 <use ../figures/maps_participation/country_coverage_progress.png>
 Package pdftex.def Info: ../figures/maps_participation/country_coverage_progress.png  used on input line 160.
 (pdftex.def)             Requested size: 469.75502pt x 118.02666pt.
-<../figures/questionnaire/survey_flow.pdf, id=122, 789.95125pt x 539.01375pt>
+<../figures/questionnaire/survey_flow.pdf, id=132, 789.95125pt x 539.01375pt>
 File: ../figures/questionnaire/survey_flow.pdf Graphic file (type pdf)
 <use ../figures/questionnaire/survey_flow.pdf>
 Package pdftex.def Info: ../figures/questionnaire/survey_flow.pdf  used on input line 166.
@@ -2487,22 +2487,22 @@ Package pdftex.def Info: ../figures/questionnaire/survey_flow.pdf  used on input
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/concerns_field_en.pdf, id=127, 250.9375pt x 250.9375pt>
+<../figures/all/concerns_field_en.pdf, id=137, 250.9375pt x 250.9375pt>
 File: ../figures/all/concerns_field_en.pdf Graphic file (type pdf)
 <use ../figures/all/concerns_field_en.pdf>
 Package pdftex.def Info: ../figures/all/concerns_field_en.pdf  used on input line 173.
 (pdftex.def)             Requested size: 230.18253pt x 230.1952pt.
-<../figures/all/wish_field_en.pdf, id=128, 401.5pt x 401.5pt>
+<../figures/all/wish_field_en.pdf, id=138, 401.5pt x 401.5pt>
 File: ../figures/all/wish_field_en.pdf Graphic file (type pdf)
 <use ../figures/all/wish_field_en.pdf>
 Package pdftex.def Info: ../figures/all/wish_field_en.pdf  used on input line 177.
 (pdftex.def)             Requested size: 230.18253pt x 230.1868pt.
-<../figures/all/issue_field_en.pdf, id=129, 401.5pt x 401.5pt>
+<../figures/all/issue_field_en.pdf, id=139, 401.5pt x 401.5pt>
 File: ../figures/all/issue_field_en.pdf Graphic file (type pdf)
 <use ../figures/all/issue_field_en.pdf>
 Package pdftex.def Info: ../figures/all/issue_field_en.pdf  used on input line 181.
 (pdftex.def)             Requested size: 230.18253pt x 230.1868pt.
-<../figures/all/injustice_field_en.pdf, id=130, 250.9375pt x 250.9375pt>
+<../figures/all/injustice_field_en.pdf, id=140, 250.9375pt x 250.9375pt>
 File: ../figures/all/injustice_field_en.pdf Graphic file (type pdf)
 <use ../figures/all/injustice_field_en.pdf>
 Package pdftex.def Info: ../figures/all/injustice_field_en.pdf  used on input line 185.
@@ -2512,12 +2512,12 @@ Underfull \hbox (badness 4467) in paragraph at lines 171--187
 [][] []
  []
 
-<../figures/country_comparison/split_main_means_nolegend.pdf, id=135, 383.4325pt x 312.16624pt>
+<../figures/country_comparison/split_main_means_nolegend.pdf, id=145, 383.4325pt x 312.16624pt>
 File: ../figures/country_comparison/split_main_means_nolegend.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_main_means_nolegend.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_main_means_nolegend.pdf  used on input line 204.
 (pdftex.def)             Requested size: 289.598pt x 235.76642pt.
-<../figures/country_comparison/split_main_nb0_nolabel.pdf, id=136, 221.82875pt x 312.16624pt>
+<../figures/country_comparison/split_main_nb0_nolabel.pdf, id=146, 221.82875pt x 312.16624pt>
 File: ../figures/country_comparison/split_main_nb0_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_main_nb0_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_main_nb0_nolabel.pdf  used on input line 208.
@@ -2527,7 +2527,7 @@ Overfull \hbox (2.28001pt too wide) in paragraph at lines 202--211
 [][] [] 
  []
 
-<../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf, id=141, 658.46pt x 299.1175pt>
+<../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf, id=151, 658.46pt x 299.1175pt>
 File: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf>
 Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf  used on input line 216.
@@ -2535,7 +2535,7 @@ Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/variables_wealth_tax_support_by_country.pdf, id=146, 534.99875pt x 234.8775pt>
+<../figures/country_comparison/variables_wealth_tax_support_by_country.pdf, id=156, 534.99875pt x 234.8775pt>
 File: ../figures/country_comparison/variables_wealth_tax_support_by_country.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_wealth_tax_support_by_country.pdf>
 Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_support_by_country.pdf  used on input line 222.
@@ -2543,7 +2543,7 @@ Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_supp
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf, id=149, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf, id=159, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf>
 Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf  used on input line 229.
@@ -2553,7 +2553,7 @@ Overfull \hbox (30.39778pt too wide) in paragraph at lines 229--230
 [][] 
  []
 
-<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf, id=150, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf, id=160, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf>
 Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf  used on input line 233.
@@ -2568,7 +2568,7 @@ Underfull \hbox (badness 1052) in paragraph at lines 240--240
 []\OT1/ppl/m/n/10.95 (a) |Ef-fect of a \OT1/ppl/m/it/10.95 Do-na-tion lot-tery \OT1/ppl/m/n/10.95 treat-ment
  []
 
-<../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf, id=155, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf, id=165, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf>
 Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf  used on input line 241.
@@ -2578,7 +2578,7 @@ Overfull \hbox (49.19199pt too wide) in paragraph at lines 241--242
 [][] 
  []
 
-<../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf, id=160, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf, id=170, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf>
 Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf  used on input line 245.
@@ -2589,7 +2589,7 @@ Overfull \hbox (30.39778pt too wide) in paragraph at lines 245--246
  []
 
 (../tables/iv.tex)
-<../figures/country_comparison/solidarity_support_share.pdf, id=163, 943.525pt x 498.86375pt>
+<../figures/country_comparison/solidarity_support_share.pdf, id=173, 943.525pt x 498.86375pt>
 File: ../figures/country_comparison/solidarity_support_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_share.pdf  used on input line 257.
@@ -2598,7 +2598,7 @@ Package pdftex.def Info: ../figures/country_comparison/solidarity_support_share.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/radical_redistr_all_share.pdf, id=176, 1067.99pt x 458.71375pt>
+<../figures/country_comparison/radical_redistr_all_share.pdf, id=186, 1067.99pt x 458.71375pt>
 File: ../figures/country_comparison/radical_redistr_all_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/radical_redistr_all_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/radical_redistr_all_share.pdf  used on input line 263.
@@ -2606,7 +2606,7 @@ Package pdftex.def Info: ../figures/country_comparison/radical_redistr_all_share
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/group_defended_nolabel.pdf, id=179, 694.595pt x 83.31125pt>
+<../figures/all/group_defended_nolabel.pdf, id=189, 694.595pt x 83.31125pt>
 File: ../figures/all/group_defended_nolabel.pdf Graphic file (type pdf)
 <use ../figures/all/group_defended_nolabel.pdf>
 Package pdftex.def Info: ../figures/all/group_defended_nolabel.pdf  used on input line 269.
@@ -2614,7 +2614,7 @@ Package pdftex.def Info: ../figures/all/group_defended_nolabel.pdf  used on inpu
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/transfer_how_positive.pdf, id=182, 904.37875pt x 360.34625pt>
+<../figures/country_comparison/transfer_how_positive.pdf, id=192, 904.37875pt x 360.34625pt>
 File: ../figures/country_comparison/transfer_how_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf  used on input line 275.
@@ -2622,7 +2622,7 @@ Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/questionnaire/survey_custom_redistr_bottom.png, id=185, 293.29575pt x 479.99326pt>
+<../figures/questionnaire/survey_custom_redistr_bottom.png, id=195, 293.29575pt x 479.99326pt>
 File: ../figures/questionnaire/survey_custom_redistr_bottom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_bottom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_bottom.png  used on input line 281.
@@ -2671,12 +2671,12 @@ No file bu.aux.
 (./app.tex [13
 
 ]
-<../figures/country_comparison/field_keyword_main_positive.pdf, id=519, 762.85pt x 852.18375pt>
+<../figures/country_comparison/field_keyword_main_positive.pdf, id=529, 762.85pt x 852.18375pt>
 File: ../figures/country_comparison/field_keyword_main_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_keyword_main_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_keyword_main_positive.pdf  used on input line 10.
 (pdftex.def)             Requested size: 472.11238pt x 527.3693pt.
-<../figures/country_comparison/field_gpt_positive.pdf, id=524, 725.71124pt x 852.18375pt>
+<../figures/country_comparison/field_gpt_positive.pdf, id=534, 725.71124pt x 852.18375pt>
 File: ../figures/country_comparison/field_gpt_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_gpt_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_gpt_positive.pdf  used on input line 16.
@@ -2685,7 +2685,7 @@ Package pdftex.def Info: ../figures/country_comparison/field_gpt_positive.pdf  u
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/field_manual_positive.pdf, id=529, 725.71124pt x 852.18375pt>
+<../figures/country_comparison/field_manual_positive.pdf, id=539, 725.71124pt x 852.18375pt>
 File: ../figures/country_comparison/field_manual_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_manual_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_manual_positive.pdf  used on input line 22.
@@ -2693,7 +2693,7 @@ Package pdftex.def Info: ../figures/country_comparison/field_manual_positive.pdf
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/field_concerns_manual_positive.pdf, id=532, 725.71124pt x 852.18375pt>
+<../figures/country_comparison/field_concerns_manual_positive.pdf, id=542, 725.71124pt x 852.18375pt>
 File: ../figures/country_comparison/field_concerns_manual_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_concerns_manual_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_concerns_manual_positive.pdf  used on input line 28.
@@ -2701,7 +2701,7 @@ Package pdftex.def Info: ../figures/country_comparison/field_concerns_manual_pos
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/field_wish_manual_positive.pdf, id=535, 725.71124pt x 852.18375pt>
+<../figures/country_comparison/field_wish_manual_positive.pdf, id=545, 725.71124pt x 852.18375pt>
 File: ../figures/country_comparison/field_wish_manual_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_wish_manual_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_wish_manual_positive.pdf  used on input line 34.
@@ -2709,7 +2709,7 @@ Package pdftex.def Info: ../figures/country_comparison/field_wish_manual_positiv
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/field_issue_manual_positive.pdf, id=538, 725.71124pt x 852.18375pt>
+<../figures/country_comparison/field_issue_manual_positive.pdf, id=548, 725.71124pt x 852.18375pt>
 File: ../figures/country_comparison/field_issue_manual_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/field_issue_manual_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/field_issue_manual_positive.pdf  used on input line 40.
@@ -2724,7 +2724,7 @@ Package pdftex.def Info: ../figures/country_comparison/field_concerns_manual_pos
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-FR.pdf, id=545, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-FR.pdf, id=555, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-FR.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-FR.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-FR.pdf  used on input line 52.
@@ -2732,7 +2732,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-FR.pdf  used on input line 5
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-DE.pdf, id=550, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-DE.pdf, id=560, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-DE.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-DE.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-DE.pdf  used on input line 58.
@@ -2740,7 +2740,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-DE.pdf  used on input line 5
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-IT.pdf, id=555, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-IT.pdf, id=565, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-IT.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-IT.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-IT.pdf  used on input line 64.
@@ -2748,7 +2748,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-IT.pdf  used on input line 6
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-PL.pdf, id=560, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-PL.pdf, id=570, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-PL.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-PL.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-PL.pdf  used on input line 70.
@@ -2756,7 +2756,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-PL.pdf  used on input line 7
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-ES.pdf, id=565, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-ES.pdf, id=575, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-ES.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-ES.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-ES.pdf  used on input line 76.
@@ -2764,7 +2764,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-ES.pdf  used on input line 7
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-GB.pdf, id=568, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-GB.pdf, id=578, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-GB.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-GB.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-GB.pdf  used on input line 82.
@@ -2772,7 +2772,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-GB.pdf  used on input line 8
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-CH.pdf, id=571, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-CH.pdf, id=581, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-CH.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-CH.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-CH.pdf  used on input line 88.
@@ -2780,7 +2780,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-CH.pdf  used on input line 8
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN-JA.pdf, id=574, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN-JA.pdf, id=584, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN-JA.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN-JA.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN-JA.pdf  used on input line 94.
@@ -2788,7 +2788,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN-JA.pdf  used on input line 9
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_EN.pdf, id=577, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_EN.pdf, id=587, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_EN.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_EN.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_EN.pdf  used on input line 99.
@@ -2796,7 +2796,7 @@ Package pdftex.def Info: ../figures/all/conjoint_EN.pdf  used on input line 99.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_FR.pdf, id=582, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_FR.pdf, id=592, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_FR.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_FR.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_FR.pdf  used on input line 105.
@@ -2804,7 +2804,7 @@ Package pdftex.def Info: ../figures/all/conjoint_FR.pdf  used on input line 105.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_DE.pdf, id=587, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_DE.pdf, id=597, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_DE.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_DE.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_DE.pdf  used on input line 111.
@@ -2812,7 +2812,7 @@ Package pdftex.def Info: ../figures/all/conjoint_DE.pdf  used on input line 111.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_IT.pdf, id=592, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_IT.pdf, id=602, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_IT.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_IT.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_IT.pdf  used on input line 117.
@@ -2820,7 +2820,7 @@ Package pdftex.def Info: ../figures/all/conjoint_IT.pdf  used on input line 117.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_PL.pdf, id=597, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_PL.pdf, id=607, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_PL.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_PL.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_PL.pdf  used on input line 123.
@@ -2828,7 +2828,7 @@ Package pdftex.def Info: ../figures/all/conjoint_PL.pdf  used on input line 123.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/conjoint_ES-ES.pdf, id=602, 1003.75pt x 702.625pt>
+<../figures/all/conjoint_ES-ES.pdf, id=612, 1003.75pt x 702.625pt>
 File: ../figures/all/conjoint_ES-ES.pdf Graphic file (type pdf)
 <use ../figures/all/conjoint_ES-ES.pdf>
 Package pdftex.def Info: ../figures/all/conjoint_ES-ES.pdf  used on input line 129.
@@ -2836,7 +2836,7 @@ Package pdftex.def Info: ../figures/all/conjoint_ES-ES.pdf  used on input line 1
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/JP/conjoint_JA.png, id=607, 668.4975pt x 411.03563pt>
+<../figures/JP/conjoint_JA.png, id=617, 668.4975pt x 411.03563pt>
 File: ../figures/JP/conjoint_JA.png Graphic file (type png)
 <use ../figures/JP/conjoint_JA.png>
 Package pdftex.def Info: ../figures/JP/conjoint_JA.png  used on input line 135.
@@ -2844,7 +2844,7 @@ Package pdftex.def Info: ../figures/JP/conjoint_JA.png  used on input line 135.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/split_few_bars_nb0.pdf, id=610, 517.935pt x 426.59375pt>
+<../figures/country_comparison/split_few_bars_nb0.pdf, id=620, 517.935pt x 426.59375pt>
 File: ../figures/country_comparison/split_few_bars_nb0.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_few_bars_nb0.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_few_bars_nb0.pdf  used on input line 141.
@@ -2852,7 +2852,7 @@ Package pdftex.def Info: ../figures/country_comparison/split_few_bars_nb0.pdf  u
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/split_few.pdf, id=613, 528.97626pt x 251.94125pt>
+<../figures/all/split_few.pdf, id=623, 528.97626pt x 251.94125pt>
 File: ../figures/all/split_few.pdf Graphic file (type pdf)
 <use ../figures/all/split_few.pdf>
 Package pdftex.def Info: ../figures/all/split_few.pdf  used on input line 147.
@@ -2860,7 +2860,7 @@ Package pdftex.def Info: ../figures/all/split_few.pdf  used on input line 147.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/split_many.pdf, id=616, 608.2725pt x 492.84125pt>
+<../figures/all/split_many.pdf, id=626, 608.2725pt x 492.84125pt>
 File: ../figures/all/split_many.pdf Graphic file (type pdf)
 <use ../figures/all/split_many.pdf>
 Package pdftex.def Info: ../figures/all/split_many.pdf  used on input line 153.
@@ -2868,7 +2868,7 @@ Package pdftex.def Info: ../figures/all/split_many.pdf  used on input line 153.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/split_many_global_mean.pdf, id=619, 1038.88126pt x 280.04625pt>
+<../figures/country_comparison/split_many_global_mean.pdf, id=629, 1038.88126pt x 280.04625pt>
 File: ../figures/country_comparison/split_many_global_mean.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/split_many_global_mean.pdf>
 Package pdftex.def Info: ../figures/country_comparison/split_many_global_mean.pdf  used on input line 159.
@@ -2881,7 +2881,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 170--170
 
  []
 
-<../figures/country_comparison/donation_agg_nolabel.pdf, id=622, 522.95375pt x 299.1175pt>
+<../figures/country_comparison/donation_agg_nolabel.pdf, id=632, 522.95375pt x 299.1175pt>
 File: ../figures/country_comparison/donation_agg_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/donation_agg_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/donation_agg_nolabel.pdf  used on input line 171.
@@ -2889,7 +2889,7 @@ Package pdftex.def Info: ../figures/country_comparison/donation_agg_nolabel.pdf 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=627, 1259.70625pt x 390.45876pt>
+<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=637, 1259.70625pt x 390.45876pt>
 File: ../figures/country_comparison/ncs_gcs_ics_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/ncs_gcs_ics_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf  used on input line 183.
@@ -2897,7 +2897,7 @@ Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/solidarity_support_positive.pdf, id=630, 943.525pt x 498.86375pt>
+<../figures/country_comparison/solidarity_support_positive.pdf, id=640, 943.525pt x 498.86375pt>
 File: ../figures/country_comparison/solidarity_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positive.pdf  used on input line 189.
@@ -2905,7 +2905,7 @@ Package pdftex.def Info: ../figures/country_comparison/solidarity_support_positi
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/share_solidarity_supported_nolabel.pdf, id=633, 644.4075pt x 321.2pt>
+<../figures/country_comparison/share_solidarity_supported_nolabel.pdf, id=643, 644.4075pt x 321.2pt>
 File: ../figures/country_comparison/share_solidarity_supported_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_supported_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_nolabel.pdf  used on input line 195.
@@ -2913,7 +2913,7 @@ Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supporte
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/share_solidarity_opposed_nolabel.pdf, id=636, 644.4075pt x 321.2pt>
+<../figures/country_comparison/share_solidarity_opposed_nolabel.pdf, id=646, 644.4075pt x 321.2pt>
 File: ../figures/country_comparison/share_solidarity_opposed_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_opposed_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/share_solidarity_opposed_nolabel.pdf  used on input line 201.
@@ -2921,7 +2921,7 @@ Package pdftex.def Info: ../figures/country_comparison/share_solidarity_opposed_
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/ncqg_nolabel.pdf, id=639, 686.565pt x 322.20375pt>
+<../figures/country_comparison/ncqg_nolabel.pdf, id=649, 686.565pt x 322.20375pt>
 File: ../figures/country_comparison/ncqg_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/ncqg_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/ncqg_nolabel.pdf  used on input line 207.
@@ -2929,7 +2929,7 @@ Package pdftex.def Info: ../figures/country_comparison/ncqg_nolabel.pdf  used on
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/ncqg_full_nolabel.pdf, id=642, 587.19376pt x 322.20375pt>
+<../figures/country_comparison/ncqg_full_nolabel.pdf, id=652, 587.19376pt x 322.20375pt>
 File: ../figures/country_comparison/ncqg_full_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/ncqg_full_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/ncqg_full_nolabel.pdf  used on input line 213.
@@ -2937,7 +2937,7 @@ Package pdftex.def Info: ../figures/country_comparison/ncqg_full_nolabel.pdf  us
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/wealth_tax_support_positive.pdf, id=647, 916.42375pt x 211.79124pt>
+<../figures/country_comparison/wealth_tax_support_positive.pdf, id=657, 916.42375pt x 211.79124pt>
 File: ../figures/country_comparison/wealth_tax_support_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/wealth_tax_support_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/wealth_tax_support_positive.pdf  used on input line 219.
@@ -2945,7 +2945,7 @@ Package pdftex.def Info: ../figures/country_comparison/wealth_tax_support_positi
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/sustainable_future_nolabel.pdf, id=650, 279.0425pt x 323.2075pt>
+<../figures/country_comparison/sustainable_future_nolabel.pdf, id=660, 279.0425pt x 323.2075pt>
 File: ../figures/country_comparison/sustainable_future_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/sustainable_future_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/sustainable_future_nolabel.pdf  used on input line 225.
@@ -2953,7 +2953,7 @@ Package pdftex.def Info: ../figures/country_comparison/sustainable_future_nolabe
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/top_tax_share.pdf, id=655, 1026.83624pt x 163.61125pt>
+<../figures/country_comparison/top_tax_share.pdf, id=665, 1026.83624pt x 163.61125pt>
 File: ../figures/country_comparison/top_tax_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/top_tax_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/top_tax_share.pdf  used on input line 231.
@@ -2961,7 +2961,7 @@ Package pdftex.def Info: ../figures/country_comparison/top_tax_share.pdf  used o
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/top_tax_positive.pdf, id=660, 1026.83624pt x 163.61125pt>
+<../figures/country_comparison/top_tax_positive.pdf, id=670, 1026.83624pt x 163.61125pt>
 File: ../figures/country_comparison/top_tax_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/top_tax_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/top_tax_positive.pdf  used on input line 237.
@@ -2976,7 +2976,7 @@ Package pdftex.def Info: ../figures/country_comparison/transfer_how_positive.pdf
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/transfer_how_above_one.pdf, id=665, 904.37875pt x 360.34625pt>
+<../figures/country_comparison/transfer_how_above_one.pdf, id=675, 904.37875pt x 360.34625pt>
 File: ../figures/country_comparison/transfer_how_above_one.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_above_one.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_above_one.pdf  used on input line 249.
@@ -2984,7 +2984,7 @@ Package pdftex.def Info: ../figures/country_comparison/transfer_how_above_one.pd
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/transfer_how_negative.pdf, id=668, 904.37875pt x 360.34625pt>
+<../figures/country_comparison/transfer_how_negative.pdf, id=678, 904.37875pt x 360.34625pt>
 File: ../figures/country_comparison/transfer_how_negative.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/transfer_how_negative.pdf>
 Package pdftex.def Info: ../figures/country_comparison/transfer_how_negative.pdf  used on input line 255.
@@ -2992,7 +2992,7 @@ Package pdftex.def Info: ../figures/country_comparison/transfer_how_negative.pdf
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/convergence_support_nolabel.pdf, id=671, 438.63875pt x 321.2pt>
+<../figures/country_comparison/convergence_support_nolabel.pdf, id=681, 438.63875pt x 321.2pt>
 File: ../figures/country_comparison/convergence_support_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/convergence_support_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/convergence_support_nolabel.pdf  used on input line 261.
@@ -3000,7 +3000,7 @@ Package pdftex.def Info: ../figures/country_comparison/convergence_support_nolab
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/global_movement_positive.pdf, id=674, 789.95125pt x 282.05376pt>
+<../figures/country_comparison/global_movement_positive.pdf, id=684, 789.95125pt x 282.05376pt>
 File: ../figures/country_comparison/global_movement_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/global_movement_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/global_movement_positive.pdf  used on input line 267.
@@ -3013,7 +3013,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 272--272
 
  []
 
-<../figures/country_comparison/vote_intl_coalition_nolabel.pdf, id=677, 371.3875pt x 366.36874pt>
+<../figures/country_comparison/vote_intl_coalition_nolabel.pdf, id=687, 371.3875pt x 366.36874pt>
 File: ../figures/country_comparison/vote_intl_coalition_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_intl_coalition_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_intl_coalition_nolabel.pdf  used on input line 273.
@@ -3021,7 +3021,7 @@ Package pdftex.def Info: ../figures/country_comparison/vote_intl_coalition_nolab
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=680, 877.2775pt x 231.86626pt>
+<../figures/country_comparison/why_hic_help_lic_positive.pdf, id=690, 877.2775pt x 231.86626pt>
 File: ../figures/country_comparison/why_hic_help_lic_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/why_hic_help_lic_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/why_hic_help_lic_positive.pdf  used on input line 279.
@@ -3039,7 +3039,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--284
 
  []
 
-<../figures/country_comparison/reparations_support_nolabel.pdf, id=683, 668.4975pt x 276.03125pt>
+<../figures/country_comparison/reparations_support_nolabel.pdf, id=693, 668.4975pt x 276.03125pt>
 File: ../figures/country_comparison/reparations_support_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/reparations_support_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/reparations_support_nolabel.pdf  used on input line 285.
@@ -3047,7 +3047,7 @@ Package pdftex.def Info: ../figures/country_comparison/reparations_support_nolab
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/all/custom_redistr_mean.png, id=686, 662.475pt x 530.58224pt>
+<../figures/all/custom_redistr_mean.png, id=696, 662.475pt x 530.58224pt>
 File: ../figures/all/custom_redistr_mean.png Graphic file (type png)
 <use ../figures/all/custom_redistr_mean.png>
 Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input line 291.
@@ -3055,7 +3055,7 @@ Package pdftex.def Info: ../figures/all/custom_redistr_mean.png  used on input l
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=689, 599.23875pt x 498.663pt>
+<../figures/questionnaire/survey_custom_redistr_median_zoom.png, id=699, 599.23875pt x 498.663pt>
 File: ../figures/questionnaire/survey_custom_redistr_median_zoom.png Graphic file (type png)
 <use ../figures/questionnaire/survey_custom_redistr_median_zoom.png>
 Package pdftex.def Info: ../figures/questionnaire/survey_custom_redistr_median_zoom.png  used on input line 297.
@@ -3068,7 +3068,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 308--308
 
  []
 
-<../figures/country_comparison/gcs_comprehension_nolabel.pdf, id=692, 350.30875pt x 321.2pt>
+<../figures/country_comparison/gcs_comprehension_nolabel.pdf, id=702, 350.30875pt x 321.2pt>
 File: ../figures/country_comparison/gcs_comprehension_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/gcs_comprehension_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/gcs_comprehension_nolabel.pdf  used on input line 309.
@@ -3076,7 +3076,7 @@ Package pdftex.def Info: ../figures/country_comparison/gcs_comprehension_nolabel
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/my_tax_global_nation_share.pdf, id=695, 989.6975pt x 125.46875pt>
+<../figures/country_comparison/my_tax_global_nation_share.pdf, id=705, 989.6975pt x 125.46875pt>
 File: ../figures/country_comparison/my_tax_global_nation_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_share.pdf>
 Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_share.pdf  used on input line 315.
@@ -3084,7 +3084,7 @@ Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_shar
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=698, 989.6975pt x 125.46875pt>
+<../figures/country_comparison/my_tax_global_nation_positive.pdf, id=708, 989.6975pt x 125.46875pt>
 File: ../figures/country_comparison/my_tax_global_nation_positive.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/my_tax_global_nation_positive.pdf>
 Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_positive.pdf  used on input line 321.
@@ -3092,7 +3092,7 @@ Package pdftex.def Info: ../figures/country_comparison/my_tax_global_nation_posi
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/group_defended_nolabel.pdf, id=701, 689.57625pt x 321.2pt>
+<../figures/country_comparison/group_defended_nolabel.pdf, id=711, 689.57625pt x 321.2pt>
 File: ../figures/country_comparison/group_defended_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/group_defended_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/group_defended_nolabel.pdf  used on input line 327.
@@ -3100,7 +3100,7 @@ Package pdftex.def Info: ../figures/country_comparison/group_defended_nolabel.pd
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/survey_biased_nolabel.pdf, id=704, 316.18124pt x 321.2pt>
+<../figures/country_comparison/survey_biased_nolabel.pdf, id=714, 316.18124pt x 321.2pt>
 File: ../figures/country_comparison/survey_biased_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/survey_biased_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/survey_biased_nolabel.pdf  used on input line 339.
@@ -3108,7 +3108,7 @@ Package pdftex.def Info: ../figures/country_comparison/survey_biased_nolabel.pdf
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/millionaire_nolabel.pdf, id=707, 571.13374pt x 321.2pt>
+<../figures/country_comparison/millionaire_nolabel.pdf, id=717, 571.13374pt x 321.2pt>
 File: ../figures/country_comparison/millionaire_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/millionaire_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/millionaire_nolabel.pdf  used on input line 351.
@@ -3116,7 +3116,7 @@ Package pdftex.def Info: ../figures/country_comparison/millionaire_nolabel.pdf  
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/foreign_born_family_nolabel.pdf, id=710, 392.46625pt x 322.20375pt>
+<../figures/country_comparison/foreign_born_family_nolabel.pdf, id=720, 392.46625pt x 322.20375pt>
 File: ../figures/country_comparison/foreign_born_family_nolabel.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/foreign_born_family_nolabel.pdf>
 Package pdftex.def Info: ../figures/country_comparison/foreign_born_family_nolabel.pdf  used on input line 357.
@@ -3124,7 +3124,7 @@ Package pdftex.def Info: ../figures/country_comparison/foreign_born_family_nolab
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/vote_pnr_out.pdf, id=715, 758.835pt x 489.83pt>
+<../figures/country_comparison/vote_pnr_out.pdf, id=725, 758.835pt x 489.83pt>
 File: ../figures/country_comparison/vote_pnr_out.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_pnr_out.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_pnr_out.pdf  used on input line 363.
@@ -3132,7 +3132,7 @@ Package pdftex.def Info: ../figures/country_comparison/vote_pnr_out.pdf  used on
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/vote_representativeness.pdf, id=720, 473.77pt x 489.83pt>
+<../figures/country_comparison/vote_representativeness.pdf, id=730, 473.77pt x 489.83pt>
 File: ../figures/country_comparison/vote_representativeness.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/vote_representativeness.pdf>
 Package pdftex.def Info: ../figures/country_comparison/vote_representativeness.pdf  used on input line 369.
@@ -3365,7 +3365,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 267--271
  []
 
 [64]
-<hwemoji-assets.pdf, id=1658, page=2198, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1668, page=2198, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 284.
@@ -3374,7 +3374,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 2198>
 Package pdftex.def Info: hwemoji-assets.pdf , page2198 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1659, page=1754, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1669, page=1754, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 284.
@@ -3383,7 +3383,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1754>
 Package pdftex.def Info: hwemoji-assets.pdf , page1754 used on input line 284.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1660, page=364, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1670, page=364, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 285.
@@ -3392,7 +3392,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 364>
 Package pdftex.def Info: hwemoji-assets.pdf , page364 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1661, page=1724, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1671, page=1724, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 285.
@@ -3401,7 +3401,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1724>
 Package pdftex.def Info: hwemoji-assets.pdf , page1724 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1662, page=1651, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1672, page=1651, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 285.
@@ -3410,7 +3410,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1651>
 Package pdftex.def Info: hwemoji-assets.pdf , page1651 used on input line 285.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1663, page=333, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1673, page=333, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 286.
@@ -3419,7 +3419,7 @@ File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 333>
 Package pdftex.def Info: hwemoji-assets.pdf , page333 used on input line 286.
 (pdftex.def)             Requested size: 27.10118pt x 27.10118pt.
-<hwemoji-assets.pdf, id=1664, page=1783, 27.10126pt x 27.10126pt>
+<hwemoji-assets.pdf, id=1674, page=1783, 27.10126pt x 27.10126pt>
 File: hwemoji-assets.pdf Graphic file (type pdf)
 <use hwemoji-assets.pdf, page 1783>
 Package pdftex.def Info: hwemoji-assets.pdf , page1783 used on input line 286.
@@ -3682,12 +3682,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [78
 
 ] [79] [80]
-<../figures/all/lmg_gcs_support_few.pdf, id=1802, 357.335pt x 252.945pt>
+<../figures/all/lmg_gcs_support_few.pdf, id=1812, 357.335pt x 252.945pt>
 File: ../figures/all/lmg_gcs_support_few.pdf Graphic file (type pdf)
 <use ../figures/all/lmg_gcs_support_few.pdf>
 Package pdftex.def Info: ../figures/all/lmg_gcs_support_few.pdf  used on input line 429.
 (pdftex.def)             Requested size: 230.18253pt x 162.93793pt.
-<../figures/all/lmg_share_solidarity_supported_few.pdf, id=1805, 357.335pt x 252.945pt>
+<../figures/all/lmg_share_solidarity_supported_few.pdf, id=1815, 357.335pt x 252.945pt>
 File: ../figures/all/lmg_share_solidarity_supported_few.pdf Graphic file (type pdf)
 <use ../figures/all/lmg_share_solidarity_supported_few.pdf>
 Package pdftex.def Info: ../figures/all/lmg_share_solidarity_supported_few.pdf  used on input line 433.
@@ -3714,18 +3714,18 @@ Overfull \hbox (0.3157pt too wide) in paragraph at lines 459--460
 [83
 
 ]
-<../figures/questionnaire/algo_1-2.PNG, id=1862, 388.45125pt x 269.50688pt>
+<../figures/questionnaire/algo_1-2.PNG, id=1872, 388.45125pt x 269.50688pt>
 File: ../figures/questionnaire/algo_1-2.PNG Graphic file (type png)
 <use ../figures/questionnaire/algo_1-2.PNG>
 Package pdftex.def Info: ../figures/questionnaire/algo_1-2.PNG  used on input line 469.
 (pdftex.def)             Requested size: 230.18253pt x 159.70265pt.
-<../figures/questionnaire/algo_3-4_full.PNG, id=1863, 397.485pt x 269.50688pt>
+<../figures/questionnaire/algo_3-4_full.PNG, id=1873, 397.485pt x 269.50688pt>
 File: ../figures/questionnaire/algo_3-4_full.PNG Graphic file (type png)
 <use ../figures/questionnaire/algo_3-4_full.PNG>
 Package pdftex.def Info: ../figures/questionnaire/algo_3-4_full.PNG  used on input line 473.
 (pdftex.def)             Requested size: 230.18253pt x 156.07558pt.
  [84 <../figures/questionnaire/algo_1-2.PNG> <../figures/questionnaire/algo_3-4_full.PNG>]
-<../figures/all/tax_radical_redistr.pdf, id=1891, 382.42876pt x 348.30125pt>
+<../figures/all/tax_radical_redistr.pdf, id=1902, 382.42876pt x 348.30125pt>
 File: ../figures/all/tax_radical_redistr.pdf Graphic file (type pdf)
 <use ../figures/all/tax_radical_redistr.pdf>
 Package pdftex.def Info: ../figures/all/tax_radical_redistr.pdf  used on input line 490.
@@ -3735,7 +3735,7 @@ Package pdftex.def Info: ../figures/all/tax_radical_redistr.pdf  used on input l
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [85] [86 <../figures/all/tax_radical_redistr.pdf>]
-<../figures/all/billionaire_stostad.pdf, id=1920, 244.915pt x 244.915pt>
+<../figures/all/billionaire_stostad.pdf, id=1930, 244.915pt x 244.915pt>
 File: ../figures/all/billionaire_stostad.pdf Graphic file (type pdf)
 <use ../figures/all/billionaire_stostad.pdf>
 Package pdftex.def Info: ../figures/all/billionaire_stostad.pdf  used on input line 499.
@@ -3755,7 +3755,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 502--502
 \OT1/ppl/m/n/10.95 lems'' (cross-country cor-re-la-tion with
  []
 
-<../figures/all/my_tax_global_nation_comparison.pdf, id=1927, 244.915pt x 244.915pt>
+<../figures/all/my_tax_global_nation_comparison.pdf, id=1937, 244.915pt x 244.915pt>
 File: ../figures/all/my_tax_global_nation_comparison.pdf Graphic file (type pdf)
 <use ../figures/all/my_tax_global_nation_comparison.pdf>
 Package pdftex.def Info: ../figures/all/my_tax_global_nation_comparison.pdf  used on input line 503.
@@ -3769,33 +3769,50 @@ Package pdftex.def Info: ../figures/all/my_tax_global_nation_comparison.pdf  use
 ] (../tables/placebo.tex) [90
 
 ]
-<../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf, id=1964, 658.46pt x 299.1175pt>
+Overfull \hbox (2.15869pt too wide) in paragraph at lines 542--542
+[]\OT1/ppl/b/n/17.28 Main re-sults on se-lected de-mo-graph-ics, in-clud-ing by vote 
+ []
+
+<../figures/country_comparison/main_radical_redistr_pol_positive.pdf, id=1970, 1241.63875pt x 657.45625pt>
+File: ../figures/country_comparison/main_radical_redistr_pol_positive.pdf Graphic file (type pdf)
+<use ../figures/country_comparison/main_radical_redistr_pol_positive.pdf>
+Package pdftex.def Info: ../figures/country_comparison/main_radical_redistr_pol_positive.pdf  used on input line 547.
+(pdftex.def)             Requested size: 469.75502pt x 248.73245pt.
+<../figures/country_comparison/solidarity_support_pol_share.pdf, id=1971, 1034.86626pt x 500.87125pt>
+File: ../figures/country_comparison/solidarity_support_pol_share.pdf Graphic file (type pdf)
+<use ../figures/country_comparison/solidarity_support_pol_share.pdf>
+Package pdftex.def Info: ../figures/country_comparison/solidarity_support_pol_share.pdf  used on input line 553.
+(pdftex.def)             Requested size: 469.75502pt x 227.36177pt.
+[91
+
+ <../figures/country_comparison/main_radical_redistr_pol_positive.pdf> <../figures/country_comparison/solidarity_support_pol_share.pdf>]
+<../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf, id=1999, 658.46pt x 299.1175pt>
 File: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf  used on input line 547.
+Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf  used on input line 562.
 (pdftex.def)             Requested size: 469.75502pt x 213.39728pt.
-<../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf, id=1969, 534.99875pt x 234.8775pt>
+<../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf, id=2004, 534.99875pt x 234.8775pt>
 File: ../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf  used on input line 553.
+Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf  used on input line 568.
 (pdftex.def)             Requested size: 422.77664pt x 185.61569pt.
-<../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf, id=1972, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf, id=2007, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf  used on input line 560.
+Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf  used on input line 575.
 (pdftex.def)             Requested size: 238.86703pt x 204.74303pt.
 
-Overfull \hbox (8.68451pt too wide) in paragraph at lines 560--561
+Overfull \hbox (8.68451pt too wide) in paragraph at lines 575--576
 [][] 
  []
 
-<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf, id=1973, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf, id=2008, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf  used on input line 564.
+Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf  used on input line 579.
 (pdftex.def)             Requested size: 238.86703pt x 204.74303pt.
 
-Overfull \hbox (8.68451pt too wide) in paragraph at lines 564--565
+Overfull \hbox (8.68451pt too wide) in paragraph at lines 579--580
 [][] 
  []
 
@@ -3803,113 +3820,115 @@ Overfull \hbox (8.68451pt too wide) in paragraph at lines 564--565
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 1052) in paragraph at lines 571--571
+Underfull \hbox (badness 1052) in paragraph at lines 586--586
 []\OT1/ppl/m/n/10.95 (a) |Ef-fect of a \OT1/ppl/m/it/10.95 Do-na-tion lot-tery \OT1/ppl/m/n/10.95 treat-ment
  []
 
-<../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf, id=1978, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf, id=2013, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf  used on input line 572.
+Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf  used on input line 587.
 (pdftex.def)             Requested size: 238.86703pt x 204.74303pt.
 
-Overfull \hbox (27.47871pt too wide) in paragraph at lines 572--573
+Overfull \hbox (27.47871pt too wide) in paragraph at lines 587--588
 [][] 
  []
 
-<../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf, id=1983, 274.02374pt x 234.8775pt>
+<../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf, id=2018, 274.02374pt x 234.8775pt>
 File: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf>
-Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf  used on input line 576.
+Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf  used on input line 591.
 (pdftex.def)             Requested size: 238.86703pt x 204.74303pt.
 
-Overfull \hbox (8.68451pt too wide) in paragraph at lines 576--577
+Overfull \hbox (8.68451pt too wide) in paragraph at lines 591--592
 [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/solidarity_support_weight_vote_share.pdf, id=1986, 943.525pt x 498.86375pt>
+<../figures/country_comparison/solidarity_support_weight_vote_share.pdf, id=2021, 943.525pt x 498.86375pt>
 File: ../figures/country_comparison/solidarity_support_weight_vote_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_weight_vote_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/solidarity_support_weight_vote_share.pdf  used on input line 583.
+Package pdftex.def Info: ../figures/country_comparison/solidarity_support_weight_vote_share.pdf  used on input line 598.
 (pdftex.def)             Requested size: 469.75502pt x 248.37318pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/radical_redistr_weight_vote_share.pdf, id=1999, 1124.2pt x 458.71375pt>
+<../figures/country_comparison/radical_redistr_weight_vote_share.pdf, id=2034, 1124.2pt x 458.71375pt>
 File: ../figures/country_comparison/radical_redistr_weight_vote_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/radical_redistr_weight_vote_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/radical_redistr_weight_vote_share.pdf  used on input line 589.
+Package pdftex.def Info: ../figures/country_comparison/radical_redistr_weight_vote_share.pdf  used on input line 604.
 (pdftex.def)             Requested size: 469.75502pt x 191.67154pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[91
+[92
 
- <../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf> <../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf>] [92 <../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf> <../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf>] [93 <../figures/country_comparison/solidarity_support_weight_vote_share.pdf> <../figures/country_comparison/radical_redistr_weight_vote_share.pdf>]
-<../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf, id=2128, 658.46pt x 299.1175pt>
+ <../figures/country_comparison/variables_ncs_gcs_ics_by_country_weight_vote.pdf> <../figures/country_comparison/variables_wealth_tax_support_by_country_weight_vote.pdf>] [93 <../figures/country_comparison/program_preferred_by_cut_aid_in_program_weight_vote.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_weight_vote.pdf> <../figures/country_comparison/gcs_support_by_variant_warm_glow_weight_vote.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity_weight_vote.pdf>] [94 <../figures/country_comparison/solidarity_support_weight_vote_share.pdf> <../figures/country_comparison/radical_redistr_weight_vote_share.pdf>]
+<../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf, id=2162, 658.46pt x 299.1175pt>
 File: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf  used on input line 606.
+Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf  used on input line 621.
 (pdftex.def)             Requested size: 469.75502pt x 213.39728pt.
-<../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf, id=2133, 534.99875pt x 234.8775pt>
+<../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf, id=2167, 534.99875pt x 234.8775pt>
 File: ../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf  used on input line 612.
+Package pdftex.def Info: ../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf  used on input line 627.
 (pdftex.def)             Requested size: 422.77664pt x 185.61569pt.
-<../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf, id=2136, 274.02374pt x 240.9pt>
+<../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf, id=2170, 274.02374pt x 240.9pt>
 File: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf  used on input line 619.
+Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf  used on input line 634.
 (pdftex.def)             Requested size: 211.73065pt x 186.13089pt.
-<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf, id=2137, 274.02374pt x 240.9pt>
+<../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf, id=2171, 274.02374pt x 240.9pt>
 File: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf  used on input line 623.
+Package pdftex.def Info: ../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf  used on input line 638.
 (pdftex.def)             Requested size: 211.73065pt x 186.13089pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 1052) in paragraph at lines 630--630
+Underfull \hbox (badness 1052) in paragraph at lines 645--645
 []\OT1/ppl/m/n/10.95 (a) |Ef-fect of a \OT1/ppl/m/it/10.95 Do-na-tion lot-tery \OT1/ppl/m/n/10.95 treat-ment
  []
 
-<../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf, id=2142, 274.02374pt x 240.9pt>
+<../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf, id=2176, 274.02374pt x 240.9pt>
 File: ../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf  used on input line 631.
+Package pdftex.def Info: ../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf  used on input line 646.
 (pdftex.def)             Requested size: 211.73065pt x 186.13089pt.
-<../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf, id=2147, 273.02pt x 240.9pt>
+<../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf, id=2181, 273.02pt x 240.9pt>
 File: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf>
-Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf  used on input line 635.
+Package pdftex.def Info: ../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf  used on input line 650.
 (pdftex.def)             Requested size: 210.95508pt x 186.13089pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/solidarity_support_extended_share.pdf, id=2150, 943.525pt x 498.86375pt>
+<../figures/country_comparison/solidarity_support_extended_share.pdf, id=2184, 943.525pt x 498.86375pt>
 File: ../figures/country_comparison/solidarity_support_extended_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/solidarity_support_extended_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/solidarity_support_extended_share.pdf  used on input line 642.
+Package pdftex.def Info: ../figures/country_comparison/solidarity_support_extended_share.pdf  used on input line 657.
 (pdftex.def)             Requested size: 469.75502pt x 248.37318pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/radical_redistr_extended_share.pdf, id=2163, 1124.2pt x 458.71375pt>
+<../figures/country_comparison/radical_redistr_extended_share.pdf, id=2197, 1124.2pt x 458.71375pt>
 File: ../figures/country_comparison/radical_redistr_extended_share.pdf Graphic file (type pdf)
 <use ../figures/country_comparison/radical_redistr_extended_share.pdf>
-Package pdftex.def Info: ../figures/country_comparison/radical_redistr_extended_share.pdf  used on input line 648.
+Package pdftex.def Info: ../figures/country_comparison/radical_redistr_extended_share.pdf  used on input line 663.
 (pdftex.def)             Requested size: 469.75502pt x 191.67154pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) [94
+[95
 
- <../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf> <../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf>] [95 <../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf> <../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf>] [96 <../figures/country_comparison/solidarity_support_extended_share.pdf> <../figures/country_comparison/radical_redistr_extended_share.pdf>] (build/bu2.bbl (build/support_global_redistr.brf)) (build/bu2.aux
+ <../figures/country_comparison/variables_ncs_gcs_ics_by_country_extended.pdf> <../figures/country_comparison/variables_wealth_tax_support_by_country_extended.pdf>] [96 <../figures/country_comparison/program_preferred_by_cut_aid_in_program_extended.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program_extended.pdf> <../figures/country_comparison/gcs_support_by_variant_warm_glow_extended.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity_extended.pdf>] [97 <../figures/country_comparison/solidarity_support_extended_share.pdf> <../figures/country_comparison/radical_redistr_extended_share.pdf>] (../tables/order.tex)) [98
+
+] (build/bu2.bbl (build/support_global_redistr.brf)) (build/bu2.aux
 
 Package natbib Warning: Citation `cappelen_majority_2025' multiply defined.
 
@@ -3925,9 +3944,9 @@ No file bu.aux.
 \tf@lot=\write10
 \openout10 = `support_global_redistr.lot'.
 
- (build/support_global_redistr.lof [97
+ (build/support_global_redistr.lof [99
 
-] [98] [99])
+] [100] [101])
 \tf@lof=\write11
 \openout11 = `support_global_redistr.lof'.
 
@@ -3935,23 +3954,23 @@ No file bu.aux.
 
 Package natbib Warning: There were multiply defined citations.
 
-[100] (build/support_global_redistr.aux)
+[102] (build/support_global_redistr.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `support_global_redistr.out' has not changed.
-(rerunfilecheck)             Checksum: 7C0B7CB9F7ADB9AFC0C6364CE1EBF319;2791.
+(rerunfilecheck)             Checksum: 66870813781A3E31F28C9BC3A16E9365;3390.
 Package rerunfilecheck Info: File `support_global_redistr.brf' has not changed.
 (rerunfilecheck)             Checksum: 060DB7B512CE3101A3C7434F9A48C2D8;680.
  ) 
 Here is how much of TeX's memory you used:
- 40096 strings out of 475075
- 819841 string characters out of 5783001
- 1135066 words of memory out of 5000000
- 60397 multiletter control sequences out of 15000+600000
- 525066 words of font info for 170 fonts, out of 8000000 for 9000
+ 40130 strings out of 475075
+ 821100 string characters out of 5783001
+ 1135541 words of memory out of 5000000
+ 60418 multiletter control sequences out of 15000+600000
+ 525366 words of font info for 171 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,17n,104p,2537b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,18n,104p,2537b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist, replaced by a fixed one
 
@@ -3962,10 +3981,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/eurosym/feymr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on build/support_global_redistr.pdf (100 pages, 3490840 bytes).
+Output written on build/support_global_redistr.pdf (102 pages, 3510085 bytes).
 PDF statistics:
- 2513 PDF objects out of 2984 (max. 8388607)
- 1830 compressed objects within 19 object streams
- 323 named destinations out of 1000 (max. 500000)
- 688 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2557 PDF objects out of 2984 (max. 8388607)
+ 1866 compressed objects within 19 object streams
+ 330 named destinations out of 1000 (max. 500000)
+ 714 words of extra memory for PDF output out of 10000 (max. 10000000)
 

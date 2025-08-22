@@ -790,7 +790,7 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 # TODO? Add custom_redistr_satisfied? 
 
 
-###### Conjoint on consistent programs #####
+##### Conjoint on consistent programs #####
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
            covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent") 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
@@ -956,7 +956,7 @@ rpart.plot(tree_share_solidarity_supported <- rpart(reg_formula("share_solidarit
 rpart.plot(tree_gcs_support <- rpart(reg_formula("gcs_support", control_variables_lmg[-17]), all))
 
 
-##### Word clouds and vote #####
+##### Word clouds #####
 stopwords <- c(unlist(sapply(c("french", "english", "german", "spanish", "russian", "italian", "arabic"), function(v) stopwords::stopwords(v))), # Polish & Japanese not supported
   "people", "survey", ".......", "....", "...", "..", "need", "wish", "needs", "wishes", "want", "greatest", "injustice", "important", "issue", "issues", "neglected", "think", "nothing", "particular", "umfrage", "dass", "plus", "encuesta", "comments", "nie", "brak", "ankieta", "mam", "bardzo", "że", "jest", "sondaggio", "enquête")
 
@@ -972,11 +972,29 @@ for (c in c("all", countries[-9])) for (v in sub("_field", "", variables_field))
   rquery.wordcloud(d(c)[[var]][d(c)$variant_field %in% v], weights = d(c)$weight[d(c)$variant_field %in% v], max.words = 70, colorPalette = "Blues", excludeWords = c(stopwords)) 
   invisible(dev.off())
 } 
-# US concerns: - / injustice: + (field -)
-# all comment, injusi: + / concer: - (field -)
 
 
-##### Rename cropped files #####
+##### Influence of questions' order #####
+# revenue_split_few_global, on NCQG; of wording on NCQG
+# Orders with full randomization: revenue_split_few, revenue_split_many, solidarity_support, why_hic_help_lic
+sustainable_future_variant <- lm(sustainable_future ~ (variant_sustainable_future == "a"), data = all, weights = weight) # 3pp more likely to choose sustainable if it is scenario A
+transfer_how_cash_unconditional_order <- lm(transfer_how_cash_unconditional > 0 ~ transfer_how_order, data = all, weights = weight) # 9pp less likely to consider UCT right way if it's the first option
+why_hic_help_lic_duty_order <- lm(why_hic_help_lic_duty ~ (why_hic_help_lic_order_duty == 3), data = all, weights = weight) # 5pp less likely to choose duty if last option
+gcs_comprehension_order <- lm(gcs_comprehension > 0 ~ gcs_comprehension_order, data = all, weights = weight) # 3pp more likely to be correct if it's first option
+ncqg_fusion_variant <- lm(ncqg_fusion >= 100 ~ variant_ncqg, data = all, weights = weight) # 8pp more likely to choose >= 100 bn in long version
+ncqg_order <- lm(ncqg > 2 ~ ncqg_order, data = all, weights = weight) # 9pp less likely to choose >= 100 bn if increasing order (simple version)
+solidarity_support_order <- lm(unlist(all[,variables_solidarity_support]) > 0 ~ unlist(all[,variables_solidarity_support_order]) == 1, weights = rep(all$weight, length(variables_solidarity_support_order)))
+split_order <- lm(unlist(all[,c(variables_split_few, variables_split_many)]) > 15 ~ factor(unlist(all[,c(variables_split_few_order, variables_split_many_order)])), weights = rep(all$weight, 18))
+
+stargazer(sustainable_future_variant, transfer_how_cash_unconditional_order, why_hic_help_lic_duty_order, gcs_comprehension_order, ncqg_fusion_variant, ncqg_order, solidarity_support_order, split_order, type = "latex", style = "default", out = "../tables/order.tex",
+          keep.stat = c("n", "rsq"), label = "tab:order", dep.var.caption = "", model.names = FALSE, no.space = TRUE, float = FALSE,  #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Prefers\\\\Sustain.\\\\future}", "\\makecell{Finds\\\\Uncond.\\\\cash\\\\transfers\\\\Right}", "\\makecell{Agrees it\\\\is HIC's\\\\duty to\\\\help LICs}", "\\makecell{Understood\\\\Global\\\\Clim. Sch.}",
+                             "\\makecell{Preferred\\\\NCQG\\\\$\\geq\\$ 100$ bn}", "\\makecell{Pref. NCQG\\\\$\\geq\\$ 100$ bn\\\\(variant\\\\ \\textit{Short})}", "\\makecell{Supports\\\\a\\\\plausible\\\\policy}", "\\makecell{Allocates\\\\$\\geq 15\\%$ to\\\\spending\\\\item}"),
+          covariate.labels = c("Scenario A = Sustainable", "Cash transfers first item", "Duty last item", "Correct answer first item", "Variant: \\textit{Short}", "Items in increasing order", "That item is the first one", "Order of the item: 2", "Order of the item: 3", "Order of the item: 4", "Order of the item: 5"),
+          title = "Effect on answers of the random order of response items.") 
+
+
+  ##### Rename cropped files #####
 for (folder in c("../figures/country_comparison/cropped", "../figures/all/cropped")) { # "C:/Users/fabre/Downloads") { # 
   for (file in list.files(folder)) file.rename(file.path(folder, file), file.path(folder, sub(" \\(cropped\\) \\(pdfresizer\\.com\\)", "", file)))
 }

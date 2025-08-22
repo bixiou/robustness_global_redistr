@@ -377,7 +377,7 @@ Each country would retain part of the revenues it collects and use it for differ
 What percentage of the global wealth tax revenue should be allocated to each category? 
 The total allocation must sum to
 100%. - Display Order - Domestic: Retirement pensions",1 / 2 / 3 / 4 / 5
-revenue_split_many_order_domestic_welfre,"revenue_split_many_order_domestic_welfre: Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
+revenue_split_many_order_domestic_welfare,"revenue_split_many_order_domestic_welfare: Imagine a wealth tax applied to households with net worth above [tax_threshold: $5 million], implemented in all countries around the world.
 
 
 [tax_country_name: In the U.S.], the tax revenues collected would be [tax_revenue: $514 billion] per year (that is, [tax_revenue_gdp: 2]% of [tax_country_gdp: U.S. GDP]), while it would be [LIC_revenue: $1 billion] in all low-income countries combined (700 million people live in a low-income country, most of them in Africa).
@@ -1398,6 +1398,34 @@ The total allocation must sum to
 mean_order_many_global,,min: 1 / max: 5
 transfer_how_order,,local_first / global_first
 vote_intl_coalition_order,,more_first / less_first / NA
+solidarity_support_order_1,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_2,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_3,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_4,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_5,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_6,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_7,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_8,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_9,,-2 / -1 / 0 / 1 / 2
+solidarity_support_order_10,,-2 / -1 / 0 / 1 / 2
+revenue_split_few_order_1,,min: 0 / max: 100
+revenue_split_few_order_2,,min: 0 / max: 100
+revenue_split_few_order_3,,min: 0 / max: 100
+revenue_split_few_order_4,,min: 0 / max: 100
+revenue_split_few_order_5,,min: 0 / max: 100
+revenue_split_many_order_1,,min: 0 / max: 100
+revenue_split_many_order_2,,min: 0 / max: 100
+revenue_split_many_order_3,,min: 0 / max: 100
+revenue_split_many_order_4,,min: 0 / max: 100
+revenue_split_many_order_5,,min: 0 / max: 100
+revenue_split_many_order_6,,TRUE / FALSE / NA
+revenue_split_many_order_7,,TRUE / FALSE / NA
+revenue_split_many_order_8,,TRUE / FALSE / NA
+revenue_split_many_order_9,,TRUE / FALSE / NA
+revenue_split_many_order_10,,TRUE / FALSE / NA
+revenue_split_many_order_11,,TRUE / FALSE / NA
+revenue_split_many_order_12,,TRUE / FALSE / NA
+revenue_split_many_order_13,,TRUE / FALSE / NA
 race_asked,,TRUE / FALSE
 custom_redistr_asked,,TRUE / FALSE
 global_movement_asked,,TRUE / FALSE
