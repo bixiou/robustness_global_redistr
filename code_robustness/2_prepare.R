@@ -1,6 +1,5 @@
+# TODO! split_few_bars, etc. reverse labels
 # TODO: labels
-# TODO: plot_along levels_list => main results with U.S. Dems, Saudis, etc.
-# TODO: consistency income income_exact
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
@@ -37,7 +36,8 @@ levels_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names)
 levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "Saudi citizens", countries_names[11])
 levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])
 levels_pol <- c("$ bold('All')", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
-                  
+levels.pol <- c("All", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
+
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
 languages <- unname(unlist(languages_country)) # c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
@@ -69,7 +69,7 @@ stostad_billionaire_tax_absolute <- sapply(countries, function(c) if (c %in% sto
 # [Absolute support] Do you support or oppose this policy? [Strongly support / Somewhat support / Neither support nor oppose / Somewhat oppose / Strongly oppose / Do not understand]”
 stostad_billionaire_tax_oppose <- sapply(countries, function(c) if (c %in% stostad$iso) (stostad$disagree1 + stostad$vdisagree1)[stostad$iso == c] else NA) 
 stostad_billionaire_tax_relative <- stostad_billionaire_tax_absolute / (stostad_billionaire_tax_absolute + stostad_billionaire_tax_oppose)
-
+income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", rowNames = T, rows = 1:13)
 
 {
   levels_quotas <- list(
@@ -797,7 +797,7 @@ world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rat
   return(future)
 }
 
-  compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
+compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
   # TODO: check we get same results as with .js (e.g. check values of L/G and R, own_after...) - I have checked on one example
   current <- c(0, round(thousandile_world_disposable_inc)) # corresponds to c(0, thousandile_world_disposable_inc) created in questionnaire.R
   e$custom_redistr_transfer <- e$custom_redistr_future_income <- e$custom_redistr_income_min <- NA #rep(NA, nrow(df))
@@ -943,8 +943,17 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "200", "250|300", "400", "500", "600", "700", "750|800", "900", "not"), grep = T, missing.values = c("PNR"), df = e)  
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
   if (country == "JP") e$income_exact[e$income_exact_misinterpreted] <- e$income_exact[e$income_exact_misinterpreted]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
+  e$uc <- 1 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
+  e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]] / e$uc
+  if (country %in% c("RU", "US")) e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]]
+  e$income_exact_decile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(1,2,4:8,10,11), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
+  e$income_exact_quartile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(3,6,9), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
+  e$income_answers_spread <- e$income_decile - e$income_exact_decile # Some (positive) spread is expected because income is before taxes (even gross in DE, GB, JP, SA, US) but after taxes in income_exact
+  e$income_answers_decile_coincide <- e$income_answers_spread == 0
+  e$income_answers_quartile_coincide <- e$income_exact_quartile == e$income_quartile
   if (country == "GB") e$urbanity[e$urbanity %in% c(1,3)] <- ifelse(e$urbanity[e$urbanity %in% c(1,3)] %in% 1, 3, 1) # Correcting a mistake in Qualtrics encoding
   e$urban <- e$urbanity == 1
   e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e)
@@ -1676,7 +1685,7 @@ create_conjoint_sample <- function(df = all) {
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
   call <- cbind(df, temp)
-  call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed",
+  call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
                                           "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
   return(call)
 }

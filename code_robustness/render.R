@@ -900,19 +900,19 @@ heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_exten
 
 
 ##### Main results along selected vote or demographics ######
-# plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_pol", vars = variables_ncs_gcs_ics, levels_along = levels_pol, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
+# plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_pol", vars = variables_ncs_gcs_ics, levels_along = levels_pol, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T)
 # 
-# plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_pol, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T) 
-# # TODO: make these work
-# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-#            weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
-# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-#            weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
-# 
-# plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
-#            weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
-# plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
-#            weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels_pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+# plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_pol, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T)
+
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370,
+           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0")
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370,
+           weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels.pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol", levels = levels_pol)
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol", levels = levels_pol)

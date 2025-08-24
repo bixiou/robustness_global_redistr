@@ -2617,7 +2617,9 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
       warning("subsamples should not be in covariates")
       covariates <- covariates[covariates!=subsamples] }
     for (s in levels_subsamples) {
-      regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[subsamples]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin, weight_non_na = weight_non_na))
+      var_subsample <- if (exists("special_levels") & s %in% names(special_levels)) special_levels[[s]]$var else subsamples 
+      if (exists("special_levels") & s %in% names(special_levels)) s <- special_levels[[s]]$value
+      regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[var_subsample]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin, weight_non_na = weight_non_na))
       i <- i + 1   }
   } else for (y in outcomes) {
     several_values <- c()
@@ -2650,6 +2652,7 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
   # TODO! handle continuous covariates; covariates/regressions with only one level; solve glitch of displaying some omitted values (e.g. Vote: Left)
   if (class(levels_along) == "list" && all(names_levels == paste0(along, levels_along))) names_levels <- paste0(along, names(levels_along) )
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
+  # if (!is.null(levels_subsamples) & exists("special_levels") & any(levels_subsamples %in% names(special_levels))) levels_along <- levels_subsamples
   if (!is.null(subsamples) && subsamples == along && !is.null(covariates)) {
     mean_ci <- data.frame()
     for (v in covariates) {
@@ -2774,11 +2777,11 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   if (!is.null(covariates)) { # If conditional (regressions)
     if (!(along %in% c(covariates, subsamples))) print("ERROR: along must be in covariates")
     if (any(logit) & !logit_margin) print("Warning: Are you sure you want the logit coefficients rather than the marginal effects? If not, set logit_margin = T.")
-    if (!is.null(subsamples) & (missing(labels) | identical(labels, outcome_vars))) labels <- if (class(levels_subsamples)=="list") names(levels_subsamples) else Levels(df[[subsamples]])
+    if (!is.null(subsamples) & (missing(labels) | identical(labels, outcome_vars))) labels <- if (class(levels_subsamples)=="list") names(levels_subsamples) else if (exists("special_levels") & any(levels_subsamples %in% names(special_levels))) levels_subsamples else Levels(df[[subsamples]])
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
     regs <- regressions_list(outcomes = outcomes, covariates = covariates, subsamples = subsamples, df = df, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, summary = FALSE, levels_subsamples = levels_subsamples, weight_non_na = weight_non_na)
     mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = labels, df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, weight_non_na = weight_non_na, print_regs = print_regs, levels_subsamples = levels_subsamples)
-    mean_ci$along <- labels_along[as.character(mean_ci$along)]
+    if (all(as.character(mean_ci$along) %in% names(labels_along))) mean_ci$along <- labels_along[as.character(mean_ci$along)]
   } else { # If unconditional (subgroup means)
     if (!is.null(subsamples)) { # Configuration a.
       if (length(outcomes) > 1) warning("There cannot be several outcomes with subsamples, only the first outcome will be used.")
@@ -2796,7 +2799,7 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
     mean_ci <- data.frame()
     for (configuration in configurations) {
-      i <- i + 1
+      i <- i + 1 #!
       dfs <- if (class(levels_along) == "list") lapply(levels_along, function(k) df[df[[along]] %in% k,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
       if (weight_non_na) for (j in seq_along(dfs)) if ("country" %in% names(df) && length(unique(dfs[[j]]$country)) == 1 && exists("countries") && unique(dfs[[j]]$country) %in% countries && (sum(is.na(dfs[[j]][[outcomes[i]]])) > .1*nrow(dfs[[j]]))) {
         dfs[[j]]$weight[!is.na(dfs[[j]][[outcomes[i]]])] <- weighting(dfs[[j]][!is.na(dfs[[j]][[outcomes[i]]]),], unique(dfs[[j]]$country), printWeights = F, variant = if (weight == 'weight') NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
@@ -2873,8 +2876,8 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   # }
 
   if (plot_origin_line) {
-    origins <- mean_ci$mean[mean_ci$along == levels_along[[1]]]
-    names(origins) <- mean_ci$y[mean_ci$along == names_levels[[1]]]
+    origins <- mean_ci$mean[mean_ci$along %in% levels_along[[1]]]
+    if (sum(mean_ci$along == names_levels[[1]]) == length(origins)) names(origins) <- mean_ci$y[mean_ci$along == names_levels[[1]]]
     if ((class(levels_along) == "list" || !levels_along[1] %in% mean_ci$along) & is.numeric(origin)) origins <- origin
   } else origins <- c()
   if (to_percent) mean_ci[,c("mean", "CI_low", "CI_high")] <- 100*mean_ci[,c("mean", "CI_low", "CI_high")]

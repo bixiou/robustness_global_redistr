@@ -1009,6 +1009,18 @@ education_quota,,Not 25-64 / Below upper secondary / Upper secondary / Post seco
 income_quartile,"income: What is the [periodicity_text: monthly] [income_type: gross] income of your household, [income_type_long: after taxes and transfers]?
 
 This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources.",PNR / Q1 / Q2 / Q3 / Q4
+income_decile,"income: What is the [periodicity_text: monthly] [income_type: gross] income of your household, [income_type_long: after taxes and transfers]?
+
+This includes all sources of income: wages, pensions, welfare payments, property income, dividends, self-employment earnings, Social Security benefits, and income from other sources.",PNR / d1 / d2 / d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10
+uc,Nb_children__14: How many children under the age of 14 live with you?,min: 1.3 / max: 3.5
+income_exact_individualized,"income_exact: What is the [periodicity_text: yearly] income of your household after taxes and social benefits?
+This includes all sources of income: salaries, pensions, allowances, welfare benefits, property income, etc.
+My household earns ... [text_unit: $ per year] (answer with no comma, no space, no period):",min: 0 / max: 4615384615384.62
+income_exact_decile,,1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10
+income_exact_quartile,,1 / 2 / 3 / 4
+income_answers_spread,,min: -9 / max: 9
+income_answers_decile_coincide,,TRUE / FALSE
+income_answers_quartile_coincide,,TRUE / FALSE
 urban,,TRUE / FALSE / NA
 urbanity_original,urbanity: urbanity,0 / 1 / 2 / 3 / 4
 foreign_born_family,foreign: Were you or your parents born in a foreign country?,No / One parent / Two parents / Self
@@ -1059,7 +1071,7 @@ urbanity_na_as_city,,Cities / Towns and suburbs / Rural
 urbanity_factor,,Cities / Towns and suburbs / Rural / NA
 education_factor,,Below upper secondary / Upper secondary / Above upper secondary
 income_factor,,Q1 / Q2 / Q3 / Q4
-region_factor,,1 / 2 / 3 / NA / 4 / 5 / 0
+region_factor,,1 / 2 / 3 / NA / 4 / 5
 country_region,,[string variable]
 well_being_gallup_0_original,"well_being_gallup_0: Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. 
 
@@ -1398,34 +1410,6 @@ The total allocation must sum to
 mean_order_many_global,,min: 1 / max: 5
 transfer_how_order,,local_first / global_first
 vote_intl_coalition_order,,more_first / less_first / NA
-solidarity_support_order_1,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_2,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_3,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_4,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_5,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_6,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_7,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_8,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_9,,-2 / -1 / 0 / 1 / 2
-solidarity_support_order_10,,-2 / -1 / 0 / 1 / 2
-revenue_split_few_order_1,,min: 0 / max: 100
-revenue_split_few_order_2,,min: 0 / max: 100
-revenue_split_few_order_3,,min: 0 / max: 100
-revenue_split_few_order_4,,min: 0 / max: 100
-revenue_split_few_order_5,,min: 0 / max: 100
-revenue_split_many_order_1,,min: 0 / max: 100
-revenue_split_many_order_2,,min: 0 / max: 100
-revenue_split_many_order_3,,min: 0 / max: 100
-revenue_split_many_order_4,,min: 0 / max: 100
-revenue_split_many_order_5,,min: 0 / max: 100
-revenue_split_many_order_6,,TRUE / FALSE / NA
-revenue_split_many_order_7,,TRUE / FALSE / NA
-revenue_split_many_order_8,,TRUE / FALSE / NA
-revenue_split_many_order_9,,TRUE / FALSE / NA
-revenue_split_many_order_10,,TRUE / FALSE / NA
-revenue_split_many_order_11,,TRUE / FALSE / NA
-revenue_split_many_order_12,,TRUE / FALSE / NA
-revenue_split_many_order_13,,TRUE / FALSE / NA
 race_asked,,TRUE / FALSE
 custom_redistr_asked,,TRUE / FALSE
 global_movement_asked,,TRUE / FALSE
