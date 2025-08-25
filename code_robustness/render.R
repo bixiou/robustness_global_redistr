@@ -675,9 +675,9 @@ plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_f
            name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
 
 # 4bis. 
-split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, rev(names(levels_default_list))))
+split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list))))
 for (c in names(levels_default_list)) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
-split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, rev(names(levels_default_list))))
+split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, (names(levels_default_list))))
 for (c in names(levels_default_list)) for (v in variables_split_many) split_many[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))
 split_many <- sweep(split_many, 2, colSums(split_many), "/")
 split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(revenue_split_few_global > 0, weight)))
