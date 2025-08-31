@@ -1,4 +1,3 @@
-# TODO! split_few_bars, etc. reverse labels
 # TODO: labels
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
