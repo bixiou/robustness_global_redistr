@@ -2617,7 +2617,7 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
       warning("subsamples should not be in covariates")
       covariates <- covariates[covariates!=subsamples] }
     for (s in levels_subsamples) {
-      var_subsample <- if (exists("special_levels") & s %in% names(special_levels)) special_levels[[s]]$var else subsamples 
+      var_subsample <- if (exists("special_levels") & s %in% names(special_levels)) special_levels[[s]]$var else subsamples
       if (exists("special_levels") & s %in% names(special_levels)) s <- special_levels[[s]]$value
       regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[var_subsample]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin, weight_non_na = weight_non_na))
       i <- i + 1   }
