@@ -2,10 +2,6 @@
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
-# TODO: correlation donation / support
-# TODO: sociodemos determinants custom_redistr
-# TODO: correlation field with other variables e.g. discrimination/foreign; inequality/left; family/group_defended
-# TODO: check results of global_tax_attitudes with new def of swing_state / dem
 
 
 ##### Parameters #####
@@ -354,6 +350,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     # e$weight_all <- weighting(e, country, variant = "all") # TODO
     if ("vote" %in% names(e)) e$weight_vote <- weighting(e, country, variant = "vote") # ("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))
     else e$weight_vote <- e$weight
+    label(e$weight_vote) <- "weight_vote: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: vote, quotas$[country], with frequencies pop_freq$[country]."
     # if (country == "EU") { for (c in countries_EU) e$weight_country[e$country == c] <- weighting(e[e$country == c,], c) } else e$weight_country <- e$weight
     if (any(e$custom_redistr_asked) & !pilot) e <- compute_custom_redistr(e, name = paste0(country, if (pilot) "p")) # TODO make it work for pilot
   } else {
@@ -807,7 +804,9 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     non_losers <- 1000 - 10*df$custom_redistr_losers[k]
     degree <- df$custom_redistr_degree[k]
     df$custom_redistr_current_income[k] <- df$income_exact[k]/ifelse(df$couple[k] > 0, 2, 1) * as.numeric(features["period_custom", languages_country[[df$country[k]]][1]]) * as.numeric(features["unit", languages_country[[df$country[k]]][1]]) # in $/year individualized
+    label(df$custom_redistr_current_income) <- "custom_redistr_current_income: Numerical. Individualized income (in $/year), not accounting for children (i.e. income_exact / ifelse(couple, 2, 1) * conversion_$)."
     df$income_exact_thousandile_world[k] <- min(c(1000, which(df$custom_redistr_current_income[k] < current))) # pmin(1000, sapply(df$custom_redistr_current_income, function(y) min(which(y < current))))
+    label(df$income_exact_thousandile_world) <- "income_exact_thousandile_world: 0-1000. Thousandile of world disposable income of custom_redistr_current_income (individualized income_exact)."
     if (!is.na(winners)) {
       income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
       income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
@@ -847,11 +846,17 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       # econ <- integral(diff, 0, winners - 1) + economizable(future, "right")
       
       df$custom_redistr_income_min[k] <- future[1]
+      label(df$custom_redistr_income_min) <- "custom_redistr_income_min: Numerical. Minimum world income from custom redistribution ($/year)."
       df$custom_redistr_future_income[k] <- interpole_world_income(df$custom_redistr_current_income[k], current, future) 
+      label(df$custom_redistr_future_income) <- "custom_redistr_future_income: Numerical. Future income of respondent (current: custom_redistr_current_income) after custom redistribution ($/year)."
       df$custom_redistr_self_gain[k] <- df$custom_redistr_future_income[k] > df$custom_redistr_current_income[k]
+      label(df$custom_redistr_self_gain) <- "custom_redistr_self_gain: T/F. Respondent's income increases with custom redistribution."
       df$custom_redistr_self_lose[k] <- df$custom_redistr_future_income[k] < df$custom_redistr_current_income[k]
+      label(df$custom_redistr_self_lose) <- "custom_redistr_self_lose: T/F. Respondent's income decreases with custom redistribution."
       df$custom_redistr_self_unaffected[k] <- df$custom_redistr_future_income[k] == df$custom_redistr_current_income[k]
+      label(df$custom_redistr_self_unaffected) <- "custom_redistr_self_unaffected: T/F. Respondent's income unaffected with custom redistribution."
       df$custom_redistr_transfer[k] <- 100*sum(future[1:winners] - current[1:winners])/sum(current[1:1000]) 
+      label(df$custom_redistr_transfer) <- "custom_redistr_transfer: Numerical. Transfer from rich to poor due to custom redistribution (% of world income)."
       # transfer <- (integral(future, 0, winners) - integral(current, 0, winners))/integral(current, 0, 1000)
       futures[k, ] <- future 
       if (return == "verbose") print(paste("L:", round(L), "   R:", round(R), "   demogrant:", round(demogrant), "   transfer:", df$custom_redistr_transfer[k], 
@@ -859,12 +864,15 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     }
   }
   df$custom_redistr_untouched <- df$custom_redistr_degree %in% c(2.1, 7.1)
+  label(df$custom_redistr_untouched) <- "custom_redistr_untouched: T/F. Respondent hasn't touched the slider custom_redistr_degree."
+  df$custom_redistr_satisfied_touched <- df$custom_redistr_satisfied & !df$custom_redistr_untouched
+  label(df$custom_redistr_satisfied_touched) <- "custom_redistr_satisfied_touched: T/F. Respondent touched the sliders and is satisfied with own custom redistr (!custom_redistr_untouched & custom_redistr_satisfied)."
   mean_redistr <- colSums(futures * df$weight, na.rm = T)/sum(df$weight)
   if (!is.null(name) && exists("mean_custom_redistr")) {
     mean_custom_redistr[[name]] <<- mean_redistr
     mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied])
     mean_custom_redistr[[paste0(name, "_touched")]] <<- colSums((futures * df$weight * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight[!df$custom_redistr_untouched])
-    mean_custom_redistr[[paste0(name, "_satisfied_touched")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied & !df$custom_redistr_untouched])
+    mean_custom_redistr[[paste0(name, "_satisfied_touched")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied_touched), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied_touched])
     mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight * df$custom_redistr_self_gain), na.rm = T)/sum(df$weight[df$custom_redistr_self_gain])
     mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight * df$custom_redistr_self_lose), na.rm = T)/sum(df$weight[df$custom_redistr_self_lose])
   }
@@ -894,7 +902,9 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
 
   define_var_lists()
   e$country_name <- countries_names[country]
+  label(e$country_name) <- "country_name: Country."
   e$country <- country
+  label(e$country) <- "country: ISO-2 country code."
   for (i in intersect(variables_numeric, names(e))) {
     lab <- label(e[[i]])
     e[[i]] <- as.numeric(as.vector(gsub("[^0-9\\.]", "", e[[i]]))) # /!\ this may create an issue with UK zipcodes as it removes letters
@@ -916,6 +926,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # Socio-demos
   e$man <- e$gender %in% "Man"
+  label(e$man) <- "man: T/F. gender %in% Man."
   
   if ("race_black" %in% names(e)) {
     e$race <- "Other" # Hispanic include Hispanic blacks; therefore Other is a bit higher than (100% - White only - Black alone - Hispanic) and Black a bit lower, by 0.4% I think.
@@ -930,15 +941,17 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
                    values = list(c("18 to 20", "21 to 24"), c("25 to 29", "30 to 34"), c("35 to 39", "40 to 44", "45 to 49"), c("50 to 54", "55 to 59", "60 to 64"), 
                                  c("65 to 69", "70 to 74", "75 to 79", "80 to 84", "85 to 89", "90 to 99", "100 or above")), df = e)
   e$age_factor <- relevel(as.factor(e$age), "35-49")
-  e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3|4", "5|6|7"), df = e)
-  e$post_secondary <- e$education %in% 2
+  label(e$age_factor) <- "age_factor: Age [18-24; 25-34; 35-49 [default]; 50-64; 65+]."
+  e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3|4", "5|6|7"), df = e, annotation = "education: What is your highest completed education level? [1: Below upper secondary; 2: Upper secondary; 3: Above upper secondary] (from education_original).")
+  e$post_secondary <- e$education %in% 3
+  label(e$post_secondary) <- "post_secondary: education == 'Above upper secondary'"
   e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, 0)
   if (country == "JP") e$education_quota[e$education_quota %in% 1] <- 2 # In JP official stats, there is no one Below upper secondary. They'd have weights of 0 if we didn't relabeled them.
   # e$diploma_25_64 <- e$diploma
   # e$diploma_25_64[e$age < 25 | e$age > 65] <- 0 # "Not 25-64"
   # e$diploma_25_64 <- as.item(as.numeric(as.vector(e$diploma_25_64)), labels = structure(c(1:3, 0), names = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64")), missing.values=c(NA, 0), 
   #                            annotation="diploma_25_64: 0: Not 25-64 if age is not within 25-64 (missing value) / 1: Below upper secondary (ISCED 0-2) / 2: Upper secondary (ISCED 3) / 3: Post secondary (ISCED 4-8), recoded from education.")
-  e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e)
+  e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e, annotation = "education_quota: ifelse(age > 25 & age < 65, education, 0).")
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
@@ -946,23 +959,30 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
   if (country == "JP") e$income_exact[e$income_exact_misinterpreted] <- e$income_exact[e$income_exact_misinterpreted]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
   e$uc <- 1 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
+  label(e$uc) <- "uc: Consumption units (1 + .5*pmax(0, hh_size - Nb_children__14) + .3*Nb_children__14)."
   e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]] / e$uc
+  label(e$income_exact_individualized) <- "income_exact_individualized: Individualized income (income_exact/uc, except for US, RU: household income_exact) (LCU/year)."
   if (country %in% c("RU", "US")) e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]]
   e$income_exact_decile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(1,2,4:8,10,11), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
   e$income_exact_quartile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(3,6,9), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
   e$income_answers_spread <- e$income_decile - e$income_exact_decile # Some (positive) spread is expected because income is before taxes (even gross in DE, GB, JP, SA, US) but after taxes in income_exact
+  label(e$income_answers_spread) <- "income_answers_spread: income_decile - income_exact_decile"
   e$income_answers_decile_coincide <- e$income_answers_spread == 0
+  label(e$income_answers_decile_coincide) <- "income_answers_decile_coincide: income_answers_spread == 0"
   e$income_answers_quartile_coincide <- e$income_exact_quartile == e$income_quartile
+  label(e$income_answers_quartile_coincide) <- "income_answers_quartile_coincide: income_exact_quartile == income_quartile"
   if (country == "GB") e$urbanity[e$urbanity %in% c(1,3)] <- ifelse(e$urbanity[e$urbanity %in% c(1,3)] %in% 1, 3, 1) # Correcting a mistake in Qualtrics encoding
   e$urban <- e$urbanity == 1
-  e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e)
+  e <- create_item("urbanity", labels = c("Cities" = 1, "Towns and suburbs" = 2, "Rural" = 3), grep = T, values = c("1", "2", "3|4"), keep_original = T, missing.values = 0, df = e, annotation = "urbanity: 1-3. Urbanicity [1: Cities; 2: Towns and suburbs, 3: Rural].")
   if (country == "US") e$urbanity[e$urbanity %in% c(2, 4)] <- 3 
   # e$urban_rural <- e$urbanity
   # e <- create_item("urban_rural", labels = c("Cities" = 1, "Rural" = 2), values = list(1, c(2:4)), df = e)
   if ("foreign" %in% names(e)) {
-    e <- create_item("foreign", new_var = "foreign_born_family", labels = c("No" = 0, "One parent" = 1, "Two parents" = 2, "Self" = 3), grep = T, values = c("too", "one of", "both", "Yes"), df = e)
+    e <- create_item("foreign", new_var = "foreign_born_family", labels = c("No" = 0, "One parent" = 1, "Two parents" = 2, "Self" = 3), grep = T, values = c("too", "one of", "both", "Yes"), df = e, annotation = "foreign_born_family: Were you or your parents born in a foreign country? [0: No; 1: One parent; 2: Two parents; 3: Self].")
     e$foreign_born <- e$foreign_born_family %in% 3
+    label(e$foreign_born) <- "foreign_born: T/F. Born abroad (foreign == 3)."
     e$foreign_origin <- e$foreign_born_family > 0 
+    label(e$foreign_origin) <- "foreign_origin: T/F. At least one parent (or self) born abroad (foreign > 0)."
   }
   
   e <- create_item("employment_status", new_var = "employment_agg", labels = c("Not working", "Student", "Working", "Retired"), grep = T, values = c("Inactive|Unemployed", "Student", "Retired", "employed$"), df = e, 
@@ -984,21 +1004,30 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   if (country %in% names(votes)) {
     e$vote_original <- e[[paste0("vote_", country)]]
+    label(e$vote_original) <- "vote_original: Vote (if voted) or closest candidate (if !voted) in last election."
     e$vote_agg <- ifelse(e$vote_original %in% c("Prefer not to say", "Other"), -1, votes[[country]][e$vote_original, "leaning"]) # PNR, Other as -1
     e$vote_leaning <- ifelse(e$vote_original == "Other", NA, e$vote_agg) # PNR as -1, Other as NA
+    label(e$vote_leaning) <- "vote_leaning: ifelse(vote_original == Other, NA, vote_agg)"
     e$vote_major_candidate <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "major"] %in% 1
+    label(e$vote_major_candidate) <- "vote_major_candidate: Vote (or hypothetical vote) for a major candidate (> 1% (?) of actual votes)."
     e$vote_major <- ifelse(e$vote_major_candidate, e$vote_original, "PNR or Other")
+    label(e$vote_major) <- "vote_major: Vote (or hypothetical vote) if vote_major_candidate, else 'PNR or Other'."
     e$vote_voters <- ifelse(e$voted, e$vote_original, "Non-voter or PNR")
+    label(e$vote_voters) <- "vote_voters: Vote if voted else 'Non-voter or PNR'."
     e$vote_major_voters <- ifelse(e$voted, ifelse(e$vote_major %in% "PNR or Other", "Non-voter, PNR or Other", e$vote_major), "Non-voter, PNR or Other")
+    label(e$vote_major_voters) <- "vote_major_voters: Vote if voted for a major candidate, else 'Non-voter, PNR or Other'."
     if (country %in% countries_EU) e$vote_group <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "group"]
+    if (country %in% countries_EU) label(e$vote_group) <- "vote_group: Group at the EU Parliament of the vote (or hypothetical vote)."
     e$vote <- ifelse(e$voted, e$vote_agg, -1) # Only on voters
     
-    e <- create_item("vote_agg", labels = c("PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e)
-    e <- create_item("vote", labels = c("Non-voter, PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e)
+    e <- create_item("vote_agg", labels = c("PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e, annotation = "vote_agg: -1-2. Vote (or hypothetical vote) [-1: PNR or Other; 0: Left; 1: Center-right or Right; 2: Far right].")
+    e <- create_item("vote", labels = c("Non-voter, PNR or Other"  = -1, "Left" = 0, "Center-right or Right" = 1, "Far right" = 2), values = -1:2, missing.values = -1, df = e, annotation = "vote: -1-2. Vote [-1: Non-voter, PNR or Other; 0: Left; 1: Center-right or Right; 2: Far right].")
     e$vote_agg_factor <- relevel(as.factor(as.character(e$vote_agg, include.missings = T)), "PNR or Other")
+    label(e$vote_agg_factor) <- "vote_agg_factor: -1-2. Vote (or hypothetical vote) [-1: PNR or Other; 0: Left; 1: Center-right or Right; 2: Far right]."
     e$vote_factor <- relevel(as.factor(as.character(e$vote, include.missings = T)), "Non-voter, PNR or Other") # Left
   } else e$vote_factor <- "Non-voter, PNR or Other"
-
+  label(e$vote_factor) <- "vote_factor: -1-2. Vote [-1: Non-voter, PNR or Other; 0: Left; 1: Center-right or Right; 2: Far right]."
+  
   if (country == "US") {
     # label(e$flipped_2024) <- "flipped_2024: T/F Lives in one of the 6 States that flipped from Democrat to Republican in the 2024 presidential election (AZ, GA, MI, NV, PA, WI)."
     e$swing_state <- floor(n(e$zipcode)/100) %[]% c(30, 38) | floor(n(e$zipcode)/1000) %[]% c(48, 49) | floor(n(e$zipcode)/100) %[]% c(889, 900) | floor(n(e$zipcode)/100) %[]% c(150, 196) | floor(n(e$zipcode)/1000) %[]% c(53, 54) | floor(n(e$zipcode)/1000) %[]% c(85, 86) | floor(n(e$zipcode)/1000) %[]% c(30, 31) | floor(n(e$zipcode)/100) %[]% c(398, 399) | floor(n(e$zipcode)/1000) %[]% c(27, 28) 
@@ -1011,23 +1040,34 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # Other notable states: FL (32-34), MN (550-567), CO (80-81), NJ (07-08), NE-2 (68007, 68010, 68022, 68028, 68046, 68059, 68064, 68069, 68102, 68104, 68105, 68106, 68107, 68108, 68110, 68111, 68112, 68114, 68116, 68117, 68118, 68122, 68123, 68124, 68127, 68128, 68130, 68131, 68132, 68133, 68134, 68135, 68136, 68137, 68138, 68142, 68144, 68147, 68152, 68154, 68157, 68164, 68178) # https://statisticalatlas.com/congressional-district/Nebraska/Congressional-District-2/Overview
     # sources: https://en.wikipedia.org/wiki/Swing_state#Swing_states_by_results, https://en.wikipedia.org/wiki/2024_United_States_presidential_election#Results_by_state, zipcodes: https://www.mapsofworld.com/usa/zipcodes/
   }
-  if (country %in% names(countries_Eu)) e$vote_Eu <- e$vote
-  if (country %in% names(countries_Eu)) e$vote_agg_Eu <- e$vote_agg
-  if (country %in% "JP") e$vote_JP <- e$vote
-  if (country %in% "JP") e$vote_agg_JP <- e$vote_agg
-
+  if (country %in% names(countries_Eu)) {
+    e$vote_Eu <- e$vote 
+    label(e$vote_Eu) <- "vote_Eu: vote (incl. hypothetical) if European else NA."
+    e$vote_agg_Eu <- e$vote_agg
+    label(e$vote_agg_Eu) <- "vote_agg_Eu: vote_agg (Non-voter as such) if European else NA."
+  }
+  if (country %in% "JP") {
+    e$vote_JP <- e$vote
+    label(e$vote_JP) <- "vote_JP: vote (incl. hypothetical) if JP else NA."
+    e$vote_agg_JP <- e$vote_agg
+    label(e$vote_agg_JP) <- "vote_agg_JP: vote_agg (Non-voter as such) if JP else NA."
+  }
+  
   # Other variables
   if (country == "SA") e$saudi <- e$nationality_SA == "Saudi"
   if (country == "SA") e$gender_nationality <- paste0(ifelse(e$man, "Man", "Woman"), ", ", ifelse(e$saudi, "Saudi", "non-Saudi"))
-  e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e)
-  e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e)
+  e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e, annotation = "millionaire: -3/-1/1/3. How likely are you to become a millionaire at some point in your life?")
+  e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e, annotation = "millionaire_agg: -1/0/1. How likely are you to become a millionaire at some point in your life?")
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 100), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e)
   e <- create_item(variables_likert, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e)
-  e <- create_item("likely_solidarity", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e)
+  e <- create_item("likely_solidarity", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e, annotation = "likely_solidarity: -3/-1/1/3. According to you, how likely is it that international policies involving significant transfers from high-income countries to low-income countries will be introduced in the next 15 years?")
   e <- create_item("ncqg", labels = c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "Meet goal ($100 bn)" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
-                   grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "meet|Meet", "level between", "\\$600", "\\$1,000"), df = e)
+                   grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "meet|Meet", "level between", "\\$600", "\\$1,000"), df = e, annotation = paste0("ncqg: 0: 0/1/2: 26/3: 100/4: 300/5: 600/6: 1000. ~ variant_ncqg: Short \"Climate finance\" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]\n\n", 
+                                                                                                                                                                       "There are two kinds of climate finance: grants (that is, donations) and loans. The large majority is currently provided as loans. \n\nIn 2009, developed countries agreed to mobilize $100 billion per year in climate finance. In 2024, they committed to triple this goal by 2035.", 
+                                                                                                                                                                       "None of the goals specify which share should be provided as grants. \nAt international climate negotiations, developing countries call for larger provision of climate finance, particularly in the form of grants.\n\n", 
+                                                                                                                                                                       "If you could choose the level of climate finance provided by developed countries to developing countries in 2035, what would you choose?"))
   e <- create_item("ncqg_full", labels = c("$0" = 0, "$26 bn" = 26, "$100 bn" = 100, "$300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1000, "$5,000 bn" = 5000),
-                   grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
+                   grep = T, keep_original = T, values = c("\\$0", "\\$26", "\\$100", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e, annotation = paste0("ncqg_full: ~ variant_ncqg: Full. 0/26/100/300/600/1000/5000.", Label(e$ncqg_full)))
   if (all(c("ncqg", "ncqg_full") %in% names(e))) {
     e$variant_ncqg <- ifelse(e$variant_ncqg_maritime %in% 2, "Full", "Short")
     label(e$variant_ncqg) <- "variant_ncqg: Full/Short. Full: A lot of explanations, answers in numerical grant-equivalent; Short: Shorter, answers in terms of who defends them or what they mean."
@@ -1035,7 +1075,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # e$ncqg_fusion[e$variant_ncqg %in% "full"] <- as.character(e$ncqg_full_original)[e$variant_ncqg %in% "full"]
     e$ncqg_fusion <- ifelse(e$variant_ncqg %in% "Full", as.character(e$ncqg_full_original), as.character(e$ncqg_original))
     e <- create_item("ncqg_fusion", labels = c("$0" = 0, "Less" = 10, "Stable" = 26, "More loans" = 30, "$100 bn" = 100, "$200 bn" = 200, "300 bn" = 300, "$600 bn" = 600, "$1,000 bn" = 1e3, "$5,000 bn" = 5e3),
-                   grep = T, values = c("Stop|\\$0", "Reduce", "\\$26", "Increase loans", "\\$100", "\\$200", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e)
+                   grep = T, values = c("Stop|\\$0", "Reduce", "\\$26", "Increase loans", "\\$100", "\\$200", "\\$300", "\\$600", "\\$1,000", "\\$5,000"), df = e, annotation = "ncqg_fusion: 0/10/26/30/100/200/300/600/1k/5k: Fusion of ncqg and ncqg_full.")
   }
   e <- create_item(variables_transfer_how, labels = c("Wrong" = -1, "Acceptable" = 0, "Right" = 1, "Best" = 2), grep = T, values = c("wrong", "acceptable", "right", "best"), df = e)
   e$variant_sustainable_future <- ifelse(!is.na(e$sustainable_future_a), "a", ifelse(!is.na(e$sustainable_future_b), "b", "s")) # variant_radical_redistr
@@ -1044,16 +1084,16 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$sustainable_future_B <- e$sustainable_future_b == "Scenario B"
   if (pilot) e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("B", e$sustainable_future_s) | grepl("A", e$sustainable_future_a), T, F)
   else e$sustainable_future <- ifelse(grepl("B", e$sustainable_future_b) | grepl("A", e$sustainable_future_a), T, F)
-  e <- create_item("vote_intl_coalition", labels = c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e)
+  e <- create_item("vote_intl_coalition", labels = c("Less likely" = -1, "Equally likely" = 0, "More likely" = 1), grep = T, values = c("less likely", "not depend", "more likely"), df = e) # TODO: label
   e$vote_intl_coalition_less_likely <- e$vote_intl_coalition == -1
   if ("convergence_support" %in% names(e)) e$convergence_support[is.na(e$convergence_support)] <- "prefer not" # only 11, when I realized that there was not yet "force response" for this question
   if ("convergence_support" %in% names(e)) e <- create_item("convergence_support", labels = c("No" = -1, "PNR" = 0, "Yes" = 1), grep = T, values = c("No", "prefer not", "Yes"), missing.values = c(0, NA), df = e)
   e <- create_item("gcs_comprehension", labels = c("decrease" = -1, "not be affected" = 0, "increase" = 1), df = e)
   e$gcs_understood <- e$gcs_comprehension == 1
   e <- create_item("my_tax_global_nation", labels = c("Strongly disagree" = -2, "Disagree" = -1, "Neither agree nor disagree" = 0, "Agree" = 1, "Strongly agree" = 2), df = e)
-  e <- create_item("group_defended", labels = c("Family and self" = -2, "Community (region, gender...)" = -1, "Fellow citizens" = 0, "Humans" = 1, "Sentient beings" = 2),
+  e <- create_item("group_defended", labels = c("Family and self" = -2, "Community (region, gender...)" = -1, "Fellow citizens" = 0, "Humans" = 1, "Sentient beings" = 2),  # TODO: label
                    grep = T, values = c("family", "religion", "Americans", "Humans", "Sentient"), df = e) # In NHB 0-7, Relatives 1; Culture/religion 3; Europeans 5
-  e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)
+  e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e)  # TODO: label
 
   e$millionaire_factor <- factor(e$millionaire_agg)
   e$urbanity_factor <- e$urbanity_na_as_city <- no.na(factor(e$urbanity), rep = "NA")
@@ -1479,11 +1519,11 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$info_solidarity <- e$variant_realism %in% 1
   if (pilot) e$variant_info_solidarity <- relevel(as.factor(ifelse(e$info_solidarity, ifelse(e$variant_long, "Long info", "Short info"), "No info")), "No info")
   
-  e <- create_item("variant_warm_glow", labels = c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e)
+  e <- create_item("variant_warm_glow", labels = c("None" = 0, "NCS" = 1, "donation" = 2), values = 0:2, df = e) # TODO: label
   e$variant_warm_glow <- as.factor(e$variant_warm_glow)
   e$gcs_support_control <- ifelse(e$variant_warm_glow == "None", e$gcs_support, NA)
   
-  e$donation_agg <- e$donation*(e$donation %in% c(0, 10, 20, 50, 100)) + 5*(e$donation %[]% c(1, 9)) + 15*(e$donation %[]% c(11, 19)) + 35*(e$donation %[]% c(21, 49)) + 75*(e$donation %[]% c(51, 99))
+  e$donation_agg <- e$donation*(e$donation %in% c(0, 10, 20, 50, 100)) + 5*(e$donation %[]% c(1, 9)) + 15*(e$donation %[]% c(11, 19)) + 35*(e$donation %[]% c(21, 49)) + 75*(e$donation %[]% c(51, 99)) # TODO: label
   e <- create_item("donation_agg", labels = c("0" = 0, "1-9" = 5, "10" = 10, "11-19" = 15, "20" = 20, "21-49" = 35, "50" = 50, "51-99" = 75, "100" = 100), values = c(0, 5, 10, 15, 20, 35, 50, 75, 100), missing.values = c("", NA), df = e)
 
   for (v in unique(e$variant_ics)) e[[paste0("ics_", v, "_support")]] <- ifelse(e$variant_ics == v, e$ics_support, NA)
@@ -1492,11 +1532,11 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
   e$share_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0)  
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
-  e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)  
+  e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)   # TODO: label
   e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
-  e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0)  
+  e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0)   # TODO: label
   e$share_solidarity_opposed_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) < 0)  
-  e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0)  
+  e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0)   # TODO: label
   e$share_solidarity_opposed_no_info <- rowMeans((e[, variables_solidarity_no_info]) < 0)  
   for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
   
@@ -1509,7 +1549,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
   
   e$well_being <- e$variant_well_being <- NA
-  for (v in variables_well_being) {
+  for (v in variables_well_being) { # TODO: label
     e$variant_well_being[!is.na(e[[v]])] <- sub("well_being_", "", v)
     e$well_being[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] }
   e$variant_well_being_scale <- ifelse(grepl("0", e$variant_well_being), "0", "1")
@@ -1518,7 +1558,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$variant_wealth_tax <- e$wealth_tax_support <- NA
   for (v in variables_wealth_tax_support) e$variant_wealth_tax[!is.na(e[[v]])] <- sub("_tax_support", "", v)
   for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] %in% "Yes"
-  e <- create_item("wealth_tax_support", labels = c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e)
+  e <- create_item("wealth_tax_support", labels = c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e) # TODO: label
   
   e$humanist <- grepl("Humans", e$group_defended)
   e$universalist <- grepl("Sentient|Humans", e$group_defended)
@@ -1529,7 +1569,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$split_nb_global <- rowSums(!is.na(e[, variables_split_many_global]))
   e$split_many_global <- e$split_many_global_when_appear <- rowSums(e[, variables_split_many_global], na.rm = T)
   e$split_many_global[e$variant_split %in% c(1, "Few")] <- e$split_nb_global[e$variant_split %in% c(1, "Few")] <- NA
-  e$split_many_global_when_appear[!e$split_nb_global %in% 1:4] <- NA
+  e$split_many_global_when_appear[!e$split_nb_global %in% 1:4] <- NA # TODO: label
   
   e$split_both_global <- ifelse(e$variant_split == 1, e$revenue_split_few_global, e$split_many_global)
   e$split_both_global[e$split_nb_global %in% 0] <- NA
@@ -1540,7 +1580,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e <- create_item(v, labels = c("0" = 0, "5" = 5, "10" = 10, "15" = 15, "20" = 20, "25" = 25, "30" = 30, "35-100" = 35), values = c(0, 5, 10, 15, 20, 25, 30, 35), missing.values = c("", NA), df = e)
   }
   
-  e$mean_order_many_global <- rowMeans(e[, sub("many_", "many_order_", variables_split_many_global)], na.rm = T)
+  e$mean_order_many_global <- rowMeans(e[, sub("many_", "many_order_", variables_split_many_global)], na.rm = T) # TODO: label
   
   # Orders with full randomization: revenue_split_few, revenue_split_many, solidarity_support, why_hic_help_lic, maritime_split
   # Orders with random flip: ncqg, transfer_how, vote_intl_coalition, gcs_comprehension
@@ -1572,7 +1612,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in eval(str2expression(paste0("variables_", l)))) e[[v]][!e[[paste0(l, "_asked")]]] <- NA
   }
   
-  e$my_tax_global_nation_external <- my_taxes_global_nation[country]
+  e$my_tax_global_nation_external <- my_taxes_global_nation[country] # TODO: label
   e$my_tax_global_nation_2023 <- my_taxes_global_nation_2023[country]
   
   e$custom_redistr_unsatisfied_unskip <- ifelse(e$custom_redistr_asked, !e$custom_redistr_satisfied & !e$custom_redistr_skip, NA)
@@ -1589,7 +1629,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$n <- paste0(country, 1:nrow(e))
   if (!country %in% c("RU", "SA")) {
     e$conjoint_number <- ifelse(e$conjoint == "Candidate A", 1, ifelse(e$conjoint == "Candidate B", 2, NA))
-    e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number)
+    e$conjoint_misleading <- ifelse(is.na(e$conjoint_number), 1, e$conjoint_number) # TODO: label
     for (v in intersect(variables_conjoint_domains, names(e))) {
       e[[paste0(v, "_original")]] <- e[[v]]
       e[[v]] <- policies_domains[e[[v]]] # common policy name for all countries
@@ -1606,12 +1646,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       max_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, max)
       min_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, min)
       e[[paste0("leaning_conjoint_", i, leaning)]][max_i == 2] <- 2
-      e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0
+      e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0 # TODO: label
       e[[paste0("leaning_conjoint_", i, leaning)]][max_i - min_i == 2] <- -1
       e <- create_item(paste0("leaning_conjoint_", i, leaning), labels = c("Inconsistent" = -1, "Left" = 0, "Unclear" = 1, "Right" = 2), values = -1:2, df = e)
       e[[paste0("consistent_conjoint_", i, leaning)]] <- e[[paste0("leaning_conjoint_", i, leaning)]] != -1
     }
-    e$consistent_conjoints <- e$consistent_conjoint_1 & e$consistent_conjoint_2
+    e$consistent_conjoints <- e$consistent_conjoint_1 & e$consistent_conjoint_2 # TODO: label
     e$consistent_conjoints_strict <- e$consistent_conjoint_1_strict & e$consistent_conjoint_2_strict
   }
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
@@ -1693,8 +1733,8 @@ calla <- create_conjoint_sample(a)
 
 
 ##### Export fields #####
-write.csv(all[,c("country_name", "field", "comment_field", "variant_field")], "../data_raw/fields/fields.csv")
-write.csv(all[,c("country_name", "field_en", "comment_field_en", "variant_field")], "../data_raw/fields/fields_en.csv")
+# write.csv(all[,c("country_name", "field", "comment_field", "variant_field")], "../data_raw/fields/fields.csv")
+# write.csv(all[,c("country_name", "field_en", "comment_field_en", "variant_field")], "../data_raw/fields/fields_en.csv")
 
 
 ##### NLP #####
@@ -1748,7 +1788,7 @@ e <- all <- merge(all, all_gpt)
 
 ##### Codebook #####
 # export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1, 2, 7, 9:13, 197))
-export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
+# export_codebook(all, "../questionnaire/codebook.csv", stata = FALSE, omit = c(2, 7, 9:13, 197))
 
 
 ##### Save #####

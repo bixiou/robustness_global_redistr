@@ -81,6 +81,43 @@ e$wish_field[!is.na(e$wish_field) & !e$country %in% "PL"] # Short answers. Main 
 
 e$comment_field[!is.na(e$comment_field)]
 
+# Correlations
+summary(lm(field_manual_immigration ~ vote == "Far right", data = all, weights = weight)) # 10 pp more likely; R²: .03
+summary(lm(vote == "Far right" ~ field_manual_immigration, data = all, weights = weight)) # 26 pp more likely; R²: .03
+summary(lm(age > 50 ~ field_manual_old_age, data = all, weights = weight)) # 33 pp more likely; R²: .01
+summary(lm(age > 50 ~ field_manual_health, data = all, weights = weight)) # 15 pp more likely; R²: .01
+summary(lm(employment_status == "Unemployed (searching for a job)" ~ field_manual_job, data = all, weights = weight)) # 13 pp more likely; R²: .01
+summary(lm(income_quartile == 4 ~ field_manual_money, data = all, weights = weight)) # 8 pp less likely; R²: .01
+
+with(e, cor(field_manual_immigration, vote == "Far right", use = "complete.obs")) # .18
+with(e, cor(field_manual_far_right_criticism, vote == "Left", use = "complete.obs")) # .13
+with(e, cor(field_manual_old_age, age, use = "complete.obs")) # .12
+with(e, cor(field_manual_old_age, age > 50, use = "complete.obs")) # .12
+with(e, cor(field_manual_health, age, use = "complete.obs")) # .12
+with(e, cor(field_manual_health, age_exact > 55, use = "complete.obs")) # .12
+with(e, cor(field_manual_job, employment_status == "Unemployed (searching for a job)", use = "complete.obs")) # .11
+with(e, cor(field_manual_education, employment_status == "Student", use = "complete.obs")) # .10
+with(e, cor(field_manual_animals, group_defended == "Sentient beings", use = "complete.obs")) # .09
+with(e, cor(field_manual_money, income_quartile, use = "complete.obs")) # -.08
+with(e, cor(field_manual_environment, vote == "Left", use = "complete.obs")) # .08
+with(e, cor(field_manual_inequality, vote == "Left", use = "complete.obs")) # .07
+with(e, cor(field_manual_far_right_criticism, vote == "Non-voter, PNR or Other", use = "complete.obs")) # -.07
+with(e, cor(field_manual_far_right_criticism, vote == "Far right", use = "complete.obs")) # -.06
+with(e, cor(field_manual_nothing, vote == "Non-voter, PNR or Other", use = "complete.obs")) # .06
+with(US, cor(field_manual_discrimination, race_black, use = "complete.obs")) # .05
+with(e, cor(field_manual_security, vote == "Far right", use = "complete.obs")) # .05
+with(e, cor(field_manual_family, group_defended == "Family and self", use = "complete.obs")) # .04
+with(e, cor(field_manual_taxes_welfare, vote == "Left", use = "complete.obs")) # -.04
+with(e, cor(field_manual_corruption, vote == "Far right" , use = "complete.obs")) # .04
+with(e, cor(field_manual_education, education, use = "complete.obs")) # .04
+with(e, cor(field_manual_own_country, vote == "Far right", use = "complete.obs")) # .03
+with(e, cor(field_manual_relationships, couple, use = "complete.obs")) # -.03
+# Below, not statistically significant
+with(e, cor(field_manual_global_issue, vote == "Left", use = "complete.obs")) # .02
+with(e, cor(field_manual_global_issue, group_defended == "Humans", use = "complete.obs")) # .02
+with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) # .01
+with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
+
 
 ##### Revenue split #####
 # Average of 17 for global item, quite independent of number of global items => people seem to split more or less equally between presented choices.
@@ -109,10 +146,15 @@ sort(sapply(variables_split_few, function(c) mean(e[[c]][e[[c]] != 0], na.rm = T
 sort(sapply(variables_split_few, function(c) mean(e[[c]][e$revenue_split_few_global != 0], na.rm = T)), decreasing = T) 
 
 
-##### Warm glow - substitute #####
+##### Donation / Warm glow - substitute #####
 # => Wrong that some prefer to pay more to get climate policy at global level; on the contrary it seems a few prefer to not lose and have it domestically
 with(e, summary(lm(gcs_support ~ variant_warm_glow, weights = weight))) # No effect of donation; -.03 for NCS
 with(e, summary(lm(gcs_support ~ variant_warm_glow * country, subset = !variant_warm_glow %in% "donation"))) # NCS effect driven by PL
+cor(e$donation, e$gcs_support, use = "complete.obs") # .19
+decrit("donation", all, which = all$gcs_support == "Yes") # Mean: 33
+decrit("donation", all, which = all$gcs_support == "No") # Mean: 23
+decrit("share_solidarity_supported", all, which = all$gcs_support == "Yes") # Mean: .64
+decrit("share_solidarity_supported", all, which = all$gcs_support == "No") # Mean: .33
 
 
 ##### GCS #####
@@ -302,7 +344,7 @@ current_inc[987] # 120k 987<->quantile 98.6, i.e. top 1.4%
 current_inc[990] # 131k
 
 
-###### Well-being #####
+##### Well-being #####
 with(e, summary(lm(well_being ~ variant_well_being))) 
 with(e, summary(lm(well_being ~ variant_well_being_scale * variant_well_being_wording))) 
 
