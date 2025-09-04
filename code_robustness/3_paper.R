@@ -24,6 +24,7 @@ representativeness_table(c("All", "Eu", "EU"))
 representativeness_table(countries[1:3])
 representativeness_table(countries[4:7])
 representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO vote; employment
+representativeness_table(countries[8:11], omit = c("Not 25-64"))
   
 
 ##### Determinants #####
