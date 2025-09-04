@@ -1,7 +1,7 @@
 # TODO! check where variables_gcs_ics should be _control and not
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO! millionaire_tax_in_program by political leaning
-# TODO! representativeness_table nationality for SA; all; EU
+# TODO! representativeness_table all; EU
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 # TODO: RU education on 18+ (not 25-64)
@@ -1746,18 +1746,30 @@ create_conjoint_sample <- function(df = all) {
   df$millionaire_tax_in_b <- grepl("foreign_policy1", df$program_b)
   df$cut_aid_in_a <- grepl("foreign_policy2", df$program_a)
   df$cut_aid_in_b <- grepl("foreign_policy2", df$program_b)
+  df$foreign3_in_a <- grepl("foreign_policy3", df$program_a)
+  df$foreign3_in_b <- grepl("foreign_policy3", df$program_b)
   df$millionaire_tax_in_program <- df$millionaire_tax_in_a
   df$cut_aid_in_program <- df$cut_aid_in_a
+  df$foreign3_in_program <- df$foreign3_in_a
   df$program <- df$program_a
   df$program_preferred <- df$conjoint == "Candidate A"
   temp <- df
   temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
   temp$cut_aid_in_program <- temp$cut_aid_in_b
+  df$foreign3_in_program <- df$foreign3_in_b
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
   call <- cbind(df, temp)
   call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
-                                          "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "weight", "weight_country"))]
+                                          "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country"))]
+  # call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out") 
+  # call$millionaire_vote <- relevel(factor(call$millionaire_vote), "millionaire_out")
+  call$program_preferred_left <- ifelse(call$vote_factor == "Left", call$program_preferred, NA)
+  call$program_preferred_center_right <- ifelse(call$vote_factor == "Center-right or Right", call$program_preferred, NA)
+  call$program_preferred_right <- ifelse(call$vote_factor %in% c("Center-right or Right", "Far right"), call$program_preferred, NA)
+  call$program_preferred_far_right <- ifelse(call$vote_factor == "Far right", call$program_preferred, NA)
+  call$program_preferred_far_right[call$country == "US"] <- call$program_preferred_right[call$country == "US"]
+  call$program_preferred_pnr <- ifelse(call$vote_factor == "Non-voter, PNR or Other", call$program_preferred, NA)
   return(call)
 }
 call <- create_conjoint_sample(all)

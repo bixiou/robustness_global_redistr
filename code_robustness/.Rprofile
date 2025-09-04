@@ -2616,7 +2616,7 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
     if (subsamples %in% covariates) {
       warning("subsamples should not be in covariates")
       covariates <- covariates[covariates!=subsamples] }
-    for (s in levels_subsamples) {
+    for (s in names(levels_subsamples)) {
       var_subsample <- if (exists("special_levels") & s %in% names(special_levels)) special_levels[[s]]$var else subsamples
       if (exists("special_levels") & s %in% names(special_levels)) s <- special_levels[[s]]$value
       regs <- c(regs, regressions_list(outcomes = outcomes, covariates = covariates, subsamples = NULL, df = df[df[[var_subsample]] %in% s,], logit = logit[(i*length(outcomes)+1):((i+1)*length(outcomes))], weight = weight, atmean = atmean, logit_margin = logit_margin, weight_non_na = weight_non_na))
@@ -2626,10 +2626,10 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
     for (c in seq_along(covariates)) several_values[c] <- length(unique(df[[covariates[c]]])) > 1
     covariates <- covariates[several_values]
     if ("double.item" %in% class(df[[y]])) dependent_var <- paste0("as.numeric(", y, ")") else dependent_var <- y
-    if (sum(is.na(df[[dependent_var]])) > .1*nrow(df) && "country" %in% names(df) && length(unique(df$country)) == 1) df[[weight]][!is.na(df[[dependent_var]])] <- weighting(df[!is.na(df[[dependent_var]]),], unique(df$country), printWeights = F, variant = if (weight == "weight") NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
+    if (weight_non_na && sum(is.na(df[[dependent_var]])) > .1*nrow(df) && "country" %in% names(df) && length(unique(df$country)) == 1) df[[weight]][!is.na(df[[dependent_var]])] <- weighting(df[!is.na(df[[dependent_var]]),], unique(df$country), printWeights = F, variant = if (weight == "weight") NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
     formula <- reg_formula(dependent_var, covariates)
     i <- i + 1
-    if (logit[i]) {
+    if (logit[if (length(logit) == 1) 1 else i]) {
       if (logit_margin) {
         reg <- logitmfx(formula, data = df, atmean = atmean) #$mfxest
         if (summary) reg <- reg$mfxest
@@ -2682,7 +2682,7 @@ mean_ci_along_regressions <- function(regs, along, labels, df = e, origin = 'oth
       if (print_regs) print(summary(r))
       i <- i+1
       label <- rep(labels[i], length(levels_along))
-      if (!is.null(subsamples)) data_s <- df[df[[subsamples]] %in% levels_subsamples[[i]],] else data_s <- df
+      if (!is.null(subsamples)) data_s <- df[df[[subsamples]] %in% levels_subsamples[[(i-1) %% length(levels_subsamples) + 1]],] else data_s <- df
       if (!("weight" %in% names(data_s))) data_s$weight <- 1
       else if (weight_non_na && "country" %in% names(data_s) && length(unique(data_s$country)) == 1 && unique(data_s$country) %in% countries && "na.action" %in% names(r) && length(temp$na.action) > .1*nrow(data_s)) {
         data_s$weight[-as.numeric(temp$na.action)] <- weighting(data_s[-as.numeric(temp$na.action),], unique(data_s$country), printWeights = F)    }  # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
@@ -2773,14 +2773,15 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
   if (class(labels_along) == "list" && names_levels == paste0(along, labels_along)) names_levels <- paste0(along, labels_along)
   z <- qnorm(1-(1-confidence)/2)
   if (is.logical(df[[along]]) && all(labels_along == levels_along)) { labels_along <- paste0(along, ": ", levels_along) }
-  names(labels_along) <- if (is.null(names(levels_along))) as.character(levels_along) else names(levels_along) # setNames(levels_along, levels_along)
+  if (is.null(names(labels_along))) names(labels_along) <- if (is.null(names(levels_along))) as.character(levels_along) else names(levels_along) # setNames(levels_along, levels_along)
   if (!is.null(covariates)) { # If conditional (regressions)
     if (!(along %in% c(covariates, subsamples))) print("ERROR: along must be in covariates")
     if (any(logit) & !logit_margin) print("Warning: Are you sure you want the logit coefficients rather than the marginal effects? If not, set logit_margin = T.")
     if (!is.null(subsamples) & (missing(labels) | identical(labels, outcome_vars))) labels <- if (class(levels_subsamples)=="list") names(levels_subsamples) else if (exists("special_levels") & any(levels_subsamples %in% names(special_levels))) levels_subsamples else Levels(df[[subsamples]])
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
     regs <- regressions_list(outcomes = outcomes, covariates = covariates, subsamples = subsamples, df = df, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, summary = FALSE, levels_subsamples = levels_subsamples, weight_non_na = weight_non_na)
-    mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = labels, df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, weight_non_na = weight_non_na, print_regs = print_regs, levels_subsamples = levels_subsamples)
+    mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = paste0(sapply(labels, function(l) rep(l, length(outcomes)))) , df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, weight_non_na = weight_non_na, print_regs = print_regs, levels_subsamples = levels_subsamples)
+    if (length(outcomes) > 1) mean_ci$along <- rep(labels_along, length(labels)) 
     if (all(as.character(mean_ci$along) %in% names(labels_along))) mean_ci$along <- labels_along[as.character(mean_ci$along)]
   } else { # If unconditional (subgroup means)
     if (!is.null(subsamples)) { # Configuration a.
