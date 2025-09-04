@@ -360,6 +360,9 @@ sapply(paste0(pilot_countries, "p"), function(c) print(decrit("voted", d(c))))
 
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$convergence_support %in% "Yes"), 2))
 
+write.csv(all[, c(variables_well_being, "well_being", "variant_well_being", "variant_well_being_scale", "variant_well_being_wording", "weight", variables_socio_demos, "country", "country_name",
+  "income", "income_quartile", "income_decile", "income_exact_thousandile_world", "income_factor", "income_exact_quartile", "income_exact_decile", "income_exact_individualized")], "../../wellbeing_gdp_region/data/Fabre2025.csv", row.names = F)
+
 
 ##### Comments #####
 e$comment_field[!is.na(e$comment_field) & !e$country %in% "PL"]
