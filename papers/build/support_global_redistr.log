@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  4 SEP 2025 19:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.19)  4 SEP 2025 20:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2527,10 +2527,10 @@ Overfull \hbox (2.28001pt too wide) in paragraph at lines 205--214
 [][] [] 
  []
 
-<../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf, id=151, 658.46pt x 299.1175pt>
-File: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf Graphic file (type pdf)
-<use ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf>
-Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf  used on input line 219.
+<../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf, id=151, 658.46pt x 299.1175pt>
+File: ../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf Graphic file (type pdf)
+<use ../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf>
+Package pdftex.def Info: ../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf  used on input line 219.
 (pdftex.def)             Requested size: 469.75502pt x 213.39728pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -2638,7 +2638,7 @@ Overfull \hbox (12.60461pt too wide) in paragraph at lines 328--330
 []\OT1/ppl/m/n/10.95 All data and code of the \OT1/ppl/m/it/10.95 global \OT1/ppl/m/n/10.95 sur-veys as well as fig-ures of the pa-per are avail-able on [][]10.5281/zen-
  []
 
-[5] [6] [7 <../figures/all/concerns_field_en.pdf> <../figures/all/wish_field_en.pdf> <../figures/all/issue_field_en.pdf> <../figures/all/injustice_field_en.pdf>] [8 <../figures/country_comparison/split_main_means_nolegend.pdf> <../figures/country_comparison/split_main_nb0_nolabel.pdf> <../figures/country_comparison/variables_ncs_gcs_ics_by_country.pdf>] [9 <../figures/country_comparison/variables_wealth_tax_support_by_country.pdf> <../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf>] [10 <../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf> <../figures/country_comparison/solidarity_support_share.pdf>] [11 <../figures/country_comparison/radical_redistr_all_share.pdf> <../figures/all/group_defended_nolabel.pdf> <../figures/country_comparison/transfer_how_positive.pdf>] [12 <../figures/questionnaire/survey_custom_redistr_bottom.png>] (build/bu1.bbl (build/support_global_redistr.brf)
+[5] [6] [7 <../figures/all/concerns_field_en.pdf> <../figures/all/wish_field_en.pdf> <../figures/all/issue_field_en.pdf> <../figures/all/injustice_field_en.pdf>] [8 <../figures/country_comparison/split_main_means_nolegend.pdf> <../figures/country_comparison/split_main_nb0_nolabel.pdf> <../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf>] [9 <../figures/country_comparison/variables_wealth_tax_support_by_country.pdf> <../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf>] [10 <../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf> <../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf> <../figures/country_comparison/solidarity_support_share.pdf>] [11 <../figures/country_comparison/radical_redistr_all_share.pdf> <../figures/all/group_defended_nolabel.pdf> <../figures/country_comparison/transfer_how_positive.pdf>] [12 <../figures/questionnaire/survey_custom_redistr_bottom.png>] (build/bu1.bbl (build/support_global_redistr.brf)
 \tf@brf=\write9
 \openout9 = `support_global_redistr.brf'.
 
@@ -2902,11 +2902,11 @@ Package pdftex.def Info: ../figures/country_comparison/donation_agg_nolabel.pdf 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../figures/country_comparison/ncs_gcs_ics_positive.pdf, id=646, 1259.70625pt x 390.45876pt>
-File: ../figures/country_comparison/ncs_gcs_ics_positive.pdf Graphic file (type pdf)
-<use ../figures/country_comparison/ncs_gcs_ics_positive.pdf>
-Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_positive.pdf  used on input line 195.
-(pdftex.def)             Requested size: 469.75502pt x 145.60544pt.
+<../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf, id=646, 1277.77374pt x 506.89375pt>
+File: ../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf Graphic file (type pdf)
+<use ../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf>
+Package pdftex.def Info: ../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf  used on input line 195.
+(pdftex.def)             Requested size: 469.75502pt x 186.34889pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -3163,7 +3163,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [14
 
- <../figures/country_comparison/field_keyword_main_positive.pdf>] [15 <../figures/country_comparison/field_gpt_positive.pdf>] [16 <../figures/country_comparison/field_manual_positive.pdf>] [17 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [18 <../figures/country_comparison/field_wish_manual_positive.pdf>] [19 <../figures/country_comparison/field_issue_manual_positive.pdf>] [20] [21 <../figures/country_comparison/program_preferred_by_cut_aid_vote_country.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_vote_country.pdf>] [22 <../figures/all/conjoint_EN-FR.pdf>] [23 <../figures/all/conjoint_EN-DE.pdf>] [24 <../figures/all/conjoint_EN-IT.pdf>] [25 <../figures/all/conjoint_EN-PL.pdf>] [26 <../figures/all/conjoint_EN-ES.pdf>] [27 <../figures/all/conjoint_EN-GB.pdf>] [28 <../figures/all/conjoint_EN-CH.pdf>] [29 <../figures/all/conjoint_EN-JA.pdf>] [30 <../figures/all/conjoint_EN.pdf>] [31 <../figures/all/conjoint_FR.pdf>] [32 <../figures/all/conjoint_DE.pdf>] [33 <../figures/all/conjoint_IT.pdf>] [34 <../figures/all/conjoint_PL.pdf>] [35 <../figures/all/conjoint_ES-ES.pdf>] [36 <../figures/JP/conjoint_JA.png>] [37 <../figures/country_comparison/split_few_bars_nb0.pdf>] [38 <../figures/all/split_few.pdf>] [39 <../figures/all/split_many.pdf> <../figures/country_comparison/split_many_global_mean.pdf>] [40 <../figures/country_comparison/donation_agg_nolabel.pdf> <../figures/country_comparison/ncs_gcs_ics_positive.pdf>] [41 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/country_comparison/share_solidarity_supported_nolabel.pdf>] [42 <../figures/country_comparison/share_solidarity_opposed_nolabel.pdf> <../figures/country_comparison/ncqg_nolabel.pdf>] [43 <../figures/country_comparison/ncqg_full_nolabel.pdf> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [44 <../figures/country_comparison/sustainable_future_nolabel.pdf> <../figures/country_comparison/top_tax_share.pdf> <../figures/country_comparison/top_tax_positive.pdf>] [45 <../figures/country_comparison/transfer_how_above_one.pdf>] [46 <../figures/country_comparison/transfer_how_negative.pdf> <../figures/country_comparison/convergence_support_nolabel.pdf>] [47 <../figures/country_comparison/global_movement_positive.pdf>] [48 <../figures/country_comparison/vote_intl_coalition_nolabel.pdf>] [49 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/country_comparison/reparations_support_nolabel.pdf>] [50 <../figures/all/custom_redistr_mean.png>] [51 <../figures/questionnaire/survey_custom_redistr_median_zoom.png>] [52 <../figures/country_comparison/custom_redistr_all_mean.pdf> <../figures/country_comparison/gcs_comprehension_nolabel.pdf>] [53 <../figures/country_comparison/my_tax_global_nation_share.pdf> <../figures/country_comparison/my_tax_global_nation_positive.pdf> <../figures/country_comparison/group_defended_nolabel.pdf>] [54 <../figures/country_comparison/survey_biased_nolabel.pdf> <../figures/country_comparison/millionaire_nolabel.pdf>] [55 <../figures/country_comparison/foreign_born_family_nolabel.pdf>] [56 <../figures/country_comparison/vote_pnr_out.pdf>] [57 <../figures/country_comparison/vote_representativeness.pdf>] (./app_questionnaire.tex
+ <../figures/country_comparison/field_keyword_main_positive.pdf>] [15 <../figures/country_comparison/field_gpt_positive.pdf>] [16 <../figures/country_comparison/field_manual_positive.pdf>] [17 <../figures/country_comparison/field_concerns_manual_positive.pdf>] [18 <../figures/country_comparison/field_wish_manual_positive.pdf>] [19 <../figures/country_comparison/field_issue_manual_positive.pdf>] [20] [21 <../figures/country_comparison/program_preferred_by_cut_aid_vote_country.pdf> <../figures/country_comparison/program_preferred_by_millionaire_tax_vote_country.pdf>] [22 <../figures/all/conjoint_EN-FR.pdf>] [23 <../figures/all/conjoint_EN-DE.pdf>] [24 <../figures/all/conjoint_EN-IT.pdf>] [25 <../figures/all/conjoint_EN-PL.pdf>] [26 <../figures/all/conjoint_EN-ES.pdf>] [27 <../figures/all/conjoint_EN-GB.pdf>] [28 <../figures/all/conjoint_EN-CH.pdf>] [29 <../figures/all/conjoint_EN-JA.pdf>] [30 <../figures/all/conjoint_EN.pdf>] [31 <../figures/all/conjoint_FR.pdf>] [32 <../figures/all/conjoint_DE.pdf>] [33 <../figures/all/conjoint_IT.pdf>] [34 <../figures/all/conjoint_PL.pdf>] [35 <../figures/all/conjoint_ES-ES.pdf>] [36 <../figures/JP/conjoint_JA.png>] [37 <../figures/country_comparison/split_few_bars_nb0.pdf>] [38 <../figures/all/split_few.pdf>] [39 <../figures/all/split_many.pdf> <../figures/country_comparison/split_many_global_mean.pdf>] [40 <../figures/country_comparison/donation_agg_nolabel.pdf> <../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf>] [41 <../figures/country_comparison/solidarity_support_positive.pdf> <../figures/country_comparison/share_solidarity_supported_nolabel.pdf>] [42 <../figures/country_comparison/share_solidarity_opposed_nolabel.pdf> <../figures/country_comparison/ncqg_nolabel.pdf>] [43 <../figures/country_comparison/ncqg_full_nolabel.pdf> <../figures/country_comparison/wealth_tax_support_positive.pdf>] [44 <../figures/country_comparison/sustainable_future_nolabel.pdf> <../figures/country_comparison/top_tax_share.pdf> <../figures/country_comparison/top_tax_positive.pdf>] [45 <../figures/country_comparison/transfer_how_above_one.pdf>] [46 <../figures/country_comparison/transfer_how_negative.pdf> <../figures/country_comparison/convergence_support_nolabel.pdf>] [47 <../figures/country_comparison/global_movement_positive.pdf>] [48 <../figures/country_comparison/vote_intl_coalition_nolabel.pdf>] [49 <../figures/country_comparison/why_hic_help_lic_positive.pdf> <../figures/country_comparison/reparations_support_nolabel.pdf>] [50 <../figures/all/custom_redistr_mean.png>] [51 <../figures/questionnaire/survey_custom_redistr_median_zoom.png>] [52 <../figures/country_comparison/custom_redistr_all_mean.pdf> <../figures/country_comparison/gcs_comprehension_nolabel.pdf>] [53 <../figures/country_comparison/my_tax_global_nation_share.pdf> <../figures/country_comparison/my_tax_global_nation_positive.pdf> <../figures/country_comparison/group_defended_nolabel.pdf>] [54 <../figures/country_comparison/survey_biased_nolabel.pdf> <../figures/country_comparison/millionaire_nolabel.pdf>] [55 <../figures/country_comparison/foreign_born_family_nolabel.pdf>] [56 <../figures/country_comparison/vote_pnr_out.pdf>] [57 <../figures/country_comparison/vote_representativeness.pdf>] (./app_questionnaire.tex
 Underfull \hbox (badness 10000) in paragraph at lines 3--14
 
  []
@@ -3994,7 +3994,7 @@ Package rerunfilecheck Info: File `support_global_redistr.brf' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  40173 strings out of 475075
- 823225 string characters out of 5783001
+ 823337 string characters out of 5783001
  1155906 words of memory out of 5000000
  60444 multiletter control sequences out of 15000+600000
  525366 words of font info for 171 fonts, out of 8000000 for 9000
@@ -4010,7 +4010,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/eurosym/feymr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on build/support_global_redistr.pdf (106 pages, 3548681 bytes).
+Output written on build/support_global_redistr.pdf (106 pages, 3549351 bytes).
 PDF statistics:
  2626 PDF objects out of 2984 (max. 8388607)
  1915 compressed objects within 20 object streams

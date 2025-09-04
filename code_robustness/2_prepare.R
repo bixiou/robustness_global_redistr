@@ -437,7 +437,8 @@ define_var_lists <- function() {
   variables_gcs_ics_all <<- c("gcs_support", variables_gcs_belief, variables_ics)
   variables_ncs_gcs_ics <<- c("ncs_support", "gcs_support", variables_ics)
   variables_ncs_gcs_ics_control <<- c("ncs_support", "gcs_support_control", variables_ics)
-  variables_ncs_gcs_ics_all <<- c("ncs_support", "gcs_support_control", variables_gcs_belief, variables_ics)
+  variables_ncs_gcs_ics_all <<- c("ncs_support", "gcs_support", variables_gcs_belief, variables_ics)
+  variables_ncs_gcs_ics_all_control <<- c("ncs_support", "gcs_support_control", variables_gcs_belief, variables_ics)
   variables_well_being <<- c("well_being_gallup_0", "well_being_wvs_0", "well_being_gallup_1", "well_being_wvs_1")
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
                               "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")

@@ -259,6 +259,7 @@ heatmaps_defs <- list(
   "gcs_ics_all" = list(vars = variables_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 500), 
   "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1", width = 1550, height = 430), 
   "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 550), 
+  "ncs_gcs_ics_all_control" = list(vars = variables_ncs_gcs_ics_all_control, conditions = "", nb_digits = 0, width = 1550, height = 550), 
   "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
   "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
@@ -413,7 +414,7 @@ heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
 heatmap_multiple(heatmaps_defs["solidarity_support"])
 heatmap_multiple(heatmaps_defs["gcs_ics_all"])
 heatmap_multiple(heatmaps_defs["gcs_belief"]) 
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all")])
+heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all", "ncs_gcs_ics_all_control")])
 heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
 heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
 
