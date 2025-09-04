@@ -295,7 +295,13 @@
     \caption[Median custom redistribution]{Global redistribution obtained from median custom parameters: 49\% of winners; 18\% of losers; degree of redistribution of 5 (out of 10). (Question~\ref{q:custom_redistr}).
     }\label{fig:custom_redistr_median}
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/questionnaire/survey_custom_redistr_median_zoom.png}} 
-\end{figure} % TODO: tax rates: all/tax_radical_redistr
+\end{figure} 
+
+\begin{figure}[h!]
+    \caption[Answers to custom redistribution]{Mean answers to custom redistribution. (Question~\ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_all}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/custom_redistr_all_mean.pdf}} 
+\end{figure} 
 
 % \begin{figure}[h!]
 %     \caption[Average well-being depending on the variant]{Average subjective well-being, depending on the variant. (Question~\ref{q:well_being}).
@@ -440,6 +446,18 @@ Unless otherwise specified, response is compulsory and a single response much be
     \makebox[\textwidth][c]{
 \resizebox*{!}{.73\textheight}{ % .67 if on same page as title
         \input{../tables/determinants_paper.tex}
+        }
+    }
+    {\footnotesize \textit{Note}: Robust standard errors are reported in parentheses. Covariates omitted in the Table: \textit{Country}; \textit{Employment}; \textit{Couple}; \textit{Region}; \textit{Constant}. Omitted variables are: \textit{Vote: Non-voter, PNR or Other}; \textit{Gender: Woman}; \textit{Age: 35-49}; \textit{Income\_quartile: Q1}; \textit{Diploma: Below upper secondary}; \textit{Urbanicity: City}. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01.
+    }
+\end{table}
+
+\begin{table}[h]\label{tab:determinants_custom_redistr}
+    \caption[Correlates of answers on custom redistribution]{Correlates of answers on custom redistribution (multivariate OLS regressions). %(Back to \ref{subsec:gcs_stated_support})
+    } 
+    \makebox[\textwidth][c]{
+\resizebox*{!}{.73\textheight}{ % .67 if on same page as title
+        \input{../tables/determinants_custom_redistr.tex}
         }
     }
     {\footnotesize \textit{Note}: Robust standard errors are reported in parentheses. Covariates omitted in the Table: \textit{Country}; \textit{Employment}; \textit{Couple}; \textit{Region}; \textit{Constant}. Omitted variables are: \textit{Vote: Non-voter, PNR or Other}; \textit{Gender: Woman}; \textit{Age: 35-49}; \textit{Income\_quartile: Q1}; \textit{Diploma: Below upper secondary}; \textit{Urbanicity: City}. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01.

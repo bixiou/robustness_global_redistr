@@ -175,8 +175,10 @@ labels_vars <- c(
   "custom_redistr_winners" = "Preferred share of winners",
   "custom_redistr_losers" = "Preferred share of losers",
   "custom_redistr_degree" = "Preferred degree of redistribution",
-  "custom_redistr_income_min" = "Implied minimum income",
+  "custom_redistr_income_min" = "Implied minimum income (in $/year)",
   "custom_redistr_transfer" = "Implied transfer (in % of world income)",
+  "custom_redistr_untouched" = "Has not touched the sliders",
+  "custom_redistr_satisfied_touched" = "Touched sliders and satisfied",
   "well_being_gallup_0" = "Well-being: Gallup, 0-10 scale",
   "well_being_gallup_1" = "Well-being: Gallup, 1-10 scale",
   "well_being_wvs_0" = "Well-being: World Values Survey, 0-10 scale",
@@ -269,7 +271,7 @@ heatmaps_defs <- list(
   "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
-  "custom_redistr_all" = list(vars = variables_custom_redistr_all, conditions = "", width = 1200, height = 500),
+  "custom_redistr_all" = list(vars = c(variables_custom_redistr_all, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
   "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1300, height = 700),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1300, height = 500),
   # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
@@ -439,7 +441,7 @@ barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/
 # data_countries <- countries[-9]
 # data_split_few <- matrix(NA, dimnames = list(variables_split_few, data_countries), nrow = 5, ncol = length(data_countries))
 # for (v in variables_split_few) for (c in data_countries) data_split_few[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight, na.rm = T)
-# barres(data_split_few/100, save = T, export_xls = T, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
+# barres(data_split_few/100, save = T, export_xls = F, miss = F, rev_color = T, sort = F, file = "../figures/country_comparison/split_few_bars",
 #        legend = labels_vars[variables_split_few], labels = countries_names[data_countries])
 
 
@@ -630,17 +632,17 @@ colnames(true_vote_by_country) <- paste0(colnames(true_vote_by_country), ": Elec
 vote_data <- cbind(vote_by_country, true_vote_by_country)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
 vote_EU <- cbind(vote_by_country[,2:6], true_vote_by_country[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
-barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 680, height = 430)
-barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 430)
-barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 680)
+barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 680, height = 430)
+barres(vote_non_EU, file="country_comparison/vote_non_EU",  labels = colnames(vote_non_EU),legend = row.names(vote_non_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 430)
+barres(vote_data, file="country_comparison/vote_representativeness",  labels = colnames(vote_data),legend = row.names(vote_data), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=F, rev=F, grouped = F, width = 680, height = 680)
 
 true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
 vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_pnr_out <- cbind(vote_by_country_pnr_out, true_vote_by_country_pnr_out)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
-barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1200, height = 430)
-barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1300, height = 430)
-barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = T, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1500, height = 680)
+barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1200, height = 430)
+barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1300, height = 430)
+barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1500, height = 680)
 # TODO: representativeness by group at EU Parliament
 
   
@@ -774,6 +776,11 @@ representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender
 
 ## Determinants
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Share of\\\\plausible\\\\policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate\\\\Scheme}", "\\makecell{Universalist\\\\(Group\\\\defended:\\\\Humans or\\\\Sentient beings)}", 
+                              "\\makecell{More likely\\\\to vote\\\\for party\\\\in global\\\\coalition}", "\\makecell{Endorses\\\\convergence\\\\of all countries'\\\\GDP p.c.\\\\by 2100}", "\\makecell{Supports an\\\\international\\\\wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
+           indep_vars = control_variables, filename = "determinants_paper", nolabel = F, model.numbers = T, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
+
+desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
    "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
            indep_vars = control_variables, filename = "determinants", nolabel = F) 
@@ -787,7 +794,14 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
            dep.var.labels = c("\\makecell{Share of\\\\plausible policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Universalist\\\\(Group defended:\\\\Humans or Sentient beings)}", 
                               "\\makecell{More likely to\\\\vote for party\\\\in global coalition}", "\\makecell{Endorses convergence\\\\of all countries' GDP\\\\per capita by 2100}", "\\makecell{Supports an\\\\int'l wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
            indep_vars = control_variables, filename = "determinants_omit_many", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "illionaire", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
-# TODO? Add custom_redistr_satisfied? 
+
+desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_self_lose", "custom_redistr_self_lose", "custom_redistr_satisfied", "custom_redistr_untouched", "custom_redistr_satisfied_touched"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Custom transfer\\\\(in \\% of world GDP)}", "\\makecell{Loses\\\\from custom\\\\redistribution}", "\\makecell{Satisfied with\\\\own custom\\\\redistr.}", "\\makecell{Has not\\\\touched the\\\\sliders}", "\\makecell{Touched the\\\\sliders and\\\\satisfied}"),
+           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied,], all[all$custom_redistr_satisfied_touched,], all, all[all$custom_redistr_satisfied_touched,], all, all, all), 
+           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")),
+                            c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
+           filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
+
 
 
 ##### Conjoint on consistent programs #####

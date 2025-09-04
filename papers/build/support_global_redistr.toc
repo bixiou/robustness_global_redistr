@@ -11,20 +11,20 @@
 \contentsline {paragraph}{\small Questionnaires and raw results.}{5}{section*.21}%
 \contentsline {section}{Bibliography}{13}{section*.24}%
 \contentsline {section}{\numberline {A}Raw results}{14}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{56}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{78}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{81}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{83}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{84}{section*.106}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{87}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{88}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{89}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{90}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{91}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{92}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{95}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{98}{appendix.M}%
-\contentsline {section}{Bibliography}{99}{section*.128}%
-\contentsline {section}{List of Tables}{99}{section*.129}%
-\contentsline {section}{List of Figures}{99}{section*.130}%
+\contentsline {section}{\numberline {B}Questionnaire}{57}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{79}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{82}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{85}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{86}{section*.108}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{89}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{90}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{91}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{92}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{93}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{94}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{97}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{100}{appendix.M}%
+\contentsline {section}{Bibliography}{101}{section*.130}%
+\contentsline {section}{List of Tables}{101}{section*.131}%
+\contentsline {section}{List of Figures}{101}{section*.132}%
 \contentsfinish 
