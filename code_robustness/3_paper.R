@@ -18,10 +18,12 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 
 
 ##### Representativeness ######
-representativeness_table(countries[1:3])
+# representativeness_table("All")
+representativeness_table(c("All", "Eu", "EU"))
+# representativeness_table(c("Eu", countries[1:3]))
 representativeness_table(countries[1:3])
 representativeness_table(countries[4:7])
-representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO all; EU; vote; employment
+representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO vote; employment
   
 
 ##### Determinants #####

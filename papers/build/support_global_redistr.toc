@@ -13,18 +13,18 @@
 \contentsline {section}{\numberline {A}Raw results}{14}{appendix.A}%
 \contentsline {section}{\numberline {B}Questionnaire}{58}{appendix.B}%
 \contentsline {section}{\numberline {C}Representativeness of the surveys}{80}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{83}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{86}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{87}{section*.109}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{90}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{91}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{92}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{93}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{94}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{95}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{98}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{101}{appendix.M}%
-\contentsline {section}{Bibliography}{102}{section*.131}%
-\contentsline {section}{List of Tables}{102}{section*.132}%
-\contentsline {section}{List of Figures}{102}{section*.133}%
+\contentsline {section}{\numberline {D}Determinants of support}{84}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{87}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{88}{section*.110}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{91}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{92}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{93}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{94}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{95}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{96}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{99}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{102}{appendix.M}%
+\contentsline {section}{Bibliography}{103}{section*.132}%
+\contentsline {section}{List of Tables}{103}{section*.133}%
+\contentsline {section}{List of Figures}{103}{section*.134}%
 \contentsfinish 

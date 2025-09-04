@@ -2962,13 +2962,13 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
 #' # }
 #'
 representativeness_table <- function(country_list, weighted = T, non_weighted = T, label_operator = union, all = FALSE, omit = c("Other", "Not 25-64", "Employment_18_64: Employed", "Employment_18_64: 65+", "PNR", "Urban: FALSE"),
-                                     filename = NULL, folder = "../tables/", return_table = FALSE, threshold_skip = 0.01, weight_var = "weight", abbr = NULL, bold = .2, bold_additive = FALSE) {
+                                     filename = NULL, folder = "../tables/", return_table = FALSE, threshold_skip = 0.005, weight_var = "weight", abbr = NULL, bold = .2, bold_additive = FALSE) {
   rows <- c()
   pop <- sample <- sample_weighted <- labels <- list()
   for (i in seq_along(country_list)) {
-    df <- d(country_list[i])
+    df <- if (exists("special_levels") & exists("all") & country_list[i] %in% names(special_levels)) d("all")[d("all")$country_name %in% special_levels[[country_list[i]]]$value,] else d(country_list[i])
     k <- country_list[i]
-    c <- sub("[0-9p]+", "", toupper(k))
+    c <- sub("[0-9p]+", "", if (exists("countries") & toupper(k) %in% countries) toupper(k) else k) 
 
     labels[[k]] <- "Sample size"
     pop[[k]] <- ""
@@ -3006,12 +3006,13 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
   if (return_table) return(table)
   else export_representativeness_table(table = table, country_list = country_list, weighted = weighted, non_weighted = non_weighted, filename = if (all) paste0(filename, "_all") else filename, folder = folder, abbr = abbr, bold = bold, bold_additive = bold_additive)
 }
-# representativeness_table(c("US1"), return_table = T)
+
 export_representativeness_table <- function(table, country_list, weighted = T, non_weighted = T, filename = NULL, folder = "../tables/sample_composition", abbr = NULL, bold = .2, bold_additive = FALSE) {
   nb_types <- 1 + weighted + non_weighted
   header <- c("", rep(nb_types, length(country_list)))
   names(header) <- c("", country_list)
   names(header)[names(header) %in% countries] <- countries_names[names(header)[names(header) %in% countries]]
+  print(table)
 
   if (bold > 0) { # Put in bold the cells that diverge by more than 'bold' from population frequencies
     if (bold > 1) bold <- bold/100
@@ -3024,7 +3025,7 @@ export_representativeness_table <- function(table, country_list, weighted = T, n
       }
     }
   }
-  print(table)
+  # print(table)
   for (j in 1:ncol(table)) {
     na_j <- is.na(table[,j])
     table[2:nrow(table),j] <- sprintf("%.2f", round(as.numeric(table[2:nrow(table),j]), 2))

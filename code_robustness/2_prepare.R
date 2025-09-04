@@ -1,6 +1,5 @@
 # TODO! check where variables_gcs_ics should be _control and not
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
-# TODO! millionaire_tax_in_program by political leaning
 # TODO! representativeness_table all; EU
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -19,8 +18,8 @@ countries_Eu <- countries_names[1:7]
 pilot_countries <- c("PL", "GB", "US")
 pilot_countries_all <- c(pilot_countries, "")
 special_levels <- list("All" = list("var" = "country_name", "value" = countries_names), "$ bold('All')" = list("var" = "country_name", "value" = countries_names), "<b>All</b>" = list("var" = "country_name", "value" = countries_names),
-                       "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), "<b>Europe</b>" = list("var" = "country_name", "value" = countries_Eu), 
-                       "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU),
+                       "Europe" = list("var" = "country_name", "value" = countries_Eu), "$ bold('Europe')" = list("var" = "country_name", "value" = countries_Eu), "<b>Europe</b>" = list("var" = "country_name", "value" = countries_Eu), "Eu" = list("var" = "country_name", "value" = countries_Eu), 
+                       "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU), "EU" = list("var" = "country_name", "value" = countries_EU), 
                        "Saudi citizens" = list("var" = "saudi", "value" = T), "Millionaires" = list("var" = "millionaire_agg", "value" = "Already"),
                        "U.S. Harris" = list("var" = "vote_voters", "value" = "Harris"), "U.S. Trump" = list("var" = "vote_voters", "value" = "Trump"), "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"),
                        "Europe Left" = list("var" = "vote_Eu", "value" = "Left"), "Europe Center/Right" = list("var" = "vote_Eu", "value" = "Center-right or Right"), "Europe Far right" = list("var" = "vote_Eu", "value" = "Far right"), "Europe Non-voters" = list("var" = "vote_Eu", "value" = "Non-voter, PNR or Other"),
@@ -80,6 +79,7 @@ income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", r
     "employment_18_64" = c("Inactive", "Unemployed", "Employed", "65+"),
     "vote" = c("Left", "Center-right or Right", 'Far right', "Non-voter, PNR or Other"),
     "region" = 1:5, # It's OK if some values are missing in one population. (2 regions: IT, PL; 3 regions: DE, CH; 4 regions: RU, SA, US)
+    "All_country" = countries,
     "Eu_country" = c("FR", "DE", "ES", "IT", "PL", "GB", "CH"),
     "EU_country" = c("FR", "DE", "ES", "IT", "PL"),
     "gender_nationality" = c("Woman, Saudi", "Woman, non-Saudi", "Man, Saudi", "Man, non-Saudi"),
@@ -96,7 +96,8 @@ income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", r
                  # "EU_all" = c("gender", "income_quartile", "age", "education_quota", "country", "urbanity", "employment_18_64", "vote"), 
                  # "US_vote" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "vote_US"),
                  "US_all" = c("gender", "income_quartile", "age", "education_quota", "race", "region", "urban", "employment_18_64", "vote"),
-                 "EU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"), # TODO
+                 "All" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
+                 "EU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
                  "Eu" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
                  # "FR" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
                  # # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
@@ -106,16 +107,13 @@ income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", r
   for (q in names(quotas)) quotas[[paste0(q, "_vote")]] <- c(quotas[[q]], "vote")
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
-  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:14), cols = 1:57)
+  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:15), cols = 1:57)
   adult_pop <- setNames(qs[countries, "Adult.pop"], countries)
   
   pop_freq <- list(
-    "Eu" = list( 
-      "Eu_country" = unlist(qs["Eu", c("FR", "DE", "ES", "IT", "PL", "GB", "CH")]/1000) 
-    ),
-    "EU" = list( 
-      "EU_country" = unlist(qs["Eu", c("FR", "DE", "ES", "IT", "PL")]/sum(qs["Eu", c("FR", "DE", "ES", "IT", "PL")])) 
-    ),
+    "Eu" = list("Eu_country" = unlist(qs["Eu", c("FR", "DE", "ES", "IT", "PL", "GB", "CH")]/1000) ),
+    "EU" = list("EU_country" = unlist(qs["Eu", c("FR", "DE", "ES", "IT", "PL")]/sum(qs["Eu", c("FR", "DE", "ES", "IT", "PL")])) ),
+    "All" = list("All_country" = adult_pop/sum(adult_pop)),
     "US" = list(
       # "urbanity" = c(qs["US", "Cities"], 0.001, qs["US","Rural"])/1000,
       "urban" = c(qs["US", "Cities"], qs["US","Rural"])/1000,
@@ -123,10 +121,9 @@ income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", r
       "race" = unlist(qs["US", c("White.non.Hispanic", "Hispanic", "Black", "Other")]/1000)
       # "US_vote_US" = c(0.308637, 0.31822, 0.373142, 0.000001) # https://en.wikipedia.org/wiki/2024_United_States_presidential_election
     ),
-    "SA" = list(
-      "gender_nationality" = unlist(setNames(qs["SA", c("White.non.Hispanic", "Hispanic", "Black", "Other")],  c("WoSaudi", "WoNonSaudi", "ManSaudi", "ManNonSaudi"))/1000)
+    "SA" = list("gender_nationality" = unlist(setNames(qs["SA", c("White.non.Hispanic", "Hispanic", "Black", "Other")],  c("WoSaudi", "WoNonSaudi", "ManSaudi", "ManNonSaudi"))/1000)
     ))
-  for (c in c("EU", countries)) {
+  for (c in c("All", "EU", "Eu", countries)) {
     pop_freq[[c]]$gender <- c("Woman" = qs[c,"women"], 0.001, "Man" = qs[c,"men"])/1000
     pop_freq[[c]]$income_quartile <- rep(.25, 4)
     pop_freq[[c]]$age <- unlist(qs[c, c("18-24", "25-34", "35-49", "50-64", ">65")]/1000)
