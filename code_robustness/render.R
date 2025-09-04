@@ -722,7 +722,7 @@ plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_
 # plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, invert_y_along = T, legend_top = T, df = all, width = dev.size('px')[1], height = dev.size('px')[2], origin = 50, plot_origin_line = T) 
 
 # 6. conjoint: foreign aid + global tax
-# TODO allow several colors
+# TODO allow several colors; TODO! by political leaning
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
@@ -771,7 +771,7 @@ for (v in names(mean_custom_redistr)) {
 
 ## Representativeness
 representativeness_table(countries[1:5])
-representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO nationality for SA; all; EU
+representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO! nationality for SA; all; EU
 
 
 ## Determinants
