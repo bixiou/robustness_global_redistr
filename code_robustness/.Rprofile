@@ -1519,7 +1519,7 @@ barres <- function(data, vars, file, title="", labels, color=c(), rev_color = FA
 #' #' # dev.copy(png, filename="test.png") # save plot from R (not plotly)
 #' #' # dev.off()
 #' #' # orca(example, file = "image.png") # BEST METHOD, cf. below
-pdf_crop <- function(file) {
+pdf_crop <- function(file) { # used in barres and save_plotly
   if (Sys.which("pdfcrop") != "") system2("pdfcrop", args = shQuote(c(file, file)), stdout = "nul")
   else plot_crop(file)
 }
