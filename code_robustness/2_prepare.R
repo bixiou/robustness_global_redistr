@@ -956,12 +956,13 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     for (v in variables_ics) e$variant_ics[!is.na(e[[v]])] <- sub("ics_", "", sub("_support", "", v))
     for (v in variables_ics) e$ics_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] 
     for (v in variables_ics) e[[v]] <- ifelse(is.na(e[[v]]), NA, 100*(e[[v]] %in% "Yes"))
-    e$variant_warm_glow <- ifelse(!is.na(e$ncs_support), "NCS", "None")
+    e$variant_warm_glow <- ifelse(!is.na(e$ncs_support), 1, 0)
     e$variant_long <- T
     e$variant_split <- "Simple"
     e$variant_realism <- 1*!is.na(e$likely_solidarity_treated)
+    e$likely_solidarity <- ifelse(e$variant_realism == 1, e$likely_solidarity_treated, e$likely_solidarity_control)
     e$solidarity_support_expanding_security_council_treated <- NA # Bug: question missing
-    for (v in variables_solidarity_support) e[[v]] <- ifelse(e$variant_realism == 1, e[[paste0(v, "_treated")]], e[[paste0(v, "_control")]])
+    for (v in variables_solidarity_support) e[[v]] <- ifelse(e$variant_realism == 0 | grepl("council", v), e[[paste0(v, "_control")]], e[[paste0(v, "_treated")]])
     for (v in c("revenue_split", "gcs_belief_own")) e[[v]] <- 100*e[[v]]
     e$radical_redistr_asked <- e$global_movement_asked <- e$cut <- FALSE
     e$why_hic_help_lic_asked <- T
@@ -1606,14 +1607,16 @@ if (country != "RU") { # TODO!
   
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v, "_long")]] <- e[[sub("_short", "", v)]]
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
-  e$share_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0)  
-  e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0)  
-  e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support]) > 0)
-  e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support]) < 0)  
-  e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0)
-  e$share_solidarity_opposed_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) < 0)  
-  e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0)
-  e$share_solidarity_opposed_no_info <- rowMeans((e[, variables_solidarity_no_info]) < 0)  
+  e$share_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0, na.rm = T)  
+  e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0, na.rm = T)  
+  e$share_solidarity_supported_true <- rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T)
+  e$share_solidarity_opposed_true <- rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T)  
+  e$share_solidarity_supported <- round(rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T), 1)
+  e$share_solidarity_opposed <- round(rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T), 1)
+  e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0, na.rm = T)
+  e$share_solidarity_opposed_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) < 0, na.rm = T)  
+  e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0, na.rm = T)
+  e$share_solidarity_opposed_no_info <- rowMeans((e[, variables_solidarity_no_info]) < 0, na.rm = T)  
   label(e$share_solidarity_short_supported) <- "share_solidarity_short_supported: 0-1. [Only in pilot] Share of plausible global solidarity policies supported, when variant is Short (i.e. only 5 policies are presented)."
   label(e$share_solidarity_short_opposed) <- "share_solidarity_short_opposed: 0-1. [Only in pilot] Share of plausible global solidarity policies opposed, when variant is Short (i.e. only 5 policies are presented)."
   label(e$share_solidarity_supported) <- "share_solidarity_supported: 0-1. Share of plausible global solidarity policies (somewhat or strongly) supported (among the 10)."
@@ -1767,7 +1770,7 @@ if (country != "RU") { # TODO!
   
   return(e)
 }
-RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
+# RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
 
 
 ##### Load data #####
@@ -1836,8 +1839,8 @@ create_conjoint_sample <- function(df = all) {
   call <- cbind(df, temp)
   call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
                                           "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country"))]
-  # call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out") 
-  # call$millionaire_vote <- relevel(factor(call$millionaire_vote), "millionaire_out")
+  call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out")
+  call$millionaire_vote <- relevel(factor(call$millionaire_vote), "millionaire_out")
   call$program_preferred_left <- ifelse(call$vote_factor == "Left", call$program_preferred, NA)
   call$program_preferred_center_right <- ifelse(call$vote_factor == "Center-right or Right", call$program_preferred, NA)
   call$program_preferred_right <- ifelse(call$vote_factor %in% c("Center-right or Right", "Far right"), call$program_preferred, NA)
