@@ -955,6 +955,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     
     for (v in variables_ics) e$variant_ics[!is.na(e[[v]])] <- sub("ics_", "", sub("_support", "", v))
     for (v in variables_ics) e$ics_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] 
+    for (v in variables_ics) e[[v]] <- ifelse(is.na(e[[v]]), NA, 100*(e[[v]] %in% "Yes"))
     e$variant_warm_glow <- ifelse(!is.na(e$ncs_support), "NCS", "None")
     e$variant_long <- T
     e$variant_split <- "Simple"
@@ -1766,6 +1767,7 @@ if (country != "RU") { # TODO!
   
   return(e)
 }
+RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
 
 
 ##### Load data #####
@@ -1914,6 +1916,8 @@ save.image(".RData")
 #### Russia ####
 # RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
 # 
+for (v in intersect(names(FR), names(RU))) if (any(class(FR[[v]]) != class(RU[[v]]))) print(paste(v, class(RU[[v]])))
+for (v in intersect(names(FR), names(RU))) if (length(union(setdiff(unique(FR[[v]]), unique(RU[[v]])), setdiff(unique(RU[[v]]), unique(FR[[v]])))) > 0) print(v)
 # 
 # # ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
 # # /!\ Pb: un_security_council missing from control
@@ -1961,3 +1965,4 @@ save.image(".RData")
 # [82] "well_being_gallup_1"                                   "well_being_gallup_0"                                   "well_being_wvs_1"                                     
 # [85] "well_being_wvs_0"                                      "gcs_comprehension"                                     "my_tax_global_nation"                                 
 # [88] "group_defended"                                        "comment_field"     
+

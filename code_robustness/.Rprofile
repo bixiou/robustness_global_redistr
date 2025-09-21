@@ -2886,7 +2886,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T
   mean_ci <- mean_ci[rowSums(!is.pnr(mean_ci)) > 2, colSums(!is.pnr(mean_ci)) > 2] # Removes rows/columns with only NaN/NA
   if (exists("levels_default_list") && missing(colors) && identical(levels_along, levels_default_list) & !invert_y_along & length(unique(mean_ci$along)) > 2) colors <- c("black", "grey30", scales::hue_pal()(length(unique(mean_ci$along))-2))
-  if (missing(shapes)) shapes <- if (exists("levels_default_list") && identical(levels_along, levels_default_list) & !invert_y_along) c(19, 15, 0:6, 17, 8, 18, 9:10, 12:13)[1:length(unique(mean_ci$along))] else c(19, 15, 17:18, 0:10, 12:13)[1:length(unique(mean_ci$along))] # c(19, 15, 0:10, 12:13, 17:18)[1:length(unique(mean_ci$along))]
+  if (missing(shapes)) shapes <- if (exists("levels_default_list") && identical(levels_along, levels_default_list) & !invert_y_along) c(19, 15, 0:6, 18, 20, 8, 17, 10, 9, 12:13)[1:length(unique(mean_ci$along))] else c(19, 15, 17:18, 0:10, 12:13)[1:length(unique(mean_ci$along))] # c(19, 15, 0:10, 12:13, 17:18)[1:length(unique(mean_ci$along))] # c(19, 18, 0:6, 15, 16, 8, 17, 10, 9, 12:13)
 
   plot <- ggplot(mean_ci) + lapply(origins, function(xint) geom_vline(xintercept = xint, linetype = "longdash", color = "grey50")) + # For plot, we need mean_ci (cols: mean, CI_low,high, variable, along), legend_x, legend_y. For save, we need: name, folder, width, height.
     # Use this instead of the next two lines to remove ticks/whiskers at the edge of the error bars
