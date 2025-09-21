@@ -58,6 +58,7 @@ package("gmodels") # CrossTable
 package("ivreg") # ivreg
 package("cjoint") # conjoint analysis /!\ I fixed a bug in the program => to install my version, package("devtools"), devtools::install_github("bixiou/cjoint")
 package("ggtext") # ggtext::element_markdown in plot
+package("haven") # Read .savs
 #clone repo, setwd(/cjoint/R), build(), install()
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
@@ -2781,7 +2782,7 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
     if (exists("labels_vars") & identical(labels, outcome_vars)) labels[outcome_vars %in% names(labels_vars)] <- labels_vars[outcome_vars[outcome_vars %in% names(labels_vars)]]
     regs <- regressions_list(outcomes = outcomes, covariates = covariates, subsamples = subsamples, df = df, logit = logit, weight = weight, atmean = atmean, logit_margin = logit_margin, summary = FALSE, levels_subsamples = levels_subsamples, weight_non_na = weight_non_na)
     mean_ci <- mean_ci_along_regressions(regs = regs, along = along, labels = paste0(sapply(labels, function(l) rep(l, length(outcomes)))) , df = df, origin = origin, logit = logit, logit_margin = logit_margin, confidence = confidence, subsamples = subsamples, covariates = covariates, names_levels = names_levels, levels_along = levels_along, factor_along = factor_along, weight = weight, weight_non_na = weight_non_na, print_regs = print_regs, levels_subsamples = levels_subsamples)
-    if (length(outcomes) > 1) mean_ci$along <- rep(labels_along, length(labels)) 
+    if (length(outcomes) > 1) mean_ci$along <- rep(labels_along, length(labels))
     if (all(as.character(mean_ci$along) %in% names(labels_along))) mean_ci$along <- labels_along[as.character(mean_ci$along)]
   } else { # If unconditional (subgroup means)
     if (!is.null(subsamples)) { # Configuration a.
@@ -2968,7 +2969,7 @@ representativeness_table <- function(country_list, weighted = T, non_weighted = 
   for (i in seq_along(country_list)) {
     df <- if (exists("special_levels") & exists("all") & country_list[i] %in% names(special_levels)) d("all")[d("all")$country_name %in% special_levels[[country_list[i]]]$value,] else d(country_list[i])
     k <- country_list[i]
-    c <- sub("[0-9p]+", "", if (exists("countries") & toupper(k) %in% countries) toupper(k) else k) 
+    c <- sub("[0-9p]+", "", if (exists("countries") & toupper(k) %in% countries) toupper(k) else k)
 
     labels[[k]] <- "Sample size"
     pop[[k]] <- ""
