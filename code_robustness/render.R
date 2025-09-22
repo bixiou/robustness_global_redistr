@@ -156,6 +156,10 @@ labels_vars <- c(
   "solidarity_support_aviation_levy" = "International levy on aviation carbon emissions, raising prices by 30%, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
   "share_solidarity_supported" = "Share of plausible global policies supported",
   "share_solidarity_opposed" = "Share of plausible global policies opposed",
+  "share_solidarity_supported_round" = "Share of plausible global policies supported",
+  "share_solidarity_opposed_round" = "Share of plausible global policies opposed",
+  "share_solidarity_supported_true" = "Share of plausible global policies supported",
+  "share_solidarity_opposed_true" = "Share of plausible global policies opposed",
   "ncqg" = "Preferred North-to-South climate grant funding in 2035", # Preferred North-to-South climate funding
   "ncqg_full" = "Preferred North-to-South climate grant funding in 2035",
   "transfer_how_agencies" = "Development aid agencies", # Transfers to public development aid agencies which then finance suitable projects
@@ -324,8 +328,8 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "solidarity_support_aviation_levy" = list(vars = "solidarity_support_aviation_levy", width = 920, height = 550),
   "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
   # "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
-  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 820, height = 500, add_means = T, show_legend_means = T), 
-  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 820, height = 500, add_means = T, show_legend_means = T)
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 820, height = 500, add_means = T, show_legend_means = T), 
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 820, height = 500, add_means = T, show_legend_means = T)
 )
 
 vars_barres <- c() # 
@@ -345,8 +349,8 @@ barres_defs_nolabel <- list(
   "reparations_support" = list(vars = "reparations_support", width = 910),
   "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 450),
   "sustainable_future" = list(vars = "sustainable_future", width = 400),
-  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 860, add_means = T, show_legend_means = T),
-  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 860, add_means = T, show_legend_means = T)
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 860, add_means = T, show_legend_means = T),
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 860, add_means = T, show_legend_means = T)
 )
 barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
   "ncqg_full" = list(vars = "ncqg_full", width = 1200),
@@ -361,8 +365,8 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "sustainable_future" = list(vars = "sustainable_future", width = 550),
   "survey_biased" = list(vars = "survey_biased", width = 650),
   "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
-  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 1450, add_means = T, show_legend_means = T),
-  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 1450, add_means = T, show_legend_means = T)
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 1450, add_means = T, show_legend_means = T),
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T)
 )
 barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
 barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
@@ -756,7 +760,7 @@ plot_along(along = "cut_aid_in_program", vars = c("program_preferred", "program_
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
            covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$country != "RU",], width = 400, height = 370, 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$country != "RU",], width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "share_solidarity_supported_by_info_wo_RU") 

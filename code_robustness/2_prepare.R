@@ -323,7 +323,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     for (v in names(e)) e[[v]] <- as.character(as_factor(e[[v]]))
     e$excluded <- ifelse(e$attention_test %in% c("A little", "Немного"), NA, e$attention_test)
     e$progress <- 100    
-    e$finished <- e$finished == "Завершен"
+    e$finished <- e$finished %in% c("Завершен", "Finished")
     for (v in c(variables_well_being, "hh_size", "Nb_children__14", "duration", "revenue_split", "gcs_belief_own")) e[[v]] <- as.numeric(gsub("[^0-9\\.]*", "", e[[v]]))
   }
   
@@ -729,8 +729,8 @@ define_var_lists <- function() {
   variables_comment_gpt <<- paste0("comment_gpt_", comment_names)
   variables_comment_manual <<- paste0("comment_manual_", comment_names)
   rename_ru <<- c("timeStart" = "date", "timeFinish" = "date_end", "surveyDuration" = "duration", "surveyId" = "id", "surveyFinishStatus" = "finished", "age" = "age_exact", 
-                 "home_1" = "home_tenant", "home_2" = "home_owner", "home_3" = "home_landlord", "home_4" = "home_hosted", "ncs_support" = "ncs_support_unused", "ncs_support_bis" = "ncs_support",
-                 "Q194_r1" = "solidarity_support_expanding_security_council_control", "support_billionaire_tax_treated_r2" = "solidarity_support_billionaire_tax_treated", "support_corporate_tax_treated_r3" = "solidarity_support_corporate_tax_treated", "support_foreign_aid_treated_r4" = "solidarity_support_foreign_aid_treated", 
+                 "home_1" = "home_tenant", "home_2" = "home_owner", "home_3" = "home_landlord", "home_4" = "home_hosted", #"ncs_support" = "ncs_support_unused", "ncs_support_bis" = "ncs_support",
+                 "support_council_treated_r1" = "solidarity_support_expanding_security_council_control", "support_billionaire_tax_treated_r2" = "solidarity_support_billionaire_tax_treated", "support_corporate_tax_treated_r3" = "solidarity_support_corporate_tax_treated", "support_foreign_aid_treated_r4" = "solidarity_support_foreign_aid_treated", 
                  "support_debt_relief_treated_r5" = "solidarity_support_debt_relief_treated", "support_bridgetown_treated_r6" = "solidarity_support_bridgetown_treated", "support_aviation_levy_treated_r7" = "solidarity_support_aviation_levy_treated", "support_loss_damage_treated_r8" = "solidarity_support_loss_damage_treated", "support_ncqg_300bn_treated_r9" = "solidarity_support_ncqg_300bn_treated", "support_shipping_levy_treated_r10" = "solidarity_support_shipping_levy_treated", 
                  "support_billionaire_tax_control_r1" = "solidarity_support_billionaire_tax_control", "support_corporate_tax_control_r2" = "solidarity_support_corporate_tax_control", "support_foreign_aid_control_r3" = "solidarity_support_foreign_aid_control", 
                  "support_debt_relief_control_r4" = "solidarity_support_debt_relief_control", "support_bridgetown_control_r5" = "solidarity_support_bridgetown_control", "support_aviation_levy_control_r9" = "solidarity_support_aviation_levy_control", "support_loss_damage_control_r6" = "solidarity_support_loss_damage_control", "support_ncqg_300bn_control_r7" = "solidarity_support_ncqg_300bn_control", "support_shipping_levy_control_r8" = "solidarity_support_shipping_levy_control", 
@@ -1609,10 +1609,12 @@ if (country != "RU") { # TODO!
   for (v in intersect(variables_solidarity_support_short, names(e))) e[[sub("_short", "", v)]] <- ifelse(e$variant_long, e[[sub("_short", "", v)]], e[[v]])
   e$share_solidarity_short_supported <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) > 0, na.rm = T)  
   e$share_solidarity_short_opposed <- rowMeans((e[, sub("_short", "", variables_solidarity_support_short)]) < 0, na.rm = T)  
-  e$share_solidarity_supported_true <- rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T)
-  e$share_solidarity_opposed_true <- rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T)  
-  e$share_solidarity_supported <- round(rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T), 1)
-  e$share_solidarity_opposed <- round(rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T), 1)
+  e$share_solidarity_supported <- e$share_solidarity_supported_true <- rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T)
+  e$share_solidarity_opposed <- e$share_solidarity_opposed_true <- rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T)  
+  e$share_solidarity_supported_round <- round(rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T), 1)
+  e$share_solidarity_opposed_round <- round(rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T), 1) 
+  if (country == "RU") e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support[-3]]) > 0, na.rm = T) # To fix mistake that in RU, expanding_security_council wasn't asked to control group
+  if (country == "RU") e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support[-3]]) < 0, na.rm = T)
   e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0, na.rm = T)
   e$share_solidarity_opposed_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) < 0, na.rm = T)  
   e$share_solidarity_supported_no_info <- rowMeans((e[, variables_solidarity_no_info]) > 0, na.rm = T)
@@ -1921,27 +1923,27 @@ save.image(".RData")
 # 
 for (v in intersect(names(FR), names(RU))) if (any(class(FR[[v]]) != class(RU[[v]]))) print(paste(v, class(RU[[v]])))
 for (v in intersect(names(FR), names(RU))) if (length(union(setdiff(unique(FR[[v]]), unique(RU[[v]])), setdiff(unique(RU[[v]]), unique(FR[[v]])))) > 0) print(v)
-# 
-# # ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
-# # /!\ Pb: un_security_council missing from control
-# ru <- read_sav("../data_raw/RU.sav")
-# ru <- ru[-c(1:2),] # Remove test rows
-# View(ru)  # TODO: duration, revenue_split, 
-# for (v in names(rename_ru)) names(ru)[names(ru) == v] <- rename_ru[v]
-# names(ru)
-# setdiff(names(ru), names(e))
-# val_labels(ru$age)
-# Levels(as_factor(ru$millionaire, levels = "values"))
-# Levels(as_factor(ru$group_defended))
-# Levels(e$group_defended)
-# decrit(e$millionaire, numbers = T)
-# ru$gender <- as.character(as_factor(ru$gender))
-# ru$gender[grepl("Женщина", ru$gender)] <- "Woman"
-# ru$income_original <- ru$income
-# 
-# ru$age_exact <- sub(" to ", "-", ru$age_exact)
-# for (v in c(variables_home, variables_why_hic_help_lic)) ru[[v]] <- ru[[v]] != "0"
-# for (v in c(variables_well_being, "hh_size", "Nb_children__14")) ru[[v]] <- as.numeric(ru[[v]])
+
+# ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
+# /!\ Pb: un_security_council missing from control
+ru <- read_sav("../data_raw/RU.sav")
+ru <- ru[-c(1:2),] # Remove test rows
+View(ru)  # TODO: duration, revenue_split,
+for (v in names(rename_ru)) names(ru)[names(ru) == v] <- rename_ru[v]
+names(ru)
+setdiff(names(ru), names(e))
+val_labels(ru$age)
+Levels(as_factor(ru$millionaire, levels = "values"))
+Levels(as_factor(ru$group_defended))
+Levels(e$group_defended)
+decrit(e$millionaire, numbers = T)
+ru$gender <- as.character(as_factor(ru$gender))
+ru$gender[grepl("Женщина", ru$gender)] <- "Woman"
+ru$income_original <- ru$income
+
+ru$age_exact <- sub(" to ", "-", ru$age_exact)
+for (v in c(variables_home, variables_why_hic_help_lic)) ru[[v]] <- ru[[v]] != "0"
+for (v in c(variables_well_being, "hh_size", "Nb_children__14")) ru[[v]] <- as.numeric(ru[[v]])
 # [13] "gender"                                                "age"                                                   "foreign"                                              
 # [16] "couple"                                                "hh_size"                                               "Nb_children__14"                                      
 # [19] "income"                                                "education"                                             "employment_status"                                    
