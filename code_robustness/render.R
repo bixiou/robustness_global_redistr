@@ -323,8 +323,8 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "gcs_support_control" = list(vars = "gcs_support_control", width = 700, height = 550),
   "solidarity_support_aviation_levy" = list(vars = "solidarity_support_aviation_levy", width = 920, height = 550),
   "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
-  "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
-  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 820, height = 500, add_means = T, show_legend_means = T),
+  # "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
+  "share_solidarity_supported" = list(vars = "share_solidarity_supported", width = 820, height = 500, add_means = T, show_legend_means = T), 
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed", width = 820, height = 500, add_means = T, show_legend_means = T)
 )
 
@@ -551,7 +551,7 @@ heatmap_multiple(heatmaps_defs[c("radical_redistr_few")]) # 1550 x 450
 
 global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
 global_nation <- global_nation/(global_nation+heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1"))
-global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
+global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023))
 row.names(global_nation)[6] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/radical_redistr_main")
 heatmap_plot(global_nation, proportion = T, percent = T)
@@ -559,9 +559,9 @@ save_plot(filename = "country_comparison/radical_redistr_main", width = 1550, he
 
 global_nation_all <- heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
 global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1")))[-c(3,5),]
-# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation[-9]))
+# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation))
 # In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
-global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023[-9]))
+global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023))
 row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
 save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
 pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/72, height = 500/72)
@@ -572,19 +572,19 @@ invisible(dev.off())
 par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
 plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Global Nation (2023)", xlim = c(.43, .8), ylim = c(.43, .8)) 
 grid()
-points(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], pch = 18)
-text(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], labels = countries[-9], pos = 4)
+points(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, pch = 18)
+text(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, labels = countries, pos = 4)
 save_plot(filename = "../figures/all/my_tax_global_nation_comparison", width = 330, height = 330, format = "pdf", trim = FALSE)
-cor(sapply(countries[-9], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023[-9], use = "complete.obs") # .70
+cor(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, use = "complete.obs") # .70
 
 par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
 plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Cappelen, Støstad & Tungodden", xlim = c(.54, .815), ylim = c(.54, .815))
 grid()
-points(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], pch = 18)
-text(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], labels = countries[-9], pos = 4)
+points(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, pch = 18)
+text(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, labels = countries, pos = 4)
 save_plot(filename = "../figures/all/billionaire_stostad", width = 330, height = 330, format = "pdf", trim = FALSE)
-cor(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute[-9], use = "complete.obs") # .86
-# plot(sapply(countries[-9], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative[-9])
+cor(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, use = "complete.obs") # .86
+# plot(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative)
 # lines(0:1, 0:1, type = 'l')
 
 # Study 1 was conducted between August 9th and September 15th, 2024, and Study 2 between May 12th and June 21st, 2025
@@ -725,39 +725,41 @@ plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_
 # 6. conjoint: foreign aid + global tax
 # TODO allow several colors
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # Unconditional:
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_unconditional") 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_unconditional") 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_unconditional") 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_unconditional") 
 
 # By vote x country:
 summary(lm(program_preferred ~ millionaire_tax_in_program + millionaire_tax_in_program*vote_factor, data = call))
-summary(lm(program_preferred ~ millionaire_tax_in_program + millionaire_vote + vote_factor, data = call))
+# summary(lm(program_preferred ~ millionaire_tax_in_program + millionaire_vote + vote_factor, data = call))
 plot_along(along = "millionaire_tax_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 700, height = 600, weight_non_na = F, 
            labels_along = setNames(c("<b>All</b>", "Left", "Center- to Far right", "Non-voter/PNR/Other"), c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr")), legend_top = T,
-           colors = c("black", "salmon", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], origin = 0, plot_origin_line = T, name = "program_preferred_by_millionaire_tax_vote_country") 
+           colors = c("black", "salmon", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], origin = 0, plot_origin_line = T, name = "program_preferred_by_millionaire_tax_vote_country") 
 plot_along(along = "millionaire_tax_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_center_right", "program_preferred_far_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 750, height = 600, weight_non_na = F, 
            labels_along = setNames(c("<b>All</b>", "Left", "Center/Right", "Far right", "Non-voter/PNR/Other"), c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_far_right", "program_preferred_pnr")), legend_top = T, 
-           colors = c("black", "salmon", "lightblue", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], origin = 0, plot_origin_line = T, name = "program_preferred_by_millionaire_tax_vote_country_detailed") 
+           colors = c("black", "salmon", "lightblue", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], origin = 0, plot_origin_line = T, name = "program_preferred_by_millionaire_tax_vote_country_detailed") 
 plot_along(along = "cut_aid_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 700, height = 600, weight_non_na = F, 
            labels_along = setNames(c("<b>All</b>", "Left", "Center- to Far right", "Non-voter/PNR/Other"), c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr")), legend_top = T,
-           colors = c("black", "salmon", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], origin = 0, plot_origin_line = T, name = "program_preferred_by_cut_aid_vote_country") 
+           colors = c("black", "salmon", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], origin = 0, plot_origin_line = T, name = "program_preferred_by_cut_aid_vote_country") 
 plot_along(along = "cut_aid_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_center_right", "program_preferred_far_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 750, height = 600, weight_non_na = F, 
            labels_along = setNames(c("<b>All</b>", "Left", "Center/Right", "Far right", "Non-voter/PNR/Other"), c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_far_right", "program_preferred_pnr")), legend_top = T,
-           colors = c("black", "salmon", "lightblue", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11)], origin = 0, plot_origin_line = T, name = "program_preferred_by_cut_aid_vote_country_detailed") 
+           colors = c("black", "salmon", "lightblue", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], origin = 0, plot_origin_line = T, name = "program_preferred_by_cut_aid_vote_country_detailed") 
 
 
 # 7. Warm glow 
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
-           covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
+           covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$country != "RU",], width = 400, height = 370, 
            covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$country != "RU",], width = 400, height = 370, 
+           covariates = "info_solidarity", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "share_solidarity_supported_by_info_wo_RU") 
 
 # 7bis: 2SLS
 plot_along(along = "info_solidarity", vars = "likely_solidarity", condition = "> 0", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
@@ -788,7 +790,8 @@ mean_custom_redistr_stats <- list()
 for (v in names(mean_custom_redistr)) { 
   write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
   share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
-  mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
+  if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
+  else warning(paste("Problem in mean_custom_redistr for ", v))
 }
 
 
@@ -829,14 +832,14 @@ desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redis
 
 ##### Conjoint on consistent programs #####
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
-           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent") 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent") 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
-           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent") 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent") 
 
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
-           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent_strict") 
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent_strict") 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
-           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent_strict") 
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent_strict") 
 
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call, weights = weight))
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
@@ -903,12 +906,12 @@ plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics
 plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_weight_vote",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T) 
 
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_weight_vote", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_weight_vote", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_weight_vote", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_weight_vote", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
-           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_weight_vote", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_weight_vote", covariates = "variant_warm_glow", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_weight_vote", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
@@ -923,12 +926,12 @@ plot_along("country_name", df = a[a$stayed,], name = "variables_ncs_gcs_ics_by_c
 plot_along("country_name", df = a[a$stayed,], name = "variables_wealth_tax_support_by_country_extended",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, width = 820, height = 380, origin = 50, plot_origin_line = T) 
 
 plot_along(along = "millionaire_tax_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
-           name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+           name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 plot_along(along = "cut_aid_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
-           name = "program_preferred_by_cut_aid_in_program_extended", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+           name = "program_preferred_by_cut_aid_in_program_extended", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 
-plot_along(along = "variant_warm_glow", df = a[a$variant_warm_glow != "NCS" & a$country != "SA" & a$stayed,], vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
-           name = "gcs_support_by_variant_warm_glow_extended", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-11], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "variant_warm_glow", df = a[a$variant_warm_glow != "NCS" & !a$country %in% c("SA", "RU") & a$stayed,], vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
+           name = "gcs_support_by_variant_warm_glow_extended", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 plot_along(along = "info_solidarity", df = a[a$stayed,], vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
            name = "share_solidarity_supported_by_info_solidarity_extended", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
@@ -997,13 +1000,13 @@ rpart.plot(tree_gcs_support <- rpart(reg_formula("gcs_support", control_variable
 stopwords <- c(unlist(sapply(c("french", "english", "german", "spanish", "russian", "italian", "arabic"), function(v) stopwords::stopwords(v))), # Polish & Japanese not supported
   "people", "survey", ".......", "....", "...", "..", "need", "wish", "needs", "wishes", "want", "greatest", "injustice", "important", "issue", "issues", "neglected", "think", "nothing", "particular", "umfrage", "dass", "plus", "encuesta", "comments", "nie", "brak", "ankieta", "mam", "bardzo", "że", "jest", "sondaggio", "enquête")
 
-for (c in c("all", countries[-9])) for (v in paste0(c("field", "comment_field"), c("", "", "_en", "_en"))) {
+for (c in c("all", countries)) for (v in paste0(c("field", "comment_field"), c("", "", "_en", "_en"))) {
   size_wordcloud <- if (grepl("comment", v)) 250/72 else 350/72
   pdf(paste0("../figures/", c, "/", v, ".pdf"), width = size_wordcloud, height = size_wordcloud)
   rquery.wordcloud(d(c)[[v]], max.words = 70, colorPalette = "Blues", excludeWords = stopwords, weights = d(c)$weight) 
   invisible(dev.off())
 }
-for (c in c("all", countries[-9])) for (v in sub("_field", "", variables_field)) for (var in c("field", "field_en")) {
+for (c in c("all", countries)) for (v in sub("_field", "", variables_field)) for (var in c("field", "field_en")) {
   size_wordcloud <- if (v %in% c("injustice", "concerns")) 250/72 else 400/72
   pdf(paste0("../figures/", c, "/", v, "_", var, ".pdf"), width = size_wordcloud, height = size_wordcloud)
   rquery.wordcloud(d(c)[[var]][d(c)$variant_field %in% v], weights = d(c)$weight[d(c)$variant_field %in% v], max.words = 70, colorPalette = "Blues", excludeWords = c(stopwords)) 
