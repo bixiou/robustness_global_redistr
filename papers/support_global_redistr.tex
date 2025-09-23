@@ -90,7 +90,7 @@
 \defaultbibliographystyle{unsrtnat}
 \defaultbibliography{global_tax_attitudes}
 
-\title{Support for Global Redistribution\\
+\title{Acceptance for International Redistribution\\
 in High-Income Countries
 }
 % \author{Adrien Fabre$^{1,2}$, Thomas Douenne$^3$ and Linus Mattauch$^{4,5,6}$} % WPcomment
@@ -159,23 +159,41 @@ bla
 % Conjoint: Example use: political candidates (e.g., Teele, Kalla, and Rosenbluth, 2018), immigrants (e.g., Hainmueller and Hopkins, 2015), and public policies (e.g., Ballard-Rosa, Martin, and Scheve, 2017), Hainmueller, Hopkins, and Yamamoto, 2014).
 % Fields: Mondon corroborates (using Eurobarometer) than Immigration was the top concern in the UK over 2009-2019 but only #14 concern for "you, personally" (with cost of living being #1) 
 
-\section{Results}
+\section{Data and design\label{sec:data}}
 
-% NB: I chose to present GCS on control. Trade-off between presenting control results (not contaminated by treatment though less precise) and overall results (more comparable to ICS as those mix treated and control, though less comparable to NCS). I prioritized presenting results for themselves rather than for comparison with ICS.
+\paragraph{Samples}
+I conducted an original survey on 12,000 respondents representative of in eleven high-income countries (see Figure \ref{fig:country_coverage}). The countries have been chosen to be representative of the diversity of high-income countries and the sample sizes commensurate to these countries' population sizes.\footnote{The sample sizes are as follows: U.S.: 3,000; Japan: 2,000; Russia: 1,000; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population size (except for Switzerland), that is France: 798; Germany: 1,048; Italy: 756; Spain: 603; Poland: 500; Switzerland: 469.} 
+The survey was fielded online in 2025 using the companies \textit{Yandex} (for Russia), \textit{Kantar} (for Saudi Arabia), and \textit{Bilendi} (for the other countries).\footnote{For all countries but Russia, responses were collected between April 15 and July 3, 2025. For Russia, responses were collected between September 19 and TODO, 2025.} 
 
-% FIGURES
 % # 1? coverage map
 \begin{figure}[h!]
     \caption[Country coverage]{Country coverage of the survey.
     }\label{fig:country_coverage}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_progress.png}} 
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_curtailed.png}} 
 \end{figure}
+
+\paragraph{Representativeness}
+The samples are stratified to be representative of the country's adult population along the following quota variables (with some exceptions\footnote{In the U.S., I also use race (4 categories) as a quota variable. In Saudi Arabia, I do not use urbanicity, but I use citizenship (Saudi vs. non-Saudi). In Russia, I do not use region nor urbanicity.}): gender, age (5 brackets), income (4), diploma (3), region (2 to 5), and urbanicity (2 to 3). Tables \ref{tab:representativeness_0}-\ref{tab:representativeness_3} in Appendix \ref{app:representativeness} show that our samples match the actual population frequencies along these dimensions, except for Saudi Arabia (where non-Saudis and non-high-school-educated people are underrepresented) and Russia (where TODO). All our results are reweighted to be fully representative of the population along our quotas (with weights trimmed between 0.25 and 4). Results aggregated at the global or European levels weigh each country in proportion to its adult population size. 
+
+Appendix Figure \ref{fig:lmg} shows that 11\% to 17\% of the variance of our main attitudinal outcomes is explained by sociodemographic variables, and this share falls below 5\% after accounting for country and vote. In other words, even though variables such as age or diploma are sometimes significantly correlated with attitudes (see Tables \ref{tab:determinant}-\ref{tab:determinants_custom_redistr}), difference in average acceptance of a policy between (say) age groups rarely exceeds a dozen percentage points. 
+
+Appendix \ref{app:pol} shows how our main attitudinal outcomes vary by political leaning. Non-voters exhibit attitudes close to the center of the politicalspectrum. Besides, attitudes are much less polarized in Japan compared to Europe and the U.S. 
+Appendix Figures \ref{fig:vote_pnr_out}-\ref{fig:vote_representativeness} show how our % weighted or not TODO % TODO! US in Figure
+samples compare to reality in terms of vote in the last election. While the share of declared non-voters is lower than in reality, votes along the three main political leanings are close to reality. Appendix \ref{app:vote} shows that our main results are robust to reweighting by vote. 
+
+% Balance, attrition, comparison with other surveys
+
+% Survey flow
+
 % # 2. survey_flow
 \begin{figure}[h!]
     \caption[Survey flow]{Survey flow.
     }\label{fig:flow}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/questionnaire/survey_flow.pdf}} 
 \end{figure}
+
+\section{Salience and priorization of global solidarity\label{sec:salience}}
+% - People view global poverty/ineq as big injustice though not salient concern (e.g. revenue_split)
 % # 3. keywords in fields (taken jointly)
 \begin{figure}
   \caption[Wordcloud of open-ended field, per variant]{Most common concepts in open-ended fields. (Questions \ref{q:concerns_field}-\ref{q:injustice_field})} \label{fig:wordcloud} % Random answers can be found on \href{http://preferences-pol.fr/fields2025.html}{bit.ly/fields2025}
@@ -220,6 +238,12 @@ bla
 
   \end{subfigure}
 \end{figure}
+
+\section{Acceptance for international policies in function of country coverage\label{sec:coverage}}
+% - Strong support for global tax / GCS even with partial participation
+
+% NB: I chose to present GCS on control. Trade-off between presenting control results (not contaminated by treatment though less precise) and overall results (more comparable to ICS as those mix treated and control, though less comparable to NCS). I prioritized presenting results for themselves rather than for comparison with ICS.
+
 % # 5a. ICS: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country}
 \begin{figure}[h!]
     \caption[Support for the NCS, GCS, ICS]{Support for the National, Global, and International Climate Schemes (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:ncs_support}-\ref{q:ics_support}).
@@ -232,6 +256,10 @@ bla
     }\label{fig:wealth_tax}
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country.pdf}} 
 \end{figure}
+
+\section{Sincerity of support for global redistribution\label{sec:sincerity}}
+% - No (or little) evidence of warm glow or support due to unrealism; global redistr genuinely supported (conjoint analysis)
+
 % # 6. conjoint: foreign aid + global tax (per country + global)
 \begin{figure}
 \caption[Conjoint analysis: effect of development aid and millionaire tax]{Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). (See Figure \ref{fig:conjoint_vote} for effects by vote). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint}
@@ -261,6 +289,11 @@ bla
   \caption[Effect on support for global redistribution of believing that it is likely]{Effect on support for global redistribution of believing that it is likely.}\label{tab:iv} 
   \makebox[\textwidth][c]{\input{../tables/iv.tex}}
 \end{table}
+
+\section{Breadth of international policies accepted\label{sec:breadth}}
+% - People ready to sustainability and radical global redistr (for duty, not reparations)
+% - People favor social protection to unconditional transfers
+
 % # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
 \begin{figure}[h!]
     \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
@@ -293,7 +326,11 @@ bla
 \end{figure}
 
 
-\section{Discussion} % Summary, conclusion
+\section{Conclusion} % Summary, conclusion
+
+
+% Appendix TODO
+% - Influenced by question on revenue splits and NCQG / more or less consistent on NCQG
 
 
 % \begin{methods}  % WPcomment

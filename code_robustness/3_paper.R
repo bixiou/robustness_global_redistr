@@ -1,5 +1,8 @@
 
-
+##### Data and design #####
+decrit(all$country, weight = F)
+decrit(all$date[all$country != "RU"]) # Apr 15 - Jul 3
+decrit(all$date[all$country == "RU"]) # Sep 19 - 
 
 
 # 2SLS
