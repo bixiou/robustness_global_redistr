@@ -451,6 +451,22 @@ wtd.mean(my_taxes_global_nation, adult_pop, na.rm = T) # 44.8%
 with(all[all$my_tax_global_nation != 0,], wtd.mean(my_tax_global_nation > 0, weight, na.rm = T)) # 59.5%
 
 
+##### Comparison other surveys #####
+(mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) 
+(mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T))
+mean_gn25 - mean_gn23 # .03
+(mean_bi25 <- wtd.mean(sapply(names(stostad_billionaire_tax_absolute)[!is.na(stostad_billionaire_tax_absolute)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), adult_pop[!is.na(stostad_billionaire_tax_absolute)])) 
+(mean_bi24 <- wtd.mean(stostad_billionaire_tax_absolute, adult_pop, na.rm = T)) 
+mean_bi25 - mean_bi24 # -.044
+
+(mean_gn25 <- mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))))) # .61
+(mean_gn23 <- mean(my_taxes_global_nation_2023, na.rm = T)) # .59
+mean_gn25 - mean_gn23 # .017
+(mean_bi25 <- mean(sapply(names(stostad_billionaire_tax_absolute)[!is.na(stostad_billionaire_tax_absolute)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)))) # .67
+(mean_bi24 <- mean(stostad_billionaire_tax_absolute, na.rm = T)) # .70
+mean_bi25 - mean_bi24 # -.036
+
+
 ##### Deprecated: NLP #####
 
 # prediction <- text::text_classifier(all$field, labels = names(field_names), model = "xlarge") # uses xlm-roberta-large-xnli

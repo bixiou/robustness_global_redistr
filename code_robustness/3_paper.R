@@ -3,6 +3,28 @@
 decrit(all$country, weight = F)
 decrit(all$date[all$country != "RU"]) # Apr 15 - Jul 3
 decrit(all$date[all$country == "RU"]) # Sep 19 - 
+sapply(c("all", countries), function(c) round(median(d(c)$duration, na.rm = T), 3))
+
+(mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) 
+(mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T))
+mean_gn25 - mean_gn23 # .03
+(mean_bi25 <- wtd.mean(sapply(names(stostad_billionaire_tax_absolute)[!is.na(stostad_billionaire_tax_absolute)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), adult_pop[!is.na(stostad_billionaire_tax_absolute)])) 
+(mean_bi24 <- wtd.mean(stostad_billionaire_tax_absolute, adult_pop, na.rm = T)) 
+mean_bi25 - mean_bi24 # -.044
+         
+
+##### Open-ended fields #####
+decrit(all$field_keyword_global_inequality, all, which = all$variant_field == "injustice") # .013
+decrit(all$field_gpt_global_inequality, all, which = all$variant_field == "injustice") # .085
+decrit(all$field_manual_global_inequality, all, which = all$variant_field == "injustice") # .037
+all$field_en[all$variant_field == "injustice"][sample(setdiff(which(all$field_gpt_global_inequality[all$variant_field == "injustice"]), which(all$field_manual_global_inequality[all$variant_field == "injustice"])), 10)]
+all$field_en[all$variant_field == "injustice"][sample(setdiff(which(all$field_manual_global_inequality[all$variant_field == "injustice"]), which(all$field_keyword_global_inequality[all$variant_field == "injustice"])), 10)]
+decrit(all$field_gpt_global_inequality[all$field_en %in% c("poverty", "Poverty")])
+decrit(all$field_gpt_global_inequality[all$field_en %in% "inequality among humans"])
+decrit(all$field_manual_money, all, which = all$variant_field %in% c("concerns", "wish")) # .3048
+summary(lm(field_manual_money ~ factor(income_decile), data = all, subset = all$variant_field %in% c("concerns", "wish"), weights = weight))
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 10, data = all) # .36
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 1, data = all) # .21
 
 
 # 2SLS

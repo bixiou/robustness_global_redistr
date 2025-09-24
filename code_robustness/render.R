@@ -521,10 +521,20 @@ heatmap_multiple(heatmaps_defs["field_manual"]) #
 heatmap_multiple(heatmaps_defs["field_keyword"]) # 
 heatmap_multiple(heatmaps_defs["field_keyword_main"]) # 
 
-# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
-# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
-# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "concerns",], name = "field_concerns_manual")
-# heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "concerns",], name = "field_concerns_manual")
+heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "injustice",], name = "field_injustice_manual")
+
+heatmap_multiple(heatmaps_defs["field_keyword"], data = all[all$variant_field == "issue",], name = "field_issue_keyword")
+heatmap_multiple(heatmaps_defs["field_keyword"], data = all[all$variant_field == "wish",], name = "field_wish_keyword")
+heatmap_multiple(heatmaps_defs["field_keyword"], data = all[all$variant_field == "concerns",], name = "field_concerns_keyword")
+heatmap_multiple(heatmaps_defs["field_keyword"], data = all[all$variant_field == "injustice",], name = "field_injustice_keyword")
+
+heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "issue",], name = "field_issue_gpt")
+heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "wish",], name = "field_wish_gpt")
+heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "concerns",], name = "field_concerns_gpt")
+heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "injustice",], name = "field_injustice_gpt")
 
 # Revenue split
 barres_multiple(barres_defs["split_few"]) # 670 x 330 

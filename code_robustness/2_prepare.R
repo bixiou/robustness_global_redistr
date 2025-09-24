@@ -948,7 +948,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   label(e$country) <- "country: ISO-2 country code."
   
   if (country == "RU") {
-    e$income_original <- e$income
+    e <- create_item("income", keep_original = T, labels = c("less than $100" = 1, "between $100 and $200" = 2, "between $201 and $250" = 2.5, "between $251 and $300" = 3, "between $301 and $400" = 4, "between $401 and $500" = 5, "between $501 and $600" = 6, "between $601 and $700" = 7, "between $701 and $750" = 7.5, "between $751 and $800" = 8, "between $801 and $900" = 9, "more than $900" = 10, "PNR" = 0), 
+                     values = c("менее", "35 001", "50 001", "55 001", "60 001", "75 001", "85 001", "100 001", "120 001", "130 001", "145 001", "более", "PNR|не говорить"), grep = T, missing.values = c("PNR"), df = e)  
     for (v in names(relevel_ru)) for (l in names(relevel_ru[[v]])) if (any(grepl(l, e[[v]]))) e[[v]][grepl(l, e[[v]])] <- relevel_ru[[v]][[l]]
     e$age_exact <- sub("-", " to ", e$age_exact)
     for (v in c(variables_home, variables_why_hic_help_lic)) e[[v]] <- e[[v]] != "0"
@@ -1022,7 +1023,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
-  e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "200", "250|300", "400", "500", "600", "700", "750|800", "900", "not"), grep = T, missing.values = c("PNR"), df = e)  
+  e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "201|300", "301", "401", "501", "601", "701|800", "801", "more", "not"), grep = T, missing.values = c("PNR"), df = e)  
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
   if (country == "JP") e$income_exact[e$income_exact_misinterpreted] <- e$income_exact[e$income_exact_misinterpreted]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
   e$uc <- 1 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
@@ -1525,12 +1526,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   l <- if (country %in% c("US", "GB")) "" else "en"
   if (file.exists(paste0("../data_raw/fields/", country, i, l, ".xlsm"))) for (f in fs) {
     recode_field <- read.xlsx(paste0("../data_raw/fields/", country, i, l, ".xlsm"), sheet = paste0("field", f), rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-    indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else f+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
+    indices_i <- if (i == 1) 1:ncol(recode_field) else f+2*(1:ncol(recode_field)-1) # seq(i, nrow(e), 4)
     recode_field <- recode_field[-1,]
     if (!all(row.names(recode_field) %in% names(field_names))) warning(paste("Unrecognized field_names for field in ", country))
     row.names(recode_field) <- field_names[row.names(recode_field)]
     recode_field <- as.data.frame(t(recode_field), row.names = indices_i)
-    for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
+    if (!paste0("field_manual_", k) %in% names(e)) for (k in names(recode_field)) e[[paste0("field_manual_", k)]] <- NA # /!\ There may be a bug if there are NA in field_names[names(recode_field)], which happens when the variable/column names are unknown in field_names
     for (k in names(recode_field)) e[[paste0("field_manual_", k)]][indices_i] <- recode_field[[k]] %in% 1
   } else print("No file found for recoding of field.")
 
@@ -1538,7 +1539,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   l <- if (country %in% c("US", "GB", "FR")) "" else "en"
   if (file.exists(paste0("../data_raw/fields/", country, 2, l, ".xlsm"))) {
     recode_field <- read.xlsx(paste0("../data_raw/fields/", country, 2, l, ".xlsm"), sheet = "comment1", rowNames = T, colNames = F, sep.names = " ", na.strings = c("NA"), skipEmptyCols = F)
-    indices_i <- if (i == 1) 1:(ncol(recode_field)-1) else 1+2*((1:ncol(recode_field)-1)) # seq(i, nrow(e), 4)
+    indices_i <- if (i == 1) 1:ncol(recode_field) else 1+2*(1:ncol(recode_field)-1) # seq(i, nrow(e), 4)
     recode_field <- recode_field[-1,]
     if (!all(row.names(recode_field) %in% names(comment_names))) warning(paste("Unrecognized comment_names for field in ", country))
     row.names(recode_field) <- comment_names[row.names(recode_field)]

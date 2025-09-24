@@ -2,29 +2,36 @@
 \contentsline {section}{Contents}{2}{section*.1}%
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
 \contentsline {paragraph}{Literature}{3}{section*.2}%
-\contentsline {section}{\numberline {2}Results}{3}{section.2}%
-\contentsline {section}{\numberline {3}Discussion}{4}{section.3}%
-\contentsline {section}{\nameref {sec:methods}}{4}{section*.17}%
-\contentsline {paragraph}{\small Pre-registration.}{4}{section*.18}%
-\contentsline {paragraph}{\small Data collection.}{5}{section*.19}%
-\contentsline {paragraph}{\small Data quality.}{5}{section*.20}%
-\contentsline {paragraph}{\small Questionnaires and raw results.}{5}{section*.21}%
-\contentsline {section}{Bibliography}{13}{section*.24}%
-\contentsline {section}{\numberline {A}Raw results}{14}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{58}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{80}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{84}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{87}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{88}{section*.110}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{91}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{92}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{93}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{94}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{95}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{96}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{99}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{102}{appendix.M}%
-\contentsline {section}{Bibliography}{103}{section*.132}%
-\contentsline {section}{List of Tables}{103}{section*.133}%
-\contentsline {section}{List of Figures}{103}{section*.134}%
+\contentsline {section}{\numberline {2}Data and design}{3}{section.2}%
+\contentsline {paragraph}{Samples.}{3}{section*.3}%
+\contentsline {paragraph}{Representativeness.}{4}{section*.5}%
+\contentsline {paragraph}{Data quality.}{5}{section*.6}%
+\contentsline {paragraph}{Incentives.}{5}{section*.7}%
+\contentsline {paragraph}{Survey structure.}{5}{section*.8}%
+\contentsline {paragraph}{Pre-registered hypotheses and data availability.}{7}{section*.10}%
+\contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{7}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Acceptance for international policies in function of country coverage}{8}{section.4}%
+\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{8}{section.5}%
+\contentsline {section}{\numberline {6}Breadth of international policies accepted}{8}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{8}{section*.23}%
+\contentsline {section}{Bibliography}{16}{section*.25}%
+\contentsline {section}{\numberline {A}Raw results}{17}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{61}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{83}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{87}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{90}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{91}{section*.111}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{94}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{95}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{96}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{97}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{98}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{99}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{102}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{105}{appendix.M}%
+\contentsline {section}{Bibliography}{106}{section*.133}%
+\contentsline {section}{List of Tables}{106}{section*.134}%
+\contentsline {section}{List of Figures}{106}{section*.135}%
 \contentsfinish 

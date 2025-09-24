@@ -105,7 +105,7 @@ in High-Income Countries
 \maketitle
 
 \begin{center}
-{\textbf{\href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/papers/support_global_redistr.pdf}{Link to most recent version}}}
+{\textbf{\href{https://github.com/bixiou/robustness_global_redistr/raw/main/papers/support_global_redistr.pdf}{Link to most recent version}}}
 \end{center}
 
 
@@ -149,7 +149,8 @@ in High-Income Countries
 \begin{bibunit}
 
 \section{Introduction}% NCCcomment
-bla
+
+Questions that do not prime global solidarity show that this topic is not a salient concern for most people, which may explain why global redistribution proposals receives little attention in public debate, despite widespread acceptance. 
 
 % Paragraphs in Kuziemko et al. (many citations are in footnotes):
 % Context; Puzzle (citing theory/paper/evidence + graph); Hypotheses/method; Original method (interactivity); Main results; Specific result; Mechanisms/robustness (at length); Literature; Outline.
@@ -161,9 +162,11 @@ bla
 
 \section{Data and design\label{sec:data}}
 
-\paragraph{Samples}
-I conducted an original survey on 12,000 respondents representative of in eleven high-income countries (see Figure \ref{fig:country_coverage}). The countries have been chosen to be representative of the diversity of high-income countries and the sample sizes commensurate to these countries' population sizes.\footnote{The sample sizes are as follows: U.S.: 3,000; Japan: 2,000; Russia: 1,000; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population size (except for Switzerland), that is France: 798; Germany: 1,048; Italy: 756; Spain: 603; Poland: 500; Switzerland: 469.} 
-The survey was fielded online in 2025 using the companies \textit{Yandex} (for Russia), \textit{Kantar} (for Saudi Arabia), and \textit{Bilendi} (for the other countries).\footnote{For all countries but Russia, responses were collected between April 15 and July 3, 2025. For Russia, responses were collected between September 19 and TODO, 2025.} 
+\paragraph{Samples.}
+I conducted an original survey on 12,000 respondents representative of the adult population in eleven high-income countries (see Figure \ref{fig:country_coverage}). The countries have been chosen to span the diversity of high-income countries and the sample sizes to be commensurate to these countries' population sizes.\footnote{The sample sizes are as follows: U.S.: 3,000; Japan: 2,000; Russia: 1,000; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population size (except for Switzerland), that is France: 798; Germany: 1,048; Italy: 756; Spain: 603; Poland: 500; Switzerland: 469.} 
+The survey was fielded online in 2025 using the companies \textit{Yandex} (for Russia), \textit{Kantar} (for Saudi Arabia), and \textit{Bilendi} (for the other countries).\footnote{For all countries but Russia, responses were collected between April 15 and July 3, 2025. For Russia, responses were collected between September 19 and TODO, 2025. Each complete response is rewarded around \euro{}3 in gift points.} 
+
+In Russia, the questionnaire was curtailed as I could not ask the same questionnaire as in the other countries, for two reasons. First, I could not use the platform \textit{Qualtrics}, which prevented me from asking some question formats (such as constant sum scales) or from embedding Javascript (used to design an interactive question). Second, I had to cut or reword some questions due to preventive censorship by the survey company. In the other countries, the questionnaires are almost identical, though the figures in questions are adapted to the country context (e.g. when informing about the cost of the Global Climate Scheme to the average person of the country). Appendix \ref{app:specificities} lists the specificities of the questionnaire in each country.
 
 % # 1? coverage map
 \begin{figure}[h!]
@@ -172,19 +175,33 @@ The survey was fielded online in 2025 using the companies \textit{Yandex} (for R
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_curtailed.png}} 
 \end{figure}
 
-\paragraph{Representativeness}
+\paragraph{Representativeness.}
 The samples are stratified to be representative of the country's adult population along the following quota variables (with some exceptions\footnote{In the U.S., I also use race (4 categories) as a quota variable. In Saudi Arabia, I do not use urbanicity, but I use citizenship (Saudi vs. non-Saudi). In Russia, I do not use region nor urbanicity.}): gender, age (5 brackets), income (4), diploma (3), region (2 to 5), and urbanicity (2 to 3). Tables \ref{tab:representativeness_0}-\ref{tab:representativeness_3} in Appendix \ref{app:representativeness} show that our samples match the actual population frequencies along these dimensions, except for Saudi Arabia (where non-Saudis and non-high-school-educated people are underrepresented) and Russia (where TODO). All our results are reweighted to be fully representative of the population along our quotas (with weights trimmed between 0.25 and 4). Results aggregated at the global or European levels weigh each country in proportion to its adult population size. 
 
 Appendix Figure \ref{fig:lmg} shows that 11\% to 17\% of the variance of our main attitudinal outcomes is explained by sociodemographic variables, and this share falls below 5\% after accounting for country and vote. In other words, even though variables such as age or diploma are sometimes significantly correlated with attitudes (see Tables \ref{tab:determinant}-\ref{tab:determinants_custom_redistr}), difference in average acceptance of a policy between (say) age groups rarely exceeds a dozen percentage points. 
 
-Appendix \ref{app:pol} shows how our main attitudinal outcomes vary by political leaning. Non-voters exhibit attitudes close to the center of the politicalspectrum. Besides, attitudes are much less polarized in Japan compared to Europe and the U.S. 
+Appendix \ref{app:pol} shows how our main attitudinal outcomes vary by political leaning. Non-voters exhibit attitudes close to the center of the politicalspectrum. Besides, attitudes are much less polarized in Japan compared to Europe and the U.S. % TODO: has polarization decreased since last paper?
 Appendix Figures \ref{fig:vote_pnr_out}-\ref{fig:vote_representativeness} show how our % weighted or not TODO % TODO! US in Figure
 samples compare to reality in terms of vote in the last election. While the share of declared non-voters is lower than in reality, votes along the three main political leanings are close to reality. Appendix \ref{app:vote} shows that our main results are robust to reweighting by vote. 
 
-% Balance, attrition, comparison with other surveys
+\paragraph{Data quality.} 
+The median survey duration is 17 minutes (13 min in Russia). % Following TODO cite Stantcheva
+Best practices have been used to ensure top-notch data quality. 
+The questionnaire has been worded in a neutral and informative way;\footnote{At the end of the survey, 70\% of the respondents find it politically unbiased (Appendix Figure \ref{fig:survey_biased}).} tested on random people in public spaces to make sure it is correctly understood; translated by professional translators and double-checked by native speakers.
 
-% Survey flow
+Of all respondents who started the questionnaire, only TODO \% dropped out. TODO respondents were allowed to pursue the survey (as their quotas were not full) and did not drop out.  The final sample is obtained after excluding of this extended sample TODO \% of respondents for suspicion of low quality: \% for failing an attention test and \% for answering the questionnaire in less than 6 min (including \% for both reasons). Appendix \ref{app:attrition} checks for differential attrition and Appendix \ref{app:extended} shows that our main results replicate on the extended sample. 
+% TODO: feedback field
 
+Whenever possible, the order of question items is randomized. Appendix \ref{app:order} studies the effect of item order on answers. The item order generally has a significant but small effect (2 to 10~p.p.). The size of the effect help identify questions for which opinions are strongly held (e.g. the preference of a sustainable scenario over the status quo) \textit{versus} weakly held (e.g. the preferred amount of climate finance). % crystallized, well-formed, consolidated, stable, ambivalent
+
+Appendix \ref{app:comparison} compares the answers of two attitudinal questions asked in other surveys: the overall averages differ by 2 to 4~p.p. and their cross-country correlation is high: .70 \citep{global_nation_global_2023} to .86 \citep{cappelen_majority_2025}. 
+
+\paragraph{Incentives.}
+The questionnaire includes three incentivized questions, each awarded with a \$100 prize for one randomly drawn winner. First, a comprehension question on the Global Climate Scheme (GCS) checks whether respondents have understood the policy's cost. % TODO: support among those who haven't understood
+Second, a donation lottery where respondents choose what part of the prize they would donate to a reforestation NGO, should they win the lottery. Third, a question on the perception of the actual support for the GCS, which rewards a correct guess.
+
+\paragraph{Survey structure.}
+While Appendix \ref{app:questionnaire} provides the full questionnaire, Figure \ref{fig:flow} depicts the survey flow with all random branches. The various treatments are all independent and uniformly distributed. Appendix \ref{app:placebo} runs placebo tests to check whether earlier treatments have an effect on unrelated outcomes. 
 % # 2. survey_flow
 \begin{figure}[h!]
     \caption[Survey flow]{Survey flow.
@@ -192,10 +209,42 @@ samples compare to reality in terms of vote in the last election. While the shar
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/questionnaire/survey_flow.pdf}} 
 \end{figure}
 
-\section{Salience and priorization of global solidarity\label{sec:salience}}
+After sociodemographic characteristics, the questionnaire starts with broad questions to grasp the prioritization and salience of global solidarity before the respondents can understand the survey's topic. First, open-ended fields on either their main concerns, wants, issues of interest, or perceived injustices. Second, a conjoint experiment where respondents have to select their preferred political program, or abstain. Both programs are random: each policy (or absence of policy) in five policy domains is taken at random from a pool of policies prominent in the country's public debate. Third, respondents are asked to allocate the revenue of a global wealth tax between five (national or global) spending items. 
+
+Then come attitudinal questions on the main policies studied: a \textit{Climate Scheme} at the national, global, or international level; an international wealth tax funding low-income countries; and ten plausible global solidarity policies. These questions include treatments that vary the international coverage of policies or test for warm glow. 
+
+The last part of the questionnaire explores attitudes towards more radical global redistribution scenarios and include more sophisticated questions, such as an interactive task where respondents can choose their preferred custom redistribution of global incomes by manipulating sliders. 
+
+Finally, the survey concludes with a comprehension question, synthetic questions (e.g. on moral circle) and a feedback field.
+
+\paragraph{Pre-registered hypotheses and data availability.}
+The project is approved by the CIRED institutional review board (IRB-CIRED-2025-2) and %is approved by IRB at Harvard University (IRB21-0137), and 
+was preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). The study did not deviate from the registration: the questionnaires and the hypotheses tests used are the ones \href{https://osf.io/j5scn}{specified \textit{ex ante}}. All data and code as well as figures of the paper are available on \href{https://github.com/bixiou/robustness_global_redistr}{github.com/bixiou/robustness\_global\_redistr}. 
+
+
+\section{Salience and prioritization of global solidarity\label{sec:salience}}
 % - People view global poverty/ineq as big injustice though not salient concern (e.g. revenue_split)
+In this Section, I analyze the salience of global solidarity in undirected open-ended fields; and the prioritization of global programs in a budget allocation task.
+
+\subsection{Top-of-mind considerations}
+
+At the beginning of the survey, respondents are randomly assigned one open-ended question among four: their main concerns, their needs or wishes, an issue important to them but neglected in public debate, or the greatest injustice of all. The questions are deliberately broad and vague to let respondents express their top-of-mind considerations without any priming.
+
+To analyze the answers, I automatically translated each field into English.\footnote{I used \href{https://www.onlinedoctranslator.com/en/translationform}{onlinedoctranslator.com}, which is powered by \textit{Google Translate}.} Then, I used AI and my own reading of a few hundreds answers to identify the most common concepts, from which I selected 27 categories. Then, I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI (Figure \ref{fig:field_gpt}). Finally, I manually defined a list of 47 (conjunction of) keywords and used it to automatically classify all answers.\footnote{The list of keywords is given in Appendix TODO.} I report occurrences of the 24 most common categories in Figure \ref{fig:field_keyword}. 
+
+The three different classification methods yield consistent results but differ in accuracy. While the keyword classification allows an exact and reproducible search of concepts, the automatic search is not bound to specific words and captures more matching responses. % Although the manual classification could be less consistent than the AI one (if e.g. the interpretation of the category changes over time or among coders), 
+Overall, it seems that the manual classification provides the most accurate results, with a number of matches generally between the two other methods. 
+For example, to the \textit{injustice} question, 1.3\% of answers match the keywords for \textit{global inequality}, ChatGPT identifies 8.5\% of answers in this category, \textit{versus} 3.7\% according to my manual coding.\footnote{The keyword matching searches the regular expression ``global poverty|global inequal|hunger|drinking water|starv'', ignoring case. The automatic and manual classification is based on the class definition ``Inequality at the inetrnational level / Hunger or poverty in poor countries''.} 
+Indeed, the AI incorrectly classifies answers like ``poverty'' in this category,\footnote{Interestingly, out of the 45 (one-word) answers ``poverty'', ChatGPT coded only 42 of them as \textit{global inequality}, showing the lack of consistency of this classifier.} while the keyword search misses answers like ``inequality among humans''. 
+Given this observation, I use the manual classification as the benchmark and the two other methods as robustness checks.
+
+While less accurate than the classifications, wordclouds (Figure \ref{fig:wordcloud}) provide a simple visualization of the most common concepts in each question. By far, the most frequent \textit{concerns} or \textit{wishes} of respondents relate to their purchasing power, with concepts such as ``money'', ``inflation'', or the ``cost of living'' mobilized in 30\% of these fields. Within country, the share of people concerned with money decreases with income: it ranges from 21\% in the top income decile to 36\% in the bottom one. % TODO define e$gdp_pc_ppp and cor money
+The next most frequent \textit{concerns} are health (or the healthcare system), far right governments (or related concepts such as ``Trump'' or ``trade tariffs''), and war (either in general or a specific one such as the Gaza war). Most \textit{wishes} are personal, with the next frequent ones related to the health or peace of mind of oneself or one's relatives. Interestingly, almost none of the responses mention social considerations such as love, intimate life, friendships, loneliness, or the desire to have children (with the exception of Saudi Arabia for the latter). Further research is needed to test whether the predominance of materialistic considerations stems from the context (an impersonal survey) or truly reflects people's primary thoughts. 
+
+% injustice...
+
 % # 3. keywords in fields (taken jointly)
-\begin{figure}
+\begin{figure}[h!]
   \caption[Wordcloud of open-ended field, per variant]{Most common concepts in open-ended fields. (Questions \ref{q:concerns_field}-\ref{q:injustice_field})} \label{fig:wordcloud} % Random answers can be found on \href{http://preferences-pol.fr/fields2025.html}{bit.ly/fields2025}
   \begin{subfigure}{.49\textwidth}
     \caption[]{``What are your main concerns these days?''}
@@ -215,7 +264,7 @@ samples compare to reality in terms of vote in the last election. While the shar
   \end{subfigure} 
 \end{figure}
 % # 4. revenue_split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
-\begin{figure}
+\begin{figure}[h!]
   \caption[Preferred split of revenue of an international wealth tax]{Preferred split of revenue of an international wealth tax. The first two items are from the variant \textit{Few} with 5 fixed items (the \textit{Global} one and the most preferred one are displayed); the last four items are from the variant \textit{Many} with 5 items taken at random out of 13 (the 4 \textit{Global} ones are displayed). \hfill (Questions \ref{q:revenue_split_few}-\ref{q:revenue_split_many})} \label{fig:split}
 
   % \begin{subfigure}{.45\textwidth}
@@ -261,7 +310,7 @@ samples compare to reality in terms of vote in the last election. While the shar
 % - No (or little) evidence of warm glow or support due to unrealism; global redistr genuinely supported (conjoint analysis)
 
 % # 6. conjoint: foreign aid + global tax (per country + global)
-\begin{figure}
+\begin{figure}[h!]
 \caption[Conjoint analysis: effect of development aid and millionaire tax]{Effect on the likelihood that a political program is preferred of containing the following policy (compared to no foreign policy in the program). (See Figure \ref{fig:conjoint_vote} for effects by vote). \hfill (Question \ref{q:conjoint})} \label{fig:conjoint}
 \begin{subfigure}{.49\textwidth}
   \caption[]{Cut development aid}
@@ -273,8 +322,8 @@ samples compare to reality in terms of vote in the last election. While the shar
 \end{subfigure}
 \end{figure}
 % # 7. warm_glow: effect of info + display donation vs. control (per country + global)
-    \begin{figure}\label{fig:warm_glow}
-\caption[Testing warm glow]{Testing warm glow (negative effects would indicate the presence of warm glow).}
+    \begin{figure}[h!]
+\caption[Testing warm glow]{Testing warm glow (negative effects would indicate the presence of warm glow).}\label{fig:warm_glow}
 \begin{subfigure}{.45\textwidth}
   \caption[]{Effect of a \textit{Donation lottery} treatment on support for the Global Climate Scheme. (Questions \ref{q:donation}-\ref{q:gcs_support})\label{fig:warm_glow_substitute}}
   \includegraphics[height=.36\textheight]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
@@ -339,39 +388,8 @@ samples compare to reality in terms of vote in the last election. While the shar
 \section*{\normalsize Methods}\label{sec:methods} % NCCcomment
 \addcontentsline{toc}{section}{\nameref{sec:methods}}
 
-\paragraph{\small Pre-registration.}
-The project is approved by Economics \& Business Ethics Committee (EBEC) at the University of Amsterdam (EB-1113) and %is approved by IRB at Harvard University (IRB21-0137), and 
-was preregistered in the Open Science Foundation registry (\href{https://osf.io/fy6gd}{osf.io/fy6gd}). The study did not deviate from the registration: the questionnaires and the hypotheses tests used are the same as the ones \href{https://osf.io/2b6vq}{given \textit{ex ante}}. Informed consent was obtained from all respondents, randomized treatment branches were unkown to the respondents, and our research complies with all relevant ethical regulations. Respondents were compensated with gift certificates for a value of \euro{}1 after participation. No statistical methods were used to pre-determine sample sizes but our sample sizes match those reported in similar publications.\citep{dechezlepretre_fighting_2025,issp_international_2010,beiser-mcgrath_could_2019,sivonen_attitudes_2022,douenne_yellow_2022}
-% \subsection{Data collection.} % WPcomment
-
-\paragraph{\small Data collection.} % NCCcomment
-
-The paper utilizes two sets of surveys: the \textit{global} survey and the \textit{Western} surveys. The \textit{global} surveys consist of two U.S. surveys, \textit{US1} and \textit{US2}, and one European survey, \textit{Eu}. The \textit{global} survey was conducted from March 2021 to March 2022 on 40,680 respondents from 20 countries (with 1,465 to 2,488 respondents per country). \textit{US1} collected responses from 3,000 respondents between January and March 2023, while \textit{US2} gathered data from 2,000 respondents between March and April 2023. \textit{Eu} included 3,000 respondents and was conducted from February to March 2023. We used the survey companies \emph{Dynata} and \emph{Bilendi}. To ensure representative samples, we employed stratified quotas based on gender, age (5 brackets), income (4), region (4), education level (3), and ethnicity (3) for the U.S. We also incorporated survey weights throughout the analysis to account for any remaining imbalances. These weights were constructed using the quota variables as well as the degree of urbanization, and trimmed between 0.25 and 4. Stratified quotas followed by reweighting is the usual method to reduce selection bias from opt-in online panels, when better sampling methods (such as compulsory participation of random dwellings) are unavailable.\cite{scherpenzeel_how_2010} By applying weights, the results are fully representative of the respective countries along the above mentioned dimensions. %. 
-Results at the European level apply different weights which ensure  representativeness of the combined four European countries. Appendix \ref{app:representativeness} shows how our samples compare to actual population frequencies. They match the actual frequencies, except for some imbalances in specific quota demographics ---such as gender in the UK (43\% of women instead of 50\%) or urbanity in Spain (15\% rural instead of 26\%)--- that are corrected through our survey weights, and in the U.S. vote (which does not affect our results, as shown by the results reweighted by vote in the \textit{Support for the GCS} section below). 
-% confirms that our samples are representative of the population. %\footnote{We trim weights so that no respondent receives a weight below 0.25 or above 4. Overall, trimming changes the weights for xx\% of the respondents.} 
-Appendix \ref{app:balance} shows that the treatment branches are balanced. Appendix \ref{app:placebo} runs placebo tests of the effects of each treatment on unrelated outcomes. We do not find effects of earlier treatments on unrelated outcomes arriving later in the survey. Appendix \ref{app:extended} shows that our results are unchanged when including inattentive respondents.
-
-
-% \subsection*{\small Data quality.} % WPcomment 
-\paragraph{\small Data quality.} % NCCcomment
-The median duration is 28 minutes for the \textit{global} survey, 14 min for \textit{US1}, 11 min for \textit{US2}, and 20 min for \textit{Eu}. To ensure the best possible data quality, we exclude 14\% respondents who fail an attention test or rush through the survey (i.e., answer in less than 11.5 minutes in the \textit{global} survey, 4 minutes in \textit{US1} or \textit{US2}, 6 minutes in \textit{Eu}). %All the results and analyses use survey weights, defined to make the results fully representative of the country (or of Eu in the case of results at the Eu level) along the quota variables. Weights are trimmed to be between .25 and 4. 
-%\textit{Ex post}, we checked that there were only a few careless response patterns (such as choosing the same answer for all items in a matrix of questions; see Appendix \ref{app:data_quality}). 
-At the end of the survey, we ask whether respondents thought that our survey was politically biased and offer to provide some feedback. 69\% of the respondents found the survey unbiased. 24\% found it left-wing biased, and 8\% found it right-wing biased.
-
-
-
-% \subsection*{\small Questionnaires and raw results.} % WPcomment
-\paragraph{\small Questionnaires and raw results.} % NCCcomment
-% Possible confusion in the questionnaire: people confuse GCS with the four policies together (so support for GCS can suffer from dislike of death penalty), although this confusion is mitigating by the fact that we right after ask about NR; people may answer about revenue-use rather than the whole measure for ETS2 support; people may answer that GCS will or will not have the effects proposed rather than these effects being important or not in their attitude towards GCS; they may answer that it's important that others (not them) get more information; the minimum wage could be reduced at 50% of local median wage.
-%.\cite{dechezlepretre_fighting_2025} 
-The raw results are reported in Appendix \ref{app:raw_results} while the questionnaire is given in Appendix {app:questionnaire}. 
-% Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}. %The questionnaires are the same as the ones given \textit{ex ante} in the registration plan (\href{https://osf.io/fy6gd}{osf.io/fy6gd}).
-
-
-\section*{\normalsize Data and code availability}
-
-All data and code of the \textit{global} surveys as well as figures of the paper are available on \href{https://zenodo.org/doi/10.5281/zenodo.11202245}{10.5281/zenodo.11202245}. %\\ \href{https://github.com/bixiou/international_attitudes_toward_global_policies}{github.com/bixiou/global\_tax\_attitudes}. 
-Data and code for the \textit{g} survey will be made public upon publication. % 
+% The paper utilizes two sets of surveys: the \textit{global} survey and the \textit{Western} surveys. The \textit{global} surveys consist of two U.S. surveys, \textit{US1} and \textit{US2}, and one European survey, \textit{Eu}. The \textit{global} survey was conducted from March 2021 to March 2022 on 40,680 respondents from 20 countries (with 1,465 to 2,488 respondents per country). \textit{US1} collected responses from 3,000 respondents between January and March 2023, while \textit{US2} gathered data from 2,000 respondents between March and April 2023. \textit{Eu} included 3,000 respondents and was conducted from February to March 2023. We used the survey companies \emph{Dynata} and \emph{Bilendi}. To ensure representative samples, we employed stratified quotas based on gender, age (5 brackets), income (4), region (4), education level (3), and ethnicity (3) for the U.S. We also incorporated survey weights throughout the analysis to account for any remaining imbalances. These weights were constructed using the quota variables as well as the degree of urbanization, and trimmed between 0.25 and 4. Stratified quotas followed by reweighting is the usual method to reduce selection bias from opt-in online panels, when better sampling methods (such as compulsory participation of random dwellings) are unavailable.\cite{scherpenzeel_how_2010} By applying weights, the results are fully representative of the respective countries along the above mentioned dimensions. %. 
+% Appendix \ref{app:balance} shows that the treatment branches are balanced. Appendix \ref{app:placebo} runs placebo tests of the effects of each treatment on unrelated outcomes. We do not find effects of earlier treatments on unrelated outcomes arriving later in the survey. Appendix \ref{app:extended} shows that our results are unchanged when including inattentive respondents.
 
 \section*{\normalsize Acknowledgements}
 bla

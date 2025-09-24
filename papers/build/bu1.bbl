@@ -1,9 +1,22 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Global~Nation(2023)]{global_nation_global_2023}
+.~Global~Nation.
+\newblock Global {{Solidarity Report}} 2023, 2023.
+\newblock URL
+  \url{https://globalnation.world/wp-content/uploads/2023/09/Global-Solidarity-Report-2023.pdf}.
+
+\bibitem[Cappelen et~al.(2025)Cappelen, St{\o}stad, and
+  Tungodden]{cappelen_majority_2025}
+Alexander~W. Cappelen, Morten St{\o}stad, and Bertil Tungodden.
+\newblock Majority in 40 {{Countries Support Unprecedented Coordinated
+  Billionaire Tax Discussed}} by {{G20}}.
+\newblock 2025.
 
 \bibitem[Dechezlepr{\^e}tre et~al.(2025)Dechezlepr{\^e}tre, Fabre, Kruse,
   Planterose, Sanchez~Chico, and Stantcheva]{dechezlepretre_fighting_2025}
