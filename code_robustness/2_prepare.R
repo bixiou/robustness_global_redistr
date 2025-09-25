@@ -1922,29 +1922,29 @@ save.image(".RData")
 #### Russia ####
 # RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
 # 
-for (v in intersect(names(FR), names(RU))) if (any(class(FR[[v]]) != class(RU[[v]]))) print(paste(v, class(RU[[v]])))
-for (v in intersect(names(FR), names(RU))) if (length(union(setdiff(unique(FR[[v]]), unique(RU[[v]])), setdiff(unique(RU[[v]]), unique(FR[[v]])))) > 0) print(v)
-
-# ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
-# /!\ Pb: un_security_council missing from control
-ru <- read_sav("../data_raw/RU.sav")
-ru <- ru[-c(1:2),] # Remove test rows
-View(ru)  # TODO: duration, revenue_split,
-for (v in names(rename_ru)) names(ru)[names(ru) == v] <- rename_ru[v]
-names(ru)
-setdiff(names(ru), names(e))
-val_labels(ru$age)
-Levels(as_factor(ru$millionaire, levels = "values"))
-Levels(as_factor(ru$group_defended))
-Levels(e$group_defended)
-decrit(e$millionaire, numbers = T)
-ru$gender <- as.character(as_factor(ru$gender))
-ru$gender[grepl("Женщина", ru$gender)] <- "Woman"
-ru$income_original <- ru$income
-
-ru$age_exact <- sub(" to ", "-", ru$age_exact)
-for (v in c(variables_home, variables_why_hic_help_lic)) ru[[v]] <- ru[[v]] != "0"
-for (v in c(variables_well_being, "hh_size", "Nb_children__14")) ru[[v]] <- as.numeric(ru[[v]])
+# for (v in intersect(names(FR), names(RU))) if (any(class(FR[[v]]) != class(RU[[v]]))) print(paste(v, class(RU[[v]])))
+# for (v in intersect(names(FR), names(RU))) if (length(union(setdiff(unique(FR[[v]]), unique(RU[[v]])), setdiff(unique(RU[[v]]), unique(FR[[v]])))) > 0) print(v)
+# 
+# # ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
+# # /!\ Pb: un_security_council missing from control
+# ru <- read_sav("../data_raw/RU.sav")
+# ru <- ru[-c(1:2),] # Remove test rows
+# View(ru)  # TODO: duration, revenue_split,
+# for (v in names(rename_ru)) names(ru)[names(ru) == v] <- rename_ru[v]
+# names(ru)
+# setdiff(names(ru), names(e))
+# val_labels(ru$age)
+# Levels(as_factor(ru$millionaire, levels = "values"))
+# Levels(as_factor(ru$group_defended))
+# Levels(e$group_defended)
+# decrit(e$millionaire, numbers = T)
+# ru$gender <- as.character(as_factor(ru$gender))
+# ru$gender[grepl("Женщина", ru$gender)] <- "Woman"
+# ru$income_original <- ru$income
+# 
+# ru$age_exact <- sub(" to ", "-", ru$age_exact)
+# for (v in c(variables_home, variables_why_hic_help_lic)) ru[[v]] <- ru[[v]] != "0"
+# for (v in c(variables_well_being, "hh_size", "Nb_children__14")) ru[[v]] <- as.numeric(ru[[v]])
 # [13] "gender"                                                "age"                                                   "foreign"                                              
 # [16] "couple"                                                "hh_size"                                               "Nb_children__14"                                      
 # [19] "income"                                                "education"                                             "employment_status"                                    

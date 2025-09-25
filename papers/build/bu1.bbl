@@ -1,4 +1,4 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -18,59 +18,12 @@ Alexander~W. Cappelen, Morten St{\o}stad, and Bertil Tungodden.
   Billionaire Tax Discussed}} by {{G20}}.
 \newblock 2025.
 
-\bibitem[Dechezlepr{\^e}tre et~al.(2025)Dechezlepr{\^e}tre, Fabre, Kruse,
-  Planterose, Sanchez~Chico, and Stantcheva]{dechezlepretre_fighting_2025}
-Antoine Dechezlepr{\^e}tre, Adrien Fabre, Tobias Kruse, Bluebery Planterose,
-  Ana Sanchez~Chico, and Stefanie Stantcheva.
-\newblock Fighting {{Climate Change}}: {{International Attitudes}} toward
-  {{Climate Policies}}.
-\newblock \emph{American Economic Review}, 115\penalty0 (4):\penalty0
-  1258--1300, April 2025.
-\newblock ISSN 0002-8282.
-\newblock \doi{10.1257/aer.20230501}.
-\newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/aer.20230501}.
-
-\bibitem[ISSP(2010)]{issp_international_2010}
-ISSP.
-\newblock International {{Social Survey Programme}}: {{Environment III}}.
-\newblock 2010.
-\newblock \doi{10.4232/1.13271}.
-\newblock URL
-  \url{https://search.gesis.org/research\_data/ZA5500?doi=10.4232/1.13271}.
-
-\bibitem[{Beiser-McGrath} and Bernauer(2019)]{beiser-mcgrath_could_2019}
-Liam~F. {Beiser-McGrath} and Thomas Bernauer.
-\newblock Could revenue recycling make effective carbon taxation politically
-  feasible?
-\newblock \emph{Science Advances}, 5\penalty0 (9):\penalty0 eaax3323, September
-  2019.
-\newblock ISSN 2375-2548.
-\newblock \doi{10.1126/sciadv.aax3323}.
-\newblock URL \url{https://advances.sciencemag.org/content/5/9/eaax3323}.
-
-\bibitem[Sivonen(2022)]{sivonen_attitudes_2022}
-Jukka Sivonen.
-\newblock Attitudes toward global and national climate policies in {{Finland}}
-  -- {{The}} significance of climate change risk perception and
-  urban/rural-domicile.
-\newblock \emph{GeoJournal}, September 2022.
-\newblock ISSN 1572-9893.
-\newblock \doi{10.1007/s10708-022-10750-0}.
-\newblock URL \url{https://doi.org/10.1007/s10708-022-10750-0}.
-
-\bibitem[Douenne and Fabre(2022)]{douenne_yellow_2022}
-Thomas Douenne and Adrien Fabre.
-\newblock Yellow {{Vests}}, {{Pessimistic Beliefs}}, and {{Carbon Tax
-  Aversion}}.
-\newblock \emph{American Economic Journal: Economic Policy}, 2022.
-\newblock URL \url{http://doi.org/10.1257/pol.20200092}.
-
-\bibitem[Scherpenzeel(2010)]{scherpenzeel_how_2010}
-Annette~C. Scherpenzeel.
-\newblock How {{Representative Are Online Panels}}? {{Problems}} of
-  {{Coverage}} and {{Selection}} and {{Possible Solutions}}.
-\newblock In \emph{Social and {{Behavioral Research}} and the {{Internet}}}.
-  Routledge, 2010.
-\newblock ISBN 978-0-203-84492-2.
+\bibitem[Fabre et~al.(2025)Fabre, Douenne, and Mattauch]{fabre_majority_2025}
+Adrien Fabre, Thomas Douenne, and Linus Mattauch.
+\newblock Majority support for global redistributive and climate policies.
+\newblock \emph{Nature Human Behaviour}, pages 1--12, June 2025.
+\newblock ISSN 2397-3374.
+\newblock \doi{10.1038/s41562-025-02175-9}.
+\newblock URL \url{https://www.nature.com/articles/s41562-025-02175-9}.
 
 \end{thebibliography}

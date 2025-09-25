@@ -23,9 +23,28 @@ decrit(all$field_gpt_global_inequality[all$field_en %in% c("poverty", "Poverty")
 decrit(all$field_gpt_global_inequality[all$field_en %in% "inequality among humans"])
 decrit(all$field_manual_money, all, which = all$variant_field %in% c("concerns", "wish")) # .3048
 summary(lm(field_manual_money ~ factor(income_decile), data = all, subset = all$variant_field %in% c("concerns", "wish"), weights = weight))
-decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 10, data = all) # .36
-decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 1, data = all) # .21
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 10, data = all) # .21
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 1, data = all) # .36
+decrit(all$field_manual_own_country | all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .13
+decrit(all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .11
+decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .02
+decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
+decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 
+
+##### Revenue split #####
+wtd.mean(all$revenue_split_few_global, all$weight) # 17.5%
+wtd.mean(all$revenue_split_few_global, all$weight)/(33.4*2/5) # +31%
+wtd.mean(all$revenue_split_few_global == 0, all$weight) # 13.3%
+wtd.mean(all$revenue_split_few_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.84%
+wtd.mean(all$revenue_split_few_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/(33.4*2/5) # +34%
+wtd.mean(all$revenue_split_few_global, all$weight)/wtd.mean(all$revenue_split_few_domestic_education_healthcare, all$weight) # 68%
+sort(sapply(variables_split_many, function(c) mean(e[[c]], na.rm = T)), decreasing = T) # 27.0, 22.5, 18.6, 16.5
+with(all, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_global)))) 
+wtd.mean(all$split_nb_global, all$weight) # 1.5
+wtd.mean(all$split_many_global, all$weight) # 26.9%
+wtd.mean(all$split_many_global, all$weight)/wtd.mean(all$split_nb_global, all$weight) # 17.5%
+wtd.mean(all$split_many_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/wtd.mean(all$split_nb_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.5%
 
 # 2SLS
 first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)

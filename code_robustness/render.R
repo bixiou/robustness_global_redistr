@@ -679,7 +679,7 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 # 12. average custom_redistr
 
 # 4. Revenue split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
-plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
+plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), # TODO! add dashed line at 20%
            labels = break_strings(labels_vars[c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global)], max_length = 46, sep = "<br>"),
            name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 600, height = 500) 
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
