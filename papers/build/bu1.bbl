@@ -1,4 +1,4 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -25,5 +25,13 @@ Adrien Fabre, Thomas Douenne, and Linus Mattauch.
 \newblock ISSN 2397-3374.
 \newblock \doi{10.1038/s41562-025-02175-9}.
 \newblock URL \url{https://www.nature.com/articles/s41562-025-02175-9}.
+
+\bibitem[Fabre(2025)]{fabre_global_2025}
+Adrien Fabre.
+\newblock From {{Global Policies}} to {{Phase Out Fossil Fuels To}} a
+  {{Sustainable Union}}.
+\newblock 2025.
+\newblock URL
+  \url{https://github.com/bixiou/global\_tax\_attitudes/raw/main/paper/global\_climate\_policies.pdf}.
 
 \end{thebibliography}

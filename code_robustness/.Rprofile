@@ -98,6 +98,7 @@ package("plotly") # used in barres; in case of bug due to kaleido: "pip install 
 #' package('gdata')
 # package("descr") # CrossTable
 package("quantreg")
+package("multiwayvcov") # multiway standard error clustering (for conjoint analysis)
 # package("segmented")
 #' package("rcompanion")
 package("DescTools") # Gini, %[]%

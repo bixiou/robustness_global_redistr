@@ -1,43 +1,48 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{Contents}{2}{section*.1}%
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
-\contentsline {paragraph}{Literature}{3}{section*.2}%
-\contentsline {section}{\numberline {2}Data and design}{3}{section.2}%
-\contentsline {paragraph}{Samples.}{3}{section*.3}%
-\contentsline {paragraph}{Representativeness.}{4}{section*.5}%
-\contentsline {paragraph}{Data quality.}{5}{section*.6}%
-\contentsline {paragraph}{Incentives.}{5}{section*.7}%
-\contentsline {paragraph}{Survey structure.}{6}{section*.8}%
-\contentsline {paragraph}{Pre-registered hypotheses and data availability.}{7}{section*.10}%
-\contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Prioritization of public spending items}{11}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Acceptance of international policies in function of country coverage}{13}{section.4}%
+\contentsline {paragraph}{Literature}{4}{section*.3}%
+\contentsline {section}{\numberline {2}Data and design}{4}{section.2}%
+\contentsline {paragraph}{Samples.}{4}{section*.4}%
+\contentsline {paragraph}{Representativeness.}{5}{section*.6}%
+\contentsline {paragraph}{Data quality.}{5}{section*.7}%
+\contentsline {paragraph}{Incentives.}{6}{section*.8}%
+\contentsline {paragraph}{Survey structure.}{6}{section*.9}%
+\contentsline {paragraph}{Pre-registered hypotheses and data availability.}{7}{section*.11}%
+\contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Prioritization of public spending items}{12}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Acceptance of international policies in function of country coverage}{14}{section.4}%
 \contentsline {subsection}{\numberline {4.1}International Climate Scheme}{14}{subsection.4.1}%
-\contentsline {paragraph}{Presentation of the schemes.}{14}{section*.13}%
-\contentsline {paragraph}{The Global Climate Scheme.}{14}{section*.14}%
-\contentsline {paragraph}{Pluralistic ignorance.}{15}{section*.15}%
-\contentsline {paragraph}{International Climate Scheme.}{15}{section*.16}%
-\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{18}{section.5}%
-\contentsline {section}{\numberline {6}Breadth of international policies accepted}{18}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{18}{section.7}%
-\contentsline {section}{\nameref {sec:methods}}{18}{section*.28}%
-\contentsline {section}{Bibliography}{22}{section*.30}%
-\contentsline {section}{\numberline {A}Raw results}{23}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{67}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{89}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{93}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{96}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{97}{section*.116}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{100}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{101}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{102}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{103}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{104}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{105}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{108}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{111}{appendix.M}%
-\contentsline {section}{Bibliography}{112}{section*.138}%
-\contentsline {section}{List of Tables}{112}{section*.139}%
-\contentsline {section}{List of Figures}{112}{section*.140}%
+\contentsline {paragraph}{Presentation of the schemes.}{14}{section*.14}%
+\contentsline {paragraph}{The Global Climate Scheme.}{15}{section*.15}%
+\contentsline {paragraph}{Pluralistic ignorance.}{15}{section*.16}%
+\contentsline {paragraph}{International Climate Scheme.}{15}{section*.17}%
+\contentsline {subsection}{\numberline {4.2}Wealth tax funding LICs}{18}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{19}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Conjoint analysis}{19}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Testing warm glow}{21}{subsection.5.2}%
+\contentsline {paragraph}{Moral substitute}{21}{section*.22}%
+\contentsline {paragraph}{Realism treatment}{23}{section*.24}%
+\contentsline {section}{\numberline {6}Breadth of international policies accepted}{23}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{23}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{23}{section*.30}%
+\contentsline {section}{Bibliography}{27}{section*.32}%
+\contentsline {section}{\numberline {A}Raw results}{28}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{72}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{94}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{98}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{101}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{102}{section*.118}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{105}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{106}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{107}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{108}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{109}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{110}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{113}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{116}{appendix.M}%
+\contentsline {section}{Bibliography}{117}{section*.140}%
+\contentsline {section}{List of Tables}{117}{section*.141}%
+\contentsline {section}{List of Figures}{117}{section*.142}%
 \contentsfinish 

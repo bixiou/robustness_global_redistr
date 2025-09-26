@@ -150,13 +150,20 @@ in High-Income Countries
 
 % TODO! support or acceptance?
 
-\section{Introduction}% NCCcomment
+\section{Introduction}\label{sec:intro}% NCCcomment
 
 Questions that do not prime global solidarity show that this topic is not a salient concern for most people, which may explain why global redistribution proposals receives little attention in public debate, despite widespread acceptance. 
 
 % Paragraphs in Kuziemko et al. (many citations are in footnotes):
 % Context; Puzzle (citing theory/paper/evidence + graph); Hypotheses/method; Original method (interactivity); Main results; Specific result; Mechanisms/robustness (at length); Literature; Outline.
 % Data: representativeness, attrition; Results; Robustness; Conclusion
+
+% # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
+\begin{figure}[h!]
+    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
+    }\label{fig:solidarity_support_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}} 
+\end{figure}
 
 \paragraph{Literature} 
 % Conjoint: Example use: political candidates (e.g., Teele, Kalla, and Rosenbluth, 2018), immigrants (e.g., Hainmueller and Hopkins, 2015), and public policies (e.g., Ballard-Rosa, Martin, and Scheve, 2017), Hainmueller, Hopkins, and Yamamoto, 2014).
@@ -349,7 +356,7 @@ In other words, the revenue allocation tasks validate and confirm the results fr
 While acceptance of global climate or redistributive policies is widespread \citep{fabre_majority_2025,cappelen_majority_2025}, acceptance may drop if policies are not truly \textit{global} but only \textit{international}, i.e. if key countries such as China, Russia or the U.S. do not participate. Indeed, people may be concerned by a domestic loss of competitiveness that could result from the expatriation of taxpayers to low-tax jurisdictions; or by an unfair burden-sharing if non-cooperating countries free-ride on decarbonization or funding sustainable development. % TODO: cite Gampfer, Carlsson, Bechtel Scheve 2013 May also depend on which countries are in
 In this Section, I uncover the acceptance of globally redistributive policies depending on the coalition of countries that would implement them. I study in turn a carbon price and a wealth tax.
 
-\subsection{International Climate Scheme}
+\subsection{International Climate Scheme}\label{subsec:ics}
 
 % NB: I chose to present GCS on control. Trade-off between presenting control results (not contaminated by treatment though less precise) and overall results (more comparable to ICS as those mix treated and control, though less comparable to NCS). I prioritized presenting results for themselves rather than for comparison with ICS.
 
@@ -412,7 +419,12 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
 % ICS high color: visualizing net gain stronger effect than country coverage
 % why GCS < ICS? hypotheses: lower support for less concrete / more uncertain proposal, cost less salient, map induces more experimenter demand, people think it's more credible if it's about joining a club (rather than a GLOBAL cs), stronger effect of not-wanting-to-free-ride when see most countries are in
 
-\subsection{Wealth tax funding LICs}
+\subsection{Wealth tax funding LICs}\label{subsec:wealth_tax}
+
+I test the effect of country coverage on the support for an internationally redistributive wealth tax using a simple \textit{Yes}/\textit{No} question with three random variants. The policy is described as a 2\% tax on wealth above \$1~million, with 30\% of its revenue financing public services in LICs. In the \textit{Global} variant, all other countries (i.e. all countries except the respondent's one) are assumed to participate. The \textit{HIC} variant covers all other HICs. The \textit{International} variant covers some countries and not others, with the precise coverage varying by respondent's country but always including Brazil and European countries (or the whole EU) and excluding China and the U.S.\footnote{More precisely, in the U.S., excluded countries differ and are China, Japan, and Canada. As for included countries, on top of Brazil, they are: the EU and the UK for Switzerland, Saudi Arabia, and the U.S.; the EU for Russia and the UK; and France, Germany, Spain, and the UK (except one's own country) for EU countries.}
+
+Here again, the support increases with the country coverage, but the effect is small. The middle-ground \textit{HIC} variant garners 70\% support (from 58\% in Switzerland to 81\% in Saudi Arabia). Compared to \textit{HIC}, the support is 5~p.p. higher in the \textit{Global} coverage, while it is only 1.5~p.p. and non-significantly lower in the \textit{International} coverage (Figure \ref{fig:wealth_tax}). 
+
 % # 5b. wealth tax by coverage: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country}
 \begin{figure}[h!]
     \caption[Support for an international wealth tax depending on country coverage]{Support for an international wealth tax with 30\% of revenue funding LICs, depending on the country coverage (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:global_tax_support}-\ref{q:intl_tax_support}).
@@ -420,8 +432,28 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country.pdf}} 
 \end{figure}
 
+Overall, the results indicate that the support for internationally redistributive policies is quite robust to country coverage. This suggests that the issues of competitiveness or free-riding issues are not decisive in public support. % TODO? cite Bernauer & Gampfer, Aklin & Mildenberger
+
 \section{Sincerity of support for global redistribution\label{sec:sincerity}}
+
+Skeptics about the public's support for global redistribution would argue that the support is not reflected in real-stake decisions and that it mostly results from \textit{warm glow}. According to the \textit{warm glow} hypothesis, many people would express their support to enjoy moral comfort as long as public support seems harmless since the policy appears out of reach, but support would vanish if (\textit{i}) the prospect of implementation materialized or if (\textit{ii}) moral comfort could be obtained from a substitute. In this Section, I test whether global redistribution is a vote-determining issue using a conjoint analysis, and I test both forms of \textit{warm glow} (\textit{i} and \textit{ii}) using two other survey experiments.
 % - No (or little) evidence of warm glow or support due to unrealism; global redistr genuinely supported (conjoint analysis)
+
+\subsection{Conjoint analysis}\label{subsec:conjoint}
+
+I run a conjoint experiment in all countries except Russia and Saudi Arabia. This question is positioned at the beginning of the survey, before respondents can know the survey's topic. Respondents are presented with two random political programs, framed as the fictive programs of the top candidates in the next election, and asked which of the candidate they would vote for (27\% of the respondents choose the outside option \textit{Neither of them}). Each program contains a policy or an absence of policy chosen at random for each of five policy domains (the order of which is also randomized). %: \textit{Economic issues}, \textit{Social issues}, \textit{Climate policy}, \textit{Tax system}, \textit{Foreign policy}. 
+Our domain of interest is \textit{Foreign policy}, whose pool contains three policies: \textit{Cut development aid}, \textit{International tax on millionaires with 30\% financing healthcare and education in low-income countries}, and a country-specific policy. % (e.g. \textit{Support Ukraine militarily and financially} in Germany). 
+I included both a \textit{pro}- and an \textit{anti}-global redistribution policy to capture a potential status quo bias, or on the contrary, a bias in favor of (any) reform. 
+Except for these two policies of interest, the policies have been selected from the programs of the main candidates in the country's last election, so as to span the entire political spectrum and cover the most prominent proposals in the country's public debate. 
+
+Figure \ref{fig:conjoint} shows the effect of our policies of interest's presence in a program on the likelihood that it is preferred (see Figures \ref{fig:conjoint_FR}-\ref{fig:conjoint_ES_original} for full results country-by-country\footnote{With some exceptions, raising the minimum wage is among the most popular policies, together with redistributive taxes or transfers, anti-immigration regulations, and abortion rights. % TODO: study party of most/least popular policies by country
+Conversely, a ban on new combustion-engine cars is among the least popular ones.}). 
+% TODO! cluster standard errors by respondent
+% TODO! why Japan millionaire significant in conjoint_JP but not in conjoint?
+More specifically, Figure \ref{fig:conjoint} presents the results %estimates of coefficients $\beta_1$ and $\beta_2$ 
+of the following regression estimated by simple OLS, with standard errors clustered by respondent: 
+$$\text{Preferred}_{pi} = \beta_1 \text{Cut\_aid}_{pi} + \beta_2 \text{Intl\_tax}_{pi} + \beta_3 \text{Foreign3}_{pi} + \varepsilon_{pi}$$
+where $pi$ denotes either program $p$ faced by respondent $i$, and each variable is a dummy. 
 
 % # 6. conjoint: foreign aid + global tax (per country + global)
 \begin{figure}[h!]
@@ -435,6 +467,25 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
   \includegraphics[height=.36\textheight]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}%\end{flushright}
 \end{subfigure}
 \end{figure}
+
+Both policies significantly affects the program choice: the internationally redistributive millionaire tax increases by 4~p.p. the likelihood that a program is preferred, while cutting development aid decreases it by 4~p.p. On a single country, the effects are generally non-significant due to lack of power, but when significant, they are of the same sign as the global effect, except for \textit{Cut aid} in Switzerland. Overall, the effects are of comparable size to the effects of other policies, % TODO justify
+suggesting that global redistribution issues may be as vote-determining as policies prominent in the national debate. 
+
+One concern with this type of conjoint analysis is that they involve unrealistic political programs, namely programs that contain both left and far right policies, which distorts the real choice that voters may face. \cite{cuesta_improving_2022} showed that to fully address this issue, one should weigh each pair of programs by the probability that such a pair would be proposed in a real election. As such probability cannot be computed, the best practice is to bound the effects by estimating them with extreme probabilities. The results just presented are based one extreme, the uniform distribution. To construct the other extreme, I classify each policy as left, center, or right, and assume that a program is consistent if it does not contain policies from both the left and the right. I then re-estimate the regression after dropping all pairs an inconsistant program (effectively assigning a probability of zero to them). I first classify our policies of interest as \textit{center} (considering them as consistent with any program), in which case 59\% of observations are retained, and effects are preserved. This indicates that our results are robust to the critique of \cite{cuesta_improving_2022}. Interestingly, the effects differ when I classify our policies of interest as \textit{left} (for the tax) and \textit{right} (for cutting aid), in which case only 39\% of observations are retained. In that case, the effect of the millionaire tax is preserved, but the effect of cutting aid vanishes to 0~p.p. In other words, the effect of cutting aid disappears when removing left-leaning programs where it is present, while the effect of the tax remains the same when removing right-leaning programs where it is present. Therefore, cutting aid is harmful only for left-leaning programs, while a wealth tax is helpful for any program. Interestingly, this does \textit{not} mean that only left-wing voters oppose cutting aid while an international wealth tax would be vote-determining for right-wing voters. %(as non-voters or right-wing voters may be tempted by left-wing programs and vice versa). TODO? put back?
+Indeed, the results by vote show that the tax has a negative (though non-significant) effect among right and far right voters, while cutting aid has a significant effect of $-$2.5~p.p. on \textit{Center-right or Right} voters (Figure \ref{fig:conjoint_vote}), 
+
+
+\subsection{Testing warm glow}\label{subsec:warm_glow}
+
+Some people might claim they support a policy of global redistribution just to ease their conscience. If support were mainly due to such a psychological mechanism, called \textit{warm glow}, it might
+dissipate when the prospect of the policy materializes or if the policy can be replaced by a substitute with the same moral appeal.
+
+\paragraph{Moral substitute}
+
+Following \cite{nunes_identifying_2003}, warm glow would be revealed if support for the GCS were reduced after respondents are offered the possibility to express generosity towards the cause of climate change. To test this hypothesis, right before the GCS page, I assign a random subset of the respondents to a donation lottery, while the control group faces no question.\footnote{More precisely, right before the GCS question, the sample is split into three branches: the \textit{Donation} lottery, the \textit{NCS} question, and the control group. The NCS treatment is excluded from this analysis as it is unrelated to this experiment (it was created to prevent the NCS question from influencing answers on the GCS).} 
+In the \textit{Donation} branch, respondents have to decide how much they would donate to the reforestation NGO \textit{Just One Tree}, should they win the question's \$100 lottery. 
+A lower support of the GCS in the treated group would be evidence of warm glow, as it would indicate that the support (at least partially) derives from a moral satisfaction at having recently supported a just cause. 
+
 % # 7. warm_glow: effect of info + display donation vs. control (per country + global)
     \begin{figure}[h!]
 \caption[Testing warm glow]{Testing warm glow (negative effects would indicate the presence of warm glow).}\label{fig:warm_glow}
@@ -447,22 +498,34 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
   \includegraphics[height=.36\textheight]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
 \end{subfigure}
 \end{figure}
+
+On the contrary, support for the GCS is 3.5~p.p. higher in the \textit{Donation} branch compared to the control group, and the coefficient is positive in every country, though often not significant (Figure \ref{fig:warm_glow_substitute}). While it remains unclear why the effect is positive,\footnote{Perhaps the \textit{Donation} question triggers thoughts favorable to the GCS, such as the realization that individual actions like donations are ill-suited to address climate change so that we need a global policy, even if imperfect.} 
+the results show no evidence of warm glow.
+
+\paragraph{Realism treatment}
+
+To test whether some people express support for global redistribution only for as long as its implementation seems unlikely, I randomly treat half of respondents with information about ongoing negotiations on globally redistributive policies. Among other things, treated respondents are informed that the International Maritime Organization recently adopted a levy on maritime carbon emissions that should partly finance LICs; that the G20 considered the introduction of a global tax on billionaires; that the UN General Assembly recently agreed on the principle of expanding the UN Security Council to new members; and that the UN Secretary General supports reforms to the financial system that would drive resources towards sustainable development. 
+Then, respondents are asked ``how likely[it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before testing their support for ten plausible global policies. Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased the support for global policies. %(as respondents would fear that such policies may materialize).
+
+Informed respondents are 8~p.p. more likely to believe that global redistribution is likely (with only 35\% believing so in the control group, cf. Table \ref{tab:iv}). With an F-Statistic of 72, this highly significant effect makes for a strong first stage in an instrumental variable (IV) strategy to estimate the effect of believing that global redistribution is likely on the share of global policies supported. As shown in Table \ref{tab:iv}, the Local Average Treatment Effect estimated by IV is 15~p.p., indicating that believing that global redistribution is likely causally \textit{increases} the share policies supported. This effect is consistent with the non-causal effect estimated by OLS at 15~p.p., and with the direct effect of the treatment on the share of policies supported, estimated at 1~p.p. with a \textit{p}-value of 0.06 (Figure \ref{fig:warm_glow_realism}). % TODO wording p-value
+
 % # 7bis: 2SLS 
 \begin{table}[!htbp] 
   \caption[Effect on support for global redistribution of believing that it is likely]{Effect on support for global redistribution of believing that it is likely.}\label{tab:iv} 
   \makebox[\textwidth][c]{\input{../tables/iv.tex}}
 \end{table}
 
+Again, the effects go in the opposition direction to warm glow. In this case, increased support may stem from enhanced credibility of policies that are known to be discussed in international organizations. 
+Overall, the results of these two experiments provide no evidence that support for global redistribution is affected by warm glow. On the contrary, they suggest that support is sincere and robust to the prospect of implementation or to the possibility of a moral substitute.
+
+
 \section{Breadth of international policies accepted\label{sec:breadth}}
+
+Knowing that some internationalglobally redistributive policies are sincerely supported and may be vote-determining, I now study the breadth of international policies that may be accepted. I will analyze in turn the support for more radical proposals, broader questions about the willingness to defend global solidarity, the preferred channels to transfer resources to LICs, and a custom redistribution task that aims to reveal the preferred extent of international transfers. 
 % - People ready to sustainability and radical global redistr (for duty, not reparations)
 % - People favor social protection to unconditional transfers
 
-% # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
-\begin{figure}[h!]
-    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Question \ref{q:solidarity_support}).
-    }\label{fig:solidarity_support_share}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}} 
-\end{figure}
+\subsection{Support for radical proposals, political action, and broad values}\label{subsec:radical}
 % # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
 \begin{figure}[h!]
     \caption[Support for broad or radical global redistribution]{Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
@@ -475,12 +538,16 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
     }\label{fig:group_defended}
     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/all/group_defended_nolabel.pdf}} 
 \end{figure}
+
+\subsection{Preferred channels to transfer resources to LICs}\label{subsec:transfer_how}
 % # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns) \includegraphics[width=\textwidth]{../figures/country_comparison/transfer_how_positive}
 \begin{figure}[h!]
     \caption[\textit{Right} or \textit{Best} way to transfer resources to LICs (global average)]{``How do you evaluate each of these channels to transfer resources to reduce poverty in LICs?''\\ Percentage of \textit{Right} or \textit{Best} way (other options: \textit{Wrong} or \textit{Acceptable} way). (Question \ref{q:transfer_how}).
     }\label{fig:transfer_how}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/transfer_how_positive.pdf}} 
 \end{figure}
+
+\subsection{Custom global income redistribution}\label{subsec:custom_redistr}
 % # 12. average custom_redistr \includegraphics[height=.8\textheight]{../figures/all/custom_redistr_mean.png}
 \begin{figure}[h!]
    \caption[Average custom redistribution]{Average custom global redistribution. (Question \ref{q:custom_redistr}).

@@ -765,13 +765,6 @@ plot_along(along = "cut_aid_in_program", vars = c("program_preferred", "program_
            labels_along = setNames(c("<b>All</b>", "Left", "Center/Right", "Far right", "Non-voter/PNR/Other"), c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_far_right", "program_preferred_pnr")), legend_top = T,
            colors = c("black", "salmon", "lightblue", "darkblue", "purple"), covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], origin = 0, plot_origin_line = T, name = "program_preferred_by_cut_aid_vote_country_detailed") 
 
-# Points qui m'ont interpellé:
-# - que le climat est central: inégalités, croissance, immigration
-# - que la coalition est pensée au niveau national, qu'elle n'est pas constituée, qu'elle ne répond pas à la logique faible vs. fort; 
-#   alors que ce sont les pays du Sud et les générations futures qui ont le plus besoin du climat 
-# - d'où vient l'idée que les classes pop sont moins pro-climat ? que la coalition climat est minoritaire ? Données ?
-# - Différentes pol climatiques possibles: on peut faire payer les classes pop des HICs ou pas, donc différentes coalition climat possibles
-# - L'UE est sur la voie du net zero en 2050 et ce qui peut l'en faire dérailler c'est que les riches ne sont pas mis à contribution
 
 # 7. Warm glow 
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
@@ -802,7 +795,7 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
           keep.stat = c("n", "rsq", "f"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
           dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
           covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
-          type = "latex", style = "default", out = "../tables/iv.tex",
+          type = "latex", style = "default", out = "../tables/IV.tex", float = FALSE,
           title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
 
 

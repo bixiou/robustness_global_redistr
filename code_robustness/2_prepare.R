@@ -1839,7 +1839,7 @@ create_conjoint_sample <- function(df = all) {
   df$foreign3_in_program <- df$foreign3_in_b
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
-  call <- cbind(df, temp)
+  call <- rbind(df, temp)
   call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
                                           "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country"))]
   call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out")

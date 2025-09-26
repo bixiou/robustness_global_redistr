@@ -70,6 +70,31 @@ summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_u
 decrit("ics_mid_support", which = all$ncs_support > 0)
 decrit("ncs_support", which = all$ics_mid_support > 0)
 
+# Wealth tax
+sapply(c("all", countries), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3)) # 74%
+sapply(c("all", countries), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3)) # 70%
+sapply(c("all", countries), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3)) # 68%
+with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -5***, -1.5
+
+
+##### Sincerity of support #####
+# Conjoint analysis
+decrit("conjoint") # 27%
+summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
+coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
+# Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
+summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints))
+coeftest(reg_conjoint_cons, vcov = vcovCL(reg_conjoint_cons, cluster = ~n))
+# The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
+summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict))
+coeftest(reg_conjoint_cons_strict, vcov = vcovCL(reg_conjoint_cons_strict, cluster = ~n))
+decrit(call$consistent_conjoints) # 59%
+decrit(call$consistent_conjoints_strict) # 39%
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
+
+# Warm glow
+summary(lm(gcs_support ~ variant_warm_glow, data = all, weights = weight, subset = variant_warm_glow != "NCS" & !country %in% c("SA", "RU")))
+sapply(c("all", countries), function(c) round(mean(d(c)$likely_solidarity > 0, na.rm = T), 3)) # 38%
 
 # 2SLS
 first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)
@@ -84,6 +109,7 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
           covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
           type = "latex", style = "default", out = "../tables/IV.tex", float = FALSE,
           title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
+summary(direct_effect)$coefficients[,4]
 
 
 ##### Representativeness ######
