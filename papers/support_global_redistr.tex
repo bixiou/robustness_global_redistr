@@ -148,6 +148,8 @@ in High-Income Countries
 %\clearpage
 \begin{bibunit}
 
+% TODO! support or acceptance?
+
 \section{Introduction}% NCCcomment
 
 Questions that do not prime global solidarity show that this topic is not a salient concern for most people, which may explain why global redistribution proposals receives little attention in public debate, despite widespread acceptance. 
@@ -163,7 +165,7 @@ Questions that do not prime global solidarity show that this topic is not a sali
 \section{Data and design\label{sec:data}}
 
 \paragraph{Samples.}
-I conducted an original survey on 12,000 respondents representative of the adult population in eleven high-income countries (see Figure \ref{fig:country_coverage}). The countries have been chosen to span the diversity of high-income countries and the sample sizes to be commensurate to these countries' population sizes.\footnote{The sample sizes are as follows: U.S.: 3,000; Japan: 2,000; Russia: 1,000; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population size (except for Switzerland), that is France: 798; Germany: 1,048; Italy: 756; Spain: 603; Poland: 500; Switzerland: 469.} 
+I conducted an original survey on 12,000 respondents representative of the adult population in eleven high-income countries (see Figure \ref{fig:country_coverage}). The countries have been chosen to span the diversity of high-income countries and the sample sizes to be commensurate to these countries' population sizes.\footnote{The sample sizes are as follows: U.S.: 3,000; Japan: 2,000; Russia: 1,000; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population size (except for Switzerland), that is France: 798; Germany: 1,048; Italy: 756; Spain: 603; Poland: 500; Switzerland: 469.} % TODO margin of error
 The survey was fielded online in 2025 using the companies \textit{Yandex} (for Russia), \textit{Kantar} (for Saudi Arabia), and \textit{Bilendi} (for the other countries).\footnote{For all countries but Russia, responses were collected between April 15 and July 3, 2025. For Russia, responses were collected between September 19 and TODO, 2025. Each complete response is rewarded around \euro{}3 in gift points.} 
 
 In Russia, the questionnaire was curtailed as I could not ask the same questionnaire as in the other countries, for two reasons. First, I could not use the platform \textit{Qualtrics}, which prevented me from asking some question formats (such as constant sum scales) or from embedding Javascript (used to design an interactive question). Second, I had to cut or reword some questions due to preventive censorship by the survey company. In the other countries, the questionnaires are almost identical, though the figures in questions are adapted to the country context (e.g. when informing about the cost of the Global Climate Scheme to the average person of the country). Appendix \ref{app:specificities} lists the specificities of the questionnaire in each country.
@@ -345,21 +347,49 @@ In other words, the revenue allocation tasks validate and confirm the results fr
 % - Strong support for global tax / GCS even with partial participation
 
 While acceptance of global climate or redistributive policies is widespread \citep{fabre_majority_2025,cappelen_majority_2025}, acceptance may drop if policies are not truly \textit{global} but only \textit{international}, i.e. if key countries such as China, Russia or the U.S. do not participate. Indeed, people may be concerned by a domestic loss of competitiveness that could result from the expatriation of taxpayers to low-tax jurisdictions; or by an unfair burden-sharing if non-cooperating countries free-ride on decarbonization or funding sustainable development. % TODO: cite Gampfer, Carlsson, Bechtel Scheve 2013 May also depend on which countries are in
-In this Section, I uncover the acceptance of globally redistributive policies depending on the coalition of countries that would implement them. I study in turn a climate policy and a wealth tax.
-
+In this Section, I uncover the acceptance of globally redistributive policies depending on the coalition of countries that would implement them. I study in turn a carbon price and a wealth tax.
 
 \subsection{International Climate Scheme}
 
 % NB: I chose to present GCS on control. Trade-off between presenting control results (not contaminated by treatment though less precise) and overall results (more comparable to ICS as those mix treated and control, though less comparable to NCS). I prioritized presenting results for themselves rather than for comparison with ICS.
 
+\paragraph{Presentation of the schemes.} ``Cap and dividend'' is a reference climate policy, % TODO cite
+whereby fossil fuel companies at the source of emissions must buy emission permits on a carbon market, with the revenue from carbon pricing rebated equally to individuals. The limited and declining number of emission permits guarantees that emissions are capped according to the climate objective. As polluting companies pass the cost of emission permits down the value chain, the carbon price is ultimately paid by consumers, in proportion to their carbon footprint. Meanwhile, the equal cash transfer (or ``dividend'') offsets price increases for the average consumer. Those with a carbon footprint higher than average financially lose and those with a lower carbon footprint (who are on average poorer) financially gain. 
 % explanation cap & dividend
-% majority support NCS (cite Douenne & Fabre? Bergquist?)
-% GCS: a bit less supported than NCS (fn comparison FDM: attitude change, higher price, % instead of absolute)
-% support increases with coverage
-% ICS low: similar to NCS: people willing to pay Global South for its decarbonization
-% ICS mid, high: higher acceptance: people happier with less free-riding
-% ICS high color: visualizing net gain stronger effect than country coverage
-% why GCS < ICS? hypotheses: lower support for less concrete / more uncertain proposal, cost less salient, map induces more experimenter demand, people think it's more credible if it's about joining a club (rather than a GLOBAL cs), stronger effect of not-wanting-to-free-ride when see most countries are in
+
+Using simple \textit{Yes}/\textit{No} questions, I test the acceptance of three types of ``cap and dividend'' (or ``Climate Scheme'') policies, that differ by the geographical scope: the National, Global, and International Climate Schemes (Figures \ref{fig:ics}, \ref{fig:ncs_gcs_ics}). While average consumers in a high-income country are financially unaffected by the National Climate Scheme (NCS), they lose out in the Global and International versions, since their carbon footprint is larger that the world (or climate coalition) average. 
+
+The National Climate Scheme (NCS) is accepted by 66\% of respondents (ranging from 56\% in Poland to 88\% in Saudi Arabia). 
+% majority support NCS (TODO? cite Douenne & Fabre? Bergquist?)
+% TODO? say asked only to one-third?
+
+\paragraph{The Global Climate Scheme.} Before presenting the Global Climate Scheme (GCS), respondents are prompted to be attentive with the incentive that they may win a \$100 lottery prize if they correctly answer a comprehension question at the end of the survey. 
+When presented the Global Climate Scheme (GCS), respondents are informed that the \$20 per month cash transfer would lift out of extreme poverty 600~million people, and the cost to them is made salient. Respondents are informed of the price increases and the net cost to the average person in their country (e.g. 2\% price increases and a net cost of \$90 per month in the U.S., or 2\% and \euro{}45 per month in Germany).%
+\footnote{The computations use a carbon price of \$95/tCO$_\text{2}$. For Russia, Saudi Arabia, and the U.S., computations assume universal country coverage. 
+For Europe and Japan, the net loss is computed in a non-universal but \textit{High} participation scenario, which implies a higher net loss (by about \$10 per month) since the coalition's average carbon footprint is lower than the world average.} 
+The GCS is accepted by 57\% of respondents (from 48\% in Russia to 85\% in Saudi Arabia). The salience of costs in the GCS question may explain the somewhat lower support for the GCS compared to the NCS.%
+\footnote{Support for the GCS is also around 10~p.p. lower than in \citep{fabre_majority_2025}. There may be different reasons for that: attitudes may have changed in the two years interval; I added the information on the price increases, which allows respondents to make an estimate of the cost to them (rather than to their average fellow citizen)%; and the framing might have been slightly confusing in the earlier survey as the GCS was presented on the same page as a national redistribution scheme TODO? put back? 100 countries instead of 60%?
+.} 
+
+\paragraph{Pluralistic ignorance.} 
+After the support for the GCS, respondents are asked in an incentivized way about their belief concerning the actual support, either in their country or in the U.S. (Figure \ref{fig:ncs_gcs_ics})\footnote{US-Americans are asked about either their country or the EU. In Russia, I was not allowed to enquire about beliefs in a foreign country.} In every country, for any variant of the question, actual support is underestimated. On average, the support in one's own country is underestimated by 14~p.p. and the support in the U.S. by 18~p.p. In Japan and in European countries, the underestimation is more severe, in the sense that most people wrongly believe that the GCS does not garner majority support in their country. Such pluralistic ignorance might explain why politicians do not dare proposing global climate justice policies. % TODO? cite Andre et al?
+
+\paragraph{International Climate Scheme.}
+To test how country coverage influences the support for the International Climate Scheme (ICS), respondents are randomly assigned to one of four variants. Respondents can visualize the country coverage on a map (see examples in Figure \ref{fig:ics_maps}), where their own country is stripped to denote its potential participation. They are also informed of the number of countries that would participate in the assigned scenario, their share of world emissions, and the list of these countries or world regions. 
+% 5c.
+\begin{figure}[h!]
+\caption[Example maps of the International Climate Scheme]{Example maps of the International Climate Scheme question. (Question \ref{q:ics_support}).} \label{fig:ics_maps}
+\begin{subfigure}{.49\textwidth}
+  \caption[]{\textit{Low} variant for the U.S.}
+  \includegraphics[height=.49\textwidth]{../figures/maps_participation/GCS_low_EN.png}
+\end{subfigure} 
+\begin{subfigure}{.49\textwidth}
+  \caption[]{\textit{High color} variant for EU countries.}%\begin{flushright}
+  \includegraphics[height=.49\textwidth]{../figures/maps_participation/GCS_high_color_EU.pdf}%\end{flushright}
+\end{subfigure}
+\end{figure}
+
+The \textit{Mid} scenario covers 56\% of world emissions, with the participation of China and Global South countries. The \textit{Low} replaces China by the EU and covers 33\% of emissions. The \textit{High scenario} adds various high-income countries to the \textit{Mid} scenario, including the EU, Japan, Canada, and South Korea; covering 72\% of emissions. The last variant, \textit{High color}, combines the \textit{High} participation scenario with a colored map that displays not only the country coverage, but also the net gain or cost for each country, with China appearing as neither gaining nor losing from the policy.\footnote{In a standard cap and dividend, China should be losing, as its carbon footprint is larger than the world average. However, the Global Climate Scheme slightly departs from the standard policy so that middle-income countries do not lose out \citep{fabre_global_2025}.} 
 
 % # 5a. ICS: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_by_country}
 \begin{figure}[h!]
@@ -367,6 +397,22 @@ In this Section, I uncover the acceptance of globally redistributive policies de
     }\label{fig:ics}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf}} 
 \end{figure}
+
+As expected, the wider the coverage, the higher the support. However, this effect is relatively small, as the support is only 4~p.p. higher in the \textit{High} compared to the \textit{Low} variant. Interestingly, among Europeans, the support significantly increases when China is added to coalition, but not significantly more when other HICs are also added. Conversely, for US-Americans and Japanese, the participation of the EU or China yield similar levels of support, and only the combined participation of China, the EU, and other HICs significantly increase the support. 
+
+The support is 6.5~p.p. lower in the \textit{High color} compared to the \textit{High} variant. Three reasons may explain this effect. First, some respondents may be concerned by the information (made explicit in the question) that China would neither gain nor lose from the policy. 
+Second, with the colored map, respondents learn how their own country fares compared to other countries. Actually, the effect is 1~p.p. and no longer significant for countries that appear to lose less than 0.5\% of their GDP (Spain and Switzerland). Third, the cost may be more salient with the colored map. Interestingly, the support for the GCS is 5~p.p. lower for the 74\% of respondents who understand that it would result in increased gasoline prices (after controlling for sociodemographics), but this effect is only 2~p.p. and no longer significant for the \textit{High color} ICS, indicating that the information provided by the map mostly affects those who had not yet understood the policy's consequences. 
+
+Notice that the support for the ICS's \textit{Low} coverage is similar to that for the NCS. This suggests that the average respondent is willing to pay the ICS's higher cost for the guarantee of poverty alleviation and decarbonization in the Global South. %This suggests that, for the average person, the guarantee of poverty alleviation and decarbonization in the Global South balances out the ICS's higher cost. 
+Finally, the greater support for the ICS compared to the GCS is somewhat puzzling. Perhaps, people view the proposal as more credible when a list of countries is provided, compared to the GCS that is framed as if all countries might join (or on the contrary, in which the participation of any country is uncertain). Relatedly, support may be stronger for more precise or more visual proposals, either because they are viewed as more advanced or because they induce an experimenter demand bias. The greater support could also be due to costs being less salient in the ICS question (but the support is still greater than in the GCS in the \textit{High color} variant, where costs are visible). Unfortunately, the data does not allow testing these different hypotheses.
+
+% support increases with coverage
+% ICS low: similar to NCS: people willing to pay Global South for its decarbonization
+% ICS mid, high: higher acceptance: people happier with less free-riding
+% ICS high color: visualizing net gain stronger effect than country coverage
+% why GCS < ICS? hypotheses: lower support for less concrete / more uncertain proposal, cost less salient, map induces more experimenter demand, people think it's more credible if it's about joining a club (rather than a GLOBAL cs), stronger effect of not-wanting-to-free-ride when see most countries are in
+
+\subsection{Wealth tax funding LICs}
 % # 5b. wealth tax by coverage: \includegraphics[width=\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country}
 \begin{figure}[h!]
     \caption[Support for an international wealth tax depending on country coverage]{Support for an international wealth tax with 30\% of revenue funding LICs, depending on the country coverage (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:global_tax_support}-\ref{q:intl_tax_support}).

@@ -1,19 +1,19 @@
 # Fdb version 3
-["bibtex build/bu1"] 1758808861 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1758808868
-  "build/bu1.aux" 1758808865 444 e18e83e5bd917596c6a6ead3e7886fcc "pdflatex"
+["bibtex build/bu1"] 1758840473 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1758845960
+  "build/bu1.aux" 1758845956 684 17c68742227ac6c2b50b64a995a3b416 "pdflatex"
   "c:/texlive/2022/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1663543339 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   "global_tax_attitudes.bib" 1758790723 271280 dc38658114360ce550e2c7ce04607c31 ""
   (generated)
   "build/bu1.bbl"
   "build/bu1.blg"
-["bibtex build/bu2"] 1758791915 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1758808868
+["bibtex build/bu2"] 1758791915 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1758845960
   "./plainnaturl_clean.bst" 1586094986 24654 4b2b0914a35465b0a6a8366fb04efb16 ""
-  "build/bu2.aux" 1758808866 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
+  "build/bu2.aux" 1758845958 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
   "global_tax_attitudes.bib" 1758790723 271280 dc38658114360ce550e2c7ce04607c31 ""
   (generated)
   "build/bu2.bbl"
   "build/bu2.blg"
-["pdflatex"] 1758808861 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1758808868
+["pdflatex"] 1758845953 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1758845960
   "../figures/JP/conjoint_JA.png" 1754227491 15628 af936c0aba09107aefe9e5d845978da7 ""
   "../figures/all/billionaire_stostad.pdf" 1754394430 4702 06b0513f9e2234a0252675c5f9bbfcc6 ""
   "../figures/all/concerns_field_en.pdf" 1755522458 5163 aba684373e570518dd843f8fdc606d36 ""
@@ -110,6 +110,8 @@
   "../figures/country_comparison/vote_representativeness.pdf" 1754409399 53607 f5a28543081f1cf101ca18e252bfc5af ""
   "../figures/country_comparison/wealth_tax_support_positive.pdf" 1758497931 9784 a52757df2c82b355a92d3f7836d687da ""
   "../figures/country_comparison/why_hic_help_lic_positive.pdf" 1758497931 10040 ed10ab59b4b06353033429609606d1fe ""
+  "../figures/maps_participation/GCS_high_color_EU.pdf" 1736275493 968507 d2c39c3b33d9b02a82a6004d57390d73 ""
+  "../figures/maps_participation/GCS_low_EN.png" 1740687826 263693 fb0b276924c554c4db083f87f5af9e3c ""
   "../figures/maps_participation/country_coverage_curtailed.png" 1758790727 378166 523b260a151f2859b6b59db1ca24cab9 ""
   "../figures/questionnaire/algo_1-2.PNG" 1755703898 40396 7f74e459a8f23163cd1d33241e244f1c ""
   "../figures/questionnaire/algo_3-4_full.PNG" 1755705213 42945 56e131ed1f37815c5527ac8333fe0bc8 ""
@@ -131,17 +133,17 @@
   "app_questionnaire.tex" 1758798385 55607 92f40b4e37649f44e1a070d9ace7cbfc ""
   "bu.aux" 0 -1 0 ""
   "build/bu.aux" 0 -1 0 ""
-  "build/bu1.aux" 1758808865 444 e18e83e5bd917596c6a6ead3e7886fcc "pdflatex"
-  "build/bu1.bbl" 1758808861 1210 9e1683e7dce02ddc48086988768eecb9 "bibtex build/bu1"
-  "build/bu2.aux" 1758808866 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
+  "build/bu1.aux" 1758845956 684 17c68742227ac6c2b50b64a995a3b416 "pdflatex"
+  "build/bu1.bbl" 1758840474 1210 9e1683e7dce02ddc48086988768eecb9 "bibtex build/bu1"
+  "build/bu2.aux" 1758845958 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
   "build/bu2.bbl" 1758791915 1026 c561a0d38cfe5de0ce0afbbd39893459 "bibtex build/bu2"
-  "build/support_global_redistr.aux" 1758808866 41263 236b031b54f7ea556f47702ff1050c41 "pdflatex"
-  "build/support_global_redistr.brf" 1758808866 570 00f76a37bbed78ce41b5d67a56bb8f72 "pdflatex"
-  "build/support_global_redistr.lof" 1758808866 11450 64f241ad39d36e4e5c78fc56b015ee78 "pdflatex"
-  "build/support_global_redistr.lot" 1758808866 1409 e66d62eb12a25d2997ec08242cde6339 "pdflatex"
-  "build/support_global_redistr.out" 1758808866 5159 a09230d1d357991c9226c73ffa6fecfa "pdflatex"
-  "build/support_global_redistr.toc" 1758808866 2849 b331ee3c250130626f6a486940459295 "pdflatex"
-  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1758808851 44395 c922ccf51b33f816d6d0db13c01cebe0 ""
+  "build/support_global_redistr.aux" 1758845958 42735 96d847b63268fb21e56acde00cc520dc "pdflatex"
+  "build/support_global_redistr.brf" 1758845958 1028 fd91ef7e7db2425d4a68717ee44943aa "pdflatex"
+  "build/support_global_redistr.lof" 1758845958 11580 3266fbb9963d3116c541c9ab4d867a8d "pdflatex"
+  "build/support_global_redistr.lot" 1758845958 1412 f0d4e1cf0b2ae3658eaba5d0dd7e6dcb "pdflatex"
+  "build/support_global_redistr.out" 1758845958 5358 8e154e723796f9aa6a0f27d3b1048425 "pdflatex"
+  "build/support_global_redistr.toc" 1758845958 3236 4f21079622c8faa199d33726753bbd3e "pdflatex"
+  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1758845941 58136 d029475f161f1133c56ee3d5d31af76c ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1663542048 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1663542332 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplb7t.tfm" 1663543501 1616 371d1ee60c04b008c8fd760060cd34f1 ""
@@ -389,7 +391,7 @@
   "c:/texlive/2022/texmf.cnf" 1663544940 713 e69b156964470283e0530f5060668171 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf" 1668177306 6743391 b8e7d99287f3b550481b4954d37759c6 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji.sty" 1668188664 964927 78fa325c736c643075e219a1c1da6a16 ""
-  "support_global_redistr.tex" 1758808851 44395 c922ccf51b33f816d6d0db13c01cebe0 ""
+  "support_global_redistr.tex" 1758845941 58136 d029475f161f1133c56ee3d5d31af76c ""
   (generated)
   "build/bu1.aux"
   "build/bu2.aux"

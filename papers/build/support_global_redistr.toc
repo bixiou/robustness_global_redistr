@@ -12,27 +12,32 @@
 \contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{7}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Prioritization of public spending items}{11}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Acceptance for international policies in function of country coverage}{12}{section.4}%
-\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{12}{section.5}%
-\contentsline {section}{\numberline {6}Breadth of international policies accepted}{12}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{12}{section.7}%
-\contentsline {section}{\nameref {sec:methods}}{12}{section*.23}%
-\contentsline {section}{Bibliography}{18}{section*.25}%
-\contentsline {section}{\numberline {A}Raw results}{19}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{63}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{85}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{89}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{92}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{93}{section*.111}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{96}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{97}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{98}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{99}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{100}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{101}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{104}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{107}{appendix.M}%
-\contentsline {section}{Bibliography}{108}{section*.133}%
-\contentsline {section}{List of Tables}{108}{section*.134}%
-\contentsline {section}{List of Figures}{108}{section*.135}%
+\contentsline {section}{\numberline {4}Acceptance of international policies in function of country coverage}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}International Climate Scheme}{14}{subsection.4.1}%
+\contentsline {paragraph}{Presentation of the schemes.}{14}{section*.13}%
+\contentsline {paragraph}{The Global Climate Scheme.}{14}{section*.14}%
+\contentsline {paragraph}{Pluralistic ignorance.}{15}{section*.15}%
+\contentsline {paragraph}{International Climate Scheme.}{15}{section*.16}%
+\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{18}{section.5}%
+\contentsline {section}{\numberline {6}Breadth of international policies accepted}{18}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{18}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{18}{section*.28}%
+\contentsline {section}{Bibliography}{22}{section*.30}%
+\contentsline {section}{\numberline {A}Raw results}{23}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{67}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{89}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{93}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{96}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{97}{section*.116}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{100}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{101}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{102}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{103}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{104}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{105}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{108}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{111}{appendix.M}%
+\contentsline {section}{Bibliography}{112}{section*.138}%
+\contentsline {section}{List of Tables}{112}{section*.139}%
+\contentsline {section}{List of Figures}{112}{section*.140}%
 \contentsfinish 
