@@ -112,6 +112,37 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 summary(direct_effect)$coefficients[,4]
 
 
+##### Breadth #####
+# Currently debated policies
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported, d(c)$weight), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_opposed, d(c)$weight), 2)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Left")), 2)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right" | (d(c)$country == "US" & d(c)$vote == 1))), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Left")), 2)))
+
+# sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right")), 2)))
+# sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == 1)), 2)))
+# sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == -1)), 2)))
+# sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right")), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
+# sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote > 0)), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
+
+# Global income redistribution
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support < 0, d(c)$weight), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support < 0, d(c)$weight), 3)))
+
+# Convergence 
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support > 0, d(c)$weight), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support < 0, d(c)$weight), 3)))
+
+# Willingness to act
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition > 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition < 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
+wtd.mean((all$vote == -1) * (all$vote_agg == 0), all$weight)
+
+
 ##### Representativeness ######
 # representativeness_table("All")
 representativeness_table(c("All", "Eu", "EU"))
