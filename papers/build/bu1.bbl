@@ -1,4 +1,4 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{9}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -33,5 +33,53 @@ Adrien Fabre.
 \newblock 2025.
 \newblock URL
   \url{https://github.com/bixiou/global\_tax\_attitudes/raw/main/paper/global\_climate\_policies.pdf}.
+
+\bibitem[de~la Cuesta et~al.(2022)de~la Cuesta, Egami, and
+  Imai]{cuesta_improving_2022}
+Brandon de~la Cuesta, Naoki Egami, and Kosuke Imai.
+\newblock Improving the {{External Validity}} of {{Conjoint Analysis}}: {{The
+  Essential Role}} of {{Profile Distribution}}.
+\newblock \emph{Political Analysis}, 30\penalty0 (1):\penalty0 19--45, January
+  2022.
+\newblock ISSN 1047-1987, 1476-4989.
+\newblock \doi{10.1017/pan.2020.40}.
+\newblock URL
+  \url{https://www.cambridge.org/core/journals/political-analysis/article/abs/improving-the-external-validity-of-conjoint-analysis-the-essential-role-of-profile-distribution/B911EF14513292A24ECB4AC4BAA3FA6B}.
+
+\bibitem[Nunes and Schokkaert(2003)]{nunes_identifying_2003}
+Paulo A. L.~D Nunes and Erik Schokkaert.
+\newblock Identifying the warm glow effect in contingent valuation.
+\newblock \emph{Journal of Environmental Economics and Management}, 45\penalty0
+  (2):\penalty0 231--245, March 2003.
+\newblock ISSN 0095-0696.
+\newblock \doi{10.1016/S0095-0696(02)00051-7}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0095069602000517}.
+
+\bibitem[Zucman(2024)]{zucman_blueprint_2024}
+Gabriel Zucman.
+\newblock A blueprint for a coordinated minimum effective taxation standard for
+  ultra-high-net-worth individuals.
+\newblock 2024.
+\newblock URL
+  \url{https://www.taxobservatory.eu/publication/a-blueprint-for-a-coordinated-minimum-effective-taxation-standard-for-ultra-high-net-worth-individuals/}.
+
+\bibitem[Bridgetown~Initiative(2025)]{bridgetown_initiative_bridgetown_2025}
+.~Bridgetown~Initiative.
+\newblock Bridgetown {{Initiative}} on the {{Reform}} of the {{International
+  Development}} and {{Climate Finance Architecture}}.
+\newblock 2025.
+\newblock URL \url{https://www.bridgetown-initiative.org/}.
+
+\bibitem[{OECD}(2024)]{oecd_climate_2024}
+{OECD}.
+\newblock \emph{Climate {{Finance Provided}} and {{Mobilised}} by {{Developed
+  Countries}} in 2013-2022}.
+\newblock Climate {{Finance}} and the {{USD}} 100 {{Billion Goal}}. OECD, May
+  2024.
+\newblock ISBN 978-92-64-75659-5 978-92-64-46118-5.
+\newblock \doi{10.1787/19150727-en}.
+\newblock URL
+  \url{https://www.oecd-ilibrary.org/environment/climate-finance-provided-and-mobilised-by-developed-countries-in-2013-2022\_19150727-en}.
 
 \end{thebibliography}
