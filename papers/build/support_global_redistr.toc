@@ -27,28 +27,35 @@
 \contentsline {section}{\numberline {6}Breadth of international policies accepted}{23}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Support for currently debated global policies}{24}{subsection.6.1}%
 \contentsline {paragraph}{Plausible global policies}{24}{section*.25}%
-\contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{24}{subsection.6.2}%
-\contentsline {paragraph}{Global income redistribution}{24}{figure.caption.29}%
-\contentsline {subsection}{\numberline {6.3}Preferred channels to transfer resources to LICs}{27}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Custom global income redistribution}{27}{subsection.6.4}%
-\contentsline {section}{\numberline {7}Conclusion}{27}{section.7}%
-\contentsline {section}{\nameref {sec:methods}}{27}{section*.32}%
-\contentsline {section}{Bibliography}{28}{section*.34}%
-\contentsline {section}{\numberline {A}Raw results}{29}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{73}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{95}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{99}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{102}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{103}{section*.120}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{106}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{107}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{108}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{109}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{110}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{111}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{114}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{117}{appendix.M}%
-\contentsline {section}{Bibliography}{118}{section*.142}%
-\contentsline {section}{List of Tables}{118}{section*.143}%
-\contentsline {section}{List of Figures}{118}{section*.144}%
+\contentsline {paragraph}{Climate finance goal}{25}{section*.27}%
+\contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{26}{subsection.6.2}%
+\contentsline {paragraph}{Sustainable future vs. status quo}{26}{section*.28}%
+\contentsline {paragraph}{Global income redistribution}{26}{section*.29}%
+\contentsline {paragraph}{Global convergence}{27}{section*.30}%
+\contentsline {paragraph}{Willingness to act}{27}{section*.31}%
+\contentsline {paragraph}{Reasons for helping LICs}{27}{section*.32}%
+\contentsline {paragraph}{Reparations}{28}{section*.33}%
+\contentsline {paragraph}{Synthetic questions}{28}{figure.caption.36}%
+\contentsline {subsection}{\numberline {6.3}Preferred channels to transfer resources to LICs}{29}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Custom global income redistribution}{29}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusion}{29}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{29}{section*.39}%
+\contentsline {section}{Bibliography}{31}{section*.41}%
+\contentsline {section}{\numberline {A}Raw results}{32}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{76}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{98}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{102}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{105}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{106}{section*.127}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{109}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{110}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{111}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{112}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{113}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{114}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{117}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{120}{appendix.M}%
+\contentsline {section}{Bibliography}{121}{section*.149}%
+\contentsline {section}{List of Tables}{121}{section*.150}%
+\contentsline {section}{List of Figures}{121}{section*.151}%
 \contentsfinish 
