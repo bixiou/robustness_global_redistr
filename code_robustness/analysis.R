@@ -284,24 +284,24 @@ sapply(c("all", countries), function(c) round(mean(d(c)$reparations_support[!d(c
 
 
 ##### Custom redistr #####
-sapply(c("all", countries), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
-sapply(c("all", countries), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_winners, na.rm = T), 3))
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_losers, na.rm = T), 3)) 
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_degree, na.rm = T), 3)) 
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 470-540: 49
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 150-200: 18
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-5: 5
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_winners[!d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 440-520: 500
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_losers[!d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 160
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_degree[!d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 450-540: 500
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 150-200: 150
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied & !d(c)$custom_redistr_degree %in% c(2.1, 7.1)], na.rm = T), 3)) # 5: 5
-sapply(c("all", countries), function(c) round(median(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
-sapply(c("all", countries), function(c) round(mean(d(c)$custom_redistr_losers %in% c(101, 201), na.rm = T), 3))
-sapply(c("all", countries), function(c) round(mean(d(c)$custom_redistr_degree %in% c(2.1, 7.1), na.rm = T), 3))
-sapply(c("all", countries), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied] %in% c(401, 601), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners, na.rm = T), 3)) # 47
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers, na.rm = T), 3)) # 18
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree, na.rm = T), 3)) # 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 47-51: 49
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 13-20: 18
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied], na.rm = T), 3)) # 4-6: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_winners %in% c(401, 601)], na.rm = T), 3)) # 45-51: 47
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_losers %in% c(101, 201)], na.rm = T), 3)) # 15-20: 18
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_degree %in% c(7.1, 2.1)], na.rm = T), 3)) # 4-5: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied_touched], na.rm = T), 3)) # 43-51: 48
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers[d(c)$custom_redistr_satisfied_touched], na.rm = T), 3)) # 14-20: 18
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_degree[d(c)$custom_redistr_satisfied_touched], na.rm = T), 3)) # 4-6: 5
+sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners %in% c(401, 601), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_losers %in% c(101, 201), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_degree %in% c(2.1, 7.1), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_winners[d(c)$custom_redistr_satisfied] %in% c(401, 601), na.rm = T), 3))
 decrit("custom_redistr_winners", data = e, which = e$custom_redistr_satisfied) # 500
 decrit("custom_redistr_losers", data = e, which = e$custom_redistr_satisfied) # 150
 decrit("custom_redistr_degree", data = e, which = e$custom_redistr_satisfied) # 5
@@ -324,7 +324,7 @@ decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied,])
 (max_winners <- min(which(mean_custom_redistr[["all"]] < current_inc))) # 725
 current_inc[max_winners] # 18k
 100*sum(mean_custom_redistr[["all"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5.1 in transfer
-mean_custom_redistr[["all"]][1]/12 # 243
+mean_custom_redistr[["all"]][1]/12 # 242
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
 summary(lm(custom_redistr_satisfied ~ vote_factor, all, weights = weight))
 decrit("custom_redistr_satisfied", all) # 56%
@@ -342,6 +342,20 @@ current_inc[970] # 79.3k
 current_inc[971] # 80.5k
 current_inc[987] # 120k 987<->quantile 98.6, i.e. top 1.4%
 current_inc[990] # 131k
+
+decrit("custom_redistr_satisfied_touched", all, which = all$income_quartile == 1)
+decrit("custom_redistr_satisfied_touched", all, which = all$income_quartile == 4)
+summary(lm(custom_redistr_winners ~ custom_redistr_satisfied_touched + custom_redistr_satisfied, data = all, weights = weight))
+summary(lm(custom_redistr_losers ~ custom_redistr_satisfied_touched + custom_redistr_satisfied, data = all, weights = weight))
+summary(lm(custom_redistr_degree ~ custom_redistr_satisfied_touched + custom_redistr_satisfied, data = all, weights = weight))
+for (k in names(mean_custom_redistr)) if (grepl("all", k)) print(paste(k, round(mean_custom_redistr[[k]][1]/12)))
+for (k in names(mean_custom_redistr)) if (grepl("all", k)) print(paste(k, round(100*sum(mean_custom_redistr[[k]][1:min(which(mean_custom_redistr[[k]] < current_inc))] - current[1:min(which(mean_custom_redistr[[k]] < current_inc))])/sum(current[1:1000]), 2)))
+
+for (k in names(mean_custom_redistr)) if (grepl("all", k)) print(paste(k, round(mean_custom_redistr[[k]][1]/12)))
+wtd.mean(all$custom_redistr_income_min, all$weight * all$custom_redistr_satisfied_touched * (all$variant_sliders == "diffuse"))/12
+wtd.mean(all$custom_redistr_income_min, all$weight * all$custom_redistr_satisfied_touched * (all$variant_sliders == "concentrated"))/12
+with(e, summary(lm((custom_redistr_income_min/12) ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # -33*** 
+33/(298 - 185) # 29%
 
 
 ##### Well-being #####

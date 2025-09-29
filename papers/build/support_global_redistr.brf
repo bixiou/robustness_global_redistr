@@ -11,6 +11,7 @@
 \backcite {fabre_majority_2025}{{13}{4}{section.4}}
 \backcite {fabre_majority_2025}{{15}{11}{section*.14}}
 \backcite {fabre_global_2025}{{16}{13}{figure.caption.17}}
+<<<<<<< HEAD
 \backcite {zucman_blueprint_2024}{{24}{6.1}{section*.25}}
 \backcite {oecd_climate_2024}{{25}{6.1}{section*.27}}
 \backcite {fabre_french_2022}{{105}{E}{appendix.E}}
@@ -19,3 +20,18 @@
 \backcite {fabre_french_2022}{{107}{24}{Item.69}}
 \backcite {cappelen_majority_2025}{{109}{S62a}{figure.caption.130}}
 \backcite {global_nation_global_2023}{{109}{S62b}{figure.caption.130}}
+=======
+\backcite {cuesta_improving_2022}{{20}{5.1}{figure.caption.20}}
+\backcite {cuesta_improving_2022}{{20}{5.1}{figure.caption.20}}
+\backcite {nunes_identifying_2003}{{21}{5.2}{section*.21}}
+\backcite {zucman_blueprint_2024}{{24}{6.1}{section*.25}}
+\backcite {bridgetown_initiative_bridgetown_2025}{{24}{6.1}{section*.25}}
+\backcite {oecd_climate_2024}{{25}{6.1}{section*.27}}
+\backcite {global_nation_global_2023}{{28}{6.2}{section*.34}}
+\backcite {fabre_french_2022}{{107}{E}{appendix.E}}
+\backcite {fabre_french_2022}{{107}{E}{appendix.E}}
+\backcite {fabre_french_2022}{{107}{E}{appendix.E}}
+\backcite {fabre_french_2022}{{109}{26}{Item.69}}
+\backcite {cappelen_majority_2025}{{111}{S61a}{figure.caption.130}}
+\backcite {global_nation_global_2023}{{111}{S61b}{figure.caption.130}}
+>>>>>>> origin/main

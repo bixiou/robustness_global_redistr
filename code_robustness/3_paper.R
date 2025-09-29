@@ -142,6 +142,62 @@ sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarit
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition < 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
 wtd.mean((all$vote == -1) * (all$vote_agg == 0), all$weight)
 
+# Comparison
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation < 0, d(c)$weight), 3))
+(mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) 
+(mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T))
+mean_gn25 - mean_gn23 # .03
+
+# Moral circle
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight), 2))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$country_name %in% countries_Eu)), 5))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg > 0)), 2))
+# sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote == -1)), 2))
+# sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Far right"| (d(c)$country == "US" & d(c)$vote == 1))), 2))
+
+
+##### Custom redistr #####
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_satisfied, d(c)$weight), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_skip, d(c)$weight), 3))
+decrit("custom_redistr_untouched")
+decrit("custom_redistr_satisfied", which = all$custom_redistr_untouched)
+decrit("custom_redistr_satisfied_touched")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Left")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Far right")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Center-right or Right")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Non-voter, PNR or Other")
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 1)
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 2)
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 3)
+decrit("custom_redistr_winners", which = all$custom_redistr_satisfied_touched) # 464
+decrit("custom_redistr_losers", which = all$custom_redistr_satisfied_touched) # 195.1
+decrit("custom_redistr_degree", which = all$custom_redistr_satisfied_touched) # 4.752
+decrit("custom_redistr_winners", which = all$custom_redistr_satisfied) # 476
+decrit("custom_redistr_losers", which = all$custom_redistr_satisfied) # 183
+decrit("custom_redistr_degree", which = all$custom_redistr_satisfied) # 4.69
+decrit("custom_redistr_winners") # 474
+decrit("custom_redistr_losers") # 17.7
+decrit("custom_redistr_degree") # 4.67
+474/464 # 1.02
+195/177 # 1.1
+4.75/4.67 # 1.02
+with(e, summary(lm(custom_redistr_winners ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # 7.93***
+with(e, summary(lm(custom_redistr_losers ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # 5.51***
+with(e, summary(lm(custom_redistr_degree ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # -2.11***
+7.93/20
+2.11/5
+sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_winners, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 48
+sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_losers, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 18
+sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_degree, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 5
+round(mean_custom_redistr$all_satisfied_touched[1]/12) # 249
+(max_winners <- min(which(mean_custom_redistr[["all_satisfied_touched"]] < current_inc))) # 728
+100*sum(mean_custom_redistr[["all_satisfied_touched"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5.7
+decrit(all$custom_redistr_winners * all$custom_redistr_degree * all$custom_redistr_losers == 0, which = all$custom_redistr_satisfied_touched) # 13%
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_self_lose, d(c)$weight), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_self_gain, d(c)$weight), 3))
+
 
 ##### Representativeness ######
 # representativeness_table("All")

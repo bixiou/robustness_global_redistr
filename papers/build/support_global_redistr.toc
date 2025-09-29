@@ -1,7 +1,7 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{Contents}{2}{section*.1}%
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
-\contentsline {paragraph}{Literature}{3}{section*.2}%
+\contentsline {paragraph}{Literature.}{3}{section*.2}%
 \contentsline {section}{\numberline {2}Data and design}{3}{section.2}%
 \contentsline {paragraph}{Samples.}{3}{section*.3}%
 \contentsline {paragraph}{Representativeness.}{4}{section*.5}%
@@ -22,10 +22,11 @@
 \contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{18}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Conjoint analysis}{19}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Testing warm glow}{21}{subsection.5.2}%
-\contentsline {paragraph}{Moral substitute}{21}{section*.21}%
-\contentsline {paragraph}{Realism treatment}{22}{section*.23}%
+\contentsline {paragraph}{Moral substitute.}{21}{section*.21}%
+\contentsline {paragraph}{Realism treatment.}{22}{section*.23}%
 \contentsline {section}{\numberline {6}Breadth of international policies accepted}{23}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Support for currently debated global policies}{24}{subsection.6.1}%
+<<<<<<< HEAD
 \contentsline {paragraph}{Plausible global policies}{24}{section*.25}%
 \contentsline {paragraph}{Climate finance goal}{25}{section*.27}%
 \contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{26}{subsection.6.2}%
@@ -58,4 +59,39 @@
 \contentsline {section}{Bibliography}{121}{section*.149}%
 \contentsline {section}{List of Tables}{121}{section*.150}%
 \contentsline {section}{List of Figures}{121}{section*.151}%
+=======
+\contentsline {paragraph}{Plausible global policies.}{24}{section*.25}%
+\contentsline {paragraph}{Climate finance goal.}{25}{section*.27}%
+\contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{26}{subsection.6.2}%
+\contentsline {paragraph}{Sustainable future vs. status quo.}{26}{section*.28}%
+\contentsline {paragraph}{Global income redistribution.}{26}{section*.29}%
+\contentsline {paragraph}{Global convergence.}{27}{section*.30}%
+\contentsline {paragraph}{Willingness to act.}{27}{section*.31}%
+\contentsline {paragraph}{Reasons for helping LICs.}{27}{section*.32}%
+\contentsline {paragraph}{Reparations.}{28}{section*.33}%
+\contentsline {paragraph}{Agreement that own taxes should solve global problems.}{28}{section*.34}%
+\contentsline {paragraph}{Moral circle.}{29}{section*.36}%
+\contentsline {subsection}{\numberline {6.3}Preferred channels to transfer resources to LICs}{29}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Custom global income redistribution}{29}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusion}{33}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{33}{section*.40}%
+\contentsline {section}{Bibliography}{34}{section*.42}%
+\contentsline {section}{\numberline {A}Raw results}{35}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{78}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{100}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{104}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{107}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{108}{section*.127}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{111}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{112}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{113}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{114}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{115}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{116}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{119}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{122}{appendix.M}%
+\contentsline {section}{Bibliography}{123}{section*.149}%
+\contentsline {section}{List of Tables}{123}{section*.150}%
+\contentsline {section}{List of Figures}{123}{section*.151}%
+>>>>>>> origin/main
 \contentsfinish 
