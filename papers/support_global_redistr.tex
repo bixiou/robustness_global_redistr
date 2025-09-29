@@ -248,21 +248,21 @@ The next most frequent \textit{concerns} are health (or the healthcare system), 
 % # 3. keywords in fields (taken jointly)
 \begin{figure}[h!]
   \caption[Wordcloud of open-ended field, per variant]{Most common concepts in open-ended fields. (Questions \ref{q:concerns_field}-\ref{q:injustice_field})} \label{fig:wordcloud} % Random answers can be found on \href{http://preferences-pol.fr/fields2025.html}{bit.ly/fields2025}
-  \begin{subfigure}{.49\textwidth}
+  \begin{subfigure}{.48\textwidth}
     \caption[]{``What are your main concerns these days?''}
-    \includegraphics[width=\textwidth]{../figures/all/concerns_field_en.pdf}
-  \end{subfigure} 
-  \begin{subfigure}{.49\textwidth}
+    \includegraphics[height=.35\textheight]{../figures/all/concerns_field_en.pdf}
+  \end{subfigure} \quad
+  \begin{subfigure}{.48\textwidth}
     \caption[]{``What are your needs or wishes?''}
-    \includegraphics[width=\textwidth]{../figures/all/wish_field_en.pdf}
+    \includegraphics[height=.35\textheight]{../figures/all/wish_field_en.pdf}
   \end{subfigure}
-  \begin{subfigure}{.49\textwidth}
+  \begin{subfigure}{.48\textwidth}
     \caption[]{``What according to you is the greatest injustice of all?''}
-    \includegraphics[width=\textwidth]{../figures/all/injustice_field_en.pdf}
-  \end{subfigure} 
-  \begin{subfigure}{.49\textwidth}
+    \includegraphics[height=.35\textheight]{../figures/all/injustice_field_en.pdf}
+  \end{subfigure} \quad
+  \begin{subfigure}{.48\textwidth}
     \caption[]{``Can you name an issue that is important to you but is neglected in the public debate?''}
-    \includegraphics[width=\textwidth]{../figures/all/issue_field_en.pdf}
+    \includegraphics[height=.35\textheight]{../figures/all/issue_field_en.pdf}
   \end{subfigure} 
 \end{figure}
 
@@ -366,9 +366,9 @@ The National Climate Scheme (NCS) is accepted by 66\% of respondents (ranging fr
 % TODO? say asked only to one-third?
 
 \paragraph{The Global Climate Scheme.} Before presenting the Global Climate Scheme (GCS), respondents are prompted to be attentive with the incentive that they may win a \$100 lottery prize if they correctly answer a comprehension question at the end of the survey. 
-When presented the Global Climate Scheme (GCS), respondents are informed that the \$20 per month cash transfer would lift out of extreme poverty 600~million people, and the cost to them is made salient. Respondents are informed of the price increases and the net cost to the average person in their country (e.g. 2\% price increases and a net cost of \$90 per month in the U.S., or 2\% and \euro{}45 per month in Germany).%
-\footnote{The computations use a carbon price of \$95/tCO$_\text{2}$. For Russia, Saudi Arabia, and the U.S., computations assume universal country coverage. 
-For Europe and Japan, the net loss is computed in a non-universal but \textit{High} participation scenario, which implies a higher net loss (by about \$10 per month) since the coalition's average carbon footprint is lower than the world average.} 
+When presented the Global Climate Scheme (GCS), respondents are informed that the cash transfer would lift 600~million people out of extreme poverty, and the cost to them is made salient. Respondents are informed of the amount of the cash transfer, as well as the price increases and the net cost to the average person in their country (e.g. 2\% price increases and a net cost of \$90 per month in the U.S., or 2\% and \euro{}45 per month in Germany).%
+\footnote{The computations use a carbon price of \$95/tCO$_\text{2}$. For Russia, Saudi Arabia, and the U.S., computations assume universal country coverage and the cash transfer is \$35 per month. 
+For Europe and Japan, the net loss is computed in a non-universal but \textit{High} participation scenario, which implies a lower cash transfer (\euro{}20 per month) and a higher net cost (by about \$10 per month) since the coalition's average carbon footprint is lower than the world average.} 
 The GCS is accepted by 57\% of respondents (from 48\% in Russia to 85\% in Saudi Arabia). The salience of costs in the GCS question may explain the somewhat lower support for the GCS compared to the NCS.%
 \footnote{Support for the GCS is also around 10~p.p. lower than in \citep{fabre_majority_2025}. There may be different reasons for that: attitudes may have changed in the two years interval; I added the information on the price increases, which allows respondents to make an estimate of the cost to them (rather than to their average fellow citizen)%; and the framing might have been slightly confusing in the earlier survey as the GCS was presented on the same page as a national redistribution scheme TODO? put back? 100 countries instead of 60%?
 .} 
@@ -647,7 +647,12 @@ The last task of the questionnaire allowed respondents to play with the shape of
 \begin{quote}``Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green. The first two sliders control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest. % TODO say whether it's in PPP
 If you do not want new policies to reduce global inequality, you can set the third slider to zero.''\end{quote} 
 The interactive question is available on \href{https://bit.ly/custom_redistr}{bit.ly/custom\_redistr} and the algorithm to translate sliders' positions into a redistribution is described in Appendix \ref{app:algo}. %and a video explainer on TODO.
-Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions, including the interactive graph and a table summarizing how their custom redistribution would affect five example income levels (including their own, asked right before). To dampen a potential anchoring at sliders' initial positions, the sliders have two random initial positions: %  (yielding similar rich-to-poor transfers of 4.3\% to 4.6\% of the world GDP)
+Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions, including the interactive graph and a table summarizing how their custom redistribution would affect five example income levels (including their own, asked right before). To dampen a potential anchoring at sliders' initial positions,%
+\footnote{To test for anchoring, I regress responses on the sliders' initial position. %The initial positions have a significant anchoring effect on the responses. %Relative to the other variant's %difference between the two variants' 
+% initial positions, a given variant brings the responses closer to its position by 
+The anchoring effect, defined as the effect size relative to the difference between the two variants' initial positions, is always significant, at 40\% for the share of winners, 55\% for the share of losers, and 42\% for the degree of redistribution. While anchoring plays a role, the responses converge to a middle point between the two anchors, indicating that the anchors themselves may have been defined by the surveyor (myself) drifting away (in opposite directions) from a shared preference. % collective, common taste or natural focal point. 
+} 
+the sliders have two random initial positions: %  (yielding similar rich-to-poor transfers of 4.3\% to 4.6\% of the world GDP)
 either %the \textit{diffuse} redistribution with 
 60\% of winners, 20\% of losers, and a degree of redistribution of 2 out of 10 (as in Figure \ref{fig:custom_redistr_question}); or %the \textit{concentrated} one with 
 40\%, 10\%, and 7/10, respectively. 
@@ -661,26 +666,34 @@ on phone screens), respondents are instructed that they can skip it.
     \makebox[\textwidth][c]{\includegraphics[height=.85\textheight]{../figures/questionnaire/survey_custom_redistr_bottom.png}} % bottom2 is without the choice options satisfied/skip
 \end{figure}
 
-Overall, 56\% are satisfied with their custom redistribution and 43\% skip it. Furthermore, 35\% of the respondents did not move the sliders from their original position, and while 39\% of them still state that they are satisfied with the redistribution, I exclude them from the main analysis, conducted over the 40\% of ``conforming'' % responsive, admitted, 
-respondents who touched the sliders and are satisfied with their custom redistribution. 
+Overall, 56\% are satisfied with their custom redistribution and 43\% skip it. 
+% Furthermore, 35\% of the respondents did not move the sliders from their original position, and while 39\% of them still state that they are satisfied with the redistribution, I exclude them from the main analysis, conducted over the 40\% of ``conforming'' % responsive, admitted, 
+% respondents who touched the sliders and are satisfied with their custom redistribution. 
+While the non-response rate may seem high, it is relatively spread out over the population. Indeed, the share of satisfied respondents is 52\% for non-voters, 54\% for center-right or right-wing voters, 57\% for far right voters and 61\% for left-wing voters; while it ranges from 49\% for people without a %secondary education (i.e. 
+high-school diploma to 57\% for those with a post-secondary diploma.
+% While the non-response rate may seem high, it is relatively spread out over the population. Indeed, the share of conforming respondents is 37\% for non-voters, 39\% for center-right or right-wing voters, 40\% for far right voters and 43\% for left-wing voters; while it ranges from 33\% for people without a high-school diploma to 42\% for those with a post-secondary diploma.  
+The limited heterogeneity in response rates across crucial sociodemographics suggests that the task enabled motivated respondents to make an informed choice regarding their preferred redistribution with little sacrifice in terms of sample representativeness.
 
-While the non-response rate may seem high, it is relatively spread out over the population. Indeed, the share of conforming respondents is 37\% for non-voters, 39\% for center-right or right-wing voters, 40\% for far right voters and 43\% for left-wing voters; while it ranges from 33\% for people without a %secondary education (i.e. 
-high-school diploma to 42\% for those with a post-secondary diploma. 
+% \paragraph{Anchoring}
+% Furthermore, the average responses are similar between satisfied and all respondents: between these groups, the share of winners and the degree of redistribution differ by at most 2\%, and the share of losers by at most 10\%. The similarity in results between satisfied respondents who moved the sliders and those who did not means that the average custom responses are similar to the average between the two possible sliders' initial positions. Two factors may explain this similarity. First, the responses might have been anchored at sliders' initial positions. Second, both the respondents and the surveyor (myself) might have a similar view of what a reasonable redistribution looks like. To test for anchoring, I regress responses on the sliders' initial position. The initial positions have a significant anchoring effect on the responses. %Relative to the other variant's %difference between the two variants' 
+% % initial positions, a given variant brings the responses closer to its position by 
+% The anchoring effect, defined as the effect size relative to the difference between the two variants' initial positions, is 
+% 40\% for the share of winners, 55\% for the share of losers, and 42\% for the degree of redistribution. While anchoring plays a role, the responses converge to a middle point between the two anchors, indicating that the anchors themselves may have been defined by the surveyor drifting away (in opposite directions) from a shared preference. % collective, common taste or natural focal point. 
 
-Furthermore, the average responses are similar between conforming, satisfied, and all respondents: between these groups, the share of winners and the degree of redistribution differ by at most 2\%, and the share of losers by at most 10\%. The similarity in results between satisfied respondents who moved the sliders and those who did not means that the average custom responses are similar to the average between the two possible sliders' initial positions. Two factors may explain this similarity. First, the responses might have been anchored at sliders' initial positions. Second, both the respondents and the surveyor (myself) might have a similar view of what a reasonable redistribution looks like. To test for anchoring, I regress responses on the sliders' initial position. The initial positions have a significant anchoring effect on the responses. %Relative to the other variant's %difference between the two variants' 
-% initial positions, a given variant brings the responses closer to its position by 
-The anchoring effect, defined as the effect size relative to the difference between the two variants' initial positions, is 
-40\% for the share of winners, 55\% for the share of losers, and 42\% for the degree of redistribution. While anchoring plays a role, the responses converge to a middle point between the two anchors, indicating that the anchors themselves may have been defined by the surveyor drifting away (in opposite directions) from a shared preference. % collective, common taste or natural focal point. 
+% To sum up, while this task enables respondents to make an informed choice regarding their preferred redistribution, it remains an imperfect method, and more appropriate ways to reveal citizens' preferred redistribution may be proposed. % TODO: change this paragraph
 
-To sum up, while this task enables respondents to make an informed choice regarding their preferred redistribution, it remains an imperfect method, and more appropriate ways to reveal citizens' preferred redistribution may be proposed. % TODO: change this paragraph
-
-With these caveats in mind, Figure \ref{fig:custom_redistr_median} shows the median preferred redistribution among conforming respondents, i.e. the curve obtained by setting the sliders at their median preferred values: 48\% of winners, 18\% of losers, and a degree of redistribution of 5/10, resulting in a transfer from rich-to-poor at 5.1\% of world income and in a minimum income of \$278 per month. % TODO: update figure as for now it's among satisfied 
-Interestingly, 46\% choose to lose from their custom redistribution while only 9\% choose to win, the median conforming respondent choosing parameters such that they neither win nor lose. Besides, 13\% of conforming respondents choose the status quo, preserving the current income distribution. 
+% With these caveats in mind, 
+Figure \ref{fig:custom_redistr_median} shows the median preferred redistribution among satisfied respondents, i.e. the curve obtained by setting the sliders at their median preferred values: 49\% of winners, 18\% of losers, and a degree of redistribution of 5/10, resulting in a transfer from rich-to-poor at 5.4\% of world income and in a minimum income of \$287 per month. 
+Interestingly, 48\% choose to lose from their custom redistribution while only 9\% choose to win, the median satisfied respondent choosing parameters such that they neither win nor lose. Besides, 10\% of satisfied respondents choose the status quo, preserving the current income distribution. 
 Finally, Figure \ref{fig:custom_redistr_mean} presents the average preferred redistribution among conforming respondents (i.e. the curve obtained by pointwise-averaging custom curves). % TODO fill mean_custom_redistr_stats, compute mean transfer by variant
 % TODO distribution of min_income and transfer
-The average preferred redistribution transfers 5.7\% of world income % TODO: harmonize: world income or world GDP?
-from the top 27\% to the bottom 73\%, and entails a minimum income of \$249 per month.  % TODO by country
+The average preferred redistribution transfers 5.4\% of world income % TODO: harmonize: world income or world GDP?
+from the top 27\% to the bottom 73\%, and entails a minimum income of \$247 per month.  % TODO by country
 As shown in Figure \ref{fig:tax_radical_redistr}, at the top of the distribution, the average preferred redistribution can be obtained from a 7\% marginal income tax rate above \$25,000 and a 16\% rate above \$40,000 per year (at Purchasing Power Parity). 
+
+\cite{fabre_french_2022} applied the same method to uncover French preferences regarding national income redistribution, and tested the support for the median and average % 42% losers in French average
+preferred redistributions on a separate sample. Excluding the 22\% to 24\% of people not responding, the 51\% supported the average redistribution and 67\% the median one.\footnote{\cite{fabre_french_2022} also tested a redistribution obtained from median parameters and a 5\% lower GDP to account for adverse behavioral responses: it was supported by 62\% of French respondents.} 
+While one cannot be sure that these results would replicate in the context of a global redistribution, they suggest that the average or median redistributions described above might be accepted by a majority.
 
 \section{Conclusion} % Summary, conclusion
 

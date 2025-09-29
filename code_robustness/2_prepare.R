@@ -748,7 +748,7 @@ define_var_lists <- function() {
                      "attention_test" = c("Совсем немного" = "Not at all", "Немного" = "A little", "Много" = "A lot", "Очень много" = "A great deal"),
                      "gcs_comprehension" = c("увеличатся" = "increase", "не изменятся" = "not be affected", "снизятся" = "decrease"),
                      "my_tax_global_nation" = c("Абсолютно согласен" = "Strongly agree", "Согласен" = "Agree", "Ни согласен, ни не согласен" = "Neither agree nor disagree", "Не согласен" = "Disagree", "Абсолютно не согласен" = "Strongly disagree"),
-                     "group_defended" = c("Люди и животные" = "Sentient beings", "Люди" = "Humans", "Мои соотечественники" = "Fellow citizens", "моей среды" = "Community (region, gender...)", "я сам" = "Family and self"))
+                     "group_defended" = c("Люди и животные" = "Sentient beings", "Люди$" = "Humans", "Мои соотечественники" = "Fellow citizens", "моей среды" = "Community (region, gender...)", "я сам" = "Family and self"))
   for (v in c("couple", "ncs_support", "gcs_support", "ics_mid_support", "ics_low_support", "ics_high_color_support", "ics_high_support", "global_tax_support", "hic_tax_support", "intl_tax_support", 
               "convergence_support", "global_movement")) relevel_ru[[v]] <<- c("Да" = "Yes", "Нет" = "No")
   for (v in c("likely_solidarity_treated", "likely_solidarity_control", "millionaire")) relevel_ru[[v]] <<- c("Очень маловероятно" = "Very unlikely", "Маловероятно" = "Unlikely", "Вероятно" = "Likely", "Очень вероятно" = "Very likely", "Я уже миллионер" = "I am already a millionaire")
@@ -1833,15 +1833,17 @@ create_conjoint_sample <- function(df = all) {
   df$foreign3_in_program <- df$foreign3_in_a
   df$program <- df$program_a
   df$program_preferred <- df$conjoint == "Candidate A"
+  df$leaning_conjoint <- df$leaning_conjoint_1
   temp <- df
   temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
   temp$cut_aid_in_program <- temp$cut_aid_in_b
   df$foreign3_in_program <- df$foreign3_in_b
+  df$leaning_conjoint <- df$leaning_conjoint_2
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
   call <- rbind(df, temp)
   call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
-                                          "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country"))]
+                                          "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country", "leaning_conjoint"))]
   call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out")
   call$millionaire_vote <- relevel(factor(call$millionaire_vote), "millionaire_out")
   call$program_preferred_left <- ifelse(call$vote_factor == "Left", call$program_preferred, NA)

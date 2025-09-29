@@ -357,6 +357,20 @@ wtd.mean(all$custom_redistr_income_min, all$weight * all$custom_redistr_satisfie
 with(e, summary(lm((custom_redistr_income_min/12) ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # -33*** 
 33/(298 - 185) # 29%
 
+decrit("custom_redistr_satisfied_touched")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Left")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Far right")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Center-right or Right")
+decrit("custom_redistr_satisfied_touched", all, which = all$vote_factor == "Non-voter, PNR or Other")
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 1)
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 2)
+decrit("custom_redistr_satisfied_touched", all, which = all$education == 3)
+decrit("custom_redistr_winners", which = all$custom_redistr_satisfied_touched) # 464
+decrit("custom_redistr_losers", which = all$custom_redistr_satisfied_touched) # 195.1
+decrit("custom_redistr_degree", which = all$custom_redistr_satisfied_touched) # 4.752
+decrit("custom_redistr_untouched")
+decrit("custom_redistr_satisfied", which = all$custom_redistr_untouched)
+
 
 ##### Well-being #####
 with(e, summary(lm(well_being ~ variant_well_being))) 

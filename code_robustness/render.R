@@ -692,18 +692,18 @@ plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_f
            name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
 
 # 4bis. 
-split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list))))
-for (c in names(levels_default_list)) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
-split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, (names(levels_default_list))))
-for (c in names(levels_default_list)) for (v in variables_split_many) split_many[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))
+split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list)[-11])))
+for (c in names(levels_default_list)[-11]) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
+split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, (names(levels_default_list)[-11])))
+for (c in names(levels_default_list)[-11]) for (v in variables_split_many) split_many[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))
 split_many <- sweep(split_many, 2, colSums(split_many), "/")
-split_few_global_nb0 <- sapply(rev(names(levels_default_list)), function(c) with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(revenue_split_few_global > 0, weight)))
+split_few_global_nb0 <- sapply(rev(names(levels_default_list)[-11]), function(c) with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(revenue_split_few_global > 0, weight)))
 # dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
 # dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
 
-barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list), width = 1200, height = 550)
-barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list), width = 1200, height = 600)
-barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list), width = 1200, height = 800)
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list)[-11], width = 1200, height = 550)
+barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list)[-11], width = 1200, height = 600)
+barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list)[-11], width = 1200, height = 800)
 
 # 5a. ICS: mean of variant 
 legend_ncs_gcs_ics <- c("Supports the National Climate Scheme", "Supports the Global Climate Scheme (GCS)", 
@@ -728,7 +728,7 @@ plot_along("country_name", vars = variables_ncs_gcs_ics_control, levels_along = 
 legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries", 
                        "**High-income**:<br>All other HICs and<br>not some MICs (such as China)",
                         "**International**:<br>Some countries (e.g. EU, UK, Brazil)<br>and not others (e.g. U.S., China)")
-plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T) 
+plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 400, origin = 50, plot_origin_line = T) 
                        #  mean_ci = NULL, covariates = NULL, subsamples = NULL, conditions = c(" > 0"), invert_y_along = FALSE, factor_along = FALSE, outcomes = paste0(vars, conditions), 
                        # origin = 'others_at_mean', logit = c(FALSE), atmean = T, logit_margin = T, labels_along = levels_along, names_levels = paste0(along, levels_along), levels_along = Levels(df[[along]]),  # condition = "> 0", #country_heterogeneity = FALSE, along_labels,
                        # confidence = 0.95, weight = "weight", heterogeneity_condition = "", return_mean_ci = FALSE, print_name = FALSE, legend_top = FALSE, to_percent = FALSE, colors = NULL, color_RdBu = FALSE,
@@ -917,7 +917,7 @@ summary(lm(reg_formula("variant_field == 'concerns'", control_variables), data =
 # Main results: variables_ncs_gcs_ics_by_country, variables_wealth_tax_support_by_country, program_preferred_by.., gcs_support_by_variant_warm_glow, share_solidarity_supported_by_info_solidarity, solidarity_support_share, radical_redistr_all_share
 plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_weight_vote", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
 
-plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_weight_vote",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T) 
+plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_weight_vote",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 400, origin = 50, plot_origin_line = T) 
 
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_weight_vote", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
@@ -937,7 +937,7 @@ heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_weigh
 # Main results: variables_ncs_gcs_ics_by_country, variables_wealth_tax_support_by_country, program_preferred_by.., gcs_support_by_variant_warm_glow, share_solidarity_supported_by_info_solidarity, solidarity_support_share, radical_redistr_all_share
 plot_along("country_name", df = a[a$stayed,], name = "variables_ncs_gcs_ics_by_country_extended", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
 
-plot_along("country_name", df = a[a$stayed,], name = "variables_wealth_tax_support_by_country_extended",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, width = 820, height = 380, origin = 50, plot_origin_line = T) 
+plot_along("country_name", df = a[a$stayed,], name = "variables_wealth_tax_support_by_country_extended",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, width = 820, height = 400, origin = 50, plot_origin_line = T) 
 
 plot_along(along = "millionaire_tax_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
            name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)

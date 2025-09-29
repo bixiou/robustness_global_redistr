@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-\begin{thebibliography}{6}
-=======
-\begin{thebibliography}{9}
->>>>>>> origin/main
+\begin{thebibliography}{10}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -38,8 +34,6 @@ Adrien Fabre.
 \newblock URL
   \url{https://github.com/bixiou/global\_tax\_attitudes/raw/main/paper/global\_climate\_policies.pdf}.
 
-<<<<<<< HEAD
-=======
 \bibitem[de~la Cuesta et~al.(2022)de~la Cuesta, Egami, and
   Imai]{cuesta_improving_2022}
 Brandon de~la Cuesta, Naoki Egami, and Kosuke Imai.
@@ -62,7 +56,6 @@ Paulo A. L.~D Nunes and Erik Schokkaert.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0095069602000517}.
 
->>>>>>> origin/main
 \bibitem[Zucman(2024)]{zucman_blueprint_2024}
 Gabriel Zucman.
 \newblock A blueprint for a coordinated minimum effective taxation standard for
@@ -71,8 +64,6 @@ Gabriel Zucman.
 \newblock URL
   \url{https://www.taxobservatory.eu/publication/a-blueprint-for-a-coordinated-minimum-effective-taxation-standard-for-ultra-high-net-worth-individuals/}.
 
-<<<<<<< HEAD
-=======
 \bibitem[Bridgetown~Initiative(2025)]{bridgetown_initiative_bridgetown_2025}
 .~Bridgetown~Initiative.
 \newblock Bridgetown {{Initiative}} on the {{Reform}} of the {{International
@@ -80,7 +71,6 @@ Gabriel Zucman.
 \newblock 2025.
 \newblock URL \url{https://www.bridgetown-initiative.org/}.
 
->>>>>>> origin/main
 \bibitem[{OECD}(2024)]{oecd_climate_2024}
 {OECD}.
 \newblock \emph{Climate {{Finance Provided}} and {{Mobilised}} by {{Developed
@@ -91,5 +81,14 @@ Gabriel Zucman.
 \newblock \doi{10.1787/19150727-en}.
 \newblock URL
   \url{https://www.oecd-ilibrary.org/environment/climate-finance-provided-and-mobilised-by-developed-countries-in-2013-2022\_19150727-en}.
+
+\bibitem[Fabre(2022)]{fabre_french_2022}
+Adrien Fabre.
+\newblock {French favored redistributions derived from surveys}.
+\newblock \emph{Revue economique}, 73\penalty0 (1):\penalty0 69--113, March
+  2022.
+\newblock ISSN 0035-2764.
+\newblock URL
+  \url{https://www.cairn-int.info/journal-revue-economique-2022-1-page-69.htm}.
 
 \end{thebibliography}

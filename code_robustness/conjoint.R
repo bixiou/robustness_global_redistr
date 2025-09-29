@@ -66,6 +66,8 @@ summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program +
 # The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict))
 
+summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$leaning_conjoint == "Left")) # +4*** / -4***
+
 # plot(amce$FR) 
 # plot(amce$DE) 
 # plot(amce$IT)
