@@ -1,19 +1,19 @@
 # Fdb version 3
-["bibtex build/bu1"] 1759185904 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1759186013
-  "build/bu1.aux" 1759186009 1491 6f1d0db4689763097a4021085ea75bc5 "pdflatex"
+["bibtex build/bu1"] 1759362726 "build/bu1.aux" "build/bu1.bbl" "build/bu1" 1759362742
+  "build/bu1.aux" 1759362738 2843 53a3ce945b46faa83bfe5aa18e877193 "pdflatex"
   "c:/texlive/2022/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1663543339 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "global_tax_attitudes.bib" 1759073143 266522 dcb7f71e846d5a6899e6a34bec00c4e7 ""
+  "global_tax_attitudes.bib" 1759357244 266999 71e7be01c61a204dfe9b693af4d20e5d ""
   (generated)
   "build/bu1.bbl"
   "build/bu1.blg"
-["bibtex build/bu2"] 1759160558 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1759186013
+["bibtex build/bu2"] 1759362708 "build/bu2.aux" "build/bu2.bbl" "build/bu2" 1759362742
   "./plainnaturl_clean.bst" 1586094986 24654 4b2b0914a35465b0a6a8366fb04efb16 ""
-  "build/bu2.aux" 1759186011 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
-  "global_tax_attitudes.bib" 1759073143 266522 dcb7f71e846d5a6899e6a34bec00c4e7 ""
+  "build/bu2.aux" 1759362740 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
+  "global_tax_attitudes.bib" 1759357244 266999 71e7be01c61a204dfe9b693af4d20e5d ""
   (generated)
   "build/bu2.bbl"
   "build/bu2.blg"
-["pdflatex"] 1759186005 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1759186013
+["pdflatex"] 1759362734 "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" "build/support_global_redistr.pdf" "support_global_redistr" 1759362742
   "../figures/JP/conjoint_JA.png" 1754227491 15628 af936c0aba09107aefe9e5d845978da7 ""
   "../figures/all/billionaire_stostad.pdf" 1759160229 9166 3b00ce6a1b5aaa5a4e3c5c1185b7d3af ""
   "../figures/all/concerns_field_en.pdf" 1759182640 9583 51645387d0aad2b8e4a8209a362f78f8 ""
@@ -133,17 +133,17 @@
   "app_questionnaire.tex" 1759066521 55641 eecb3367cc6ee419d32c0ca5e13314ed ""
   "bu.aux" 0 -1 0 ""
   "build/bu.aux" 0 -1 0 ""
-  "build/bu1.aux" 1759186009 1491 6f1d0db4689763097a4021085ea75bc5 "pdflatex"
-  "build/bu1.bbl" 1759185904 4086 6feab222d82ab4237b25f70c88f795ee "bibtex build/bu1"
-  "build/bu2.aux" 1759186011 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
-  "build/bu2.bbl" 1759160558 1026 c561a0d38cfe5de0ce0afbbd39893459 "bibtex build/bu2"
-  "build/support_global_redistr.aux" 1759186011 46449 c2e3e48c284687cf201d43bae58e83a8 "pdflatex"
-  "build/support_global_redistr.brf" 1759186011 1645 3e81aa2424550285d31b61457511b6f0 "pdflatex"
-  "build/support_global_redistr.lof" 1759186011 11442 d424a822d541e91f1ee92323e9df6b6a "pdflatex"
-  "build/support_global_redistr.lot" 1759186011 1418 d7071f24ce2df73d0decf66bb40388f1 "pdflatex"
-  "build/support_global_redistr.out" 1759186011 7098 3e6a299379d29019b64d930895991cc7 "pdflatex"
-  "build/support_global_redistr.toc" 1759186011 4799 7f0c2c8e58795bc54993309bd75dd106 "pdflatex"
-  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1759186001 98082 4c8524b54c1057d6751d3fc10cf4d5d3 ""
+  "build/bu1.aux" 1759362738 2843 53a3ce945b46faa83bfe5aa18e877193 "pdflatex"
+  "build/bu1.bbl" 1759362726 8011 ffdab44475c5b79798125697265509ba "bibtex build/bu1"
+  "build/bu2.aux" 1759362740 540 57e529500dedb6556b9a145b9194c473 "pdflatex"
+  "build/bu2.bbl" 1759362709 1026 c561a0d38cfe5de0ce0afbbd39893459 "bibtex build/bu2"
+  "build/support_global_redistr.aux" 1759362740 47520 10199b8d51231ce2019dbe66aa1cc964 "pdflatex"
+  "build/support_global_redistr.brf" 1759362740 2444 ea5179abb800ffe4932fb98e7e86bda4 "pdflatex"
+  "build/support_global_redistr.lof" 1759362740 11443 b38b6985da4221fb3851179cf92fb6e2 "pdflatex"
+  "build/support_global_redistr.lot" 1759362740 1418 8642e12142719e576a5f8d484e778381 "pdflatex"
+  "build/support_global_redistr.out" 1759362740 7098 3e6a299379d29019b64d930895991cc7 "pdflatex"
+  "build/support_global_redistr.toc" 1759362740 4802 6eab23b04770b553ce8866dace0d5325 "pdflatex"
+  "c:/Users/fabre/Documents/www/robustness_global_redistr/papers/support_global_redistr.tex" 1759362704 109640 2d2473701bc5e737d575057a78a29f11 ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1663542048 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1663542332 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/adobe/palatino/pplb7t.tfm" 1663543501 1616 371d1ee60c04b008c8fd760060cd34f1 ""
@@ -393,7 +393,7 @@
   "c:/texlive/2022/texmf.cnf" 1663544940 713 e69b156964470283e0530f5060668171 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji-assets.pdf" 1668177306 6743391 b8e7d99287f3b550481b4954d37759c6 ""
   "c:/texlive/texmf-local/tex/latex/hwemoji/hwemoji.sty" 1668188664 964927 78fa325c736c643075e219a1c1da6a16 ""
-  "support_global_redistr.tex" 1759186001 98082 4c8524b54c1057d6751d3fc10cf4d5d3 ""
+  "support_global_redistr.tex" 1759362704 109640 2d2473701bc5e737d575057a78a29f11 ""
   (generated)
   "build/bu1.aux"
   "build/bu2.aux"

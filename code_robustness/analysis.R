@@ -207,8 +207,10 @@ with(e, summary(lm(share_solidarity_opposed_no_info ~ info_solidarity), weights 
 # Effect of info driven by support for existing agreements. Effect on Bridgetown still shows possible effect on items without commitment. But no effect on non-mentioned items.
 # *: shipping_levy > 0, ncqg_300bn, loss_damage, bridgetown > 0, foreign_aid > 0, 
 # * opposite sign: corporate_tax
+with(e, summary(lm(solidarity_support_bridgetown ~ info_solidarity), weights = weight))  # .04.
 for (v in variables_solidarity_support) {
   print(v)
+  # print(with(e, summary(lm(as.formula(paste(str2expression(v), " ~ info_solidarity"))), weights = weight)))
   print(with(e, summary(lm(as.formula(paste(str2expression(v), "> 0 ~ info_solidarity"))), weights = weight)))
   print(with(e, summary(lm(as.formula(paste(str2expression(v), "< 0 ~ info_solidarity"))), weights = weight))) }
 with(e, summary(lm(share_solidarity_short_supported ~ variant_info_solidarity))) 
