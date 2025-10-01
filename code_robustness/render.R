@@ -141,6 +141,8 @@ labels_vars <- c(
   "global_movement_demonstrate" = "Could attend a demonstration",
   "global_movement_strike" = "Could go on strike",
   "global_movement_donate" = "Could donate [$100] to a strike fund",
+  "global_movement_support" = "Would support a global movement to tackle CC, tax millionaires,\n and fund LICs (either petition, demonstrate, strike, or donate)",
+  "global_movement_part" = "Would be part of a global movement to tackle CC, tax millionaires,\n and fund LICs (either demonstrate, strike, or donate)",
   "solidarity_support_billionaire_tax" = "Minimum tax of 2% on billionaires' wealth, in voluntary countries", # A minimum tax of 2% on the wealth of billionaires, in voluntary countries
   "solidarity_support_corporate_tax" = "Raise global minimum tax on profit from 15% to 35%, allocating revenues to countries based on sales", 
   # Raising the globally agreed minimum tax rate on profits of multinational firms from 15% to 35%, closing loopholes and allocating revenues to countries where sales are made
@@ -270,6 +272,7 @@ heatmaps_defs <- list(
   "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T, width = 1200, height = 540),
   "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T, width = 1200, height = 540),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1", width = 1000, height = 320), 
+  "global_movement_all" = list(vars = variables_global_movement_all, conditions = ">= 1", width = 1000, height = 400), 
   "why_hic_help_lic" = list(vars = variables_why_hic_help_lic, conditions = ">= 1", width = 1100, height = 270), 
   "reparations_support" = list(vars = "reparations_support", conditions = c("", ">= 1", "/"), width = 1000, height = 170), 
   "my_tax_global_nation" = list(vars = "my_tax_global_nation", conditions = c("", ">= 1", "/"), width = 1050, height = 170), 
@@ -377,7 +380,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs)
+heatmap_multiple(heatmaps_defs[c("main_radical_redistr", "radical_redistr", "global_movement_all")])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 barres_multiple(barresN_defs["share_solidarity_supported"])
@@ -991,11 +994,13 @@ variance_decomposition(dep_var = "share_solidarity_supported", covariates = cont
 variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(control_variables_lmg[-c(8,16)], "urbanity_na_as_city"), filename = "lmg_share_solidarity_supported_region")
 variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(control_variables_lmg[-c(1,16,17)], "vote_original"), filename = "lmg_share_solidarity_supported_vote_exact")
 variance_decomposition(dep_var = "share_solidarity_supported", covariates = control_variables_lmg[c(1,3:9,16)], height = 370, filename = "lmg_share_solidarity_supported_few")
+variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(control_variables_lmg[c(1,3:9,16)], "group_defended"), height = 370, filename = "lmg_share_solidarity_supported_few_group")
 
 variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[-17], filename = "lmg_gcs_support_country")
 variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[-c(8,16)], "urbanity_na_as_city"), filename = "lmg_gcs_support_region")
 variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[-c(1,16,17)], "vote_original"), filename = "lmg_gcs_support_vote_exact")
 variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[c(1,3:9,16)], height = 370, filename = "lmg_gcs_support_few")
+variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[c(1,3:9,16)], "group_defended"), height = 370, filename = "lmg_gcs_support_few_group")
 
 for (l in names(lmgs)) print(paste0("R² ", l, ": ", round(lmgs[[l]]@R2, 4)))
 summary(lm(reg_formula("gcs_support > 0", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .11 (simple R²: .12)

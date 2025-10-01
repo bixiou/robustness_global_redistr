@@ -407,6 +407,7 @@ define_var_lists <- function() {
   variables_race <<- c("race", "race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
   variables_global_movement <<- c("global_movement_no", "global_movement_spread", "global_movement_demonstrate", "global_movement_strike", "global_movement_donate")
+  variables_global_movement_all <<- c(variables_global_movement, "global_movement_support", "global_movement_part")
   variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none")
   variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
   variables_custom_redistr_param <<- c("custom_redistr_winners", "custom_redistr_losers", "custom_redistr_degree")
@@ -455,7 +456,7 @@ define_var_lists <- function() {
   variables_transfer_how <<- c("transfer_how_agencies", "transfer_how_govt_conditional", "transfer_how_govt_unconditional", "transfer_how_local_authorities", 
                               "transfer_how_ngo", "transfer_how_social_protection", "transfer_how_cash_unconditional")
   variables_sustainable_future <<- c("sustainable_future_a", "sustainable_future_s", "sustainable_future_b")
-  variables_radical_redistr <<- c(variables_top_tax_support, "sustainable_future", "convergence_support", "global_movement_spread", "vote_intl_coalition", "reparations_support", "my_tax_global_nation")
+  variables_radical_redistr <<- c(variables_top_tax_support, "sustainable_future", "convergence_support", "global_movement_support", "vote_intl_coalition", "reparations_support", "my_tax_global_nation")
   variables_group_defended_5 <<- c("universalist", "antispecist", "humanist", "nationalist", "individualist")
   variables_group_defended_4 <<- c("antispecist", "humanist", "nationalist", "individualist")
   variables_group_defended_3 <<- c("universalist", "nationalist", "individualist")
@@ -1127,7 +1128,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # Other variables
   if (country == "SA") e$saudi <- e$nationality_SA == "Saudi"
   if (country == "SA") e$gender_nationality <- paste0(ifelse(e$man, "Man", "Woman"), ", ", ifelse(e$saudi, "Saudi", "non-Saudi"))
-  e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e, annotation = "millionaire: -3/-1/1/3. How likely are you to become a millionaire at some point in your life?")
+  e <- create_item("millionaire", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3, "I am already a millionaire" = 5), df = e, annotation = "millionaire: -3/-1/1/3/5. How likely are you to become a millionaire at some point in your life?")
   e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e, annotation = "millionaire_agg: -1/0/1. How likely are you to become a millionaire at some point in your life?")
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 100), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e) 
   e <- create_item(variables_likert, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e) 
@@ -1766,6 +1767,8 @@ if (country != "RU") { # TODO!
     label(e$consistent_conjoints) <- "consistent_conjoints: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1 & consistent_conjoint_2, cf. policies_leaning)."
     label(e$consistent_conjoints_strict) <- "consistent_conjoints_strict: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1 & consistent_conjoint_2, cf. policies_leaning_strict) (strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."
   }
+  e$global_movement_support <- e$global_movement_spread | e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
+  e$global_movement_part <- e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
   # e$global_movement_any <- as.logical(rowSums(e[, variables_global_movement[2:5]]))
   # e$global_movement_any[!e$global_movement_asked] <- NA 
   # e$why_hic_help_lic_any <- as.logical(rowSums(e[, variables_why_hic_help_lic[1:3]]))

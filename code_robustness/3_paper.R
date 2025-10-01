@@ -33,6 +33,7 @@ decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice
 
 
 ##### Revenue split #####
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3)))
 wtd.mean(all$revenue_split_few_global, all$weight) # 17.5%
 wtd.mean(all$revenue_split_few_global, all$weight)/(33.4*2/5) # +31%
 wtd.mean(all$revenue_split_few_global == 0, all$weight) # 13.3%
@@ -137,6 +138,7 @@ sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarit
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support < 0, d(c)$weight), 3)))
 
 # Willingness to act
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_spread | d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3))) 
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3)))
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition > 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition < 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
@@ -203,6 +205,10 @@ representativeness_table(countries[1:3])
 representativeness_table(countries[4:7])
 representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO vote; employment
 representativeness_table(countries[8:11], omit = c("Not 25-64"))
+
+# Prez:
+representativeness_table(countries[1:6])
+representativeness_table(countries[7:11], omit = c("Not 25-64"))
   
 
 ##### Determinants #####
