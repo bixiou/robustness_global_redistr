@@ -115,7 +115,7 @@ labels_vars <- c(
   "dropout" = "Dropped out",
   "my_tax_global_nation" = '"My taxes should go towards solving global problems"',
   "my_tax_global_nation_external" = '"My taxes ... global problems" (Global Nation, 2024)',
-  "convergence_support" = '"Governments should actively cooperate to have\nall countries converge in terms of GDP per capita by the end of the century"',
+  "convergence_support" = '"Governments should actively cooperate to have all countries\nconverge in terms of GDP per capita by the end of the century"',
   "nationalist" = "Fellow citizens", # "Nationalist",
   "universalist" = "Humans or Sentient beings", # "Universalist",
   "individualist" = "Family and self", # "Individualist",
@@ -280,11 +280,11 @@ heatmaps_defs <- list(
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
   "custom_redistr_all" = list(vars = c(variables_custom_redistr_all, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
-  "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1300, height = 700),
-  "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1300, height = 500),
+  "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1100, height = 700),
+  "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1100, height = 500),
   # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
-  "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1300, height = 400),
-  "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1300, height = 430), # TODO
+  "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1100, height = 350),
+  "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1100, height = 400), # TODO
   "well_being" = list(vars = variables_well_being, conditions = "", width = 1000, height = 300),
   "group_defended_3" = list(vars = variables_group_defended_3, conditions = ">= 1", width = 900, height = 250),
   "group_defended_4" = list(vars = variables_group_defended_4, conditions = ">= 1", width = 900, height = 270),
@@ -380,7 +380,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs[c("main_radical_redistr", "radical_redistr", "global_movement_all")])
+heatmap_multiple(heatmaps_defs[c("main_radical_redistr", "radical_redistr", "radical_redistr_few")])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 barres_multiple(barresN_defs["share_solidarity_supported"])

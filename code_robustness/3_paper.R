@@ -1,3 +1,7 @@
+##### Intro #####
+sort(sapply(c("all", countries), function(c) wtd.median(d(c)$gcs_belief_own, d(c)$weight, na.rm = T)))
+sort(sapply(c("all", countries[-9]), function(c) wtd.median(d(c)$gcs_belief_us, d(c)$weight * (d(c)$country != "US"), na.rm = T)))
+
 
 ##### Data and design #####
 decrit(all$country, weight = F)
