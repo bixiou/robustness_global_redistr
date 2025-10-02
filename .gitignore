@@ -16,3 +16,4 @@ code_robustness/split_few_averagesplit_few_average.xlsx
 *openai_key.txt
 papers/build/*
 figures/split_few_average.pdf
+*/build/*
