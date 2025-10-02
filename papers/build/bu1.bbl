@@ -1,16 +1,16 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Cappelen et~al.(2025)Cappelen, St{\o}stad, and
+\bibitem[Cappelen et~al.(2025{\natexlab{a}})Cappelen, St{\o}stad, and
   Tungodden]{cappelen_majority_2025}
 Alexander~W. Cappelen, Morten St{\o}stad, and Bertil Tungodden.
 \newblock Majority in 40 {{Countries Support Unprecedented Coordinated
   Billionaire Tax Discussed}} by {{G20}}.
-\newblock 2025.
+\newblock 2025{\natexlab{a}}.
 
 \bibitem[Ghassim and Pauli(2024)]{ghassim_who_2024}
 Farsan Ghassim and Markus Pauli.
@@ -84,6 +84,27 @@ Gabriel Zucman.
 \newblock URL
   \url{https://www.taxobservatory.eu/publication/a-blueprint-for-a-coordinated-minimum-effective-taxation-standard-for-ultra-high-net-worth-individuals/}.
 
+\bibitem[Enke(2020)]{enke_moral_2020}
+Benjamin Enke.
+\newblock Moral {{Values}} and {{Voting}}.
+\newblock \emph{Journal of Political Economy}, page~51, 2020.
+
+\bibitem[Cappelen et~al.(2025{\natexlab{b}})Cappelen, Enke, and
+  Tungodden]{cappelen_universalism_2025}
+Alexander~W. Cappelen, Benjamin Enke, and Bertil Tungodden.
+\newblock Universalism: {{Global Evidence}}.
+\newblock \emph{American Economic Review}, 115\penalty0 (1):\penalty0 43--76,
+  January 2025{\natexlab{b}}.
+\newblock ISSN 0002-8282.
+\newblock \doi{10.1257/aer.20230038}.
+\newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/aer.20230038}.
+
+\bibitem[Enke et~al.(2023)Enke, {Rodr{\'i}guez-Padilla}, and
+  Zimmermann]{enke_moral_2023}
+Benjamin Enke, Ricardo {Rodr{\'i}guez-Padilla}, and Florian Zimmermann.
+\newblock Moral universalism and the structure of ideology.
+\newblock \emph{Review of Economic Studies}, 2023.
+
 \bibitem[Kuziemko et~al.(2015)Kuziemko, Norton, Saez, and
   Stantcheva]{kuziemko_how_2015}
 Ilyana Kuziemko, Michael~I. Norton, Emmanuel Saez, and Stefanie Stantcheva.
@@ -112,6 +133,19 @@ Alberto Alesina, Stefanie Stantcheva, and Edoardo Teso.
 \newblock ISSN 0002-8282.
 \newblock \doi{10.1257/aer.20162015}.
 \newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/aer.20162015}.
+
+\bibitem[Ansolabehere et~al.(2008)Ansolabehere, Rodden, and
+  Jr]{ansolabehere_strength_2008}
+Stephen Ansolabehere, Jonathan Rodden, and James M.~Snyder Jr.
+\newblock The {{Strength}} of {{Issues}}: {{Using Multiple Measures}} to
+  {{Gauge Preference Stability}}, {{Ideological Constraint}}, and {{Issue
+  Voting}}.
+\newblock \emph{American Political Science Review}, 102\penalty0 (2):\penalty0
+  215--232, May 2008.
+\newblock ISSN 1537-5943, 0003-0554.
+\newblock \doi{10.1017/S0003055408080210}.
+\newblock URL
+  \url{https://www.cambridge.org/core/journals/american-political-science-review/article/abs/strength-of-issues-using-multiple-measures-to-gauge-preference-stability-ideological-constraint-and-issue-voting/16F6AF97F7B71AA0112EC9ADF78B553A}.
 
 \bibitem[Global~Nation(2023)]{global_nation_global_2023}
 .~Global~Nation.

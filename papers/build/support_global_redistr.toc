@@ -1,62 +1,61 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{Contents}{2}{section*.1}%
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
-\contentsline {paragraph}{Literature.}{6}{section*.2}%
-\contentsline {section}{\numberline {2}Data and design}{6}{section.2}%
-\contentsline {paragraph}{Samples.}{6}{section*.3}%
-\contentsline {paragraph}{Representativeness.}{7}{section*.5}%
-\contentsline {paragraph}{Data quality.}{8}{section*.6}%
-\contentsline {paragraph}{Incentives.}{8}{section*.7}%
-\contentsline {paragraph}{Survey structure.}{8}{section*.8}%
-\contentsline {paragraph}{Pre-registered hypotheses and data availability.}{10}{section*.10}%
-\contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{10}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{10}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Prioritization of public spending items}{14}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Acceptance of international policies in function of country coverage}{15}{section.4}%
-\contentsline {subsection}{\numberline {4.1}International Climate Scheme}{16}{subsection.4.1}%
-\contentsline {paragraph}{Presentation of the schemes.}{16}{section*.13}%
-\contentsline {paragraph}{The Global Climate Scheme.}{17}{section*.14}%
-\contentsline {paragraph}{Pluralistic ignorance.}{17}{section*.15}%
-\contentsline {paragraph}{International Climate Scheme.}{18}{section*.16}%
-\contentsline {subsection}{\numberline {4.2}Wealth tax funding LICs}{20}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{21}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Conjoint analysis}{21}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Testing warm glow}{24}{subsection.5.2}%
-\contentsline {paragraph}{Moral substitute.}{24}{section*.21}%
-\contentsline {paragraph}{Realism treatment.}{24}{section*.23}%
-\contentsline {section}{\numberline {6}Breadth of international policies accepted}{26}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Support for currently debated global policies}{26}{subsection.6.1}%
-\contentsline {paragraph}{Plausible global policies.}{26}{section*.25}%
-\contentsline {paragraph}{Climate finance goal.}{28}{section*.27}%
-\contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{28}{subsection.6.2}%
-\contentsline {paragraph}{Sustainable future vs. status quo.}{29}{section*.28}%
-\contentsline {paragraph}{Global income redistribution.}{29}{section*.29}%
-\contentsline {paragraph}{Global convergence.}{29}{section*.30}%
-\contentsline {paragraph}{Willingness to act.}{30}{section*.31}%
-\contentsline {paragraph}{Reasons for helping LICs.}{30}{section*.32}%
-\contentsline {paragraph}{Reparations.}{30}{section*.33}%
-\contentsline {paragraph}{Agreement that own taxes should solve global problems.}{31}{section*.34}%
-\contentsline {paragraph}{Moral circle.}{31}{section*.36}%
-\contentsline {subsection}{\numberline {6.3}Preferred channels to transfer resources to LICs}{32}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Custom global income redistribution}{32}{subsection.6.4}%
-\contentsline {section}{\numberline {7}Conclusion}{35}{section.7}%
-\contentsline {section}{\nameref {sec:methods}}{35}{section*.40}%
-\contentsline {section}{Bibliography}{36}{section*.42}%
-\contentsline {section}{\numberline {A}Raw results}{38}{appendix.A}%
-\contentsline {section}{\numberline {B}Questionnaire}{81}{appendix.B}%
-\contentsline {section}{\numberline {C}Representativeness of the surveys}{103}{appendix.C}%
-\contentsline {section}{\numberline {D}Determinants of support}{107}{appendix.D}%
-\contentsline {section}{\numberline {E}The determination of a custom redistribution}{110}{appendix.E}%
-\contentsline {paragraph}{Algorithm Dis/Adv}{111}{section*.127}%
-\contentsline {section}{\numberline {F}Comparison with other surveys}{114}{appendix.F}%
-\contentsline {section}{\numberline {G}Attrition analysis}{115}{appendix.G}%
-\contentsline {section}{\numberline {H}Balance analysis}{116}{appendix.H}%
-\contentsline {section}{\numberline {I}Placebo tests}{117}{appendix.I}%
-\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{118}{appendix.J}%
-\contentsline {section}{\numberline {K}Main results weighted by vote}{119}{appendix.K}%
-\contentsline {section}{\numberline {L}Main results on the extended sample}{122}{appendix.L}%
-\contentsline {section}{\numberline {M}Influence of the item order on answers}{125}{appendix.M}%
-\contentsline {section}{Bibliography}{126}{section*.149}%
-\contentsline {section}{List of Tables}{126}{section*.150}%
-\contentsline {section}{List of Figures}{126}{section*.151}%
+\contentsline {section}{\numberline {2}Data and design}{8}{section.2}%
+\contentsline {paragraph}{Samples.}{8}{section*.2}%
+\contentsline {paragraph}{Representativeness.}{8}{section*.4}%
+\contentsline {paragraph}{Data quality.}{9}{section*.5}%
+\contentsline {paragraph}{Incentives.}{10}{section*.6}%
+\contentsline {paragraph}{Survey structure.}{10}{section*.7}%
+\contentsline {paragraph}{Pre-registered hypotheses and data availability.}{12}{section*.9}%
+\contentsline {section}{\numberline {3}Salience and prioritization of global solidarity}{12}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Top-of-mind considerations}{12}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Prioritization of public spending items}{16}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Acceptance of international policies in function of country coverage}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}International Climate Scheme}{18}{subsection.4.1}%
+\contentsline {paragraph}{Presentation of the schemes.}{18}{section*.12}%
+\contentsline {paragraph}{The Global Climate Scheme.}{19}{section*.13}%
+\contentsline {paragraph}{Pluralistic ignorance.}{19}{section*.14}%
+\contentsline {paragraph}{International Climate Scheme.}{20}{section*.15}%
+\contentsline {subsection}{\numberline {4.2}Wealth tax funding LICs}{22}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Sincerity of support for global redistribution}{22}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Conjoint analysis}{23}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Testing warm glow}{25}{subsection.5.2}%
+\contentsline {paragraph}{Moral substitute.}{26}{section*.20}%
+\contentsline {paragraph}{Realism treatment.}{27}{section*.22}%
+\contentsline {section}{\numberline {6}Breadth of international policies accepted}{28}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Support for currently debated global policies}{28}{subsection.6.1}%
+\contentsline {paragraph}{Plausible global policies.}{28}{section*.24}%
+\contentsline {paragraph}{Climate finance goal.}{30}{section*.26}%
+\contentsline {subsection}{\numberline {6.2}Support for radical proposals, political action, and broad values}{30}{subsection.6.2}%
+\contentsline {paragraph}{Sustainable future vs. status quo.}{30}{section*.27}%
+\contentsline {paragraph}{Global income redistribution.}{31}{section*.28}%
+\contentsline {paragraph}{Global convergence.}{31}{section*.29}%
+\contentsline {paragraph}{Willingness to act.}{31}{section*.30}%
+\contentsline {paragraph}{Reasons for helping LICs.}{32}{section*.31}%
+\contentsline {paragraph}{Reparations.}{32}{section*.32}%
+\contentsline {paragraph}{Agreement that own taxes should solve global problems.}{32}{section*.33}%
+\contentsline {paragraph}{Moral circle.}{33}{section*.35}%
+\contentsline {subsection}{\numberline {6.3}Preferred channels to transfer resources to LICs}{34}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Custom global income redistribution}{34}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusion}{37}{section.7}%
+\contentsline {section}{\nameref {sec:methods}}{37}{section*.39}%
+\contentsline {section}{Bibliography}{38}{section*.41}%
+\contentsline {section}{\numberline {A}Raw results}{41}{appendix.A}%
+\contentsline {section}{\numberline {B}Questionnaire}{84}{appendix.B}%
+\contentsline {section}{\numberline {C}Representativeness of the surveys}{106}{appendix.C}%
+\contentsline {section}{\numberline {D}Determinants of support}{110}{appendix.D}%
+\contentsline {section}{\numberline {E}The determination of a custom redistribution}{113}{appendix.E}%
+\contentsline {paragraph}{Algorithm Dis/Adv}{114}{section*.126}%
+\contentsline {section}{\numberline {F}Comparison with other surveys}{117}{appendix.F}%
+\contentsline {section}{\numberline {G}Attrition analysis}{118}{appendix.G}%
+\contentsline {section}{\numberline {H}Balance analysis}{119}{appendix.H}%
+\contentsline {section}{\numberline {I}Placebo tests}{120}{appendix.I}%
+\contentsline {section}{\numberline {J}Main results on selected demographics, including by vote}{121}{appendix.J}%
+\contentsline {section}{\numberline {K}Main results weighted by vote}{122}{appendix.K}%
+\contentsline {section}{\numberline {L}Main results on the extended sample}{125}{appendix.L}%
+\contentsline {section}{\numberline {M}Influence of the item order on answers}{128}{appendix.M}%
+\contentsline {section}{Bibliography}{129}{section*.148}%
+\contentsline {section}{List of Tables}{129}{section*.149}%
+\contentsline {section}{List of Figures}{129}{section*.150}%
 \contentsfinish 
