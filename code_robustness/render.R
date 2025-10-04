@@ -270,6 +270,7 @@ heatmaps_defs <- list(
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
   "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
   "solidarity_support" = list(vars = variables_solidarity_support_control, sort = T, width = 1200, height = 540),
+  "solidarity_support_climate" = list(vars = variables_solidarity_support_control[6:10], sort = T, width = 1200, height = 350),
   "solidarity_support_incl_info" = list(vars = variables_solidarity_support, sort = T, width = 1200, height = 540),
   "global_movement" = list(vars = variables_global_movement, conditions = ">= 1", width = 1000, height = 320), 
   "global_movement_all" = list(vars = variables_global_movement_all, conditions = ">= 1", width = 1000, height = 400), 
@@ -380,7 +381,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs[c("main_radical_redistr", "radical_redistr", "radical_redistr_few")])
+heatmap_multiple(heatmaps_defs[c("solidarity_support", "solidarity_support_climate")])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 barres_multiple(barresN_defs["share_solidarity_supported"])

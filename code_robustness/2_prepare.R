@@ -1132,6 +1132,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("millionaire", new_var = "millionaire_agg", c("Unlikely" = -1, "Likely" = 0, "Already" = 1), grep = T, values = c("nlikely", "Very l|Likely", "already"), df = e, annotation = "millionaire_agg: -1/0/1. How likely are you to become a millionaire at some point in your life?")
   e <- create_item(variables_yes_no, labels = c("No" = 0, "PNR" = -0.1, "Yes" = 100), values = c("No", list(text_pnr), "Yes"), missing.values = c("", NA, "PNR"), df = e) 
   e <- create_item(variables_likert, labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e) 
+  if (country == "RU") e <- create_item("solidarity_support_expanding_security_council_control", labels = c("Strongly oppose" = -2, "Somewhat oppose" = -1, "Indifferent" = 0, "Somewhat support" = 1, "Strongly support" = 2), df = e) 
   e <- create_item("likely_solidarity", labels = c("Very unlikely" = -3, "Unlikely" = -1, "Likely" = 1, "Very likely" = 3), df = e, annotation = "likely_solidarity: -3/-1/1/3. According to you, how likely is it that international policies involving significant transfers from high-income countries to low-income countries will be introduced in the next 15 years?")
   e <- create_item("ncqg", labels = c("Stop" = 0, "Reduce" = 1, "Maintain ($26 bn)" = 2, "Meet goal ($100 bn)" = 3, "Intermediate ($200 bn)" = 4, "Developing ($600 bn)" = 5, "NGOs ($1,000 bn)" = 6),
                    grep = T, keep_original = T, values = c("Stop", "Reduce", "\\$26", "meet|Meet", "level between", "\\$600", "\\$1,000"), df = e, annotation = paste0("ncqg: 0: 0/1/2: 26/3: 100/4: 300/5: 600/6: 1000. ~ variant_ncqg: Short \"Climate finance\" designates the financing of climate action from developed countries in developing countries. [developed_note: (Note that we consider Saudi Arabia to be a developed country in this question.)]\n\n", 
@@ -1629,7 +1630,7 @@ if (country != "RU") { # TODO!
   label(e$share_solidarity_opposed_no_commitment) <- "share_solidarity_opposed_no_commitment: Share of plausible global solidarity policies that have not feature existing commitment (there are 6 variables_solidarity_no_commitment) (somewhat or strongly) opposed."
   label(e$share_solidarity_supported_no_info) <- "share_solidarity_supported_no_info: Share of plausible global solidarity policies that aren't mentioned in the info treatment (there are 2: debt_relif, aviation_levy) (somewhat or strongly) supported."
   label(e$share_solidarity_opposed_no_info) <- "share_solidarity_opposed_no_info: Share of plausible global solidarity policies that aren't mentioned in the info treatment (there are 2: debt_relif, aviation_levy) (somewhat or strongly) opposed."
-  for (v in variables_solidarity_support) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
+  for (v in variables_solidarity_support) if (!(country == "RU" & grepl("council", v))) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
   
   if (pilot) {
     e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
