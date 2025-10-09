@@ -1193,8 +1193,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$lang[grepl("IT", e$lang)] <- "IT"
   
   e$variant_field <- e$field <- NA
-  for (v in intersect(variables_field, names(e))) e$field[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])]
-  if (country == "RU") for (v in intersect(variables_field, names(e))) e$variant_field[!is.na(e[[v]])] <- sub("_field", "", v)
+  for (v in intersect(variables_field, names(e))) e$field[!is.na(e[[v]]) & e[[v]] != ""] <- e[[v]][!is.na(e[[v]]) & e[[v]] != ""]
+  if (country == "RU") for (v in intersect(variables_field, names(e))) e$variant_field[e[[v]]!=""] <- sub("_field", "", v)
   else for (v in intersect(variables_field, names(e))) e$variant_field[!is.na(e[[paste0("Open-endedfield_order_", v)]])] <- sub("_field", "", v)
   
   # To recode fields (pre-treatment necessary so the following code works): ~2h/country
@@ -1777,7 +1777,6 @@ if (country != "RU") { # TODO!
   
   return(e)
 }
-# RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
 
 
 ##### Load data #####
