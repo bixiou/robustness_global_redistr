@@ -1224,7 +1224,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   # write.csv(all[, c("lang", "field")], "../data_raw/fields/all.csv", na = "", row.names = F)
   # write.csv(all[sample.int(11000, 750), c("lang", "field")], "../data_raw/fields/all_excerpt.csv", na = "", row.names = F)
-  { # field # 2-3h/1k respondents
+  { # field # 2-3h/1k respondents; $0.7/1k resp. with ChatGPT
     # NB: Empty + Other: suspicious field (copy/paste from unrelated content)
     # Impression: many people think from their own perspective (e.g. "my pension", "I want a house") and don't refer to the broader picture i.e. political reform
     # SA: Many answer with their hobbies e.g. sport/soccer (perhaps a bad translation of 'concerns'?); want to become millionaire; billionaire; start a business; buy a house; car; are satisfied with their income; talk of "self-injustice" (sin); of raising children; Palestine; orphan's oppression; travel
