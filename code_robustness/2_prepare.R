@@ -1237,6 +1237,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # IT: health; serenity / peace of mind; safety; money; war; work stress; world hunger; mental health; more time; femicide
     # GB: cost of living; immigration; comfortable life; NHS; mental health; holocaust; dangerous road and driving; being unjustly imprisoned; cut in winter fuel allowance
     # FR: nothing; insecurity; holidays/time; public deficit; equality; gender equality
+    # RU: health; metaphysical >questions< (e.g. why evil dominates; death; what to do); lies; travel; buy a car/house; wanting to live; 
     # Combination: old_age + taxes_welfare: pension system; old_age + cost_of_living: old age poverty / own pension too low; other + empty: nonsensical; taxes_welfare + inequality: redistribution; 
     #              taxes_welfare + cost_of_living: cut taxes / reforms to improve one's income; welfare_taxes + health: healthcare system; health + family: worries about health of family member
     # Absent: sex; have more kids (except perhaps in SA); IT, ES: foreigners privileges instead of national preference; solutions to stop climate change
@@ -1375,6 +1376,28 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # US [hunger]: That homelessness and famine is still a large issue in the USA. 
     # US: To be completely honest, I don't know what injustice really means
     # US: Wrongful convictions
+    # RU: SVO [NdR: Special Military Operation]; hostile attitude towards Russia on the part of other countries.
+    # RU: Buy a nice apartment. Travel the world.
+    # RU: Lies
+    # RU: I just want to live
+    # RU: Freedom of speech
+    # RU: The predominance of evil over good
+    # RU: Find a part-time job, at least for 15,000 rubles. It is very difficult to live on a small pension.
+    # RU: death
+    # RU: Poor treatment of the elderly. Devastation in small towns and villages.
+    # RU: Who is to blame? What to do?
+    # RU: I want to go to the USSR.
+    # RU: how much time is left to live?
+    # RU: What should be the goal of the development of our society and human civilization as a whole? What humanity has chosen as its current goal—maximizing individual profit—is leading human civilization to destruction.
+    # RU: Why are we interested in material life but not in spiritual life?
+    # RU: Inequality in the ownership of natural resources and means of production
+    # RU: Nazism and its consequences
+    # RU: When will the war with Ukraine end?
+    # RU: I'll keep my wishes to myself
+    # RU: Are children important?
+    # RU: Is it important to love and idolize your beloved if you have one?
+    # RU: Sleep, have sex and drink alcohol
+    # RU: When will the state stop fleecing its people, inflating prices for everything, selling off resources on the cheap, letting migrants in and letting them get away with everything, while brazenly robbing its own people through the security forces it has created, and sending young people to the slaughter in droves, profiting from it and lining its pockets?
   }  
   { # comment_field (keywords: good, interest, thank, difficult|confus, no comment|nothing in particular|^nothing$|^none$, thought provoking|food for though|informative|learn, corrupt)
     # US: I skipped the income redistribution question because I think it should be based on WEALTH not income.
@@ -1459,6 +1482,21 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     # DE: Eat the Rich
     # DE: I am poor and will remain poor by German standards.\n But I'm still doing well.\n I want poor people in other countries to have a better life, because they have neither clean water nor sanitation.
     # DE: Having traveled extensively in third-world countries, I understand the concerns there. Education is the best step toward improving the situation there. Out with churches and in with schools. Support for education, yes, but a blanket distribution of value creation, no. Water, yes, but no wine.
+    # RU: A survey that says 'Expansion of the Security Council' doesn't inspire any confidence.
+    # RU: Resources will never be distributed equally, this is the law of economics.
+    # RU: I'd like to see a solution to global climate change and poverty. But I don't want the cost of living to increase, for example, through gas prices, toll roads, and so on.
+    # RU: No to war
+    # RU: Increasing taxes for oligarchs is the right thing to do.
+    # RU: Assistance is necessary on the condition that corruption is excluded at all stages.
+    # RU: How can you live on a pension of 16,700 rubles after working for 38 years?
+    # RU: I don't consider these problems to be a priority.
+    # RU: There was a normal system in Soviet times, everyone was at roughly the same level. I'd like to bring it back, but.............................
+    # RU: Global warming is a globalist scam.
+    # RU: I am for change, people should help each other on a global scale
+    # RU: If only everything were so good, but that will never happen.
+    # RU: It is necessary to help people and animals and take care of nature
+    # RU: There are some spelling errors in the questions. I'm not a teacher, but these errors are really glaring. Thank you for the survey; it's nice to know there are still people thinking about the future of the planet!
+    # RU: If these programs worked, it would be great. But Western countries only rob underdeveloped countries, rather than help them.
   }
   
   # # 1. Skim through the fields and choose appropriate categories, then add them to country.xlsm using the lines below
@@ -1488,7 +1526,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   # # 4. Click on appropriate cells in the .xlsm
   
   # no comment; confusing/difficult; thank you; praise survey; criticize survey; pro global redistr; doubt global redistr; pro climate; doubt climate; other
-  # for (c in countries[-c(8,9,11)]) {
+  # for (c in countries[-c(8,11)]) {
   #   file.copy(from = "../data_raw/fields/country2.xlsm", to = paste0("../data_raw/fields/", c, "2.xlsm"), overwrite = TRUE)
   #   wb <- loadWorkbook(paste0("../data_raw/fields/", c, "2.xlsm"))
   #   # for (v in c("field", "comment_field")) for (i in "") { #
@@ -1552,7 +1590,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e$comment_manual_empty[indices_i] <- e$comment_keyword_empty[indices_i]
   } else print("No file found for recoding of field.")
   
-if (country != "RU") { # TODO!
   for (v in intersect(names(e), c("field", "comment_field"))) { # Translation into English
     e[[paste0(v, "_en")]] <- e[[v]]
     if (!country %in% c("US", "GB")) {
@@ -1569,7 +1606,6 @@ if (country != "RU") { # TODO!
   e$comment_nb_keywords <- rowSums(e[, variables_comment_keyword])
   e$comment_nb_manual <- rowSums(e[, variables_comment_manual])
   e$nchar_comment <- nchar(e$comment_field_en)
-}
   
   # Deprecated:
   # Use lines below export CSV. 
@@ -1884,7 +1920,8 @@ gpt_prompt <- function(response_text) {
 }
 # start_time <- Sys.time()
 # for (k in field_names) all[[paste0("field_gpt_", k)]] <- F
-# for (i in 1:nrow(all)) { # 
+# failed_rows <- c()
+# for (i in 1:nrow(all)) { # 1:nrow(all) failed_rows which(all$country == "RU")
 #   text <- as.character(all$field[i])
 #   if (!is.na(text) && nchar(trimws(text)) > 0) {
 #     prompt <- gpt_prompt(text)
@@ -1899,11 +1936,12 @@ gpt_prompt <- function(response_text) {
 #       # for (k in kwords) if (k %in% field_names) row_out[[k]] <- T
 #       # results[[i]] <- row_out
 #     }, error = function(e) {
+#       failed_rows <- c(failed_rows, i)
 #       cat("Classification failed for row", i, ":", conditionMessage(e), "\n")
 #       # results[[i]] <- c(setNames(rep(NA, length(field_names)), field_names))
 #     })
 #     Sys.sleep(1.2) # Stay within API limits (60/min for GPT-3.5-turbo); adjust if needed
-#   } else all$field_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
+#   } else all$field_gpt_nothing[i] <- T # results[[i]] <- c(setNames(c(rep(F, length(field_names)-1), T), field_names))
 # }
 # Sys.time() - start_time  # ~5h?
 # all <- all[, setdiff(names(all), setdiff(names(all)[grepl("field_gpt_", names(all))], variables_field_gpt))] # purge extra variables that GPT created by mistake
