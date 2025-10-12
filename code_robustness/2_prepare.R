@@ -1,8 +1,7 @@
-# TODO! fields RU, revenue_split
+# TODO! RU revenue_split
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
-# TODO: RU education on 18+ (not 25-64)
 # TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
 
 
@@ -134,6 +133,7 @@ income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", r
     # pop_freq[[c]]$vote <- unlist(c(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"])*(1000-qs[c, "Abstention"])/sum(qs[c, c("Left", "Center-right.or.Right", "Far.right")], na.rm = T), "Abstention" = qs[c, "Abstention"])/1000) # We exclude Other in this variant
     pop_freq[[c]]$vote <- unlist(c("Left" = qs[c, "Left"], "Center-right or Right" = qs[c, "Center-right.or.Right"], "Far right" = qs[c, "Far.right"], "Non-voter, PNR or Other" = sum(qs[c, "Abstention"], qs[c, "Vote_other"]))/1000) # We exclude Other in this variant
   }
+  pop_freq$RU$education_quota["Not 25-64"] <- 0
 }
 
 votes_xlsx <- read.xlsx("../questionnaire/sources.xlsx", sheet = "elections", cols = 1:6)
@@ -1014,19 +1014,19 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("education", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Above upper secondary" = 3), grep = T, keep_original = T, values = c("1|2", "3|4", "5|6|7"), df = e, annotation = "education: What is your highest completed education level? [1: Below upper secondary; 2: Upper secondary; 3: Above upper secondary] (from education_original).")
   e$post_secondary <- e$education %in% 3
   label(e$post_secondary) <- "post_secondary: education == 'Above upper secondary'"
-  e$education_quota <- ifelse(e$age > 25 & e$age < 65, e$education, 0)
+  e$education_quota <- if (country == "RU") e$education else ifelse(e$age > 25 & e$age < 65, e$education, 0)
   if (country == "JP") e$education_quota[e$education_quota %in% 1] <- 2 # In JP official stats, there is no one Below upper secondary. They'd have weights of 0 if we didn't relabeled them.
   # e$diploma_25_64 <- e$diploma
   # e$diploma_25_64[e$age < 25 | e$age > 65] <- 0 # "Not 25-64"
   # e$diploma_25_64 <- as.item(as.numeric(as.vector(e$diploma_25_64)), labels = structure(c(1:3, 0), names = c("Below upper secondary", "Upper secondary", "Post secondary", "Not 25-64")), missing.values=c(NA, 0), 
   #                            annotation="diploma_25_64: 0: Not 25-64 if age is not within 25-64 (missing value) / 1: Below upper secondary (ISCED 0-2) / 2: Upper secondary (ISCED 3) / 3: Post secondary (ISCED 4-8), recoded from education.")
-  e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e, annotation = "education_quota: ifelse(age > 25 & age < 65, education, 0).")
+  e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e, annotation = "education_quota: ifelse(age > 25 & age < 65, education, 0). Except in RU: education.")
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
   e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "201|300", "301", "401", "501", "601", "701|800", "801", "more", "not"), grep = T, missing.values = c("PNR"), df = e)  
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
-  if (country == "JP") e$income_exact[e$income_exact_misinterpreted] <- e$income_exact[e$income_exact_misinterpreted]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
+  if (country == "JP") e$income_exact[e$income_exact_misinterpreted %in% T] <- e$income_exact[e$income_exact_misinterpreted %in% T]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
   e$uc <- 1 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
   label(e$uc) <- "uc: Consumption units (1 + .5*pmax(0, hh_size - Nb_children__14) + .3*Nb_children__14)."
   if ("income_exact" %in% names(e)) {
@@ -1827,8 +1827,6 @@ beep()
 Sys.time() - start_time # 6 min
 
 all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
-beep()
-Sys.time() - start_time # 10 min
 
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
@@ -1836,9 +1834,11 @@ Sys.time() - start_time # 10 min
 # list2env(pilot_data, envir = .GlobalEnv) # 35 in both pilot and all: 16 in PL, 14 in GB, 5 in US
 # beep()
 # 
-# data_all <- setNames(lapply(countries, function(c) { prepare(country = c, scope = "all", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries) # remove_id = F
-# a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
-# a$weight <- 1
+data_all <- setNames(lapply(countries, function(c) { prepare(country = c, scope = "all", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries) # remove_id = F
+a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
+a$weight <- 1
+beep()
+Sys.time() - start_time # 10 min
 
 
 ##### Lottery draw #####
@@ -1960,58 +1960,3 @@ export_codebook(p, "../questionnaire/codebook_p.csv", stata = FALSE, omit = c(1,
 
 ##### Save #####
 save.image(".RData")
-
-
-#### Russia ####
-# RU <- prepare(country = "RU", scope = "final", fetch = F, convert = T, remove_id = T, rename = T, pilot = FALSE, weighting = T)
-# 
-# for (v in intersect(names(FR), names(RU))) if (any(class(FR[[v]]) != class(RU[[v]]))) print(paste(v, class(RU[[v]])))
-# for (v in intersect(names(FR), names(RU))) if (length(union(setdiff(unique(FR[[v]]), unique(RU[[v]])), setdiff(unique(RU[[v]]), unique(FR[[v]])))) > 0) print(v)
-# 
-# # ru <- read.xlsx("../data_raw/RU.xlsx", sheet = "Сырые данные", startRow = 3)
-# # /!\ Pb: un_security_council missing from control
-# ru <- read_sav("../data_raw/RU.sav")
-# ru <- ru[-c(1:2),] # Remove test rows
-# View(ru)  # TODO: duration, revenue_split,
-# for (v in names(rename_ru)) names(ru)[names(ru) == v] <- rename_ru[v]
-# names(ru)
-# setdiff(names(ru), names(e))
-# val_labels(ru$age)
-# Levels(as_factor(ru$millionaire, levels = "values"))
-# Levels(as_factor(ru$group_defended))
-# Levels(e$group_defended)
-# decrit(e$millionaire, numbers = T)
-# ru$gender <- as.character(as_factor(ru$gender))
-# ru$gender[grepl("Женщина", ru$gender)] <- "Woman"
-# ru$income_original <- ru$income
-# 
-# ru$age_exact <- sub(" to ", "-", ru$age_exact)
-# for (v in c(variables_home, variables_why_hic_help_lic)) ru[[v]] <- ru[[v]] != "0"
-# for (v in c(variables_well_being, "hh_size", "Nb_children__14")) ru[[v]] <- as.numeric(ru[[v]])
-# [13] "gender"                                                "age"                                                   "foreign"                                              
-# [16] "couple"                                                "hh_size"                                               "Nb_children__14"                                      
-# [19] "income"                                                "education"                                             "employment_status"                                    
-# [22] "zipcode"                                               "home_tenant"                                           "home_owner"                                           
-# [25] "home_landlord"                                         "home_hosted"                                           "millionaire"                                          
-# [28] "concerns_field"                                        "wish_field"                                            "issue_field"                                          
-# [31] "injustice_field"                                       "revenue_split"                                         "ncs_support_unused"                                   
-# [34] "gcs_support"                                           "gcs_belief_own"                                        "ics_mid_support"                                      
-# [37] "ics_low_support"                                       "ics_high_color_support"                                "ics_high_support"                                     
-# [40] "likely_solidarity_treated"                             "solidarity_support_expanding_security_council_control" "solidarity_support_billionaire_tax_treated"           
-# [43] "solidarity_support_corporate_tax_treated"              "solidarity_support_foreign_aid_treated"                "solidarity_support_debt_relief_treated"               
-# [46] "solidarity_support_bridgetown_treated"                 "solidarity_support_aviation_levy_treated"              "solidarity_support_loss_damage_treated"               
-# [49] "solidarity_support_ncqg_300bn_treated"                 "solidarity_support_shipping_levy_treated"              "likely_solidarity_control"                            
-# [52] "solidarity_support_billionaire_tax_control"            "solidarity_support_corporate_tax_control"              "solidarity_support_foreign_aid_control"               
-# [55] "solidarity_support_debt_relief_control"                "solidarity_support_bridgetown_control"                 "solidarity_support_loss_damage_control"               
-# [58] "solidarity_support_ncqg_300bn_control"                 "solidarity_support_shipping_levy_control"              "solidarity_support_aviation_levy_control"             
-# [61] "global_tax_support"                                    "hic_tax_support"                                       "intl_tax_support"                                     
-# [64] "sustainable_future_a"                                  "sustainable_future_b"                                  "top1_tax_support"                                     
-# [67] "top3_tax_support"                                      "attention_test"                                        "transfer_how_agencies"                                
-# [70] "transfer_how_govt_conditional"                         "transfer_how_govt_unconditional"                       "transfer_how_local_authorities"                       
-# [73] "transfer_how_ngo"                                      "transfer_how_social_protection"                        "transfer_how_cash_unconditional"                      
-# [76] "convergence_support"                                   "global_movement"                                       "why_hic_help_lic_responsibility"                      
-# [79] "why_hic_help_lic_interest"                             "why_hic_help_lic_duty"                                 "why_hic_help_lic_none"                                
-# [82] "well_being_gallup_1"                                   "well_being_gallup_0"                                   "well_being_wvs_1"                                     
-# [85] "well_being_wvs_0"                                      "gcs_comprehension"                                     "my_tax_global_nation"                                 
-# [88] "group_defended"                                        "comment_field"     
-

@@ -180,6 +180,7 @@ package("quanteda") # stopwords for wordcloud
 #' package("modelsummary")
 package("dplR") # latexify, used in table_mean_lines_save hence in desc_table
 package("tm") # must be loaded before memisc; used for wordcloud
+package("wordcloud")
 package("wordcloud2")
 package("xfun") # required by Hmisc, knitr
 package("Hmisc") # describe, decrit
@@ -222,7 +223,6 @@ package("googlesheets4") # read/write google sheets
 #' # package("textclean")
 #' # package("tm")
 #' # package("SnowballC")
-#' # package("wordcloud")
 #' # c("quanteda","forcats", "tidytext", "haven", "dplyr", "topicmodels", "textclean", "tm" , "SnowballC", "wordcloud", "quanteda",
 #' #   "lmtest", "sandwich","ggplot2", "stargazer", "DBI", "readstata13", "haven", "dplyr", "xlsx", "textstem", "readxl",  "stringr", "ggrepel")
 #' # install_github("rstudio/webshot2")

@@ -283,7 +283,7 @@ heatmaps_defs <- list(
   "custom_redistr_all" = list(vars = c(variables_custom_redistr_all, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
   "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1100, height = 700),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1100, height = 500),
-  # "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
+  "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
   "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1100, height = 350),
   "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1100, height = 400), # TODO
   "well_being" = list(vars = variables_well_being, conditions = "", width = 1000, height = 300),
@@ -300,6 +300,7 @@ heatmaps_defs <- list(
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
   "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
+
 
 ##### vars_heatmaps #####
 vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparations_support") 
@@ -381,13 +382,13 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs[c("solidarity_support", "solidarity_support_climate")])
+heatmap_multiple(heatmaps_defs)
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
-barres_multiple(barresN_defs["share_solidarity_supported"])
-barres_multiple(barres_defs["share_solidarity_supported"])
-barres_multiple(barresN_defs_nolabel["share_solidarity_supported"], nolabel = T)
-barres_multiple(barres_defs_nolabel["share_solidarity_supported"], nolabel = T)
+# barres_multiple(barresN_defs["share_solidarity_supported"])
+# barres_multiple(barres_defs["share_solidarity_supported"])
+# barres_multiple(barresN_defs_nolabel["share_solidarity_supported"], nolabel = T)
+# barres_multiple(barres_defs_nolabel["share_solidarity_supported"], nolabel = T)
 # barres_multiple(barres_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barres_defs["convergence_support"]) # 1200 x 130
 # barres_multiple(barres_defs["gcs_comprehension"]) # 800 x 130
@@ -405,9 +406,9 @@ barres_multiple(barres_defs_nolabel["share_solidarity_supported"], nolabel = T)
 # barres_multiple(barresN_defs["donation_agg"]) # 900 x 130
 # barres_multiple(barresN_defs["foreign_born_family"]) # 900 x 130
 
-heatmap_multiple(heatmaps_defs["sustainable_futures"]) # 1030 x 310
-heatmap_multiple(heatmaps_defs["top_tax"]) # 1450 x 270
-heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
+# heatmap_multiple(heatmaps_defs["sustainable_futures"]) # 1030 x 310
+# heatmap_multiple(heatmaps_defs["top_tax"]) # 1450 x 270
+# heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
 
 
 ##### Plot #####
@@ -419,31 +420,31 @@ heatmap_multiple(heatmaps_defs["radical_redistr_all"]) # 1420 x 650
 # barres_multiple(barres_defs["split_few"])
 
 # heatmap_multiple(heatmaps_defs["var"])
-heatmap_multiple(heatmaps_defs["solidarity_support"])
-heatmap_multiple(heatmaps_defs["gcs_ics_all"])
-heatmap_multiple(heatmaps_defs["gcs_belief"]) 
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all", "ncs_gcs_ics_all_control")])
-heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
-heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
+# heatmap_multiple(heatmaps_defs["solidarity_support"])
+# heatmap_multiple(heatmaps_defs["gcs_ics_all"])
+# heatmap_multiple(heatmaps_defs["gcs_belief"]) 
+# heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "ncs_gcs_ics_all", "ncs_gcs_ics_all_control")])
+# heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")], levels = levels_merge_EU)
+# heatmap_multiple(heatmaps_defs[c("gcs_ics_all", "solidarity_support")])
 
 
 ##### Maritime #####
-mean_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
-for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) mean_maritime_split[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight)
-barres(mean_maritime_split/100, save = T, file = "../figures/country_comparison/mean_maritime_split", export_xls = T, 
-       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
-
-median_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
-for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) median_maritime_split[v, c] <- wtd.median(d(c)[[v]], d(c)$weight, na.rm = T)
-barres(median_maritime_split/100, save = T, file = "../figures/country_comparison/median_maritime_split", export_xls = T, 
-       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
-barres(as.matrix(median_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
-       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
-       labels = c("Median preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
-
-barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/mean_maritime_split", export_xls = T, 
-       miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
-       labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
+# mean_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
+# for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) mean_maritime_split[v, c] <- wtd.mean(d(c)[[v]], d(c)$weight)
+# barres(mean_maritime_split/100, save = T, file = "../figures/country_comparison/mean_maritime_split", export_xls = T, 
+#        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
+# 
+# median_maritime_split <- array(NA, dim = c(3, 4), dimnames = list(variables_maritime_split, paste0(pilot_countries_all, "p")))
+# for (c in paste0(pilot_countries_all, "p")) for (v in variables_maritime_split) median_maritime_split[v, c] <- wtd.median(d(c)[[v]], d(c)$weight, na.rm = T)
+# barres(median_maritime_split/100, save = T, file = "../figures/country_comparison/median_maritime_split", export_xls = T, 
+#        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies", "LDCs"), labels = rev(c(countries_names, "All")))
+# barres(as.matrix(median_maritime_split[,4])/100, save = T, file = "../figures/all/median_maritime_split", export_xls = T, 
+#        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
+#        labels = c("Median preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
+# 
+# barres(as.matrix(mean_maritime_split[,4])/100, save = T, file = "../figures/all/mean_maritime_split", export_xls = T, 
+#        miss = F, rev_color = T, sort = F, legend = c("Decarbonized fuels & ships", "Shipping companies to reduce prices", "Sust. transition in LDCs"), 
+#        labels = c("Mean preferred allocation for\nglobal maritime levy revenue\n(3,018 respondents from Poland, UK & U.S.)"))
 
 
 ##### Split #####
@@ -484,7 +485,8 @@ plot((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["al
 lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
 lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 3, col = "purple")
 lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("approx_mean"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 4, col = "black")
-grid() + legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
+grid()
+legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
 save_plot(filename = "tax_radical_redistr_non_log", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
 
 plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2), marginal = T), type = 'l', lwd = 2, ylim = c(0, .4), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
@@ -520,10 +522,10 @@ lines(0:1000, thousandile_survey_disposable_inc, type = 'l', lwd = 2, col = "blu
 
 ##### Presentation #####
 # Field
-heatmap_multiple(heatmaps_defs["field_gpt"]) # 
-heatmap_multiple(heatmaps_defs["field_manual"]) # 
-heatmap_multiple(heatmaps_defs["field_keyword"]) # 
-heatmap_multiple(heatmaps_defs["field_keyword_main"]) # 
+# heatmap_multiple(heatmaps_defs["field_gpt"]) # 
+# heatmap_multiple(heatmaps_defs["field_manual"]) # 
+# heatmap_multiple(heatmaps_defs["field_keyword"]) # 
+# heatmap_multiple(heatmaps_defs["field_keyword_main"]) # 
 
 heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "issue",], name = "field_issue_manual")
 heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == "wish",], name = "field_wish_manual")
@@ -540,32 +542,32 @@ heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "wi
 heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "concerns",], name = "field_concerns_gpt")
 heatmap_multiple(heatmaps_defs["field_gpt"], data = all[all$variant_field == "injustice",], name = "field_injustice_gpt")
 
-# Revenue split
-barres_multiple(barres_defs["split_few"]) # 670 x 330 
-barres_multiple(barres_defs["split_many"]) # 860 x 600
-
-# Warm glow -- moral substitute
-
-# International Climate Scheme
-heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")]) # 1700 x 650
-
-# Realistic global policies
-heatmap_multiple(heatmaps_defs[c("solidarity_support")]) # 1480 x 790
-
-# Warm glow -- realism
-
-# International wealth tax
-heatmap_multiple(heatmaps_defs[c("wealth_tax_support")]) # 1370 x 320
-
-# NCQG
-barres_multiple(barresN_defs[c("ncqg", "ncqg_full")]) # 850 x 610
-
-# Preferred means of transfers
-heatmap_multiple(heatmaps_defs[c("transfer_how")]) # 1240 x 520
-
-# Radical redistribution
-heatmap_multiple(heatmaps_defs[c("radical_redistr")]) 
-heatmap_multiple(heatmaps_defs[c("radical_redistr_few")]) # 1550 x 450
+# # Revenue split
+# barres_multiple(barres_defs["split_few"]) # 670 x 330 
+# barres_multiple(barres_defs["split_many"]) # 860 x 600
+# 
+# # Warm glow -- moral substitute
+# 
+# # International Climate Scheme
+# heatmap_multiple(heatmaps_defs[c("ncs_gcs_ics_all")]) # 1700 x 650
+# 
+# # Realistic global policies
+# heatmap_multiple(heatmaps_defs[c("solidarity_support")]) # 1480 x 790
+# 
+# # Warm glow -- realism
+# 
+# # International wealth tax
+# heatmap_multiple(heatmaps_defs[c("wealth_tax_support")]) # 1370 x 320
+# 
+# # NCQG
+# barres_multiple(barresN_defs[c("ncqg", "ncqg_full")]) # 850 x 610
+# 
+# # Preferred means of transfers
+# heatmap_multiple(heatmaps_defs[c("transfer_how")]) # 1240 x 520
+# 
+# # Radical redistribution
+# heatmap_multiple(heatmaps_defs[c("radical_redistr")]) 
+# heatmap_multiple(heatmaps_defs[c("radical_redistr_few")]) # 1550 x 450
 
 global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
 global_nation <- global_nation/(global_nation+heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1"))
@@ -619,15 +621,15 @@ cor(stostad0_billionaire_tax_absolute[countries], stostad1_billionaire_tax_absol
 cor(sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad1_billionaire_tax_absolute[countries[-c(7,9,10)]]) # .86
 cor(stostad0_billionaire_tax_absolute[countries[-c(7,9,10)]], sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight))) # .83
 
-# barres_multiple(barresN_defs[c("group_defended")]) 
-# barres_multiple(barres_defs[c("group_defended")]) 
-heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
-heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")]) # 1200 x 380
-heatmap_multiple(heatmaps_defs[c("sustainable_future")]) # 1100 x 300
-# barres_multiple(barres_defs[c("vote_intl_coalition")]) # 800 x 500
-
-# Custom redistribution
-heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
+# # barres_multiple(barresN_defs[c("group_defended")]) 
+# # barres_multiple(barres_defs[c("group_defended")]) 
+# heatmap_multiple(heatmaps_defs[c("global_movement")]) # 1080 x 410
+# heatmap_multiple(heatmaps_defs[c("why_hic_help_lic")]) # 1200 x 380
+# heatmap_multiple(heatmaps_defs[c("sustainable_future")]) # 1100 x 300
+# # barres_multiple(barres_defs[c("vote_intl_coalition")]) # 800 x 500
+# 
+# # Custom redistribution
+# heatmap_multiple(heatmaps_defs[c("custom_redistr_all")])
 
 # Conjoint analysis
 
@@ -813,10 +815,17 @@ for (v in names(mean_custom_redistr)) {
 }
 
 
-## Representativeness
-representativeness_table(countries[1:5])
-representativeness_table(countries[c(6:8, 10:11)], omit = c("Not 25-64", "Gender_nationality")) # TODO! nationality for SA; all; EU
+# ## Representativeness
+representativeness_table(c("All", "Eu", "EU"))
+# representativeness_table(c("Eu", countries[1:3]))
+representativeness_table(countries[1:3])
+representativeness_table(countries[4:7])
+representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO vote; employment
+representativeness_table(countries[8:11], omit = c("Not 25-64"))
 
+# Prez:
+representativeness_table(countries[1:6])
+representativeness_table(countries[7:11], omit = c("Not 25-64"))
 
 ## Determinants
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
@@ -928,8 +937,8 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_weight_vote", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370, 
-           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_weight_vote", covariates = "variant_warm_glow", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_weight_vote", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
            weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_weight_vote", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
@@ -961,16 +970,16 @@ heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_exten
 # plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_pol", vars = variables_ncs_gcs_ics, levels_along = levels_pol, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T)
 # 
 # plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_pol, save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T)
-
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
-           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
-           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
-
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & all$country != "SA",], width = 400, height = 370,
-           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0")
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370,
-           weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels.pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# TODO!
+# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weigh", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# 
+# plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0")
+# plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[!all$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels.pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol", levels = levels_pol)
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol", levels = levels_pol)
@@ -1054,7 +1063,7 @@ stargazer(sustainable_future_variant, transfer_how_cash_unconditional_order, why
           title = "Effect on answers of the random order of response items.") 
 
 
-  ##### Rename cropped files #####
+##### Rename cropped files #####
 for (folder in c("../figures/country_comparison/cropped", "../figures/all/cropped")) { # "C:/Users/fabre/Downloads") { # 
   for (file in list.files(folder)) file.rename(file.path(folder, file), file.path(folder, sub(" \\(cropped\\) \\(pdfresizer\\.com\\)", "", file)))
 }
