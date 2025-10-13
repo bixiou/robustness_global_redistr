@@ -2610,6 +2610,7 @@ regressions_list <- function(outcomes, covariates, subsamples = NULL, df = e, lo
   # TODO! handle outcomes of type "future_richness" (so that they are understood as as.numeric(future_richness))
   # TODO! handle along of type "income" (so that they are understood as as.factor(income)) => this can be done using , names_levels = paste0("as.factor(income)", c("Q1", "Q2", "Q3", "Q4"))
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
+  if (is.null(names(levels_subsamples)) && !is.null(levels_subsamples)) levels_subsamples <- setNames(levels_subsamples, levels_subsamples)
   if (length(logit)==1) logit <- if (is.null(subsamples)) rep(logit, length(outcomes)) else rep(logit, length(outcomes)*max(1, length(levels_subsamples)))
   regs <- list()
   i <- 0
@@ -2770,6 +2771,7 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
                     labels_along = levels_along, names_levels = paste0(along, levels_along), levels_subsamples = NULL,
                     levels_along = Levels(df[[along]], logT=T), heterogeneity_condition = "", order_y = NULL, order_along = NULL, print_regs = F) {
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
+  if (is.null(names(levels_subsamples)) && !is.null(levels_subsamples)) levels_subsamples <- setNames(levels_subsamples, levels_subsamples)
   if (class(labels_along) == "list") labels_along <- names(levels_along)
   if (class(labels_along) == "list" && names_levels == paste0(along, labels_along)) names_levels <- paste0(along, labels_along)
   z <- qnorm(1-(1-confidence)/2)
@@ -2802,7 +2804,7 @@ mean_ci <- function(along, outcome_vars = outcomes, outcomes = paste0(outcome_va
     mean_ci <- data.frame()
     for (configuration in configurations) {
       i <- i + 1 #!
-      dfs <- if (class(levels_along) == "list") lapply(levels_along, function(k) df[df[[along]] %in% k,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
+      dfs <- if (class(levels_along) == "list") lapply(levels_along, function(k) df[df[[along]] %in% k,]) else if (class(levels_along) == "character" & exists("special_levels") && all(levels_along %in% names(special_levels))) lapply(special_levels[levels_along], function(k) df[df[[k$var]] %in% k$value,]) else split(df, eval(str2expression(paste0("df[[along]]", heterogeneity_condition))))
       if (weight_non_na) for (j in seq_along(dfs)) if ("country" %in% names(df) && length(unique(dfs[[j]]$country)) == 1 && exists("countries") && unique(dfs[[j]]$country) %in% countries && (sum(is.na(dfs[[j]][[outcomes[i]]])) > .1*nrow(dfs[[j]]))) {
         dfs[[j]]$weight[!is.na(dfs[[j]][[outcomes[i]]])] <- weighting(dfs[[j]][!is.na(dfs[[j]][[outcomes[i]]]),], unique(dfs[[j]]$country), printWeights = F, variant = if (weight == 'weight') NULL else sub("weight_", "", weight)) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
       }
@@ -2844,6 +2846,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   # TODO: automatic values when missing(legend_x), legend_y
   # TODO! make invert_y_along work for regressions/covariates
   if (is.null(levels_subsamples) && !is.null(subsamples)) levels_subsamples <- Levels(df[[subsamples]])
+  if (is.null(names(levels_subsamples)) && !is.null(levels_subsamples)) levels_subsamples <- setNames(levels_subsamples, levels_subsamples)
   if (missing(name) & !missing(vars) & !missing(along)) {
     if (any(grepl('["\']', deparse(substitute(vars))))) {
       name <- ifelse(invert_y_along, paste0(along, "_by_", vars[1]), paste0(vars[1], "_by_", along))
@@ -2880,7 +2883,7 @@ plot_along <- function(along, mean_ci = NULL, vars = outcomes, outcomes = paste0
   if (plot_origin_line) {
     origins <- mean_ci$mean[mean_ci$along %in% levels_along[[1]]]
     if (sum(mean_ci$along == names_levels[[1]]) == length(origins)) names(origins) <- mean_ci$y[mean_ci$along == names_levels[[1]]]
-    if ((class(levels_along) == "list" || !levels_along[1] %in% mean_ci$along) & is.numeric(origin)) origins <- origin
+    if ((class(levels_along) == "list" || !levels_along[1] %in% mean_ci$along || (exists("special_levels") & any(mean_ci$along %in% names(special_levels)))) & is.numeric(origin)) origins <- origin
   } else origins <- c()
   if (to_percent) mean_ci[,c("mean", "CI_low", "CI_high")] <- 100*mean_ci[,c("mean", "CI_low", "CI_high")]
   if (color_RdBu) colors <- sub("#F7F7F7", "#FFED6F", color(length(Levels(df[[along]])), rev_color = T)) # , grey_replaces_last = T, grey = T

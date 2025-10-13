@@ -21,7 +21,7 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
                        "Saudi citizens" = list("var" = "saudi", "value" = T), "Millionaires" = list("var" = "millionaire_agg", "value" = "Already"),
                        "U.S. Harris" = list("var" = "vote_voters", "value" = "Harris"), "U.S. Trump" = list("var" = "vote_voters", "value" = "Trump"), "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"),
                        "Europe Left" = list("var" = "vote_Eu", "value" = "Left"), "Europe Center/Right" = list("var" = "vote_Eu", "value" = "Center-right or Right"), "Europe Far right" = list("var" = "vote_Eu", "value" = "Far right"), "Europe Non-voters" = list("var" = "vote_Eu", "value" = "Non-voter, PNR or Other"),
-                       "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1))
+                       "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1), "Saudi Arabia" = list("var" = "country", "value" = "SA"))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
 levels_plain <- c("All", "Europe", countries_names)
 # levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)
@@ -1114,15 +1114,15 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   }
   if (country %in% names(countries_Eu)) {
     e$vote_Eu <- e$vote 
-    label(e$vote_Eu) <- "vote_Eu: vote (incl. hypothetical) if European else NA."
+    annotation(e$vote_Eu) <- "vote_Eu: vote (incl. hypothetical) if European else NA."
     e$vote_agg_Eu <- e$vote_agg
-    label(e$vote_agg_Eu) <- "vote_agg_Eu: vote_agg (Non-voter as such) if European else NA."
+    annotation(e$vote_agg_Eu) <- "vote_agg_Eu: vote_agg (Non-voter as such) if European else NA."
   }
   if (country %in% "JP") {
     e$vote_JP <- e$vote
-    label(e$vote_JP) <- "vote_JP: vote (incl. hypothetical) if JP else NA."
+    annotation(e$vote_JP) <- "vote_JP: vote (incl. hypothetical) if JP else NA."
     e$vote_agg_JP <- e$vote_agg
-    label(e$vote_agg_JP) <- "vote_agg_JP: vote_agg (Non-voter as such) if JP else NA."
+    annotation(e$vote_agg_JP) <- "vote_agg_JP: vote_agg (Non-voter as such) if JP else NA."
   }
   
   # Other variables
