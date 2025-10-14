@@ -183,6 +183,8 @@ labels_vars <- c(
   "custom_redistr_degree" = "Preferred degree of redistribution",
   "custom_redistr_income_min" = "Implied minimum income (in $/year)",
   "custom_redistr_transfer" = "Implied transfer (in % of world income)",
+  "custom_redistr_income_min_ceiling" = "Minimum income implied by the custom redistribution (in $/month)",
+  "custom_redistr_transfer_ceiling" = "Transfer implied by the custom redistribution (in % of world income)",
   "custom_redistr_untouched" = "Has not touched the sliders",
   "custom_redistr_satisfied_touched" = "Touched sliders and satisfied",
   "well_being_gallup_0" = "Well-being: Gallup, 0-10 scale",
@@ -334,7 +336,9 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "solidarity_support_billionaire_tax" = list(vars = "solidarity_support_billionaire_tax", width = 1000, height = 550),
   # "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 820, height = 500, add_means = T, show_legend_means = T), 
-  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 820, height = 500, add_means = T, show_legend_means = T)
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 820, height = 500, add_means = T, show_legend_means = T),
+  "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 700),
+  "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 850)
 )
 
 vars_barres <- c() # 
@@ -371,7 +375,9 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "survey_biased" = list(vars = "survey_biased", width = 650),
   "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 1450, add_means = T, show_legend_means = T),
-  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T)
+  "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T),
+  "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 700),
+  "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 850)
 )
 barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
 barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
@@ -805,16 +811,6 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
           title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
 
 
-## Export custom_redistr
-mean_custom_redistr_stats <- list()
-for (v in names(mean_custom_redistr)) { 
-  write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
-  share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
-  if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
-  else warning(paste("Problem in mean_custom_redistr for ", v))
-}
-
-
 # ## Representativeness
 representativeness_table(c("All", "Eu", "EU"))
 # representativeness_table(c("Eu", countries[1:3]))
@@ -855,7 +851,11 @@ desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redis
                             c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
            filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
-
+## Custom redistr
+wtd.median(all$custom_redistr_transfer, weight = all$weight * all$custom_redistr_satisfied_touched, na.rm = T) # 3.9% world GDP
+# barres_multiple(barres_defs[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,])
+# barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,], nolabel = T)
+# TODO!
 
 ##### Conjoint on consistent programs #####
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 

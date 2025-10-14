@@ -905,6 +905,11 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
                                            "   income_threshold_winners:", income_threshold_winners, "   sum(current[1:winners]): ", sum(current[1:winners])))
     }
   }
+  df$custom_redistr_transfer_ceiling <- ceiling(df$custom_redistr_transfer)
+  df <- create_item(var = "custom_redistr_transfer_ceiling", df = df, values = list(0, 1, 2:3, 4:5, 6:10, 10:100), labels = c("0" = 0, "0% to 2%" = 1, "2% to 4%" = 3, "4% to 5%" = 4.5, "5% to 10%" = 7.5, "More than 10%" = 17), annotation = "custom_redistr_transfer_ceiling: 0/0-2/2-4/4-5/5-10/>5 Transfer (in % of world income) implied by the custom redistribution.")
+  df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min/12)
+  df <- create_item(var = "custom_redistr_income_min_ceiling", df = df, values = list(0:50, 51:150, 151:250, 251:350, 351:451, 451:2000), labels = c("$0 to $50" = 25, "$50 to $150" = 100, "$150 to $250" = 200, "$250 to $350" = 300, "$350 to $450" = 400, "More than $450" = 600), annotation = "custom_redistr_income_min_ceiling: 0-50/50-150/150-250/250-350/350-450/>450 Transfer (in $/month) implied by the custom redistribution.")
+  
   df$custom_redistr_untouched <- df$custom_redistr_degree %in% c(2.1, 7.1)
   label(df$custom_redistr_untouched) <- "custom_redistr_untouched: T/F. Respondent hasn't touched the slider custom_redistr_degree."
   df$custom_redistr_satisfied_touched <- df$custom_redistr_satisfied & !df$custom_redistr_untouched
@@ -1839,6 +1844,16 @@ a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 a$weight <- 1
 beep()
 Sys.time() - start_time # 10 min
+
+
+##### Export custom redistr #####
+mean_custom_redistr_stats <- list()
+for (v in names(mean_custom_redistr)) { 
+  write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
+  share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
+  if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
+  else warning(paste("Problem in mean_custom_redistr for ", v))
+}
 
 
 ##### Lottery draw #####
