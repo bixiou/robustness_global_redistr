@@ -55,6 +55,10 @@ policies_leaning_strict[c("foreign_policy1", "foreign_policy2"),] <- c(0, 2)
 # for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
 thousandile_world_disposable_inc <- as.numeric(read.csv2("../data_ext/world_disposable_inc.csv", header = FALSE)[2:1001, 2]) # created in questionnaire.R
 current <- c(0, thousandile_world_disposable_inc)
+temp <- read.xlsx("../data_ext/gdp.xlsx", sheet = "Data", rowNames = T)
+gdp_pc_ppp_2024 <- setNames(temp$gdp_pc_ppp_2024, rownames(temp))
+gdp_pc_nominal_2024 <- setNames(temp$gdp_pc_nominal_2024, rownames(temp))
+gini_2019 <- setNames(temp$gini_2019, rownames(temp))
 mean_custom_redistr <- list()
 my_taxes_global_nation <- setNames(c(33, 37, 61, 40, 55, 44, NA, 53, NA, 58, 41), countries)/100 # 2024
 my_taxes_global_nation_2023 <- setNames(c(43, 65, 76, 58, 60, 52, NA, 76, NA, NA, 44), countries)/100
@@ -1037,6 +1041,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if ("income_exact" %in% names(e)) {
     e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]] / e$uc
     label(e$income_exact_individualized) <- "income_exact_individualized: Individualized income (income_exact/uc, except for US, RU: household income_exact) (LCU/year)."
+    e$income_exact_equal_split <- e$income_exact / (1 + (e$couple > 0))
+    label(e$income_exact_equal_split) <- "income_exact_equal_split: Equal-split income (income_exact/(1+couple)) (LCU per country-specific periodicity)."
+    e$income_exact_affected_top_tax <- e$income_exact_equal_split > as.numeric(gsub("[^0-9]*", "", features[ifelse(e$variant_top_tax == "top3", "lcu_80k", "lcu_120k"), languages_country[[country]][1]]))
+    label(e$income_exact_affected_top_tax) <- "income_exact_affected_top_tax: T/F Respondent's household is affected by the global income top_tax (i.e. their income_exact_equal_split > $80k or $120k depending on variant_top_tax)."
+    e$income_exact_equal_split_dollar <- ifelse(e$variant_top_tax == "top3", 8e4, 12e4) * e$income_exact_equal_split / as.numeric(gsub("[^0-9]*", "", features[ifelse(e$variant_top_tax == "top3", "lcu_80k", "lcu_120k"), languages_country[[country]][1]]))
+    label(e$income_exact_equal_split_dollar) <- "income_exact_equal_split_dollar: T/F Equal-split income (income_exact/(1+couple)) ($/year)."
     if (country %in% c("RU", "US")) e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]]
     e$income_exact_decile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(1,2,4:8,10,11), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
     e$income_exact_quartile <- 1+rowSums(e$income_exact_individualized > matrix(rep(t(income_deciles[c(3,6,9), languages_country[[country]][1]]), nrow(e)), nrow = nrow(e), byrow = T))
@@ -1828,7 +1838,6 @@ list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
 
 e <- all
-beep()
 Sys.time() - start_time # 6 min
 
 all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
@@ -1847,11 +1856,11 @@ Sys.time() - start_time # 10 min
 
 
 ##### Export custom redistr #####
-mean_custom_redistr_stats <- list()
+mean_custom_redistr_stats <- ist()
 for (v in names(mean_custom_redistr)) { 
   write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
   share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
-  if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = round((share_winners-1)/10), "min_income" = mean_custom_redistr[[v]][1], "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000], 2))) 
+  if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = (share_winners-1)/10, "min_income" = round(mean_custom_redistr[[v]][1]), "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000]), 2)) 
   else warning(paste("Problem in mean_custom_redistr for ", v))
 }
 

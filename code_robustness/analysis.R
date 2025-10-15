@@ -118,6 +118,11 @@ with(e, cor(field_manual_global_issue, group_defended == "Humans", use = "comple
 with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) # .01
 with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
 
+cor(e$field_manual_money, gdp_pc_ppp_2024[e$country]) # .05***
+cor(e$field_manual_money, gdp_pc_nominal_2024[e$country], use = "complete.obs") # .05
+cor(e$field_manual_money, gini_2019[e$country], use = "complete.obs") # .07***
+summary(lm(e$field_manual_money ~ gdp_pc_ppp_2024[e$country]))
+
 
 ##### Revenue split #####
 # Average of 17 for global item, quite independent of number of global items => people seem to split more or less equally between presented choices.

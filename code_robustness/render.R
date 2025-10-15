@@ -376,8 +376,8 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 1450, add_means = T, show_legend_means = T),
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T),
-  "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 700),
-  "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 850)
+  "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 1500),
+  "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 1200)
 )
 barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
 barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
@@ -656,7 +656,7 @@ for (c in colnames(vote_by_country)[-1]) for (i in row.names(vote_by_country)) t
 true_vote_by_country[,"EU"] <- c(c(.2597, .368, .3264)*(1 - .4926)/sum(c(.2597, .368, .3264)), .4926) # Allocating Non-attached MEPs to groups in proportion to group sizes
 colnames(vote_by_country) <- colnames(vote_by_country_pnr_out) <- paste0(colnames(vote_by_country), ": Weighted sample")
 colnames(true_vote_by_country) <- paste0(colnames(true_vote_by_country), ": Election results")
-vote_data <- cbind(vote_by_country, true_vote_by_country)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
+vote_data <- cbind(vote_by_country, true_vote_by_country)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19,10,20)]
 vote_EU <- cbind(vote_by_country[,2:6], true_vote_by_country[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU <- cbind(vote_by_country[,c(1,7:10)], true_vote_by_country[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
 barres(vote_EU, file="country_comparison/vote_EU", labels = colnames(vote_EU), legend = row.names(vote_EU), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 680, height = 430)
@@ -666,7 +666,7 @@ barres(vote_data, file="country_comparison/vote_representativeness",  labels = c
 true_vote_by_country_pnr_out <- sweep(true_vote_by_country, 2, (1 - true_vote_by_country[4,]), FUN = "/")
 vote_EU_pnr_out <- cbind(vote_by_country_pnr_out[,2:6], true_vote_by_country_pnr_out[,2:6])[,c(1,6,2,7,3,8,4,9,5,10)]
 vote_non_EU_pnr_out <- cbind(vote_by_country_pnr_out[,c(1,7:10)], true_vote_by_country_pnr_out[,c(1,7:10)])[,c(1,6,2,7,3,8,4,9,5,10)]
-vote_pnr_out <- cbind(vote_by_country_pnr_out, true_vote_by_country_pnr_out)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19)]
+vote_pnr_out <- cbind(vote_by_country_pnr_out, true_vote_by_country_pnr_out)[,c(1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19,10,20)]
 barres(vote_EU_pnr_out, file="country_comparison/vote_EU_pnr_out", labels = colnames(vote_EU_pnr_out), legend = row.names(vote_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1200, height = 430)
 barres(vote_non_EU_pnr_out, file="country_comparison/vote_non_EU_pnr_out",  labels = colnames(vote_non_EU_pnr_out),legend = row.names(vote_non_EU_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1300, height = 430)
 barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(vote_pnr_out), legend = row.names(vote_pnr_out), color=c("red", "lightblue", "darkblue", "grey"), rev_color = FALSE, nsp=F, sort=F, export_xls = F, thin=T, save = T, miss=T, rev=F, grouped = F, width = 1500, height = 680)
@@ -853,9 +853,9 @@ desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redis
 
 ## Custom redistr
 wtd.median(all$custom_redistr_transfer, weight = all$weight * all$custom_redistr_satisfied_touched, na.rm = T) # 3.9% world GDP
-# barres_multiple(barres_defs[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,])
-# barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,], nolabel = T)
-# TODO!
+barres_multiple(barres_defs[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,])
+barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,], nolabel = T)
+head(all$custom_redistr_income_min_ceiling)
 
 ##### Conjoint on consistent programs #####
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
