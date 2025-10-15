@@ -180,8 +180,9 @@ labels_vars <- c(
   "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
   "custom_redistr_winners" = "Preferred share of winners",
   "custom_redistr_losers" = "Preferred share of losers",
+  "custom_redistr_self_lose" = "Loses in own custom redistribution",
   "custom_redistr_degree" = "Preferred degree of redistribution",
-  "custom_redistr_income_min" = "Implied minimum income (in $/year)",
+  "custom_redistr_income_min" = "Implied minimum income (in PPP $/month)",
   "custom_redistr_transfer" = "Implied transfer (in % of world income)",
   "custom_redistr_income_min_ceiling" = "Minimum income implied by the custom redistribution (in $/month)",
   "custom_redistr_transfer_ceiling" = "Transfer implied by the custom redistribution (in % of world income)",
@@ -282,7 +283,9 @@ heatmaps_defs <- list(
   "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
-  "custom_redistr_all" = list(vars = c(variables_custom_redistr_all, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
+  "custom_redistr_all" = list(vars = c(variables_custom_redistr_most, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
+  "custom_redistr_most" = list(vars = variables_custom_redistr_most, conditions = "", width = 1200, height = 510),
+  "custom_redistr_satisfied" = list(vars = variables_custom_redistr_most[1:5], conditions = c("", "median"), width = 1200, height = 350),
   "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1100, height = 700),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1100, height = 500),
   "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
@@ -846,16 +849,19 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 
 desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_self_lose", "custom_redistr_self_lose", "custom_redistr_satisfied", "custom_redistr_untouched", "custom_redistr_satisfied_touched"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Custom transfer\\\\(in \\% of world GDP)}", "\\makecell{Loses\\\\from custom\\\\redistribution}", "\\makecell{Satisfied with\\\\own custom\\\\redistr.}", "\\makecell{Has not\\\\touched the\\\\sliders}", "\\makecell{Touched the\\\\sliders and\\\\satisfied}"),
-           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied,], all[all$custom_redistr_satisfied_touched,], all, all[all$custom_redistr_satisfied_touched,], all, all, all), 
+           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied > 0,], all[all$custom_redistr_satisfied_touched,], all, all[all$custom_redistr_satisfied_touched,], all, all, all), 
            add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")),
                             c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
            filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
 ## Custom redistr
 wtd.median(all$custom_redistr_transfer, weight = all$weight * all$custom_redistr_satisfied_touched, na.rm = T) # 3.9% world GDP
-barres_multiple(barres_defs[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,])
-barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied,], nolabel = T)
+barres_multiple(barres_defs[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied > 0,])
+barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied > 0,], nolabel = T)
 head(all$custom_redistr_income_min_ceiling)
+heatmap_multiple(heatmaps_defs[c("custom_redistr_all", "custom_redistr_most")])
+heatmap_multiple(heatmaps_defs[c("custom_redistr_satisfied")], data = all[all$custom_redistr_satisfied > 0,])
+
 
 ##### Conjoint on consistent programs #####
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 

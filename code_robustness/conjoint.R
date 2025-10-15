@@ -48,11 +48,11 @@ compute_conjoint <- function(df_names = countries[!countries %in% c("SA", "RU")]
   } 
 }
 
-compute_conjoint()
 compute_conjoint(subset = "consistent_conjoints")
 compute_conjoint(subset = "consistent_conjoints_strict")
 compute_conjoint(include_indifferent = FALSE)
 compute_conjoint(weights = NULL)
+compute_conjoint()
 
 
 # Share of partisan policies in the country pool:

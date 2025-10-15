@@ -124,6 +124,24 @@ cor(e$field_manual_money, gini_2019[e$country], use = "complete.obs") # .07***
 summary(lm(e$field_manual_money ~ gdp_pc_ppp_2024[e$country]))
 
 
+##### Conjoint #####
+effects_conjoint <- policies_leaning[-18,]
+for (c in countries[-c(9:10)]) for (v in row.names(effects_conjoint)) if (!is.na(policies_leaning[v,c])) effects_conjoint[v,c] <- amce[[languages_country[[c]][1]]]$estimates[[gsub("[_0-9]", "", v)]][1, paste0(gsub("[_0-9]", "", v), sub("_", "", v))]
+effects_conjoint > .05 #| effects_conjoint < 0
+sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T), na.rm = T))
+sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), na.rm = T))
+sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T), na.rm = T))
+sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] > .1, na.rm = T))
+sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < -.05, na.rm = T))
+# Policies of leaning 1 that are among least liked: climate policies in FR (Ensemble nuclear, RN remove ZFE), CH (PS ban thermal cars), IT (FdI grants for newborn)
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+decrit(unlist(policies_leaning_strict)) # (n=138) 0: 24%: 1: 54%; 2: 22% / 22 most liked: 0: 14%: 1: 82%; 2: 5% / 24 least liked: 0: 35% / 1: 15% / 2: 50%
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
+
+
 ##### Revenue split #####
 # Average of 17 for global item, quite independent of number of global items => people seem to split more or less equally between presented choices.
 # -> ask in open-ended field how should global tax revenues be spent / how they should be allocated between countries?
@@ -291,7 +309,7 @@ sapply(c("all", countries), function(c) round(mean(d(c)$reparations_support[!d(c
 
 
 ##### Custom redistr #####
-sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied, na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_satisfied > 0, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(mean(d(c)$custom_redistr_skip, na.rm = T), 3))
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_winners, na.rm = T), 3)) # 47
 sapply(c("all", countries[-9]), function(c) round(median(d(c)$custom_redistr_losers, na.rm = T), 3)) # 18
@@ -324,9 +342,9 @@ decrit("custom_redistr_unsatisfied_unskip", e)
 decrit("custom_redistr_both_satisfied_skip", e)
 decrit("custom_redistr_transfer", e)
 decrit("custom_redistr_self_gain", all)
-decrit("custom_redistr_self_gain", all[all$custom_redistr_satisfied,])
+decrit("custom_redistr_self_gain", all[all$custom_redistr_satisfied > 0,])
 decrit("custom_redistr_self_lose", all)
-decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied,])
+decrit("custom_redistr_self_lose", all[all$custom_redistr_satisfied > 0,])
 # mean winners = non-losers: 72% / mean transfer: 5.08% / mean demogrant: $243/month
 (max_winners <- min(which(mean_custom_redistr[["all"]] < current_inc))) # 725
 current_inc[max_winners] # 18k

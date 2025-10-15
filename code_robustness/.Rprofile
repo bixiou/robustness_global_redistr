@@ -1659,15 +1659,15 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
       # if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) {
       #   temp <- df_c
       #   df_c <- df_c[df_c$wave != "US2",] }
-      var_c <- df_c[[vars[v]]][!is.na(df_c[[vars[v]]])]
+      var_c <- as.numeric(df_c[[vars[v]]][!is.na(df_c[[vars[v]]])])
       if (weights && weight_non_na && !is.null(df_c) && exists("countries_names") && c %in% countries_names && sum(is.na(df_c[[vars[v]]])) > 0.1*nrow(df_c)) {
         df_c$weight[!is.na(df_c[[vars[v]]])] <- weighting(df_c[!is.na(df_c[[vars[v]]]),], names_countries[c], printWeights = F, variant = variant_weight) # weights defined on non-NA (e.g. in the variable is only defined for the control group, we use weights tailored to the control group)
       } # /!\ We do not redefine weights for special_levels (as it would require to pre-compute all possible weights and find the corresponding weight vector)
       if (conditions[v] == "median") {
         # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
         # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU)))) table[v,c] <- eval(str2expression(paste("wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
-        if (weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("wtd.median(var_c", conditions[v], ", na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])")))
-        if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("median(var_c", conditions[v], ", na.rm = T)")))
+        if (weights & length(var_c) > 0) table[v,c] <- wtd.median(var_c, na.rm = T, weight = df_c$weight[!is.na(df_c[[vars[v]]])])
+        if (!weights & length(var_c) > 0) table[v,c] <- median(var_c, na.rm = T)
       } else { # TODO Commented: use weight_country for EU (only useful if we use EU-specific weights instead of aggregating weights of EU countries like we do)
         # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
         # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))

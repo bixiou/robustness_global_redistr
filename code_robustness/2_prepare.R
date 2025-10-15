@@ -415,7 +415,7 @@ define_var_lists <- function() {
   variables_why_hic_help_lic <<- c("why_hic_help_lic_responsibility", "why_hic_help_lic_interest", "why_hic_help_lic_duty", "why_hic_help_lic_none")
   variables_custom_redistr <<- c("custom_redistr_satisfied", "custom_redistr_skip")
   variables_custom_redistr_param <<- c("custom_redistr_winners", "custom_redistr_losers", "custom_redistr_degree")
-  variables_custom_redistr_all <<- c(variables_custom_redistr_param, "custom_redistr_income_min", "custom_redistr_transfer", variables_custom_redistr)
+  variables_custom_redistr_most <<- c(variables_custom_redistr_param, "custom_redistr_income_min", "custom_redistr_transfer", "custom_redistr_self_lose", variables_custom_redistr)
   variables_variant <<- c("variant_split", "variant_warm_glow", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_ics", "variant_sliders", "variant_radical_transfer", 
                           "variant_synthetic", "variant_comprehension", "variant_belief", "variant_field", "variant_sliders", "variant_wealth_tax")
   # variables_variant_binary <<- c("variant_split", "variant_realism", "variant_ncqg_maritime", "variant_radical_redistr", "variant_sliders", "variant_radical_transfer", 
@@ -891,14 +891,14 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       # diff <- future - current
       # econ <- integral(diff, 0, winners - 1) + economizable(future, "right")
       
-      df$custom_redistr_income_min[k] <- future[1]
-      label(df$custom_redistr_income_min) <- "custom_redistr_income_min: Numerical. Minimum world income from custom redistribution ($/year)."
+      df$custom_redistr_income_min[k] <- future[1]/12
+      label(df$custom_redistr_income_min) <- "custom_redistr_income_min: Numerical. Minimum world income from custom redistribution ($/month)."
       df$custom_redistr_future_income[k] <- interpole_world_income(df$custom_redistr_current_income[k], current, future) 
       label(df$custom_redistr_future_income) <- "custom_redistr_future_income: Numerical. Future income of respondent (current: custom_redistr_current_income) after custom redistribution ($/year)."
       df$custom_redistr_self_gain[k] <- df$custom_redistr_future_income[k] > df$custom_redistr_current_income[k]
       label(df$custom_redistr_self_gain) <- "custom_redistr_self_gain: T/F. Respondent's income increases with custom redistribution."
-      df$custom_redistr_self_lose[k] <- df$custom_redistr_future_income[k] < df$custom_redistr_current_income[k]
-      label(df$custom_redistr_self_lose) <- "custom_redistr_self_lose: T/F. Respondent's income decreases with custom redistribution."
+      df$custom_redistr_self_lose[k] <- 100*(df$custom_redistr_future_income[k] < df$custom_redistr_current_income[k])
+      label(df$custom_redistr_self_lose) <- "custom_redistr_self_lose: 0/100. Respondent's income decreases with custom redistribution."
       df$custom_redistr_self_unaffected[k] <- df$custom_redistr_future_income[k] == df$custom_redistr_current_income[k]
       label(df$custom_redistr_self_unaffected) <- "custom_redistr_self_unaffected: T/F. Respondent's income unaffected with custom redistribution."
       df$custom_redistr_transfer[k] <- 100*sum(future[1:winners] - current[1:winners])/sum(current[1:1000]) 
@@ -911,13 +911,14 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
   }
   df$custom_redistr_transfer_ceiling <- ceiling(df$custom_redistr_transfer)
   df <- create_item(var = "custom_redistr_transfer_ceiling", df = df, values = list(0, 1, 2:3, 4:5, 6:10, 10:100), labels = c("0" = 0, "0% to 2%" = 1, "2% to 4%" = 3, "4% to 5%" = 4.5, "5% to 10%" = 7.5, "More than 10%" = 17), annotation = "custom_redistr_transfer_ceiling: 0/0-2/2-4/4-5/5-10/>5 Transfer (in % of world income) implied by the custom redistribution.")
-  df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min/12)
+  df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min/1)
   df <- create_item(var = "custom_redistr_income_min_ceiling", df = df, values = list(0:50, 51:150, 151:250, 251:350, 351:451, 451:2000), labels = c("$0 to $50" = 25, "$50 to $150" = 100, "$150 to $250" = 200, "$250 to $350" = 300, "$350 to $450" = 400, "More than $450" = 600), annotation = "custom_redistr_income_min_ceiling: 0-50/50-150/150-250/250-350/350-450/>450 Transfer (in $/month) implied by the custom redistribution.")
+  for (v in variables_custom_redistr) df[[v]] <- 100*(df[[v]] > 0)
   
-  df$custom_redistr_untouched <- df$custom_redistr_degree %in% c(2.1, 7.1)
-  label(df$custom_redistr_untouched) <- "custom_redistr_untouched: T/F. Respondent hasn't touched the slider custom_redistr_degree."
-  df$custom_redistr_satisfied_touched <- df$custom_redistr_satisfied & !df$custom_redistr_untouched
-  label(df$custom_redistr_satisfied_touched) <- "custom_redistr_satisfied_touched: T/F. Respondent touched the sliders and is satisfied with own custom redistr (!custom_redistr_untouched & custom_redistr_satisfied)."
+  df$custom_redistr_untouched[df$country != "RU"] <- 100*(df$custom_redistr_degree %in% c(2.1, 7.1))[df$country != "RU"]
+  label(df$custom_redistr_untouched) <- "custom_redistr_untouched: 0/100. Respondent hasn't touched the slider custom_redistr_degree."
+  df$custom_redistr_satisfied_touched <- 100*(df$custom_redistr_satisfied & !df$custom_redistr_untouched)
+  label(df$custom_redistr_satisfied_touched) <- "custom_redistr_satisfied_touched: 0/100. Respondent touched the sliders and is satisfied with own custom redistr (!custom_redistr_untouched & custom_redistr_satisfied)."
   mean_redistr <- colSums(futures * df$weight * df$custom_redistr_asked, na.rm = T)/sum(df$weight * df$custom_redistr_asked)
   if (!is.null(name) && exists("mean_custom_redistr")) {
     mean_custom_redistr[[name]] <<- mean_redistr
@@ -1031,6 +1032,15 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   #                            annotation="diploma_25_64: 0: Not 25-64 if age is not within 25-64 (missing value) / 1: Below upper secondary (ISCED 0-2) / 2: Upper secondary (ISCED 3) / 3: Post secondary (ISCED 4-8), recoded from education.")
   e <- create_item("education_quota", labels = c("Not 25-64" = 0, "Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = 0:3, missing.values = c(NA, 0), df = e, annotation = "education_quota: ifelse(age > 25 & age < 65, education, 0). Except in RU: education.")
   # e <- create_item("education_quota", labels = c("Below upper secondary" = 1, "Upper secondary" = 2, "Post secondary" = 3), values = c(1, 2, 3), df = e)
+  
+  if (pilot) {
+    e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
+    e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
+  }
+  e$top_tax_support <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
+  label(e$top_tax_support) <- "top_tax_support: -2-2. Supports an additional income tax on the top 1 or 3% (depending on variant_top_tax) to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
+  e$variant_top_tax <- ifelse(e$variant_radical_redistr == 0, "top1", "top3")
+  e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
   e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "201|300", "301", "401", "501", "601", "701|800", "801", "more", "not"), grep = T, missing.values = c("PNR"), df = e)  
@@ -1683,15 +1693,6 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   label(e$share_solidarity_opposed_no_info) <- "share_solidarity_opposed_no_info: Share of plausible global solidarity policies that aren't mentioned in the info treatment (there are 2: debt_relif, aviation_levy) (somewhat or strongly) opposed."
   for (v in variables_solidarity_support) if (!(country == "RU" & grepl("council", v))) e[[paste0(v, "_control")]] <- ifelse(e$info_solidarity, NA, e[[v]])
   
-  if (pilot) {
-    e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
-    e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
-  }
-  e$top_tax_support <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
-  label(e$top_tax_support) <- "top_tax_support: -2-2. Supports an additional income tax on the top 1 or 3% (depending on variant_top_tax) to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
-  e$variant_top_tax <- ifelse(e$variant_radical_redistr == 0, "top1", "top3")
-  e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
-  
   e$well_being <- e$variant_well_being <- NA
   for (v in variables_well_being) { 
     e$variant_well_being[!is.na(e[[v]])] <- sub("well_being_", "", v)
@@ -1841,7 +1842,7 @@ e <- all
 Sys.time() - start_time # 6 min
 
 all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
-
+beep()
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
 # pilot <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, pilot_data)
