@@ -278,6 +278,7 @@ heatmaps_defs <- list(
   "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 550), 
   "ncs_gcs_ics_all_control" = list(vars = variables_ncs_gcs_ics_all_control, conditions = "", nb_digits = 0, width = 1550, height = 570), 
   "ncs_gcs_ics_all_control_features" = list(vars = c(variables_ncs_gcs_ics_all_control, "gcs_price_increase", "gcs_lost"), conditions = "", nb_digits = 0, width = 1550, height = 610), 
+  "ncs_gcs_ics_all_control_features_median_belief" = list(vars = c(variables_ncs_gcs_ics_all_control, "gcs_price_increase", "gcs_lost"), conditions_var = c("", "", "median", "median", rep("", 6)), nb_digits = 0, width = 1550, height = 610), 
   "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
   "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
@@ -401,7 +402,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs["ncs_gcs_ics_all_control_features"])
+heatmap_multiple(heatmaps_defs["ncs_gcs_ics_all_control_features_median_belief"])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 # barres_multiple(barresN_defs["share_solidarity_supported"])
