@@ -176,6 +176,14 @@ labels_vars <- c(
   "sustainable_future_B" = "Prefers sustainable future\n(Variant: Scenario B = Sustainable)", 
   "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
   "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
+  "top1_tax_support_binary" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
+  "top3_tax_support_binary" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
+  "affected_top1" = "Percentage of fellow citizens affected by top 1% tax",
+  "transfer_top1" = "Percentage of GDP transferred abroad in top 1% tax",
+  "affected_top3" = "Percentage of fellow citizens affected by top 3% tax",
+  "transfer_top3" = "Percentage of GDP transferred abroad in top 3% tax",
+  "gcs_price_increase" = "Inflation due to the GCS (in %)",
+  "gcs_lost" = "Net monetary cost of the GCS (in $/month)",
   "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
   "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
   "custom_redistr_winners" = "Preferred share of winners",
@@ -268,7 +276,8 @@ heatmaps_defs <- list(
   "gcs_ics_all" = list(vars = variables_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 500), 
   "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1", width = 1550, height = 430), 
   "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 550), 
-  "ncs_gcs_ics_all_control" = list(vars = variables_ncs_gcs_ics_all_control, conditions = "", nb_digits = 0, width = 1550, height = 550), 
+  "ncs_gcs_ics_all_control" = list(vars = variables_ncs_gcs_ics_all_control, conditions = "", nb_digits = 0, width = 1550, height = 570), 
+  "ncs_gcs_ics_all_control_features" = list(vars = c(variables_ncs_gcs_ics_all_control, "gcs_price_increase", "gcs_lost"), conditions = "", nb_digits = 0, width = 1550, height = 610), 
   "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),
   "share_solidarity_supported" = list(vars = c("share_solidarity_supported"), conditions = c(""), width = 1550, height = 450),
   "transfer_how" = list(vars = variables_transfer_how, conditions = c(">= 1", "< 0", "> 1"), sort = T, width = 1100, height = 400), 
@@ -282,6 +291,7 @@ heatmaps_defs <- list(
   "my_tax_global_nation" = list(vars = "my_tax_global_nation", conditions = c("", ">= 1", "/"), width = 1050, height = 170), 
   "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
+  "top_tax_all" = list(vars = c("top1_tax_support_binary", "affected_top1", "transfer_top1", "top3_tax_support_binary", "affected_top3", "transfer_top3"), conditions = c(""), width = 1300, height = 380, nb_digits = 0),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
   "custom_redistr_all" = list(vars = c(variables_custom_redistr_most, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
   "custom_redistr_most" = list(vars = variables_custom_redistr_most, conditions = "", width = 1200, height = 510),
@@ -391,7 +401,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs)
+heatmap_multiple(heatmaps_defs["ncs_gcs_ics_all_control_features"])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 # barres_multiple(barresN_defs["share_solidarity_supported"])
@@ -861,6 +871,9 @@ barres_multiple(barresN_defs_nolabel[c("custom_redistr_income_min_ceiling", "cus
 head(all$custom_redistr_income_min_ceiling)
 heatmap_multiple(heatmaps_defs[c("custom_redistr_all", "custom_redistr_most")])
 heatmap_multiple(heatmaps_defs[c("custom_redistr_satisfied")], data = all[all$custom_redistr_satisfied > 0,])
+
+## Top tax
+heatmap_multiple(heatmaps_defs["top_tax_all"], data = all[all$top_tax_support != 0,], weight_non_na = F)
 
 
 ##### Conjoint on consistent programs #####

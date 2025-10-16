@@ -140,6 +140,33 @@ sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_co
 decrit(unlist(policies_leaning_strict)) # (n=138) 0: 24%: 1: 54%; 2: 22% / 22 most liked: 0: 14%: 1: 82%; 2: 5% / 24 least liked: 0: 35% / 1: 15% / 2: 50%
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+decrit(unlist(policies_leaning_party)) # (n=138) 0: 36%: 1: 47%; 2: 17% / 22 most liked: 0: 46%: 1: 36%; 2: 18% / 20 least liked: 0: 20% / 1: 50% / 2: 30%
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
+policies_leaning_party_US02 <- policies_leaning_party
+policies_leaning_party_US02[-c(15:16,18),"US"] <- 2*policies_leaning_party[-c(15:16,18),"US"]
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T) # Left-wing policies more liked than Far right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T) # Left-wing parties' policies more liked Far right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing policies more liked than (Center/Far) right's in FR, DE, IT, ES, US
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_party_US02[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than (Center/Far) right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 2, NA) - .5)*2, na.rm = T) # Left-wing policies more liked than Center right's in FR, IT, ES, US
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 2, NA) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than Center right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right policies more liked than Far right's in all countries
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right parties' policies more liked than Far right's in IT, PL, ES, GB, US
+# Most liked   FR DE IT PL ES GB JP US CH
+# policies     L  C  L  C  L  C  C  L  C
+# parties' pol L  F  L  L  L  L  L  L  F
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing policies more liked than Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # (Center/Far) right policies more liked than Left-wing
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_party_US02[-18,], pmin, 1)) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked than (Center/Far) right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 2, NA) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Center right policies more liked than Left-wing's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 2, NA) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked than Center right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 0, NA) - 1.5)*2, na.rm = T), adult_pop[-c(9,10)]) # Center right policies more liked than Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T), adult_pop[-c(9,10)]) # Far right parties' policies more liked than Center right's
 
 
 ##### Revenue split #####
@@ -488,13 +515,12 @@ summary(lm(reg_formula("share_solidarity_supported", variables_sociodemos), data
 
 
 ##### Most correlated variable #####
-e$itw <- e$interview == "Yes"
-variables_interest <- c(variables_solidarity_support, "wealth_tax_support", "top_tax_support", "reparations_support", "ncs_support", "gcs_support", "ics_support", "convergence_support",
-  variables_global_movement, variables_why_hic_help_lic, "revenue_split_few_global", variables_transfer_how, "sustainable_future", "likely_solidarity", "gcs_belief", "humanist", "universalist", 
- "individualist", "nationalist", "ncqg", "vote_intl_coalition", "maritime_split_ldc", "my_tax_global_nation", "group_defended", "ncqg_fusion",  "share_solidarity_supported", "itw")
-cors <- cor(e[, variables_interest], use = "pairwise.complete.obs")
+sort(loadings)
+cors <- cor(as.data.frame(lapply(e[, c(variables_interest, "group_defended", "gcs_belief", "likely_solidarity", "interview", "latent_support_global_redistr")], as.numeric)), use = "pairwise.complete.obs")
 corrplot(cors)
 sort(rowMeans(abs(cors), na.rm = T)) # share_solidarity_supported .42, solidarity_support_ncqg_300bn 40, my_tax_global_nation .35, vote_intl_coalition .35, ncqg .35, global_movement_no .34, 
+# share_solidarity_diff is the most correlated variable, almost as good as latent_support_global_redistr
+# Rationale for using share_solidarity_ratio instead: country/gender differences in Indifferent responses; easier to interpret; mimics referendum
 
 cor(my_taxes_global_nation, my_taxes_global_nation_2023, use = "complete.obs") # .72
 cor(my_taxes_global_nation, global_nation[5,3:12], use = "complete.obs") # .81
@@ -502,6 +528,16 @@ cor(my_taxes_global_nation_2023, global_nation[5,3:12], use = "complete.obs") # 
 wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T) # 55.7%
 wtd.mean(my_taxes_global_nation, adult_pop, na.rm = T) # 44.8%
 with(all[all$my_tax_global_nation != 0,], wtd.mean(my_tax_global_nation > 0, weight, na.rm = T)) # 59.5%
+
+
+##### Country rankings #####
+# Almost same rankings. JP higher in ratio than diff; US lower and RU higher in latent than share_solidarity_...
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
 
 
 ##### Comparison other surveys #####

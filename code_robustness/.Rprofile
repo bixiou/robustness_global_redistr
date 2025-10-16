@@ -394,12 +394,15 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
 #'   else if (return %in% c("levels", "labels")) return(levels)
 #'   else if (return == "values") return(values)
 #' }
-no.na <- function(vec, num_as_char = T, rep = "") {
-  if (num_as_char) {
-    if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
-    else return(replace_na(as.vector(vec), rep))
-  } else if (is.logical(c(vec, rep))) { replace_na(as.vector(vec), rep)
-  } else return(vec)
+no.na <- function(vec, rep = "", num_as_char = T) {
+  if (any(class(vec) %in% "data.frame")) return(as.data.frame(lapply(vec, no.na, num_as_char, rep)))
+  else {
+    if (num_as_char) {
+      if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
+      else return(replace_na(as.vector(vec), rep))
+    } else if (is.logical(c(vec, rep)) | is.numeric(c(vec, rep))) { replace_na(as.vector(vec), rep)
+    } else return(vec)
+  }
 }
 decrit_old <- function(variable, data = e, miss = TRUE, weights = NULL, numbers = FALSE, which = NULL, weight = T) { # TODO!: allow for boolean weights
   # if (!missing(data)) variable <- data[[variable]]
@@ -1775,12 +1778,12 @@ fill_heatmaps <- function(list_var_list = NULL, heatmaps = heatmaps_defs, condit
   return(heatmaps)
 }
 
-heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, weights = T, folder = NULL, name = NULL, along = "country_name", levels = levels_default, variant_weight = NULL) {
+heatmap_multiple <- function(heatmaps = heatmaps_defs, data = e, trim = FALSE, weights = T, folder = NULL, name = NULL, along = "country_name", levels = levels_default, variant_weight = NULL, weight_non_na = T) {
   for (heatmap in heatmaps) {
     vars_present <- heatmap$vars %in% names(data)
     # if (any(c("gcs_support", "nr_support", "gcs_support_100") %in% heatmap$vars)) data <- data[data$wave != "US2",]
     heatmap_wrapper(vars = heatmap$vars[vars_present], levels = levels, data = data, labels = heatmap$labels[vars_present], name = if (is.null(name)) heatmap$name else name, conditions = heatmap$conditions, sort = heatmap$sort, variant_weight = variant_weight,
-                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, width = heatmap$width, height = heatmap$height, trim = trim, weights = weights, weight_non_na = T, folder = folder, along = along)
+                    percent = heatmap$percent, proportion = heatmap$proportion, nb_digits = heatmap$nb_digits, width = heatmap$width, height = heatmap$height, trim = trim, weights = weights, weight_non_na = weight_non_na, folder = folder, along = along)
   }
 }
 

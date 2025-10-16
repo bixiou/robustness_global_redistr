@@ -89,8 +89,11 @@ coeftest(reg_conjoint_cons, vcov = vcovCL(reg_conjoint_cons, cluster = ~n))
 # The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
 summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict))
 coeftest(reg_conjoint_cons_strict, vcov = vcovCL(reg_conjoint_cons_strict, cluster = ~n))
+summary(reg_conjoint_cons_party <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party))
+coeftest(reg_conjoint_cons_party, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n))
 decrit(call$consistent_conjoints) # 59%
 decrit(call$consistent_conjoints_strict) # 39%
+decrit(call$consistent_conjoints_party) # 40%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
 
 #####  Warm glow ##### 

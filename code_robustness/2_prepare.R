@@ -1,4 +1,4 @@
-# TODO! RU revenue_split
+# TODO! RU revenue_split, region, urbanicity
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -35,6 +35,7 @@ levels_pol <- c("$ bold('All')", "Millionaires", "Europe Non-voters", "Europe Le
 levels.pol <- c("All", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
 
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
+main_languages <- sapply(countries, function(c) languages_country[[c]][1])
 # list(FR = c("EN-FR", "FR"), DE = c("EN-DE", "DE"), IT = c("EN-IT", "IT"), PL = c("EN-PL", "PL"), ES = c("EN-ES", "ES-ES"), GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = c("EN-JA", "JA"), RU = c("EN-RU", "RU"), SA = c("AR", "EN-SA"), US = c("EN", "ES-US"))
 languages <- unname(unlist(languages_country)) # c("FR", "DE", "IT", "PL", "ES-ES", "EN-GB", "CH", "JA", "RU", "AR", "EN", "FR-CH", "DE-CH", "IT-CH", "ES-US")
 features <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "features", rowNames = T))
@@ -50,7 +51,9 @@ for (l in languages[!languages %in% c("RU", "EN-SA", "AR")]) {
 }
 policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
 policies_leaning <- policies_leaning_strict <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning", rowNames = T, cols = c(1, 2*1:9))
+policies_leaning_party <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning_party", rowNames = T, cols = c(1, 2*1:9))
 policies_leaning_strict[c("foreign_policy1", "foreign_policy2"),] <- c(0, 2)
+policies_leaning_party[c("foreign_policy1", "foreign_policy2"),] <- c(1, 1)
 # policies_main_language <- policies_english <- c()
 # for (l in countries) policies_main_language <- c(policies_main_language, setNames(policies_conjoint[[l]], ))
 thousandile_world_disposable_inc <- as.numeric(read.csv2("../data_ext/world_disposable_inc.csv", header = FALSE)[2:1001, 2]) # created in questionnaire.R
@@ -406,7 +409,7 @@ define_var_lists <- function() {
   # variables_support <<- names(e)[grepl('support', names(e))]
   variables_wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
   variables_top_tax_support <<- c("top1_tax_support", "top3_tax_support")
-  variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
+  variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, "top_tax_support", paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
   variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", variables_wealth_tax_support, "couple")
   variables_race <<- c("race", "race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")
@@ -493,7 +496,8 @@ define_var_lists <- function() {
   variables_conjoint_all <<- c(variables_conjoint_domains, variables_conjoint_policies)
   variables_conjoint_consistency <<- c("consistent_conjoints", paste0(c("consistent_conjoint_", "leaning_conjoint_"), c(1,1,2,2)))
   variables_conjoint_consistency_strict <<- paste0(variables_conjoint_consistency, "_strict")
-  variables_conjoint_consistency_all <<- c(variables_conjoint_consistency, variables_conjoint_consistency_strict)
+  variables_conjoint_consistency_party <<- paste0(variables_conjoint_consistency, "_party")
+  variables_conjoint_consistency_all <<- c(variables_conjoint_consistency, variables_conjoint_consistency_strict, variables_conjoint_consistency_party)
 
   # Categories proposed by GPT-4.1 based on the excerpt:
   {
@@ -760,6 +764,9 @@ define_var_lists <- function() {
   for (v in c(variables_solidarity_support_control, paste0(variables_solidarity_support, "_treated"), "top1_tax_support", "top3_tax_support")) relevel_ru[[v]] <<- c("Категорически против" = "Strongly oppose", "В некоторой степени против" = "Somewhat oppose", "Равнодушен" = "Indifferent", "В некоторой степени поддерживаю" = "Somewhat support", "Решительно поддерживаю" = "Strongly support")
   for (v in c(variables_transfer_how)) relevel_ru[[v]] <<- c("Неверный способ" = "A wrong way", "Приемлемый способ" = "An acceptable way", "Правильный способ" = "A right way", "Лучший способ" = "The best way")
   
+  variables_interest <<- c(variables_solidarity_support, "wealth_tax_support", "top_tax_support", "reparations_support", "ncs_support", "gcs_support", "ics_support", "convergence_support",
+                          variables_global_movement, variables_why_hic_help_lic, "revenue_split_few_global", variables_transfer_how, "sustainable_future", "humanist", "universalist", 
+                          "individualist", "nationalist", "ncqg", "vote_intl_coalition", "my_tax_global_nation", "ncqg_fusion",  "share_solidarity_supported", "share_solidarity_opposed", "share_solidarity_diff", "share_solidarity_ratio") # "gcs_belief", "interview", "likely_solidarity", "group_defended"
   variables_sociodemos_all <<- c("gender", "age_exact", "foreign", "foreign_born_family", "foreign_born", "foreign_origin", "couple", "hh_size", "Nb_children__14", "race", "income", "income_quartile", "income_exact", "education_original", "education", "education_quota", 
                                  "employment_status", "employment_agg", "working", "retired_or_not_working", "employment_18_64", "urbanity", "region", "owner", "millionaire", "nationality_SA", "voted", "vote")
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
@@ -1203,6 +1210,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if ("urbanity" %in% names(e)) e$urbanity_na_as_city[is.na(e$urbanity)] <- "Cities"
   # for (i in unique(e$country_region)) if (sum(e$country_region %in% i) <= 3) e$country_region[e$country_region %in% i] <- NA
   
+  for (i in c(1, 3)) e[[paste0("top", i, "_tax_support_binary")]] <- ifelse(e[[paste0("top", i, "_tax_support")]] == 0, NA, 100*(e[[paste0("top", i, "_tax_support")]] > 0))
+  for (i in c(1, 3)) label(e[[paste0("top", i, "_tax_support_binary")]]) <- paste0("top", i, "_tax_support_binary: 0/100/NA Indicator of support for top", i, "_tax, with indifference recoded as NA.")
   for (v in variables_well_being) e[[paste0(v, "_original")]] <- e[[v]]
   for (v in variables_well_being) {
     temp <- Label(e[[v]])
@@ -1677,6 +1686,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$share_solidarity_opposed <- e$share_solidarity_opposed_true <- rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T)  
   e$share_solidarity_supported_round <- round(rowMeans((e[, variables_solidarity_support]) > 0, na.rm = T), 1)
   e$share_solidarity_opposed_round <- round(rowMeans((e[, variables_solidarity_support]) < 0, na.rm = T), 1) 
+  e$share_solidarity_diff <- e$share_solidarity_supported_true - e$share_solidarity_opposed_true
+  e$share_solidarity_ratio <- e$share_solidarity_supported_true/(e$share_solidarity_supported_true + e$share_solidarity_opposed_true)
   if (country == "RU") e$share_solidarity_supported <- rowMeans((e[, variables_solidarity_support[-3]]) > 0, na.rm = T) # To fix mistake that in RU, expanding_security_council wasn't asked to control group
   if (country == "RU") e$share_solidarity_opposed <- rowMeans((e[, variables_solidarity_support[-3]]) < 0, na.rm = T)
   e$share_solidarity_supported_no_commitment <- rowMeans((e[, variables_solidarity_no_commitment]) > 0, na.rm = T)
@@ -1687,6 +1698,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   label(e$share_solidarity_short_opposed) <- "share_solidarity_short_opposed: 0-1. [Only in pilot] Share of plausible global solidarity policies opposed, when variant is Short (i.e. only 5 policies are presented)."
   label(e$share_solidarity_supported) <- "share_solidarity_supported: 0-1. Share of plausible global solidarity policies (somewhat or strongly) supported (among the 10)."
   label(e$share_solidarity_opposed) <- "share_solidarity_opposed: 0-1. Share of plausible global solidarity policies (somewhat or strongly) opposed (among the 10)."
+  label(e$share_solidarity_diff) <- "share_solidarity_diff: -1-1. share_solidarity_supported - share_solidarity_opposed."
+  label(e$share_solidarity_ratio) <- "share_solidarity_ratio: 0-1. share_solidarity_supported/(share_solidarity_supported + share_solidarity_opposed."
   label(e$share_solidarity_supported_no_commitment) <- "share_solidarity_supported_no_commitment: Share of plausible global solidarity policies that have not feature existing commitment (there are 6 variables_solidarity_no_commitment) (somewhat or strongly) supported"
   label(e$share_solidarity_opposed_no_commitment) <- "share_solidarity_opposed_no_commitment: Share of plausible global solidarity policies that have not feature existing commitment (there are 6 variables_solidarity_no_commitment) (somewhat or strongly) opposed."
   label(e$share_solidarity_supported_no_info) <- "share_solidarity_supported_no_info: Share of plausible global solidarity policies that aren't mentioned in the info treatment (there are 2: debt_relif, aviation_levy) (somewhat or strongly) supported."
@@ -1803,22 +1816,23 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
       label(e[[v]]) <- paste0(v, ": Policy code of domain", substr(v, 7, 7), " for Candidate ", substr(v, 5, 5), " in the conjoint analysis (cf. policies_code).")
     }  
-    for (i in 1:2) for (leaning in c("", "_strict")) { 
-      e[[paste0("leaning_conjoint_", i, leaning)]] <- 1
-      max_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, max)
-      min_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, min)
-      e[[paste0("leaning_conjoint_", i, leaning)]][max_i == 2] <- 2
-      e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0 
-      e[[paste0("leaning_conjoint_", i, leaning)]][max_i - min_i == 2] <- -1
-      e <- create_item(paste0("leaning_conjoint_", i, leaning), labels = c("Inconsistent" = -1, "Left" = 0, "Unclear" = 1, "Right" = 2), values = -1:2, df = e, 
-                       annotation = paste0("leaning_conjoint_", i, leaning, ": [-1: Inconsistent; 0: Left; 1: Unclear; 2: Right]. Political leaning of the program of Candidate ", i, " in the conjoint analysis", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."))
-      e[[paste0("consistent_conjoint_", i, leaning)]] <- e[[paste0("leaning_conjoint_", i, leaning)]] != -1
-      label(e[[paste0("consistent_conjoint_", i, leaning)]]) <- paste0("consistent_conjoint_", i, leaning, ": T/F. Political leaning of the program of Candidate ", i, "is consistent (i.e. only Left and Unclear or Right and Unclear policies).", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left).")
+    for (leaning in c("", "_strict", "_party")) { for (i in 1:2) {
+        e[[paste0("leaning_conjoint_", i, leaning)]] <- 1
+        max_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, max)
+        min_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, min)
+        e[[paste0("leaning_conjoint_", i, leaning)]][max_i == 2] <- 2
+        e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0 
+        e[[paste0("leaning_conjoint_", i, leaning)]][max_i - min_i == 2] <- -1
+        e <- create_item(paste0("leaning_conjoint_", i, leaning), labels = c("Inconsistent" = -1, "Left" = 0, "Unclear" = 1, "Right" = 2), values = -1:2, df = e, 
+                         annotation = paste0("leaning_conjoint_", i, leaning, ": [-1: Inconsistent; 0: Left; 1: Unclear; 2: Right]. Political leaning of the program of Candidate ", i, " in the conjoint analysis", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."))
+        e[[paste0("consistent_conjoint_", i, leaning)]] <- e[[paste0("leaning_conjoint_", i, leaning)]] != -1
+        label(e[[paste0("consistent_conjoint_", i, leaning)]]) <- paste0("consistent_conjoint_", i, leaning, ": T/F. Political leaning of the program of Candidate ", i, "is consistent (i.e. only Left and Unclear or Right and Unclear policies).", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left).")
+      } 
+      e[[paste0("consistent_conjoints", leaning)]] <- e[[paste0("consistent_conjoint_1", leaning)]] & e[[paste0("consistent_conjoint_2", leaning)]]
     }
-    e$consistent_conjoints <- e$consistent_conjoint_1 & e$consistent_conjoint_2 
-    e$consistent_conjoints_strict <- e$consistent_conjoint_1_strict & e$consistent_conjoint_2_strict
     label(e$consistent_conjoints) <- "consistent_conjoints: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1 & consistent_conjoint_2, cf. policies_leaning)."
-    label(e$consistent_conjoints_strict) <- "consistent_conjoints_strict: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1 & consistent_conjoint_2, cf. policies_leaning_strict) (strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."
+    label(e$consistent_conjoints_strict) <- "consistent_conjoints_strict: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1_strict & consistent_conjoint_2_strict, cf. policies_leaning_strict) (strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."
+    label(e$consistent_conjoints_party) <- "consistent_conjoints_party: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1_party & consistent_conjoint_2_party, cf. policies_leaning_party) (party version, i.e. leaning is based on the party that endorses the policy)."
   }
   e$global_movement_support <- e$global_movement_spread | e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
   e$global_movement_part <- e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
@@ -1838,10 +1852,7 @@ all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
 
-e <- all
-Sys.time() - start_time # 6 min
-
-all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
+e <- all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
 beep()
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
@@ -1857,13 +1868,27 @@ Sys.time() - start_time # 10 min
 
 
 ##### Export custom redistr #####
-mean_custom_redistr_stats <- ist()
+mean_custom_redistr_stats <- list()
 for (v in names(mean_custom_redistr)) { 
   write.csv2(data.frame(quantiles = seq(0.001, 1, .001), revenus = round(mean_custom_redistr[[v]])[2:1001]), paste0("../interactive_graph/mean_custom_redistr/", v, ".csv"), row.names = F)
   share_winners <- max(which(mean_custom_redistr[[v]] > current_inc))
   if (share_winners > -Inf) mean_custom_redistr_stats[[v]] <- c("share_winners" = (share_winners-1)/10, "min_income" = round(mean_custom_redistr[[v]][1]), "transfer" = round(100*sum(mean_custom_redistr[[v]][1:share_winners] - current[1:share_winners])/sum(current_inc[1:1000]), 2)) 
   else warning(paste("Problem in mean_custom_redistr for ", v))
 }
+
+
+##### Latent variable; policy features #####
+zscores_data <- no.na(as.data.frame(lapply(variables_interest, function(v) (e[[v]] - wtd.mean(e[[v]], e$weight))/sqrt(wtd.var(as.numeric(e[[v]]), e$weight)))), 0)
+loadings <- setNames(as.numeric(factanal(zscores_data, 1)$loadings), variables_interest)
+e$latent_support_global_redistr <- 0
+for (i in 1:length(variables_interest)) e$latent_support_global_redistr <- e$latent_support_global_redistr + loadings[i]*zscores_data[, i]
+e$latent_support_global_redistr <- (e$latent_support_global_redistr - wtd.mean(e$latent_support_global_redistr, e$weight))/sqrt(wtd.var(e$latent_support_global_redistr, e$weight))
+rm(zscores_data)
+
+e$gcs_lost <- setNames(c(17, 48, 18, 39, 13, 24, 14, 48, 30, 101, 88), countries)[e$country] # features["amount_lost", main_languages[e$country]]
+e$gcs_price_increase <- features["price_increase", main_languages[e$country]]
+for (v in paste0(c("affected", "transfer"), "_top", c(1,1,3,3))) e[[v]] <- features[v, main_languages[e$country]]
+all <- e
 
 
 ##### Lottery draw #####
