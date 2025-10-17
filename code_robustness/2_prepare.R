@@ -921,18 +921,19 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
   df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min/1)
   df <- create_item(var = "custom_redistr_income_min_ceiling", df = df, values = list(0:50, 51:150, 151:250, 251:350, 351:451, 451:2000), labels = c("$0 to $50" = 25, "$50 to $150" = 100, "$150 to $250" = 200, "$250 to $350" = 300, "$350 to $450" = 400, "More than $450" = 600), annotation = "custom_redistr_income_min_ceiling: 0-50/50-150/150-250/250-350/350-450/>450 Transfer (in $/month) implied by the custom redistribution.")
   
-  df$custom_redistr_untouched[df$country != "RU"] <- df$custom_redistr_degree %in% c(2.1, 7.1)[df$country != "RU"]
+  df$custom_redistr_satisfied <- df$custom_redistr_satisfied > 0
+  df$custom_redistr_untouched[df$country != "RU"] <- (df$custom_redistr_degree %in% c(2.1, 7.1))[df$country != "RU"]
   label(df$custom_redistr_untouched) <- "custom_redistr_untouched: 0/100. Respondent hasn't touched the slider custom_redistr_degree."
   df$custom_redistr_satisfied_touched <- df$custom_redistr_satisfied & !df$custom_redistr_untouched
   label(df$custom_redistr_satisfied_touched) <- "custom_redistr_satisfied_touched: 0/100. Respondent touched the sliders and is satisfied with own custom redistr (!custom_redistr_untouched & custom_redistr_satisfied)."
   mean_redistr <- colSums(futures * df$weight * df$custom_redistr_asked, na.rm = T)/sum(df$weight * df$custom_redistr_asked)
   if (!is.null(name) && exists("mean_custom_redistr")) {
     mean_custom_redistr[[name]] <<- mean_redistr
-    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied], na.rm = T)
-    mean_custom_redistr[[paste0(name, "_touched")]] <<- colSums((futures * df$weight * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight[!df$custom_redistr_untouched], na.rm = T)
-    mean_custom_redistr[[paste0(name, "_satisfied_touched")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied_touched), na.rm = T)/sum(df$weight[df$custom_redistr_satisfied_touched], na.rm = T)
-    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight * df$custom_redistr_self_gain), na.rm = T)/sum(df$weight[df$custom_redistr_self_gain], na.rm = T)
-    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight * df$custom_redistr_self_lose), na.rm = T)/sum(df$weight[df$custom_redistr_self_lose], na.rm = T)
+    mean_custom_redistr[[paste0(name, "_satisfied")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied), na.rm = T)/sum(df$weight *df$custom_redistr_satisfied, na.rm = T)
+    mean_custom_redistr[[paste0(name, "_touched")]] <<- colSums((futures * df$weight * !df$custom_redistr_untouched), na.rm = T)/sum(df$weight * !df$custom_redistr_untouched, na.rm = T)
+    mean_custom_redistr[[paste0(name, "_satisfied_touched")]] <<- colSums((futures * df$weight * df$custom_redistr_satisfied_touched), na.rm = T)/sum(df$weight * df$custom_redistr_satisfied_touched, na.rm = T)
+    mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight * df$custom_redistr_self_gain), na.rm = T)/sum(df$weight * df$custom_redistr_self_gain, na.rm = T)
+    mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight * df$custom_redistr_self_lose), na.rm = T)/sum(df$weight * df$custom_redistr_self_lose, na.rm = T)
   }
   
   for (v in c(variables_custom_redistr, "custom_redistr_self_lose", "custom_redistr_self_gain", "custom_redistr_satisfied_touched", "custom_redistr_untouched")) df[[v]] <- 100*(df[[v]] > 0)
