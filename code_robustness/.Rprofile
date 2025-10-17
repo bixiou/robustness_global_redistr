@@ -63,7 +63,7 @@ package("haven") # Read .savs
 # package("modelsummary")
 # package("xtable") # must be loaded before Hmisc; export latex table
 # package("list") # list experiment aka. item count technique: ictreg
-# package("weights") # wtd.t.test
+package("weights") # wtd.t.test
 # package("raster") # merge boundaries in maps
 # package("sf") # merge boundaries in maps
 # package("ggpattern") # stripes in maps

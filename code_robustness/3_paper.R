@@ -35,6 +35,9 @@ decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice
 ##### Revenue split #####
 sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3)))
 wtd.mean(all$revenue_split_few_global, all$weight) # 17.5%
+wtd.t.test(x = all$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = all$weight) # p < 1e-100
+wtd.t.test(x = JP$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = JP$weight) # p = .07
+wtd.t.test(x = CH$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = CH$weight) # p < 1e-4
 wtd.mean(all$revenue_split_few_global, all$weight)/(33.4*2/5) # +31%
 wtd.mean(all$revenue_split_few_global == 0, all$weight) # 13.3%
 wtd.mean(all$revenue_split_few_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.84%
