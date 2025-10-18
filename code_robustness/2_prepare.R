@@ -849,7 +849,7 @@ world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rat
 compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
   # TODO: check we get same results as with .js (e.g. check values of L/G and R, own_after...) - I have checked on one example
   current <- c(0, round(thousandile_world_disposable_inc)) # corresponds to c(0, thousandile_world_disposable_inc) created in questionnaire.R
-  e$custom_redistr_transfer <- e$custom_redistr_future_income <- e$custom_redistr_income_min <- NA #rep(NA, nrow(df))
+  for (v in paste0("custom_redistr_", c("transfer", "future_income", "income_min", "self_lose", "self_gain", "satisfied_touched", "untouched"))) df[[v]] <- NA
   futures <- matrix(NA, ncol = 1001, nrow = nrow(df))
   
   for (k in 1:nrow(df)) {
@@ -918,7 +918,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
   }
   df$custom_redistr_transfer_ceiling <- ceiling(df$custom_redistr_transfer)
   df <- create_item(var = "custom_redistr_transfer_ceiling", df = df, values = list(0, 1, 2:3, 4:5, 6:10, 10:100), labels = c("0" = 0, "0% to 2%" = 1, "2% to 4%" = 3, "4% to 5%" = 4.5, "5% to 10%" = 7.5, "More than 10%" = 17), annotation = "custom_redistr_transfer_ceiling: 0/0-2/2-4/4-5/5-10/>5 Transfer (in % of world income) implied by the custom redistribution.")
-  df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min/1)
+  df$custom_redistr_income_min_ceiling <- ceiling(df$custom_redistr_income_min)
   df <- create_item(var = "custom_redistr_income_min_ceiling", df = df, values = list(0:50, 51:150, 151:250, 251:350, 351:451, 451:2000), labels = c("$0 to $50" = 25, "$50 to $150" = 100, "$150 to $250" = 200, "$250 to $350" = 300, "$350 to $450" = 400, "More than $450" = 600), annotation = "custom_redistr_income_min_ceiling: 0-50/50-150/150-250/250-350/350-450/>450 Transfer (in $/month) implied by the custom redistribution.")
   
   df$custom_redistr_satisfied <- df$custom_redistr_satisfied > 0
@@ -935,9 +935,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     mean_custom_redistr[[paste0(name, "_self_gain")]] <<- colSums((futures * df$weight * df$custom_redistr_self_gain), na.rm = T)/sum(df$weight * df$custom_redistr_self_gain, na.rm = T)
     mean_custom_redistr[[paste0(name, "_self_lose")]] <<- colSums((futures * df$weight * df$custom_redistr_self_lose), na.rm = T)/sum(df$weight * df$custom_redistr_self_lose, na.rm = T)
   }
-  
   for (v in c(variables_custom_redistr, "custom_redistr_self_lose", "custom_redistr_self_gain", "custom_redistr_satisfied_touched", "custom_redistr_untouched")) df[[v]] <- 100*(df[[v]] > 0)
-  
   if (return == "df") return(df)
   else if (return == "mean_redistr") return(mean_redistr)
   else return(futures)
