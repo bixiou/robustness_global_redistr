@@ -571,7 +571,7 @@ textModelsRemove("FacebookAI/xlm-roberta-base") # FacebookAI/xlm-roberta-base fa
 
 
 ##### World income distribution #####
-# /!\ There are some issues in the creation of world income distribution using country-by-country ones. 
+# /!\ There were some issues in the creation of world income distribution using country-by-country ones, due to a too coarse interpolation of the distribution (1e3 instead of 1e4 quantiles).
 #     First, I do it in two steps (first, from country g-percentiles to world ones, then interpolation to get thousandiles) instead of one (compute_world_thousandile_from_gethin: directly from country g-percentiles to world thousandile)
 #     Second, when interpolating on high incomes, I don't use quadratic (as we'd lose monotonicity) but linear, which fails to preserve the integral/mean. => TODO: code a piecewise linear interpolation that preserves mean (cf. quadratic_interpolations).
 #     This results in inaccurate world distribution, and overestimation of top income tax revenues by 20-30%.
@@ -632,3 +632,6 @@ sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0))/sum(thousandile_wo
 sum(pmax(thousandile_world_disposable_inc_direct - 1e6, 0))/sum(thousandile_world_disposable_inc_direct) # .009
 (sum(pmax(thousandile_world_disposable_inc_direct - 80e3, 0)) - sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0)))/sum(thousandile_world_disposable_inc_direct) # .050
 (sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0)) - sum(pmax(thousandile_world_disposable_inc_direct - 1e6, 0)))/sum(thousandile_world_disposable_inc_direct) # .11
+
+plot(1:1e4/100, (thousandile_world_disposable_inc_direct), type = 'l', col = "blue", lwd = 2, xlim = c(99,100)) #, ylim = c(0, 1e6))
+lines(1:1e3/10, (thousandile_world_disposable_inc), type = 'l', col = "darkgreen", lwd = 2, xlim = c(99,100)) #, ylim = c(0, 1e6))
