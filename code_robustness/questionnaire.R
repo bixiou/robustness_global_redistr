@@ -44,6 +44,9 @@ compute_world_distrib_from_gethin <- function(var, year = 2019) {
 world_disposable_inc <- compute_world_distrib_from_gethin("disposable_inc") # PPP $ 2024
 thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_disposable_inc$disposable_inc_mean), pmax(0, world_disposable_inc$disposable_inc_thre), 
                                                                c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc$disposable_inc_mean[101:102] %*% c(.9, .1))
+# thousandile_US_disposable_inc <- c(quadratic_interpolations(pmax(0, data$disposable_inc_mean), pmax(0, data$disposable_inc_thre), 
+#                                                                c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), data$disposable_inc_mean[101:102] %*% c(.9, .1))
+# tax_revenue(rate = .15, threshold = 80e3) + tax_revenue(rate = .15, threshold = 120e3) + .15*((data$disposable_inc_mean[101]-1e6)*1e-4+(data$disposable_inc_mean[100]-1e6)*1e-3)/mean(thousandile_US_disposable_inc)
 # /!\ Pb: the top interpolation is linear, inflating the mean income => do piecewise linear to preserve the mean (but won't preserve the smoothness)
 
 # Export world income distribution
