@@ -568,3 +568,67 @@ textModelsRemove("FacebookAI/xlm-roberta-base") # FacebookAI/xlm-roberta-base fa
 
 # temp <- text::textZeroShot(sequences = all$field[1:20], names(field_names), model = "FacebookAI/xlm-roberta-base", hypothesis_template = "This text is about {}.", multi_label = T, tokenizer_parallelism = T, logging_level = "error", set_seed = 42)
 # View(temp)
+
+
+##### World income distribution #####
+# /!\ There are some issues in the creation of world income distribution using country-by-country ones. 
+#     First, I do it in two steps (first, from country g-percentiles to world ones, then interpolation to get thousandiles) instead of one (compute_world_thousandile_from_gethin: directly from country g-percentiles to world thousandile)
+#     Second, when interpolating on high incomes, I don't use quadratic (as we'd lose monotonicity) but linear, which fails to preserve the integral/mean. => TODO: code a piecewise linear interpolation that preserves mean (cf. quadratic_interpolations).
+#     This results in inaccurate world distribution, and overestimation of top income tax revenues by 20-30%.
+#     Fixing the first issue and using 1e4 quantiles instead of 1e3 fixes both issues. This is what I do below:
+compute_world_thousandile_from_gethin <- function(var, year = 2019) {
+  data <- gethin %>% arrange(year, !!as.symbol(var)) %>% group_by(year) %>% mutate(x = cumsum(weight), tot = sum(weight), x = x / tot) # Computes cumulative weights for each value
+  breakpoints <- round(seq(0, 1, by = 0.0001), 4)
+  data <- data %>% mutate(p = cut(x, breaks = breakpoints, labels = breakpoints[-length(breakpoints)], include.lowest = TRUE), # Computes world percentile for each value = mean_income
+                          p = as.numeric(as.character(p))) %>% # Replace NA with 0.9999
+    group_by(year, p) %>% dplyr::summarize(!!as.symbol(paste0(var, "_thre")) := min(!!as.symbol(var)), # Defines threshold as min mean_income of corresponding percentile
+                                           !!as.symbol(paste0(var, "_mean")) := weighted.mean(!!as.symbol(var), weight)) %>% ungroup() # Defines mean as mean mean_income weighted by corresponding pop
+  if (!is.null(year)) {
+    data <- data[data$year == year, names(data) != "year"]
+    gap_thresholds <- sort(data[[paste0(var, "_thre")]])[2:nrow(data)] - sort(data[[paste0(var, "_thre")]])[1:(nrow(data)-1)]
+    min_gap_thresholds <- min(gap_thresholds[gap_thresholds > 0])/length(breakpoints)
+    for (i in 1:(length(breakpoints)-1)) {
+      if (!breakpoints[i] %in% data$p) data <- rbind(data, c(breakpoints[i], data[[paste0(var, "_thre")]][data$p == breakpoints[i-1]] + min_gap_thresholds, data[[paste0(var, "_mean")]][data$p == breakpoints[i-1]]))
+    }
+    data <- data[order(data$p),]
+  }
+  return(data)
+}
+thousandile_world_disposable_inc_direct <- compute_world_thousandile_from_gethin("disposable_inc")$disposable_inc_mean # PPP $ 2024
+# length(thousandile_world_disposable_inc_direct)
+# View(data[data$iso == "US", c("iso", "weight", "p", "gperc", "disposable_inc", "x", "lcu19_growth_ppp24")])
+# View(data)
+# View(compute_world_thousandile_from_gethin("disposable_inc"))
+
+gdp_contribution_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top1[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T)
+
+gdp_contribution_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 80e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 1e6)))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T)
+
+# Income > 1e6 is 6.1% in thousandile_world_disposable_inc but just 3.8% in original data. For the other bins, inconsistencies between the two are < 5%.
+sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc < 250*12))/sum(gethin$disposable_inc * gethin$weight)
+sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc < 400*12))/sum(gethin$disposable_inc * gethin$weight)
+sum(pmax(gethin$disposable_inc - 80e3, 0) * gethin$weight)/sum(gethin$disposable_inc * gethin$weight) # .15
+sum(pmax(gethin$disposable_inc - 120e3, 0) * gethin$weight)/sum(gethin$disposable_inc * gethin$weight) # .107
+sum(pmax(gethin$disposable_inc - 1e6, 0) * gethin$weight)/sum(gethin$disposable_inc * gethin$weight) # .023
+(sum(pmax(gethin$disposable_inc - 80e3, 0) * gethin$weight) - sum(pmax(gethin$disposable_inc - 120e3, 0) * gethin$weight))/sum(gethin$disposable_inc * gethin$weight) # .046
+(sum(pmax(gethin$disposable_inc - 120e3, 0) * gethin$weight) - sum(pmax(gethin$disposable_inc - 1e6, 0) * gethin$weight))/sum(gethin$disposable_inc * gethin$weight) # .084
+sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc > 80e3))/sum(gethin$disposable_inc * gethin$weight) - sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc > 120e3))/sum(gethin$disposable_inc * gethin$weight)
+sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc > 120e3))/sum(gethin$disposable_inc * gethin$weight) - sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc > 1e6))/sum(gethin$disposable_inc * gethin$weight)
+sum(thousandile_world_disposable_inc * (thousandile_world_disposable_inc < 250*12))/sum(thousandile_world_disposable_inc)
+sum(thousandile_world_disposable_inc * (thousandile_world_disposable_inc < 400*12))/sum(thousandile_world_disposable_inc)
+sum(pmax(thousandile_world_disposable_inc - 80e3, 0))/sum(thousandile_world_disposable_inc) # .18
+sum(pmax(thousandile_world_disposable_inc - 120e3, 0))/sum(thousandile_world_disposable_inc) # .137
+sum(pmax(thousandile_world_disposable_inc - 1e6, 0))/sum(thousandile_world_disposable_inc)# .008
+(sum(pmax(thousandile_world_disposable_inc - 80e3, 0)) - sum(pmax(thousandile_world_disposable_inc - 120e3, 0)))/sum(thousandile_world_disposable_inc) # .045
+(sum(pmax(thousandile_world_disposable_inc - 120e3, 0)) - sum(pmax(thousandile_world_disposable_inc - 1e6, 0)))/sum(thousandile_world_disposable_inc) # .129
+sum(pmax(thousandile_world_disposable_inc_direct - 80e3, 0))/sum(thousandile_world_disposable_inc_direct) # .17
+sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0))/sum(thousandile_world_disposable_inc_direct) # .12
+sum(pmax(thousandile_world_disposable_inc_direct - 1e6, 0))/sum(thousandile_world_disposable_inc_direct) # .009
+(sum(pmax(thousandile_world_disposable_inc_direct - 80e3, 0)) - sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0)))/sum(thousandile_world_disposable_inc_direct) # .050
+(sum(pmax(thousandile_world_disposable_inc_direct - 120e3, 0)) - sum(pmax(thousandile_world_disposable_inc_direct - 1e6, 0)))/sum(thousandile_world_disposable_inc_direct) # .11

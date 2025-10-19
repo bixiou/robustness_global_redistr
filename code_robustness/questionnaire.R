@@ -31,12 +31,12 @@ gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24 # a: average, 
 
 # Aggregate country distributions into world one
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
-  data <- gethin %>% arrange(year, !!as.symbol(var)) %>% group_by(year) %>% mutate(x = cumsum(weight), tot = sum(weight), x = x / tot)
+  data <- gethin %>% arrange(year, !!as.symbol(var)) %>% group_by(year) %>% mutate(x = cumsum(weight), tot = sum(weight), x = x / tot) # Computes cumulative weights for each value
   breakpoints <- c(seq(0, 0.99, by = 0.01), 0.999, 0.9999, 1)
-  data <- data %>% mutate(p = cut(x, breaks = breakpoints, labels = breakpoints[-length(breakpoints)], include.lowest = TRUE),
+  data <- data %>% mutate(p = cut(x, breaks = breakpoints, labels = breakpoints[-length(breakpoints)], include.lowest = TRUE), # Computes world percentile for each value = mean_income
                           p = as.numeric(as.character(p)), p = ifelse(is.na(p), 0.9999, p)) %>% # Replace NA with 0.9999
-    group_by(year, p) %>% dplyr::summarize(!!as.symbol(paste0(var, "_thre")) := min(!!as.symbol(var)), 
-                                           !!as.symbol(paste0(var, "_mean")) := weighted.mean(!!as.symbol(var), weight)) %>% ungroup() # %>%
+    group_by(year, p) %>% dplyr::summarize(!!as.symbol(paste0(var, "_thre")) := min(!!as.symbol(var)), # Defines threshold as min mean_income of corresponding percentile
+                                           !!as.symbol(paste0(var, "_mean")) := weighted.mean(!!as.symbol(var), weight)) %>% ungroup() # Defines mean as mean mean_income weighted by corresponding pop
   if (!is.null(year)) data <- data[data$year == year, names(data) != "year"]
   return(data)
 }
@@ -52,13 +52,13 @@ thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_dis
 # Export world income distribution
 write.csv2(data.frame(quantiles = c(1:1000)/1000, revenus = round(thousandile_world_disposable_inc)), file = "../data_ext/world_disposable_inc.csv", row.names = F)
 
-# Tax revenue from a given linear tax, in proportion of world income
+# Tax revenue from a given linear tax, in proportion of world income (slightly underestimated, at the threshold percentile)
 tax_revenue <- function(distr = thousandile_world_disposable_inc, weight = NULL, rate = .1, threshold = 48e3) {
-  if (is.null(weight)) return(sum(pmax(0, rate*(distr - threshold)))/sum(distr)) 
+  if (is.null(weight)) return(sum(pmax(0, rate*(distr - threshold)), na.rm = T)/sum(distr, na.rm = T)) 
   else return(sum(pmax(0, rate*(distr - threshold)) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
 # Tax cost of funding a given income floor (= poverty gap), in proportion of world income
 tax_cost <- function(threshold = 2555, distr = thousandile_world_disposable_inc, weight = NULL) {
-  if (is.null(weight)) return(sum(pmax(0, threshold - distr))/sum(distr)) 
+  if (is.null(weight)) return(sum(pmax(0, threshold - distr), na.rm = T)/sum(distr, na.rm = T)) 
   else return(sum(pmax(0, threshold - distr) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
 
 
