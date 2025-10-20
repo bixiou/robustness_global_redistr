@@ -1,4 +1,4 @@
-# TODO! RU revenue_split, region, urbanicity
+# TODO! RU remove fast, region, urbanicity
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -410,7 +410,8 @@ define_var_lists <- function() {
   # variables_support <<- names(e)[grepl('support', names(e))]
   variables_wealth_tax_support <<- c("global_tax_support", "hic_tax_support", "intl_tax_support")
   variables_top_tax_support <<- c("top1_tax_support", "top3_tax_support")
-  variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, "top_tax_support", paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
+  variables_top_tax_support_affected <<- paste0(c("top1_tax_support", "top3_tax_support", "top_tax_support"), "_affected")
+  variables_likert <<- c(variables_solidarity_support, variables_top_tax_support, "top_tax_support", variables_top_tax_support_affected, paste0(variables_top_tax_support, "_cut"), "reparations_support", variables_solidarity_support_short)
   variables_yes_no <<- c("ncs_support", "gcs_support", "ics_support", variables_wealth_tax_support, "couple")
   variables_race <<- c("race", "race_white", "race_black", "race_hispanic", "race_asian", "race_native", "race_hawaii", "race_other", "race_pnr")
   variables_home <<- c("home_tenant", "home_owner", "home_landlord", "home_hosted")

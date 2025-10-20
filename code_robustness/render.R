@@ -188,7 +188,7 @@ labels_vars <- c(
   "transfer_top3" = "Percentage of GDP transferred abroad in top 3% tax",
   "income_exact_affected_top3_tax" = "Affected by the top 3% tax (income > $PPP 80k)",
   "income_exact_affected_top1_tax" = "Affected by the top 1% tax (income > $PPP 120k)",
-  "income_exact_affected_top_tax" = "Affected by the (variant faced of the) top tax",
+  "income_exact_affected_top_tax" = "Affected by the top tax (any variant)",
   "gcs_price_increase" = "Inflation due to the GCS (in %)",
   "gcs_lost" = "Net monetary cost of the GCS (in $/month)",
   "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
@@ -885,7 +885,7 @@ heatmap_multiple(heatmaps_defs[c("custom_redistr_satisfied")], data = all[all$cu
 
 ## Top tax
 heatmap_multiple(heatmaps_defs["top_tax_all"], data = all[all$top_tax_support != 0,], weight_non_na = F)
-heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_positive")])
+heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_positive")], weight_non_na = F)
 
 
 ##### Conjoint on consistent programs #####

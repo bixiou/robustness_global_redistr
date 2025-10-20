@@ -329,6 +329,15 @@ sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top_tax_support > 0,
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight * d(c)$income_exact_affected_top_tax * (d(c)$top_tax_support != 0)), 3))
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight * d(c)$income_exact_affected_top_tax * (d(c)$top_tax_support != 0)), 3))
 cor(e$income_exact_affected_top_tax, e$millionaire == 5, use = "complete.obs")
+summary(lm((top_tax_support_affected > 0) ~ log10(pmax(1e6, custom_redistr_current_income)), data = all, weights = weight))
+summary(lm(top_tax_support_affected ~ log10(pmax(1e6, custom_redistr_current_income)), data = all, weights = weight))
+summary(lm(log10(pmax(1e6, custom_redistr_current_income)) ~ top_tax_support_affected, data = all, weights = weight))
+summary(rq((top_tax_support_affected > 0) ~ log10(custom_redistr_current_income), data = all, tau = 0.5))
+summary(rq(top_tax_support_affected ~ log10(custom_redistr_current_income), data = all, tau = 0.5))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_current_income, d(c)$weight * (no.na(d(c)$top_tax_support_affected, 0) > 0)), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_current_income, d(c)$weight * (no.na(d(c)$top_tax_support_affected, 0) < 0)), 3))
+sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_current_income, d(c)$weight * (no.na(d(c)$top_tax_support_affected, 0) > 0), na.rm = T), 3))
+sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_current_income, d(c)$weight * (no.na(d(c)$top_tax_support_affected, 0) < 0), na.rm = T), 3))
 
 
 ##### Radical redistribution #####
@@ -634,6 +643,23 @@ gdp_contribution_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_revenue
                                                                      + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 1e6)))
 sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
   sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T)
+
+# nominal
+sapply(countries, function(i) unique(gethin$ppp2019[gethin$isoname %in% countries_names[i]]))
+sapply(c("CN", "IN", "ID", "BR", "CO", "NG"), function(i) mean(gethin$ppp2019[gethin$iso == i], na.rm = T))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.8%
+
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 4.7%
+
+gdp_cost_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_cost(3000, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.3%
+
+gdp_cost_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_cost(4800, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 3.1%
 
 # Income > 1e6 is 6.1% in thousandile_world_disposable_inc but just 3.8% in original data. For the other bins, inconsistencies between the two are < 5%.
 sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc < 250*12))/sum(gethin$disposable_inc * gethin$weight)

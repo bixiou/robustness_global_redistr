@@ -29,6 +29,11 @@ usd_lcu <- xppp_us * inflation_2023_2024 / inflation_2023_2024["US"]
 gethin$lcu19_growth_ppp24 <- gethin$growth_2020_2024 * mean(gethin$inflation_2023_2024[gethin$iso == "US"], na.rm = T) / (gethin$xppp_us * gethin$defl) 
 gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24 # a: average, pdi: disposable (pretax - direct taxes + gov_soc: social assistance transfers)
 
+# Nominal income
+ppp <- read.xlsx("../data_ext/ppp.xlsx") # 10/21/2025 https://databank.worldbank.org/source/world-development-indicators/Series/PA.NUS.PRVT.PP#
+gethin <- merge(gethin, ppp, all.x = T)
+gethin$disposable_inc_mer <- gethin$disposable_inc * gethin$ppp
+
 # Aggregate country distributions into world one
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
   data <- gethin %>% arrange(year, !!as.symbol(var)) %>% group_by(year) %>% mutate(x = cumsum(weight), tot = sum(weight), x = x / tot) # Computes cumulative weights for each value

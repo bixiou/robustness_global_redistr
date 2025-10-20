@@ -110,8 +110,8 @@ package("readstata13") # read.dta13
 # package("wid-r-tool", github = "WIDworld")
 #' package("permute")
 #' package("AER")
-package("ivDiag") # IV effective F stat
 # package("ivmodel") #
+package("ivDiag") # IV effective F stat
 #' package("rattle")
 #' package("data.table") # %between%
 #' package("reshape2")
@@ -395,13 +395,15 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
 #'   else if (return %in% c("levels", "labels")) return(levels)
 #'   else if (return == "values") return(values)
 #' }
-no.na <- function(vec, rep = "", num_as_char = T) {
+no.na <- function(vec, rep = "", rep_num = rep, num_as_char = T) {
+  if (missing(rep) & missing(rep_num)) rep_num <- 0
+  if (is.numeric(rep)) if (is.character(vec)) rep <- as.character(rep) else num_as_char <- FALSE
   if (any(class(vec) %in% "data.frame")) return(as.data.frame(lapply(vec, no.na, num_as_char, rep)))
   else {
     if (num_as_char) {
       if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
       else return(replace_na(as.vector(vec), rep))
-    } else if (is.logical(c(vec, rep)) | is.numeric(c(vec, rep))) { replace_na(as.vector(vec), rep)
+    } else if (is.logical(c(vec, rep_num)) | is.numeric(c(vec, rep_num))) { replace_na(as.vector(vec), rep_num)
     } else return(vec)
   }
 }
