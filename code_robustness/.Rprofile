@@ -110,7 +110,8 @@ package("readstata13") # read.dta13
 # package("wid-r-tool", github = "WIDworld")
 #' package("permute")
 #' package("AER")
-#' package("ivmodel")
+package("ivDiag") # IV effective F stat
+# package("ivmodel") #
 #' package("rattle")
 #' package("data.table") # %between%
 #' package("reshape2")
@@ -1675,8 +1676,8 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
       } else if (conditions[v] %in% c("/", "-", "//")) {
         if (weights & length(var_c) > 0) pos <- wtd.mean(var_c >= 1, na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])
         if (!weights & length(var_c) > 0) pos <- mean(var_c >= 1, na.rm = T)
-        if (weights & length(var_c) > 0) neg <- wtd.mean(var_c >= 1, na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])
-        if (!weights & length(var_c) > 0) neg <- mean(var_c >= 1, na.rm = T)
+        if (weights & length(var_c) > 0) neg <- wtd.mean(var_c <= -1, na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])
+        if (!weights & length(var_c) > 0) neg <- mean(var_c <= -1, na.rm = T)
         table[v,c] <- if (conditions[v] == "-") pos - neg else pos / (pos + neg)
         if (is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) table[v,c] <- pos
         if (c == levels[1] & is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) row.names(table)[v] <- paste0(row.names(table)[v], "*")

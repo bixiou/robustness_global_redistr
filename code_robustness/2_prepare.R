@@ -73,6 +73,7 @@ stostad_billionaire_tax_absolute <- sapply(countries, function(c) if (c %in% sto
 stostad_billionaire_tax_oppose <- sapply(countries, function(c) if (c %in% stostad$iso) (stostad$disagree1 + stostad$vdisagree1)[stostad$iso == c] else NA) 
 stostad_billionaire_tax_relative <- stostad_billionaire_tax_absolute / (stostad_billionaire_tax_absolute + stostad_billionaire_tax_oppose)
 income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", rowNames = T, rows = 1:13)
+mfd <- read.csv("../data_ext/moral_dic2.csv") # univeralist: care/harm + fairness/cheating; particularist: loyalty/betrayal + authority/subversion. Source: https://osf.io/ezn37
 
 {
   levels_quotas <- list(
@@ -344,7 +345,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     # e$excluded <- e$Q_TerminateFlag
     # e$finished <- e$Finished
     e$valid <- !e$excluded %in% "QuotaMet" 
-    label(e$valid) <- "valid: T/F Not quota met or socio-demo screened (excluded != QuotaMet)"
+    label(e$valid) <- "valid: T/F Allowed to continue after socio-demos: Not quota met (excluded != QuotaMet)"
     e$legit <- is.na(e$excluded) 
     label(e$legit) <- "legit: T/F Not excluded (not quota met nor screened) (is.na(excluded))"
     e$dropout <- is.na(e$excluded) & !e$finished %in% c(TRUE, "TRUE", 1, "1") 
@@ -1044,11 +1045,11 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
     e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
   }
-  e$top_tax_support <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
+  e$top_tax_support <- e$top1_tax_support_affected <- e$top3_tax_support_affected <- e$top_tax_support_affected <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
   label(e$top_tax_support) <- "top_tax_support: -2-2. Supports an additional income tax on the top 1 or 3% (depending on variant_top_tax) to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
   e$variant_top_tax <- ifelse(e$variant_radical_redistr == 0, "top1", "top3")
   e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
-  
+   
   e <- create_item("income", new_var = "income_quartile", labels = c("Q1" = 1, "Q2" = 2, "Q3" = 3, "Q4" = 4, "PNR" = 0), values = c("100|200|250", "300|400|500", "600|700|750", "800|900", "not"), grep = T, missing.values = c("PNR"), df = e)  
   e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "201|300", "301", "401", "501", "601", "701|800", "801", "more", "not"), grep = T, missing.values = c("PNR"), df = e)  
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
@@ -1060,8 +1061,18 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     label(e$income_exact_individualized) <- "income_exact_individualized: Individualized income (income_exact/uc, except for US, RU: household income_exact) (LCU/year)."
     e$income_exact_equal_split <- e$income_exact / (1 + (e$couple > 0))
     label(e$income_exact_equal_split) <- "income_exact_equal_split: Equal-split income (income_exact/(1+couple)) (LCU per country-specific periodicity)."
-    e$income_exact_affected_top_tax <- e$income_exact_equal_split > as.numeric(gsub("[^0-9]*", "", features[ifelse(e$variant_top_tax == "top3", "lcu_80k", "lcu_120k"), languages_country[[country]][1]]))
+    e$income_exact_affected_top_tax <- e$income_exact_affected_top3_tax <- e$income_exact_affected_top1_tax <- e$income_exact_equal_split > as.numeric(gsub("[^0-9]*", "", features[ifelse(e$variant_top_tax == "top3", "lcu_80k", "lcu_120k"), languages_country[[country]][1]]))
     label(e$income_exact_affected_top_tax) <- "income_exact_affected_top_tax: T/F Respondent's household is affected by the global income top_tax (i.e. their income_exact_equal_split > $80k or $120k depending on variant_top_tax)."
+    e$income_exact_affected_top1_tax[e$variant_top_tax == "top3"] <- NA
+    label(e$income_exact_affected_top1_tax) <- "income_exact_affected_top1_tax: T/F Respondent's household is affected by the global income top1_tax (i.e. their income_exact_equal_split > $80k or $120k depending on variant_top_tax)."
+    e$income_exact_affected_top3_tax[e$variant_top_tax == "top1"] <- NA
+    label(e$income_exact_affected_top3_tax) <- "income_exact_affected_top3_tax: T/F Respondent's household is affected by the global income top3_tax (i.e. their income_exact_equal_split > $80k or $120k depending on variant_top_tax)."
+    e$top1_tax_support_affected[!e$income_exact_affected_top1_tax %in% T] <- NA
+    e$top3_tax_support_affected[!e$income_exact_affected_top3_tax %in% T] <- NA
+    e$top_tax_support_affected[!e$income_exact_affected_top_tax %in% T] <- NA
+    label(e$top1_tax_support_affected) <- "top1_tax_support_affected: -2-2. [Among responents affected by the tax; other: NA] Supports an additional income tax on the top 1% to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
+    label(e$top3_tax_support_affected) <- "top3_tax_support_affected: -2-2. [Among responents affected by the tax; other: NA] Supports an additional income tax on the top 3% to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
+    label(e$top_tax_support_affected) <- "top_tax_support_affected: -2-2. [Among responents affected by the tax; other: NA] Supports an additional income tax on the top 1 or 3% (depending on variant_top_tax) to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
     e$income_exact_equal_split_dollar <- ifelse(e$variant_top_tax == "top3", 8e4, 12e4) * e$income_exact_equal_split / as.numeric(gsub("[^0-9]*", "", features[ifelse(e$variant_top_tax == "top3", "lcu_80k", "lcu_120k"), languages_country[[country]][1]]))
     label(e$income_exact_equal_split_dollar) <- "income_exact_equal_split_dollar: T/F Equal-split income (income_exact/(1+couple)) ($/year)."
     if (country %in% c("RU", "US")) e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]]
@@ -1640,6 +1651,12 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$comment_nb_keywords <- rowSums(e[, variables_comment_keyword])
   e$comment_nb_manual <- rowSums(e[, variables_comment_manual])
   e$nchar_comment <- nchar(e$comment_field_en)
+  e$field_universalism <- rowSums(sapply(1:nrow(mfd), function(i) str_count(e$field_en, mfd$keyword[i]) * (mfd$dimension[i] %in% c("care", "fairness") - mfd$dimension[i] %in% c("loyalty", "authority"))))
+  label(e$field_universalism) <- "field_universalism: Number of occurrences of care or fairness words minus number of loyalty or authority words in field (words from Moral Foundation Dictionary 2.0)."
+  e$field_universalist <- grepl(paste(mfd$keyword[mfd$dimension %in% c("care", "fairness")], collapse = "|"), e$field_en)
+  label(e$field_universalist) <- "field_universalist: T/F Whether field_en contains any care or fairness words (from Moral Foundation Dictionary 2.0)."
+  e$field_particularist <- grepl(paste(mfd$keyword[mfd$dimension %in% c("loyalty", "authority")], collapse = "|"), e$field_en)
+  label(e$field_particularist) <- "field_particularist: T/F Whether field_en contains any loyalty or authority words (from Moral Foundation Dictionary 2.0)."
   
   # Deprecated:
   # Use lines below export CSV. 
@@ -1887,7 +1904,7 @@ rm(zscores_data)
 
 e$gcs_lost <- setNames(c(17, 48, 18, 39, 13, 24, 14, 48, 30, 101, 88), countries)[e$country] # features["amount_lost", main_languages[e$country]]
 e$gcs_price_increase <- features["price_increase", main_languages[e$country]]
-for (v in paste0(c("affected", "transfer"), "_top", c(1,1,3,3))) e[[v]] <- features[v, main_languages[e$country]]
+for (v in paste0(c("affected", "transfer"), "_top", c(1,1,3,3))) e[[v]] <- as.numeric(features[v, main_languages[e$country]])/100
 all <- e
 
 

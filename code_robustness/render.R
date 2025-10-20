@@ -174,14 +174,21 @@ labels_vars <- c(
   "sustainable_future" = "Prefers sustainable future", 
   "sustainable_future_A" = "Prefers sustainable future\n(Variant: Scenario A = Sustainable)", 
   "sustainable_future_B" = "Prefers sustainable future\n(Variant: Scenario B = Sustainable)", 
+  "top_tax_support" = "Supports tax on world top income to finance global poverty reduction\n(Any variant)",
   "top1_tax_support" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
   "top3_tax_support" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
+  "top_tax_support_affected" = "Supports tax on world top income to finance global poverty reduction\n(Any variant)",
+  "top1_tax_support_affected" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
+  "top3_tax_support_affected" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
   "top1_tax_support_binary" = "Supports tax on world top 1% to finance global poverty reduction\n(Additional 15% tax on income over [$120k/year in PPP])",
   "top3_tax_support_binary" = "Supports tax on world top 3% to finance global poverty reduction\n(Additional 15% tax over [$80k], 30% over [$120k], 45% over [$1M])",
   "affected_top1" = "Percentage of fellow citizens affected by top 1% tax",
   "transfer_top1" = "Percentage of GDP transferred abroad in top 1% tax",
   "affected_top3" = "Percentage of fellow citizens affected by top 3% tax",
   "transfer_top3" = "Percentage of GDP transferred abroad in top 3% tax",
+  "income_exact_affected_top3_tax" = "Affected by the top 3% tax (income > $PPP 80k)",
+  "income_exact_affected_top1_tax" = "Affected by the top 1% tax (income > $PPP 120k)",
+  "income_exact_affected_top_tax" = "Affected by the (variant faced of the) top tax",
   "gcs_price_increase" = "Inflation due to the GCS (in %)",
   "gcs_lost" = "Net monetary cost of the GCS (in $/month)",
   "vote_intl_coalition" = "More likely to vote for party if part of worldwide coalition for climate action and global redistribution",
@@ -292,7 +299,10 @@ heatmaps_defs <- list(
   "my_tax_global_nation" = list(vars = "my_tax_global_nation", conditions = c("", ">= 1", "/"), width = 1050, height = 170), 
   "convergence_support" = list(vars = "convergence_support", conditions = c("", ">= 1", "/"), width = 1150, height = 200), 
   "top_tax" = list(vars = c("top1_tax_support", "top3_tax_support"), conditions = c(">= 1", "/"), width = 1300, height = 200),
-  "top_tax_all" = list(vars = c("top1_tax_support_binary", "affected_top1", "transfer_top1", "top3_tax_support_binary", "affected_top3", "transfer_top3"), conditions = c(""), width = 1300, height = 380, nb_digits = 0),
+  "top_tax_all_share" = list(vars = c("top1_tax_support", "affected_top1", "transfer_top1", "top3_tax_support", "affected_top3", "transfer_top3"), conditions_var = rep(c("/", "", ""), 2), width = 1300, height = 380, proportion = T),
+  "top_tax_all_positive" = list(vars = c("top1_tax_support", "affected_top1", "transfer_top1", "top3_tax_support", "affected_top3", "transfer_top3"), conditions_var = rep(c(">= 1", "", ""), 2), width = 1300, height = 380, proportion = T),
+  "top_tax_affected_share" = list(vars = c("top_tax_support_affected", "income_exact_affected_top_tax", "top1_tax_support_affected", "income_exact_affected_top1_tax", "top3_tax_support_affected", "income_exact_affected_top3_tax"), conditions_var = rep(c("/", ""), 3), width = 1300, height = 380, proportion = T),
+  "top_tax_affected_positive" = list(vars = c("top_tax_support_affected", "income_exact_affected_top_tax", "top1_tax_support_affected", "income_exact_affected_top1_tax", "top3_tax_support_affected", "income_exact_affected_top3_tax"), conditions_var = rep(c(">= 1", ""), 3), width = 1300, height = 380, proportion = T),
   "wealth_tax_support" = list(vars = variables_wealth_tax_support, conditions = ">= 1", width = 1100, height = 250),
   "custom_redistr_all" = list(vars = c(variables_custom_redistr_most, "custom_redistr_untouched", "custom_redistr_satisfied_touched"), conditions = "", width = 1200, height = 560),
   "custom_redistr_most" = list(vars = variables_custom_redistr_most, conditions = "", width = 1200, height = 510),
@@ -402,7 +412,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs["ncs_gcs_ics_all_control_features_median_belief"])
+heatmap_multiple(heatmaps_defs)
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 # barres_multiple(barresN_defs["share_solidarity_supported"])
@@ -875,6 +885,7 @@ heatmap_multiple(heatmaps_defs[c("custom_redistr_satisfied")], data = all[all$cu
 
 ## Top tax
 heatmap_multiple(heatmaps_defs["top_tax_all"], data = all[all$top_tax_support != 0,], weight_non_na = F)
+heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_positive")])
 
 
 ##### Conjoint on consistent programs #####

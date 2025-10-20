@@ -322,6 +322,13 @@ with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax * variant_long)))
 with(e, summary(lm((top_tax_support > 0) ~ variant_long)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax_full)))  
 with(e, summary(lm((top_tax_support > 0) ~ variant_top_tax)))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$income_exact_affected_top_tax, d(c)$weight), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$income_exact_affected_top_tax, d(c)$weight * (d(c)$variant_top_tax == "top1")), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$income_exact_affected_top_tax, d(c)$weight * (d(c)$variant_top_tax == "top3")), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top_tax_support > 0, d(c)$weight * d(c)$income_exact_affected_top_tax * (d(c)$top_tax_support != 0)), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight * d(c)$income_exact_affected_top_tax * (d(c)$top_tax_support != 0)), 3))
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight * d(c)$income_exact_affected_top_tax * (d(c)$top_tax_support != 0)), 3))
+cor(e$income_exact_affected_top_tax, e$millionaire == 5, use = "complete.obs")
 
 
 ##### Radical redistribution #####
@@ -500,7 +507,7 @@ sort(sapply(countries, function(c) unname(summary(lm(unlist(d(c)[,c(variables_sp
 ##### Attrition #####
 # vote = end sociodemos = 21; 26% dropout at 34 (revenue_split), 7% at 33 (conjoint), 8% at 49 (likely_solidarity), 5% at 59 (scenarios)
 100*round(table(a$progress[!a$progress %in% 100])/sum(!a$finished), 2) 
-sum(!a$finished)/sum(is.na(a$excluded)) # 20.6% dropout
+sum(!a$finished)/sum(is.na(a$excluded)) # 19% dropout
 sum(!a$finished & a$progress > 21)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos
 sum(!a$finished & a$progress == 39)/sum(is.na(a$excluded) & a$progress > 21) # 14% dropout after sociodemos, incl. 5% at revenue_split
 summary(lm(!finished ~ vote_US, data = a, subset = is.na(a$excluded)))
@@ -512,6 +519,24 @@ summary(lm(reg_formula("!finished", variables_sociodemos), data = a, subset = is
 # Non-voters are ~6pp more likely to drop out (left more likely than right); likely millionaires, man, young, rich, high educ less likely
 # Say there is differential attrition but unlikely to affect experiments as sociodemos explain under 12% of variance
 summary(lm(reg_formula("share_solidarity_supported", variables_sociodemos), data = all, weights = weight)) 
+
+# Attrition
+# Premier entonnoir possible
+mean(a$valid) # 23% allowed
+mean(a$dropout[a$valid]) # 17% drop out among allowed => stayed == valid & !dropout
+mean(!a$legit[a$stayed]) # 16% excluded => final == legit & stayed
+mean(!a$attentive[a$stayed]) # 9% inattentive
+mean(a$duration[a$stayed] < 6) # 13% too fast
+mean((a$duration < 6 & !a$attentive)[a$stayed]) # 5% too fast & inattentive
+
+# Second entonnoir
+mean(a$valid) # 23% allowed
+mean(!a$legit[a$valid]) # 14% excluded among allowed (all legit are valid)
+mean(a$dropout[a$legit]) # 19% drop out => final == legit & !dropout
+
+# Stats qui feraient le plus sens (mais ça n'est plus un entonnoir)
+mean(!a$legit[a$stayed]) # 16% excluded
+mean(a$dropout[a$legit]) # 19% drop outs
 
 
 ##### Most correlated variable #####

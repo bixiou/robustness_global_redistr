@@ -11,7 +11,16 @@ mean_gn25 - mean_gn23 # .03
 (mean_bi25 <- wtd.mean(sapply(names(stostad_billionaire_tax_absolute)[!is.na(stostad_billionaire_tax_absolute)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), adult_pop[!is.na(stostad_billionaire_tax_absolute)])) 
 (mean_bi24 <- wtd.mean(stostad_billionaire_tax_absolute, adult_pop, na.rm = T)) 
 mean_bi25 - mean_bi24 # -.044
-         
+
+# Attrition
+mean(a$valid) # 23% allowed
+mean(a$dropout[a$valid]) # 17% drop out among allowed => stayed == valid & !dropout
+mean(a$dropout_late[a$valid])
+mean(!a$legit[a$stayed]) # 16% excluded => final == legit & stayed
+mean(!a$attentive[a$stayed]) # 9% inattentive
+mean(a$duration[a$stayed] < 6) # 13% too fast
+mean((a$duration < 6 & !a$attentive)[a$stayed]) # 5% too fast & inattentive
+
 
 ##### Open-ended fields #####
 decrit(all$field_keyword_global_inequality, all, which = all$variant_field == "injustice") # .013
@@ -30,6 +39,21 @@ decrit(all$field_manual_global_inequality, which = all$variant_field %in% c("inj
 decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .02
 decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
+decrit(e$field_universalism == 0) # 66%
+decrit(e$field_universalism > 0) # 22%
+decrit(e$field_universalism < 0) # 13%
+decrit(e$field_universalist) # 24%
+decrit(e$field_particularist) # 19%
+cor(e$field_universalist, e$latent_support_global_redistr, use = "complete.obs") # 5%
+cor(e$field_manual_global_issue, e$latent_support_global_redistr, use = "complete.obs") # 6%
+cor(e$field_manual_inequality, e$latent_support_global_redistr, use = "complete.obs") # 9%
+cor(e$field_keyword_inequality, e$latent_support_global_redistr, use = "complete.obs") # 8%
+cor(e$field_gpt_inequality, e$latent_support_global_redistr, use = "complete.obs") # 6%
+cor(e$field_universalism, e$share_solidarity_diff, use = "complete.obs") # 5%
+cor(e$field_universalism, e$latent_support_global_redistr, use = "complete.obs") # 5%
+cor(e$field_universalism, e$universalist, use = "complete.obs") # 3%
+cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
+decrit(e$country[e$field_universalism != 0])
 
 
 ##### Revenue split #####
@@ -49,6 +73,11 @@ wtd.mean(all$split_nb_global, all$weight) # 1.5
 wtd.mean(all$split_many_global, all$weight) # 26.9%
 wtd.mean(all$split_many_global, all$weight)/wtd.mean(all$split_nb_global, all$weight) # 17.5%
 wtd.mean(all$split_many_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/wtd.mean(all$split_nb_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.5%
+decrit("revenue_split", RU)
+table(RU$revenue_split)
+wtd.mean(RU$revenue_split, RU$weight) # 12.3%
+wtd.mean(RU$revenue_split == 0, RU$weight) # 12%
+Ecdf(RU$revenue_split)
 
 
 ##### ICS #####
@@ -106,16 +135,19 @@ sapply(c("all", countries), function(c) round(mean(d(c)$likely_solidarity > 0, n
 # 2SLS
 first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)
 iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)
-# first_stage_f <- summary(iv_model, diagnostics = TRUE)$diagnostics["Weak instruments", "statistic"]
+effF <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = NULL, weights = "weight")
+# (first_stage_f <- summary(iv_model, diagnostics = TRUE)$diagnostics["Weak instruments", "statistic"])
+# ivmodel(Y = as.numeric(e$share_solidarity_supported), D = as.numeric(e$likely_solidarity > 0), Z = e$info_solidarity)
 ols_model <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
 direct_effect <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)
 stargazer(first_stage, iv_model, ols_model, direct_effect,
           column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
-          keep.stat = c("n", "rsq", "f"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          keep.stat = c("n", "rsq"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
           dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
           covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"),
-          type = "latex", style = "default", out = "../tables/IV.tex", float = FALSE,
-          title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
+          type = "latex", style = "default", out = "../tables/iv.tex", float = FALSE,
+          title = "Effect on support for global redistribution of believing that it is likely.",
+          add.lines = list(c("Effective F-statistic", sprintf("%.2f", effF), "", "", "")))  
 summary(direct_effect)$coefficients[,4]
 
 
@@ -227,7 +259,7 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 ##### Attrition #####
 desc_table(dep_vars = c("dropout", "dropout_late", "attentive == F", "duration", "duration < 6"), weights = NULL, #ci = T, report = 'vcsp', 
            dep.var.labels = c("\\makecell{Dropped out}", "\\makecell{Dropped out\\\\after\\\\socio-eco}", "\\makecell{Failed\\\\attention test}", "\\makecell{Duration\\\\(in min)}", "\\makecell{Duration\\\\below\\\\6 min}"),
-           filename = "attrition", save_folder = "../tables/", data = c(list(a), list(a), list(a[a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,])), 
+           filename = "attrition", save_folder = "../tables/", data = c(list(a[a$valid == T,]), list(a[a$valid == T,]), list(a[a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,])), 
            indep_vars = control_variables, omit = c("illionaire", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
 
