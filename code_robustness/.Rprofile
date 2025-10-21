@@ -398,7 +398,7 @@ quadratic_interpolations <- function(averages, thresholds, x_coarse, x_fine) { #
 no.na <- function(vec, rep = "", rep_num = rep, num_as_char = T) {
   if (missing(rep) & missing(rep_num)) rep_num <- 0
   if (is.numeric(rep)) if (is.character(vec)) rep <- as.character(rep) else num_as_char <- FALSE
-  if (any(class(vec) %in% "data.frame")) return(as.data.frame(lapply(vec, no.na, num_as_char, rep)))
+  if (any(class(vec) %in% "data.frame")) return(as.data.frame(lapply(vec, no.na, rep, rep_num, num_as_char)))
   else {
     if (num_as_char) {
       if (is.numeric(vec) | is.logical(vec)) return(replace_na(as.character(as.vector(vec)), rep))
@@ -1680,7 +1680,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
         if (!weights & length(var_c) > 0) pos <- mean(var_c >= 1, na.rm = T)
         if (weights & length(var_c) > 0) neg <- wtd.mean(var_c <= -1, na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])
         if (!weights & length(var_c) > 0) neg <- mean(var_c <= -1, na.rm = T)
-        table[v,c] <- if (conditions[v] == "-") pos - neg else pos / (pos + neg)
+        if (length(var_c) > 0) table[v,c] <- if (conditions[v] == "-") pos - neg else pos / (pos + neg)
         if (is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) table[v,c] <- pos
         if (c == levels[1] & is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) row.names(table)[v] <- paste0(row.names(table)[v], "*")
       } else { # TODO Commented: use weight_country for EU (only useful if we use EU-specific weights instead of aggregating weights of EU countries like we do)

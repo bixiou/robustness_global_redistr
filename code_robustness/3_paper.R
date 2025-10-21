@@ -39,21 +39,6 @@ decrit(all$field_manual_global_inequality, which = all$variant_field %in% c("inj
 decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .02
 decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
-decrit(e$field_universalism == 0) # 66%
-decrit(e$field_universalism > 0) # 22%
-decrit(e$field_universalism < 0) # 13%
-decrit(e$field_universalist) # 24%
-decrit(e$field_particularist) # 19%
-cor(e$field_universalist, e$latent_support_global_redistr, use = "complete.obs") # 5%
-cor(e$field_manual_global_issue, e$latent_support_global_redistr, use = "complete.obs") # 6%
-cor(e$field_manual_inequality, e$latent_support_global_redistr, use = "complete.obs") # 9%
-cor(e$field_keyword_inequality, e$latent_support_global_redistr, use = "complete.obs") # 8%
-cor(e$field_gpt_inequality, e$latent_support_global_redistr, use = "complete.obs") # 6%
-cor(e$field_universalism, e$share_solidarity_diff, use = "complete.obs") # 5%
-cor(e$field_universalism, e$latent_support_global_redistr, use = "complete.obs") # 5%
-cor(e$field_universalism, e$universalist, use = "complete.obs") # 3%
-cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
-decrit(e$country[e$field_universalism != 0])
 
 
 ##### Revenue split #####

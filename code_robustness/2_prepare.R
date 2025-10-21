@@ -74,6 +74,7 @@ stostad_billionaire_tax_oppose <- sapply(countries, function(c) if (c %in% stost
 stostad_billionaire_tax_relative <- stostad_billionaire_tax_absolute / (stostad_billionaire_tax_absolute + stostad_billionaire_tax_oppose)
 income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", rowNames = T, rows = 1:13)
 mfd <- read.csv("../data_ext/moral_dic2.csv") # univeralist: care/harm + fairness/cheating; particularist: loyalty/betrayal + authority/subversion. Source: https://osf.io/ezn37
+emfd <- read.csv("../data_ext/eMFD.csv") # Source Hopp et al. (21), https://osf.io/vw85e/files/ufdcz
 
 {
   levels_quotas <- list(
@@ -1046,7 +1047,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e$top1_tax_support <- ifelse(e$cut, e$top1_tax_support_cut, e$top1_tax_support)
     e$top3_tax_support <- ifelse(e$cut, e$top3_tax_support_cut, e$top3_tax_support)
   }
-  e$top_tax_support <- e$top1_tax_support_affected <- e$top3_tax_support_affected <- e$top_tax_support_affected <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
+  e$top_tax_support <- ifelse(e$variant_radical_redistr == 0, e$top1_tax_support, e$top3_tax_support)
+  if (country != "RU") e$top1_tax_support_affected <- e$top3_tax_support_affected <- e$top_tax_support_affected <- e$top_tax_support
   label(e$top_tax_support) <- "top_tax_support: -2-2. Supports an additional income tax on the top 1 or 3% (depending on variant_top_tax) to finance poverty reduction for the bottom 2 or 3 billion people (top1: 15% > 120k $/year; top3: 15% > 80k; 30% > 120k; 45% > 1M)."
   e$variant_top_tax <- ifelse(e$variant_radical_redistr == 0, "top1", "top3")
   e$variant_top_tax_full <- paste0(e$variant_top_tax, ifelse(e$variant_long, "_long", "_short"))
@@ -1658,6 +1660,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   label(e$field_universalist) <- "field_universalist: T/F Whether field_en contains any care or fairness words (from Moral Foundation Dictionary 2.0)."
   e$field_particularist <- grepl(paste(mfd$keyword[mfd$dimension %in% c("loyalty", "authority")], collapse = "|"), e$field_en)
   label(e$field_particularist) <- "field_particularist: T/F Whether field_en contains any loyalty or authority words (from Moral Foundation Dictionary 2.0)."
+  e$field_universalism2 <- rowSums(sapply(1:nrow(emfd), function(i) str_count(e$field_en, emfd$word[i]) * (emfd$care_p + emfd$fairness_p - emfd$loyalty_p - emfd$authority_p)[i]))
+  label(e$field_universalism2) <- "field_universalism2: Number of occurrences of care or fairness words minus number of loyalty or authority words in field (words from Moral Foundation Dictionary 2.0)."
   
   # Deprecated:
   # Use lines below export CSV. 

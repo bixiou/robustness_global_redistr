@@ -69,6 +69,28 @@ with(e, summary(rq(nchar(field) ~ variant_field)))
 with(e, summary(lm(is.na(field) ~ variant_field)))
 with(e, summary(rq(duration_field ~ variant_field)))
 # concerns & issue give comparable results. issue has slightly shorter/fewer answers.
+# field_universalism (using MFD2) is more correlated than field_universalism2 (eMFD) but still less than field_keyword_inequality or universalist
+decrit(e$field_universalism == 0) # 66%
+decrit(e$field_universalism > 0) # 22%
+decrit(e$field_universalism < 0) # 13%
+decrit(e$field_universalism2 == 0) # 16%
+decrit(e$field_universalism2 > 0) # 72%
+decrit(e$field_universalism2 < 0) # 12%
+decrit(e$field_universalist) # 24%
+decrit(e$field_particularist) # 19%
+cor(e$field_universalist, e$latent_support_global_redistr, use = "complete.obs") # 5%
+cor(e$field_manual_global_issue, e$latent_support_global_redistr, use = "complete.obs") # 6%
+cor(e$field_manual_inequality, e$latent_support_global_redistr, use = "complete.obs") # 9%
+cor(e$field_keyword_inequality, e$latent_support_global_redistr, use = "complete.obs") # 8%
+cor(e$field_gpt_inequality, e$latent_support_global_redistr, use = "complete.obs") # 6%
+cor(e$field_universalism, e$share_solidarity_diff, use = "complete.obs") # 5%
+cor(e$field_universalism, e$latent_support_global_redistr, use = "complete.obs") # 5%
+cor(e$field_universalism, e$universalist, use = "complete.obs") # 3%
+cor(e$field_universalism2, e$share_solidarity_diff, use = "complete.obs") # 4%
+cor(e$field_universalism2, e$latent_support_global_redistr, use = "complete.obs") # 3%
+cor(e$field_universalism2, e$universalist, use = "complete.obs") # 2%
+cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
+decrit(e$country[e$field_universalism != 0])
 
 
 # => Either keep as is or change "in the world" => "of all" for injustice; or have two versions of injustice and take out concerns.
