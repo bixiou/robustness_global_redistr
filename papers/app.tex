@@ -416,6 +416,30 @@ Unless otherwise specified, response is compulsory and a single response much be
 \input{app_questionnaire}
 
 \clearpage
+\section{Survey features}\label{app:features}
+
+\subsection{Country-specific features}\label{subsec:country_features}
+
+\begin{table}[!h]\label{tab:features}
+\caption[Country-specific features]{\hypertarget{tab_features}{Country-specific features of the questionnaire}.}
+\makebox[\textwidth][c]{\input{../tables/features.tex}}
+\end{table}
+
+
+\subsection{Definition of keywords}\label{subsec:keywords}
+
+Below are the keywords used to classify the open-ended fields on top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}). The keyword search uses R function \verb|grepl| and ignores case. Special character \verb|\^{}| indicates the start of the string and \verb|$| the end.
+\input{../tables/keywords.tex}
+
+% Below are the keywords used to classify the open-ended fields. The keyword search uses R function \verb|grepl| with argument \verb|ignore.case = TRUE|. Special character \verb|\^{}| indicates the start of the string and \verb|$| the end.
+
+% Here are keywords for top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}): 
+% \input{../tables/keywords.tex}
+
+% Here are keywords for the end-of-survey comment field (Question~\ref{q:comment_field}): 
+% \input{../tables/keywords_comment.tex}
+
+\clearpage
 \section{Representativeness of the surveys}\label{app:representativeness}
 
 \begin{table}[h!]
@@ -666,7 +690,7 @@ Once the custom redistribution has been determined, it is straightforward to com
     }\label{fig:solidarity_support_share_weight_vote}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_weight_vote_share.pdf}} 
 \end{figure}
-% # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
+% # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Support for broad or radical global redistribution]{[Weighted by vote] Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
     }\label{fig:radical_redistr_share_weight_vote} 
@@ -725,7 +749,7 @@ Once the custom redistribution has been determined, it is straightforward to com
     }\label{fig:solidarity_support_share_extended}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_extended_share.pdf}} 
 \end{figure}
-% # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO!, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
+% # 9. radical_redistr: heatmap sustainability, top_tax, reparations, NCQG? TODO, vote_intl_coalition, group_defended?, my_tax_global_nation, convergence_support # my_tax_global_nation other source? No, just mention corrs and means in appendix/footnote & say no sufficient confidence in their representativeness + compare w Stostad \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}
 \begin{figure}[h!]
     \caption[{[}Extended sample{]} Support for broad or radical global redistribution]{[Extended sample] Support for broad action or radical proposals of global redistribution. \hfill (Questions \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
     }\label{fig:radical_redistr_share_extended} 
