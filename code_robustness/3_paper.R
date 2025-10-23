@@ -222,15 +222,17 @@ sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr
 
 ##### Survey features #####
 # Features
-table_feature <- figures[c(54, 40, 37, 51, 52, 18:19, 22, 24, 26, 35:36), c(3:13)] # 9:12 17
+table_feature <- figures[c(54, 40, 37, 51, 52, 18:19, 22, 24, 26, 35:36, 29), c(3:13)] # 9:12 17
 colnames(table_feature) <- countries
 table_feature <- gsub("early|onthly|et|ross", "", gsub("^\\$", "\\\\$", gsub("€", "\\euro{}", gsub("&nbsp;", "~", table_feature, fixed = T), fixed = T)))
-row.names(table_feature) <- c("\\ref{q:ncs_support} NCS \\verb|amount_expenses| (LCU/m.)", "\\ref{q:gcs_support} GCS cost (\\$/month)", "\\ref{q:gcs_support} GCS \\verb|amount_lost| (LCU/month)", 
+row.names(table_feature) <- c("\\ref{q:ncs_support} NCS \\verb|amount_expenses| (LCU/m.)", "\\ref{q:gcs_support} GCS net cost (\\$/month)", "\\ref{q:gcs_support} GCS \\verb|amount_lost| (LCU/month)", 
                               "\\ref{q:gcs_support} GCS \\verb|amount_bi| (LCU/month)", "\\ref{q:gcs_support} GCS \\verb|price_increase| (\\%)", "\\ref{q:income} Income type: \\textbf{n}et/\\textbf{g}ross", 
                               "\\ref{q:top3_tax_support} Income period: \\textbf{m}onth/\\textbf{y}ear", "\\ref{q:top3_tax_support} 80k \\$PPP \\verb|lcu_80k|", "\\ref{q:top1_tax_support} 120k \\$PPP \\verb|lcu_120k|", "\\ref{q:top3_tax_support} 1M \\$PPP \\verb|lcu_1M|", 
-                              "\\ref{q:revenue_split_few} Wealth tax revenue (\\$ bn)", "\\ref{q:revenue_split_few} Wealth tax revenue (\\% GNI)")
+                              "\\ref{q:revenue_split_few} Wealth tax revenue (\\$ bn)", "\\ref{q:revenue_split_few} Wealth tax revenue (\\% GNI)", "\\quad LCU per dollar (on Apr. 2, 2025)")
 table_feature[3:4,] <- gsub("[^0-9]*", "", table_feature[3:4,])
 table_feature %>% kable("latex", booktabs = TRUE, escape = FALSE, table.envir = NULL) %>% save_kable("../tables/features.tex")
+temp <- readLines("../tables/features.tex")
+cat(sub(" & FR", "Question; Feature & FR", temp), file = "../tables/features.tex")
 
 # Keywords
 export_keywods <- function(keys = keywords, strings = keywords_labels, file = "../tables/keywords.tex") {

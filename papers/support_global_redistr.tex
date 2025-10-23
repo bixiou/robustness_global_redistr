@@ -272,6 +272,7 @@ samples compare to reality in terms of vote in the last election. While the shar
 The median survey duration is 17 minutes (13 min in Russia). % Following TODO cite Stantcheva
 Best practices have been used to ensure top-notch data quality. 
 The questionnaire has been worded in a neutral and informative way;\footnote{At the end of the survey, 70\% of the respondents find it politically unbiased (Appendix Figure \ref{fig:survey_biased}).} tested on random people in public spaces to make sure it is correctly understood; translated by professional translators, with figures converted into national currencies, and double-checked by native speakers.
+% TODO? foreign in covariates?
 
 Of all respondents who started the questionnaire, 23\% respondents were allowed to pursue the survey (as their quotas were not full). Among them, 17\% drop out (including 10\% who drop out after the socio-demographic questions). The final sample is obtained after excluding of this extended sample 16\% of respondents for suspicion of low quality: 9\% for failing an attention test and 13\% for answering the questionnaire in less than 6 min (including 5\% for both reasons). % TODO: Russia < 6 min?
 Appendix \ref{app:attrition} checks for differential attrition and Appendix \ref{app:extended} shows that our main results replicate on the extended sample. 
@@ -316,7 +317,7 @@ In this Section, I analyze the salience of global solidarity in undirected open-
 
 At the beginning of the survey, respondents are randomly assigned one open-ended question among four: their main concerns, their needs or wishes, an issue important to them but neglected in public debate, or the greatest injustice of all. The questions are deliberately broad and vague to let respondents express their top-of-mind considerations without any priming. 
 
-To analyze the answers, I automatically translated each field into English.\footnote{I used \href{https://www.onlinedoctranslator.com/en/translationform}{onlinedoctranslator.com}, which is powered by \textit{Google Translate}.} Then, I used AI and my own reading of a few hundreds answers to identify the most common concepts, from which I selected 27 categories. Then, I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI (Figure \ref{fig:field_gpt}). Finally, I manually defined a list of 47 (conjunction of) keywords and used it to automatically classify all answers.\footnote{The list of keywords is given in Appendix TODO!.} I report occurrences of the 24 most common keyword matches in Figure \ref{fig:field_keyword}. 
+To analyze the answers, I automatically translated each field into English.\footnote{I used \href{https://www.onlinedoctranslator.com/en/translationform}{onlinedoctranslator.com}, which is powered by \textit{Google Translate}.} Then, I used AI and my own reading of a few hundreds answers to identify the most common concepts, from which I selected 27 categories. Then, I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI (Figure \ref{fig:field_gpt}). Finally, I manually defined a list of 47 (conjunction of) keywords and used it to automatically classify all answers.\footnote{The list of keywords is given in Appendix\ref{subsec:keywords}.} I report occurrences of the 24 most common keyword matches in Figure \ref{fig:field_keyword}. 
 
 The three different classification methods yield consistent results but differ in accuracy. While the keyword classification allows an exact and reproducible search, the automatic search is not bound to specific words and captures more matching responses. % Although the manual classification could be less consistent than the AI one (if e.g. the interpretation of the category changes over time or among coders), 
 Overall, it seems that the manual classification provides the most accurate results, with a number of matches generally between the two other methods. 
@@ -498,7 +499,7 @@ Finally, the greater support for the ICS compared to the GCS is somewhat puzzlin
 % ICS high color: visualizing net gain stronger effect than country coverage
 % why GCS < ICS? hypotheses: lower support for less concrete / more uncertain proposal, cost less salient, map induces more experimenter demand, people think it's more credible if it's about joining a club (rather than a GLOBAL cs), stronger effect of not-wanting-to-free-ride when see most countries are in
 
-% TODO!
+% TODO! App features
 % party leaning
 % policies leaning, party
 
