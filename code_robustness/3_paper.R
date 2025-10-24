@@ -222,7 +222,7 @@ sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr
 
 ##### Survey features #####
 # Features
-table_feature <- figures[c(54, 40, 37, 51, 52, 18:19, 22, 24, 26, 35:36, 29), c(3:13)] # 9:12 17
+table_feature <- figures[c(50, 40, 37, 47, 48, 18:19, 22, 24, 26, 35:36, 29), c(3:13)] # 9:12 17
 colnames(table_feature) <- countries
 table_feature <- gsub("early|onthly|et|ross", "", gsub("^\\$", "\\\\$", gsub("€", "\\euro{}", gsub("&nbsp;", "~", table_feature, fixed = T), fixed = T)))
 row.names(table_feature) <- c("\\ref{q:ncs_support} NCS \\verb|amount_expenses| (LCU/m.)", "\\ref{q:gcs_support} GCS net cost (\\$/month)", "\\ref{q:gcs_support} GCS \\verb|amount_lost| (LCU/month)", 

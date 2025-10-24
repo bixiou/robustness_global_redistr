@@ -464,9 +464,9 @@ Table \ref{tab:features} reports the figures used for each country for the Natio
 % Party leaning
 % Policy party
 % Wealth tax revenue (2% > 5M)
-% NCS/GCS computations
-% Emissions ICS
-% Info global policies
+%-NCS/GCS computations
+%-Emissions ICS
+%-Info global policies
 % NCQG sources
 % Top tax revenue + poverty gap
 % Custom redistr: global distr
@@ -479,13 +479,24 @@ Table \ref{tab:features} reports the figures used for each country for the Natio
 \paragraph{Climate Scheme.} 
 
 In the Climate Schemes, I assume a carbon price of \$95/tCO$_\text{2}$, corresponding to the price in 2025 for an emissions trajectory compatible with a global warming peaking at +1.8\textdegree{}C before 2100.\footnote{More precisely, I use the price trajectory of the integrated assessment model IMAGE in the scenario SSP2-2.6, as given by the \href{https://secure.iiasa.ac.at/web-apps/ene/SspDb/download/iam_v2/SSP_IAM_V2_201811.csv.zip}{IIASA}.} 
-While the price increases overtime, emissions decrease so that the increase in carbon-intensive expenditures is estimated to remain at a roughly constant level in the next thirty years, before going down as net-zero approaches. In other words, the cost of climate schemes provided to the respondents reflect the direct monetary costs expected from a carbon price aligned with the Paris Agreement.  
+After 2025, the decline in emissions is estimated to almost balance out the carbon price increase, in the sense that the share of carbon-intensive expenditures would be roughly constant over the thirty years following the initial phase-in, before plummeting as net-zero approaches \citep{fabre_global_2024}. In other words, the cost of climate schemes provided to the respondents reflect the direct monetary costs expected from a carbon price aligned with the Paris Agreement.  
 
-The average increase in expenditures due to the carbon price corresponds to the equal cash transfer each adult would receive in the National Climate Scheme (Question~\ref{q:ncs_support}). Relative to the country's GDP per capita, this translates into the price increase reported in the Global Climate Scheme (GCS). To compute the net cost of the GCS (Question~\ref{q:gcs_support}), I subtract the equal cash transfer from the increase in expenditures. 
-In Russia, Saudia Arabia, and the U.S., global country coverage is assumed, resulting in a global basic income of \$36 per month. 
-This amount is somewhat lower than the basic income of \$47 corresponding to the world average emissions multiplied by the carbon price times, which would be paid in case of a strictly equal per adult allocation of carbon price revenue. Indeed, the GCS departs from the egalatarian allocation to accommodate special needs of middle-income countries \citep{fabre_plan_2024}. % TODO: conservative, China effect
-In European countries and Japan, the cash transfer is even lower, at \$22 per month, since it is computed under a \textit{high} country coverage (cf. Figure \ref{fig:ics_maps}) that excludes countries with the largest emissions per capita. 
+In the National Climate Scheme, the average increase in expenditures is equal to the carbon price multiplied by the country's emissions per capita,\footnote{I use territorial CO$_\text{2}$ emissions from non-LULUCF by country from \cite{gutschow_country-resolved_2021}. I use the same source to estimate the emissions covered by the different scenarios in the International Climate Scheme.} and corresponds to the equal cash transfer each person would receive (Question~\ref{q:ncs_support}). Relative to the country's GDP per capita, this translates into the price increase reported in the Global Climate Scheme (GCS). To compute the amount lost, i.e. the net cost of the GCS for the average person in the country (Question~\ref{q:gcs_support}), I subtract the equal cash transfer from the increase in expenditures. 
 
+In case of a strictly equal per adult allocation of carbon price revenue, the global basic income would amount to \$45 per month, corresponding to the world average emissions multiplied by the carbon price. However, to prevent highly emitting middle-income countries from losing financially, the GCS departs from the egalitarian allocation by offering them a waiver from the mutualization of revenue, thereby lowering cash transfers in other countries \citep{fabre_plan_2024}. 
+When the country coverage is \textit{global}, as is implicitly the case in questionnaires for Russia, Saudi Arabia, and the U.S., this results in a global basic income of \$36 per month. 
+In European countries and Japan, the cash transfer is even lower, at \$22 per month, since I implicitly assume a \textit{high} country coverage (cf. Figure \ref{fig:ics_maps}) that excludes countries with the greatest emissions per capita. 
+As I conservatively use low figures for the transfer, the GCS question could somewhat underestimate the support in high-income countries for a global, egalitarian cap-and-trade. 
+
+% In the International Climate Schemes, the question implicitly assumes that the costs would be the same as in the generic GCS question. This is credible if one assumes that each country would benefit for the same emissions rights in both cases. Indeed, as country coverage shrinks, two effects approximately balance out: the lower carbon price and the lower basic income, both of which result from lower emissions per capita within the climate coalition compared to the world average.
+
+\paragraph{Global income distribution.}
+
+To estimate the global income distribution, I use the distributions of disposable income by country in 2019 constructed by \cite{fisher-post_government_2023} (FPG). I inflate all generalized percentiles by real GDP growth observed between 2019 and 2024 (using IMF data), I factor in country-specific inflation until 2022 and convert values from LCU to 2022 PPP dollar (using FPG), and finally assume that all countries experienced the same inflation as in the U.S. in 2023 and 2024 (using IMF data). 
+
+To aggregate country distributions, I compute the global cumulative density function and interpolate it at each thousandile. I obtain the global distribution of disposable income at purchasing power parity (PPP) in 2024. 
+
+% I use this data directly for the custom redistribution (where I convert it back to LCU) and indirectly for the tax on top income. In the latter case, I calibrate the tax schedules so that they 
 
 \subsection{Definition of keywords}\label{subsec:keywords}
 

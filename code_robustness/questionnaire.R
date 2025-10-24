@@ -32,7 +32,7 @@ gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24 # a: average, 
 # Nominal income
 ppp <- read.xlsx("../data_ext/ppp.xlsx") # 10/21/2025 https://databank.worldbank.org/source/world-development-indicators/Series/PA.NUS.PRVT.PP#
 gethin <- merge(gethin, ppp, all.x = T)
-gethin$disposable_inc_mer <- gethin$disposable_inc * gethin$ppp
+gethin$disposable_inc_mer <- gethin$disposable_inc * gethin$ppp2022
 
 # Aggregate country distributions into world one
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
@@ -162,6 +162,11 @@ dhyper(0, 4, 9, 4) # 18% chances to get 0 global policy
 dhyper(1, 4, 9, 4) # 47% chances to get exactly 1 global policy
 dhyper(3, 4, 9, 4) + dhyper(4, 4, 9, 4) # 5% chances to get more global than national policies
 dhyper(4, 4, 9, 4) # 1% chance to get only global policies
+
+
+##### Climate Scheme #####
+# cf. gcs.R
+# TODO integrate files from global_tax_attitudes and run
 
 
 ##### Russian Statistical Survey of Income and Participation in Social Programs 2023 #####
