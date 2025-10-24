@@ -651,37 +651,58 @@ compute_world_thousandile_from_gethin <- function(var, year = 2019) {
   return(data)
 }
 thousandile_world_disposable_inc_direct <- compute_world_thousandile_from_gethin("disposable_inc")$disposable_inc_mean # PPP $ 2024
+gethin$disposable_inc_mer <- gethin$disposable_inc * gethin$ppp2022
 # length(thousandile_world_disposable_inc_direct)
 # View(data[data$iso == "US", c("iso", "weight", "p", "gperc", "disposable_inc", "x", "lcu19_growth_ppp24")])
 # View(data)
 # View(compute_world_thousandile_from_gethin("disposable_inc"))
 
+## Figures tax top 1%: 15% tax > 120k$/year funding 3000$/month floor
+tax_cost(3000) # 2.1% of world GDP to fund $250 per month floor
+tax_revenue(rate = .15, threshold = 120e3) # 2.1% of world GDP collected with the tax
+
+tax_cost(4800) # 5.1% of world GDP to fund $400 per month floor
+tax_revenue(rate = .15, threshold = 80e3) + tax_revenue(rate = .15, threshold = 120e3) + .15*(world_disposable_inc$disposable_inc_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc)
+# 5.1% of world GDP collected with the tax
+
+## Accurate calculations
+# PPP
+gdp_cost_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_cost(3000, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top1[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 2.2%
+
 gdp_contribution_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)))
 sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top1[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
-  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T)
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.6%
+
+gdp_cost_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_cost(4800, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top3[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 5.3%
 
 gdp_contribution_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 80e3)
                                                                      + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)
                                                                      + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 1e6)))
 sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
-  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T)
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 4.3%
 
 # nominal
-sapply(countries, function(i) unique(gethin$ppp2019[gethin$isoname %in% countries_names[i]]))
-sapply(c("CN", "IN", "ID", "BR", "CO", "NG"), function(i) mean(gethin$ppp2019[gethin$iso == i], na.rm = T))
+# sapply(countries, function(i) unique(gethin$ppp2019[gethin$isoname %in% countries_names[i]]))
+# sapply(c("CN", "IN", "ID", "BR", "CO", "NG"), function(i) mean(gethin$ppp2019[gethin$iso == i], na.rm = T))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.3%
+
 sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
   sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.8%
+
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 3.2%
 
 sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
   sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 4.8%
 
-gdp_cost_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_cost(3000, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
-sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
-  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.3%
-
-gdp_cost_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_cost(4800, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
-sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
-  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 3.1%
+world_disposable_inc_mer <- compute_world_distrib_from_gethin("disposable_inc_mer") # nominal $ 2024
+thousandile_world_disposable_inc_mer <- c(quadratic_interpolations(pmax(0, world_disposable_inc_mer$disposable_inc_mer_mean), pmax(0, world_disposable_inc_mer$disposable_inc_mer_thre), 
+                                                                   c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc_mer$disposable_inc_mer_mean[101:102] %*% c(.9, .1))
 
 # Income > 1e6 is 6.1% in thousandile_world_disposable_inc but just 3.8% in original data. For the other bins, inconsistencies between the two are < 5%.
 sum(gethin$disposable_inc * gethin$weight * (gethin$disposable_inc < 250*12))/sum(gethin$disposable_inc * gethin$weight)

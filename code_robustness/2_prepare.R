@@ -116,7 +116,7 @@ emfd <- read.csv("../data_ext/eMFD.csv") # Source Hopp et al. (21), https://osf.
   for (q in names(quotas)) quotas[[paste0(q, "_vote")]] <- c(quotas[[q]], "vote")
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
-  qs <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:15), cols = 1:57)
+  qs <- round(read.xlsx("../questionnaire/sources.xlsx", sheet = "Quotas", rowNames = T, rows = c(1, 2:15), cols = 1:57))
   adult_pop <- setNames(qs[countries, "Adult.pop"], countries)
   
   pop_freq <- list(
@@ -146,7 +146,7 @@ emfd <- read.csv("../data_ext/eMFD.csv") # Source Hopp et al. (21), https://osf.
   pop_freq$RU$education_quota["Not 25-64"] <- 0
 }
 
-votes_xlsx <- read.xlsx("../questionnaire/sources.xlsx", sheet = "elections", cols = 1:6)
+votes_xlsx <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Elections", cols = 1:6)
 votes <- list()
 for (c in unique(votes_xlsx$country)) votes[[c]] <- votes_xlsx[votes_xlsx$country == c, ]  
 for (c in unique(votes_xlsx$country)) row.names(votes[[c]]) <- votes[[c]]$party

@@ -452,24 +452,19 @@ An international levy on carbon emissions from aviation, raising ticket prices b
 \subsection{Country-specific features}\label{subsec:country_features}
 
 In the survey, various features are tailored to country-specific characteristics. 
-The spreadsheet at \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/sources.xlsx}{github.com/bixiou/robustness\_global\_redistr/raw/main/questionnaire/sources.xlsx} contains all such features as well as their sources. % TODO? incl. quotas, etc.
-Below, I give an overview of the different features, as well as the methodologies used to compute the figures characterizing the questionnaire's policies. 
+The workbook at \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/sources.xlsx}{github.com/bixiou/robustness\_global\_redistr/raw/main/questionnaire/sources.xlsx} contains all such features as well as their sources. 
+In particular, it includes the following spreadsheets:
+\begin{itemize}
+    \item Quotas: target for each category based on frequencies among the adult population, as well as their sources (usually official statistical agencies) and the definition of regions. The coding of regions and urbanicity is done in Qualtrics based on zipcodes; with the zipcode correspondences exported in the repository folder \href{https://github.com/bixiou/robustness_global_redistr/raw/main/data_ext/zipcode_urbanity_region}{data\_ext/zipcode\_urbanity\_region} using code in \href{https://github.com/bixiou/robustness_global_redistr/raw/main/code_robustness/zipcodes}{data\_ext/code\_robustness/zipcodes}.
+    \item Income, income\_raw: brackets used in the income question (\ref{q:income}), and associated sources and computations. I use household-level income Russia and the U.S.; equal-split income for Saudi Arabia; and equivalised income (i.e. standard of living, accounting for family composition) for other countries. Data sources are Eurostat for EU countries, Rosstat for Russia, WID for Saudia Arabia, Census Bureau for the U.S., and LIS for the other countries. 
+    \item Policies, policies\_sources, policies\_leaning, policies\_party, policies\_leaning\_party: respectively the policies used in the conjoint experiment (Question~\ref{q:conjoint}), the source of each policy (i.e. the political program they come from), their political leaning (classified manually as 0 if the policy is consistent only with a left-wing program, 2 for a right-wing one, and 1 otherwise), the party that proposed each policy, and their political leaning based on the party that proposed each policy.
+    \item Elections: results at the last election (used in Questions~\ref{q:voted}-\ref{q:vote}) including abstention share among citizens, as well as classifications of the parties: whether they are major (i.e. obtained more than 5\% of votes), and their political leaning (Left, Center-right or Right, Far right). 
+    \item Figures, features: country-specific figures used in the questionnaire, as detailed below.
+\end{itemize}
+
+% Below, I give an overview of the different features, as well as the methodologies used to compute the figures characterizing the questionnaire's policies. 
 
 Table \ref{tab:features} reports the figures used for each country for the National or Global Climate Scheme; the top income tax; and the revenue allocation of a wealth tax. Hereafter, I detail the methodologies used for these and other questions. 
-
-% Quotas
-% Income
-% Education
-% Zipcode
-% Party leaning
-% Policy party
-% Wealth tax revenue (2% > 5M)
-%-NCS/GCS computations
-%-Emissions ICS
-%-Info global policies
-% NCQG sources
-% Top tax revenue + poverty gap
-% Custom redistr: global distr
 
 \begin{table}[!h]
 \caption[Country-specific features]{\hypertarget{tab_features}{Country-specific features of the questionnaire}.}\label{tab:features}
@@ -496,7 +491,24 @@ To estimate the global income distribution, I use the distributions of disposabl
 
 To aggregate country distributions, I compute the global cumulative density function and interpolate it at each thousandile. I obtain the global distribution of disposable income at purchasing power parity (PPP) in 2024. 
 
-% I use this data directly for the custom redistribution (where I convert it back to LCU) and indirectly for the tax on top income. In the latter case, I calibrate the tax schedules so that they 
+I use this distribution for the custom redistribution task, after converting back to LCU (Section~\ref{subsec:custom_redistr}, Question~\ref{q:custom_redistr}). I also use it to calibrate the top income tax schedules so that they raise an amount equivalent to the poverty gap (Section~\ref{subsec:radical}, Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}). % top~1\% tax collects 2.1\% of global disposable income, matching the \$250 per month poverty gap; while the top~3\% tax collects 5.1\% of global income, corresponding to the \$400 per month poverty gap. 
+Then, I use country-level data to estimate the share of GDP collected as well as the share of the population affected by each tax in each country. 
+Finally, I compute the poverty gaps and the tax revenue in every country in proportion to GDP, and aggregate them at the global level after converting national disposable income back to market exchange rates (using World Bank's PPP conversion factors for 2022). 
+I find that the top~1\% tax collects 1.8\% of global nominal income, while the top~3\% tax collects 4.8\% of global nominal income. These amounts are higher than the respective poverty gaps: 1.3\% of global nominal income for a \$250 per month poverty line, and 3.2\% for a \$400 per month poverty line. 
+While the cost of poverty reduction reduces relative to tax revenue once one accounts  for market exchange rates, closing the poverty gap actually requires extra revenue due to imperfect targeting and administrative costs \citep{sahoo_what_2025}. Therefore, the tax schedules' calibration are consistent with the poverty reduction objectives.
+
+\paragraph{Wealth tax revenue.}
+
+To estimate the revenue from a global tax on wealth above \$5 million at a rate of 2\% (Section~\ref{subsec:revenue_split}, Questions~\ref{q:revenue_split_few}-\ref{q:revenue_split_many}), I use the distribution of net wealth by country in current dollar for 2022 from the World Inequality Database. I assume that the taxable base is reduced by 30\% due to tax avoidance and asset depreciation. I report expected tax revenue as a share of countries' 2023 (from the World Bank). I also report the absolute revenue after converting them into LCU. 
+
+\paragraph{NCQG.} 
+
+The sources used for the New Collective Quantified goal of climate finance for 2035 (Section~\ref{subsec:debated}, Questions~\ref{q:ncqg_full}-\ref{q:ncqg}) are the following: \cite{unfccc_new_2024} states the goal itself, \cite{oecd_climate_2024} provides figures on past achievements, \cite{earth_negotiations_bulletin_daily_2024} reports the positions of India and other countries, \cite{climate_action_network_climate_2024,demand_climate_justice_engo-demand_2025} those of NGOs. Note that the question wordings do not mention the gap between climate finance needs and the official goal identified in official reports \citep{oecd_bridging_2024,songwe_raising_2024}, nor that existing plans by Multilateral Development Banks (MDBs) to ramp up climate finance would almost achieve most of the new goal \citep{mdbs_joint_2024}.\footnote{According to the  \cite{oecd_climate_2024}, MDBs contributed \$81 to climate finance in 2022 (both directly through finance provision and indirectly through mobilization of the private sector), with 71\% (or \$58 billion) attributable to developed countries. Before the NCQG was agreed at COP29, they jointly stated that they will contribute an estimated \$185 billion in 2030 (including \$65 billion from the private sector). Assuming that this increase of \$104 billion is replicated in the period 2030-2035, MDBs would contribute \$289 billion in 2035, including \$205 attributable to developed countries, that is \$147 billion more than in 2022. As (multilateral plus unilateral) developed countries' climate finance totaled \$116 billion in 2024, adding up the \$147 billion expected in their multilateral finance would achieve three-quarter of the required increase, at \$263 billion.}
+
+To express the NCQG as a share of developed countries' GDP, I use 2024 data from the World Bank on nominal GDP in high-income countries. This figure ---of \$70 trillion--- is conservative, since it does not account for growth or inflation until 2035.
+% Actually I accounted for growth, but used a weird source underestimating developed countries' GDP:
+% GDP advanced: 61.35T / others: 43.44 in 2023: IMF (https://www.statista.com/statistics/256328/gross-domestic-product-gdp-of-selected-global-regions/); Growth per year by 2035 advanced: 1.59% / all: 2.7% (https://www.spglobal.com/en/research-insights/special-reports/look-forward/emerging-markets-a-decisive-decade) => GDP advanced 2035: 61.35*1.0159^12=74.1T / others: world-74=(61.35+43.44)*1.027^12=144-74=70T, i.e. 51% in advanced. NB: the difference between advanced and developed is South Korea, Singapore, Taiwan (Saudi Arabia and Slovenia are classified consistently using both definitions). I subtract 3.1 (South Korea, cf. spglobal above) + 0.9 (Taiwan, current GDP + 20%) + 0.6 (Singapore, current GDP + 20%) = 4.6T to obtain 69.5T for "developed" countries' nominal GDP in 2035.
+
 
 \subsection{Definition of keywords}\label{subsec:keywords}
 

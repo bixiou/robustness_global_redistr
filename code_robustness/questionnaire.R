@@ -32,7 +32,7 @@ gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24 # a: average, 
 # Nominal income
 ppp <- read.xlsx("../data_ext/ppp.xlsx") # 10/21/2025 https://databank.worldbank.org/source/world-development-indicators/Series/PA.NUS.PRVT.PP#
 gethin <- merge(gethin, ppp, all.x = T)
-gethin$disposable_inc_mer <- gethin$disposable_inc * gethin$ppp2022
+gethin$disposable_inc_mer <- gethin$disposable_inc * no.na(gethin$ppp2022, wtd.mean(gethin$ppp2022, gethin$npop))
 
 # Aggregate country distributions into world one
 compute_world_distrib_from_gethin <- function(var, year = 2019) {
@@ -49,6 +49,7 @@ compute_world_distrib_from_gethin <- function(var, year = 2019) {
 world_disposable_inc <- compute_world_distrib_from_gethin("disposable_inc") # PPP $ 2024
 thousandile_world_disposable_inc <- c(quadratic_interpolations(pmax(0, world_disposable_inc$disposable_inc_mean), pmax(0, world_disposable_inc$disposable_inc_thre), 
                                                                c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), world_disposable_inc$disposable_inc_mean[101:102] %*% c(.9, .1))
+
 # thousandile_US_disposable_inc <- c(quadratic_interpolations(pmax(0, data$disposable_inc_mean), pmax(0, data$disposable_inc_thre), 
 #                                                                c((0:99)/100, .999, 1), seq(0.000, .998, 0.001)), data$disposable_inc_mean[101:102] %*% c(.9, .1))
 # tax_revenue(rate = .15, threshold = 80e3) + tax_revenue(rate = .15, threshold = 120e3) + .15*((data$disposable_inc_mean[101]-1e6)*1e-4+(data$disposable_inc_mean[100]-1e6)*1e-3)/mean(thousandile_US_disposable_inc)
@@ -67,9 +68,8 @@ tax_cost <- function(threshold = 2555, distr = thousandile_world_disposable_inc,
   else return(sum(pmax(0, threshold - distr) * weight, na.rm = T)/sum(distr * weight, na.rm = T)) } 
 
 
-## Figures tax top 1%: 15% tax > 120k$/year funding 3000$ floor
-tax_cost(3000) # 2.1% of world GDP to fund $250 per month floor
-tax_revenue(rate = .15, threshold = 120e3) # 2.1% of world GDP collected with the tax
+## Figures tax top 1%: 15% tax > 120k$/year funding $8/day ~ $250/month floor
+tax_revenue(rate = .15, threshold = 120e3)/tax_cost(8*365) # 1.04
 
 # Poverty rate
 mean(thousandile_world_disposable_inc < 250*12)*world_population/1e9 # 2.0G people with less than $250 per month
@@ -90,10 +90,9 @@ round(100*gdp_contribution_tax_top1 - gdp_received_tax_top1, 1)
 wtd.mean(100*gdp_contribution_tax_top1 - gdp_received_tax_top1, pop) # 2.1% in survey countries
 
 
-## Figures tax top 3%: 15% tax > 80k$/year + 15% tax > 120k$/year + 15% tax > 1M$/year funding 4800$ floor
-tax_cost(4800) # 5.1% of world GDP to fund $400 per month floor
-tax_revenue(rate = .15, threshold = 80e3) + tax_revenue(rate = .15, threshold = 120e3) + .15*(world_disposable_inc$disposable_inc_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc)
-# 5.1% of world GDP collected with the tax
+## Figures tax top 3%: 15% tax > 80k$/year + 15% tax > 120k$/year + 15% tax > 1M$/year funding $13/day ~ $400/month floor
+(tax_revenue(rate = .15, threshold = 80e3) + tax_revenue(rate = .15, threshold = 120e3) + 
+    .15*(world_disposable_inc$disposable_inc_mean[102]-1e6)*1e-4/mean(thousandile_world_disposable_inc))/tax_cost(13*365) # 1.01
 
 # Poverty rate
 mean(thousandile_world_disposable_inc < 400*12)*world_population/1e9 # 3.1G people with less than $400 per month
@@ -114,6 +113,25 @@ round(100*gdp_contribution_tax_top3 - gdp_received_tax_top3, 1)
 # FR DE IT PL ES GB CH JP RU SA US 
 # 2  4  3  4  3  3  3  4  5 12  8
 wtd.mean(100*gdp_contribution_tax_top3 - gdp_received_tax_top3, pop) # 5.5% in survey countries
+
+## Tax collected and poverty gap in nominal terms
+gdp_cost_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_cost(3000, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.3%
+
+gdp_contribution_tax_top1 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top1[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 1.8%
+
+gdp_cost_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_cost(4800, gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c])))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_cost_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 3.2%
+
+gdp_contribution_tax_top3 <- sapply(unique(gethin$iso), function(c) (tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 80e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 120e3)
+                                                                     + tax_revenue(gethin$disposable_inc[gethin$iso == c], gethin$weight[gethin$iso == c], .15, 1e6)))
+sum(sapply(unique(gethin$iso), function(c) pmax(0, (100*gdp_contribution_tax_top3[c])*sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T))), na.rm=T)/
+  sum(sapply(unique(gethin$iso), function(c) sum(gethin$disposable_inc_mer[gethin$iso == c] * gethin$weight[gethin$iso == c], na.rm = T)), na.rm=T) # 4.8%
 
 ## Thresholds in LCU 2024 (from PPP $ 2024)
 80e3*usd_lcu
