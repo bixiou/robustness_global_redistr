@@ -190,10 +190,11 @@
 % \end{figure} 
 
 \begin{figure}[h!]
-    \caption[Support for the NCS, GCS, ICS, and belief of support for GCS]{Support for the National, Global, and International Climate Schemes, and average belief regarding the support for the GCS. (Questions~\ref{q:ncs_support}-\ref{q:ics_support}).
+    \caption[Support for the NCS, GCS, ICS, and belief of support for GCS]{Support for the National, Global, and International Climate Schemes, and median belief regarding the support for the GCS. (Questions~\ref{q:ncs_support}-\ref{q:ics_support}).
     }\label{fig:ncs_gcs_ics}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/ncs_gcs_ics_all_control_mean.pdf}} 
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/ncs_gcs_ics_all_control_features_median_belief_various.pdf}} % ncs_gcs_ics_all_control_median_belief_various?
 \end{figure} 
+% TODO? CDF belief?
 
 \begin{figure}[h!]
     \caption[Absolute support for plausible global redistribution policies]{Absolute support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support}). (Question~\ref{q:solidarity_support}).
@@ -237,16 +238,28 @@
     \makebox[\textwidth][c]{\includegraphics[width=.5\textwidth]{../figures/country_comparison/sustainable_future_nolabel.pdf}} 
 \end{figure}
 
+% \begin{figure}[h!]
+%     \caption[Relative support for a global income tax on the richest to fund LICs]{Relative support for a global progressive income tax on the richest households to finance poverty reduction in the Global South (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}).
+%     }\label{fig:top_tax_share}
+%     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/top_tax_share.pdf}} 
+% \end{figure}
+
 \begin{figure}[h!]
-    \caption[Relative support for a global income tax on the richest to fund LICs]{Relative support for a global progressive income tax on the richest households to finance poverty reduction in the Global South (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}).
+    \caption[Relative support for a global income tax on the richest to fund LICs]{Relative support for a global progressive income tax on the richest households to finance global poverty reduction (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}, Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses), and features of the tax presented to the respondents (Section~\ref{subsec:country_features}).
     }\label{fig:top_tax_share}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/top_tax_share.pdf}} 
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/top_tax_all_share_various.pdf}} % top_tax_share
 \end{figure}
 
 \begin{figure}[h!]
-    \caption[Absolute support for an income tax on top 1\% to fund LICs]{Absolute support for a global progressive income tax on the richest households to finance poverty reduction in the Global South (Percentage of \textit{Somewhat} or \textit{Strongly support}). (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}).
+    \caption[Absolute support for an income tax on top 1\% to fund LICs]{Absolute support for a global progressive income tax on the richest households to finance global poverty reduction (Percentage of \textit{Somewhat} or \textit{Strongly support}). (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}).
     }\label{fig:top_tax_positive}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/top_tax_positive.pdf}} 
+\end{figure}
+
+\begin{figure}[h!]
+    \caption[Relative support for a global income tax among affected respondents]{Relative support for a global progressive income tax on the richest households to finance global poverty reduction \textit{among respondents affected by the tax} (Questions~\ref{q:top1_tax_support}-\ref{q:top3_tax_support}, Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses), and share of respondents affected by the tax (Section~\ref{subsec:country_features}).
+    }\label{fig:top_tax_affected_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/top_tax_affected_share_various.pdf}} 
 \end{figure}
 
 % \begin{figure}[h!]
@@ -418,9 +431,10 @@ Unless otherwise specified, response is compulsory and a single response much be
 \clearpage
 \section{Survey sources and features}\label{app:features}
 
-\subsection{Sources}
+\subsection{Sources regarding plausible global policies}\label{subsec:plausible_policies_sources}
 
-\paragraph{Plausible global policies.} Table \ref{tab:plausible_policies} provides references showing that the ``plausible global policies'' I test (Section~\ref{subsec:debated}) are (similar to proposals) debated in international negotiations.
+% \paragraph{Plausible global policies.} 
+Table \ref{tab:plausible_policies} provides references showing that the ``plausible global policies'' I test (Section~\ref{subsec:debated}) are (similar to proposals) debated in international negotiations.
 
 \begin{table}[H]
 \caption[Sources for plausible global policies]{Proposals similar to the ``plausible global policies'' in international negotiations.}
@@ -455,7 +469,7 @@ In the survey, various features are tailored to country-specific characteristics
 The workbook at \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/sources.xlsx}{github.com/bixiou/robustness\_global\_redistr/raw/main/questionnaire/sources.xlsx} contains all such features as well as their sources. 
 In particular, it includes the following spreadsheets:
 \begin{itemize}
-    \item Quotas: target for each category based on frequencies among the adult population, as well as their sources (usually official statistical agencies) and the definition of regions. The coding of regions and urbanicity is done in Qualtrics based on zipcodes; with the zipcode correspondences exported in the repository folder \href{https://github.com/bixiou/robustness_global_redistr/raw/main/data_ext/zipcode_urbanity_region}{data\_ext/zipcode\_urbanity\_region} using code in \href{https://github.com/bixiou/robustness_global_redistr/raw/main/code_robustness/zipcodes}{data\_ext/code\_robustness/zipcodes}.
+    \item Quotas: target for each category based on frequencies among the adult population, as well as their sources (namely official statistical agencies) and the definition of regions. The coding of regions and urbanicity is done in Qualtrics based on zipcodes; with the zipcode correspondences exported in the repository folder \href{https://github.com/bixiou/robustness_global_redistr/raw/main/data_ext/zipcode_urbanity_region}{data\_ext/zipcode\_urbanity\_region} using code in \href{https://github.com/bixiou/robustness_global_redistr/raw/main/code_robustness/zipcodes}{data\_ext/code\_robustness/zipcodes}.
     \item Income, income\_raw: brackets used in the income question (\ref{q:income}), and associated sources and computations. I use household-level income Russia and the U.S.; equal-split income for Saudi Arabia; and equivalised income (i.e. standard of living, accounting for family composition) for other countries. Data sources are Eurostat for EU countries, Rosstat for Russia, WID for Saudia Arabia, Census Bureau for the U.S., and LIS for the other countries. 
     \item Policies, policies\_sources, policies\_leaning, policies\_party, policies\_leaning\_party: respectively the policies used in the conjoint experiment (Question~\ref{q:conjoint}), the source of each policy (i.e. the political program they come from), their political leaning (classified manually as 0 if the policy is consistent only with a left-wing program, 2 for a right-wing one, and 1 otherwise), the party that proposed each policy, and their political leaning based on the party that proposed each policy.
     \item Elections: results at the last election (used in Questions~\ref{q:voted}-\ref{q:vote}) including abstention share among citizens, as well as classifications of the parties: whether they are major (i.e. obtained more than 5\% of votes), and their political leaning (Left, Center-right or Right, Far right). 
@@ -718,8 +732,13 @@ Once the custom redistribution has been determined, it is straightforward to com
 \clearpage
 \section{Main results on selected demographics, including by vote}\label{app:pol}
 
+Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_share} shows that polarization between left- and right-wing voters is comparably high in Europe and the U.S. but almost non-existent in Japan, with Japanese support comparable to the support among non-voters in Western countries. Interestingly, \cite{fabre_majority_2025} exhibited a much higher polarization in the U.S. compared to Western Europe on similar questions (about the GCS, the globally redistributive millionaire tax, and universalism), but in the current survey polarization has converged in the two regions. More specifically, compared to early 2023, in Western Europe (France, Germany, Spain and the UK), support has declined across the political spectrum, but more so among right-wing voters. Meanwhile, in the U.S., support has increased among Republican voters and decreased among Democrat voters. 
+% Polarization increased in Europe between Left and (Center+Far) Right since last paper (1-3/23): 14 -> 25 for GCS, 18 -> 26 for wealth_tax, 30 -> 32 for universalist. (Support for the three declined across categories but more so on the Right).
+% In the U.S. GCS: 48 -> 23, wealth_tax 45 -> 30, universalist: 30 -> 30 (Support stayed about the same in the Right (on average, depends on the policy) but declined on the Left)
+% Change in polarization could not be framing as GCS was asked the same in US and EU in each survey (but framing could explain change in level).
+
 \begin{figure}[h!]
-    \caption[{[}On selected demographics{]} Support for broad or radical global redistribution]{[On selected demographics] Support for global redistribution action/policies. %\hfill (Questions \ref{q:gcs_support}, \ref{q:ics_support}, \ref{q:global_tax_support}-\ref{q:intl_tax_support}, \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
+    \caption[{[}On selected demographics{]} Absolute support for broad or radical global redistribution]{[On selected demographics] Support for global redistribution action/policies. %\hfill (Questions \ref{q:gcs_support}, \ref{q:ics_support}, \ref{q:global_tax_support}-\ref{q:intl_tax_support}, \ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
     }\label{fig:main_radical_redistr_pol} 
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/main_radical_redistr_pol_positive.pdf}} 
 \end{figure}

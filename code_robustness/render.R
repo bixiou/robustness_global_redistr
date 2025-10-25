@@ -284,6 +284,7 @@ heatmaps_defs <- list(
   "ncs_gcs_ics" = list(vars = variables_ncs_gcs_ics, conditions = ">= 1", width = 1550, height = 430), 
   "ncs_gcs_ics_all" = list(vars = variables_ncs_gcs_ics_all, conditions = "", nb_digits = 0, width = 1550, height = 550), 
   "ncs_gcs_ics_all_control" = list(vars = variables_ncs_gcs_ics_all_control, conditions = "", nb_digits = 0, width = 1550, height = 570), 
+  "ncs_gcs_ics_all_control_median_belief" = list(vars = variables_ncs_gcs_ics_all_control, conditions_var = c("", "", "median", "median", rep("", 4)), nb_digits = 0, width = 1550, height = 540), 
   "ncs_gcs_ics_all_control_features" = list(vars = c(variables_ncs_gcs_ics_all_control, "gcs_price_increase", "gcs_lost"), conditions = "", nb_digits = 0, width = 1550, height = 610), 
   "ncs_gcs_ics_all_control_features_median_belief" = list(vars = c(variables_ncs_gcs_ics_all_control, "gcs_price_increase", "gcs_lost"), conditions_var = c("", "", "median", "median", rep("", 6)), nb_digits = 0, width = 1550, height = 610), 
   "duration" = list(vars = variables_duration, conditions = "", width = 800, height = 900),

@@ -211,6 +211,12 @@ ru <- merge(ru_ind, ru_hh, by = "H00_06")
 round(wtd.quantile(ru$R_H_DOXOD_RASP, weights = ru$weight * !ru$CH_0_17, c(.1, .2, .25, .3, .4, .5, .6, .7, .75, .8, .9)))
 
 
+##### Margins of error #####
+binconf(234.5, 469, alpha = .05) # 4.5pp
+binconf(500, 1000, alpha = .05) # 3.1p
+binconf(1500, 3000, alpha = .05) # 1.8pp
+
+
 ##### Conjoint analysis: Extract policies from sources.xlsx and export to JSON #####
 # /!\ Assumes "-" ends each policy domain.
 policies_names <- as.matrix(read.xlsx("../questionnaire/sources.xlsx", sheet = "Policies")) # , rowNames = T, rows = c(1, 16:41), cols = 1:6

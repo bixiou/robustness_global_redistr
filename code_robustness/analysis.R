@@ -729,3 +729,12 @@ sum(pmax(thousandile_world_disposable_inc_direct - 1e6, 0))/sum(thousandile_worl
 
 plot(1:1e4/100, (thousandile_world_disposable_inc_direct), type = 'l', col = "blue", lwd = 2, xlim = c(99,100)) #, ylim = c(0, 1e6))
 lines(1:1e3/10, (thousandile_world_disposable_inc), type = 'l', col = "darkgreen", lwd = 2, xlim = c(99,100)) #, ylim = c(0, 1e6))
+
+
+##### Polarization #####
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote == 0) * all$country %in% c("FR", "ES", "DE", "GB")) - wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("FR", "ES", "DE", "GB"))))))
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote == 0) * all$country %in% c("US")) - wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("US"))))))
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote == 0) * all$country %in% c("FR", "ES", "DE", "GB"))))))
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("FR", "ES", "DE", "GB"))))))
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote == 0) * all$country %in% c("US"))))))
+for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("US"))))))

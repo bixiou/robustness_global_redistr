@@ -1682,7 +1682,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
         if (!weights & length(var_c) > 0) neg <- mean(var_c <= -1, na.rm = T)
         if (length(var_c) > 0) table[v,c] <- if (conditions[v] == "-") pos - neg else pos / (pos + neg)
         if (is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) table[v,c] <- pos
-        if (c == levels[1] & is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) row.names(table)[v] <- paste0(row.names(table)[v], "*")
+        # if (c == levels[1] & is.logical(e[[vars[v]]]) | !any(e[[vars[v]]] < 0, na.rm = T)) row.names(table)[v] <- paste0(row.names(table)[v], "*")
       } else { # TODO Commented: use weight_country for EU (only useful if we use EU-specific weights instead of aggregating weights of EU countries like we do)
         # if (weights & length(var_c) > 0 & c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)])) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight_country[!is.na(df_c[[vars[v]]])])")))
         # if (weights & length(var_c) > 0 & !(c %in% c(countries_EU, names(countries_EU), countries_names_fr[c(1,2,3,4)]))) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
