@@ -39,6 +39,46 @@ decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice
 decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 
+summary(lm(e$field_manual_money ~ gini_2019[e$country])) # 8pp
+summary(lm(e$field_manual_money ~ gdp_pc_nominal_2024[e$country]))
+summary(lm(e$field_manual_money ~ gini_2019[e$country] + gdp_pc_nominal_2024[e$country]))
+sapply(c("all", countries), function(c) round(wtd.mean(grepl("?", d(c)$field, fixed = T), d(c)$weight), 3))
+
+
+# Correlations
+summary(lm(field_manual_immigration ~ vote == "Far right", data = all, weights = weight)) # 10 pp more likely from a baseline of 3pp; R²: .03
+summary(lm(vote == "Far right" ~ field_manual_immigration, data = all, weights = weight)) # 22.1 pp more likely from a baseline of 8.77pp; R²: .03
+22.1/8.77 # 2.5
+summary(lm(age > 65 ~ field_manual_old_age, data = all, weights = weight)) # 25 pp more likely from a baseline of 24 pp; R²: .01
+with(e, cor(field_manual_immigration, vote == "Far right", use = "complete.obs")) # .18
+with(e, cor(field_manual_far_right_criticism, vote == "Left", use = "complete.obs")) # .13
+with(e, cor(field_manual_old_age, age, use = "complete.obs")) # .12
+with(e, cor(field_manual_old_age, age > 50, use = "complete.obs")) # .12
+with(e, cor(field_manual_health, age, use = "complete.obs")) # .12
+with(e, cor(field_manual_health, age_exact > 55, use = "complete.obs")) # .12
+with(e, cor(field_manual_job, employment_status == "Unemployed (searching for a job)", use = "complete.obs")) # .11
+with(e, cor(field_manual_education, employment_status == "Student", use = "complete.obs")) # .10
+with(e, cor(field_manual_animals, group_defended == "Sentient beings", use = "complete.obs")) # .09
+with(e, cor(field_manual_money, income_quartile, use = "complete.obs")) # -.08
+with(e, cor(field_manual_environment, vote == "Left", use = "complete.obs")) # .08
+with(e, cor(field_manual_inequality, vote == "Left", use = "complete.obs")) # .07
+with(e, cor(field_manual_far_right_criticism, vote == "Non-voter, PNR or Other", use = "complete.obs")) # -.07
+with(e, cor(field_manual_far_right_criticism, vote == "Far right", use = "complete.obs")) # -.06
+with(e, cor(field_manual_nothing, vote == "Non-voter, PNR or Other", use = "complete.obs")) # .06
+with(US, cor(field_manual_discrimination, race_black, use = "complete.obs")) # .05
+with(e, cor(field_manual_security, vote == "Far right", use = "complete.obs")) # .05
+with(e, cor(field_manual_family, group_defended == "Family and self", use = "complete.obs")) # .04
+with(e, cor(field_manual_taxes_welfare, vote == "Left", use = "complete.obs")) # -.04
+with(e, cor(field_manual_corruption, vote == "Far right" , use = "complete.obs")) # .04
+with(e, cor(field_manual_education, education, use = "complete.obs")) # .04
+with(e, cor(field_manual_own_country, vote == "Far right", use = "complete.obs")) # .03
+with(e, cor(field_manual_relationships, couple, use = "complete.obs")) # -.03
+# Below, not statistically significant
+with(e, cor(field_manual_global_issue, vote == "Left", use = "complete.obs")) # .02
+with(e, cor(field_manual_global_issue, group_defended == "Humans", use = "complete.obs")) # .02
+with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) # .01
+with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
+
 
 ##### Revenue split #####
 sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3)))
@@ -66,6 +106,9 @@ Ecdf(RU$revenue_split)
 
 ##### ICS #####
 # Pluralistic ignorance
+round(wtd.median(all$gcs_belief_own, weight = all$weight, na.rm = T) - sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))) # -14 pp
+round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -18 pp
+
 wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
 wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
 
@@ -261,7 +304,7 @@ representativeness_table(countries[7:11], omit = c("Not 25-64"))
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Share of\\\\plausible\\\\policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate\\\\Scheme}", "\\makecell{Universalist\\\\(Group\\\\defended:\\\\Humans or\\\\Sentient beings)}", 
                               "\\makecell{More likely\\\\to vote\\\\for party\\\\in global\\\\coalition}", "\\makecell{Endorses\\\\convergence\\\\of all countries'\\\\GDP p.c.\\\\by 2100}", "\\makecell{Supports an\\\\international\\\\wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
-           indep_vars = control_variables, filename = "determinants_paper", nolabel = F, model.numbers = T, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
+           indep_vars = c(control_variables), filename = "determinants_paper", nolabel = F, model.numbers = T, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
 
 ##### Attrition #####

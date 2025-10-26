@@ -776,7 +776,7 @@ define_var_lists <- function() {
   variables_quotas_base <<- c("man", "age_factor", "income_quartile", "education", "urbanity", "region") 
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_sociodemos <<- c("man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "region_factor", "millionaire_factor", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
-  control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
+  control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "foreign_born", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   control_variables_lmg <<- c("vote_factor", "voted", "well_being", "gender", "age_exact", "income", "education_original", "urbanity_factor", "millionaire", "couple", "employment_status", "foreign", "hh_size", "Nb_children__14", "owner", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   control_variables_lmg_few <<- c("vote_factor", "gender", "age", "income_factor", "education_factor", "urbanity_factor", "millionaire_agg", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
@@ -1651,7 +1651,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$field_nb_keywords <- rowSums(e[, variables_field_keyword])
   e$field_nb_manual <- rowSums(e[, variables_field_manual])
   e$nchar_field <- nchar(e$field_en)
-  for (k in names(keywords_comment)) e[[paste0("comment_keyword_", k)]] <- grepl(keywords_comment[k], e$comment_field_en, ignore.case = T)
+  for (k in names(keywords_comment[-6])) e[[paste0("comment_keyword_", k)]] <- grepl(keywords_comment[k], e$comment_field_en, ignore.case = T)
   e$comment_nb_keywords <- rowSums(e[, variables_comment_keyword])
   e$comment_nb_manual <- rowSums(e[, variables_comment_manual])
   e$nchar_comment <- nchar(e$comment_field_en)

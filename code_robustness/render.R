@@ -1,5 +1,6 @@
 ##### labels_vars #####
-labels_vars <- c(
+{
+  labels_vars <- c(
   "(Intercept)" = "Constant",
   "finished" = "Finished",
   "excluded" = "Excluded",
@@ -46,6 +47,8 @@ labels_vars <- c(
   "race_asian" = "Race: Asian",
   "foreign" = "Foreign origin",
   "foreign_born_family" = "Were you or your parents born in a foreign country?",
+  "foreign_born" = "Foreign born",
+  "foreign_origin" = "Foreign origin (self or parent(s) foreign born)",
   "home_tenant" = "Home: tenant",
   "home_owner" = "Home: owner",
   "home_landlord" = "Home: landlord",
@@ -241,19 +244,21 @@ labels_vars <- c(
   # "own_country" = "Own country referred", 
   # "other" = "Other topic; unclear; vague",
   # "nothing" = "Nothing; don't know; empty",
-  setNames(names(all), names(all))
-)
-for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
-  if (grepl("-", Label(all[[v]])) & labels_vars[v] == v) labels_vars[v] <- sub("(.*)- ", "", Label(all[[v]]))
-  if (grepl("_control", v) & labels_vars[v] == v) labels_vars[v] <- labels_vars[sub("_control", "", v)]
-  if (grepl("TRUE / FALSE", Levels(all[[v]])[1])) labels_vars[paste0(v, "TRUE")] <- labels_vars[v]
-  else for (l in setdiff(Levels(all[[v]]), NA)) {
-    if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
+    setNames(names(all), names(all))
+  )
+  for (v in names(all)) { # intersect(c(socio_demos, socio_demos_us), names(all)), 
+    if (grepl("-", Label(all[[v]])) & labels_vars[v] == v) labels_vars[v] <- sub("(.*)- ", "", Label(all[[v]]))
+    if (grepl("_control", v) & labels_vars[v] == v) labels_vars[v] <- labels_vars[sub("_control", "", v)]
+    if (grepl("TRUE / FALSE", Levels(all[[v]])[1])) labels_vars[paste0(v, "TRUE")] <- labels_vars[v]
+    else for (l in setdiff(Levels(all[[v]]), NA)) {
+      if (!paste0(v, l) %in% names(labels_vars)) labels_vars[paste0(v, l)] <- paste0(labels_vars[v], ": ", l)
+    }
   }
+  for (v in field_names) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
+  for (v in names(keywords_labels)) labels_vars[paste0("field_keyword_", v)] <- keywords_labels[v]
+  for (v in names(keywords_comment_labels)) labels_vars[paste0("comment_keyword_", v)] <- keywords_comment_labels[v]
+  for (v in comment_names) labels_vars[paste0("comment_gpt_", v)] <- labels_vars[paste0("comment_manual_", v)] <- names(comment_names)[comment_names == v]
 }
-for (v in field_names) labels_vars[paste0("field_gpt_", v)] <- labels_vars[paste0("field_manual_", v)] <- keywords_labels[v]
-for (v in names(keywords_labels)) labels_vars[paste0("field_keyword_", v)] <- keywords_labels[v]
-for (v in names(keywords_comment_labels)) labels_vars[paste0("comment_keyword_", v)] <- keywords_comment_labels[v]
 
 
 ##### labels_vars_short_html #####
@@ -271,6 +276,7 @@ for (v in names(keywords_comment_labels)) labels_vars[paste0("comment_keyword_",
 
 
 ##### heatmaps_defs #####
+{
 heatmaps_defs <- list()
 heatmaps_defs <- list(
   "gcs_support" = list(vars = "gcs_support", conditions = ">= 1", width = 900, height = 150),
@@ -324,6 +330,9 @@ heatmaps_defs <- list(
   "field_keyword" = list(vars = variables_field_keyword, conditions = ">= 1", sort = T, width = 850, height = 1300),
   "field_keyword_main" = list(vars = variables_field_keyword_main, conditions = ">= 1", sort = T, width = 850, height = 900),
   "field_gpt" = list(vars = variables_field_gpt, conditions = ">= 1", sort = T, width = 850, height = 900),
+  "comment_manual" = list(vars = variables_comment_manual, conditions = ">= 1", sort = T, width = 850, height = 450),
+  "comment_keyword" = list(vars = variables_comment_keyword, conditions = ">= 1", sort = T, width = 850, height = 300),
+  # "comment_gpt" = list(vars = variables_comment_gpt, conditions = ">= 1", sort = T, width = 850, height = 610),
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
   "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
@@ -334,7 +343,7 @@ vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparat
 # TODO: automatize conditions = ">= 1" for binary vars; automatize folder creation; remove dependencies on objects such as countries_names_fr; remove NULL
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
-
+}
 
 ##### barres_defs #####
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
@@ -413,7 +422,7 @@ barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs)
+heatmap_multiple(heatmaps_defs[c( "comment_manual")])
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 # barres_multiple(barresN_defs["share_solidarity_supported"])
@@ -501,6 +510,7 @@ lines(0:1000, log10(pmax(400*12, world_income_after_tax("top3"))), type = 'l', l
 plot(seq(0, 1e5, 1e2), tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1e5, 1e2)), type = 'l', lwd = 2, ylim = c(0, .2), ylab = "Tax rate", xlab = "Individualized yearly income (in PPP 2024 $)")
 grid()
 
+pdf("../figures/all/tax_radical_redistr.pdf", width = 520/100, height = 465/100)
 par(mar = c(4.1, 4.1, .2, .5)) # 520 x 465
 plot(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1.1e6, 1e3)), xaxt = 'n', type = 'l', lwd = 2, xlim = c(4, 6), ylim = c(0, 36), ylab = "Tax rate (in %)", xlab = "Individualized yearly income (in PPP 2024 $)")
 lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
@@ -510,7 +520,8 @@ axis(1, at = setdiff(log10(c(seq(0, 1e4, 1e3), seq(0, 1e5, 1e4), seq(0, 1e6, 1e5
 axis(1, at = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), tcl= -.5, labels = c("1k", "3k", "10k", "30k", "100k", "300k", "1M"))
 abline(h = seq(0, 35, 5), v = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), col = "lightgray", lty = "dotted")
 legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
-save_plot(filename = "tax_radical_redistr", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
+dev.off()
+# save_plot(filename = "tax_radical_redistr", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
 
 plot((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, xlim = c(0, 1e6), ylim = c(0, 36), ylab = "Tax rate (in %)", xlab = "Individualized yearly income (in PPP 2024 $)")
 lines((seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
@@ -620,20 +631,24 @@ heatmap_plot(global_nation_all, proportion = T, percent = T)
 invisible(dev.off())
 # save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
 
+pdf("../figures/all/my_tax_global_nation_comparison.pdf", width = 330/105, height = 330/105)
 par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
 plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Global Nation (2023)", xlim = c(.43, .8), ylim = c(.43, .8)) 
 grid()
 points(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, pch = 18)
 text(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, labels = countries, pos = 4)
-save_plot(filename = "../figures/all/my_tax_global_nation_comparison", width = 330, height = 330, format = "pdf", trim = FALSE)
+dev.off()
+# save_plot(filename = "../figures/all/my_tax_global_nation_comparison", width = 330, height = 330, format = "pdf", trim = FALSE)
 cor(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, use = "complete.obs") # .70
 
+pdf("../figures/all/billionaire_stostad.pdf", width = 330/105, height = 330/105)
 par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
 plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Cappelen, Støstad & Tungodden", xlim = c(.54, .815), ylim = c(.54, .815))
 grid()
 points(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, pch = 18)
 text(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, labels = countries, pos = 4)
-save_plot(filename = "../figures/all/billionaire_stostad", width = 330, height = 330, format = "pdf", trim = FALSE)
+dev.off()
+# save_plot(filename = "../figures/all/billionaire_stostad", width = 330, height = 330, format = "pdf", trim = FALSE)
 cor(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, use = "complete.obs") # .86
 # plot(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative)
 # lines(0:1, 0:1, type = 'l')
@@ -872,7 +887,7 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_self_lose", "custom_redistr_self_lose", "custom_redistr_satisfied", "custom_redistr_untouched", "custom_redistr_satisfied_touched"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Custom transfer\\\\(in \\% of world GDP)}", "\\makecell{Loses\\\\from custom\\\\redistribution}", "\\makecell{Satisfied with\\\\own custom\\\\redistr.}", "\\makecell{Has not\\\\touched the\\\\sliders}", "\\makecell{Touched the\\\\sliders and\\\\satisfied}"),
            indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied > 0,], all[all$custom_redistr_satisfied_touched,], all, all[all$custom_redistr_satisfied_touched,], all, all, all), 
-           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")),
+           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")), 
                             c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
            filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
@@ -1064,7 +1079,7 @@ stopwords <- c(unlist(sapply(c("french", "english", "german", "spanish", "russia
 for (c in c("all", countries)) for (v in paste0(c("field", "comment_field"), c("", "", "_en", "_en"))) {
   size_wordcloud <- if (grepl("comment", v)) 250/72 else 350/72
   pdf(paste0("../figures/", c, "/", v, ".pdf"), width = size_wordcloud, height = size_wordcloud)
-  rquery.wordcloud(d(c)[[v]], max.words = 70, colorPalette = "Blues", excludeWords = stopwords, weights = d(c)$weight) 
+  rquery.wordcloud(gsub("thanks", "thank", d(c)[[v]]), max.words = 70, colorPalette = "Blues", excludeWords = stopwords, weights = d(c)$weight) 
   invisible(dev.off())
 }
 for (c in c("all", countries)) for (v in sub("_field", "", variables_field)) for (var in c("field", "field_en")) {

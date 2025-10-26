@@ -105,9 +105,9 @@ e$comment_field[!is.na(e$comment_field)]
 
 # Correlations
 summary(lm(field_manual_immigration ~ vote == "Far right", data = all, weights = weight)) # 10 pp more likely; R²: .03
-summary(lm(vote == "Far right" ~ field_manual_immigration, data = all, weights = weight)) # 26 pp more likely; R²: .03
-summary(lm(age > 50 ~ field_manual_old_age, data = all, weights = weight)) # 33 pp more likely; R²: .01
-summary(lm(age > 50 ~ field_manual_health, data = all, weights = weight)) # 15 pp more likely; R²: .01
+summary(lm(vote == "Far right" ~ field_manual_immigration, data = all, weights = weight)) # 22 pp more likely; R²: .03
+summary(lm(age > 65 ~ field_manual_old_age, data = all, weights = weight)) # 33 pp more likely; R²: .01
+summary(lm(age > 65 ~ field_manual_health, data = all, weights = weight)) # 15 pp more likely; R²: .01
 summary(lm(employment_status == "Unemployed (searching for a job)" ~ field_manual_job, data = all, weights = weight)) # 13 pp more likely; R²: .01
 summary(lm(income_quartile == 4 ~ field_manual_money, data = all, weights = weight)) # 8 pp less likely; R²: .01
 
@@ -142,8 +142,7 @@ with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
 
 cor(e$field_manual_money, gdp_pc_ppp_2024[e$country]) # .05***
 cor(e$field_manual_money, gdp_pc_nominal_2024[e$country], use = "complete.obs") # .05
-cor(e$field_manual_money, gini_2019[e$country], use = "complete.obs") # .07***
-summary(lm(e$field_manual_money ~ gdp_pc_ppp_2024[e$country]))
+cor(e$field_manual_money, gini_2019[e$country], use = "complete.obs") # .08***
 
 
 ##### Conjoint #####
