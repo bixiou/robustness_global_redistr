@@ -198,6 +198,8 @@
   "reparations_support" = "Supports reparations for colonization and slavery in the form of funding education and technology transfers",
   "custom_redistr_winners" = "Preferred share of winners",
   "custom_redistr_losers" = "Preferred share of losers",
+  "custom_redistr_winners_agg" = "Preferred share of winners",
+  "custom_redistr_losers_agg" = "Preferred share of losers",
   "custom_redistr_self_lose" = "Loses in own custom redistribution",
   "custom_redistr_degree" = "Preferred degree of redistribution",
   "custom_redistr_income_min" = "Implied minimum income (in PPP $/month)",
@@ -371,10 +373,13 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 820, height = 500, add_means = T, show_legend_means = T), 
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 820, height = 500, add_means = T, show_legend_means = T),
+  "custom_redistr_winners_agg" = list(vars = "custom_redistr_winners_agg", width = 750),
+  "custom_redistr_losers_agg" = list(vars = "custom_redistr_losers_agg", width = 1200),
   "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 700),
   "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 850)
 )
 
+{
 vars_barres <- c() # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
@@ -410,19 +415,21 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 1450, add_means = T, show_legend_means = T),
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T),
+  "custom_redistr_winners_agg" = list(vars = "custom_redistr_winners_agg", width = 1500),
+  "custom_redistr_losers_agg" = list(vars = "custom_redistr_losers_agg", width = 1500),
   "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 1500),
   "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 1200)
 )
 barres_defs_nolabel <- fill_barres(c(), barres_defs_nolabel)
 barresN_defs_nolabel <- fill_barres(c(), barresN_defs_nolabel, along = "country_name")
-
+}
 
 ##### Plot all barres #####
 barres_multiple(barres_defs)
 barres_multiple(barresN_defs[vars_barresN])
 barres_multiple(barres_defs_nolabel, nolabel = T)
 barres_multiple(barresN_defs_nolabel, nolabel = T)
-heatmap_multiple(heatmaps_defs[c( "comment_manual")])
+heatmap_multiple(heatmaps_defs)
 for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manual"], data = all[all$variant_field == v,], name = paste0("field_", v, "_manual"))
 
 # barres_multiple(barresN_defs["share_solidarity_supported"])
@@ -496,6 +503,8 @@ for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs["field_manua
 
 
 ##### Custom redistr #####
+barres_multiple(barres_defs[c("custom_redistr_winners_agg", "custom_redistr_losers_agg", "custom_redistr_income_min_ceiling", "custom_redistr_transfer_ceiling")], df = all[all$custom_redistr_satisfied > 0,])
+
 current_inc <- c(0, round(thousandile_world_disposable_inc))
 plot(0:1000, current_inc, type = 'l', lwd = 2, col = "red", ylim = c(0, 1e5))
 lines(0:1000, mean_custom_redistr[["all"]], type = 'l', lwd = 2, col = "green")

@@ -340,6 +340,30 @@
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/custom_redistr_satisfied_median.pdf}} 
 \end{figure} 
 
+\begin{figure}[h!]
+    \caption[Preferred share of winners in the custom redistributions]{Preferred share of winners in the custom redistributions among satisfied respondents. (Question~\ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_winners_agg}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/all/custom_redistr_winners_agg.pdf}} 
+\end{figure} 
+
+\begin{figure}[h!]
+    \caption[Preferred share of losers in the custom redistributions]{Preferred share of losers in the custom redistributions among satisfied respondents. (Question~\ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_losers_agg}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/all/custom_redistr_losers_agg.pdf}} 
+\end{figure} 
+
+\begin{figure}[h!]
+    \caption[Minimum income implied by custom redistributions]{Minimum worldwide income implied by custom redistributions among satisfied respondents (in PPP \$ per month). (Question~\ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_income_min_ceiling}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/all/custom_redistr_income_min_ceiling.pdf}} 
+\end{figure} 
+
+\begin{figure}[h!]
+    \caption[Transfer implied by custom redistributions]{Rich-to-poor transfer implied by custom redistributions among satisfied respondents. (Question~\ref{q:custom_redistr}).
+    }\label{fig:custom_redistr_transfer_ceiling}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/all/custom_redistr_transfer_ceiling.pdf}} 
+\end{figure} 
+
 % \begin{figure}[h!]
 %     \caption[Average well-being depending on the variant]{Average subjective well-being, depending on the variant. (Question~\ref{q:well_being}).
 %     }\label{fig:well_being}
@@ -646,7 +670,10 @@ Below are the keywords used to classify the open-ended fields on top-of-mind con
 \clearpage
 \section{The determination of a custom redistribution}\label{app:algo}
 
-In Question~\ref{q:custom_redistr}, respondents are asked for their preferred redistribution of the world's post-tax income. This custom redistribution is determined by modifying the current distribution using the respondent's three input parameters:
+In Question~\ref{q:custom_redistr}, respondents are asked for their preferred redistribution of the world's post-tax income. This custom redistribution is determined by modifying the current distribution using the respondent's three input parameters:\footnote{Overall, 35\% of the respondents did not move the sliders from their original position. Excluding the 39\% of them who still state that they are satisfied with the redistribution does not change the results qualitatively. Indeed, the average responses are similar between satisfied respondents who moved the sliders and all satisfied respondents: the shares of winners or losers, %differ by at most 2~p.p., 
+the implied minimum income or transfer %by less than 1\%, and the implied transfer by 
+all differ by less than 8\%. Therefore, I keep all satisfied respondents in the analysis. % mean_custom_redistr_stats
+}
 \begin{itemize}
     \item The \textit{proportion of winners}, i.e. the share of people (at the bottom of the distribution) advantaged by the custom redistribution;
     \item The \textit{proportion of losers}, i.e. the share of people (at the top) disadvantaged by the redistribution;

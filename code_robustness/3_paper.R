@@ -154,6 +154,10 @@ decrit(call$consistent_conjoints) # 59%
 decrit(call$consistent_conjoints_strict) # 39%
 decrit(call$consistent_conjoints_party) # 40%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
+conjoint_effects <- unlist(sapply(names(amce)[grepl("EN", names(amce))], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,])))
+mean(abs(conjoint_effects[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")]))
+mean(abs(conjoint_effects))
+
 
 #####  Warm glow ##### 
 summary(lm(gcs_support ~ variant_warm_glow, data = all, weights = weight, subset = variant_warm_glow != "NCS" & !country %in% c("SA", "RU")))
@@ -260,6 +264,15 @@ with(e, summary(lm(custom_redistr_degree ~ variant_sliders, subset = custom_redi
 sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_winners, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 48
 sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_losers, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 18
 sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_degree, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 5
+
+decrit("custom_redistr_winners", data = all, which = all$custom_redistr_satisfied > 0) # 48
+decrit("custom_redistr_winners", data = all, which = all$custom_redistr_satisfied_touched > 0) # 46
+decrit("custom_redistr_losers", data = all, which = all$custom_redistr_satisfied > 0) # 18.3
+decrit("custom_redistr_losers", data = all, which = all$custom_redistr_satisfied_touched > 0) # 19.51
+decrit("custom_redistr_transfer", data = all, which = all$custom_redistr_satisfied > 0) # 5.4
+decrit("custom_redistr_transfer", data = all, which = all$custom_redistr_satisfied_touched > 0) # 5.8
+decrit("custom_redistr_income_min", data = all, which = all$custom_redistr_satisfied > 0) # 247
+decrit("custom_redistr_income_min", data = all, which = all$custom_redistr_satisfied_touched > 0) # 249
 
 
 ##### Survey features #####
