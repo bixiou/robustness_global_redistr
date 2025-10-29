@@ -587,12 +587,12 @@ with(all[all$my_tax_global_nation != 0,], wtd.mean(my_tax_global_nation > 0, wei
 
 ##### Country rankings #####
 # Almost same rankings. JP higher in ratio than diff; US lower and RU higher in latent than share_solidarity_...
-sort(sapply(c("all", countries), function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.median(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_diff, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
+sort(sapply(c("all", countries), function(c) round(wtd.median(all$share_solidarity_ratio, all$weight * (if (c != "all") all$country %in% c else T), na.rm = T), 3)))
 
 
 ##### Comparison other surveys #####

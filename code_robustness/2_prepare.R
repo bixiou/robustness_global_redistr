@@ -304,7 +304,7 @@ weighting <- function(e, country = e$country[1], printWeights = T, variant = NUL
   }
 }
 
-prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = 360, pilot = FALSE, weighting = TRUE, remove_id = NULL) { # scope: all, stayed, final
+prepare <- function(country = "US", scope = "final", fetch = T, convert = T, rename = T, duration_min = if (country != "RU") 360 else 200, pilot = FALSE, weighting = TRUE, remove_id = NULL) { # scope: all, stayed, final
   print(country)
   sample_name <- paste0(country, if (pilot) "p" else NULL)
   if (is.null(remove_id)) remove_id <- sample_name != "USp"

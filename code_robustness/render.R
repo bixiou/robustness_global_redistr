@@ -161,6 +161,9 @@
   "solidarity_support_aviation_levy" = "International levy on aviation carbon emissions, raising prices by 30%, returned to countries based on population", # An international levy on carbon emissions from aviation, raising ticket prices by 30% and funding national budgets in proportion to population
   "share_solidarity_supported" = "Share of plausible global policies supported",
   "share_solidarity_opposed" = "Share of plausible global policies opposed",
+  "share_solidarity_ratio" = "Ratio of share of plausible policies supported over supported or opposed",
+  "share_solidarity_diff" = "Difference between share of plausible policies supported and opposed",
+  "latent_support_global_redistr" = "Latent support\nfor global redistribution (standardized)",
   "share_solidarity_supported_round" = "Share of plausible global policies supported",
   "share_solidarity_opposed_round" = "Share of plausible global policies opposed",
   "share_solidarity_supported_true" = "Share of plausible global policies supported",
@@ -336,6 +339,7 @@ heatmaps_defs <- list(
   "comment_manual" = list(vars = variables_comment_manual, conditions = ">= 1", sort = T, width = 850, height = 450),
   "comment_keyword" = list(vars = variables_comment_keyword, conditions = ">= 1", sort = T, width = 850, height = 300),
   # "comment_gpt" = list(vars = variables_comment_gpt, conditions = ">= 1", sort = T, width = 850, height = 610),
+  "synthetic_indicators" = list(vars = c("latent_support_global_redistr", "share_solidarity_supported_true", "share_solidarity_opposed_true", "share_solidarity_diff", "share_solidarity_ratio"), conditions = c("", "median"), sort = F, width = 950, height = 500, nb_digits = 2),
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
   "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
@@ -349,6 +353,7 @@ heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 }
 
 ##### barres_defs #####
+{
 barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain "var" = "var" but not simply "var")
   "split_few" = list(vars = variables_split_few_agg, width = 850, rev_color = T, add_means = T, show_legend_means = T, transform_mean = function(x) {x/100}), 
   "maritime_split_decarbonization" = list(height = 250),
@@ -380,7 +385,6 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   "custom_redistr_income_min_ceiling" = list(vars = "custom_redistr_income_min_ceiling", width = 850)
 )
 
-{
 vars_barres <- c() # 
 
 barres_defs <- fill_barres(vars_barres, barres_defs) # , df = us1
@@ -912,6 +916,10 @@ heatmap_multiple(heatmaps_defs[c("custom_redistr_satisfied")], data = all[all$cu
 ## Top tax
 heatmap_multiple(heatmaps_defs["top_tax_all"], data = all[all$top_tax_support != 0,], weight_non_na = F)
 heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_positive")], weight_non_na = F)
+
+## Country ranking
+heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
+heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = levels_pol)
 
 
 ##### Conjoint on consistent programs #####

@@ -304,6 +304,15 @@ export_keywods <- function(keys = keywords, strings = keywords_labels, file = ".
 export_keywods()
 export_keywods(keywords_comment, keywords_comment_labels, "../tables/keywords_comment.tex")
 
+# EFA
+gsub("-", "$-$", gsub("\\verb|convergence", "\\bottomrule \\end{tabular} \\switchcolumn \\begin{tabular}[h]{lr} \\verb|convergence", 
+  kable(round(setNames(loadings, paste0("\\verb|", sub("expanding_security_council", "un_reform", gsub("solidarity_support", "pl_support", gsub("^transfer_|^why_hic_", "", names(loadings)))), 
+  "|"))[order(-abs(loadings))], 3), format = "latex", booktabs = TRUE, col.names = c("Variable name", "Loading"), linesep = "", escape = FALSE), fixed = T)) %>% save_kable("../tables/efa.tex")
+correlations <- cor(as.data.frame(lapply(e[, c(variables_interest, "latent_support_global_redistr")], as.numeric)), use = "pairwise.complete.obs")
+# corrplot(cors)
+sort(rowMeans(abs(correlations), na.rm = T)) # share_solidarity_supported .42, solidarity_support_ncqg_300bn 40, my_tax_global_nation .35, vote_intl_coalition .35, ncqg .35, global_movement_no .34, 
+
+
 
 ##### Representativeness ######
 # representativeness_table("All")
