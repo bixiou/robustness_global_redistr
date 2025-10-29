@@ -156,10 +156,13 @@ decrit(call$consistent_conjoints_party) # 40%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
 # Comparison with average effect size
 conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
-for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/sum(adult_pop[-c(9:10)])
-conjoint_effects <- unlist(conjoint_effects)
-mean(abs(conjoint_effects[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")]))/mean(abs(conjoint_effects))
-summary(lm(abs(conjoint_effects) ~ I(names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2"))))
+for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/mean(adult_pop[-c(9:10)])
+conjoint_effects <- conjoint_effects_mod <- unlist(conjoint_effects)
+mean(abs(conjoint_effects))
+# conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"] <- -conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]
+# conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")] <- abs(conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])
+# mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 69%
+summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2"))))
 
 
 #####  Warm glow ##### 

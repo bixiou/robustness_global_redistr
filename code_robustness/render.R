@@ -318,6 +318,7 @@ heatmaps_defs <- list(
   "custom_redistr_satisfied" = list(vars = variables_custom_redistr_most[1:5], conditions = c("", "median"), width = 1200, height = 350),
   "main_radical_redistr" = list(vars = c("ncs_support", "gcs_support", "ics_support", "wealth_tax_support", variables_radical_redistr), conditions = c(">= 1"), width = 1100, height = 700),
   "radical_redistr" = list(vars = variables_radical_redistr, conditions = c(">= 1", "/"), width = 1100, height = 500),
+  "radical_redistr_some" = list(vars = variables_radical_redistr[c(1:4,8)], conditions = c(">= 1", "/"), width = 1100, height = 350),
   "radical_redistr_all" = list(vars = c(variables_radical_redistr, "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1420, height = 650),
   "radical_redistr_few" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation"), conditions = c(">= 1", "/"), width = 1100, height = 350),
   "radical_redistr_main" = list(vars = c("top1_tax_support", "top3_tax_support", "convergence_support", "reparations_support", "my_tax_global_nation", "my_tax_global_nation_external"), conditions = c(">= 1", "/"), width = 1100, height = 400), # TODO
