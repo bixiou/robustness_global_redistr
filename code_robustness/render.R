@@ -919,7 +919,7 @@ heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_pos
 
 ## Country ranking
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
-heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = levels_pol)
+heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol", levels = levels_pol)
 
 
 ##### Conjoint on consistent programs #####
