@@ -3,7 +3,7 @@
 $j(document).ready(function($j){	
 
 	var couple = "No"; // "${q://QID34/ChoiceGroup/SelectedChoices}"
-	var income = 75000; // "${q://QID30/ChoiceTextEntryValue}"; // TODO
+	var income = 40000; // "${q://QID30/ChoiceTextEntryValue}"; // TODO
 	if (couple == "Yes" || couple == "はい" || couple == "Oui" || couple == "Ja" || couple == "Si" || couple == "Да" || couple == "Sì" || couple == "Sí" || couple == "Tak" || couple == "نعم" || couple == "そうだ") { income = income/2; }
 	var variant_sliders = 0; // "${e://Field/variant_sliders}";
 
@@ -19,12 +19,12 @@ $j(document).ready(function($j){
 	unit = 1;
 	
 	$j.ajax({
-		url:'interactive_graph/world_disposable_inc.csv', // interactive_graph/world_disposable_inc.csv "https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
+		url:'https://www.centre-cired.fr/wp-content/uploads/2025/10/world_disposable_inc.csv', // interactive_graph/world_disposable_inc.csv "https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
 		success: function(data){
 			var graph_width = $j('#graphe').width();
 			var graph_height = $j('#graphe').height();
 			if (window.innerWidth < 500) {
-				graph_height = graph_width*1.4;
+				graph_height = graph_width; // *1.4
 				size_slider = window.innerWidth - 30;
 				$j('#graphe').height(graph_height);
 			}
@@ -106,14 +106,17 @@ $j(document).ready(function($j){
 				graph.getAxisY().setMax(100000/unit);
 				graph.getSeries().getItem(0).setMarkerShape(cfx.MarkerShape.None);
 				graph.getSeries().getItem(1).setMarkerShape(cfx.MarkerShape.None);
-				graph.getSeries().getItem(1).setText("Current income (in € per year)");
+				graph.getSeries().getItem(1).setText("Current income (in $ per year)");
 				graph.getSeries().getItem(0).setText("Income after global redistribution");
 				graph.getLegendBox().setDock(cfx.DockArea.Top);
 				titreX = new cfx.TitleDockable();
 				// titreX.setText("Revenus après impôts et transferts des humains adultes, du plus pauvre au plus riche");
-				titreX.setText("Humans' disposable income, from poorest to richest");
+				titreX.setText("Humans, from poorest to richest"); // ' disposable income
 				titreX.setTextColor("#555555");
 				graph.getAxisX().setTitle(titreX);
+				titreY = new cfx.TitleDockable();
+				titreY.setText("Income ($/year, after taxes and transfers)");	// titreY.setText(text_title_y.trim());	
+				graph.getAxisY().setTitle(titreY);	
 				graph.getAxisX().setStep(10000);
 				graph.getAxisY().setStep(10000/(Math.max(1, Math.round(unit/10)*10)));
 				graph.getAxisX().setMinorStep(100);
@@ -150,7 +153,7 @@ $j(document).ready(function($j){
 					$j('#graphe').width(graph_width);
 					$j('#graphe').height(graph_width/1.235);
 				}
-				graph.getSeries().getItem(1).setText("Current income (in € per year)");
+				graph.getSeries().getItem(1).setText("Current income (in $ per year)");
 				graph.getSeries().getItem(0).setText("Income after global redistribution");
 			}
 							

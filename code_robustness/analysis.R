@@ -143,6 +143,16 @@ with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
 cor(e$field_manual_money, gdp_pc_ppp_2024[e$country]) # .05***
 cor(e$field_manual_money, gdp_pc_nominal_2024[e$country], use = "complete.obs") # .05
 cor(e$field_manual_money, gini_2019[e$country], use = "complete.obs") # .08***
+cor(e$field_manual_money, growth_2018_2024[e$country], use = "complete.obs") # .07***
+summary(lm(e$field_manual_money ~ gini_2019[e$country] + gdp_pc_nominal_2024[e$country] + growth_2018_2024[e$country]))
+
+cor(e$latent_support_global_redistr, growth_2018_2024[e$country], use = "complete.obs") # -.02 
+cor(e$latent_support_global_redistr, gini_2019[e$country], use = "complete.obs") # -.03
+cor(e$latent_support_global_redistr, gdp_pc_nominal_2024[e$country], use = "complete.obs") # -.07
+cor(e$latent_support_global_redistr, gdp_pc_ppp_2024[e$country], use = "complete.obs") # -.01
+cor(e$latent_support_global_redistr, e$well_being, use = "complete.obs") # .11
+cor(e$latent_support_global_redistr, sapply(countries, function(c) wtd.mean(d(c)$well_being, weights = d(c)$weight))[e$country], use = "complete.obs") # .13
+sort(sapply(c("all", countries), function(c) wtd.mean(d(c)$well_being, weights = d(c)$weight)))
 
 
 ##### Conjoint #####
@@ -737,3 +747,13 @@ for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v,
 for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("FR", "ES", "DE", "GB"))))))
 for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote == 0) * all$country %in% c("US"))))))
 for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("US"))))))
+
+
+##### Remove fast RU #####
+# all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),] # S UK AGH AGT AHE AMI
+# all_gpt$nb <- n(sub("[A-Z]+", "", all_gpt$n))
+# all_gpt$c <- sub("[0-9]+", "", all_gpt$n)
+# for (i in 6:1) all_gpt$nb[all_gpt$c == "RU" & all_gpt$nb > c(18, 557, 867, 880, 892, 942)[i]] <- all_gpt$nb[all_gpt$c == "RU" & all_gpt$nb > c(18, 557, 867, 880, 892, 942)[i]] - 1
+# all_gpt$n <- paste0(all_gpt$c, all_gpt$nb)
+# all_gpt <- all_gpt[, !names(all_gpt) %in% c("N", "nb", "c")]
+# saveRDS(all_gpt, "../data_raw/fields/all_gpt.rds")

@@ -1,3 +1,5 @@
+# 2-3h to run everything
+
 ##### Data and design #####
 decrit(all$country, weight = F)
 decrit(all$date[all$country != "RU"]) # Apr 15 - Jul 3
@@ -233,6 +235,16 @@ sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$w
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg > 0)), 2))
 # sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote == -1)), 2))
 # sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Far right"| (d(c)$country == "US" & d(c)$vote == 1))), 2))
+
+cor(e$field_universalism, e$latent_support_global_redistr, use = "complete.obs") # 5%
+cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
+cor(e$field_manual_inequality, e$latent_support_global_redistr, use = "complete.obs") # 9%
+cor(e$field_keyword_inequality, e$latent_support_global_redistr, use = "complete.obs") # 8%
+cor(e$field_gpt_inequality, e$latent_support_global_redistr, use = "complete.obs") # 6%
+cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
+cor(e$field_universalism2, e$latent_support_global_redistr, use = "complete.obs") # 3%
+summary(lm(latent_support_global_redistr ~ field_universalism, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ field_universalism2, data = all, weights = weight))
 
 
 ##### Custom redistr #####
