@@ -750,7 +750,7 @@ for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v,
 
 
 ##### Remove fast RU #####
-# all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),] # S UK AGH AGT AHE ?
+# all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),] # S UK AGH AGT AHE AMI
 # all_gpt$nb <- n(sub("[A-Z]+", "", all_gpt$n))
 # all_gpt$c <- sub("[0-9]+", "", all_gpt$n)
 # for (i in 6:1) all_gpt$nb[all_gpt$c == "RU" & all_gpt$nb > c(18, 557, 867, 880, 892, 942)[i]] <- all_gpt$nb[all_gpt$c == "RU" & all_gpt$nb > c(18, 557, 867, 880, 892, 942)[i]] - 1
