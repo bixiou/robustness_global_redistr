@@ -76,6 +76,9 @@ stostad_billionaire_tax_relative <- stostad_billionaire_tax_absolute / (stostad_
 income_deciles <- read.xlsx("../questionnaire/sources.xlsx", sheet = "Income", rowNames = T, rows = 1:13)
 mfd <- read.csv("../data_ext/moral_dic2.csv") # univeralist: care/harm + fairness/cheating; particularist: loyalty/betrayal + authority/subversion. Source: https://osf.io/ezn37
 emfd <- read.csv("../data_ext/eMFD.csv") # Source Hopp et al. (21), https://osf.io/vw85e/files/ufdcz
+growth <- read.xlsx("../data_ext/growth_imf.xlsx") # Real GDP growth, IMF WEO (Oct 24), Accessed on 12/21/2024, https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/OEMDC/ADVEC/WEOWORLD
+growth$growth_2018_2024 <- (1+growth$growth_2019/100)*(1+growth$growth_2020/100)*(1+growth$growth_2021/100)*(1+growth$growth_2022/100)*(1+growth$growth_2023/100)*(1+growth$growth_2023/100)*(1+growth$growth_2024/100)
+growth_2018_2024 <- setNames(setNames(growth$growth_2018_2024[growth$isoname %in% countries_names], growth$isoname[growth$isoname %in% countries_names])[countries_names[countries]], countries)
 
 {
   levels_quotas <- list(
@@ -1664,7 +1667,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e$field_particularist <- grepl(paste(mfd$keyword[mfd$dimension %in% c("loyalty", "authority")], collapse = "|"), e$field_en)
   label(e$field_particularist) <- "field_particularist: T/F Whether field_en contains any loyalty or authority words (from Moral Foundation Dictionary 2.0)."
   e$field_universalism2 <- rowSums(sapply(1:nrow(emfd), function(i) str_count(e$field_en, emfd$word[i]) * (emfd$care_p + emfd$fairness_p - emfd$loyalty_p - emfd$authority_p)[i]))
-  label(e$field_universalism2) <- "field_universalism2: Number of occurrences of care or fairness words minus number of loyalty or authority words in field (words from Moral Foundation Dictionary 2.0)."
+  label(e$field_universalism2) <- "field_universalism2: Proba of words being care or fairness minus proba of being loyalty or authority words in field (probas from the extended Moral Foundation Dictionary)."
   
   # Deprecated:
   # Use lines below export CSV. 
@@ -2027,7 +2030,6 @@ gpt_prompt <- function(response_text) {
 
 all_gpt <- readRDS("../data_raw/fields/all_gpt.rds")
 e <- all <- merge(all, all_gpt, all = T)
-# all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),]
 
 
 ##### Codebook #####
