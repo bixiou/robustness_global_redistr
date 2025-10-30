@@ -1,4 +1,4 @@
-# TODO! RU region, urbanicity
+# TODO! RU find RU$zipcode_clean[is.na(RU$region)] and update regions_ru
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -110,7 +110,7 @@ growth_2018_2024 <- setNames(setNames(growth$growth_2018_2024[growth$isoname %in
                  "All" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
                  "EU" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
                  "Eu" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "country"),
-                 "RU" = c("gender", "income_quartile", "age", "education_quota"),
+                 "RU" = c("gender", "income_quartile", "age", "education_quota"), # , "region"
                  # "FR" = c("gender", "income_quartile", "age", "education_quota", "urbanity", "region"), #, "urban_category") From oecd_climate: Pb sur cette variable car il y a des codes postaux à cheval sur plusieurs types d'aires urbaines. Ça doit fausser le type d'aire urbaine sur un peu moins de 10% des répondants. Plus souvent que l'inverse, ça les alloue au rural alors qu'ils sont urbains.
                  # # Au final ça rajoute plus du bruit qu'autre chose, et ça gène pas tant que ça la représentativité de l'échantillon (surtout par rapport à d'autres variables type age ou diplôme). Mais ça justifie de pas repondérer par rapport à cette variable je pense. cf. FR_communes.R pour les détails.
                  "SA" = c("gender_nationality", "income_quartile", "age", "education_quota", "region"),
@@ -1220,6 +1220,17 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
                    grep = T, values = c("family|self", "religion|Community", "Americans|Fellow citizens", "Humans", "Sentient"), df = e) # In NHB 0-7, Relatives 1; Culture/religion 3; Europeans 5
   e <- create_item("survey_biased", labels = c("Yes, left" = -1, "Yes, right" = 0, "No" = 1), grep = T, values = c("left", "right", "No"), df = e) 
 
+  if (country == "RU") {
+    e$zipcode_clean <- n(e$zipcode)
+    e$zipcode_clean[no.na(e$zipcode_clean, 0) > 999] <- n(substr(e$zipcode[no.na(e$zipcode_clean, 0) > 999], 0, 3))
+    regions_ru <<- list("1" = c(101:105, 107:109, 111, 115, 117, 119, 121, 123:125, 127, 129:130, 135, 190:200), # Moscow & St-Petersburg (Federal cities of Moscow and St. Petersburg)
+                        "2" = c(241:243, 152:153, 248:249, 155:157, 140:144, 390:391, 214:216, 300:303, 600:602, 150, 236, 238, 160:175, 180:188), # Northwest (Central economic region (except Moscou), Northwestern (except Saint:Pétersbourg), Northern, Kaliningrad)
+                        "3" = c(299, 305:309, 344, 346:347, 350, 352:357, 358:359, 360:361, 362:363, 364, 366:369, 385:386, 392:397, 398:399, 400, 403:404, 410, 412:414, 416, 420:423, 424:427, 428:429, 430:433, 440, 442:443, 445:446, 450, 452:457, 460:462, 603, 606:607, 610, 612:614, 617:620, 622:624, 640:641), # Southwest (Central Black Earth, Volga, Volga:Vyatka, North Caucasus, Ural)
+                        "4" = c(652:656, 658:659, 646:650,  632:634, 636, 625:630, 664:671, 660,662:663, 673:677, 679:690, 692:694)) # East = 4	Siberia and Far East region (West Siberian, East Siberian and Far Eastern economic regions)) 
+    e$region <- NA
+    for (i in names(regions_ru)) e$region[e$zipcode_clean %in% regions_ru[[i]]] <- i
+  }
+  
   e$millionaire_factor <- factor(e$millionaire_agg)
   if ("urbanity" %in% names(e)) e$urbanity_factor <- e$urbanity_na_as_city <- no.na(factor(e$urbanity), rep = "NA")
   e$education_factor <- factor(e$education)
