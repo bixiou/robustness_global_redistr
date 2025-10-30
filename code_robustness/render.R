@@ -809,11 +809,11 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
-# Unconditional:
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_unconditional") 
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
-           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_unconditional") 
+# Unconditional: 
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_unconditional")
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_unconditional")
 
 # By vote x country:
 summary(lm(program_preferred ~ millionaire_tax_in_program + millionaire_tax_in_program*vote_factor, data = call))
@@ -900,10 +900,10 @@ desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "v
 
 desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_self_lose", "custom_redistr_self_lose", "custom_redistr_satisfied", "custom_redistr_untouched", "custom_redistr_satisfied_touched"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Custom transfer\\\\(in \\% of world GDP)}", "\\makecell{Loses\\\\from custom\\\\redistribution}", "\\makecell{Satisfied with\\\\own custom\\\\redistr.}", "\\makecell{Has not\\\\touched the\\\\sliders}", "\\makecell{Touched the\\\\sliders and\\\\satisfied}"),
-           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied > 0,], all[all$custom_redistr_satisfied_touched,], all, all[all$custom_redistr_satisfied_touched,], all, all, all), 
-           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")), 
+           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied > 0,], all[all$custom_redistr_satisfied_touched > 0,], all, all[all$custom_redistr_satisfied_touched > 0,], all, all, all),
+           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")),
                             c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
-           filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
+           filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA"))
 
 ## Custom redistr
 wtd.median(all$custom_redistr_transfer, weight = all$weight * all$custom_redistr_satisfied_touched, na.rm = T) # 3.9% world GDP
@@ -928,10 +928,10 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints,], width = 400, height = 370, 
            covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent") 
 
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
-           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent_strict") 
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370, 
-           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent_strict") 
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370,
+           covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_millionaire_tax_in_program_consistent_strict")
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU") & call$consistent_conjoints_strict,], width = 400, height = 370,
+           covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, name = "program_preferred_by_cut_aid_in_program_consistent_strict")
 
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program, data = call, weights = weight))
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)

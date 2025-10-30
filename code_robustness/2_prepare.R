@@ -1,4 +1,4 @@
-# TODO! RU remove fast, region, urbanicity
+# TODO! RU region, urbanicity
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
 # TODO: clean files (cf. analysis.R)
 # TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
@@ -331,7 +331,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     e <- e[-c(1:2),] # Remove test rows # TODO: duration, revenue_split, 
     for (v in names(rename_ru)) names(e)[names(e) == v] <- rename_ru[v]
     for (v in names(e)) e[[v]] <- as.character(as_factor(e[[v]]))
-    e$excluded <- ifelse(e$attention_test %in% c("A little", "Немного"), NA, e$attention_test)
+    e$excluded <- ifelse(e$attention_test %in% c("A little", "Немного") & (n(e$duration) > duration_min), NA, e$attention_test)
     e$progress <- 100    
     e$finished <- e$finished %in% c("Завершен", "Finished")
     for (v in c(variables_well_being, "hh_size", "Nb_children__14", "duration", "revenue_split", "gcs_belief_own")) e[[v]] <- as.numeric(gsub("[^0-9\\.]*", "", e[[v]]))
@@ -342,7 +342,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     for (v in 1:ncol(e)) if (all(is.na(e[[v]])) & is.na(names(e)[[v]])) all_na <- c(all_na, v)
     e <- e[, setdiff(1:ncol(e), all_na)]
     
-    e$fast <- e$duration < duration_min
+    e$fast <- n(e$duration) < duration_min
     label(e$fast) <- paste0("fast: T/F duration < ", duration_min/60, " min")
     # e$excluded <- e$Q_TerminateFlag
     # e$finished <- e$Finished
@@ -360,7 +360,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     e$dropout_late <- e$dropout & e$progress >= 30
     label(e$dropout_late) <- "dropout: Respondent who did not complete the survey though was not excluded, and who dropped out after the socio-demographic questions." 
     if (scope %in% names(e)) e <- e[e[[scope]] == T,]
-
+    
     e <- convert(e, country = country, pilot = pilot, weighting = weighting)
     e <- e[,!duplicated(names(e))]
   }
@@ -1888,6 +1888,7 @@ beep()
 data_all <- setNames(lapply(countries, function(c) { prepare(country = c, scope = "all", fetch = F, convert = T, rename = T, pilot = FALSE, weighting = FALSE) }), countries) # remove_id = F
 a <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, data_all)
 a$weight <- 1
+rm(survey_data, data_all)
 beep()
 Sys.time() - start_time # 10 min
 
@@ -2026,6 +2027,7 @@ gpt_prompt <- function(response_text) {
 
 all_gpt <- readRDS("../data_raw/fields/all_gpt.rds")
 e <- all <- merge(all, all_gpt, all = T)
+# all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),]
 
 
 ##### Codebook #####
