@@ -1,3 +1,4 @@
+# TODO! decrit 2 digits
 # TODO! RU find RU$zipcode_clean[is.na(RU$region)] and update regions_ru
 # TODO! representativeness RU region (more generally, check whether variable exist)
 # TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"

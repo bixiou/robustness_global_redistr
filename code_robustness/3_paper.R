@@ -1,5 +1,40 @@
 # 2-3h to run everything
 
+##### Introduction #####
+# At least 70%: country_comparison/solidarity_support_share
+# 64% support: country_comparison/radical_redistr_all_share
+# Custom redistribution:  
+decrit("custom_redistr_self_lose") # 46%
+decrit("custom_redistr_self_gain") # 9%
+decrit(all$revenue_split_few_global > 0) # 87%
+decrit(all$revenue_split_few_global) # 17.5%
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight))
+decrit("vote_intl_coalition") # 36.47% vs. 17%
+decrit("global_movement_support") # 68%
+decrit("global_movement_support", which = all$millionaire == 5) # 52%
+decrit("global_movement_support", which = all$millionaire == 5, weight = F) # 561 millionaires
+decrit("global_tax_support") # 74%
+decrit("intl_tax_support") # 68%
+decrit("ics_high_support") # 68.49%
+decrit("ics_low_support") # 65%
+# Pluralistic ignorance: country_comparison/ncs_gcs_ics_all_control_features_median_belief_various
+round(sapply(c("all", countries), function(c) wtd.median(d(c)$gcs_belief_own, weight = d(c)$weight, na.rm = T) - wtd.mean(d(c)$gcs_support, d(c)$weight))) # -16 pp
+round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -22 pp
+# Warm glow:
+summary(lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)) # +8pp*** + 33%
+summary(lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)) # +1pp. + 33% (p: .09)
+summary(ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)) # +14pp. (p: .08)
+iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)
+# Why help countries in need: country_comparison/why_hic_help_lic_positive
+# Reparations: country_comparison/radical_redistr_all_share
+decrit("group_defended") # 45%, 32%
+# Variance decomposition: all/lmg_share_solidarity_supported_few_group, all/lmg_gcs_support_few_group
+# Universalists by country: country_comparison/group_defended_nolabel
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight), 2)) # lower in JP, US
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$country_name %in% countries_Eu)), 5)) # 50.003% Majority in Europe
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2)) # 59% among left voters
+
+
 ##### Data and design #####
 decrit(all$country, weight = F)
 decrit(all$date[all$country != "RU"]) # Apr 15 - Jul 3
