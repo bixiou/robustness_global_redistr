@@ -1,5 +1,5 @@
 \clearpage
-\section{Raw results% from the complementary surveys
+\section{Raw Results% from the complementary surveys
 }\label{app:raw_results}
 
 % Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}.
@@ -467,9 +467,9 @@ Unless otherwise specified, response is compulsory and a single response much be
 \input{app_questionnaire}
 
 \clearpage
-\section{Survey sources and features}\label{app:features}
+\section{Survey Sources and Features}\label{app:features}
 
-\subsection{Sources regarding plausible global policies}\label{subsec:plausible_policies_sources}
+\subsection{Sources Regarding Plausible Global Policies}\label{subsec:plausible_policies_sources}
 
 % \paragraph{Plausible global policies.} 
 Table \ref{tab:plausible_policies} provides references showing that the ``plausible global policies'' I test (Section~\ref{subsec:debated}) are (similar to proposals) debated in international negotiations.
@@ -501,7 +501,7 @@ An international levy on carbon emissions from aviation, raising ticket prices b
 \end{tabular}
 \end{table}
 
-\subsection{Country-specific features}\label{subsec:country_features}
+\subsection{Country-specific Features}\label{subsec:country_features}
 
 In the survey, various features are tailored to country-specific characteristics. 
 The workbook at \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/sources.xlsx}{github.com/bixiou/robustness\_global\_redistr/raw/main/questionnaire/sources.xlsx} contains all such features as well as their sources. 
@@ -537,7 +537,7 @@ As I conservatively use low figures for the transfer, the GCS question could som
 
 % In the International Climate Schemes, the question implicitly assumes that the costs would be the same as in the generic GCS question. This is credible if one assumes that each country would benefit for the same emissions rights in both cases. Indeed, as country coverage shrinks, two effects approximately balance out: the lower carbon price and the lower basic income, both of which result from lower emissions per capita within the climate coalition compared to the world average.
 
-\paragraph{Global income distribution.}
+\paragraph{Global Income Distribution.}
 
 To estimate the global income distribution, I use the distributions of disposable income by country in 2019 constructed by \cite{fisher-post_government_2023} (FPG). I inflate all generalized percentiles by real GDP growth observed between 2019 and 2024 (using IMF data), I factor in country-specific inflation until 2022 and convert values from LCU to 2022 PPP dollar (using FPG), and finally assume that all countries experienced the same inflation as in the U.S. in 2023 and 2024 (using IMF data). 
 
@@ -549,7 +549,7 @@ Finally, I compute the poverty gaps and the tax revenue in every country in prop
 I find that the top~1\% tax collects 1.8\% of global nominal income, while the top~3\% tax collects 4.8\% of global nominal income. These amounts are higher than the respective poverty gaps: 1.3\% of global nominal income for a \$250 per month poverty line, and 3.2\% for a \$400 per month poverty line. 
 While the cost of poverty reduction reduces relative to tax revenue once one accounts  for market exchange rates, closing the poverty gap actually requires extra revenue due to imperfect targeting and administrative costs \citep{sahoo_what_2025}. Therefore, the tax schedules' calibration are consistent with the poverty reduction objectives.
 
-\paragraph{Wealth tax revenue.}
+\paragraph{Wealth Tax Revenue.}
 
 To estimate the revenue from a global tax on wealth above \$5 million at a rate of 2\% (Section~\ref{subsec:revenue_split}, Questions~\ref{q:revenue_split_few}-\ref{q:revenue_split_many}), I use the distribution of net wealth by country in current dollar for 2022 from the World Inequality Database. I assume that the taxable base is reduced by 30\% due to tax avoidance and asset depreciation. I report expected tax revenue as a share of countries' 2023 (from the World Bank). I also report the absolute revenue after converting them into LCU. 
 
@@ -578,7 +578,7 @@ Third, I average all \textit{z}-scores, weighted by the loadings.
 ~\\
 The loading of a variable is similar to the average absolute correlation with the other support variables. Interestingly, the average absolute correlation of the latent indicator, at .54, is only marginally greater than for \verb|share_solidarity_diff| (the difference between the shares of plausible policies supported and opposed), at .49, or for the share of plausible policies supported, at .45. In other words, simple indicators based on the support or opposition to plausible policies capture attitudes towards global redistribution almost as well as a sophisticated latent variable. \hfill Back~to~Section~\ref{par:ranking}
 
-\subsection{Definition of keywords}\label{subsec:keywords}
+\subsection{Definition of Keywords}\label{subsec:keywords}
 
 Below are the keywords used to classify the open-ended fields on top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}). The keyword search uses R function \verb|grepl| and ignores case. Special character \verb|^| indicates the start of the string and \verb|$| the end.
 \input{../tables/keywords.tex}
@@ -592,7 +592,7 @@ Below are the keywords used to classify the open-ended fields on top-of-mind con
 % \input{../tables/keywords_comment.tex}
 
 \clearpage
-\section{Representativeness of the surveys}\label{app:representativeness}
+\section{Representativeness of the Surveys}\label{app:representativeness}
 
 \begin{table}[h!]
     \caption[Sample representativeness in All, Eu, EU]{Sample representativeness overall, in Europe, and in the European Union. %(Back to \ref{subsec:data}) 
@@ -651,7 +651,7 @@ Below are the keywords used to classify the open-ended fields on top-of-mind con
     } 
 \end{table}
 \clearpage
-\section{Determinants of support}\label{app:determinants}
+\section{Determinants of Support}\label{app:determinants}
 
 
 \begin{figure}[h!]
@@ -691,7 +691,7 @@ Below are the keywords used to classify the open-ended fields on top-of-mind con
 \end{table}
 
 \clearpage
-\section{The determination of a custom redistribution}\label{app:algo}
+\section{The Determination of a Custom Redistribution}\label{app:algo}
 
 In Question~\ref{q:custom_redistr}, respondents are asked for their preferred redistribution of the world's post-tax income. This custom redistribution is determined by modifying the current distribution using the respondent's three input parameters:\footnote{Overall, 35\% of the respondents did not move the sliders from their original position. Excluding the 39\% of them who still state that they are satisfied with the redistribution does not change the results qualitatively. Indeed, the average responses are similar between satisfied respondents who moved the sliders and all satisfied respondents: the shares of winners or losers, %differ by at most 2~p.p., 
 the implied minimum income or transfer %by less than 1\%, and the implied transfer by 
@@ -739,7 +739,7 @@ Once the custom redistribution has been determined, it is straightforward to com
 \end{figure}
 
 \clearpage
-\section{Comparison with other surveys}\label{app:comparison}
+\section{Comparison with Other Surveys}\label{app:comparison}
 \begin{figure}[h!]
 \caption[Comparison with other surveys]{Comparison with similar questions in other surveys.} \label{fig:comparison}
 \begin{subfigure}{.45\textwidth}
@@ -753,7 +753,7 @@ Once the custom redistribution has been determined, it is straightforward to com
 \end{figure}
 
 \clearpage
-\section{Attrition analysis}\label{app:attrition}
+\section{Attrition Analysis}\label{app:attrition}
 
 \begin{table}[h!]
     \caption[Attrition analysis]{Attrition analysis.} \label{tab:attrition}
@@ -763,7 +763,7 @@ Once the custom redistribution has been determined, it is straightforward to com
 \end{table}
 
 \clearpage
-\section{Balance analysis}\label{app:balance}
+\section{Balance Analysis}\label{app:balance}
 
 \begin{table}[h]
     \caption[Balance analysis]{Balance analysis.} \label{tab:balance}
@@ -777,8 +777,8 @@ Once the custom redistribution has been determined, it is straightforward to com
 \end{table}
 \clearpage
 
-\section{Placebo tests}\label{app:placebo}
-
+\section{Placebo Tests}\label{app:placebo}
+% TODO comment on effect size that overall support can be at most 1pp higher/lower due to unrelated treatments
 
 \begin{table}[!htbp] 
   \caption{Placebo tests of treatments on unrelated outcomes (simple OLS regressions).} \label{tab:placebo} 
@@ -787,7 +787,7 @@ Once the custom redistribution has been determined, it is straightforward to com
 
 
 \clearpage
-\section{Main results on selected demographics, including by vote}\label{app:pol}
+\section{Main Results on Selected Demographics, Including by Vote}\label{app:pol}
 
 Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_share} shows that polarization between left- and right-wing voters is comparably high in Europe and the U.S. but almost non-existent in Japan, with Japanese support comparable to the support among non-voters in Western countries. Interestingly, \cite{fabre_majority_2025} exhibited a much higher polarization in the U.S. compared to Western Europe on similar questions (about the GCS, the globally redistributive millionaire tax, and universalism), but in the current survey polarization has converged in the two regions. More specifically, compared to early 2023, in Western Europe (France, Germany, Spain and the UK), support has declined across the political spectrum, but more so among right-wing voters. Meanwhile, in the U.S., support has increased among Republican voters and decreased among Democrat voters. 
 % Polarization increased in Europe between Left and (Center+Far) Right since last paper (1-3/23): 14 -> 25 for GCS, 18 -> 26 for wealth_tax, 30 -> 32 for universalist. (Support for the three declined across categories but more so on the Right).
@@ -807,7 +807,7 @@ Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_s
 \end{figure}
 
 \clearpage
-\section{Main results weighted by vote}\label{app:vote}
+\section{Main Results Weighted by Vote}\label{app:vote}
 % TODO? Replace the next 2 or 4 figures by main_radical_redistr_weight_vote_share?
 \begin{figure}[h!]
     \caption[{[}Weighted by vote{]} Support for the NCS, GCS, ICS]{[Weighted by vote] Support for the National, Global, and International Climate Schemes (\textit{Yes}/\textit{No} question). \hfill (Questions \ref{q:ncs_support}-\ref{q:ics_support}).
@@ -858,7 +858,7 @@ Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_s
 \end{figure}
 
 \clearpage
-\section{Main results on the extended sample}\label{app:extended}
+\section{Main Results on the Extended Sample}\label{app:extended}
 
 % As a robustness check, we reproduce our main results on the extended sample that includes the 14\% respondents who failed the attention check or rushed through the survey ($n = 9,318$). These results are non-weighted. They closely match the results in our main specification. For example, the support for the GCS is 54\% in the U.S. and 75\% in Europe, while the same coefficients are significant for the list experiment. % and the conjoint analyses. 
 
@@ -917,7 +917,7 @@ Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_s
 \end{figure}
 
 \clearpage
-\section{Influence of the item order on answers}\label{app:order}
+\section{Influence of the Item Order on Answers}\label{app:order}
 
 \begin{table}[!htbp] 
   \caption[Influence of the item order on answers]{Influence of the item order on answers.}\label{tab:order} 
