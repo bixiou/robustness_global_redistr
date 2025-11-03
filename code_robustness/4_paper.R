@@ -80,63 +80,69 @@ mean((a$duration < 6 & !a$attentive)[a$stayed]) # 5% too fast & inattentive
 # mean_bi25 - mean_bi24 # -.044
 
 
-##### Open-ended fields #####
+##### Top-of-mind Considerations #####
+# Most figures come from country_comparison/concerns_field, country_comparison/wish_field, country_comparison/issue_field, country_comparison/injustice_field, 
 decrit(all$field_keyword_global_inequality, all, which = all$variant_field == "injustice") # .013
 decrit(all$field_gpt_global_inequality, all, which = all$variant_field == "injustice") # .085
 decrit(all$field_manual_global_inequality, all, which = all$variant_field == "injustice") # .037
+# Examples of what ChatGPT classifies as global_inequality but I don't:
 all$field_en[all$variant_field == "injustice"][sample(setdiff(which(all$field_gpt_global_inequality[all$variant_field == "injustice"]), which(all$field_manual_global_inequality[all$variant_field == "injustice"])), 10)]
+# Examples of what I classify as global_inequality but the keyword search doesn't:
 all$field_en[all$variant_field == "injustice"][sample(setdiff(which(all$field_manual_global_inequality[all$variant_field == "injustice"]), which(all$field_keyword_global_inequality[all$variant_field == "injustice"])), 10)]
-decrit(all$field_gpt_global_inequality[all$field_en %in% c("poverty", "Poverty")])
-decrit(all$field_gpt_global_inequality[all$field_en %in% "inequality among humans"])
+decrit(all$field_gpt_global_inequality[all$field_en %in% c("poverty", "Poverty")]) # 42 out of 47
+all$field_keyword_global_inequality[all$field_en %in% "inequality among humans"]
 decrit(all$field_manual_money, all, which = all$variant_field %in% c("concerns", "wish")) # .3048
 summary(lm(field_manual_money ~ factor(income_decile), data = all, subset = all$variant_field %in% c("concerns", "wish"), weights = weight))
-decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 10, data = all) # .21
-decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 1, data = all) # .36
-decrit(all$field_manual_own_country | all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .13
-decrit(all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .11
-decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .02
-decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
-decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
-
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 10, data = all) # .22
+decrit("field_manual_money", which = all$variant_field %in% c("concerns", "wish") & all$income_decile == 1, data = all) # .35
+# Footnote:
 summary(lm(e$field_manual_money ~ gini_2019[e$country])) # 8pp
 summary(lm(e$field_manual_money ~ gdp_pc_nominal_2024[e$country]))
 summary(lm(e$field_manual_money ~ gini_2019[e$country] + gdp_pc_nominal_2024[e$country]))
-sapply(c("all", countries), function(c) round(wtd.mean(grepl("?", d(c)$field, fixed = T), d(c)$weight), 3))
+
+decrit(all$field_manual_own_country | all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .11
+decrit(all$field_manual_own_country, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .0151
+decrit(all$field_manual_global_inequality, which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all) # .10
+sort(round(sapply(c("all", countries), function(c) wtd.mean(d(c)$field_manual_global_inequality, d(c)$weight * (d(c)$variant_field %in% "injustice") )), 3)) # IT > PL > ES > ... > JP > RU
+decrit(grepl("clean water", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
+decrit(grepl("starv", all$field_en), which = all$variant_field %in% c("injustice") & all$field_manual_inequality, data = all)
 
 
 # Correlations
-summary(lm(field_manual_immigration ~ vote == "Far right", data = all, weights = weight)) # 10 pp more likely from a baseline of 3pp; R²: .03
+# summary(lm(field_manual_immigration ~ vote == "Far right", data = all, weights = weight)) # 10 pp more likely from a baseline of 3pp; R²: .03
 summary(lm(vote == "Far right" ~ field_manual_immigration, data = all, weights = weight)) # 22.1 pp more likely from a baseline of 8.77pp; R²: .03
-22.1/8.77 # 2.5
+(22.1+8.78)/8.78 # 3.5
 summary(lm(age > 65 ~ field_manual_old_age, data = all, weights = weight)) # 25 pp more likely from a baseline of 24 pp; R²: .01
-with(e, cor(field_manual_immigration, vote == "Far right", use = "complete.obs")) # .18
-with(e, cor(field_manual_far_right_criticism, vote == "Left", use = "complete.obs")) # .13
-with(e, cor(field_manual_old_age, age, use = "complete.obs")) # .12
+with(e, cor(field_manual_immigration, vote == "Far right", use = "complete.obs")) # .17
+with(e, cor(field_manual_far_right_criticism, vote == "Left", use = "complete.obs")) # .16
+with(e, cor(field_manual_old_age, age, use = "complete.obs")) # .13
 with(e, cor(field_manual_old_age, age > 50, use = "complete.obs")) # .12
-with(e, cor(field_manual_health, age, use = "complete.obs")) # .12
-with(e, cor(field_manual_health, age_exact > 55, use = "complete.obs")) # .12
-with(e, cor(field_manual_job, employment_status == "Unemployed (searching for a job)", use = "complete.obs")) # .11
-with(e, cor(field_manual_education, employment_status == "Student", use = "complete.obs")) # .10
+with(e, cor(field_manual_health, age, use = "complete.obs")) # .11
+with(e, cor(field_manual_health, age_exact > 55, use = "complete.obs")) # .10
+with(e, cor(field_manual_job, employment_status == "Unemployed (searching for a job)", use = "complete.obs")) # .09
 with(e, cor(field_manual_animals, group_defended == "Sentient beings", use = "complete.obs")) # .09
-with(e, cor(field_manual_money, income_quartile, use = "complete.obs")) # -.08
+with(e, cor(field_manual_education, employment_status == "Student", use = "complete.obs")) # .09
 with(e, cor(field_manual_environment, vote == "Left", use = "complete.obs")) # .08
-with(e, cor(field_manual_inequality, vote == "Left", use = "complete.obs")) # .07
+with(e, cor(field_manual_money, income_quartile, use = "complete.obs")) # -.08
 with(e, cor(field_manual_far_right_criticism, vote == "Non-voter, PNR or Other", use = "complete.obs")) # -.07
+with(e, cor(field_manual_nothing, vote == "Non-voter, PNR or Other", use = "complete.obs")) # .07
+with(US, cor(field_manual_discrimination, race_black, use = "complete.obs")) # .07
+with(e, cor(field_manual_inequality, vote == "Left", use = "complete.obs")) # .06
 with(e, cor(field_manual_far_right_criticism, vote == "Far right", use = "complete.obs")) # -.06
-with(e, cor(field_manual_nothing, vote == "Non-voter, PNR or Other", use = "complete.obs")) # .06
-with(US, cor(field_manual_discrimination, race_black, use = "complete.obs")) # .05
+with(e, cor(field_manual_corruption, vote == "Far right" , use = "complete.obs")) # .05
 with(e, cor(field_manual_security, vote == "Far right", use = "complete.obs")) # .05
 with(e, cor(field_manual_family, group_defended == "Family and self", use = "complete.obs")) # .04
 with(e, cor(field_manual_taxes_welfare, vote == "Left", use = "complete.obs")) # -.04
-with(e, cor(field_manual_corruption, vote == "Far right" , use = "complete.obs")) # .04
-with(e, cor(field_manual_education, education, use = "complete.obs")) # .04
+with(e, cor(field_manual_education, education, use = "complete.obs")) # .03
 with(e, cor(field_manual_own_country, vote == "Far right", use = "complete.obs")) # .03
 with(e, cor(field_manual_relationships, couple, use = "complete.obs")) # -.03
-# Below, not statistically significant
-with(e, cor(field_manual_global_issue, vote == "Left", use = "complete.obs")) # .02
+with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .02
+# Below, not statistically significant at 5% threshold
 with(e, cor(field_manual_global_issue, group_defended == "Humans", use = "complete.obs")) # .02
+with(e, cor(field_manual_global_issue, vote == "Left", use = "complete.obs")) # .01
 with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) # .01
-with(e, cor(field_manual_happiness, well_being, use = "complete.obs")) # .01
+
+# Slant is based on subjective impressions, cf. 2_prepare.R
 
 
 ##### Revenue split #####

@@ -64,6 +64,8 @@ representativity_index(all$weight_country) # .67
 
 ##### Fields #####
 # Global poverty/inequality not a concern nor wish but appears prominently in injustice.
+sort(round(sapply(c("all", countries), function(c) wtd.mean(d(c)$field_manual_global_issue, d(c)$weight * (d(c)$variant_field %in% "injustice") * d(c)$field_manual_inequality)), 3))
+
 decrit(e$variant_field)
 with(e, summary(rq(nchar(field) ~ variant_field)))
 with(e, summary(lm(is.na(field) ~ variant_field)))
