@@ -747,15 +747,15 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 # 4. Revenue split: country_comparison/split_main_means_nolegend + country_comparison/split_main_nb0_nolabel
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), # TODO! add dashed line at 20%
            labels = break_strings(labels_vars[c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global)], max_length = 46, sep = "<br>"),
-           name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 600, height = 500) 
+           name = "split_main_means_nolegend", no_legend = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 600, height = 500, shapes = c(19, 15, 0:6, 18, 8, 17)) 
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
-           name = "split_main_nb0_nolabel", no_label = T, conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 370, height = 500) 
+           name = "split_main_nb0_nolabel", no_label = T, conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 370, height = 500, shapes = c(19, 15, 0:6, 18, 8, 17)) 
 
 # Alternatives:
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
-           name = "split_main_means", levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
+           name = "split_main_means", levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650, shapes = c(19, 15, 0:6, 18, 8, 17)) 
 plot_along("country_name", vars = c("revenue_split_few_global", "revenue_split_few_domestic_education_healthcare", "split_many_global", variables_split_many_global), 
-           name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650) 
+           name = "split_main_nb0", conditions = "== 0", to_percent = T, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 1300, height = 650, shapes = c(19, 15, 0:6, 18, 8, 17)) 
 
 # 4bis. 
 split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list)[-11])))

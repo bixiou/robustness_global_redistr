@@ -23,7 +23,7 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
                        "Saudi citizens" = list("var" = "saudi", "value" = T), "Millionaires" = list("var" = "millionaire_agg", "value" = "Already"),
                        "U.S. Harris" = list("var" = "vote_voters", "value" = "Harris"), "U.S. Trump" = list("var" = "vote_voters", "value" = "Trump"), "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"),
                        "Europe Left" = list("var" = "vote_Eu", "value" = "Left"), "Europe Center/Right" = list("var" = "vote_Eu", "value" = "Center-right or Right"), "Europe Far right" = list("var" = "vote_Eu", "value" = "Far right"), "Europe Non-voters" = list("var" = "vote_Eu", "value" = "Non-voter, PNR or Other"),
-                       "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1), "Saudi Arabia" = list("var" = "country", "value" = "SA"))
+                       "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1), "Saudi Arabia" = list("var" = "country_name", "value" = "Saudi Arabia"))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
 levels_plain <- c("All", "Europe", countries_names)
 # levels_default_list <- setNames(lapply(levels_plain, function(i) if (i %in% names(special_levels)) special_levels[[i]]$value else i), levels_plain)

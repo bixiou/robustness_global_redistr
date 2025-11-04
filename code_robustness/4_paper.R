@@ -146,60 +146,61 @@ with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) 
 
 
 ##### Revenue split #####
-sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3)))
+# country_comparison/split_few_bars; country_comparison/split_few_bars_nb0
 wtd.mean(all$revenue_split_few_global, all$weight) # 17.5%
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3))) # 14% JP to 21% ES, SA
 wtd.t.test(x = all$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = all$weight) # p < 1e-100
 wtd.t.test(x = JP$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = JP$weight) # p = .07
 wtd.t.test(x = CH$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = CH$weight) # p < 1e-4
 wtd.mean(all$revenue_split_few_global, all$weight)/(33.4*2/5) # +31%
 wtd.mean(all$revenue_split_few_global == 0, all$weight) # 13.3%
+# Footnote:
 wtd.mean(all$revenue_split_few_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.84%
 wtd.mean(all$revenue_split_few_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/(33.4*2/5) # +34%
 wtd.mean(all$revenue_split_few_global, all$weight)/wtd.mean(all$revenue_split_few_domestic_education_healthcare, all$weight) # 68%
-sort(sapply(variables_split_many, function(c) mean(e[[c]], na.rm = T)), decreasing = T) # 27.0, 22.5, 18.6, 16.5
-with(all, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_global)))) 
+
+sort(sapply(variables_split_many, function(c) wtd.mean(all[[c]], all$weight, na.rm = T)), decreasing = T) # 27.26, 22.38, 18.6, 16.24
+with(all, summary(lm((split_many_global/split_nb_global) ~ as.factor(split_nb_global), weights = weight))) 
 wtd.mean(all$split_nb_global, all$weight) # 1.5
 wtd.mean(all$split_many_global, all$weight) # 26.9%
 wtd.mean(all$split_many_global, all$weight)/wtd.mean(all$split_nb_global, all$weight) # 17.5%
-wtd.mean(all$split_many_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/wtd.mean(all$split_nb_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.5%
-decrit("revenue_split", RU)
-table(RU$revenue_split)
-wtd.mean(RU$revenue_split, RU$weight) # 12.3%
+# wtd.mean(all$split_many_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES"))/wtd.mean(all$split_nb_global, all$weight * all$country %in% c("US", "FR", "DE", "GB", "ES")) # 17.5%
+decrit("revenue_split", RU) # 12.2%, 5%
 wtd.mean(RU$revenue_split == 0, RU$weight) # 12%
-Ecdf(RU$revenue_split)
 
 
-##### ICS #####
+##### International Climate Scheme #####
+# Main figure: country_comparison/ncs_gcs_ics_all_control_features_median_belief_various
 # Pluralistic ignorance
-round(wtd.median(all$gcs_belief_own, weight = all$weight, na.rm = T) - sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))) # -14 pp
-round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -18 pp
+round(wtd.median(all$gcs_belief_own, weight = all$weight, na.rm = T) - sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))) # -16 pp
+round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -22 pp
 
-wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
-wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
+# wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
+# wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
 
 # ICS
-summary(lm(ics_support ~ variant_ics, data = all, weights = weight)) # 4 pp**
-summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight))
+summary(lm(ics_support ~ variant_ics, data = all, weights = weight)) # 4 pp**, -6.6***
+# summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight))
+summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country %in% names(countries_Eu))) # Eu
+summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country %in% c("JP", "US"))) # JP & US
 summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "mid"), data = all, weights = weight, subset = all$country == "JP")) # high
-summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country == "US")) # high*
-summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country %in% names(countries_Eu))) # low 4**
+summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country == "US")) # high
 summary(lm(ics_support ~ variant_ics + I(country %in% c("FR", "RU", "IT", "GB", "DE", "PL", "JP")) + I(country %in% c("US", "SA")) + variant_ics:I(country %in% c("FR", "RU", "IT", "GB", "DE", "PL", "JP")) + variant_ics:I(country %in% c("US", "SA")), data = all, weights = weight, subset = grepl("high", all$variant_ics))) 
-summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("ES", "CH"))) 
-summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("FR", "RU", "IT", "GB", "DE", "PL", "JP"))) 
-summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("US", "SA"))) 
+summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("ES", "CH")))  # 1pp
+# summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("FR", "RU", "IT", "GB", "DE", "PL", "JP"))) 
+# summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("US", "SA"))) 
 
-decrit("gcs_understood")
+decrit("gcs_understood") # 74%
 summary(lm(reg_formula("gcs_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -5***
 summary(lm(reg_formula("ics_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight, subset = all$variant_ics != "high_color")) # -5***
 summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -2
-decrit("ics_mid_support", which = all$ncs_support > 0)
-decrit("ncs_support", which = all$ics_mid_support > 0)
 
-# Wealth tax
+
+##### Wealth tax #####
 sapply(c("all", countries), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3)) # 74%
 sapply(c("all", countries), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3)) # 70%
 sapply(c("all", countries), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3)) # 68%
-with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -5***, -1.5
+with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -5***, -1.4
 
 
 ##### Sincerity of support #####
