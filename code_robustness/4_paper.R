@@ -208,6 +208,17 @@ with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (vari
 decrit("conjoint") # 27%
 summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
 coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
+# Comparison with average effect size
+conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
+for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/mean(adult_pop[-c(9:10)])
+conjoint_effects <- conjoint_effects_mod <- unlist(conjoint_effects)
+mean(abs(conjoint_effects)) # 6pp
+conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"] <- -conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]
+conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")] <- abs(conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])
+mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 69%
+summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2"))))
+
+# Consistent programs:
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
 summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints))
 coeftest(reg_conjoint_cons, vcov = vcovCL(reg_conjoint_cons, cluster = ~n))
@@ -216,33 +227,24 @@ summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_pr
 coeftest(reg_conjoint_cons_strict, vcov = vcovCL(reg_conjoint_cons_strict, cluster = ~n))
 summary(reg_conjoint_cons_party <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party))
 coeftest(reg_conjoint_cons_party, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n))
-decrit(call$consistent_conjoints) # 59%
-decrit(call$consistent_conjoints_strict) # 39%
-decrit(call$consistent_conjoints_party) # 40%
+decrit("consistent_conjoints", data = call) # 54%
+decrit("consistent_conjoints_strict", data = call) # 36%
+decrit("consistent_conjoints_party", data = call) # 71%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
-# Comparison with average effect size
-conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
-for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/mean(adult_pop[-c(9:10)])
-conjoint_effects <- conjoint_effects_mod <- unlist(conjoint_effects)
-mean(abs(conjoint_effects))
-# conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"] <- -conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]
-# conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")] <- abs(conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])
-# mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 69%
-summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2"))))
 
 
-#####  Warm glow ##### 
-summary(lm(gcs_support ~ variant_warm_glow, data = all, weights = weight, subset = variant_warm_glow != "NCS" & !country %in% c("SA", "RU")))
-sapply(c("all", countries), function(c) round(mean(d(c)$likely_solidarity > 0, na.rm = T), 3)) # 38%
+#####  Testing Warm Glow ##### 
+# Figures: country_comparison/gcs_support_by_variant_warm_glow, country_comparison/share_solidarity_supported_by_info_solidarity
+summary(lm(gcs_support ~ variant_warm_glow, data = all, weights = weight, subset = variant_warm_glow != "NCS" & !country %in% c("SA", "RU"))) # 3.5pp**
 
 # 2SLS
-first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)
+summary(first_stage <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)) # 33% + 8pp***
 iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)
-effF <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = NULL, weights = "weight")
+(effF <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = NULL, weights = "weight")) # 65
 # (first_stage_f <- summary(iv_model, diagnostics = TRUE)$diagnostics["Weak instruments", "statistic"])
 # ivmodel(Y = as.numeric(e$share_solidarity_supported), D = as.numeric(e$likely_solidarity > 0), Z = e$info_solidarity)
 ols_model <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
-direct_effect <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)
+summary(direct_effect <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)) # p=.09
 stargazer(first_stage, iv_model, ols_model, direct_effect,
           column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
           keep.stat = c("n", "rsq"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
@@ -256,10 +258,11 @@ summary(direct_effect)$coefficients[,4]
 
 ##### Breadth #####
 # Currently debated policies
-sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported, d(c)$weight), 3)))
-sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_opposed, d(c)$weight), 2)))
-sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
-sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Left")), 2)))
+# Figure absolute support: country_comparison/solidarity_support_share
+# Figure net support: country_comparison/synthetic_indicators_mean
+# Figures broken down by political leaning: country_comparison/main_radical_redistr_pol_positive, country_comparison/solidarity_support_pol_share, country_comparison/synthetic_indicators_pol_mean
+summary(lm(share_solidarity_diff ~ saudi, data = all, subset = all$country == "SA", weights = weight)) # Saudis vs. non-Saudis
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Left")), 2))) # IT first
 sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right" | (d(c)$country == "US" & d(c)$vote == 1))), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Left")), 2)))
 
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right")), 2)))
@@ -267,6 +270,11 @@ sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarit
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == -1)), 2)))
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right")), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote > 0)), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
+
+# NCQG
+# Figures country_comparison/ncqg_nolabel, country_comparison/ncqg_full_nolabel
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Short"), na.rm = T), 2)) # 19%
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Full"), na.rm = T), 2)) # 19%
 
 # Global income redistribution
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight), 3)))

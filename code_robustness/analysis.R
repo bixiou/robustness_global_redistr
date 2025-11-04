@@ -274,6 +274,8 @@ with(e, summary(lm(ics_support %in% "Yes" ~ variant_ics, subset = country == "PL
 
 
 ##### Solidarity likert #####
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported_true, d(c)$weight), 3))) # 51%
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_opposed_true, d(c)$weight), 2))) # 21%
 # Long info twice the effect of short. Long info => likely solidarity +10pp; share_solidarity_short_supported +2.5pp
 # IV works. likely_solidarity positively (not negatively!) correlated with support.
 # -> keep only long
