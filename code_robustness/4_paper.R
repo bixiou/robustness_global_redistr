@@ -276,31 +276,55 @@ sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarit
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Short"), na.rm = T), 2)) # 19%
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Full"), na.rm = T), 2)) # 19%
 
-# Global income redistribution
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support < 0, d(c)$weight), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support < 0, d(c)$weight), 3)))
+##### Support for Radical Proposals, Political Action, and Broad Values #####
+# General Figure: country_comparison/radical_redistr_all_share
 
-# Convergence 
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support > 0, d(c)$weight), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support < 0, d(c)$weight), 3)))
+## Global income redistribution
+# Figure acceptance with features: country_comparison/top_tax_all_share_various
+# Figure absolute support: country_comparison/top_tax_positive
+# Figure affected: country_comparison/top_tax_affected_share_various
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight), 2))) # 56%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support < 0, d(c)$weight), 2))) # 25%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support > 0, d(c)$weight), 3))) # 50.3%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top3_tax_support < 0, d(c)$weight), 2))) # 28%
 
-# Willingness to act
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_spread | d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3))) 
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition > 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
-(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition < 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3)))
-wtd.mean((all$vote == -1) * (all$vote_agg == 0), all$weight)
+## Convergence 
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support > 0, d(c)$weight), 2))) # 61%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support < 0, d(c)$weight), 2))) # 26%
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$convergence_support > 0, d(c)$weight * (d(c)$convergence_support != 0)), 2))) # 56% US
 
-# Comparison
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight), 3))
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation < 0, d(c)$weight), 3))
-(mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) 
-(mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T))
-mean_gn25 - mean_gn23 # .03
+## Willingness to Act
+# Figure global movement: country_comparison/global_movement_positive
+# On millionaires: country_comparison/main_radical_redistr_pol_positive
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_spread | d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3))) # 68%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$global_movement_demonstrate | d(c)$global_movement_donate | d(c)$global_movement_strike, d(c)$weight), 3))) # 29%
+# Figure vote: country_comparison/vote_intl_coalition_nolabel
+wtd.mean((all$vote == -1) * (all$vote_agg == 0), all$weight) # 5%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition > 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3))) # 46%
+(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$vote_intl_coalition < 0, d(c)$weight * (d(c)$vote == -1) * (d(c)$vote_agg == 0)), 3))) # 10%
+# Footnote:
+decrit(all$country, data = all, which = all$millionaire == 5) # 60%
+decrit(all$country %in% names(countries_Eu), data = all, which = all$millionaire == 5) # 26%
 
-# Moral circle
+## Reasons for Helping LICs
+# Figure country_comparison/why_hic_help_lic_positive
+
+## Reparations
+# Figure country_comparison/reparations_support_nolabel
+decrit(all$reparations_support > 0) # 35%
+decrit(all$reparations_support < 0) # 42%
+decrit(IT$reparations_support > 0, data = IT) # 56%
+
+## Comparison with Global Nation
+# General Figure: country_comparison/radical_redistr_all_share
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight), 3)) # 41%
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation < 0, d(c)$weight), 3)) # 28%
+# (mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) # 59%
+# (mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T)) # 56% in Global Nation (2023)
+# mean_gn25 - mean_gn23 # .03
+
+## Moral circle
+# Figure country_comparison/group_defended_nolabel
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight), 2))
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$country_name %in% countries_Eu)), 5))
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2))
