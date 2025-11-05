@@ -156,30 +156,45 @@ sort(sapply(c("all", countries), function(c) wtd.mean(d(c)$well_being, weights =
 
 
 ##### Conjoint #####
+# Consistent programs
+summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # 4*** -4***
+summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints)) # 4*** -2.
+coeftest(reg_conjoint_cons, vcov = vcovCL(reg_conjoint_cons, cluster = ~n))
+# The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
+summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict)) # 5*** 0
+coeftest(reg_conjoint_cons_strict, vcov = vcovCL(reg_conjoint_cons_strict, cluster = ~n))
+decrit("consistent_conjoints", data = call) # 54%
+decrit("consistent_conjoints_strict", data = call) # 36%
+summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
+
+
 effects_conjoint <- policies_leaning[-18,]
 for (c in countries[-c(9:10)]) for (v in row.names(effects_conjoint)) if (!is.na(policies_leaning[v,c])) effects_conjoint[v,c] <- amce[[languages_country[[c]][1]]]$estimates[[gsub("[_0-9]", "", v)]][1, paste0(gsub("[_0-9]", "", v), sub("_", "", v))]
 effects_conjoint > .05 #| effects_conjoint < 0
+policies_leaning_party_US02 <- policies_leaning_party
+policies_leaning_party_US02[-c(15:16,18),"US"] <- 2*policies_leaning_party[-c(15:16,18),"US"]
 sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T), na.rm = T))
 sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), na.rm = T))
 sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T), na.rm = T))
 sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] > .1, na.rm = T))
 sapply(countries[-c(9:10)], function(c) sum(effects_conjoint[,c] < -.05, na.rm = T))
 # Policies of leaning 1 that are among least liked: climate policies in FR (Ensemble nuclear, RN remove ZFE), CH (PS ban thermal cars), IT (FdI grants for newborn)
-sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
-sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
-sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+# Distribution of leanings among most liked policies using manual classification:
 decrit(unlist(policies_leaning_strict)) # (n=138) 0: 24%: 1: 54%; 2: 22% / 22 most liked: 0: 14%: 1: 82%; 2: 5% / 24 least liked: 0: 35% / 1: 15% / 2: 50%
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
-sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
-sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
-sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+# Distribution of leanings among most liked policies using party origination:
 decrit(unlist(policies_leaning_party)) # (n=138) 0: 36%: 1: 47%; 2: 17% / 22 most liked: 0: 46%: 1: 36%; 2: 18% / 20 least liked: 0: 20% / 1: 50% / 2: 30%
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
 decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
-policies_leaning_party_US02 <- policies_leaning_party
-policies_leaning_party_US02[-c(15:16,18),"US"] <- 2*policies_leaning_party[-c(15:16,18),"US"]
-colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T) # Left-wing policies more liked than Far right's except in DE, CH
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])
+sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T)), c])
+# Below are computed the sum of deviations from the mean effect weighted by the political leanings of the policies; each time comparing two (out of 3) leanings and neutralizing the third one. When left is more liked, there is a negative sign.
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T) # Left-wing policies more liked than Far right's in FR, DE, IT, ES, US
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T) # Left-wing parties' policies more liked Far right's except in DE, CH
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing policies more liked than (Center/Far) right's in FR, DE, IT, ES, US
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_party_US02[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than (Center/Far) right's except in DE, CH
@@ -187,9 +202,11 @@ colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(po
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 2, NA) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than Center right's except in DE, CH
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right policies more liked than Far right's in all countries
 colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right parties' policies more liked than Far right's in IT, PL, ES, GB, US
-# Most liked   FR DE IT PL ES GB JP US CH
-# policies     L  C  L  C  L  C  C  L  C
-# parties' pol L  F  L  L  L  L  L  L  F
+# Summary of the above, where I find the most liked leaning based on pairwise comparisons of leanings:
+# Most liked   FR DE IT PL ES GB JP US CH   Overall
+# policies     L  C  L  C  L  C  C  L  C    C>L>F 
+# parties' pol L  F  L  L  L  L  L  L  F    L>F>C
+# The overall analysis is based on:
 wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing policies more liked than Far right's
 wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked Far right's
 wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # (Center/Far) right policies more liked than Left-wing
