@@ -36,7 +36,7 @@ sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$w
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2)) # 59% among left voters
 
 
-##### Data and design #####
+##### 1. Data and design #####
 ## Samples
 decrit(all$country, weight = F)
 decrit(all$date[all$country != "RU"]) # Apr 15 - Jul 3
@@ -72,15 +72,8 @@ mean((a$duration < 6 & !a$attentive)[a$stayed]) # 5% too fast & inattentive
 ## Survey structure
 # Placebo: tables/placebo
 
-# (mean_gn25 <- wtd.mean(sapply(names(my_taxes_global_nation_2023)[!is.na(my_taxes_global_nation_2023)], function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), adult_pop[!is.na(my_taxes_global_nation_2023)])) 
-# (mean_gn23 <- wtd.mean(my_taxes_global_nation_2023, adult_pop, na.rm = T))
-# mean_gn25 - mean_gn23 # .03
-# (mean_bi25 <- wtd.mean(sapply(names(stostad_billionaire_tax_absolute)[!is.na(stostad_billionaire_tax_absolute)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), adult_pop[!is.na(stostad_billionaire_tax_absolute)])) 
-# (mean_bi24 <- wtd.mean(stostad_billionaire_tax_absolute, adult_pop, na.rm = T)) 
-# mean_bi25 - mean_bi24 # -.044
 
-
-##### Top-of-mind Considerations #####
+##### 2.1 Top-of-mind Considerations #####
 # Most figures come from country_comparison/concerns_field, country_comparison/wish_field, country_comparison/issue_field, country_comparison/injustice_field, 
 decrit(all$field_keyword_global_inequality, all, which = all$variant_field == "injustice") # .013
 decrit(all$field_gpt_global_inequality, all, which = all$variant_field == "injustice") # .085
@@ -145,8 +138,8 @@ with(e, cor(field_manual_discrimination, foreign_origin, use = "complete.obs")) 
 # Slant is based on subjective impressions, cf. 2_prepare.R
 
 
-##### Revenue split #####
-# country_comparison/split_few_bars; country_comparison/split_few_bars_nb0
+##### 2.2 Prioritization of Public Spending Items #####
+# Figures: country_comparison/split_few_bars; country_comparison/split_few_bars_nb0
 wtd.mean(all$revenue_split_few_global, all$weight) # 17.5%
 sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$revenue_split_few_global, d(c)$weight), 3))) # 14% JP to 21% ES, SA
 wtd.t.test(x = all$revenue_split_few_global, y = 33.4*2/5, alternative = "greater", weight = all$weight) # p < 1e-100
@@ -169,16 +162,16 @@ decrit("revenue_split", RU) # 12.2%, 5%
 wtd.mean(RU$revenue_split == 0, RU$weight) # 12%
 
 
-##### International Climate Scheme #####
+##### 3.1 International Climate Scheme #####
 # Main figure: country_comparison/ncs_gcs_ics_all_control_features_median_belief_various
-# Pluralistic ignorance
+## Pluralistic ignorance
 round(wtd.median(all$gcs_belief_own, weight = all$weight, na.rm = T) - sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))) # -16 pp
 round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -22 pp
 
 # wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
 # wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
 
-# ICS
+## ICS
 summary(lm(ics_support ~ variant_ics, data = all, weights = weight)) # 4 pp**, -6.6***
 # summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight))
 summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight, subset = all$country %in% names(countries_Eu))) # Eu
@@ -196,15 +189,14 @@ summary(lm(reg_formula("ics_support", c(variables_socio_demos, "gcs_understood")
 summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -2
 
 
-##### Wealth tax #####
+##### 3.2 Wealth Tax Funding LICs #####
 sapply(c("all", countries), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3)) # 74%
 sapply(c("all", countries), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3)) # 70%
 sapply(c("all", countries), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3)) # 68%
 with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -5***, -1.4
 
 
-##### Sincerity of support #####
-##### Conjoint analysis #####
+##### 4.1 Conjoint analysis #####
 decrit("conjoint") # 27%
 summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
 coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
@@ -215,25 +207,65 @@ conjoint_effects <- conjoint_effects_mod <- unlist(conjoint_effects)
 mean(abs(conjoint_effects)) # 6pp
 conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"] <- -conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]
 conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")] <- abs(conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])
-mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 69%
-summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2"))))
+# mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 69%
+summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")))) # not significant
 
-# Consistent programs:
+## Consistent programs:
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
-summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints))
+summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # 4*** -4***
+summary(reg_conjoint_cons <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints)) # 4*** -2.
 coeftest(reg_conjoint_cons, vcov = vcovCL(reg_conjoint_cons, cluster = ~n))
 # The effect of cutting aid disappears when removing left-leaning programs where it is present; while wealth tax is preserved when removing right-leaning programs where it is present. => Cutting aid is harmful only for left-leaning programs; wealth tax is helpful for any program.
-summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict))
+summary(reg_conjoint_cons_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_strict)) # 5*** 0
 coeftest(reg_conjoint_cons_strict, vcov = vcovCL(reg_conjoint_cons_strict, cluster = ~n))
-summary(reg_conjoint_cons_party <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party))
+summary(reg_conjoint_cons_party <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party)) # 4*** -4***
 coeftest(reg_conjoint_cons_party, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n))
+summary(reg_conjoint_cons_party_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party_strict)) # 4*** -5.
+coeftest(reg_conjoint_cons_party_strict, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n))
 decrit("consistent_conjoints", data = call) # 54%
 decrit("consistent_conjoints_strict", data = call) # 36%
-decrit("consistent_conjoints_party", data = call) # 71%
+decrit("consistent_conjoints_party", data = call) # 71.46%
+decrit("consistent_conjoints_party_strict", data = call) # 42.54%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
 
+## Footnote consistent programs
+effects_conjoint <- policies_leaning[-18,]
+for (c in countries[-c(9:10)]) for (v in row.names(effects_conjoint)) if (!is.na(policies_leaning[v,c])) effects_conjoint[v,c] <- amce[[languages_country[[c]][1]]]$estimates[[gsub("[_0-9]", "", v)]][1, paste0(gsub("[_0-9]", "", v), sub("_", "", v))]
+policies_leaning_party_US02 <- policies_leaning_party
+policies_leaning_party_US02[-c(15:16,18),"US"] <- 2*policies_leaning_party[-c(15:16,18),"US"]
+# Distribution of leanings among most liked policies using manual classification:
+decrit(unlist(policies_leaning_strict)) # (n=138) 0: 24%: 1: 54%; 2: 22% / 22 most liked: 0: 14%: 1: 82%; 2: 5% / 24 least liked: 0: 35% / 1: 15% / 2: 50%
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_strict[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
+# Distribution of leanings among most liked policies using party origination:
+decrit(unlist(policies_leaning_party)) # (n=138) 0: 36%: 1: 47%; 2: 17% / 22 most liked: 0: 46%: 1: 36%; 2: 18% / 20 least liked: 0: 20% / 1: 50% / 2: 30%
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[(effects_conjoint[,c] > mean(effects_conjoint[,c], na.rm = T) + sd(effects_conjoint[,c], na.rm = T)), c])))
+decrit(unlist(sapply(countries[-c(9:10)], function(c) policies_leaning_party[which(effects_conjoint[,c] < min(0, mean(effects_conjoint[,c], na.rm = T) - sd(effects_conjoint[,c], na.rm = T))), c])))
+# Below are computed the sum of deviations from the mean effect weighted by the political leanings of the policies; each time comparing two (out of 3) leanings and neutralizing the third one. When left is more liked, there is a negative sign.
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T) # Left-wing policies more liked than Far right's in FR, DE, IT, ES, US
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T) # Left-wing parties' policies more liked Far right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing policies more liked than (Center/Far) right's in FR, DE, IT, ES, US
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_party_US02[-18,], pmin, 1)) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than (Center/Far) right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 2, NA) - .5)*2, na.rm = T) # Left-wing policies more liked than Center right's in FR, IT, ES, US
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 2, NA) - .5)*2, na.rm = T) # Left-wing parties' policies more liked than Center right's except in DE, CH
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right policies more liked than Far right's in all countries
+colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T) # Center right parties' policies more liked than Far right's in IT, PL, ES, GB, US
+# Summary of the above, where I find the most liked leaning based on pairwise comparisons of leanings:
+# Most liked   FR DE IT PL ES GB JP US CH   Overall
+# policies     L  C  L  C  L  C  C  L  C    C>L>F 
+# parties' pol L  F  L  L  L  L  L  L  F    L>F>C
+# The overall analysis is based on:
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_strict[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing policies more liked than Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (policies_leaning_party_US02[-18,] - 1), na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_strict[-18,], pmin, 1)) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # (Center/Far) right policies more liked than Left-wing
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (as.data.frame(lapply(policies_leaning_party_US02[-18,], pmin, 1)) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked than (Center/Far) right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 2, NA) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Center right policies more liked than Left-wing's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 2, NA) - .5)*2, na.rm = T), adult_pop[-c(9,10)]) # Left-wing parties' policies more liked than Center right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_strict[-18,], policies_leaning_strict[-18,] == 0, NA) - 1.5)*2, na.rm = T), adult_pop[-c(9,10)]) # Center right policies more liked than Far right's
+wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T), adult_pop[-c(9,10)]) # Far right parties' policies more liked than Center right's
 
-#####  Testing Warm Glow ##### 
+
+#####  4.2 Testing Warm Glow ##### 
 # Figures: country_comparison/gcs_support_by_variant_warm_glow, country_comparison/share_solidarity_supported_by_info_solidarity
 summary(lm(gcs_support ~ variant_warm_glow, data = all, weights = weight, subset = variant_warm_glow != "NCS" & !country %in% c("SA", "RU"))) # 3.5pp**
 
@@ -256,8 +288,8 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
 summary(direct_effect)$coefficients[,4]
 
 
-##### Breadth #####
-# Currently debated policies
+##### 5.1 Acceptance of Currently Debated Global Policies #####
+## Plausible Global Policies
 # Figure absolute support: country_comparison/solidarity_support_share
 # Figure net support: country_comparison/synthetic_indicators_mean
 # Figures broken down by political leaning: country_comparison/main_radical_redistr_pol_positive, country_comparison/solidarity_support_pol_share, country_comparison/synthetic_indicators_pol_mean
@@ -271,12 +303,13 @@ sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarit
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote == "Far right")), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
 # sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight * (d(c)$vote > 0)), 2)) - sapply(c("all", countries), function(c) round(wtd.mean(d(c)$share_solidarity_supported - d(c)$share_solidarity_opposed, d(c)$weight), 2)))
 
-# NCQG
+## NCQG
 # Figures country_comparison/ncqg_nolabel, country_comparison/ncqg_full_nolabel
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Short"), na.rm = T), 2)) # 19%
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, d(c)$weight * (d(c)$variant_ncqg == "Full"), na.rm = T), 2)) # 19%
 
-##### Support for Radical Proposals, Political Action, and Broad Values #####
+
+##### 5.2 Support for Radical Proposals, Political Action, and Broad Values #####
 # General Figure: country_comparison/radical_redistr_all_share
 
 ## Global income redistribution
@@ -325,15 +358,14 @@ sapply(c("all", countries), function(c) round(wtd.mean(d(c)$my_tax_global_nation
 
 ## Moral circle
 # Figure country_comparison/group_defended_nolabel
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight), 2))
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$country_name %in% countries_Eu)), 5))
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2))
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg > 0)), 2))
+sort(sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight), 2))) # 45% all; 30% JP, 57% SA
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$country_name %in% countries_Eu)), 5)) # 50.003% Eu
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Left")), 2)) # 59%
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg > 0)), 2)) # 32%
 # sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote == -1)), 2))
 # sapply(c("all", countries), function(c) round(wtd.mean(d(c)$universalist, d(c)$weight * (d(c)$vote_agg == "Far right"| (d(c)$country == "US" & d(c)$vote == 1))), 2))
 
 cor(e$field_universalism, e$latent_support_global_redistr, use = "complete.obs") # 5%
-cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
 cor(e$field_manual_inequality, e$latent_support_global_redistr, use = "complete.obs") # 9%
 cor(e$field_keyword_inequality, e$latent_support_global_redistr, use = "complete.obs") # 8%
 cor(e$field_gpt_inequality, e$latent_support_global_redistr, use = "complete.obs") # 6%
@@ -343,54 +375,62 @@ summary(lm(latent_support_global_redistr ~ field_universalism, data = all, weigh
 summary(lm(latent_support_global_redistr ~ field_universalism2, data = all, weights = weight))
 
 
-##### Custom redistr #####
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_satisfied, d(c)$weight), 3))
-sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_skip, d(c)$weight), 3))
-decrit("custom_redistr_satisfied")
-decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Left")
-decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Far right")
-decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Center-right or Right")
-decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Non-voter, PNR or Other")
-decrit("custom_redistr_satisfied", all, which = all$education == 1)
-decrit("custom_redistr_satisfied", all, which = all$education == 2)
-decrit("custom_redistr_satisfied", all, which = all$education == 3)
-decrit("custom_redistr_winners", which = all$custom_redistr_satisfied) # 476/49
-decrit("custom_redistr_losers", which = all$custom_redistr_satisfied) # 183/18
-decrit("custom_redistr_degree", which = all$custom_redistr_satisfied) # 4.69/5
+##### 5.3 Preferred Channels for Transferring Resources to LICs #####
+# Figure support (Right or Best): country_comparison/transfer_how_positive
+# Figure preference (Best): country_comparison/transfer_how_above_one
+# Figure opposition (Wrong): country_comparison/transfer_how_negative
+
+
+##### 5.4 Custom Global Income Redistribution #####
+# Footnote anchoring:
+(summary(reg_anchoring_winners <- lm(custom_redistr_winners ~ variant_sliders, weights = weight, data = all, subset = custom_redistr_satisfied_touched > 0))) # 7.3***
+reg_anchoring_winners$coefficients[2]/20 # 36%
+(summary(reg_anchoring_losers <- lm(custom_redistr_losers ~ variant_sliders, weights = weight, data = all, subset = custom_redistr_satisfied_touched > 0))) # 5.7***
+reg_anchoring_losers$coefficients[2]/10 # 57%
+(summary(reg_anchoring_degree <- lm(custom_redistr_degree ~ variant_sliders, weights = weight, data = all, subset = custom_redistr_satisfied_touched > 0))) # -2.1***
+reg_anchoring_degree$coefficients[2]/5 # 42%
+
+# Heterogeneity
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_satisfied, d(c)$weight))) # 56%
+sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_skip, d(c)$weight))) # 43%
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Left") # 61%
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Far right") # 56.51%
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Center-right or Right") # 54%
+decrit("custom_redistr_satisfied", all, which = all$vote_factor == "Non-voter, PNR or Other") # 52%
+decrit("custom_redistr_satisfied", all, which = all$education == 1) # 49%
+decrit("custom_redistr_satisfied", all, which = all$education == 2) # 57%
+decrit("custom_redistr_satisfied", all, which = all$education == 3) # 57%
+
+# Median preferred parameters:
+# Figure questionnaire/survey_custom_redistr_median_zoom
+decrit("custom_redistr_winners", which = all$custom_redistr_satisfied > 0) # 49%
+decrit("custom_redistr_losers", which = all$custom_redistr_satisfied > 0) # 18%
+decrit("custom_redistr_degree", which = all$custom_redistr_satisfied > 0) # 5%
+algo_dis_av(49*10, 1000 - 18*10, 5, verbose = T) # 287$, 5.4%
+
+# Self-interest in custom choice:
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_self_lose, d(c)$weight * d(c)$custom_redistr_satisfied), 3)) # 48%
 sapply(c("all", countries), function(c) round(wtd.mean(d(c)$custom_redistr_self_gain, d(c)$weight * d(c)$custom_redistr_satisfied), 3)) # 9%
-decrit(all$custom_redistr_winners * all$custom_redistr_degree * all$custom_redistr_losers == 0, which = all$custom_redistr_satisfied) # 10%
+decrit(all$custom_redistr_winners * all$custom_redistr_degree * all$custom_redistr_losers == 0, weights = all$weight, which = all$custom_redistr_satisfied > 0) # 10%
+
+# Mean preferred redistr:
+# Figures: mean_custom_redistr/all_satisfied, country_comparison/custom_redistr_most_mean, country_comparison/custom_redistr_satisfied_mean
+100*sum(mean_custom_redistr[["all_satisfied"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5.4%
+(max_winners <- min(which(mean_custom_redistr[["all_satisfied"]] < current_inc)))/10 # 73%
+(1000 - max(which(mean_custom_redistr[["all_satisfied"]] > current_inc)))/10 # 27%
 round(mean_custom_redistr$all_satisfied[1]/12) # 247
-(max_winners <- min(which(mean_custom_redistr[["all_satisfied"]] < current_inc))) # 728
-100*sum(mean_custom_redistr[["all_satisfied"]][1:max_winners] - current[1:max_winners])/sum(current[1:1000]) # 5.4
 
-decrit("custom_redistr_winners") # 474
-decrit("custom_redistr_losers") # 17.7
-decrit("custom_redistr_degree") # 4.67
-474/464 # 1.02
-195/177 # 1.1
-4.75/4.67 # 1.02
-with(e, summary(lm(custom_redistr_winners ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # 7.93***
-with(e, summary(lm(custom_redistr_losers ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # 5.51***
-with(e, summary(lm(custom_redistr_degree ~ variant_sliders, subset = custom_redistr_satisfied_touched == T))) # -2.11***
-7.93/20
-2.11/5
-sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_winners, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 48
-sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_losers, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 18
-sapply(c("all", countries[-9]), function(c) round(wtd.median(d(c)$custom_redistr_degree, d(c)$weight * d(c)$custom_redistr_satisfied_touched, na.rm = T), 3)) # 5
-
-decrit("custom_redistr_winners", data = all, which = all$custom_redistr_satisfied > 0) # 48
-decrit("custom_redistr_winners", data = all, which = all$custom_redistr_satisfied_touched > 0) # 46
-decrit("custom_redistr_losers", data = all, which = all$custom_redistr_satisfied > 0) # 18.3
-decrit("custom_redistr_losers", data = all, which = all$custom_redistr_satisfied_touched > 0) # 19.51
-decrit("custom_redistr_transfer", data = all, which = all$custom_redistr_satisfied > 0) # 5.4
-decrit("custom_redistr_transfer", data = all, which = all$custom_redistr_satisfied_touched > 0) # 5.8
-decrit("custom_redistr_income_min", data = all, which = all$custom_redistr_satisfied > 0) # 247
-decrit("custom_redistr_income_min", data = all, which = all$custom_redistr_satisfied_touched > 0) # 249
+# Figure tax rates: all/tax_radical_redistr
+# Figures by country: country_comparison/custom_redistr_satisfied_mean, country_comparison/custom_redistr_satisfied_median
+# Figures individual heterogeneity: all/custom_redistr_winners_agg, all/custom_redistr_losers_agg, all/custom_redistr_income_min_ceiling, all/custom_redistr_transfer_ceiling
 
 
-##### Survey features #####
-# Features
+##### A Raw Results #####
+# All figures are generated and exported in 3_render.R
+
+
+### Survey Sources and Features ###
+##### C.2 Country-specific Features #####
 table_feature <- figures[c(50, 40, 37, 47, 48, 18:19, 22, 24, 26, 35:36, 29), c(3:13)] # 9:12 17
 colnames(table_feature) <- countries
 table_feature <- gsub("early|onthly|et|ross", "", gsub("^\\$", "\\\\$", gsub("€", "\\euro{}", gsub("&nbsp;", "~", table_feature, fixed = T), fixed = T)))
@@ -403,16 +443,8 @@ table_feature %>% kable("latex", booktabs = TRUE, escape = FALSE, table.envir = 
 temp <- readLines("../tables/features.tex")
 cat(sub(" & FR", "Question; Feature & FR", temp), file = "../tables/features.tex")
 
-# Keywords
-export_keywods <- function(keys = keywords, strings = keywords_labels, file = "../tables/keywords.tex") {
-  cat(paste("\\begin{itemize} \n \\item \\textbf{", paste(sapply(names(keys), function(k) paste0(strings[k], "}: \\texttt{", 
-                                                                                                 gsub("|", "\\allowbreak|", gsub("^", "\\^{}", gsub("$", "\\$", keys[k], fixed = T), fixed = T), fixed = T))), 
-                                                          collapse = "};\n \\item \\textbf{"), "}. \n \\end{itemize}"), file = file)
-}
-export_keywods()
-export_keywods(keywords_comment, keywords_comment_labels, "../tables/keywords_comment.tex")
 
-# EFA
+##### C.3 Exploraty Factor Analaysis #####
 gsub("-", "$-$", gsub("\\verb|convergence", "\\bottomrule \\end{tabular} \\switchcolumn \\begin{tabular}[h]{lr} \\verb|convergence", 
   kable(round(setNames(loadings, paste0("\\verb|", sub("expanding_security_council", "un_reform", gsub("solidarity_support", "pl_support", gsub("^transfer_|^why_hic_", "", names(loadings)))), 
   "|"))[order(-abs(loadings))], 3), format = "latex", booktabs = TRUE, col.names = c("Variable name", "Loading"), linesep = "", escape = FALSE), fixed = T)) %>% save_kable("../tables/efa.tex")
@@ -421,8 +453,17 @@ correlations <- cor(as.data.frame(lapply(e[, c(variables_interest, "latent_suppo
 sort(rowMeans(abs(correlations), na.rm = T)) # share_solidarity_supported .42, solidarity_support_ncqg_300bn 40, my_tax_global_nation .35, vote_intl_coalition .35, ncqg .35, global_movement_no .34, 
 
 
+##### C.4 Definition of Keywords #####
+export_keywods <- function(keys = keywords, strings = keywords_labels, file = "../tables/keywords.tex") {
+  cat(paste("\\begin{itemize} \n \\item \\textbf{", paste(sapply(names(keys), function(k) paste0(strings[k], "}: \\texttt{", 
+                                                                                                 gsub("|", "\\allowbreak|", gsub("^", "\\^{}", gsub("$", "\\$", keys[k], fixed = T), fixed = T), fixed = T))), 
+                                                          collapse = "};\n \\item \\textbf{"), "}. \n \\end{itemize}"), file = file)
+}
+export_keywods()
+export_keywods(keywords_comment, keywords_comment_labels, "../tables/keywords_comment.tex")
 
-##### Representativeness ######
+
+##### D Representativeness of the Surveys ######
 # representativeness_table("All")
 representativeness_table(c("All", "Eu", "EU"))
 # representativeness_table(c("Eu", countries[1:3]))
@@ -431,26 +472,195 @@ representativeness_table(countries[4:7])
 representativeness_table(countries[c(8,10,11)], omit = c("Not 25-64")) # TODO vote; employment
 representativeness_table(countries[8:11], omit = c("Not 25-64"))
 
-# Prez:
-representativeness_table(countries[1:6])
-representativeness_table(countries[7:11], omit = c("Not 25-64"))
+# # Prez:
+# representativeness_table(countries[1:6])
+# representativeness_table(countries[7:11], omit = c("Not 25-64"))
   
 
-##### Determinants #####
+##### E Determinants of the Support #####
 desc_table(c("share_solidarity_supported", "gcs_support/100", "universalist", "vote_intl_coalition > 0", "convergence_support > 0", "wealth_tax_support", "sustainable_future"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
            dep.var.labels = c("\\makecell{Share of\\\\plausible\\\\policies\\\\supported}", "\\makecell{Supports\\\\the Global\\\\Climate\\\\Scheme}", "\\makecell{Universalist\\\\(Group\\\\defended:\\\\Humans or\\\\Sentient beings)}", 
                               "\\makecell{More likely\\\\to vote\\\\for party\\\\in global\\\\coalition}", "\\makecell{Endorses\\\\convergence\\\\of all countries'\\\\GDP p.c.\\\\by 2100}", "\\makecell{Supports an\\\\international\\\\wealth tax\\\\funding LICs}", "\\makecell{Prefers a\\\\sustainable\\\\future}"),
            indep_vars = c(control_variables), filename = "determinants_paper", nolabel = F, model.numbers = T, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
+desc_table(c("custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_transfer", "custom_redistr_self_lose", "custom_redistr_self_lose", "custom_redistr_satisfied", "custom_redistr_untouched", "custom_redistr_satisfied_touched"),  # "\\makecell{Preferred amount\\\\of climate finance\\\\(NCQG)}"
+           dep.var.labels = c("\\makecell{Custom transfer\\\\(in \\% of world GDP)}", "\\makecell{Loses\\\\from custom\\\\redistribution}", "\\makecell{Satisfied with\\\\own custom\\\\redistr.}", "\\makecell{Has not\\\\touched the\\\\sliders}", "\\makecell{Touched the\\\\sliders and\\\\satisfied}"),
+           indep_vars = control_variables, data = list(all, all[all$custom_redistr_satisfied > 0,], all[all$custom_redistr_satisfied_touched > 0,], all, all[all$custom_redistr_satisfied_touched > 0,], all, all, all),
+           add_lines = list(c(44, paste("\\hline  \\\\[-1.8ex] Subsample: \\textit{Satisfied} & & \\checkmark & & & & & &")),
+                            c(45, paste("Subsample: \\textit{Touched \\& Satisfied} & & & \\checkmark & & \\checkmark & & & \\\\"))),
+           filename = "determinants_custom_redistr", nolabel = F, model.numbers = F, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA"))
 
-##### Attrition #####
+
+##### F The Determination of a Custom Redistribution
+pdf("../figures/all/tax_radical_redistr.pdf", width = 520/100, height = 465/100)
+par(mar = c(4.1, 4.1, .2, .5)) # 520 x 465
+plot(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(mean_custom_redistr[["all"]], at = seq(0, 1.1e6, 1e3)), xaxt = 'n', type = 'l', lwd = 2, xlim = c(4, 6), ylim = c(0, 36), ylab = "Tax rate (in %)", xlab = "Individualized yearly income (in PPP 2024 $)")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top1"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 2, col = "blue")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("top3"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 3, col = "purple")
+lines(log10(seq(0, 1.1e6, 1e3)), 100*tax_rates_custom_redistr(world_income_after_tax("approx_mean"), at = seq(0, 1.1e6, 1e3)), type = 'l', lwd = 2, lty = 4, col = "black")
+axis(1, at = setdiff(log10(c(seq(0, 1e4, 1e3), seq(0, 1e5, 1e4), seq(0, 1e6, 1e5))), log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6))), tcl= -0.3, labels=NA)
+axis(1, at = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), tcl= -.5, labels = c("1k", "3k", "10k", "30k", "100k", "300k", "1M"))
+abline(h = seq(0, 35, 5), v = log10(c(1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6)), col = "lightgray", lty = "dotted")
+legend("topleft", legend = c("Top 1% tax (15% tax above $120k/year)", "Top 3% tax (15% >80k, 30% >120k, 45% >1M)", "Average custom redistribution", "Approximation of above (7% > 25k, 16% > 40k)"), col = c("blue", "purple", "black", "black"), lwd = 2, lty = c(2,3,1,4))
+dev.off()
+# save_plot(filename = "tax_radical_redistr", folder = '../figures/all/', width = 520, height = 465, format = "pdf")
+
+
+##### G Comparison with Other Surveys #####
+global_nation_all <- heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
+global_nation_all[-c(3,5),] <- (global_nation_all/(global_nation_all+heatmap_table(vars = heatmaps_defs[["radical_redistr"]]$vars, labels = heatmaps_defs[["radical_redistr"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1")))[-c(3,5),]
+# global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_external, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_external, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation))
+# In 2024 Global Nation used a different translation. Their survey is on 18-70 yrs, they don't mention quotas, they weight ex post for gender, age, education.
+global_nation_all <- rbind(global_nation_all, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023))
+row.names(global_nation_all)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
+save_plot(as.data.frame(global_nation_all), filename = "../xlsx/country_comparison/radical_redistr_all")
+pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1550/72, height = 500/72)
+heatmap_plot(global_nation_all, proportion = T, percent = T)
+invisible(dev.off())
+# save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 650, format = "pdf", trim = T)
+
+pdf("../figures/all/my_tax_global_nation_comparison.pdf", width = 330/105, height = 330/105)
+par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
+plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Global Nation (2023)", xlim = c(.43, .8), ylim = c(.43, .8)) 
+grid()
+points(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, pch = 18)
+text(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, labels = countries, pos = 4)
+dev.off()
+# save_plot(filename = "../figures/all/my_tax_global_nation_comparison", width = 330, height = 330, format = "pdf", trim = FALSE)
+cor(sapply(countries, function(c) wtd.mean(d(c)$my_tax_global_nation > 0, d(c)$weight * (d(c)$my_tax_global_nation != 0))), my_taxes_global_nation_2023, use = "complete.obs") # .70
+
+pdf("../figures/all/billionaire_stostad.pdf", width = 330/105, height = 330/105)
+par(mar = c(3.1, 3.1, .1, .1), mgp = c(2, .7, 0))
+plot(0:1, 0:1, type = 'l', lty = 2, xlab = "This survey", ylab = "Cappelen, Støstad & Tungodden", xlim = c(.54, .815), ylim = c(.54, .815))
+grid()
+points(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, pch = 18)
+text(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, labels = countries, pos = 4)
+dev.off()
+# save_plot(filename = "../figures/all/billionaire_stostad", width = 330, height = 330, format = "pdf", trim = FALSE)
+cor(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad_billionaire_tax_absolute, use = "complete.obs") # .86
+# plot(sapply(countries, function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight * (d(c)$solidarity_support_billionaire_tax_control != 0))), stostad_billionaire_tax_relative)
+# lines(0:1, 0:1, type = 'l')
+
+# Study 1 was conducted between August 9th and September 15th, 2024, and Study 2 between May 12th and June 21st, 2025
+stostad2 <- read.dta13("../data_ext/stostad2.dta")
+stostad2$iso[stostad2$iso == "UK"] <- "GB"
+stostad0_billionaire_tax_absolute <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$agree1 + stostad2$vagree1)[stostad2$iso == c & stostad2$Survey2 == 0] else NA)
+stostad0_billionaire_tax_oppose <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$disagree1 + stostad2$vdisagree1)[stostad2$iso == c & stostad2$Survey2 == 0] else NA) 
+stostad0_billionaire_tax_relative <- stostad0_billionaire_tax_absolute / (stostad0_billionaire_tax_absolute + stostad0_billionaire_tax_oppose)
+stostad1_billionaire_tax_absolute <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$agree1 + stostad2$vagree1)[stostad2$iso == c & stostad2$Survey2 == 1] else NA)
+stostad1_billionaire_tax_oppose <- sapply(stostad2$iso, function(c) if (c %in% stostad2$iso) (stostad2$disagree1 + stostad2$vdisagree1)[stostad2$iso == c & stostad2$Survey2 == 1] else NA) 
+stostad1_billionaire_tax_relative <- stostad1_billionaire_tax_absolute / (stostad1_billionaire_tax_absolute + stostad1_billionaire_tax_oppose)
+cor(stostad0_billionaire_tax_absolute, stostad1_billionaire_tax_absolute, use = "complete.obs") # .91
+cor(stostad0_billionaire_tax_absolute[countries], stostad1_billionaire_tax_absolute[countries], use = "complete.obs") # .90
+cor(sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight)), stostad1_billionaire_tax_absolute[countries[-c(7,9,10)]]) # .86
+cor(stostad0_billionaire_tax_absolute[countries[-c(7,9,10)]], sapply(countries[-c(7,9,10)], function(c) wtd.mean(d(c)$solidarity_support_billionaire_tax_control > 0, d(c)$weight))) # .83
+
+
+##### H Attrition Analysis #####
 desc_table(dep_vars = c("dropout", "dropout_late", "attentive == F", "duration", "duration < 6"), weights = NULL, #ci = T, report = 'vcsp', 
            dep.var.labels = c("\\makecell{Dropped out}", "\\makecell{Dropped out\\\\after\\\\socio-eco}", "\\makecell{Failed\\\\attention test}", "\\makecell{Duration\\\\(in min)}", "\\makecell{Duration\\\\below\\\\6 min}"),
            filename = "attrition", save_folder = "../tables/", data = c(list(a[a$valid == T,]), list(a[a$valid == T,]), list(a[a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,])), 
            indep_vars = control_variables, omit = c("illionaire", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
 
-##### Balance analysis #####
+##### I Balance Analysis #####
 desc_table(dep_vars = c("variant_wealth_tax == 'global'", "variant_wealth_tax == 'intl'", "variant_ics == 'low'", "variant_ics == 'high'", "variant_ics == 'high_color'", "variant_warm_glow == 'NCS'", "variant_warm_glow == 'None'", "info_solidarity"), dep.var.caption = "Random branch:", #, "variant_top_tax == 'top1'" omit = c("Constant"), # c("Constant", "Race: Other", "factorNA", "partner"),
            dep.var.labels = c("\\makecell{Wealth tax\\\\coverage:\\\\Global}", "\\makecell{Wealth tax\\\\coverage:\\\\Int'l}", "\\makecell{Int'l CS\\\\coverage:\\\\Low}", "\\makecell{Int'l CS\\\\coverage:\\\\High}", "\\makecell{Int'l CS\\\\coverage:\\\\High color}", "\\makecell{National\\\\CS\\\\asked}", "\\makecell{Warm glow\\\\substitute:\\\\Control}", "\\makecell{Warm glow\\\\realism: Info\\\\treatment}"), # ci = T, report = 'vcsp', 
            filename = "balance", weights = NULL, save_folder = "../tables/", data = all, indep_vars = control_variables, omit = c("Country", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
+
+
+##### J Placebo Tests #####
+gcs_field <- lm(gcs_support > 0 ~ variant_field, data = all, weights = weight)
+gcs_split <- lm(gcs_support > 0 ~ variant_split, data = all, weights = weight, subset = all$country != "RU")
+ics_belief <- lm(ics_support > 0 ~ variant_belief, data = all, weights = weight, subset = all$country != "RU")
+solidarity_warm_glow <- lm(share_solidarity_supported ~ variant_warm_glow, data = all, weights = weight)
+solidarity_ics <- lm(share_solidarity_supported ~ variant_ics, data = all, weights = weight)
+wealth_ics <- lm(wealth_tax_support > 0 ~ variant_ics, data = all, weights = weight)
+# gcs_info <- lm(gcs_support > 0 ~ info_solidarity, data = all, weights = weight)
+stargazer(gcs_field, gcs_split, ics_belief, solidarity_warm_glow, solidarity_ics, wealth_ics, type = "latex", style = "default", out = "../tables/placebo.tex", 
+          keep.stat = c("n", "rsq"), label = "tab:placebo", dep.var.caption = "", model.names = FALSE, no.space = TRUE, float = FALSE, #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Supports\\\\the Global\\\\Climate Scheme}", "\\makecell{Supports\\\\the Int'l\\\\Clim. Sch.}",
+                             "\\makecell{Share of\\\\policies\\\\supported}", "\\makecell{Supports\\\\the int'l\\\\wealth tax}"),
+          covariate.labels = c("Open-ended field variant: Injustice", "Open-ended field variant: Issue", "Open-ended field variant: Wish", "Revenue split variant: Many", "GCS belief variant: U.S.",
+                               "Warm glow variant: National CS", "Warm glow variant: Donation", "Int'l CS variant: High color", "Int'l CS variant: Low", "Int'l CS variant: Mid", "(Intercept)"),
+          title = "Placebo tests of treatments on unrelated outcomes (simple OLS regressions).") 
+
+
+##### K Main Results on Selected Demographics, Including by Vote ######
+plot_along(along = "country_name", weight = "weight", name = "variables_ncs_gcs_ics_by_country_pol", vars = variables_ncs_gcs_ics, levels_along = c("All", levels_pol[-1]), labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T, weight_non_na = F)
+
+plot_along(along = "country_name", weight = "weight", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = c("All", levels_pol[-1]), save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T, weight_non_na = F)
+
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+           weight = "weight", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("RU"),], width = 400, height = 370,
+           weight = "weight", name = "gcs_support_by_variant_warm_glow_pol", covariates = "variant_warm_glow", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0")
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370,
+           weight = "weight", name = "share_solidarity_supported_by_info_solidarity_pol", covariates = "info_solidarity", levels_subsamples = levels.pol, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_pol", levels = levels_pol)
+
+
+##### L Main Results Weighted by Vote ######
+# Main results: variables_ncs_gcs_ics_by_country, variables_wealth_tax_support_by_country, program_preferred_by.., gcs_support_by_variant_warm_glow, share_solidarity_supported_by_info_solidarity, solidarity_support_share, radical_redistr_all_share
+plot_along("country_name", weight = "weight_vote", name = "variables_ncs_gcs_ics_by_country_weight_vote", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, df = all, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
+
+plot_along("country_name", weight = "weight_vote", name = "variables_wealth_tax_support_by_country_weight_vote",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 400, origin = 50, plot_origin_line = T) 
+
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           weight = "weight_vote", name = "program_preferred_by_millionaire_tax_in_program_weight_vote", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           weight = "weight_vote", name = "program_preferred_by_cut_aid_in_program_weight_vote", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           weight = "weight_vote", name = "gcs_support_by_variant_warm_glow_weight_vote", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
+           weight = "weight_vote", name = "share_solidarity_supported_by_info_solidarity_weight_vote", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_weight_vote", variant_weight = "vote")
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_weight_vote", variant_weight = "vote")
+
+
+##### M Main Results on the Extended Sample ######
+# Main results: variables_ncs_gcs_ics_by_country, variables_wealth_tax_support_by_country, program_preferred_by.., gcs_support_by_variant_warm_glow, share_solidarity_supported_by_info_solidarity, solidarity_support_share, radical_redistr_all_share
+plot_along("country_name", df = a[a$stayed,], name = "variables_ncs_gcs_ics_by_country_extended", vars = variables_ncs_gcs_ics, levels_along = levels_default_list, labels = legend_ncs_gcs_ics, save = T, return_mean_ci = F, width = 1000, height = 480, origin = 50, plot_origin_line = T) 
+
+plot_along("country_name", df = a[a$stayed,], name = "variables_wealth_tax_support_by_country_extended",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, width = 820, height = 400, origin = 50, plot_origin_line = T) 
+
+plot_along(along = "millionaire_tax_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
+           name = "program_preferred_by_millionaire_tax_in_program_extended", covariates = "millionaire_tax_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+plot_along(along = "cut_aid_in_program", df = calla[!calla$country %in% c("SA", "RU") & calla$stayed,], vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370,
+           name = "program_preferred_by_cut_aid_in_program_extended", covariates = "cut_aid_in_program", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+
+plot_along(along = "variant_warm_glow", df = a[a$variant_warm_glow != "NCS" & !a$country %in% c("SA", "RU") & a$stayed,], vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
+           name = "gcs_support_by_variant_warm_glow_extended", covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "info_solidarity", df = a[a$stayed,], vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, width = 400, height = 370, 
+           name = "share_solidarity_supported_by_info_solidarity_extended", covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_extended", data = a[a$stayed,])
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_extended", data = a[a$stayed,])
+
+
+##### N Influence of the Item Order on Answers #####
+# revenue_split_few_global, on NCQG; of wording on NCQG
+# Orders with full randomization: revenue_split_few, revenue_split_many, solidarity_support, why_hic_help_lic
+sustainable_future_variant <- lm(sustainable_future ~ (variant_sustainable_future == "a"), data = all, weights = weight) # 3pp more likely to choose sustainable if it is scenario A
+transfer_how_cash_unconditional_order <- lm(transfer_how_cash_unconditional > 0 ~ transfer_how_order, data = all, weights = weight) # 9pp less likely to consider UCT right way if it's the first option
+why_hic_help_lic_duty_order <- lm(why_hic_help_lic_duty ~ (why_hic_help_lic_order_duty == 3), data = all, weights = weight) # 5pp less likely to choose duty if last option
+gcs_comprehension_order <- lm(gcs_comprehension > 0 ~ gcs_comprehension_order, data = all, weights = weight) # 3pp more likely to be correct if it's first option
+ncqg_fusion_variant <- lm(ncqg_fusion >= 100 ~ variant_ncqg, data = all, weights = weight) # 8pp more likely to choose >= 100 bn in long version
+ncqg_order <- lm(ncqg > 2 ~ ncqg_order, data = all, weights = weight) # 9pp less likely to choose >= 100 bn if increasing order (simple version)
+solidarity_support_order <- lm(unlist(all[,variables_solidarity_support]) > 0 ~ unlist(all[,variables_solidarity_support_order]) == 1, weights = rep(all$weight, length(variables_solidarity_support_order)))
+split_order <- lm(unlist(all[,c(variables_split_few, variables_split_many)]) > 15 ~ factor(unlist(all[,c(variables_split_few_order, variables_split_many_order)])), weights = rep(all$weight, 18))
+
+stargazer(sustainable_future_variant, transfer_how_cash_unconditional_order, why_hic_help_lic_duty_order, gcs_comprehension_order, ncqg_fusion_variant, ncqg_order, solidarity_support_order, split_order, type = "latex", style = "default", out = "../tables/order.tex",
+          keep.stat = c("n", "rsq"), label = "tab:order", dep.var.caption = "", model.names = FALSE, no.space = TRUE, float = FALSE,  #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Prefers\\\\Sustain.\\\\future}", "\\makecell{Finds\\\\Uncond.\\\\cash\\\\transfers\\\\Right}", "\\makecell{Agrees it\\\\is HIC's\\\\duty to\\\\help LICs}", "\\makecell{Understood\\\\Global\\\\Clim. Sch.}",
+                             "\\makecell{Preferred\\\\NCQG\\\\$\\geq\\$ 100$ bn}", "\\makecell{Pref. NCQG\\\\$\\geq\\$ 100$ bn\\\\(variant\\\\ \\textit{Short})}", "\\makecell{Supports\\\\a\\\\plausible\\\\policy}", "\\makecell{Allocates\\\\$\\geq 15\\%$ to\\\\spending\\\\item}"),
+          covariate.labels = c("Scenario A = Sustainable", "Cash transfers first item", "Duty last item", "Correct answer first item", "Variant: \\textit{Short}", "Items in increasing order", "That item is the first one", "Order of the item: 2", "Order of the item: 3", "Order of the item: 4", "Order of the item: 5"),
+          title = "Effect on answers of the random order of response items.") 

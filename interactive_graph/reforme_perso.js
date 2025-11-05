@@ -19,7 +19,7 @@ $j(document).ready(function($j){
 	unit = 1;
 	
 	$j.ajax({
-		url:'interactive_graph/world_disposable_inc.csv', // interactive_graph/world_disposable_inc.csv "https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
+		url:'world_disposable_inc.csv', // interactive_graph/world_disposable_inc.csv "https://wumarketing.eu.qualtrics.com/ControlPanel/File.php?F=F_TkO3EgHL6SYGfxJ",
 		success: function(data){
 			var graph_width = $j('#graphe').width();
 			var graph_height = $j('#graphe').height();
@@ -208,7 +208,7 @@ $j(document).ready(function($j){
 				var diff = new Array(winners);
 				for (i=0; i<winners; i++) { diff[i] = futur[i] - avant[i] ; }
 				var econ = integrale(diff, 0, winners-1) + economisable(futur, "d");
-				// $j('#out').html((integrale(avant,0,1000)-integrale(futur,0,1000))/integrale(avant,0,1000)+"  "+G/R+"  "+futur[0]/12);
+				// $j('#out').html(G + "   " + R + "    " + rdb/12 + "   " + futur[0]/12 + "  "+ avant[winners] + "   " + integrale(avant,0,winners)  + "   " + (integrale(avant,0,1000)-integrale(futur,0,1000))/integrale(avant,0,1000)+"  "+G/R);
 				$j('#out').html(Math.round(1000*(integrale(futur,0,winners)-integrale(avant,0,winners))/integrale(avant,0,1000))/10+" % world GDP transferred.  <br>"+"Minimal income: "+Math.round(futur[0]/12)+" $ per month.");
 				$j('#after_10k').html(Math.round(interpole(10000, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));
 				$j('#after_40k').html(Math.round(interpole(40000, avant, futur)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;"));

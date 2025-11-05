@@ -1,12 +1,3 @@
-# TODO! decrit 2 digits
-# TODO! RU find RU$zipcode_clean[is.na(RU$region)] and update regions_ru
-# TODO! representativeness RU region (more generally, check whether variable exist)
-# TODO! go through all fields again to fill up two new categories: "economy" and "criticize handouts / calls for lower taxes on labor income or lower welfare benefits"
-# TODO: clean files (cf. analysis.R)
-# TODO: weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
-# TODO: check https://www.oecd.org/en/data/tools/oecd-better-life-index.html, literature on issue/concerns/wishes
-
-
 ##### Parameters #####
 countries <- c("FR", "DE", "IT", "PL", "ES", "GB", "CH", "JP", "RU", "SA", "US")
 countries_names <- c("FR" = "France", "DE" = "Germany", "IT" = "Italy", "PL" = "Poland", "ES" = "Spain", "GB" = "United Kingdom", "CH" = "Switzerland", "JP" = "Japan", "RU" = "Russia", "SA" = "Saudi Arabia", "US" = "USA")
@@ -54,7 +45,7 @@ for (l in languages[!languages %in% c("RU", "EN-SA", "AR")]) {
 }
 policies_code <- c(policies_code[!names(policies_code) %in% "-"], "-" = "-")
 policies_leaning <- policies_leaning_strict <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning", rowNames = T, cols = c(1, 2*1:9))
-policies_leaning_party <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning_party", rowNames = T, cols = c(1, 2*1:9))
+policies_leaning_party <- policies_leaning_party_strict <- read.xlsx("../questionnaire/sources.xlsx", sheet = "policies_leaning_party", rowNames = T, cols = c(1, 2*1:9))
 policies_leaning_strict[c("foreign_policy1", "foreign_policy2"),] <- c(0, 2)
 policies_leaning_party[c("foreign_policy1", "foreign_policy2"),] <- c(1, 1)
 # policies_main_language <- policies_english <- c()
@@ -333,7 +324,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     for (v in names(e)) label(e[[v]]) <- labels[[v]]
   } else {
     e <- read_sav("../data_raw/RU.sav")
-    e <- e[-c(1:2),] # Remove test rows # TODO: duration, revenue_split, 
+    e <- e[-c(1:2),] # Remove test rows 
     for (v in names(rename_ru)) names(e)[names(e) == v] <- rename_ru[v]
     for (v in names(e)) e[[v]] <- as.character(as_factor(e[[v]]))
     e$excluded <- ifelse(e$attention_test %in% c("A little", "Немного") & (n(e$duration) > duration_min), NA, e$attention_test)
@@ -374,7 +365,7 @@ prepare <- function(country = "US", scope = "final", fetch = T, convert = T, ren
     e$weight_country <- e$weight <- weighting(e, country)
     label(e$weight_country) <- "weight_country: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: quotas$[country], with frequencies pop_freq$[country]."
     label(e$weight) <- "weight: Weight for the international sample: weight_country is rescaled so that each country is weighted according to its adult population. Sums to nrow(all). (Created outside 'prepare')"
-    # e$weight_all <- weighting(e, country, variant = "all") # TODO
+    # e$weight_all <- weighting(e, country, variant = "all") 
     if ("vote" %in% names(e)) e$weight_vote <- weighting(e, country, variant = "vote") # ("vote_us" %in% names(e) & (sum(e$vote_us=="PNR/no right")!=0)) | ("vote" %in% names(e))
     else e$weight_vote <- e$weight
     label(e$weight_vote) <- "weight_vote: [0.25; 4] Weight to adjust to country demographics. Sums to nrow([country]). Quota variables used: vote, quotas$[country], with frequencies pop_freq$[country]."
@@ -506,7 +497,8 @@ define_var_lists <- function() {
   variables_conjoint_consistency <<- c("consistent_conjoints", paste0(c("consistent_conjoint_", "leaning_conjoint_"), c(1,1,2,2)))
   variables_conjoint_consistency_strict <<- paste0(variables_conjoint_consistency, "_strict")
   variables_conjoint_consistency_party <<- paste0(variables_conjoint_consistency, "_party")
-  variables_conjoint_consistency_all <<- c(variables_conjoint_consistency, variables_conjoint_consistency_strict, variables_conjoint_consistency_party)
+  variables_conjoint_consistency_party_strict <<- paste0(variables_conjoint_consistency, "_party_strict")
+  variables_conjoint_consistency_all <<- c(variables_conjoint_consistency, variables_conjoint_consistency_strict, variables_conjoint_consistency_party, variables_conjoint_consistency_party_strict)
 
   # Categories proposed by GPT-4.1 based on the excerpt:
   {
@@ -855,8 +847,48 @@ world_income_after_tax <- function(tax = NULL, thresholds = NULL, additional_rat
   return(future)
 }
 
+algo_dis_av <- function(winners, non_losers, degree, current = c(0, round(thousandile_world_disposable_inc)), verbose = FALSE) {
+  # winners, non_losers are expressed between 0 and 1000
+  income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
+  income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
+  
+  # Define new as current bounded by the income thresholds of winners and losers
+  new <- current
+  for (i in 1:winners) new[i] <- pmax(current[i], income_threshold_winners)
+  for (i in (winners + 1):non_losers) new[i] <- current[i]
+  for (i in (non_losers + 1):1001) new[i] <- pmin(current[i], income_threshold_losers)
+  future <- new
+  # Computes what is "economizable", i.e. what can be redistributed on either side: what can be given on the left (among winners) or taken on the right
+  L <- sum(pmax(0, income_threshold_winners - current)) # economizable(current, "left")
+  R <- sum(pmax(0, current[1:1000] - income_threshold_losers)) # economizable(current, "right")
+  # Iff what can be given is lower than what can be taken, the left side is binding, and we start focusing on the left side
+  min_1 <- ifelse(L <= R, 0, non_losers)
+  max_1 <- ifelse(L <= R, winners-1, 1000)
+  min_2 <- ifelse(L <= R, non_losers, 0)
+  max_2 <- ifelse(L <= R, 1000, winners-1)
+  # We make the future line closer to the current one compared to the horizontal "new" line, to the extent degree is small, on the binding side
+  for (i in min_1:max_1) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
+  # Then we adjust the non-binding side twice: first by having the maximal redistribution (given the other, binding side potential),
+  for (i in min_2:max_2) future[i+1] <- future[i+1] - (1 - min(L/max(1e-9, R), R/max(1e-9, L))) * (future[i+1] - current[i+1])
+  # then by accounting for the desired degree of redistr (as above)
+  for (i in min_2:max_2) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
+  # Define the demogrant given what is economizable and the desired degree of redistribution
+  demogrant <- if (winners > 0) 2*(min(L, R) * (degree/10) + sum(current[1:winners]))/winners - income_threshold_winners else 0
+  # Draw a straight line between the demogrant and the threshold of winners
+  # Turn to non-affine line if the affine line crosses the current line or if lower incomes raise less than higher ones
+  affine <- TRUE
+  for (i in 0:(winners-1)) {
+    if (winners > 0) new[i+1] <- demogrant + (i/winners) * (income_threshold_winners - demogrant) # In practice, not used as affine is generally FALSE
+    if (i > 0 && new[i+1] < current[i+1]) affine <- FALSE
+    if (i > 0 && new[i] - current[i] < new[i+1] - current[i+1]) affine <- FALSE
+  }
+  if (affine) for (i in 0:winners) future[i+1] <- new[i+1]
+  if (verbose) return(paste0("L: ", round(L), "   R: ", round(R), "   demogrant: ", round(future[1]/12), " $/month   transfer: ", round(100*sum(future[1:winners] - current[1:winners])/sum(current[1:1000]), 1) , 
+                                       "%   income_threshold_winners: ", income_threshold_winners, "   sum(current[1:winners]):  ", sum(current[1:winners])))
+  return(future)
+}
+
 compute_custom_redistr <- function(df = e, name = NULL, return = "df") { 
-  # TODO: check we get same results as with .js (e.g. check values of L/G and R, own_after...) - I have checked on one example
   current <- c(0, round(thousandile_world_disposable_inc)) # corresponds to c(0, thousandile_world_disposable_inc) created in questionnaire.R
   for (v in paste0("custom_redistr_", c("transfer", "future_income", "income_min", "self_lose", "self_gain", "satisfied_touched", "untouched"))) df[[v]] <- NA
   futures <- matrix(NA, ncol = 1001, nrow = nrow(df))
@@ -870,40 +902,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
     df$income_exact_thousandile_world[k] <- min(c(1000, which(df$custom_redistr_current_income[k] < current))) # pmin(1000, sapply(df$custom_redistr_current_income, function(y) min(which(y < current))))
     label(df$income_exact_thousandile_world) <- "income_exact_thousandile_world: 0-1000. Thousandile of world disposable income of custom_redistr_current_income (individualized income_exact)."
     if (!is.na(winners)) {
-      income_threshold_winners <- current[winners + 1] # income_from_quantile(current, winners)
-      income_threshold_losers <- current[non_losers + 1] # income_from_quantile(current, non_losers)
-      
-      # Define new as current bounded by the income thresholds of winners and losers
-      new <- current
-      for (i in 1:winners) new[i] <- pmax(current[i], income_threshold_winners)
-      for (i in (winners + 1):non_losers) new[i] <- current[i]
-      for (i in (non_losers + 1):1001) new[i] <- pmin(current[i], income_threshold_losers)
-      future <- new
-      # Computes what is "economizable", i.e. what can be redistributed on either side: what can be given on the left (among winners) or taken on the right
-      L <- sum(pmax(0, income_threshold_winners - current)) # economizable(current, "left")
-      R <- sum(pmax(0, current[1:1000] - income_threshold_losers)) # economizable(current, "right")
-      # Iff what can be given is lower than what can be taken, the left side is binding, and we start focusing on the left side
-      min_1 <- ifelse(L <= R, 0, non_losers)
-      max_1 <- ifelse(L <= R, winners-1, 1000)
-      min_2 <- ifelse(L <= R, non_losers, 0)
-      max_2 <- ifelse(L <= R, 1000, winners-1)
-      # We make the future line closer to the current one compared to the horizontal "new" line, to the extent degree is small, on the binding side
-      for (i in min_1:max_1) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
-      # Then we adjust the non-binding side twice: first by having the maximal redistribution (given the other, binding side potential),
-      for (i in min_2:max_2) future[i+1] <- future[i+1] - (1 - min(L/max(1e-9, R), R/max(1e-9, L))) * (future[i+1] - current[i+1])
-      # then by accounting for the desired degree of redistr (as above)
-      for (i in min_2:max_2) future[i+1] <- current[i+1] + degree/10 * (future[i+1] - current[i+1]) # future[i+1] - (10-degree)/10 * (future[i+1] - current[i+1]) 
-      # Define the demogrant given what is economizable and the desired degree of redistribution
-      demogrant <- if (winners > 0) 2*(min(L, R) * (degree/10) + sum(current[1:winners]))/winners - income_threshold_winners else 0
-      # Draw a straight line between the demogrant and the threshold of winners
-      # Turn to non-affine line if the affine line crosses the current line or if lower incomes raise less than higher ones
-      affine <- TRUE
-      for (i in 0:(winners-1)) {
-        if (winners > 0) new[i+1] <- demogrant + (i/winners) * (income_threshold_winners - demogrant) # In practice, not used as affine is generally FALSE
-        if (i > 0 && new[i+1] < current[i+1]) affine <- FALSE
-        if (i > 0 && new[i] - current[i] < new[i+1] - current[i+1]) affine <- FALSE
-      }
-      if (affine) for (i in 0:winners) future[i+1] <- new[i+1]
+      future <- algo_dis_av(winners, non_losers, degree, verbose = (return == "verbose"))
       # diff <- future - current
       # econ <- integral(diff, 0, winners - 1) + economizable(future, "right")
       
@@ -921,8 +920,6 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
       label(df$custom_redistr_transfer) <- "custom_redistr_transfer: Numerical. Transfer from rich to poor due to custom redistribution (% of world income)."
       # transfer <- (integral(future, 0, winners) - integral(current, 0, winners))/integral(current, 0, 1000)
       futures[k, ] <- future 
-      if (return == "verbose") print(paste("L:", round(L), "   R:", round(R), "   demogrant:", round(demogrant), "   transfer:", df$custom_redistr_transfer[k], 
-                                           "   income_threshold_winners:", income_threshold_winners, "   sum(current[1:winners]): ", sum(current[1:winners])))
     }
   }
   df$custom_redistr_transfer_ceiling <- ceiling(df$custom_redistr_transfer)
@@ -953,7 +950,7 @@ compute_custom_redistr <- function(df = e, name = NULL, return = "df") {
 }
 
 convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) {
-  # time_scenarios_tax? dunno whether there is TODO here
+  # time_scenarios_tax? 
   # for (j in intersect(variables_yes_no, names(e))) {
   #   temp <- 1*(e[j][[1]] %in% "Yes") - 0.1*(e[j][[1]] %in% text_pnr) # - (e[j][[1]] %in% text_no)
   #   temp[is.na(e[j][[1]])] <- NA
@@ -1857,7 +1854,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
       # e[[v]] <- policies_l[policies_code[e[[v]]]] # policy name in country's main language (replace 1 by paste0("EN-", country)) for english
       label(e[[v]]) <- paste0(v, ": Policy code of domain", substr(v, 7, 7), " for Candidate ", substr(v, 5, 5), " in the conjoint analysis (cf. policies_code).")
     }  
-    for (leaning in c("", "_strict", "_party")) { for (i in 1:2) {
+    for (leaning in c("", "_strict", "_party", "_party_strict")) { for (i in 1:2) {
         e[[paste0("leaning_conjoint_", i, leaning)]] <- 1
         max_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, max)
         min_i <- apply(sapply(e[, eval(str2expression(paste0("variables_conjoint_policies_", i)))], function(x) eval(str2expression(paste0("policies_leaning", leaning)))[x, country]), 1, min)
@@ -1865,15 +1862,16 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
         e[[paste0("leaning_conjoint_", i, leaning)]][min_i == 0] <- 0 
         e[[paste0("leaning_conjoint_", i, leaning)]][max_i - min_i == 2] <- -1
         e <- create_item(paste0("leaning_conjoint_", i, leaning), labels = c("Inconsistent" = -1, "Left" = 0, "Unclear" = 1, "Right" = 2), values = -1:2, df = e, 
-                         annotation = paste0("leaning_conjoint_", i, leaning, ": [-1: Inconsistent; 0: Left; 1: Unclear; 2: Right]. Political leaning of the program of Candidate ", i, " in the conjoint analysis", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."))
+                         annotation = paste0("leaning_conjoint_", i, leaning, ": [-1: Inconsistent; 0: Left; 1: Unclear; 2: Right]. Political leaning of the program of Candidate ", i, " in the conjoint analysis", if (grepl("_strict", leaning)) "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."))
         e[[paste0("consistent_conjoint_", i, leaning)]] <- e[[paste0("leaning_conjoint_", i, leaning)]] != -1
-        label(e[[paste0("consistent_conjoint_", i, leaning)]]) <- paste0("consistent_conjoint_", i, leaning, ": T/F. Political leaning of the program of Candidate ", i, "is consistent (i.e. only Left and Unclear or Right and Unclear policies).", if (leaning == "_strict") "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left).")
+        label(e[[paste0("consistent_conjoint_", i, leaning)]]) <- paste0("consistent_conjoint_", i, leaning, ": T/F. Political leaning of the program of Candidate ", i, "is consistent (i.e. only Left and Unclear or Right and Unclear policies).", if (grepl("_strict", leaning)) "(strict version, i.e. considering less_aid as Right and millionaire_tax as Left).")
       } 
       e[[paste0("consistent_conjoints", leaning)]] <- e[[paste0("consistent_conjoint_1", leaning)]] & e[[paste0("consistent_conjoint_2", leaning)]]
     }
     label(e$consistent_conjoints) <- "consistent_conjoints: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1 & consistent_conjoint_2, cf. policies_leaning)."
     label(e$consistent_conjoints_strict) <- "consistent_conjoints_strict: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1_strict & consistent_conjoint_2_strict, cf. policies_leaning_strict) (strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."
     label(e$consistent_conjoints_party) <- "consistent_conjoints_party: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1_party & consistent_conjoint_2_party, cf. policies_leaning_party) (party version, i.e. leaning is based on the party that endorses the policy)."
+    label(e$consistent_conjoints_party_strict) <- "consistent_conjoints_party_strict: T/F. Political leaning of the programs of both Candidates are consistent (consistent_conjoint_1_party_strict & consistent_conjoint_2_party_strict, cf. policies_leaning_party_strict) (party version, i.e. leaning is based on the party that endorses the policy; & strict version, i.e. considering less_aid as Right and millionaire_tax as Left)."
   }
   e$global_movement_support <- e$global_movement_spread | e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
   e$global_movement_part <- e$global_movement_demonstrate | e$global_movement_donate | e$global_movement_strike
@@ -1893,7 +1891,7 @@ all <- Reduce(function(df1, df2) { merge(df1, df2, all = T) }, survey_data)
 list2env(survey_data, envir = .GlobalEnv)
 all$weight <- all$weight_country * (adult_pop[all$country]/sum(adult_pop[unique(all$country)])) / (sapply(all$country, function(c) { sum(all$country == c)})/(nrow(all)))
 
-e <- all <- compute_custom_redistr(all, name = "all") # 4 min TODO: Replace it by it being computed as the average of countries'
+e <- all <- compute_custom_redistr(all, name = "all") # 4 min 
 beep()
 # # Pilots
 # pilot_data <- setNames(lapply(pilot_countries, function(c) { prepare(country = c, scope = "final", fetch = T, remove_id = T, convert = T, rename = T, pilot = TRUE, weighting = T) }), paste0(pilot_countries, "p")) # remove_id = F
