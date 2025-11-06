@@ -283,6 +283,7 @@ sapply(c("all", countries), function(c) round(wtd.mean(d(c)$ncqg_fusion >= 600, 
 ## Global income redistribution
 # Figure acceptance with features: country_comparison/top_tax_all_share_various
 # Figure absolute support: country_comparison/top_tax_positive
+# Figure opposition: country_comparison/top_tax_affected_negative_various
 # Figure affected: country_comparison/top_tax_affected_share_various
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support > 0, d(c)$weight), 2))) # 56%
 (sapply(c("all", countries), function(c) round(wtd.mean(d(c)$top1_tax_support < 0, d(c)$weight), 2))) # 25%
