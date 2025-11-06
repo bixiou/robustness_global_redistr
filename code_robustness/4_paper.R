@@ -184,9 +184,15 @@ summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all
 # summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = all$country %in% c("US", "SA"))) 
 
 decrit("gcs_understood") # 74%
-summary(lm(reg_formula("gcs_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -5***
-summary(lm(reg_formula("ics_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight, subset = all$variant_ics != "high_color")) # -5***
-summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -2
+summary(lm(ics_support ~ gcs_understood * variant_ics, data = all, weights = weight)) # no interaction effect gcs_understood:high_color
+summary(lm(reg_formula("gcs_support", c(variables_socio_demos, "!gcs_understood")), data = all, weights = weight)) # 5***
+summary(lm(reg_formula("ics_support", c(variables_socio_demos, "!gcs_understood")), data = all, weights = weight)) # 4***
+# summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = gcs_understood))
+# summary(lm(ics_support ~ variant_ics, data = all, weights = weight, subset = !gcs_understood))
+# summary(lm(reg_formula("gcs_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -5***
+# summary(lm(reg_formula("ics_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight, subset = !all$variant_ics %in% c("high_color"))) # -5***
+# summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -2
+# summary(lm(ics_support ~ (variant_ics == "high_color"), data = all, weights = weight, subset = all$gcs_understood)) # -4***
 
 
 ##### 3.2 Wealth Tax Funding LICs #####

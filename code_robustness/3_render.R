@@ -587,9 +587,9 @@ variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_varia
 
 for (l in names(lmgs)) print(paste0("R² ", l, ": ", round(lmgs[[l]]@R2, 4)))
 summary(lm(reg_formula("gcs_support > 0", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .11 (simple R²: .12)
-summary(lm(reg_formula("gcs_support > 0", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .13 (simple R²: .22)
+# summary(lm(reg_formula("gcs_support > 0", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .13 (simple R²: .22)
 summary(lm(reg_formula("share_solidarity_supported", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .17 (simple R²: .18)
-summary(lm(reg_formula("share_solidarity_supported", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .21 (simple R²: .29)
+# summary(lm(reg_formula("share_solidarity_supported", c(control_variables_lmg, "age_exact*vote_original", "vote_agg*urbanity_factor*gender")), data = all, weights = weight))$adj.r.squared # .21 (simple R²: .29)
 
 
 ## Word clouds
