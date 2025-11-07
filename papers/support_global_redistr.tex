@@ -137,11 +137,16 @@ in High-Income Countries
   % 166 words
 Using an original survey of 12,000 respondents representative of eleven high-income countries (the United States, Japan, Russia, Saudi Arabia, and seven European countries), I examine public support for global redistribution and climate policies, as well as its sensitivity to key policy features such as the size of transfers and country coverage. Although global inequality is not a salient concern, it is perceived as a significant injustice. 
 There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. 
-Global inequality is a vote-determining issue for many people, and political programs that address it are more likely to be preferred. I find no evidence of warm glow: % evidence for a status quo bias rather than warm glow?
-% pluralistic ignorance?
-support is higher among treated respondents, who perceive global redistribution as more likely. Support for international policies decreases only slightly as country coverage shrinks. Overall, the results reinforce previous findings and suggest that a broad coalition of countries could feasibly advance sustainable development. 
+% Global inequality is a vote-determining issue for many people, and political programs that address it are more likely to be preferred. I find no evidence of warm glow: % evidence for a status quo bias rather than warm glow?
+% % pluralistic ignorance?
+% support is higher among treated respondents, who perceive global redistribution as more likely. 
+An information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. 
+Support for international policies decreases only slightly as country coverage shrinks. Overall, the results reinforce previous findings and suggest that a broad coalition of countries could feasibly advance sustainable development. 
 
 % AER (100 words; max 100 words)
+% Using an original survey of 12,000 respondents representative of eleven high-income countries, I examine public support for global redistribution and climate policies. Although global inequality is not a salient concern, political programs that address it are more likely to be preferred. In every country, majorities accept nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. Survey experiments demonstrate the robustness of support. In particular, an information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. 
+
+% Alternative:
 % Using an original survey of 12,000 respondents representative of eleven high-income countries, I examine public support for global redistribution and climate policies. Although global inequality is not a salient concern, political programs that address it are more likely to be preferred. There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. I find no evidence of warm glow: acceptance increases among treated respondents, who perceive global redistribution as more likely. Finally, acceptance of %international 
 % policies decreases only slightly as country coverage shrinks. 
 
@@ -183,7 +188,7 @@ support is higher among treated respondents, who perceive global redistribution 
 % Net support: support minus opposition
 % => I stick to the above terminology for specific questions; when I talk about overall survey results I use acceptance rather than support
 
-\section*{Introduction}\label{sec:intro}% NCCcomment
+\section{Introduction}\label{sec:intro}% AER
 
 The development gap between the Global North and the Global South is central in 
 international relations. %, with the question of North-to-South transfers of resources and power at the forefront. 
@@ -282,7 +287,7 @@ the reliability of stated support estimates.
 % 0+3.1 country coverage: Sivonen, Gamfer, Bechtel & Scheve, Beiser & Bernauer Could revenue, Beiser & Bernauer Commitment,
 % 0+3.1 unilateral/free-riding: Bernauer & Gampfer, Carlsson, Aklin, 
 % 3.1 or App sources, global price: MacKay, young-brun
-% 0+3.1 pluralistic ignorance: Mildenberger & Tingley 19, 
+% 0+3.1 pluralistic ignorance: Mildenberger & Tingley 19, Bursztyn
 % 0+4.1 conjoint: Bergquist 20, 
 % 0 review attitudes: Carattini 18, 
 % 0? behavior interventions: Vlasceanu, 
@@ -687,7 +692,7 @@ the results show no evidence of warm glow.
 To test the hypothesis that some people express support for global redistribution only as long as its implementation seems unlikely, I randomly assign half of the respondents to receive information about ongoing negotiations on globally redistributive policies. Among other things, treated respondents are informed that the International Maritime Organization recently adopted a levy on maritime carbon emissions that should partly finance LICs; that the G20 considered introducing a global tax on billionaires; that the UN General Assembly recently agreed on the principle of expanding the UN Security Council to new members; and that the UN Secretary-General supports financial system reforms that would drive resources towards sustainable development (see Question~\ref{q:info_solidarity}). 
 Then, respondents are asked ``how likely [it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before their support for ten plausible global policies is tested.\footnote{Section \ref{subsec:debated} reports acceptance of these policies and Appendix~\ref{subsec:plausible_policies_sources} describes the corresponding international negotiations.}  Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased support for global policies. %(as respondents would fear that such policies may materialize).
 
-The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy. The exclusion restriction states that the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results. Although the treatment is randomly assigned, the preferred specification includes the sociodemographic variables as controls to improve precision.\footnote{In fact, the $p$-values for the IV and the direct effect are no longer significant, at .11 and .12, respectively, in the specification without controls.} Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this highly significant effect provides a strong first stage for the IV estimation. Assuming that the exclusion restriction holds, the IV is well identified. The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with both the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment on policy support, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism}).
+The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy. The exclusion restriction states that the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results. Although the treatment is randomly assigned, the preferred specification includes the sociodemographic variables as controls to improve precision.\footnote{In fact, some effects are no longer significant in the specification without controls, with $p$-values for the IV and the direct effect at .11 and .12, respectively.} Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this highly significant effect provides a strong first stage for the IV estimation. Assuming that the exclusion restriction holds, the IV is well identified. The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with both the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment on policy support, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism}).
 
 % I have designed the treatment to ensure the exclusion restriction in an instrumental variable (IV) strategy. The exclusion restriction states that the treatment should affect support for global policies solely through the belief that global redistribution is likely. 
 % Table \ref{tab:iv} reports the results of regressions. Although the treatment is random, our preferred specification includes sociodemographic variables as controls to improve precision. 
@@ -920,7 +925,19 @@ preferred redistributions on a separate sample. Excluding the 22\% to 24\% of pe
 \footnote{\cite{fabre_french_2022} also tested a redistribution obtained from median parameters and a 5\% lower aggregate income to account for adverse behavioral responses. This was accepted by 62\% of French respondents.} 
 While one cannot be sure that these results would replicate in the context of a global redistribution, they suggest that a majority might accept the average or median redistribution described above.
 
+% TODO! Supports => Accepts in Figures
 \section{Conclusion} % Summary, conclusion
+
+This paper has shown that large majorities in high-income countries are dissatisfied with the level of inequality between countries and would accept policies to alleviate global poverty. 
+
+% majority acceptance; limited salience and low demand
+% coalition of the willing would work
+% trade-off purchasing power / global redistr
+% why  policymakers choose to go from lower priority to nothing? why not Bridgetown? debt restructuring and liquidity support? currency swaps? BEPS or ad tax? address illicit flows; IP waiver (check Stiglitz)
+% mismanagement (or distrust) by LIC govts; complexity (hence slow progress) of technical negotations
+% very unlikely that plausible global redistr would be unpopular/resisted by the public
+% conservative bias; geopolitical  (outsized influence of the US, which requires bipartisan support); pluralistic ignorance; national structures / absence of global polity or ipcc ineq; campaign effect
+% research on whether low demand; status quo bias => vicious circle: utopian -> ignore it
 
 % TODO!! absence of global polity; trade-off purchasing power / global redistr; policymakers choose to go from lower priority to nothing. Given results, it seems very unlikely that plausible global redistr would be unpopular/resisted by the public: why not Bridgetown? debt relief? BEPS or ad tax? billionaire tax (reinvesting MNE profits into global public investments, Glennie - education among the highest rate of return)
 % Why not more? next hypothesis: pluralistic ignorance of elites (Mildenberger & Tingley); national structures / representing nations bias diplomacy/thinking towards national interest (Buchholz for theoretical argument in climate negots, Schleich show 28-13% find their personal position well represented at these nego) (perhaps mix of zero-sum thinking (helping others will be bad for me) and nationalism)
