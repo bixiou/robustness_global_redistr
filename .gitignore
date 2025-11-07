@@ -17,3 +17,4 @@ code_robustness/split_few_averagesplit_few_average.xlsx
 papers/build/*
 figures/split_few_average.pdf
 */build/*
+*.bib
