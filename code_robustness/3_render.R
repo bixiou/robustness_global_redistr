@@ -146,6 +146,7 @@
   "global_movement_donate" = "Could donate [$100] to a strike fund",
   "global_movement_support" = "Would support a global movement to tackle CC, tax millionaires,\n and fund LICs (either petition, demonstrate, strike, or donate)",
   "global_movement_part" = "Would be part of a global movement to tackle CC, tax millionaires,\n and fund LICs (either demonstrate, strike, or donate)",
+  "likely_solidarity" = "Likelihood of significant transfers from HICs to LICs in next 15 years",
   "solidarity_support_billionaire_tax" = "Minimum tax of 2% on billionaires' wealth, in voluntary countries", # A minimum tax of 2% on the wealth of billionaires, in voluntary countries
   "solidarity_support_corporate_tax" = "Raise global minimum tax on profit from 15% to 35%, allocating revenues to countries based on sales", 
   # Raising the globally agreed minimum tax rate on profits of multinational firms from 15% to 35%, closing loopholes and allocating revenues to countries where sales are made
@@ -365,6 +366,7 @@ barres_defs <- list( # It cannot contained unnamed strings (e.g. it can contain 
   # "maritime_split" = list(vars = "maritime_split", width = 850, height = 550),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 820, height = 500, add_means = T, show_legend_means = T), 
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 820, height = 500, add_means = T, show_legend_means = T),
+  "likely_solidarity" = list(vars = "likely_solidarity", width = 700),
   "custom_redistr_winners_agg" = list(vars = "custom_redistr_winners_agg", width = 750),
   "custom_redistr_losers_agg" = list(vars = "custom_redistr_losers_agg", width = 1200),
   "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 700),
@@ -388,6 +390,7 @@ barres_defs_nolabel <- list(
   "reparations_support" = list(vars = "reparations_support", width = 910),
   "vote_intl_coalition" = list(vars = "vote_intl_coalition", width = 450),
   "sustainable_future" = list(vars = "sustainable_future", width = 400),
+  "likely_solidarity" = list(vars = "likely_solidarity", width = 700),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 860, add_means = T, show_legend_means = T),
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 860, add_means = T, show_legend_means = T)
 )
@@ -406,6 +409,7 @@ barresN_defs_nolabel <- list( # It cannot contained unnamed strings (e.g. it can
   "gcs_comprehension" = list(vars = "gcs_comprehension", width = 750),
   "share_solidarity_supported" = list(vars = "share_solidarity_supported_round", width = 1450, add_means = T, show_legend_means = T),
   "share_solidarity_opposed" = list(vars = "share_solidarity_opposed_round", width = 1450, add_means = T, show_legend_means = T),
+  "likely_solidarity" = list(vars = "likely_solidarity", width = 700),
   "custom_redistr_winners_agg" = list(vars = "custom_redistr_winners_agg", width = 1500),
   "custom_redistr_losers_agg" = list(vars = "custom_redistr_losers_agg", width = 1500),
   "custom_redistr_transfer_ceiling" = list(vars = "custom_redistr_transfer_ceiling", width = 1500),
@@ -448,17 +452,17 @@ legend_wealth_tax <- c("**Global**:<br>Implemented by<br>All other countries",
 plot_along("country_name", vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = levels_default_list, save = T, return_mean_ci = F, df = all, width = 820, height = 400, origin = 50, plot_origin_line = T) 
 
 # 6. conjoint: foreign aid + global tax
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # 7. Warm glow 
-plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
-           covariates = "variant_warm_glow", levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
+plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
+           covariates = c("variant_warm_glow", control_variables[-11]), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T, condition = " > 0") 
 
-plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = all, width = 400, height = 370, 
-           covariates = "info_solidarity", levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+plot_along(along = "info_solidarity", vars = "share_solidarity_supported", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = all, width = 400, height = 370, 
+           covariates = c("info_solidarity", control_variables[-11]), levels_subsamples = levels_default_list, colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # 8. Realistic policies 1336 x 737
 heatmap_multiple(heatmaps_defs[c("solidarity_support")])
@@ -536,6 +540,12 @@ heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_pos
 ## Country ranking
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol", levels = levels_pol)
+
+## Likely solidarity
+barres_multiple(barres_defs["likely_solidarity"], df = all[all$info_solidarity == F,])
+barres_multiple(barres_defs_nolabel["likely_solidarity"], nolabel = T, df = all[all$info_solidarity == F,])
+barres_multiple(barresN_defs["likely_solidarity"], df = all[all$info_solidarity == F,])
+barres_multiple(barresN_defs_nolabel["likely_solidarity"], nolabel = T, df = all[all$info_solidarity == F,])
 
 ## Conjoint by vote x country
 plot_along(along = "millionaire_tax_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 700, height = 600, weight_non_na = F, 

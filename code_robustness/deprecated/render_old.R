@@ -803,6 +803,49 @@ stargazer(first_stage, iv_model, ols_model, direct_effect,
           type = "latex", style = "default", out = "../tables/IV.tex", float = FALSE,
           title = "Effect on support for global redistribution of believing that it is likely.")  # add.lines = list(c("1st Stage F-statistic", round(first_stage_f, 2), "", "", ""))
 
+summary(first_stage <- ivreg(reg_formula("likely_solidarity > 0", c("info_solidarity", control_variables[-11])), data = e, weights = weight)) # p=.08
+summary(iv_model <- ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)", control_variables[-11])), instruments = reg_formula("", c("info_solidarity", control_variables[-11])), data = e, weights = weight)) # p=.08
+# summary(iv_model <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight, subset = e$country_name %in% countries_Eu)) # robust p < .1
+(effF <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = control_variables[-11], weights = "weight")) # 65
+ols_model <- lm(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)", control_variables[-11])), data = e, weights = weight)
+# summary(first_stage_wo_control <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)) # 33% + 8pp***
+# summary(iv_model_wo_control <- ivreg(share_solidarity_supported ~ (likely_solidarity > 0) | info_solidarity, data = e, weights = weight)) # p=.08
+# summary(direct_effect_wo_control <- lm(share_solidarity_supported ~ info_solidarity, data = e, weights = weight)) # p=.09
+ols_model_wo_control <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
+summary(direct_effect <- lm(reg_formula("share_solidarity_supported", c("info_solidarity", control_variables[-11])), data = e, weights = weight)) # p=.09
+coeftest(iv_model, vcov = vcovHC(iv_model, type = "HC1")) # p: .11
+coeftest(direct_effect, vcov = vcovHC(direct_effect, type = "HC1")) # p: .12
+stargazer(first_stage, iv_model, ols_model, ols_model_wo_control, direct_effect, 
+          se = lapply(c("first_stage", "iv_model", "ols_model", "ols_model_wo_control", "direct_effect"), function(m) sqrt(diag(vcovHC(eval(str2expression(m)), type = "HC1")))),
+          column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
+          keep.stat = c("n", "rsq"), label = "tab:iv", dep.var.caption = "", #, "adj.rsq"), dep.var.caption = "Dependent variable:" ,
+          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistr. likely", "(Intercept)"), keep = c("solidarity", "Intercept"),
+          type = "latex", style = "default", out = "../tables/IV_warm_glow.tex", float = FALSE,
+          title = "Effect on support for global redistribution of believing that it is likely.", omit.table.layout = "n", 
+          # notes = "\\textit{Note:} Robust standard errors are in parentheses. \\hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
+          add.lines = list(c("Controls: sociodemos and vote", "\\checkmark", "\\checkmark", "\\checkmark", "", "\\checkmark"), 
+                           c("Effective F-statistic", sprintf("%.2f", effF), "", "", "", "")))  
+summary(direct_effect)$coefficients[,4]
+
+# 2SLS
+summary(first_stage <- ivreg(reg_formula("likely_solidarity > 0", c("info_solidarity", control_variables[-11])), data = e, weights = weight))
+summary(iv_model <- ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)", control_variables[-11])), instruments = reg_formula("", c("info_solidarity", control_variables[-11])), data = e, weights = weight)) 
+(effF <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = control_variables[-11], weights = "weight")) # 67
+ols_model <- lm(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)", control_variables[-11])), data = e, weights = weight)
+ols_model_wo_control <- lm(share_solidarity_supported ~ (likely_solidarity > 0), data = e, weights = weight)
+summary(direct_effect <- lm(reg_formula("share_solidarity_supported", c("info_solidarity", control_variables[-11])), data = e, weights = weight)) 
+stargazer(first_stage, iv_model, ols_model, ols_model_wo_control, direct_effect, 
+          se = lapply(c("first_stage", "iv_model", "ols_model", "ols_model_wo_control", "direct_effect"), function(m) sqrt(diag(vcovHC(eval(str2expression(m)), type = "HC1")))),
+          column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
+          keep.stat = c("n", "rsq"), label = "tab:iv", dep.var.caption = "", 
+          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistr. likely", "(Intercept)"), keep = c("solidarity", "Constant"),
+          type = "latex", style = "default", out = "../tables/IV_warm_glow.tex", float = FALSE,
+          title = "Effect on support for global redistribution of believing that it is likely.", omit.table.layout = "n", 
+          # notes = "\\textit{Note:} Robust standard errors are in parentheses. \\hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
+          add.lines = list(c("Controls: sociodemos and vote", "\\checkmark", "\\checkmark", "\\checkmark", "", "\\checkmark"), 
+                           c("Effective F-statistic", sprintf("%.2f", effF), "", "", "", "")))  
 
 # ## Representativeness
 representativeness_table(c("All", "Eu", "EU"))

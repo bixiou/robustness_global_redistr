@@ -774,7 +774,7 @@ define_var_lists <- function() {
   variables_socio_demos <<- c(variables_quotas_base, "millionaire_agg", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   variables_sociodemos <<- c("man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "region_factor", "millionaire_factor", "couple", "employment_agg", "vote_factor") # add "hh_size", "owner", "wealth_factor", "donation_charities"?
   control_variables <<- c("vote_factor", "man", "age_factor", "income_factor", "education_factor", "urbanity_factor", "millionaire_factor", "couple", "employment_agg", "foreign_born", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
-  control_variables_lmg <<- c("vote_factor", "voted", "well_being", "gender", "age_exact", "income", "education_original", "urbanity_factor", "millionaire", "couple", "employment_status", "foreign", "hh_size", "Nb_children__14", "owner", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
+  control_variables_lmg <<- c("vote_factor", "voted", "well_being", "gender", "age_exact", "income_decile", "education_original", "urbanity_factor", "millionaire", "couple", "employment_status", "foreign", "hh_size", "Nb_children__14", "owner", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   control_variables_lmg_few <<- c("vote_factor", "gender", "age", "income_factor", "education_factor", "urbanity_factor", "millionaire_agg", "country_name", "country_region") # add "hh_size", "owner", "wealth_factor", "donation_charities"? "region_factor", "region_factor:country"
   variables_politics <<- c("voted", "vote", "vote_agg", "group_defended")
   variables_vote <<- c("voted", "voted_original", "vote_original", "vote", "vote_agg", "vote_agg_factor", "vote_factor", "vote_voters", "vote_group", "vote_major", "vote_major_voters", "vote_major_candidate", "vote_leaning")
@@ -1128,7 +1128,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     e$voted <- e$voted %in% "Yes"
     e$vote_original <- e[[paste0("vote_", country)]]
     label(e$vote_original) <- "vote_original: Vote (if voted) or closest candidate (if !voted) in last election."
-    e$vote_agg <- ifelse(e$vote_original %in% c("Prefer not to say", "Other"), -1, votes[[country]][e$vote_original, "leaning"]) # PNR, Other as -1
+    e$vote_agg <- ifelse(e$vote_original %in% c("Prefer not to say", "Other", NA), -1, votes[[country]][e$vote_original, "leaning"]) # PNR, Other as -1
     e$vote_leaning <- ifelse(e$vote_original == "Other", NA, e$vote_agg) # PNR as -1, Other as NA
     label(e$vote_leaning) <- "vote_leaning: ifelse(vote_original == Other, NA, vote_agg)"
     e$vote_major_candidate <- votes[[country]][sub("Prefer not to say", "Other", e$vote_original), "major"] %in% 1
@@ -1232,8 +1232,9 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   e$millionaire_factor <- factor(e$millionaire_agg)
   if ("urbanity" %in% names(e)) e$urbanity_factor <- e$urbanity_na_as_city <- no.na(factor(e$urbanity), rep = "NA")
+  else e$urbanity_factor <- "NA"
   e$education_factor <- factor(e$education)
-  e$income_factor <- factor(e$income_quartile)
+  e$income_factor <- no.na(factor(e$income_quartile), rep = "NA")
   if ("region" %in% names(e)) e$region_factor <- no.na(factor(e$region), rep = "NA")
   if ("region" %in% names(e)) e$region_factor[e$region_factor == "0"] <- "NA"
   if ("region" %in% names(e)) e$country_region <- paste(e$country, e$region_factor)
