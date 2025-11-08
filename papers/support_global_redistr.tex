@@ -82,8 +82,8 @@
 \newenvironment{stretchpars}{\par\setlength{\parfillskip}{0pt}}{\par} % to justify a line
 
 \newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
-\newcommand\citeRt[1]{\citeauthor{#1} (\citeyear{#1})}
-\newcommand\citeRp[1]{(\citeauthor{#1} \citeyear{#1})}
+\newcommand\cite[1]{\citeauthor{#1} (\citeyear{#1})}
+\newcommand\citep[1]{(\citeauthor{#1} \citeyear{#1})}
 \newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
 \defaultbibliographystyle{plainnaturl_clean}
 \defaultbibliography{global_tax_attitudes}
@@ -174,17 +174,6 @@ Support for international policies decreases only slightly as country coverage s
 %\clearpage
 \begin{bibunit}
 
-
-% Throughout the paper, I use the term acceptance to refer to positive responses to survey items phrased in terms of support. This better captures the idea of passive consent rather than active demand.
-% TODO!! support or acceptance? =>
-% Demand: active mobilization
-% Preference: the policy is favored to alternatives (by a majority)
-% Support: absolute support
-% Acceptance: relative (= conditional) support. Also used for binary questions as acceptance would be closest in terms of result adding a neutral option. => I could also use support, sticking to question wording (pro: consistent with figures)
-% Tolerance/Assent: non-opposition (support + indifference)
-% Net support: support minus opposition
-% => I stick to the above terminology for specific questions; when I talk about overall survey results I use acceptance rather than support
-
 \section{Introduction}\label{sec:intro}% AER
 
 The development gap between the Global North and the Global South is central in 
@@ -209,19 +198,31 @@ by policymakers. % seldom embraced by policymakers or even activists in HICs.
 \cite{fabre_majority_2025} conduct survey experiments in the U.S. and four Western European countries to understand this mismatch, focusing on a ``Global Climate Scheme'' (GCS) costly to these countries. The authors reject hypotheses that support for the GCS might be overstated: they find no social desirability bias in a list experiment, 6 out of 10 respondents prefer a political program that includes the GCS over one that does not, and most respondents are willing to sign a petition in favor of the GCS. % or may vanish in case of a negative media cam*-+*paign. 
 % TODO: more figures pro global redistr before instead of giving so prominently a counterargument here
 While the authors find support reduced by 11 percentage points (p.p.) following a (fictitious) negative media campaign --- an effect size similar to the actual decrease in support for the ``Green New Deal'' after it was publicly debated \citep{gustafson_development_2019} --- a campaign effect of this magnitude would not generate majority opposition to policies favored by three-quarters of the population, such as a globally redistributive wealth tax. Therefore, \cite{fabre_majority_2025} conclude that support for global redistribution is genuine, %and their tests cannot fully explain why this topic is not more prominent in public debates. 
-and another hypothesis is needed to explain the lack of prominence of this issue. A promising candidate is ``pluralistic ignorance'': the underestimation of public support. Indeed, pluralistic ignorance has been documented regarding costly climate action \citep{andre_misperceived_2024,andre_globally_2024}, the billionaire tax \citep{cappelen_majority_2025}, and the GCS \citep{fabre_majority_2025}. 
+and another hypothesis is needed to explain the lack of prominence of this issue. A promising candidate is ``pluralistic ignorance'': the underestimation of public support. Indeed, pluralistic ignorance has been documented regarding %costly 
+climate action \citep{andre_misperceived_2024,andre_globally_2024,mildenberger_beliefs_2019}, the billionaire tax \citep{cappelen_majority_2025}, and the GCS \citep{fabre_majority_2025}. 
 Nevertheless, pluralistic ignorance has not prevented climate policies or a national wealth tax from entering public debates, suggesting that other mechanisms may be at play concerning global redistribution. 
-% Main cites: Vlasceanu, -Ghassim, -Cappelen, Dannenberg 2010 (negotiators' equity pref), -Boneva (both), -Gustafson, -Enke, Fehr, Carattini, Mildenberger, -Dechezlepretre, (Meilland, Beiser-McGrath 19,) Young-Brun, MacKay, Bechtel & Scheve, -Toews TODO!!
+% Main cites: Vlasceanu, -Ghassim, -Cappelen, Dannenberg 2010 (negotiators' equity pref), -Boneva (both), -Gustafson, -Enke, Fehr, Carattini, -Mildenberger, -Dechezlepretre, (Meilland, Beiser-McGrath 19,) Young-Brun, MacKay, Bechtel & Scheve, -Toews TODO!!
 % Foreign affairs North/South divide, with question of transfers at the forefront . 1% of HIC GDP could double LICs. 
 % Puzzle: majority support for global redistr yet seldom mentioned, let alone enacted; cite NHB, global>national for climate, Ghassim, Cappelen
 
 In this paper, I conduct a pre-registered large-scale survey to examine whether global redistribution policies are robustly accepted and to investigate the reasons for their lack of prominence. I test several hypotheses. Surveying eleven HICs, I test whether international policies are accepted by majorities in countries considered conservative and not yet surveyed on this topic, such as Japan, Poland, Russia, Saudi Arabia, and Switzerland. Recognizing that some key countries would likely not participate if these policies were implemented, I test how acceptance is affected when a climate scheme or a wealth tax is international but not truly global. I also test for pluralistic ignorance. I analyze the salience of global redistribution, and whether it is a vote-determining issue. I test for ``warm glow'', whereby people delude themselves into supporting hypothetical policies in order to ease their conscience, notably by testing whether the support is only claimed for as long as the policies are deemed unlikely. Finally, I explore a variety of international policies, ranging from the plausible to the radical. % TODO: rewrite to problematize, see e.g. grant proposal
 % Hypotheses: warm glow, salience, pluralistic ignorance, non-global or new countries
 
-% TODO relative support => acceptance?
-The results confirm earlier studies: I find majority acceptance in every country surveyed for almost all globally redistributive policies tested. Policies currently discussed in international negotiations are accepted by large majorities. The most supported policy is the 2\% tax on billionaire wealth proposed by \cite{zucman_blueprint_2024}, with 81\% relative support (in the pooled sample, among non-\textit{Indifferent} responses). Proposals such as debt relief for vulnerable countries, developed countries contributing 0.7\% of their GDP in foreign aid, an expansion of the UN Security Council, or the Bridgetown initiative (expanding sustainable investments at low interests rates in LICs) all garner at least 70\% relative support overall. 
+Throughout the paper, I make a distinction between \textit{support} and \textit{acceptance}. I use the term \textit{support} to refer to the absolute share of \textit{Somewhat} or \textit{Strong support} on Likert scales, and \textit{acceptance} to refer to relative support --- specifically, the support share among non-\textit{Indifferent} responses. Although binary (\textit{Yes}/\textit{No}) questions are typically worded in terms of ``support'', I generally report their results using the term \textit{acceptance}. This approach avoids mistaking passive consent for active support among respondents who could not choose a neutral option. 
+% Throughout the paper, I use the term \textit{acceptance} to refer to positive responses to survey items phrased in terms of support. This better captures the idea of passive consent rather than active demand.
+% TODO!! support or acceptance? =>
+% Demand: active mobilization
+% Preference: the policy is favored to alternatives (by a majority)
+% Support: absolute support
+% Acceptance: relative (= conditional) support. Also used for binary questions as acceptance would be closest in terms of result adding a neutral option. => I could also use support, sticking to question wording (pro: consistent with figures)
+% Tolerance/Assent: non-opposition (support + indifference)
+% Net support: support minus opposition
+% => I stick to the above terminology for specific questions; when I talk about overall survey results I use acceptance rather than support
 
-Radical proposals are also widely accepted. Majorities in every country agree that ``governments should actively cooperate to have all countries converge in terms of GDP per capita by the end of the century'', and that globally coordinated climate policies are preferable to the status quo, even if they entail completely electrifying cars by 2045 and doubling the prices of heating fuel, flights, and red meat. Overall, I find 64\% relative support for a progressive income tax that would collect 5\% of world income from the global top~3\% to finance poverty reduction in the Global South, with tax rates ranging from 15\% above \$80,000 per year to 45\% above \$1 million. Relatedly, in an interactive task where respondents design their preferred global income redistribution, nearly half choose a redistribution that would make them poorer (versus less than 10\% choosing one that would make them richer). The average custom redistribution entails over 5\% of world income in transfers from the rich to the poor. 
+% TODO relative support => acceptance?
+The results confirm earlier studies: I find majority acceptance in every country surveyed for almost all globally redistributive policies tested. Policies currently discussed in international negotiations are accepted by large majorities. The most supported policy is the 2\% tax on billionaire wealth proposed by \cite{zucman_blueprint_2024}, with 81\% acceptance in the pooled sample. Proposals such as debt relief for vulnerable countries, developed countries contributing 0.7\% of their GDP in foreign aid, an expansion of the UN Security Council, or the Bridgetown initiative (expanding sustainable investments at low interests rates in LICs) all garner at least 70\% acceptance overall. 
+
+Radical proposals are also widely accepted. Majorities in every country agree that ``governments should actively cooperate to have all countries converge in terms of GDP per capita by the end of the century'', and that globally coordinated climate policies are preferable to the status quo, even if they entail completely electrifying cars by 2045 and doubling the prices of heating fuel, flights, and red meat. Overall, I find 64\% acceptance for a progressive income tax that would collect 5\% of world income from the global top~3\% to finance poverty reduction in the Global South, with tax rates ranging from 15\% above \$80,000 per year to 45\% above \$1 million. Relatedly, in an interactive task where respondents design their preferred global income redistribution, nearly half choose a redistribution that would make them poorer (versus less than 10\% choosing one that would make them richer). The average custom redistribution entails over 5\% of world income in transfers from the rich to the poor. 
 
 Before respondents could infer the survey's topic, they had to complete a budget allocation task and a conjoint experiment. When asked to allocate the revenue from a %hypothetical 
 global wealth tax among five spending items, 87\% of respondents allocate a positive amount to the global item (public services in LICs). This item receives an average preferred share of 17.5\% of the revenue, slightly below an equal split of 20\%. %This indicates that most people attach to sustainable development abroad a priority lower than for the average issue, but non-zero. 
@@ -232,7 +233,7 @@ While policies to address global inequality are widely accepted, they have low s
 
 Despite its low salience, global redistribution may be a vote-determining issue, as %indicated by % revision
 the conjoint experiment suggests. 
-In this task, respondents express their preference between two political programs, each composed of policies randomly selected from those prominently debated in their country. When a program includes a \textit{global tax on millionaires with 30\% of the revenue funding LICs}, the likelihood of that program being preferred increases by 4~p.p., while \textit{cutting development aid} reduces it by 4~p.p.  A direct question confirms that some voters might change their vote intention if a candidate campaigned on sustainable development: 36\% of respondents report they would be more likely (versus 17\% less likely) to vote for a party if it participated in a global movement for climate action, taxes on millionaires, and poverty reduction in LICs. In a related question, 68\% of respondents (and 52\% of the 561 millionaires who responded) state they could actively support such a movement (either by signing a petition, attending a demonstration, going on strike, or donating to a strike fund). 
+In this task, respondents express their preference between two political programs, each composed of policies randomly selected from those prominently debated in their country. When a program includes a \textit{global tax on millionaires with 30\% of the revenue funding LICs}, the likelihood of that program being preferred increases by 4~p.p., while \textit{cutting development aid} reduces it by 4~p.p.  A direct question confirms that some voters might change their vote intention if a candidate campaigned on sustainable development: 36\% of respondents report they would be more likely (versus 17\% less likely) to vote for a party if it participated in a global movement for climate action, taxes on millionaires, and poverty reduction in LICs. In a related question, 68\% of respondents (and 52\% of the 561 millionaires who responded) state they could actively participate in such a movement (either by signing a petition, attending a demonstration, going on strike, or donating to a strike fund). 
 
 What if a sustainable development policy is international but not global? Acceptance decreases only slightly. In the case of a wealth tax with 30\% of revenue financing LICs, acceptance is reduced from 74\% to 68\% when the policy is implemented only by some countries (e.g. the EU, the UK, and Brazil) rather than all countries. Likewise, acceptance of an International Climate Scheme (ICS), defined as a cap-and-trade with equal per capita allocation of emissions rights, decreases from 68\% to 65\% when participating countries shrink from a group covering 72\% of world emissions to one covering 33\% of emissions.
 
@@ -272,23 +273,40 @@ nearly as predictive of vote choice as party identification.
 In this paper, I examine support for various policies, approach the question from diverse angles, and run a battery of pre-registered tests to check % assess, ascertain, confirm, corroborate, validate
 the reliability of stated support estimates.
 
-% TODO?
-% distingo acceptance/support + finding that there is acceptance but no demand/salience
+
+ % TODO!! 
 % literature:
+% Eurobarometer data shows %strong agreement 
+% that foreign aid is a moral obligation and majority support to comply with the promise to increase aid \citep{cho_ideology_2024}. 
+
+% \cite{kaufmann_foreign_2019} find that perceived aid is overestimated in each of the 24 countries they study, on average by a factor of 7. In most countries, desired aid is larger than perceived aid. They show that individuals in the top income quintile desire aid 0.13 p.p. lower than those in the bottom 40\% -- which is very close to what we find. % TODO: ref to our regression
+% By employing a theoretical model and examining correlations between lobbying and actual aid (controling for desired aid), they argue that the gap between actual and desired aid stems from the political influence of the rich who defend their vested interests. \cite{gilens_political_2001} shows that even Americans with high political knowledge misperceive actual aid, and finds that 17\% fewer of them want to cut aid when we provide them specific information about the amount of aid. % same for Hurst et al
+% Similarly, \cite{nair_misperceptions_2018} finds that the relatively low support for aid in the U.S. is driven by information on global distribution, as people underestimate their rank by 27 centiles on average and overestimate the global median income by a factor 10.
+
+% \cite{hudson_mile_2012} provide a critical review of the literature and show that the strong support for poverty alleviation largely stems from intrinsic altruism.\cite{bauhr_does_2013} find that support for aid is reduced by the perception of corruption in recipient countries. However, this effect is mitigated by the aid-corruption paradox: countries with higher levels of corruption often need more help. %TD: `` most corrupt countries need more help.'' does not sound right to me, because ``most->more'' should be ``more->more''.
+% \cite{bodenstein_who_2017} further show that right-wing Europeans, as well as those who perceive strong corruption in their country, are more likely to agree that recipient countries should ``follow certain rules regarding democracy, human rights and governance as a condition for receiving EU development aid.'' 
+% Using a 2002 Gallup survey and the 2006 World Values Survey, and in line with \cite{heinrich_voters_2018} in the U.S., \cite{paxton_individual_2012} show that the main determinants for wanting more aid are trust, left-wing ideology, interest in politics, and being a woman (all positively associated). 
+
+% Despite the long-standing explanation of the lack of climate action as a result of free-riding, surveys consistently show that people support climate mitigation action in their own country, even in the absence of such action in other countries. \cite{bernauer_how_2015} show this for Americans and Indians, who both overestimate their country's emissions at one third of the global total. \cite{beiser-mcgrath_commitment_2019} show this in the U.S. and China using an experimental design. \cite{mcevoy_prospects_2016} show that Americans mostly invoke leadership and morality to justify unilateral climate action. Using a range of methods, \cite{aklin_prisoners_2020} show that the empirical evidence for free-riding is not compelling, and that climate inaction can be equally well explained by distributive conflicts. Finally, review of the literature by \cite{mcgrath_how_2017} shows that climate attitudes are largely nonreciprocal, and primarily driven by values and perceptions of the policies, rather than by considerations of what other countries do.
+
+% \cite{dannenberg_equity_2010} elicit climate negotiators' equity preferences and find that regional differences in addressing climate change are driven more by national interests than by different equity concerns. 
+
+\paragraph{Related literature.} 
+There is a burgeoning literature on public attitudes toward global policies \citep{cappelen_majority_2025,fabre_majority_2025} or global governance \citep{ghassim_who_2024}. 
 
 % foreign aid: revision?
-% 6 conservative bias: Pilet, Broockman + paper saying not well represented in climae agreements
-% 6 negotiators defend country interest: Dannenberg 2010
-% 0 attitudes global pol: Carattini 19, Fehr, 
-% 3.1 tax & dividend: Mildenberger 22
-% 0+3.1 country coverage: Sivonen, Gamfer, Bechtel & Scheve, Beiser & Bernauer Could revenue, Beiser & Bernauer Commitment,
+% 0 attitudes global pol: Carattini 19 AER, Fehr,
 % 0+3.1 unilateral/free-riding: Bernauer & Gampfer, Carlsson, Aklin, 
-% 3.1 or App sources, global price: MacKay, young-brun
+% 0+3.1 country coverage: Sivonen, Gamfer, Bechtel & Scheve, Beiser & Bernauer Could revenue, Beiser & Bernauer Commitment, 
 % 0+3.1 pluralistic ignorance: Mildenberger & Tingley 19, Bursztyn
 % 0+4.1 conjoint: Bergquist 20, 
 % 0 review attitudes: Carattini 18, 
 % 0? behavior interventions: Vlasceanu, 
 % 0+5.2 universalism: Cappelen (global rates and correlates), Enke 20 (linked with Dems), Enke 24 (stronger predictor than sociodemographics)
+% 6 conservative bias: Schleich 28-13% find their personal position well represented at international climate negotiations
+% 6 negotiators defend country interest: Dannenberg 2010
+% 3.1 tax & dividend: Mildenberger 22
+% 3.1 or App sources, global price: MacKay, young-brun
 
 % Another methodological novelty is the interactive...
 % Method: interactivity, possibility to measure preferences
@@ -364,6 +382,10 @@ Then follow attitudinal questions about the main policies studied: a \textit{Cli
 The final part of the questionnaire explores attitudes towards more radical global redistribution scenarios and includes more sophisticated questions, such as an interactive task in which respondents can choose their preferred custom redistribution of global incomes by manipulating sliders. 
 
 The survey concludes with a comprehension question, synthetic questions (e.g. regarding one's moral circle), and a feedback field.
+
+% \paragraph{Acceptance versus Support.} 
+
+% Throughout the paper, I make a distinction between \textit{support} and \textit{acceptance}. I use the term \textit{support} to refer to the absolute share of \textit{Somewhat} or \textit{Strong support} on Likert scales, and \textit{acceptance} to refer to relative support --- specifically, the support share among non-\textit{Indifferent} responses. Although binary (\textit{Yes}/\textit{No}) questions are typically worded in terms of ``support'', I generally report their results using the term \textit{acceptance}. This approach avoids mistaking passive consent for active support among respondents who could not choose a neutral option.
 
 \paragraph{Pre-registered Hypotheses and Data Availability.}
 The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and %is approved by IRB at Harvard University (IRB21-0137), and 
@@ -722,7 +744,7 @@ Knowing that some internationally redistributive policies are sincerely supporte
 
 \paragraph{Plausible Global Policies.}
 
-Figure \ref{fig:solidarity_support_share} reveals the acceptance of plausible global policies, i.e. the share of \textit{Somewhat} or \textit{Strong support} among non-\textit{Indifferent} answers. % TODO? (also known as relative support)
+Figure \ref{fig:solidarity_support_share} reveals the acceptance of plausible global policies. %, i.e. the share of \textit{Somewhat} or \textit{Strong support} among non-\textit{Indifferent} answers. % TODO? (also known as relative support)
 These policies are deemed ``plausible'' because they are debated in international organizations, as detailed in Appendix~\ref{subsec:plausible_policies_sources}. Almost every policy garners majority acceptance % TODO? relative majority support?
 in each country. The only exception is the acceptance among Japanese respondents of a globally redistributive tax on carbon emissions from aviation, at 46\%. 
 This proposal has the most salient cost: a 30\% increase in flight prices. It is the least % absolute
@@ -733,7 +755,7 @@ in every country, are the 2\% minimum tax on billionaires' wealth proposed by \c
 
 % # 8. solidarity_support (on control): heatmap \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}
 \begin{figure}[h!] % TODO? relative support => acceptance?
-    \caption[Relative support for plausible global redistribution policies]{Relative support for plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). See Figure~\ref{fig:solidarity_support_positive} for the absolute support. (Question \ref{q:solidarity_support}).
+    \caption[Acceptance of plausible global redistribution policies]{Acceptance of plausible global redistribution policies (Percentage of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} responses). See Figure~\ref{fig:solidarity_support_positive} for the absolute support. (Question \ref{q:solidarity_support}).
     }\label{fig:solidarity_support_share}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}} 
 \end{figure}
