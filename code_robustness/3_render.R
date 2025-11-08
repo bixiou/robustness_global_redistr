@@ -82,7 +82,7 @@
   "gcs_belief_own" = "Belief about GCS support in own country",
   "gcs_belief_us" = "\nBelief about GCS support in the U.S.\n(except for the U.S.: support in the EU)",
   "ncs_support" = "Supports the National Climate Scheme", 
-  "ics_support" = "Supports int'l climate scheme (any variant)",
+  "ics_support" = "Supports Int'l Climate Scheme (any variant)",
   "ics_high_color_support" = "$ atop('     Supports the GCS if its other members* cover 64-72% of world emissions',          
                                      '*' * bold('High color') * ': High + Distributive effects displayed using colors on world map')", 
   "ics_high_support" = "$ atop('                    Supports the GCS if its other members* cover 64-72% of world emissions', 
@@ -476,13 +476,14 @@ barres_multiple(barres_defs[c("custom_redistr_winners_agg", "custom_redistr_lose
 for (l in c("_manual", "_keyword", "_gpt")) for (v in unique(all$variant_field)) heatmap_multiple(heatmaps_defs[paste0("field", l)], data = all[all$variant_field == v,], name = paste0("field_", v, l))
 
 ## Radical Redistr
-global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = ">= 1")
-global_nation <- global_nation/(global_nation+heatmap_table(vars = heatmaps_defs[["radical_redistr_few"]]$vars, labels = heatmaps_defs[["radical_redistr_few"]]$labels, along = "country_name", data = all, levels = levels_default, weights = F, conditions = "<= -1"))
-global_nation <- rbind(global_nation, c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023))
-row.names(global_nation)[6] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
-save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/radical_redistr_main")
+global_nation <- heatmap_table(vars = heatmaps_defs[["radical_redistr_all"]]$vars, labels = heatmaps_defs[["radical_redistr_all"]]$labels, along = "country_name", data = all, levels = levels_default, conditions = "/")
+global_nation[9,] <- c(wtd.mean(all$my_tax_global_nation_2023, all$weight, na.rm = T), wtd.mean(all$my_tax_global_nation_2023, all$weight * all$country_name %in% countries_Eu, na.rm = T), my_taxes_global_nation_2023)
+row.names(global_nation)[9] <- "\"My taxes ... global problems\" (Global Nation, 2023)" # 2024
+save_plot(as.data.frame(global_nation), filename = "../xlsx/country_comparison/radical_redistr_all_share")
+pdf("../figures/country_comparison/radical_redistr_all_share.pdf", width = 1150/72, height = 500/72)
 heatmap_plot(global_nation, proportion = T, percent = T)
-save_plot(filename = "country_comparison/radical_redistr_main", width = 1550, height = 500, format = "pdf", trim = T)
+# save_plot(filename = "country_comparison/radical_redistr_all_share", width = 1550, height = 500, format = "pdf")
+invisible(dev.off())
 
 ## Vote Representativeness
 vote_by_country_pnr_out <- dataNK("vote", df = c(list(all[all$country_name %in% countries_EU,]), lapply(countries[c(1:8,11)], function(c) d(c))), miss=F, weights = T, rev=F, weight_non_na = F)[c(2:4,1),]

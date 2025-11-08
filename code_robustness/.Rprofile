@@ -1616,7 +1616,7 @@ heatmap_plot <- function(data, type = "full", p.mat = NULL, proportion = T, perc
         tl.cex = 1.3, na.label = "NA", number.cex = 1.3, mar = c(1,1,1.3,3), cl.pos = 'n', col.lim = color_lims, number.digits = nb_digits, p.mat = p.mat,
         sig.level = 0.01, diag=diag, tl.srt=35, tl.col='black', insig = 'blank', addCoef.col = 'black', addCoefasPercent = (proportion | percent), type=type, is.corr = F)  #  cl.pos = 'n' removes the scale # cex # mar ...1.1
 }
-heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", variant_weight = NULL, # on_control = FALSE, alphabetical = T,
+heatmap_table <- function(vars, labels = vars, data = e, along = "country_name", levels = NULL, conditions = ">= 1", variant_weight = NULL, accept_not_support = T, # on_control = FALSE, alphabetical = T,
                           export_xls = T, filename = "", sort = FALSE, folder = NULL, weights = T, weight_non_na = T, remove_na = T, transpose = FALSE) {
   # The condition must work with the form: "data$var cond", e.g. "> 0", "%in% c('a', 'b')" work
   # /!\ We exclude NA before computing the stat. TODO: allow to not exclude NAs
@@ -1689,6 +1689,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
         if (weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("wtd.mean(var_c", conditions[v], ", na.rm = T, weights = df_c$weight[!is.na(df_c[[vars[v]]])])")))
         if (!weights & length(var_c) > 0) table[v,c] <- eval(str2expression(paste("mean(var_c", conditions[v], ", na.rm = T)")))
       }
+      if (accept_not_support & conditions[v] %in% c(">= 0", "/", "//") & any(e[[vars[v]]] < 0, na.rm = T)) row.names(table)[v] <- gsub("Support", "Accept", row.names(table)[v])
       # if (vars[v] %in% c("gcs_support", "nr_support", "gcs_support_100")) df_c <- temp
     }
   }
@@ -1700,7 +1701,7 @@ heatmap_table <- function(vars, labels = vars, data = e, along = "country_name",
 }
 heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)), along = "country_name", labels_along = NULL, levels = NULL,
                             conditions = c("", ">= 1", "/"), conditions_vars = NULL, data = e, width = NULL, height = NULL, #alphabetical = T, on_control = FALSE,
-                            export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T,
+                            export_xls = T, format = 'pdf', sort = FALSE, proportion = NULL, percent = FALSE, nb_digits = NULL, trim = T, accept_not_support  = T,
                             colors = 'RdYlBu', folder = NULL, weights = T, weight_non_na = T, save = T, variant_weight = NULL) {
   # width: 1770 to see Ukraine (for 20 countries), 1460 to see longest label (for 20 countries), 800 for four countries.
   # alternative solution to see Ukraine/labels: reduce height (e.g. width=1000, height=240 for 5 rows). Font is larger but picture of lower quality / more pixelized.
@@ -1730,7 +1731,7 @@ heatmap_wrapper <- function(vars, labels = vars, name = deparse(substitute(vars)
                                 cond == "//" ~ "share_strict", # to use when no one gave a negative answer though it was an option
                                 TRUE ~ "unknown"), sep = "_")
     tryCatch({
-      temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = if (is.null(conditions_vars)) cond else conditions_vars, sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight)
+      temp <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = if (is.null(conditions_vars)) cond else conditions_vars, sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight, accept_not_support = accept_not_support)
       # if (cond %in% c("/", "-", "//")) {
       #   pos <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = ">= 1", sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight) # on_control = on_control, alphabetical = alphabetical,
       #   neg <- heatmap_table(vars = vars, labels = labels, data = data, along = along, levels = levels, conditions = "<= -1", sort = FALSE, weights = weights, weight_non_na = weight_non_na, variant_weight = variant_weight) # on_control = on_control, alphabetical = alphabetical,
