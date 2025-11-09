@@ -81,10 +81,10 @@
 \renewcommand{\floatpagefraction}{.99}
 \newenvironment{stretchpars}{\par\setlength{\parfillskip}{0pt}}{\par} % to justify a line
 
-\newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
-\newcommand\cite[1]{\citeauthor{#1} (\citeyear{#1})}
-\newcommand\citep[1]{(\citeauthor{#1} \citeyear{#1})}
-\newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
+% \newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
+% \newcommand\cite[1]{\citeauthor{#1} (\citeyear{#1})}
+% \newcommand\citep[1]{(\citeauthor{#1} \citeyear{#1})}
+% \newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
 \defaultbibliographystyle{plainnaturl_clean}
 \defaultbibliography{global_tax_attitudes}
 % \sloppy
@@ -273,31 +273,33 @@ nearly as predictive of vote choice as party identification.
 In this paper, I examine support for various policies, approach the question from diverse angles, and run a battery of pre-registered tests to check % assess, ascertain, confirm, corroborate, validate
 the reliability of stated support estimates.
 
+\paragraph{Related literature.} 
+Previous cross-country surveys consistently find strong public support for globally redistributive policies \citep{cappelen_majority_2025,fabre_majority_2025} or global democratic governance \citep{ghassim_who_2024}. % re-cite universalism?
 
- % TODO!! 
-% literature:
-% Eurobarometer data shows %strong agreement 
-% that foreign aid is a moral obligation and majority support to comply with the promise to increase aid \citep{cho_ideology_2024}. 
+Although it focuses on multilateral policies, the paper relates to the literature on attitudes toward foreign aid. \cite{kaufmann_foreign_2019} and \cite{fabre_majority_2025} find, that despite an important overestimation of the amount of aid, desired aid is larger than perceived aid in most countries. \cite{hudson_mile_2012} provide a critical review of the literature and show that the strong support for poverty alleviation largely stems from intrinsic altruism, in line with Eurobarometer data \citep{cho_ideology_2024}. 
 
-% \cite{kaufmann_foreign_2019} find that perceived aid is overestimated in each of the 24 countries they study, on average by a factor of 7. In most countries, desired aid is larger than perceived aid. They show that individuals in the top income quintile desire aid 0.13 p.p. lower than those in the bottom 40\% -- which is very close to what we find. % TODO: ref to our regression
-% By employing a theoretical model and examining correlations between lobbying and actual aid (controling for desired aid), they argue that the gap between actual and desired aid stems from the political influence of the rich who defend their vested interests. \cite{gilens_political_2001} shows that even Americans with high political knowledge misperceive actual aid, and finds that 17\% fewer of them want to cut aid when we provide them specific information about the amount of aid. % same for Hurst et al
-% Similarly, \cite{nair_misperceptions_2018} finds that the relatively low support for aid in the U.S. is driven by information on global distribution, as people underestimate their rank by 27 centiles on average and overestimate the global median income by a factor 10.
+\cite{nair_misperceptions_2018} finds that US-Americans underestimate their rank by 27 percentiles on average and overestimate the global median income by a factor 10, lowering their support for foreign aid. Likewise, \cite{fehr_your_2022} finds that 9 out of 10 Germans want global redistribution, even though respondents underestimate their relative position in the global income distribution by an average of 15 percentiles. %, although they do not misperceive their rank in the national distribution on average. 
 
-% \cite{hudson_mile_2012} provide a critical review of the literature and show that the strong support for poverty alleviation largely stems from intrinsic altruism.\cite{bauhr_does_2013} find that support for aid is reduced by the perception of corruption in recipient countries. However, this effect is mitigated by the aid-corruption paradox: countries with higher levels of corruption often need more help. %TD: `` most corrupt countries need more help.'' does not sound right to me, because ``most->more'' should be ``more->more''.
-% \cite{bodenstein_who_2017} further show that right-wing Europeans, as well as those who perceive strong corruption in their country, are more likely to agree that recipient countries should ``follow certain rules regarding democracy, human rights and governance as a condition for receiving EU development aid.'' 
-% Using a 2002 Gallup survey and the 2006 World Values Survey, and in line with \cite{heinrich_voters_2018} in the U.S., \cite{paxton_individual_2012} show that the main determinants for wanting more aid are trust, left-wing ideology, interest in politics, and being a woman (all positively associated). 
-
-% Despite the long-standing explanation of the lack of climate action as a result of free-riding, surveys consistently show that people support climate mitigation action in their own country, even in the absence of such action in other countries. \cite{bernauer_how_2015} show this for Americans and Indians, who both overestimate their country's emissions at one third of the global total. \cite{beiser-mcgrath_commitment_2019} show this in the U.S. and China using an experimental design. \cite{mcevoy_prospects_2016} show that Americans mostly invoke leadership and morality to justify unilateral climate action. Using a range of methods, \cite{aklin_prisoners_2020} show that the empirical evidence for free-riding is not compelling, and that climate inaction can be equally well explained by distributive conflicts. Finally, review of the literature by \cite{mcgrath_how_2017} shows that climate attitudes are largely nonreciprocal, and primarily driven by values and perceptions of the policies, rather than by considerations of what other countries do.
+Finally, the paper contributes to strands of literature which analyzes dispositions towards free-riding on climate action and how support for climate agreements depends on their country coverage. 
+Using conjoint analyses in Western countries, 
+\cite{bechtel_mass_2013} and % AER revision
+\cite{beiser-mcgrath_could_2019} show that a climate agreement with larger country coverage are %15 p.p. 
+more likely to be preferred. In Germany and the U.S., \cite{gampfer_obtaining_2014} also find stronger support for funding climate action in low-income countries when cost is shared with other countries. Nevertheless, surveys consistently show that people support unilateral climate action in their country, even in the absence of such action in other countries \citep{bernauer_how_2015,mcgrath_how_2017,beiser-mcgrath_commitment_2019%,sivonen_attitudes_2022
+}. \cite{aklin_prisoners_2020} show that the empirical evidence for free-riding is not compelling, and that climate inaction can be equally well explained by distributive conflicts. Still, survey evidence indicates some degree of conditional cooperation: support for domestic climate action increases if other countries join forces \citep{carlsson_importance_2025}. 
+% TODO? cite fabre_majority_2025 as literature review
 
 % \cite{dannenberg_equity_2010} elicit climate negotiators' equity preferences and find that regional differences in addressing climate change are driven more by national interests than by different equity concerns. 
 
-\paragraph{Related literature.} 
-There is a burgeoning literature on public attitudes toward global policies \citep{cappelen_majority_2025,fabre_majority_2025} or global governance \citep{ghassim_who_2024}. 
+% TODO
+% literature:
+% By employing a theoretical model and examining correlations between lobbying and actual aid (controling for desired aid), they argue that the gap between actual and desired aid stems from the political influence of the rich who defend their vested interests. \cite{gilens_political_2001} shows that even Americans with high political knowledge misperceive actual aid, and finds that 17\% fewer of them want to cut aid when we provide them specific information about the amount of aid. % same for Hurst et al
+% \cite{hudson_mile_2012} provide a critical review of the literature and show that the strong support for poverty alleviation largely stems from intrinsic altruism. \cite{bauhr_does_2013} find that support for aid is reduced by the perception of corruption in recipient countries. However, this effect is mitigated by the aid-corruption paradox: countries with higher levels of corruption often need more help. %TD: `` most corrupt countries need more help.'' does not sound right to me, because ``most->more'' should be ``more->more''.
+% Using a 2002 Gallup survey and the 2006 World Values Survey, and in line with \cite{heinrich_voters_2018} in the U.S., \cite{paxton_individual_2012} show that the main determinants for wanting more aid are trust, left-wing ideology, interest in politics, and being a woman (all positively associated). 
 
 % foreign aid: revision?
 % 0 attitudes global pol: Carattini 19 AER, Fehr,
 % 0+3.1 unilateral/free-riding: Bernauer & Gampfer, Carlsson, Aklin, 
-% 0+3.1 country coverage: Sivonen, Gamfer, Bechtel & Scheve, Beiser & Bernauer Could revenue, Beiser & Bernauer Commitment, 
+% 0+3.1 country coverage: Sivonen, Gampfer, Bechtel & Scheve, Beiser & Bernauer Could revenue, Beiser & Bernauer Commitment, 
 % 0+3.1 pluralistic ignorance: Mildenberger & Tingley 19, Bursztyn
 % 0+4.1 conjoint: Bergquist 20, 
 % 0 review attitudes: Carattini 18, 
