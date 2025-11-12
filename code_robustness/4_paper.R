@@ -193,6 +193,7 @@ summary(lm(reg_formula("ics_support", c(variables_socio_demos, "!gcs_understood"
 # summary(lm(reg_formula("ics_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight, subset = !all$variant_ics %in% c("high_color"))) # -5***
 # summary(lm(reg_formula("ics_high_color_support", c(variables_socio_demos, "gcs_understood")), data = all, weights = weight)) # -2
 # summary(lm(ics_support ~ (variant_ics == "high_color"), data = all, weights = weight, subset = all$gcs_understood)) # -4***
+wtd.mean(sapply(countries, function(c) wtd.mean(d(c)$ncs_support > 0, d(c)$weight)) - c(0.440548811, .377372885, 0.715080473, 0.541907808, 0.578242322, 0.579737655, NA, 0.592091901, NA, NA, 0.529638041), adult_pop, na.rm = T) # 12pp Figure A5 of Dechezleprêtre et al. (2025), https://github.com/bixiou/intl_climate_attitudes/blob/main/xlsx/country_comparison/national_policies_new_share_countries.xlsx
 
 
 ##### 3.2 Wealth Tax Funding LICs #####
