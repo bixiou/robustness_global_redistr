@@ -1755,6 +1755,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   
   e$variant_wealth_tax <- e$wealth_tax_support <- NA
   for (v in variables_wealth_tax_support) e$variant_wealth_tax[!is.na(e[[v]])] <- sub("_tax_support", "", v)
+  e$variant_wealth_tax <- relevel(factor(e$variant_wealth_tax), "hic")
   for (v in variables_wealth_tax_support) e$wealth_tax_support[!is.na(e[[v]])] <- e[[v]][!is.na(e[[v]])] %in% "Yes"
   e <- create_item("wealth_tax_support", labels = c("No" = 0, "Yes" = 1), values = c(0, 1), missing.values = c("", NA), df = e)
   

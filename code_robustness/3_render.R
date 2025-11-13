@@ -456,6 +456,10 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+           covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 
 # 7. Warm glow 
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
