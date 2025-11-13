@@ -643,3 +643,34 @@ stargazer(sustainable_future_variant, transfer_how_cash_unconditional_order, why
                              "\\makecell{Preferred\\\\NCQG\\\\$\\geq\\$ 100$ bn}", "\\makecell{Pref. NCQG\\\\$\\geq\\$ 100$ bn\\\\(variant\\\\ \\textit{Short})}", "\\makecell{Supports\\\\a\\\\plausible\\\\policy}", "\\makecell{Allocates\\\\$\\geq 15\\%$ to\\\\spending\\\\item}"),
           covariate.labels = c("Scenario A = Sustainable", "Cash transfers first item", "Duty last item", "Correct answer first item", "Variant: \\textit{Short}", "Items in increasing order", "That item is the first one", "Order of the item: 2", "Order of the item: 3", "Order of the item: 4", "Order of the item: 5"),
           title = "Effect on answers of the random order of response items.") 
+
+
+##### O Supplementary Tables #####
+# Table S14 conjoint
+same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
+                    data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
+
+# Table S15 warm glow substitute
+same_reg_subsamples(dep.var = "gcs_support/100", dep.var.caption = "Supports the Global Climate Scheme", covariates = "variant_warm_glow", display_mean = T, along.levels = c("Europe", countries[-c(9,10)]), constant_instead_mean = T, model.numbers = F, 
+                    data_list = lapply(levels_plain[-c(11,12)], function(c) all[all$country_name %in% c(c, special_levels[[c]]$value) & all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU"),]), covariate.labels = c("Variant: Donation"), p_instead_SE = F, filename = "warm_glow_substitute", omit.note = T, mean_above = F)
+
+# Table S16 warm glow realism
+same_reg_subsamples(dep.var = "share_solidarity_supported", dep.var.caption = "Share of plausible policies supported", covariates = c("info_solidarity", control_variables[-11]), display_mean = T, along.levels = c("Europe", countries), constant_instead_mean = T, model.numbers = F,
+                    data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Info Treatment"), p_instead_SE = F, filename = "warm_glow_realism", omit.note = T, mean_above = F, keep = c("info"))
+
+# 2SLS without control
+summary(first_stage_wo_control <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)) # 33% + 8pp***
+summary(iv_model_wo_control <- ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), instruments = reg_formula("", c("info_solidarity")), data = e, weights = weight)) 
+(effF_wo_control <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = NULL, weights = "weight")) # 65
+summary(ols_model_wo_control <- lm(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), data = e, weights = weight)) # 14.53***
+summary(direct_effect_wo_control <- lm(reg_formula("share_solidarity_supported", c("info_solidarity")), data = e, weights = weight)) 
+stargazer(first_stage_wo_control, iv_model_wo_control, ols_model_wo_control, direct_effect_wo_control, 
+          se = lapply(c("first_stage_wo_control", "iv_model_wo_control", "ols_model_wo_control", "direct_effect_wo_control"), function(m) sqrt(diag(vcovHC(eval(str2expression(m)), type = "HC1")))),
+          column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
+          keep.stat = c("n", "rsq"), label = "tab:iv_wo_control", dep.var.caption = "", 
+          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistr. likely", "(Intercept)"), keep = c("solidarity", "Constant"),
+          type = "latex", style = "default", out = "../tables/IV_warm_glow_wo_control.tex", float = FALSE,
+          title = "Effect on support for global redistribution of believing that it is likely.", omit.table.layout = "n", 
+          add.lines = list(#c("Controls: sociodemos and vote", "", "", "", ""), 
+                           c("Effective F-statistic", sprintf("%.2f", effF_wo_control), "", "", "")))  

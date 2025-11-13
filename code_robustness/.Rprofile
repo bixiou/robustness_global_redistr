@@ -679,6 +679,7 @@ desc_table <- function(dep_vars, filename = NULL, data = e, indep_vars = control
   if (missing(dep.var.labels) & !(is.character(dep_vars))) dep.var.labels <- dep_vars
   dep.var.labels.include <- ifelse(is.null(dep.var.labels), F, T)
   names(indep_vars) <- indep_vars
+  if (length(dep_vars)==1 & class(data) == "list") dep_vars <- rep(dep_vars, length(data))
   if (class(indep_vars_included)=="list") { if (length(dep_vars)==1) dep_vars <- rep(dep_vars[1], length(indep_vars_included))  }
   else { indep_vars_included <- rep(list(rep(T, length(indep_vars))), length(dep_vars)) }
   if (length(logit) == 1) logit <- rep(logit, length(dep_vars))
@@ -779,68 +780,68 @@ covariates_with_several_values <- function(data, covariates) { # data is a data.
     several_values[c] <- nb_values_c > 1 }
   return(several_values)
 }
-#' same_reg_subsamples <- function(dep.var, dep.var.caption = NULL, covariates = setA, data = all, data_list = NULL, along = "country3", along.levels = Levels(along, data), weights = "weight",
-#'                                 covariate.labels = NULL, nolabel = FALSE, include.total = FALSE, add_lines = NULL, mean_above = T, only_mean = FALSE, constant_instead_mean = T, report = NULL,
-#'                                 mean_control = T, dep.var.label = dep.var, logit = FALSE, robust_SE = T, atmean = T, keep = NULL, display_mean = FALSE, share_na_remove = 0.01, p_instead_SE = F,
-#'                                 omit = c("Constant", "Gender: Other", "econ_leaningPNR"), print_regs = FALSE, no.space = T, filename = dep.var, omit.note = FALSE, dep_var_labels = NULL,
-#'                                 folder = "../tables/regs_countries/", digits= 3, model.numbers = T, replace_endAB = NULL) {
-#'   file_path <- paste(folder, filename, ".tex", sep="")
-#'   if (constant_instead_mean) display_mean <- T
-#'   # keep <- gsub("(.*)", "\\\\\\Q\\1\\\\\\E", sub("^\\(", "", sub("\\)$", "", keep)))
-#'   # formula <- as.formula(paste(dep.var, "~", paste("(", covariates, ")", collapse = ' + ')))
-#'   if (along == "country3") {
-#'     dep.var <- sub("index_", "index_c_", dep.var)
-#'     covariates <- gsub("index_", "index_c_", covariates)
-#'     if (!missing(keep)) keep <- gsub("index_", "index_c_", keep) }
-#'   models <- coefs <- SEs <- ps <- list()
-#'   means <- c()
-#'   if (is.null(data_list)) data_list <- c(list(data), lapply(along.levels, function(j) return(data[data[[along]] == j, ])))
-#'   if (p_instead_SE) warning("p is interpreted as SE, hence stars may be missing. TODO: fix this bug.")
-#'   for (j in c(0:(length(data_list)-1))) {
-#'     data_i <- data_list[[j+1]]
-#'     covariates_i <- covariates[sapply(covariates, function(v) { mean(is.na(data_i[[v]])) <= share_na_remove })]
-#'     covariates_i <- covariates_i[covariates_with_several_values(data = data_i, covariates = covariates_i)]
-#'     formula_i <- as.formula(paste(dep.var, "~", paste("(", covariates_i, ")", collapse = ' + ')))
-#'     i <- j+1
-#'     if (logit) {
-#'       models[[i]] <- glm(formula_i, data = data_i, family = binomial(link='logit'))
-#'       logit_margin_i <- logitmfx(formula_i, data = data_i, robust = robust_SE, atmean = atmean)$mfxest # TODO! weights with logit; NB: logitmfx computes White/robust SE when robust_SE == T
-#'       coefs[[i]] <- logit_margin_i[,1]
-#'       SEs[[i]] <- logit_margin_i[,2]
-#'       if (p_instead_SE) SEs[[i]] <- logit_margin_i[,4]
-#'     } else {
-#'       models[[i]] <- lm(formula_i, data = data_i, weights = data_i[[weights]])
-#'       coefs[[i]] <- models[[i]]$coefficients
-#'       if (robust_SE) SEs[[i]] <- coeftest(models[[i]], vcov = vcovHC(models[[i]], "HC1"))[,2]
-#'       else SEs[[i]] <- summary(models[[i]])$coefficients[,2]
-#'       if (p_instead_SE) SEs[[i]] <- summary(models[[i]])$coefficients[,4]
-#'     }
-#'     if (print_regs) print(summary(models[[i]]))
-#'     if (constant_instead_mean & (include.total | j > 0)) means <- c(means, round(coefs[[i]][["(Intercept)"]], digits))
-#'     else if (include.total | j > 0) means <- c(means, ifelse(mean_control, round(wtd.mean(eval(parse(text = paste( "(data_i$", parse(text = dep.var), ")[data_i$treatment=='None']", sep=""))), weights = data_i[[weights]][data_i$treatment=='None'], na.rm = T), d = digits),
-#'                                                              round(wtd.mean(eval(parse(text = paste( "data_i$", parse(text = dep.var), sep=""))), weights = data_i[[weights]], na.rm = T), d = digits)))
-#'   }
-#'   mean_text <- ifelse(mean_control, "Control group mean", ifelse(constant_instead_mean, "Constant", "Mean"))
-#'   if (exists("labels_vars")) omit <- c(omit, labels_vars[omit], names(labels_vars)[which(labels_vars %in% omit)])
-#'   if (exists("labels_vars")) omit <- omit[!is.na(omit)]
-#'   if (exists("labels_vars") & missing(covariate.labels)) covariate_labels <- create_covariate_labels(unique(names(unlist(lapply(1:length(models), function(i) return(models[[i]]$coefficients))))), regressors_names = labels_vars, keep = keep, omit = omit)
-#'   if (nolabel) covariate_labels <- NULL
-#'   if (!nolabel & !missing(covariate.labels)) covariate_labels <- covariate.labels
-#'   if (is.null(keep)) keep <- c(c(covariates)[!covariates %in% omit], if (any(c("(Intercept)", "Intercept", "Constant") %in% omit)) NULL else "Constant")
-#'   dep.var.caption <- ifelse(missing(dep.var.caption), ifelse(exists("labels_vars") && dep.var %in% names(labels_vars), labels_vars[dep.var], gsub("_", "\\_", dep.var, fixed = T)), dep.var.caption)
-#'
-#'   table <- do.call(stargazer, c(if (include.total) models else models[-1], list(out=NULL, header=F, model.numbers = model.numbers,
-#'                                                                                 covariate.labels = covariate_labels, coef = if (include.total) coefs else coefs[-1], se = if (include.total) SEs else SEs[-1], #p = ps[-1],
-#'                                                                                 add.lines = if (display_mean) list(c(mean_text, means)) else NULL,
-#'                                                                                 dep.var.labels = if (is.null(dep_var_labels)) {if (include.total) c("All", along.levels) else along.levels} else dep_var_labels,
-#'                                                                                 dep.var.caption = dep.var.caption, multicolumn = F, float = F, keep.stat = c("n", "rsq"), report = report,
-#'                                                                                 omit.table.layout = if (omit.note) "n" else NULL, keep=keep, omit = omit, no.space = no.space)))
-#'
-#'   if (!missing(replace_endAB) & length(table) != 50) warning(paste0("Wrong specification for replacement of the last lines: table of length ", length(table)))
-#'   if (!missing(replace_endAB) & length(table) == 50) table <- c(table[1:43], replace_endAB)
-#'   table <- table_mean_lines_save(table, omit = omit, mean_above = mean_above, only_mean = only_mean, indep_labels = covariate_labels, indep_vars = covariates, add_lines = add_lines, file_path = file_path, oecd_latex = FALSE, nb_columns = length(along.levels) + include.total)
-#'   return(table)
-#' }
+same_reg_subsamples <- function(dep.var, dep.var.caption = NULL, covariates = setA, data = all, data_list = NULL, along = "country3", along.levels = Levels(along, data), weights = "weight",
+                                covariate.labels = NULL, nolabel = FALSE, include.total = T, add_lines = NULL, mean_above = T, only_mean = FALSE, constant_instead_mean = T, report = NULL,
+                                mean_control = T, dep.var.label = dep.var, logit = FALSE, robust_SE = T, atmean = T, keep = NULL, display_mean = FALSE, share_na_remove = 0.01, p_instead_SE = F,
+                                omit = c("Constant", "Gender: Other", "econ_leaningPNR"), print_regs = FALSE, no.space = T, filename = dep.var, omit.note = FALSE, dep_var_labels = NULL,
+                                folder = "../tables/", digits= 3, model.numbers = T, replace_endAB = NULL) {
+  file_path <- paste(folder, filename, ".tex", sep="")
+  if (constant_instead_mean) display_mean <- T
+  # keep <- gsub("(.*)", "\\\\\\Q\\1\\\\\\E", sub("^\\(", "", sub("\\)$", "", keep)))
+  # formula <- as.formula(paste(dep.var, "~", paste("(", covariates, ")", collapse = ' + ')))
+  if (along == "country3") {
+    dep.var <- sub("index_", "index_c_", dep.var)
+    covariates <- gsub("index_", "index_c_", covariates)
+    if (!missing(keep)) keep <- gsub("index_", "index_c_", keep) }
+  models <- coefs <- SEs <- ps <- list()
+  means <- c()
+  if (is.null(data_list)) data_list <- c(list(data), lapply(along.levels, function(j) return(data[data[[along]] == j, ])))
+  if (p_instead_SE) warning("p is interpreted as SE, hence stars may be missing. TODO: fix this bug.")
+  for (j in c(0:(length(data_list)-1))) {
+    data_i <- data_list[[j+1]]
+    covariates_i <- covariates[sapply(covariates, function(v) { mean(is.na(data_i[[v]])) <= share_na_remove })]
+    covariates_i <- covariates_i[covariates_with_several_values(data = data_i, covariates = covariates_i)]
+    formula_i <- as.formula(paste(dep.var, "~", paste("(", covariates_i, ")", collapse = ' + ')))
+    i <- j+1
+    if (logit) {
+      models[[i]] <- glm(formula_i, data = data_i, family = binomial(link='logit'))
+      logit_margin_i <- logitmfx(formula_i, data = data_i, robust = robust_SE, atmean = atmean)$mfxest # TODO! weights with logit; NB: logitmfx computes White/robust SE when robust_SE == T
+      coefs[[i]] <- logit_margin_i[,1]
+      SEs[[i]] <- logit_margin_i[,2]
+      if (p_instead_SE) SEs[[i]] <- logit_margin_i[,4]
+    } else {
+      models[[i]] <- lm(formula_i, data = data_i, weights = data_i[[weights]])
+      coefs[[i]] <- models[[i]]$coefficients
+      if (robust_SE) SEs[[i]] <- coeftest(models[[i]], vcov = vcovHC(models[[i]], "HC1"))[,2]
+      else SEs[[i]] <- summary(models[[i]])$coefficients[,2]
+      if (p_instead_SE) SEs[[i]] <- summary(models[[i]])$coefficients[,4]
+    }
+    if (print_regs) print(summary(models[[i]]))
+    if (constant_instead_mean & (include.total | j > 0)) means <- c(means, round(coefs[[i]][["(Intercept)"]], digits))
+    else if (include.total | j > 0) means <- c(means, ifelse(mean_control, round(wtd.mean(eval(parse(text = paste( "(data_i$", parse(text = dep.var), ")[data_i$treatment=='None']", sep=""))), weights = data_i[[weights]][data_i$treatment=='None'], na.rm = T), d = digits),
+                                                             round(wtd.mean(eval(parse(text = paste( "data_i$", parse(text = dep.var), sep=""))), weights = data_i[[weights]], na.rm = T), d = digits)))
+  }
+  mean_text <- ifelse(mean_control & !constant_instead_mean, "Control group mean", ifelse(constant_instead_mean, "Constant", "Mean"))
+  if (exists("labels_vars")) omit <- c(omit, labels_vars[omit], names(labels_vars)[which(labels_vars %in% omit)])
+  if (exists("labels_vars")) omit <- omit[!is.na(omit)]
+  if (exists("labels_vars") & missing(covariate.labels)) covariate_labels <- create_covariate_labels(unique(names(unlist(lapply(1:length(models), function(i) return(models[[i]]$coefficients))))), regressors_names = labels_vars, keep = keep, omit = omit)
+  if (nolabel) covariate_labels <- NULL
+  if (!nolabel & !missing(covariate.labels)) covariate_labels <- covariate.labels
+  if (is.null(keep)) keep <- c(c(covariates)[!covariates %in% omit], if (any(c("(Intercept)", "Intercept", "Constant") %in% omit)) NULL else "Constant")
+  dep.var.caption <- ifelse(missing(dep.var.caption), ifelse(exists("labels_vars") && dep.var %in% names(labels_vars), labels_vars[dep.var], gsub("_", "\\_", dep.var, fixed = T)), dep.var.caption)
+
+  table <- do.call(stargazer, c(if (include.total) models else models[-1], list(out=NULL, header=F, model.numbers = model.numbers,
+                                                                                covariate.labels = covariate_labels, coef = if (include.total) coefs else coefs[-1], se = if (include.total) SEs else SEs[-1], #p = ps[-1],
+                                                                                add.lines = if (display_mean) list(c(mean_text, means)) else NULL,
+                                                                                dep.var.labels = if (is.null(dep_var_labels)) {if (include.total) c("All", along.levels) else along.levels} else dep_var_labels,
+                                                                                dep.var.caption = dep.var.caption, multicolumn = F, float = F, keep.stat = c("n", "rsq"), report = report,
+                                                                                omit.table.layout = if (omit.note) "n" else NULL, keep=keep, omit = omit, no.space = no.space)))
+
+  if (!missing(replace_endAB) & length(table) != 50) warning(paste0("Wrong specification for replacement of the last lines: table of length ", length(table)))
+  if (!missing(replace_endAB) & length(table) == 50) table <- c(table[1:43], replace_endAB)
+  table <- table_mean_lines_save(table, omit = omit, mean_above = mean_above, only_mean = only_mean, indep_labels = covariate_labels, indep_vars = covariates, add_lines = add_lines, file_path = file_path, oecd_latex = FALSE, nb_columns = length(along.levels) + include.total)
+  return(table)
+}
 create_covariate_labels <- function(coefs_names, regressors_names = labels_vars, keep = NULL, omit = "Constant") {
   if (any(c("Constant", "Intercept", "(Intercept)") %in% omit) & coefs_names[1] %in% c("Constant", "Intercept", "(Intercept)")) coefs_names <- coefs_names[-1]
   missing_names <- setdiff(coefs_names, names(labels_vars))
