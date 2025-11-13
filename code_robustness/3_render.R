@@ -595,6 +595,7 @@ variance_decomposition(dep_var = "share_solidarity_supported", covariates = c(co
 variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[c(1,3:9,16)], height = 370, filename = "lmg_gcs_support_few")
 variance_decomposition(dep_var = "gcs_support > 0", covariates = control_variables_lmg[3:9], height = 370, filename = "lmg_gcs_support_few_wo_vote_country")
 variance_decomposition(dep_var = "gcs_support > 0", covariates = c(control_variables_lmg[c(1,3:9,16)], "group_defended"), height = 370, filename = "lmg_gcs_support_few_group")
+# variance_decomposition(dep_var = "vote", covariates = c(control_variables_lmg[c(1,3:9,16)], "group_defended"), height = 370, filename = "lmg_gcs_support_few_group")
 
 for (l in names(lmgs)) print(paste0("R² ", l, ": ", round(lmgs[[l]]@R2, 4)))
 summary(lm(reg_formula("gcs_support > 0", control_variables_lmg), data = all, weights = weight))$adj.r.squared # .11 (simple R²: .12)
