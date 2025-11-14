@@ -82,8 +82,9 @@
 \renewcommand{\floatpagefraction}{.99}
 \newenvironment{stretchpars}{\par\setlength{\parfillskip}{0pt}}{\par} % to justify a line
 
-\renewcommand{\thesection}{\Roman{section}.}
-\renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}.}
+% \renewcommand{\thesection}{\Roman{section}.} % AER
+% \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}.}
+
 % \newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
 % \newcommand\cite[1]{\citeauthor{#1} (\citeyear{#1})}
 % \newcommand\citep[1]{(\citeauthor{#1} \citeyear{#1})}
@@ -100,7 +101,21 @@
 % # todo weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 % TODO integrate files from global_tax_attitudes in 5_questionnaire and run
 
-% TODO! attrition by branch and branches sizes (in AEA RCT Registry)
+% TODO!
+% Main contrib: Global redistribution enjoys stable majority acceptance across all high-income countries, and this is robust to realistic concerns (coverage, warm glow, vote choice). 
+% This paper shows that support for global redistribution is systematically underestimated, structurally under-salient, yet robustly majoritarian and electorally consequential. This combination of high acceptance, low salience, and strong pluralistic ignorance generates a coordination failure that may explain the political marginalization of global redistribution.
+% Main conceptual framework: Why might support be understated in political discourse? (pluralistic ignorance, low salience, coordination failure) [Alternative: Why might people support it? (universalism? reciprocity? fairness? self-interest?)]
+% Clarify: concern => addressed; for each in turn: Stated preference vs revealed preference, Hypothetical nature of global policies, Online survey limitations, Possibility of expressive responding and social desirability
+% Highlight conjoint results more/earlier
+% open-ended fields, revenue split, custom redistribution task, extensive descriptive heterogeneity should go to an appendix or be summarized briefly
+% Couldn't the treatment also increase salience or signal elite support? The exclusion restriction seems questionable TODO
+% Alternative explanation for status quo bias: bandwagon effect, noise.
+% Comment acceptance among far-right voters
+% TODO Report inter-rater reliability for coding open-ended fields
+% Correlation pluralistic ignorance & acceptance.
+% Engage more with the political economy literature on why democracies don't redistribute more domestically (Alesina-Angeletos, Meltzer-Richard). Does that logic apply globally?
+% More modest causal claims. TODO
+% preference-policy gap
 
 % Public Acceptance of International Redistribution in High-Income Countries
 \title{Public Acceptance of 
@@ -144,13 +159,10 @@ in High-Income Countries
 \begin{abstract}
 
   % 166 words
-Using an original survey of 12,000 respondents representative of eleven high-income countries (the United States, Japan, Russia, Saudi Arabia, and seven European countries), I examine public support for global redistribution and climate policies, as well as its sensitivity to key policy features such as the size of transfers and country coverage. Although global inequality is not a salient concern, it is perceived as a significant injustice. 
-There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. 
+Using an original survey of 12,000 respondents representative of eleven high-income countries (the United States, Japan, Russia, Saudi Arabia, and seven European countries), I examine public support for global redistribution and climate policies, as well as its sensitivity to key policy features such as the size of transfers and country coverage. Although global inequality is not a salient concern, it is perceived as a significant injustice. There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. An information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. Support for international policies decreases only slightly as country coverage shrinks. Overall, the results reinforce previous findings and suggest that a broad coalition of countries could feasibly advance sustainable development. 
 % Global inequality is a vote-determining issue for many people, and political programs that address it are more likely to be preferred. I find no evidence of warm glow: % evidence for a status quo bias rather than warm glow?
 % % pluralistic ignorance?
 % support is higher among treated respondents, who perceive global redistribution as more likely. 
-An information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. 
-Support for international policies decreases only slightly as country coverage shrinks. Overall, the results reinforce previous findings and suggest that a broad coalition of countries could feasibly advance sustainable development. 
 
 % AER (100 words; max 100 words)
 % Using an original survey of 12,000 respondents representative of eleven high-income countries, I examine public support for global redistribution and climate policies. Although global inequality is not a salient concern, political programs that address it are more likely to be preferred. In every country, majorities accept nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. Survey experiments demonstrate the robustness of support. In particular, an information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. 
@@ -158,6 +170,8 @@ Support for international policies decreases only slightly as country coverage s
 % Alternative:
 % Using an original survey of 12,000 respondents representative of eleven high-income countries, I examine public support for global redistribution and climate policies. Although global inequality is not a salient concern, political programs that address it are more likely to be preferred. There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. I find no evidence of warm glow: acceptance increases among treated respondents, who perceive global redistribution as more likely. Finally, acceptance of %international 
 % policies decreases only slightly as country coverage shrinks. 
+
+% À partir d'une enquête originale menée auprès de 12 000 répondants représentatifs de onze pays à hauts revenus (les États-Unis, le Japon, la Russie, l'Arabie saoudite et sept pays européens), j'examine le soutien du public aux politiques mondiales de redistribution et de lutte contre le changement climatique, ainsi que sa sensibilité à des caractéristiques politiques clés telles que l'ampleur des transferts et la couverture géographique. Bien que les inégalités mondiales ne constituent pas une préoccupation majeure, elles sont perçues comme une injustice importante. Dans chaque pays, la majorité des personnes interrogées acceptent la quasi-totalité des politiques mondiales testées, y compris celles qui redistribueraient 5 % du revenu mondial ou entraîneraient des coûts  monétaires pour les personnes interrogées. Un traitement informationnel montre que le soutien aux politiques mondiales augmente de manière causale parmi les personnes interrogées qui les perçoivent comme probables, un effet opposé à celui du « warm glow ». Le soutien aux politiques internationales ne diminue que légèrement lorsque la couverture géographique diminue. Dans l'ensemble, les résultats renforcent les conclusions des enquêtes précédentes et suggèrent qu'une large coalition de pays pourrait faire progresser le développement soutenable. 
 
 % Acceptance increases following a treatment that boosts the belief that global redistribution is likely. 
 
@@ -485,7 +499,7 @@ Reading and coding each field one by one took about 30 hours, but it was worthwh
 % \end{itemize}
 The topics mentioned vary according to sociodemographic characteristics. For example, a respondent who mentions \textit{immigration} is 3.5 times more likely to vote for the far right (correlation of .17); one who mentions \textit{old age} is twice as likely to be 65 or older (correlation of .13). Beyond these examples, the strongest effects I find are that \textit{criticizing the far right} correlates with voting for the left (.16), mentioning \textit{health} with age (.11), \textit{employment} with being unemployed (.09), \textit{animals} with extendeding one's moral circle to sentient beings (.09), \textit{education} with being a student (.09), \textit{the environment} with voting for the left (.08), and \textit{money} with one's income ($-$.08).
 
-Interestingly, the topics also vary significantly across countries. Below are my impressions of each country's slant. Compared to other countries, the concepts overrepresented in France are: insecurity, holidays or free time, the public deficit, equality, or gender equality; in Germany: old age poverty, immigration, the return of growth or the economic situation, free time, war (in Europe), and bureaucracy; in Italy: health, serenity or peace of mind, war, work stress and free time, world hunger, and femicides; in Poland: war, inequality, holidays, honesty, and disabled people; in Spain: ``health, money and love'', housing, corruption, water access, global poverty, and squatters; in the UK: the cost of living, immigration, having a comfortable life, mental health, the Holocaust, roads dangerous for driving, being unjustly imprisoned, and cuts to the winter fuel allowance; in Switzerland: equality, immigration, and gender equality; in Japan: the level of pensions, a cut to the consumption tax, the price of rice, the declining birth rate, childcare support, reducing the number of parliament members, foreigners' preferential treatment, excessive social assistance or the lack of reward for hard work, and stock prices; in Russia: metaphysical questions or profound interrogations, ``lies'', buying a house or a car, traveling, the desire to live; in Saudi Arabia: hobbies such as sports or soccer, the willingness to become millionaire (or billionaire), one's business project,\footnote{This can be linked to the high risk-taking disposition of Saudis \citep{falk_global_2018}.} buying a house, one's car, satisfaction with one's income, ``self-injustice'' or sin, raising children, Palestine, the oppression of orphans, and travel; in the U.S.: the economy, Donald Trump, breaches of the Constitution, abortion, and gun control. % TODO? shorten?
+Interestingly, the topics also vary significantly across countries. Below are my impressions of each country's slant. Compared to other countries, the concepts overrepresented in France are: insecurity, holidays or free time, the public deficit, equality, or gender equality; in Germany: old age poverty, immigration, the return of growth or the economic situation, free time, war (in Europe), and bureaucracy; in Italy: health, serenity or peace of mind, war, work stress and free time, world hunger, and femicides; in Poland: war, inequality, holidays, honesty, and disabled people; in Spain: ``health, money and love'', housing, corruption, water access, global poverty, and squatters; in the UK: the cost of living, immigration, having a comfortable life, mental health, the Holocaust, roads dangerous for driving, being unjustly imprisoned, and cuts to the winter fuel allowance; in Switzerland: equality, immigration, and gender equality; in Japan: the level of pensions, a cut to the consumption tax, the price of rice, the declining birth rate, childcare support, reducing the number of parliament members, foreigners' preferential treatment, excessive social assistance or the lack of reward for hard work, and stock prices; in Russia: metaphysical questions or profound interrogations, ``lies'', buying a house or a car, traveling, the desire to live; in Saudi Arabia: hobbies such as sports or soccer, the willingness to become millionaire (or billionaire), one's business project,\footnote{This can be linked to the high risk-taking disposition of Saudis \citep{falk_global_2018}.} buying a house, one's car, satisfaction with one's income, ``self-injustice'' or sin, raising children, Palestine, the oppression of orphans, and travel; in the U.S.: the economy, Donald Trump, breaches of the Constitution, abortion, and gun control. % TODO!? shorten?
 
 % Our topic of interest, \textit{global inequality}, does not emerge as an issue salient to most people. It is rarely mentioned as a neglected \textit{issue} or as a \textit{concern}, contrary to international issues such as war, climate change, or the rise of the far-right. And while \textit{global inequality} is mentioned as frequently as these other international issues in terms of \textit{injustice}, addressing it seldom appears as a \textit{wish}. Indeed, most considerations relate to issues that directly affect oneself or one's family, and political considerations (regarding e.g. public services, pensions or taxes) are often framed at the national level. %are self- or family-centered.
 Our topic of interest, \textit{global inequality}, does not emerge as an issue salient to most people. Indeed, most considerations relate to issues that directly affect oneself or one's family, and political considerations (regarding e.g. public services, pensions, or taxes) are often framed at the national level. \textit{Global redistribution} almost never appears as a \textit{wish}. Furthermore, \textit{global inequality} is rarely mentioned as a neglected \textit{issue} or as a \textit{concern}, in contrast to international issues such as war, climate change, or the rise of the far right. However, it is mentioned as frequently as these other international issues in terms of \textit{injustice}. 
@@ -495,7 +509,7 @@ In summary, the low salience of global solidarity may explain why this topic fai
 
 \subsection{Prioritization of Public Spending Items}\label{subsec:revenue_split}
 
-% TODO? shorten/improve flow?
+% TODO!? shorten/improve flow?
 % revision: American -> US-American TODO: AER
 \cite{fabre_majority_2025} find that 58\% of US-Americans and 71\% of Western Europeans would support a global tax on millionaires funding low-income countries (LICs), with only 26\% and 14\% opposing it, respectively; around half of them would prefer to allocate half (rather than none) of the revenue from a global wealth tax to LICs; and, on average, respondents prefer to allocate 33.4\% of the revenue to LICs (versus domestic healthcare and education). 
 % \cite{fabre_majority_2025} uses two random variants to study the preferred use of revenue from a global wealth tax between infrastructure and public services \textit{in
@@ -748,7 +762,7 @@ Informed respondents are 7~p.p. more likely to believe that global redistributio
 % indicating that believing that global redistribution is likely causally \textit{increases} the share of policies supported. 
 % This effect is consistent with the non-causal OLS estimate of 15~p.p. and with the direct effect of the treatment on the share of policies supported, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism}). % marginally ; $p$ = .12 %, though not significant ($p$ = .11).   % (see Table \ref{tab:iv}). 
 % Given the strong first stage, the IV should be well identified, as the treatment has been designed to ensure the exclusion restriction; namely, that the information treatment affects support for global policies solely through the belief that global redistribution is likely. %As shown in Table \ref{tab:iv}, the 
-% TODO:? rewrite more professionally
+% TODO:? rewrite more professionally; clarify the logic (causal chain: treatment → belief → acceptance); certainty effects
 
 % # 7bis: 2SLS 
 \begin{table}[!htbp] 
