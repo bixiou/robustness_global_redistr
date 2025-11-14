@@ -256,9 +256,9 @@ stargazer(first_stage_wo_control, first_stage, iv_model, ols_model, direct_effec
           se = lapply(c("first_stage_wo_control", "first_stage", "iv_model", "ols_model", "direct_effect"), function(m) sqrt(diag(vcovHC(eval(str2expression(m)), type = "HC1")))),
           column.labels = c("IV 1st Stage", "IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
           keep.stat = c("n", "rsq"), label = "tab:iv", dep.var.caption = "", 
-          dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
-          covariate.labels = c("Information treatment", "Believes global redistr. likely", "(Intercept)"), keep = c("solidarity", "Constant"),
-          type = "latex", style = "default", out = "../tables/IV_warm_glow.tex", float = FALSE,
+          dep.var.labels = c("\\makecell{Believes global\\\\redistribution likely}", "Share of plausible global policies supported"),
+          covariate.labels = c("Information treatment", "Believes global redistribution likely", "(Intercept)"), keep = c("solidarity", "Constant"),
+          type = "latex", style = "default", out = "../tables/IV_warm_glow_no_star.tex", float = FALSE, star.cutoffs = NA,
           title = "Effect on support for global redistribution of believing that it is likely.", omit.table.layout = "n", 
           # notes = "\\textit{Note:} Robust standard errors are in parentheses. \\hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
           add.lines = list(c("Controls: sociodemos and vote", "", "\\checkmark", "\\checkmark", "\\checkmark", "\\checkmark"), 
@@ -541,6 +541,14 @@ desc_table(dep_vars = c("dropout", "dropout_late", "attentive == F", "duration",
            filename = "attrition", save_folder = "../tables/", data = c(list(a[a$valid == T,]), list(a[a$valid == T,]), list(a[a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,]), list(a[a$attentive == T & a$stayed == T,])), 
            indep_vars = control_variables, omit = c("illionaire", "Employment", "partner", "Constant", "Race: Other", "region", "Region", "factorNA", "Urbanity: NA", "Urbanicity: NA")) 
 
+desc_table(dep_vars = c("variant_wealth_tax == 'global'", "variant_wealth_tax == 'intl'", "variant_ics == 'low'", "variant_ics == 'high'", "variant_ics == 'high_color'", "variant_warm_glow == 'NCS'", "variant_warm_glow == 'None'", "info_solidarity"), dep.var.caption = "Random branch:", #, "variant_top_tax == 'top1'" omit = c("Constant"), # c("Constant", "Race: Other", "factorNA", "partner"),
+           dep.var.labels = c("\\makecell{Wealth tax\\\\coverage:\\\\Global}", "\\makecell{Wealth tax\\\\coverage:\\\\Int'l}", "\\makecell{Int'l CS\\\\coverage:\\\\Low}", "\\makecell{Int'l CS\\\\coverage:\\\\High}", "\\makecell{Int'l CS\\\\coverage:\\\\High color}", "\\makecell{National\\\\CS\\\\asked}", "\\makecell{Warm glow\\\\substitute:\\\\Control}", "\\makecell{Warm glow\\\\realism: Info\\\\treatment}"), # ci = T, report = 'vcsp', 
+           filename = "attrition_treatment", weights = NULL, save_folder = "../tables/", data = a[a$valid == T,], indep_vars = "dropout") 
+
+desc_table(dep_vars = c("variant_field == 'concerns'", "variant_field == 'injustice'", "variant_field == 'issue'", "variant_field == 'wish'", "variant_split == 'Few'", "variant_belief == 'Own'", "variant_ncqg == 'Full'", "variant_sustainable_future == 'a'", "variant_top_tax == 'top1'", "variant_sliders == 'diffuse'"), dep.var.caption = "Random branch:", #, "variant_top_tax == 'top1'" omit = c("Constant"), # c("Constant", "Race: Other", "factorNA", "partner"),
+           dep.var.labels = c("\\makecell{Field:\\\\Concerns}", "\\makecell{Field:\\\\Injustice}", "\\makecell{Field:\\\\Issue}", "\\makecell{Field:\\\\Wish}", "\\makecell{Budget\\\\split:\\\\Few}", "\\makecell{GCS\\\\belief:\\\\Own}", "\\makecell{NCQG:\\\\Full}", "\\makecell{Sustainable\\\\Future:\\\\A}", "\\makecell{Income\\\\tax:\\\\top 1\\%}", "\\makecell{Custom\\\\sliders:\\\\Diffuse}"), # ci = T, report = 'vcsp', 
+           filename = "attrition_treatment2", weights = NULL, save_folder = "../tables/", data = list(a[a$valid == T,], a[a$valid == T,], a[a$valid == T,], a[a$valid == T,], a[a$valid == T & a$country != "RU",], a[a$valid == T & a$country != "RU",], a[a$valid == T,], a[a$valid == T & a$variant_sustainable_future != "s",], a[a$valid == T,], a[a$valid == T & a$country != "RU",]), indep_vars = "dropout") 
+
 
 ##### I Balance Analysis #####
 desc_table(dep_vars = c("variant_wealth_tax == 'global'", "variant_wealth_tax == 'intl'", "variant_ics == 'low'", "variant_ics == 'high'", "variant_ics == 'high_color'", "variant_warm_glow == 'NCS'", "variant_warm_glow == 'None'", "info_solidarity"), dep.var.caption = "Random branch:", #, "variant_top_tax == 'top1'" omit = c("Constant"), # c("Constant", "Race: Other", "factorNA", "partner"),
@@ -654,27 +662,27 @@ same_reg_subsamples(dep.var = "ics_support", dep.var.caption = "Supports the Int
 #                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Variant: High Color", "Variant: Low", "Variant: Mid"), p_instead_SE = F, filename = "ics", omit.note = T, mean_above = F)
 # summary(lm(ics_support ~ (variant_ics == "high") + (variant_ics == "high_color") + (variant_ics == "low"), data = all, weights = weight)) 
 
-# Table S15 wealth tax ~ country coverage
+# Table S17 wealth tax ~ country coverage
 same_reg_subsamples(dep.var = "wealth_tax_support", dep.var.caption = "Supports the International Wealth Tax", covariates = c("variant_wealth_tax"), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Variant: Global", "Variant: Int'l"), p_instead_SE = F, filename = "wealth_tax", omit.note = T, mean_above = F)
 # same_reg_subsamples(dep.var = "wealth_tax_support", dep.var.caption = "Supports the International Wealth Tax", covariates = c("variant_wealth_tax", control_variables[-11]), display_mean = T, along.levels = c("Europe", countries), constant_instead_mean = T, model.numbers = F, keep = "wealth_tax",
 #                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Variant: Global", "Variant: Int'l"), p_instead_SE = F, filename = "wealth_tax", omit.note = T, mean_above = F)
 
-# Table S16 conjoint
+# Table S18 conjoint
 same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
                     data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
 # same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
 #                     data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint_control", omit.note = T, mean_above = F, keep = "in_program")
 
-# Table S17 warm glow substitute
+# Table S19 warm glow substitute
 same_reg_subsamples(dep.var = "gcs_support/100", dep.var.caption = "Supports the Global Climate Scheme", covariates = c("variant_warm_glow", control_variables[-11]), display_mean = T, along.levels = c("Europe", countries[-c(9,10)]), constant_instead_mean = T, model.numbers = F, keep = "warm",
                     data_list = lapply(levels_plain[-c(11,12)], function(c) all[all$country_name %in% c(c, special_levels[[c]]$value) & all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU"),]), covariate.labels = c("Variant: Donation"), p_instead_SE = F, filename = "warm_glow_substitute", omit.note = T, mean_above = F)
 
-# Table S18 warm glow realism
+# Table S20 warm glow realism
 same_reg_subsamples(dep.var = "share_solidarity_supported", dep.var.caption = "Share of plausible policies supported", covariates = c("info_solidarity", control_variables[-11]), display_mean = T, along.levels = c("Europe", countries), constant_instead_mean = T, model.numbers = F,
                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Info Treatment"), p_instead_SE = F, filename = "warm_glow_realism", omit.note = T, mean_above = F, keep = c("info"))
 
-# Table S19 2SLS without control
+# Table S21 2SLS without control
 summary(first_stage_wo_control <- lm((likely_solidarity > 0) ~ info_solidarity, data = e, weights = weight)) # 33% + 8pp***
 summary(iv_model_wo_control <- ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), instruments = reg_formula("", c("info_solidarity")), data = e, weights = weight)) 
 (effF_wo_control <- eff_F(data = e, Y = "share_solidarity_supported", D = "I(likely_solidarity > 0)", Z = "info_solidarity", controls = NULL, weights = "weight")) # 65
@@ -683,10 +691,10 @@ summary(direct_effect_wo_control <- lm(reg_formula("share_solidarity_supported",
 stargazer(first_stage_wo_control, iv_model_wo_control, ols_model_wo_control, direct_effect_wo_control, 
           se = lapply(c("first_stage_wo_control", "iv_model_wo_control", "ols_model_wo_control", "direct_effect_wo_control"), function(m) sqrt(diag(vcovHC(eval(str2expression(m)), type = "HC1")))),
           column.labels = c("IV 1st Stage", "IV 2nd Stage", "OLS", "Direct Effect"), model.names = FALSE, no.space = TRUE,
-          keep.stat = c("n", "rsq"), label = "tab:iv_wo_control", dep.var.caption = "", 
+          keep.stat = c("n", "rsq"), label = "tab:iv_wo_control", dep.var.caption = "", star.cutoffs = NA,
           dep.var.labels = c("\\makecell{Believes global\\\\redistr. likely}", "Share of plausible global policies supported"),
           covariate.labels = c("Information treatment", "Believes global redistr. likely", "(Intercept)"), keep = c("solidarity", "Constant"),
-          type = "latex", style = "default", out = "../tables/IV_warm_glow_wo_control.tex", float = FALSE,
+          type = "latex", style = "default", out = "../tables/IV_warm_glow_wo_control_no_star.tex", float = FALSE,
           title = "Effect on support for global redistribution of believing that it is likely.", omit.table.layout = "n", 
           add.lines = list(#c("Controls: sociodemos and vote", "", "", "", ""), 
                            c("Effective F-statistic", sprintf("%.2f", effF_wo_control), "", "", "")))  

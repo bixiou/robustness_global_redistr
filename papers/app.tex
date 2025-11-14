@@ -783,9 +783,23 @@ Once the custom redistribution has been determined, it is straightforward to com
 \section{Attrition Analysis}\label{app:attrition}
 
 \begin{table}[h!]
-    \caption[Attrition analysis]{Attrition analysis. \hfill (Back~to~Section~\ref{par:data_quality}.)} \label{tab:attrition}
+    \caption[Determinants of attrition]{sociodemographic determinants of attrition and exclusion. \hfill (Back~to~Section~\ref{par:data_quality}.)} \label{tab:attrition}
     \makebox[\textwidth][c]{\resizebox*{!}{.87\textheight}{ % 73 is the max when there is a title
         \input{../tables/attrition.tex}}}
+    \centering {\footnotesize \textit{Note}: Robust standard errors are reported in parentheses. $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01.}
+\end{table}
+
+\begin{table}[h!]
+    \caption[Treatment effects on attrition (1)]{Treatment effects on attrition. \hfill (Back~to~Section~\ref{par:data_quality}.)} \label{tab:attrition}
+    \makebox[\textwidth][c]{\resizebox*{.98\paperwidth}{!}{ 
+        \input{../tables/attrition_treatment.tex}}}
+    \centering {\footnotesize \textit{Note}: Robust standard errors are reported in parentheses. $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01.}
+\end{table}
+
+\begin{table}[h!]
+    \caption[Treatment effects on attrition (2)]{Treatment effects on attrition (continued). \hfill (Back~to~Section~\ref{par:data_quality}.)} \label{tab:attrition}
+    \makebox[\textwidth][c]{\resizebox*{.98\paperwidth}{!}{
+        \input{../tables/attrition_treatment2.tex}}}
     \centering {\footnotesize \textit{Note}: Robust standard errors are reported in parentheses. $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01.}
 \end{table}
 
@@ -1000,6 +1014,7 @@ Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_s
 
 \begin{table}[!htbp] 
   \caption[Warm glow: IV without control]{Effect on support for global redistribution of believing that it is likely, without control\hfill (Back~to~Section~\ref{subsec:warm_glow}.)}\label{tab:iv_wo_control} 
-  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow_wo_control.tex}}
-  {\small \textit{Note: Robust standard errors (HC1) are reported in parentheses. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01. }}
+  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow_wo_control.tex}} % AER _no_star
+  {\small \textit{Note: Robust standard errors (HC1) are reported in parentheses. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01. 
+  }}
 \end{table}

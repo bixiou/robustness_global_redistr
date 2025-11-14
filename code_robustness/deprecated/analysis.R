@@ -620,6 +620,22 @@ mean(a$dropout[a$legit]) # 19% drop out => final == legit & !dropout
 mean(!a$legit[a$stayed]) # 16% excluded
 mean(a$dropout[a$legit]) # 19% drop outs
 
+for (v in c("variant_field", "variant_split", "variant_warm_glow", "variant_belief", "variant_ics", "info_solidarity", "variant_ncqg", "variant_wealth_tax", "variant_sustainable_future", "variant_top_tax", "variant_sliders")) { print(v); print(decrit(v, weight = F))} 
+decrit("variant_warm_glow", which = !all$country %in% c("SA", "RU"), weight = F)
+# Sizes of treatment arms in the pooled sample (N = 12,001):
+# - Fields: Concerns: 2925, Injustice: 2917, Issue: 2939, Wish: 3058
+# - Revenue split: Few: 5608, Many: 5392, Simple [Russia]: 1001
+# - Warm glow substitute: None: 4301, NCS: 4319, donation [could not be asked in Russia nor Saudi Arabia]: 3381
+# - Warm glow substitute (in all countries but RU, SA): None: 3284, NCS: 3335, donation: 3381
+# - Belief: Own [incl. all Russia]: 6493, US: 5508
+# - ICS: High: 3068, High Color: 3026, Low: 2997, Mid: 2902
+# - Info solidarity: 5864 (control: 6137)
+# - NCQG: Full: 5524, Short: 5476
+# - Wealth tax: HIC: 4015, Global: 3979, Intl: 4007
+# - Sustainable Future: A: 6094, B: 5907
+# - Top tax: 1%: 5939, 3%: 6062
+# - Sliders: concentrated: 5492, diffuse: 5508
+
 
 ##### Most correlated variable #####
 sort(loadings)

@@ -32,7 +32,7 @@
 \usepackage{indentfirst}
 \usepackage{tocbibind}
 \setcitestyle{aysep={}} 
-\usepackage{amsmath}
+\usepackage[leqno]{amsmath}
 \usepackage{tcolorbox}
 \usepackage{amssymb}
 \usepackage{eurosym}
@@ -75,18 +75,21 @@
 \usepackage[anythingbreaks]{breakurl} % for links
 \usepackage{multicol}
 \usepackage{lineno}
-% \linenumbers
+% \linenumbers % AER
 \newsavebox\ltmcbox % For net gain table over two columns
 %\usepackage[nomarkers,figuresonly]{endfloat} % Figures at the end
 %\usepackage[section,below]{placeins} % Floats placed in the section they appear in.
 \renewcommand{\floatpagefraction}{.99}
 \newenvironment{stretchpars}{\par\setlength{\parfillskip}{0pt}}{\par} % to justify a line
 
+\renewcommand{\thesection}{\Roman{section}.}
+\renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}.}
 % \newcommand\citeR[1]{\citeauthor{#1} (\citeyear{#1})}
 % \newcommand\cite[1]{\citeauthor{#1} (\citeyear{#1})}
 % \newcommand\citep[1]{(\citeauthor{#1} \citeyear{#1})}
 % \newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
-\defaultbibliographystyle{plainnaturl_clean}
+% \defaultbibliographystyle{aea} %  AER
+\defaultbibliographystyle{plainnaturl_clean} % 
 \defaultbibliography{global_tax_attitudes}
 % \sloppy
 
@@ -97,6 +100,8 @@
 % # todo weight_control pre-compute weight_different_controls to speed up and allow use for special_levels (discarded method: reweighted_estimate)
 % TODO integrate files from global_tax_attitudes in 5_questionnaire and run
 
+% TODO! attrition by branch and branches sizes (in AEA RCT Registry)
+
 % Public Acceptance of International Redistribution in High-Income Countries
 \title{Public Acceptance of 
 %Attitudes on 
@@ -104,7 +109,13 @@ International Redistribution\\
 in High-Income Countries
 }
 % \author{Adrien Fabre$^{1,2}$, Thomas Douenne$^3$ and Linus Mattauch$^{4,5,6}$} % WPcomment
-\author{Adrien Fabre\footnote{CNRS, CIRED. E-mail: adrien.fabre@cnrs.fr.}
+\author{Adrien Fabre\footnote{CNRS; CIRED. E-mail: adrien.fabre@cnrs.fr. 
+% \\ I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). % TODO!! AER registry
+% I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution. %, Gerhard Toews for Russian census. 
+% I am grateful to Armon Rezai and Wien Universität for helping me use Qualtrics. I am grateful to the translators and the numerous people who graciously tested the survey, proofread the translations, and gave feedback, including Gianluca Drappo, Valeria Glebova, Anne Guillemot, Marya Kayyal, Lu Li, Lilian Leupold, Guadalupe Manzo, Rintaro Matsuda. % Pauline? Samuel? Davide Pace? Mari Mohamad?
+% I am grateful to Erwan Akrour, Marius Le Hénaff, and Raquel Oliveira %and Alina Timoshkina 
+% for research assistance on the quotas and the pools of policies. I thank seminar, workshop or conference participants for useful feedback, at: the University of Brasília, Unicamp, the University of São Paulo, WZB Berlin, Paris-Saclay, the World Inequality Lab, MSE-Sorbonne, SKEMA, In-sted, the Bundesbank, FSR Climate Conference, the New Economic School, CIRED, Fürth. 
+}
 % ~~\thanks{The project is approved by Economics \& Business Ethics Committee (EBEC) at the University of Amsterdam (EB-1113) and %is approved by IRB at Harvard University (IRB21-0137), and 
 } % NCCcomment
 
@@ -115,7 +126,7 @@ in High-Income Countries
 \maketitle
 
 \begin{center}
-{\textbf{\href{https://github.com/bixiou/robustness_global_redistr/raw/main/papers/support_global_redistr.pdf}{Link to most recent version}}}
+{\textbf{\href{https://github.com/bixiou/robustness_global_redistr/raw/main/papers/support_global_redistr.pdf}{Link to most recent version}}} % AER
 \end{center}
 
 
@@ -168,7 +179,7 @@ Support for international policies decreases only slightly as country coverage s
 % \textbf{Keywords:} Redistribution, global policies, cap-and-trade, attitudes, survey, warm glow.%, inequality, wealth tax. % NCCcomment
 
 \clearpage
-\tableofcontents
+\tableofcontents % AER
 
 \onehalfspacing % NCCcomment
 
@@ -340,6 +351,8 @@ I conducted an original survey of 12,001 respondents representative of the adult
 The survey was fielded online in 2025 using the companies \textit{Yandex} (for Russia), \textit{Kantar} (for Saudi Arabia), and \textit{Bilendi} (for the other countries).\footnote{For all countries except Russia, responses were collected between April 15 and July 3, 2025. For Russia, responses were collected between September 19 and October 9, 2025. Each complete response was rewarded with approximately \euro{}3 in gift points.} 
 
 In Russia, I could not administer the same questionnaire as in the other countries.\footnote{To the best of my knowledge, \cite{toews_learning_2025} were the first to manage surveying the Russian public on climate attitudes.} I had to curtail it for two reasons. First, I could not use the platform \textit{Qualtrics}, which prevented me from using certain question formats (such as constant sum scales) or embedding Javascript (used to design the interactive question). Second, I had to cut or reword some questions due to preventive censorship by the survey company. In the other countries, the questionnaires are almost identical, though the figures in the questions are adapted to the country-specific context (e.g. respondents are informed about the cost of the Global Climate Scheme to the average person in their country). Appendix \ref{subsec:country_features} lists the unique features of the questionnaire in each country.
+% TODO! create a README https://social-science-data-editors.github.io/template_README/
+% TODO! AER Romans for Section followed by capital letters for subsections; aea.bst (three authors max); equation number on the left; remove asterisks from table.
 
 % # 1? coverage map
 \begin{figure}[h!]
@@ -365,7 +378,7 @@ Best practices have been implemented  to ensure top-notch data quality \citep{st
 The questionnaire was carefully worded in a neutral and informative way;\footnote{At the end of the survey, 70\% of the respondents find it politically unbiased (Figure \ref{fig:survey_biased}). The most common comment left by respondents in the feedback field is that the survey was ``interesting''; very few criticize it (Figure~\ref{fig:comment_field}).} tested on random people in public spaces to ensure correct comprehension; translated by professional translators, with figures converted into national currencies; and double-checked by native speakers.
 
 Of all respondents who started the questionnaire, 23\% respondents were allowed to continue (as their quotas were not full). Among them, 17\% dropped out (including 10\% who dropped out after the socio-demographic questions). The final sample is obtained after excluding 16\% of respondents from the extended sample for suspicion of low quality: 9\% for failing an attention test and 13\% for completing the questionnaire in less than 6 minutes\footnote{6 minutes corresponds to 30\% of the expected median duration of 20 min. In Russia, the cutoff is 200 seconds, or 30\% of the expected median duration of 11 minutes.} (including 5\% for both reasons). 
-Appendix \ref{app:attrition} checks for differential attrition and Appendix \ref{app:extended} shows that our main results replicate in the extended sample. 
+Appendix \ref{app:attrition} checks for differential attrition and finds no correlation of treatment arms with attrition. Appendix \ref{app:extended} shows that our main results replicate in the extended sample. 
 
 The order of question items is randomized whenever possible. Appendix \ref{app:order} examines the effect of item order on answers. Item order generally has a significant but small effect (2 to 14~p.p.). The size of this effect helps identify questions for which opinions are strongly held (e.g. a preference for a sustainable scenario over the status quo) versus weakly held (e.g. the preferred amount of climate finance). % crystallized, well-formed, consolidated, stable, ambivalent
 
@@ -650,7 +663,10 @@ Conversely, \textit{a ban on new combustion-engine cars} is among the least popu
 % Why Japan millionaire significant in conjoint_JP but not in conjoint? => because in conjoint_JP the formula includes all domains vs. only foreign policy in conjoint. SEs are the same but the coef is lower in conjoint_JP. => In conjoint_JP, the coef is the marginal effect when every domain is "-", while in conjoint it's the marginal effect at the mean (compared to foreign at "-").
 More specifically, Figure \ref{fig:conjoint} and Table \ref{tab:conjoint} present the results %estimates of coefficients $\beta_1$ and $\beta_2$ 
 of the following regression, estimated by simple OLS with standard errors clustered by respondent: 
-$$\text{Preferred}_{pi} = \beta_0 + \beta_1 \text{Cut\_aid}_{pi} + \beta_2 \text{Intl\_tax}_{pi} + \beta_3 \text{Foreign3}_{pi} + \varepsilon_{pi}$$
+
+\begin{equation}
+\text{Preferred}_{pi} = \beta_0 + \beta_1 \text{Cut\_aid}_{pi} + \beta_2 \text{Intl\_tax}_{pi} + \beta_3 \text{Foreign3}_{pi} + \varepsilon_{pi}  
+\end{equation}
 where $pi$ denotes the %either 
 program $p$ faced by respondent $i$, and each variable is a dummy. 
 
@@ -719,7 +735,10 @@ the results show no evidence of warm glow.
 To test the hypothesis that some people express support for global redistribution only as long as its implementation seems unlikely, I randomly assign half of the respondents to receive information about ongoing negotiations on globally redistributive policies. Among other things, treated respondents are informed that the International Maritime Organization recently adopted a levy on maritime carbon emissions that should partly finance LICs; that the G20 considered introducing a global tax on billionaires; that the UN General Assembly recently agreed on the principle of expanding the UN Security Council to new members; and that the UN Secretary-General supports financial system reforms that would drive resources towards sustainable development (see Question~\ref{q:info_solidarity}). 
 Then, respondents are asked ``how likely [it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before their support for ten plausible global policies is tested.\footnote{Section \ref{subsec:debated} reports acceptance of these policies and Appendix~\ref{subsec:plausible_policies_sources} describes the corresponding international negotiations.}  Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased support for global policies. %(as respondents would fear that such policies may materialize).
 
-The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy. The exclusion restriction states that the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results. Although the treatment is randomly assigned, the preferred specification includes the sociodemographic variables as controls to improve precision.\footnote{In fact, some effects are no longer significant in the specification without controls, with $p$-values for the IV and the direct effect at .11 and .12, respectively (Table~\ref{tab:iv_wo_control}).} Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this highly significant effect provides a strong first stage for the IV estimation. Assuming that the exclusion restriction holds, the IV is well identified. The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with both the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment on policy support, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism} and Table~\ref{tab:warm_glow_realism}).
+The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy. The exclusion restriction states that the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results. Although the treatment is randomly assigned, the preferred specification includes the sociodemographic variables as controls to improve precision.\footnote{See Table~\ref{tab:iv_wo_control} for results without controls.
+% In fact, some effects are no longer significant in the specification without controls, with $p$-values for the IV and the direct effect at .11 and .12, respectively (Table~\ref{tab:iv_wo_control}). % AER
+} 
+Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this highly significant effect provides a strong first stage for the IV estimation. Assuming that the exclusion restriction holds, the IV is well identified. The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with both the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment on policy support, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism} and Table~\ref{tab:warm_glow_realism}).
 
 % I have designed the treatment to ensure the exclusion restriction in an instrumental variable (IV) strategy. The exclusion restriction states that the treatment should affect support for global policies solely through the belief that global redistribution is likely. 
 % Table \ref{tab:iv} reports the results of regressions. Although the treatment is random, our preferred specification includes sociodemographic variables as controls to improve precision. 
@@ -734,8 +753,9 @@ The treatment was designed to satisfy the exclusion restriction required for the
 % # 7bis: 2SLS 
 \begin{table}[!htbp] 
   \caption[Effect on support for global redistribution of believing that it is likely]{Effect on support for global redistribution of believing that it is likely.}\label{tab:iv} 
-  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow.tex}}
-  \textit{Note: Robust standard errors (HC1) are reported in parentheses. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01. \\ As in Appendix~\ref{app:determinants}, control variables are: vote, gender, age, income, education, urbanity, likelihood of becoming millionaire, living with partner, employment status, foreign born, country region.}
+  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow.tex}} % AER _no_star
+  \textit{Note: Robust standard errors (HC1) are reported in parentheses. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01. \\ 
+  As in Appendix~\ref{app:determinants}, control variables are: vote, gender, age, income, education, urbanity, likelihood of becoming millionaire, living with partner, employment status, foreign born, country region.}
 \end{table}
 
 Again, the effects go in the opposite direction to warm glow. In this case, increased support may stem from enhanced credibility of policies that are known to be discussed in international organizations. 
@@ -834,7 +854,7 @@ Two questions asked the respondents how they would react to a ``worldwide moveme
 
 % TODO compare this to Cappelen_sostad.dta, variables Protest, SocialMedia, VotePref
 In a multiple-choice question (censored in Russia), 29\% report they could participate in the movement by either attending a demonstration (19\%), going on strike (7\%), or donating \$100 to a strike fund (10\%). This share rises to 68\% in favor of the movement when including the 52\% of respondents who ``could sign a petition and spread ideas'' for the movement (Figure \ref{fig:global_movement}). 
-Taken at face value, these results would mean that a successful global solidarity movement could collect up to \$10~billion and organize some of the largest demonstrations in history, matching Earth Day mobilizations.\footnote{On April 22, 1970, 20 million US-Americans (10\% of the population) demonstrated for the environment. Since then, Earth Day events regularly mobilize hundreds of millions of people worldwide.} % TODO? cut for AER?
+Taken at face value, these results would mean that a successful global solidarity movement could collect up to \$10~billion and organize some of the largest demonstrations in history, matching Earth Day mobilizations.\footnote{On April 22, 1970, 20 million US-Americans (10\% of the population) demonstrated for the environment. Since then, Earth Day events regularly mobilize hundreds of millions of people worldwide.} % TODO cut for AER
 Interestingly, 52\% of the 584 millionaires\footnote{In the weighted subsample of millionaires, 60\% are US-Americans and 26\% Europeans.} who answered the survey would be in favor of such a movement.
 
 When asked whether they would be more or less likely to vote for the political party they feel closest to if it were part of such a movement, 36\% of the respondents state they would be more likely versus 17\% less likely (Figure \ref{fig:vote_intl_coalition}). Among the 5\% of respondents who did not vote in the last election and feel closest to a left-wing party, the share more likely to vote in that case increases to 46\% (versus 10\% who are less likely). 
@@ -847,14 +867,15 @@ In a multiple-choice question, I asked respondents which reasons for HICs suppor
 
 In former colonial or slave States,\footnote{I did not ask this question in Japan or Russia, because these countries' historiographies do not present their past as colonial but rather  as an empire% larger ``empire''
 .} 
-I asked respondents whether they would support ``reparations for colonization and slavery to former colonies and descendants of slaves'', specifying that the reparations ``could take the form of funding education and facilitating technology transfers''. Consistent with the general disagreement that HICs have a \textit{historical} responsibility to support LICs, only a minority of 35\% of respondents support reparations (except in Italy where 56\% do), while 42\% oppose them (Figure~\ref{fig:reparations_support}). This suggests that framing global solidarity as a decolonial struggle might be counterproductive. % for its advocates. TODO? add for AER
+I asked respondents whether they would support ``reparations for colonization and slavery to former colonies and descendants of slaves'', specifying that the reparations ``could take the form of funding education and facilitating technology transfers''. Consistent with the general disagreement that HICs have a \textit{historical} responsibility to support LICs, only a minority of 35\% of respondents support reparations (except in Italy where 56\% do), while 42\% oppose them (Figure~\ref{fig:reparations_support}). This suggests that framing global solidarity as a decolonial struggle might be counterproductive. 
+% for its advocates. % TODO add for AER
 
 \paragraph{Agreement That Own Taxes Should Solve Global Problems.}\label{par:my_tax}
 
 % To crosscheck the findings and analyze the extent to which they could be affected by time, framing, or sampling, I reproduced a question asked in a previous study, the ``Global Solidarity Report'' \citep{global_nation_global_2023}. 
 Overall, 41\% agree and 28\% disagree that ``[their] taxes should go towards solving global problem''. With 60\% relative agreement, there is a relative majority in favor of one's own taxes financing global solidarity, though a lower one than for specific proposals that would make the richest contribute.\footnote{This confirms that the willingness to pay for global solidarity, even through taxes, does not equate to acceptance of global redistribution proposals.%Mmeasure the same disposition as the support for global redistribution proposals. 
 } 
-As explained in Section \ref{sec:data}% and shown in Appendix \ref{app:comparison} % TODO AER revision
+As explained in Section \ref{sec:data}% and shown in Appendix \ref{app:comparison}% TODO AER revision
 , the present results replicate well the ``Global Solidarity Report'' that first asked this question \citep{global_nation_global_2023}
 
 % \paragraph{Comparison with existing surveys}
@@ -979,7 +1000,7 @@ Asked to evaluate ways of transferring resources to reduce poverty in LICs on a 
 % To test that, I inform a random half of respondents of ongoing international negotiations/initiatives. 
 % The treatment increases support by 1 pp.
 % ______
-% Belief that global redistribution is likely increases by 8 pp among informed respondents (33%->41%).
+% Belief that global redistribution is likely increases by 7 pp among informed respondents (33%->40%).
 % Under warm glow, support should *decrease* among convinced respondents.
 % I find the contrary: being convinced causally *increases* the number of global policies supported by 18 pp.
 % _______
@@ -1122,9 +1143,10 @@ Since public attitudes do not appear to be a limiting factor, further research i
 \putbib
 \end{bibunit}
 
+% \begin{bibunit}[aea] %  AER
 \begin{bibunit}[plainnaturl_clean]
 
-\clearpage
+\clearpage % AER
 \begin{small}
 \section*{\normalsize Acknowledgements}
 I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution. %, Gerhard Toews for Russian census. 
