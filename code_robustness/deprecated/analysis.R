@@ -321,6 +321,15 @@ summary(ivreg(share_solidarity_short_supported ~ likely_solidarity | info_solida
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e))
 summary(lm(share_solidarity_short_supported ~ (likely_solidarity > 0), data = e, subset = !info_solidarity))
 
+# 2SLS
+summary(lm((likely_solidarity > 0) ~ info_solidarity * vote, data = e, weights = weight)) # 33% + 8pp***
+summary(ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), instruments = reg_formula("", c("info_solidarity")), data = e, subset = (vote == "Left"), weights = weight)) 
+summary(ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), instruments = reg_formula("", c("info_solidarity")), data = e, subset = (vote == "Far right"), weights = weight)) 
+summary(ivreg(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)")), instruments = reg_formula("", c("info_solidarity")), data = e, subset = (vote == 1), weights = weight)) 
+summary(lm(reg_formula("share_solidarity_supported", c("(likely_solidarity > 0)", "vote", "(likely_solidarity > 0):vote")), data = e, weights = weight)) # 14.53***
+summary(lm(reg_formula("share_solidarity_supported", c("info_solidarity", "vote_factor", "info_solidarity:vote_factor")), data = e, weights = weight)) 
+
+
 sapply(c("all", countries), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c), which = d(c)$solidarity_support_shipping_levy != 0)))
 sapply(c("all", countries), function(c) print(decrit(d(c)$solidarity_support_shipping_levy > 0, d(c))))
 sapply(c("all", countries), function(c) print(decrit(d(c)$solidarity_support_shipping_levy < 0, d(c))))

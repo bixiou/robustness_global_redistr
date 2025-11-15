@@ -1234,7 +1234,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   if ("urbanity" %in% names(e)) e$urbanity_factor <- e$urbanity_na_as_city <- no.na(factor(e$urbanity), rep = "NA")
   else e$urbanity_factor <- "NA"
   e$education_factor <- factor(e$education)
-  e$income_factor <- no.na(factor(e$income_quartile), rep = "NA")
+  e$income_factor <- relevel(factor(no.na(factor(e$income_quartile), rep = "NA")), "Q1")
   if ("region" %in% names(e)) e$region_factor <- no.na(factor(e$region), rep = "NA")
   if ("region" %in% names(e)) e$region_factor[e$region_factor == "0"] <- "NA"
   if ("region" %in% names(e)) e$country_region <- paste(e$country, e$region_factor)
