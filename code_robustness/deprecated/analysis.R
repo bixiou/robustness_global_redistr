@@ -217,6 +217,17 @@ wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (r
 wtd.mean(colSums((effects_conjoint - colMeans(effects_conjoint, na.rm = T)) * (replace(policies_leaning_party_US02[-18,], policies_leaning_party_US02[-18,] == 0, NA) - 1.5)*2, na.rm = T), adult_pop[-c(9,10)]) # Far right parties' policies more liked than Center right's
 
 
+##### Pluralistic ignorance #####
+cor(all$gcs_support, all$gcs_belief_own, use = "complete.obs") # .34
+summary(lm(all$gcs_support ~ I(all$gcs_belief_own - gcs_support[all$country]), weights = all$weight)) # .49
+summary(lm(all$gcs_support ~ I(all$gcs_belief_own - gcs_support[all$country]), weights = all$weight, subset = all$country != "US")) # .52
+summary(lm(all$gcs_support ~ all$gcs_belief_us, weights = all$weight, subset = all$country != "US")) # .44
+decrit("gcs_support", which = all$gcs_belief_own > gcs_support[all$country]) # .71
+decrit("gcs_support", which = all$gcs_belief_own < gcs_support[all$country]) # .48
+decrit("gcs_support", which = all$country != "US" & all$gcs_belief_us > gcs_support["US"]) # .73
+decrit("gcs_support", which = all$country != "US" & all$gcs_belief_us < gcs_support["US"]) # .57
+
+
 ##### Revenue split #####
 # Average of 17 for global item, quite independent of number of global items => people seem to split more or less equally between presented choices.
 # -> ask in open-ended field how should global tax revenues be spent / how they should be allocated between countries?

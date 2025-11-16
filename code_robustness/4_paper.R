@@ -170,6 +170,11 @@ wtd.mean(RU$revenue_split == 0, RU$weight) # 12%
 ## Pluralistic ignorance
 round(wtd.median(all$gcs_belief_own, weight = all$weight, na.rm = T) - sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))) # -16 pp
 round(wtd.median(all$gcs_belief_us, weight = all$weight * (all$country != "US"), na.rm = T) - wtd.mean(US$gcs_support, US$weight)) # -22 pp
+gcs_support <- sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))
+
+decrit(all$gcs_belief_own >= 50) # 39%
+decrit("gcs_support", which = all$gcs_belief_own >= 50) # .72 
+decrit("gcs_support", which = all$gcs_belief_own < 50) # .44 
 
 # wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
 # wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
