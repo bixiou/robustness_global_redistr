@@ -1985,7 +1985,6 @@ create_conjoint_sample <- function(df = all) {
   call$program_preferred_far_right <- ifelse(call$vote_factor == "Far right", call$program_preferred, NA)
   call$program_preferred_far_right[call$country == "US"] <- call$program_preferred_right[call$country == "US"]
   call$program_preferred_pnr <- ifelse(call$vote_factor == "Non-voter, PNR or Other", call$program_preferred, NA)
-  call$constant <- 1
   return(call)
 }
 call <- create_conjoint_sample(all)

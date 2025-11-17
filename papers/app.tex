@@ -538,7 +538,7 @@ An international levy on carbon emissions from aviation, raising ticket prices b
 \end{tabular}
 \end{table}
 
-\subsection{Country-specific Features}\label{subsec:country_features}
+\subsection{Country-specific Features and Policies' Costs}\label{subsec:country_features}
 
 In the survey, various features are tailored to country-specific characteristics. 
 The workbook at \href{https://github.com/bixiou/robustness_global_redistr/raw/main/questionnaire/sources.xlsx}{github.com/bixiou/robustness\_global\_redistr/raw/main/questionnaire/sources.xlsx} contains all such features as well as their sources. 
@@ -590,6 +590,23 @@ While the cost of poverty reduction declines relative to tax revenue once one ac
 
 To estimate the revenue from a global tax on wealth above \$5 million at a rate of 2\% (Section~\ref{subsec:revenue_split}, Questions~\ref{q:revenue_split_few}-\ref{q:revenue_split_many}), I use the distribution of net wealth by country in current dollar for 2022 from the World Inequality Database. I assume that the taxable base is reduced by 30\% due to tax avoidance and asset depreciation. I report expected tax revenue as a share of countries' 2023 GNI (from the World Bank). I also report the absolute revenue after converting them into LCU. 
 
+\paragraph{Sustainable future; aviation levy.}
+
+I assume a carbon price of \$300/tCO$_\text{2}$. Given natural gas footprint at .1807 tCO$_\text{2}$/MWh, this carbon price would double a gas price of \$54/MWh, which is a midpoint between U.S. and European prices. Similarly, the prices of beef and flights would double, assuming that beef costs \$10/kg and emits 33~kgCO$_\text{2}$e/kg, and aviation emits 3~kgCO$_\text{2}$e per dollar of flight. A 30\% increase in flight prices corresponds to a carbon price of \$100/tCO$_\text{2}$, or to a \$300/t levy which does not account for the warming effect of contrails \citep{lee_contribution_2021}.
+%flights prices would raise by 30\%. 
+% Approximating emissions from aviation at 1~kgCO$_\text{2}$ per dollar of flight, a carbon price of \$300/tCO$_\text{2}$ would raise flights prices by 30\%. Similarly, assuming a (low) price of beef of \$10/kg and emissions of 33~kgCO$_\text{2}$e/kg. 
+
+% increased the price of beef by 75%, heating fuel or gas by 40%, and air travel by 30 => doubled the price of beef, heating fuel or gas, and air travel.
+% 1-5 kgCO2 per kg beef (Lynch & Pierrehumbert, 2019). Beef cost $11-22/kg in U.S. => Price of $200-400/t -> price +2-10%
+% 30-44 kgCO2eq per kg. => Price on all GHG of $200 (for $11/kg) to 400 (for $22/kg) => price +75% 
+% Decomposition is methane: ~50%, N2O: ~40%, CO2: ~10%.
+% Chicken/pork/eggs: +20%; coffe/chocolate: +40%
+% Flight: 1 kgCO2 per $ => $200-400/t -> price +20-40%
+% Natural gas: .0053 tCO2/therm * .0341 therm/kWh = .1807 tCO2/MWh => $300/t -> price +$54/MWh https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references https://www.unitjuggler.com/convertir-energy-de-kWh-en-thm.html 
+% Current natural gas price for EU consumer: €110/MWh (pre-crisis: €70). https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Natural_gas_price_statistics
+% Similar price / price increases for heating fuel https://www.insee.fr/en/statistiques/serie/000442573
+% Current natural gas price for EU consumer: $53/MWh https://www.eia.gov/dnav/ng/hist/n3010us3a.htm https://www.kylesconverter.com/energy,-work,-and-heat/cubic-feet-of-natural-gas-to-megawatt-hours
+
 \paragraph{NCQG.} 
 
 The sources used for the New Collective Quantified goal of climate finance for 2035 (Section~\ref{subsec:debated}, Questions~\ref{q:ncqg_full}-\ref{q:ncqg}) are the following: \cite{unfccc_new_2024} states the goal itself, \cite{oecd_climate_2024} provides figures on past achievements, \cite{earth_negotiations_bulletin_daily_2024} reports the positions of India and other countries, and \cite{climate_action_network_climate_2024,demand_climate_justice_engo-demand_2025} those of NGOs. Note that the question wordings do not mention the gap between climate finance needs and the official goal identified in official reports \citep{oecd_bridging_2024,songwe_raising_2024}, nor that existing plans by Multilateral Development Banks (MDBs) to ramp up climate finance would achieve most of the new goal \citep{mdbs_joint_2024}.\footnote{According to the  \cite{oecd_climate_2024}, MDBs contributed \$81~billion to climate finance in 2022 (both directly through finance provision and indirectly through mobilization of the private sector), with 71\% (or \$58 billion) attributable to developed countries. Before the NCQG was agreed at COP29, they jointly stated that they will contribute an estimated \$185 billion in 2030 (including \$65 billion from the private sector). Assuming that this increase of \$104 billion is replicated in the period 2030-2035, MDBs would contribute \$289 billion in 2035, including \$205 attributable to developed countries, that is \$147 billion more than in 2022. As (multilateral plus unilateral) developed countries' climate finance totaled \$116 billion in 2024, adding the \$147 billion expected in their multilateral finance would achieve three-quarter of the required increase, at \$263 billion.}
@@ -597,6 +614,20 @@ The sources used for the New Collective Quantified goal of climate finance for 2
 To express the NCQG as a share of developed countries' GDP, I use 2024 data from the World Bank on nominal GDP in high-income countries. This figure ---of \$70 trillion--- is conservative, since it does not account for growth or inflation until 2035.
 % Actually I accounted for growth, but used a weird source underestimating developed countries' GDP:
 % GDP advanced: 61.35T / others: 43.44 in 2023: IMF (https://www.statista.com/statistics/256328/gross-domestic-product-gdp-of-selected-global-regions/); Growth per year by 2035 advanced: 1.59% / all: 2.7% (https://www.spglobal.com/en/research-insights/special-reports/look-forward/emerging-markets-a-decisive-decade) => GDP advanced 2035: 61.35*1.0159^12=74.1T / others: world-74=(61.35+43.44)*1.027^12=144-74=70T, i.e. 51% in advanced. NB: the difference between advanced and developed is South Korea, Singapore, Taiwan (Saudi Arabia and Slovenia are classified consistently using both definitions). I subtract 3.1 (South Korea, cf. spglobal above) + 0.9 (Taiwan, current GDP + 20%) + 0.6 (Singapore, current GDP + 20%) = 4.6T to obtain 69.5T for "developed" countries' nominal GDP in 2035.
+
+\subsection{Definition of Keywords}\label{subsec:keywords}
+
+Below are the keywords used to classify the open-ended fields on top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}). The keyword search uses the R function \verb|grepl| and ignores case. The special character \verb|^| indicates the start of the string and \verb|$| the end. \hfill (Back~to~Section~\ref{subsec:considerations}.)
+\input{../tables/keywords.tex}
+ \hfill (Back~to~Section~\ref{subsec:considerations}.)
+
+% Below are the keywords used to classify the open-ended fields. The keyword search uses R function \verb|grepl| with argument \verb|ignore.case = TRUE|. Special character \verb|\^{}| indicates the start of the string and \verb|$| the end.
+
+% Here are keywords for top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}): 
+% \input{../tables/keywords.tex}
+
+% Here are keywords for the end-of-survey comment field (Question~\ref{q:comment_field}): 
+% \input{../tables/keywords_comment.tex}
 
 
 \subsection{Exploratory Factor Analysis}\label{subsec:efa}
@@ -614,20 +645,6 @@ Third, I average all \textit{z}-scores, weighted by the loadings.
 
 ~\\
 The loading of a variable is similar to the average absolute correlation with the other support variables. Interestingly, the average absolute correlation of the latent indicator, at .54, is only marginally greater than that of \verb|share_solidarity_diff| (the difference between the shares of plausible policies supported and opposed), at .49, or that of the share of plausible policies supported, at .45. In other words, simple indicators based on the support or opposition to plausible policies capture attitudes towards global redistribution almost as well as a sophisticated latent variable. \hfill (Back~to~Section~\ref{par:ranking}.)
-
-\subsection{Definition of Keywords}\label{subsec:keywords}
-
-Below are the keywords used to classify the open-ended fields on top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}). The keyword search uses the R function \verb|grepl| and ignores case. The special character \verb|^| indicates the start of the string and \verb|$| the end. \hfill (Back~to~Section~\ref{subsec:considerations}.)
-\input{../tables/keywords.tex}
- \hfill (Back~to~Section~\ref{subsec:considerations}.)
-
-% Below are the keywords used to classify the open-ended fields. The keyword search uses R function \verb|grepl| with argument \verb|ignore.case = TRUE|. Special character \verb|\^{}| indicates the start of the string and \verb|$| the end.
-
-% Here are keywords for top-of-mind considerations (Figure \ref{fig:field_keyword}, Section \ref{subsec:considerations}, Questions~\ref{q:concerns_field}-\ref{q:issue_field}): 
-% \input{../tables/keywords.tex}
-
-% Here are keywords for the end-of-survey comment field (Question~\ref{q:comment_field}): 
-% \input{../tables/keywords_comment.tex}
 
 \clearpage
 \section{Representativeness of the Surveys}\label{app:representativeness}

@@ -167,10 +167,43 @@ decrit("consistent_conjoints", data = call) # 54%
 decrit("consistent_conjoints_strict", data = call) # 36%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
 
-
-summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
+package("survival")
+package("marginaleffects")
+summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +5*** / -3***
 summary(glm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, family = binomial(link = "logit")))
-summary(clogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program + strata(n), data = call, weights = weight))
+(summary(clog <- clogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program + strata(n), data = call, weights = weight)))
+prob <- wtd.mean(call$program_preferred, call$weight)
+coef(clog)["millionaire_tax_in_programTRUE"] * prob * (1 - prob)
+coef(clog)["cut_aid_in_programTRUE"] * prob * (1 - prob)
+coef(clog)["foreign3_in_programTRUE"] * prob * (1 - prob)
+df_mlogit <- mlogit.data(call[!call$country %in% c("RU", "SA"),], choice = "program_preferred", shape  = "long", chid.var = "n", alt.var  = "profile")
+df_mlogit <- df_mlogit[with(df_mlogit, ave(program_preferred, n, FUN = function(x) length(unique(x)) > 1)), ] # Removes indifferent
+df_mlogit$covariates <- paste(df_mlogit$n, df_mlogit$millionaire_tax_in_program, df_mlogit$cut_aid_in_program, df_mlogit$foreign3_in_program)
+df_mlogit <- df_mlogit[!duplicated(df_mlogit$covariates) & !duplicated(df_mlogit$covariates, fromLast = TRUE),] # Removes those without for which both programs are identical
+(mlog <- mlogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program | 0, data = df_mlogit, weights = weight))
+summary(mlogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program | 0, data = df_mlogit, weights = weight, rpar = c(millionaire_tax_in_program = "n", cut_aid_in_program = "n", foreign3_in_program = "n"), R = 200, halton = NA))
+effects(mlog, covariate = "millionaire_tax_in_program", data = df_mlogit)
+
+(exp(.21-.59)-exp(-.59))/(exp(.21-.59)+exp(-.59))
+(exp(-.13-.59)-exp(-.59))/(exp(-.13-.59)+exp(-.59))
+(exp(.21-.59)-exp(-.59))/(exp(.21-.59)+exp(-.59))
+(exp(coef(mlog)["millionaire_tax_in_programTRUE"]) - 1)/(exp(coef(mlog)["millionaire_tax_in_programTRUE"]) + 1)
+(exp(coef(mlog)["cut_aid_in_programTRUE"]) - 1)/(exp(coef(mlog)["cut_aid_in_programTRUE"]) + 1)
+(exp(coef(mlog)["foreign3_in_programTRUE"]) - 1)/(exp(coef(mlog)["foreign3_in_programTRUE"]) + 1)
+(exp(.5) - 1)/(2*(exp(.5) + 1))
+(prob <- predict(mlog, newdata = data.frame(millionaire_tax_in_program = .25, cut_aid_in_program = .25, foreign3_in_program = .25)))
+(prob <- predict(mlog, newdata = mlogit.data(data.frame(millionaire_tax_in_program = .25, cut_aid_in_program = .25, foreign3_in_program = .25, profile = "A", program_preferred = T), choice = "program_preferred",  shape = "long", alt.var = "profile", id.var = 1)))
+prob <- wtd.mean(df_mlogit$program_preferred, df_mlogit$weight)
+coef(mlog)["millionaire_tax_in_programTRUE"] * prob * (1 - prob)
+coef(mlog)["cut_aid_in_programTRUE"] * prob * (1 - prob)
+coef(mlog)["foreign3_in_programTRUE"] * prob * (1 - prob)
+# clog$coefficients[2]/clog$coefficients[1]
+# reg_conjoint$coefficients[3]/reg_conjoint$coefficients[1]
+# df_probs <- df_mlogit %>% group_by(n) %>% mutate(linpred = millionaire_tax_in_program * coef(clog)["millionaire_tax_in_programTRUE"] + cut_aid_in_program * coef(clog)["cut_aid_in_programTRUE"] + foreign3_in_program * coef(clog)["foreign3_in_programTRUE"], prob = exp(linpred) / sum(exp(linpred)))
+# df_flip <- df_mlogit
+# df_flip$millionaire_tax_in_program <- 1 - 1*df_flip$millionaire_tax_in_program
+# df_flip_probs <- df_flip %>% group_by(n) %>% mutate(linpred = millionaire_tax_in_program * coef(clog)["millionaire_tax_in_programTRUE"] + cut_aid_in_program * coef(clog)["cut_aid_in_programTRUE"] + foreign3_in_program * coef(clog)["foreign3_in_programTRUE"], prob = exp(linpred) / sum(exp(linpred)))
+# (ame_millionaire_tax <- mean(df_probs$prob))
 
 effects_conjoint <- policies_leaning[-18,]
 for (c in countries[-c(9:10)]) for (v in row.names(effects_conjoint)) if (!is.na(policies_leaning[v,c])) effects_conjoint[v,c] <- amce[[languages_country[[c]][1]]]$estimates[[gsub("[_0-9]", "", v)]][1, paste0(gsub("[_0-9]", "", v), sub("_", "", v))]
