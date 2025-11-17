@@ -168,6 +168,10 @@ decrit("consistent_conjoints_strict", data = call) # 36%
 summary(lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, subset = vote %in% c("Center-right or Right"), weights = weight))
 
 
+summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
+summary(glm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, family = binomial(link = "logit")))
+summary(clogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program + strata(n), data = call, weights = weight))
+
 effects_conjoint <- policies_leaning[-18,]
 for (c in countries[-c(9:10)]) for (v in row.names(effects_conjoint)) if (!is.na(policies_leaning[v,c])) effects_conjoint[v,c] <- amce[[languages_country[[c]][1]]]$estimates[[gsub("[_0-9]", "", v)]][1, paste0(gsub("[_0-9]", "", v), sub("_", "", v))]
 effects_conjoint > .05 #| effects_conjoint < 0

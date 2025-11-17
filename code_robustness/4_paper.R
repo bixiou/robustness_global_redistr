@@ -213,7 +213,7 @@ with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (vari
 
 ##### 4.1 Conjoint analysis #####
 decrit("conjoint") # 27%
-summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +4*** / -4***
+summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +5*** / -3***
 coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
 # Comparison with average effect size
 conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
@@ -229,10 +229,10 @@ summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreig
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
 decrit(!call$consistent_conjoints_party, data = call) # 28.54%
 reg_conjoint_cons_party <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party) 
-coeftest(reg_conjoint_cons_party, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n)) # 4*** -4***
+coeftest(reg_conjoint_cons_party, vcov = vcovCL(reg_conjoint_cons_party, cluster = ~n)) # 5*** -3***
 decrit("consistent_conjoints_party_strict", data = call) # 42.54%
 reg_conjoint_cons_party_strict <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight, subset = call$consistent_conjoints_party_strict) 
-coeftest(reg_conjoint_cons_party_strict, vcov = vcovCL(reg_conjoint_cons_party_strict, cluster = ~n)) # 4*** -5***
+coeftest(reg_conjoint_cons_party_strict, vcov = vcovCL(reg_conjoint_cons_party_strict, cluster = ~n)) # 5*** -4***
 
 ## Footnote on policy popularity
 effects_conjoint <- policies_leaning[-18,]

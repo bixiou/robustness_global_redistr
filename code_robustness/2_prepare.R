@@ -1965,16 +1965,18 @@ create_conjoint_sample <- function(df = all) {
   df$program <- df$program_a
   df$program_preferred <- df$conjoint == "Candidate A"
   df$leaning_conjoint <- df$leaning_conjoint_1
+  df$profile <- "A"
   temp <- df
   temp$millionaire_tax_in_program <- temp$millionaire_tax_in_b
   temp$cut_aid_in_program <- temp$cut_aid_in_b
-  df$foreign3_in_program <- df$foreign3_in_b
-  df$leaning_conjoint <- df$leaning_conjoint_2
+  temp$foreign3_in_program <- temp$foreign3_in_b
+  temp$leaning_conjoint <- temp$leaning_conjoint_2
   temp$program <- temp$program_b
   temp$program_preferred <- temp$conjoint == "Candidate B"
+  temp$profile <- "B"
   call <- rbind(df, temp)
   call <- call[, intersect(names(call), c(variables_conjoint_all, variables_conjoint_consistency_all, variables_sociodemos_all, "country", "country_name", "n", "stayed", "millionaire_agg", "vote_voters", "vote_Eu", "vote_JP", "saudi",
-                                          "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country", "leaning_conjoint"))]
+                                          "vote_factor", "program", "program_preferred", "cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program", "weight", "weight_country", "leaning_conjoint", "profile"))]
   call$millionaire_vote <- ifelse(call$millionaire_tax_in_program | (call$vote_factor == "Non-voter, PNR or Other"), as.character(call$vote_factor), "millionaire_out")
   call$millionaire_vote <- relevel(factor(call$millionaire_vote), "millionaire_out")
   call$program_preferred_left <- ifelse(call$vote_factor == "Left", call$program_preferred, NA)
@@ -1983,6 +1985,7 @@ create_conjoint_sample <- function(df = all) {
   call$program_preferred_far_right <- ifelse(call$vote_factor == "Far right", call$program_preferred, NA)
   call$program_preferred_far_right[call$country == "US"] <- call$program_preferred_right[call$country == "US"]
   call$program_preferred_pnr <- ifelse(call$vote_factor == "Non-voter, PNR or Other", call$program_preferred, NA)
+  call$constant <- 1
   return(call)
 }
 call <- create_conjoint_sample(all)
