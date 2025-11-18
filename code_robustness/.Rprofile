@@ -784,7 +784,7 @@ same_reg_subsamples <- function(dep.var, dep.var.caption = NULL, covariates = se
                                 covariate.labels = NULL, nolabel = FALSE, include.total = T, add_lines = NULL, mean_above = T, only_mean = FALSE, constant_instead_mean = T, report = NULL,
                                 mean_control = T, dep.var.label = dep.var, logit = FALSE, robust_SE = T, atmean = T, keep = NULL, display_mean = FALSE, share_na_remove = 0.01, p_instead_SE = F,
                                 omit = c("Constant", "Gender: Other", "econ_leaningPNR"), print_regs = FALSE, no.space = T, filename = dep.var, omit.note = FALSE, dep_var_labels = NULL,
-                                folder = "../tables/", digits= 3, model.numbers = T, replace_endAB = NULL) {
+                                folder = "../tables/", digits= 3, model.numbers = T, replace_endAB = NULL, cluster = NULL) {
   file_path <- paste(folder, filename, ".tex", sep="")
   if (constant_instead_mean) display_mean <- T
   # keep <- gsub("(.*)", "\\\\\\Q\\1\\\\\\E", sub("^\\(", "", sub("\\)$", "", keep)))
@@ -816,6 +816,7 @@ same_reg_subsamples <- function(dep.var, dep.var.caption = NULL, covariates = se
       else SEs[[i]] <- summary(models[[i]])$coefficients[,2]
       if (p_instead_SE) SEs[[i]] <- summary(models[[i]])$coefficients[,4]
     }
+    if (!is.null(cluster)) SEs[[i]] <- coeftest(models[[i]], vcov = vcovCL(models[[i]], cluster = as.formula(paste("~", cluster))))[,2] # by default HC1 for linear and HC0 for logit
     if (print_regs) print(summary(models[[i]]))
     if (constant_instead_mean & (include.total | j > 0)) means <- c(means, round(coefs[[i]][["(Intercept)"]], digits))
     else if (include.total | j > 0) means <- c(means, ifelse(mean_control, round(wtd.mean(eval(parse(text = paste( "(data_i$", parse(text = dep.var), ")[data_i$treatment=='None']", sep=""))), weights = data_i[[weights]][data_i$treatment=='None'], na.rm = T), d = digits),
