@@ -215,6 +215,14 @@ with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (vari
 decrit("conjoint") # 27%
 summary(reg_conjoint <- lm(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program, data = call, weights = weight)) # +5*** / -3***
 coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
+
+# Conditional logit
+(summary(clog <- clogit(program_preferred ~ millionaire_tax_in_program + cut_aid_in_program + foreign3_in_program + strata(n), data = call, weights = weight)))
+prob <- wtd.mean(call$program_preferred, call$weight)
+coef(clog)["millionaire_tax_in_programTRUE"] * prob * (1 - prob) # .06
+coef(clog)["cut_aid_in_programTRUE"] * prob * (1 - prob) # -.027
+coef(clog)["foreign3_in_programTRUE"] * prob * (1 - prob)
+
 # Comparison with average effect size
 conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
 for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/mean(adult_pop[-c(9:10)])
@@ -681,8 +689,8 @@ same_reg_subsamples(dep.var = "wealth_tax_support", dep.var.caption = "Supports 
 #                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Variant: Global", "Variant: Int'l"), p_instead_SE = F, filename = "wealth_tax", omit.note = T, mean_above = F)
 
 # Table S18 conjoint
-same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
-                    data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), cluster = "n", covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
+same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries[-c(9,10)]), constant_instead_mean = F, model.numbers = F,
+                    data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), cluster = "n", covariate.labels = c("Int'l tax", "Cut aid", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
 # same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
 #                     data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint_control", omit.note = T, mean_above = F, keep = "in_program")
 
