@@ -249,6 +249,7 @@ library(magick) # image_write
 #   if (exists(tolower(str)) && is.data.frame(eval(str2expression(tolower(str))))) return(eval(str2expression(tolower(str)))) # data from name
 #   else return(alt_data[alt_data[[alt_var]] == toupper(str),])
 # }
+set.seed(42)
 d <- function(str, alt_data = eu, alt_var = "country") {
   if (exists(str) && is.data.frame(eval(str2expression(str)))) return(eval(str2expression(str))) # data from name
   else if (!exists(str)) warning(paste(str, "does not exist."))

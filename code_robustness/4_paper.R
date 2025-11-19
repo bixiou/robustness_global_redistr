@@ -221,21 +221,25 @@ coeftest(reg_conjoint, vcov = vcovCL(reg_conjoint, cluster = ~n))
 prob <- wtd.mean(call$program_preferred, call$weight)
 coef(clog)["millionaire_tax_in_programTRUE"] * prob * (1 - prob) # .06
 coef(clog)["cut_aid_in_programTRUE"] * prob * (1 - prob) # -.027
-coef(clog)["foreign3_in_programTRUE"] * prob * (1 - prob)
 
 # Comparison with average effect size
 conjoint_effects <- sapply(names(amce)[grepl("EN", names(amce)) & (nchar(names(amce)) < 6)], function(i) sapply(names(amce[[i]]$estimates), function(k) amce[[i]]$estimates[[k]][1,]))
 for (i in 1:5) for (j in 1:9) conjoint_effects[[i,j]] <- conjoint_effects[[i,j]] * adult_pop[-c(9:10)][j]/mean(adult_pop[-c(9:10)])
 conjoint_effects <- conjoint_effects_mod <- unlist(conjoint_effects)
-mean(abs(conjoint_effects)) # 6pp
+# mean(abs(conjoint_effects)) # 6pp
 conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"] <- -conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]
 conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")] <- abs(conjoint_effects_mod[!names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1", "foreignpolicyforeignpolicy2")])
 mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1")])/mean(abs(conjoint_effects_mod)) # 96%
 # mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy2")])/mean(abs(conjoint_effects_mod)) # 42%
 # mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1")])
 # mean(abs(conjoint_effects_mod)) - mean(conjoint_effects_mod[names(conjoint_effects) %in% c("foreignpolicyforeignpolicy1")]) # .003
-summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1")))) # not significant
-summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy2")))) # lower
+# summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy1")))) # not significant
+# summary(lm((conjoint_effects_mod) ~ I(names(conjoint_effects_mod) %in% c("foreignpolicyforeignpolicy2")))) # lower
+X <- abs(conjoint_effects_mod) # I test whether mean(Y) <= mean(X), by sampling new Ys 
+# Y <- conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy1"] 
+permutation_means <- replicate(1e5, {mean(sample(X, 9, replace = FALSE))}) # 9 corresponds to the number of foreignpolicyforeignpolicy1 coefs
+mean(mean(conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy1"]) > permutation_means) # One-sided p-value: .43
+mean(mean(conjoint_effects_mod[names(conjoint_effects) %in% "foreignpolicyforeignpolicy2"]) > permutation_means) # One-sided p-value: .01
 
 ## Consistent programs:
 # Effects are preserved when inconsistent programs are removed (considering the two policies as consistent with any program). Cf. Cuesta et al. (22)
@@ -689,8 +693,8 @@ same_reg_subsamples(dep.var = "wealth_tax_support", dep.var.caption = "Supports 
 #                     data_list = lapply(levels_plain, function(c) all[all$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Variant: Global", "Variant: Int'l"), p_instead_SE = F, filename = "wealth_tax", omit.note = T, mean_above = F)
 
 # Table S18 conjoint
-same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries[-c(9,10)]), constant_instead_mean = F, model.numbers = F,
-                    data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), cluster = "n", covariate.labels = c("Int'l tax", "Cut aid", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
+same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("cut_aid_in_program", "millionaire_tax_in_program", "foreign3_in_program"), display_mean = F, along.levels = c("Europe", countries[-c(9,10)]), constant_instead_mean = F, model.numbers = F,
+                    data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), cluster = "n", covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint", omit.note = T, mean_above = F)
 # same_reg_subsamples(dep.var = "program_preferred", dep.var.caption = "Program is preferred", covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), display_mean = F, along.levels = c("Europe", countries), constant_instead_mean = F, model.numbers = F,
 #                     data_list = lapply(levels_plain[-c(11,12)], function(c) call[call$country_name %in% c(c, special_levels[[c]]$value),]), covariate.labels = c("Cut aid", "Int'l tax", "Foreign3"), p_instead_SE = F, filename = "conjoint_control", omit.note = T, mean_above = F, keep = "in_program")
 
