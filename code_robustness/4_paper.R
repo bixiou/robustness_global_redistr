@@ -208,7 +208,7 @@ wtd.mean(sapply(countries, function(c) wtd.mean(d(c)$ncs_support > 0, d(c)$weigh
 sapply(c("all", countries), function(c) round(mean(d(c)$global_tax_support, na.rm = T), 3)) # 74%
 sapply(c("all", countries), function(c) round(mean(d(c)$hic_tax_support, na.rm = T), 3)) # 70%
 sapply(c("all", countries), function(c) round(mean(d(c)$intl_tax_support, na.rm = T), 3)) # 68%
-with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -5***, -1.4
+with(e, summary(lm(wealth_tax_support ~ (variant_wealth_tax == "global") + (variant_wealth_tax == "intl")))) # -4.8***, -1.4
 
 
 ##### 4.1 Conjoint analysis #####
