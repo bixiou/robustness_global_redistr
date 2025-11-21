@@ -175,6 +175,8 @@ gcs_support <- sapply(c("all", countries), function(c) wtd.mean(d(c)$gcs_support
 decrit(all$gcs_belief_own >= 50) # 39%
 decrit("gcs_support", which = all$gcs_belief_own >= 50) # .72 
 decrit("gcs_support", which = all$gcs_belief_own < 50) # .44 
+decrit("gcs_belief_own", which = all$gcs_support > 0) # mean 48%, median 50%
+decrit("gcs_belief_own", which = all$gcs_support == 0) # mean 31%, median 30%
 
 # wtd.mean(all$gcs_belief_own - sapply(countries, function(c) wtd.mean(d(c)$gcs_support, d(c)$weight))[all$country], all$weight) # -14 pp
 # wtd.mean(all$gcs_belief_us - wtd.mean(US$gcs_support, US$weight), all$weight * (all$country != "US")) # -18 pp
