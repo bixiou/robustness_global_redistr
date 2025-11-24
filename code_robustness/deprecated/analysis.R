@@ -94,8 +94,6 @@ decrit(e$country[e$field_universalism != 0])
 
 
 ##### IRT #####
-library(mirt)
-
 # Items should be categorical factors
 negative_variables_interest <- c("share_solidarity_opposed", "global_movement_no", "why_hic_help_lic_none", "nationalist", "individualist")
 for (v in negative_variables_interest) all[[paste0("minus_", v)]] <- -all[[v]]
@@ -104,6 +102,7 @@ for (v in negative_variables_interest) variables_interest_positive[v] <- paste0(
 all$irt_global_redistr <- fscores(mirt(all[, variables_interest_positive], 1, itemtype = "graded", weights = all$weight)) 
 irt <- multipleGroup(data = all[, variables_interest_positive], model = 1, group = all$country, weights = all$weight, itemtype = "graded", invariance = c("slopes", "intercepts"))
 all$irt2_global_redistr <- fscores(irt) 
+cor(all$irt_global_redistr, all$latent_support_global_redistr) # .98
 DIF(irt, which.items = 1:length(variables_interest_positive), which.par = c("a1", "d1")) 
 sort(sapply(countries, function(c) wtd.mean(all$irt_global_redistr, weights = all$weight * (all$country ==c))))
 sort(sapply(countries, function(c) wtd.mean(all$irt2_global_redistr, weights = all$weight * (all$country ==c))))

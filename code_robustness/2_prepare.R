@@ -1930,6 +1930,12 @@ rm(zscores_data)
 e$gcs_lost <- setNames(c(17, 48, 18, 39, 13, 24, 14, 48, 30, 101, 88), countries)[e$country] # features["amount_lost", main_languages[e$country]]
 e$gcs_price_increase <- features["price_increase", main_languages[e$country]]
 for (v in paste0(c("affected", "transfer"), "_top", c(1,1,3,3))) e[[v]] <- as.numeric(features[v, main_languages[e$country]])/100
+# MIRT
+negative_variables_interest <- c("share_solidarity_opposed", "global_movement_no", "why_hic_help_lic_none", "nationalist", "individualist")
+for (v in negative_variables_interest) e[[paste0("minus_", v)]] <- -e[[v]]
+variables_interest_positive <- variables_interest
+for (v in negative_variables_interest) variables_interest_positive[v] <- paste0("minus_", v)
+e$irt_global_redistr <- fscores(mirt(e[, variables_interest_positive], 1, itemtype = "graded", weights = e$weight)) 
 all <- e
 
 

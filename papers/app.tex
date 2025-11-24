@@ -466,6 +466,7 @@
 %     \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/gcs_support.pdf}} 
 % \end{figure}
 
+\clearpage
 \subsection{Countries' slant in the open-ended fields}\label{subsec:slant}
 % Interestingly, the topics vary significantly across countries. Below are my impressions of each country's slant. Compared to other countries, the concepts overrepresented 
 % in France are: insecurity, holidays or free time, the public deficit, equality, or gender equality; 
@@ -479,7 +480,11 @@
 % in Russia: metaphysical questions or profound interrogations, ``lies'', buying a house or a car, traveling, the desire to live; 
 % in Saudi Arabia: hobbies such as sports or soccer, the willingness to become millionaire (or billionaire), one's business project,\footnote{This can be linked to the high risk-taking disposition of Saudis \citep{falk_global_2018}.} buying a house, one's car, satisfaction with one's income, ``self-injustice'' or sin, raising children, Palestine, the oppression of orphans, and travel; 
 % in the U.S.: the economy, Donald Trump, breaches of the Constitution, abortion, and gun control. 
-Interestingly, the topics vary significantly across countries. Here are my impressions of each country's slant. Compared to other countries, the concepts overrepresented in each country are as follows:
+Reading and coding each field one by one took about 30 hours. %, but it was worthwhile: not only does it result in an arguably more accurate classification; it also provides first-hand insight into how people think. 
+It gives first-hand insight on the topics vary significantly across countries. 
+Here are what I noted as %perceived / my impressions of 
+each country's unique topics. % slant. 
+Compared to other countries, the concepts overrepresented in each country are as follows:
 \begin{itemize}
   \item France: insecurity, holidays or free time, the public deficit, equality, gender equality;
   \item Germany: old age poverty, immigration, the return of growth or the economic situation, free time, war (in Europe), bureaucracy;
@@ -646,7 +651,7 @@ Third, I average all \textit{z}-scores, weighted by the loadings.
 ~\\
 The loading of a variable is similar to the average absolute correlation with the other support variables. Interestingly, the average absolute correlation of the latent indicator, at .54, is only marginally greater than that of \verb|share_solidarity_diff| (the difference between the shares of plausible policies supported and opposed), at .49, or that of the share of plausible policies supported, at .45. In other words, simple indicators based on the support or opposition to plausible policies capture attitudes towards global redistribution almost as well as a sophisticated latent variable. 
 
-I also construct another latent variable of support, using a full-information item factor analysis, based on multidimensional item response theory (MIRT). Contrary to the EFA, this method does not assume that levels in a Likert-scale are separate by one unit; instead, it estimates the parameters to encode Likert-scale that best account for the latent support. Both latent variables share close average values in each subsamples (by country or political leaning). Therefore, even though MIRT is a more accurate method, I use the EFA, whose results are more transparent to describe. \hfill (Back~to~Section~\ref{par:ranking}.)
+I constructed another latent variable of support, using a full-information item factor analysis, based on multidimensional item response theory (MIRT). Unlike the EFA, MIRT does not assume that levels in a Likert-scale are spaced one unit apart; instead, it estimates parameters encoding the Likert scale that best account for latent support. The correlation between the two latent variables is extremely high (0.98). Therefore, although MIRT is a more accurate method, I use EFA because its results are more transparent to describe. \hfill (Back~to~Section~\ref{par:ranking}.) % Both latent variables share close average values in each subsample (by country or political leaning). 
 
 \clearpage
 \section{Representativeness of the Surveys}\label{app:representativeness}

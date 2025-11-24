@@ -459,6 +459,9 @@ correlations <- cor(as.data.frame(lapply(e[, c(variables_interest, "latent_suppo
 # corrplot(cors)
 sort(rowMeans(abs(correlations), na.rm = T)) # share_solidarity_supported .42, solidarity_support_ncqg_300bn 40, my_tax_global_nation .35, vote_intl_coalition .35, ncqg .35, global_movement_no .34, 
 
+# MIRT
+cor(all$irt_global_redistr, all$latent_support_global_redistr) # .98
+
 
 ##### C.4 Definition of Keywords #####
 export_keywods <- function(keys = keywords, strings = keywords_labels, file = "../tables/keywords.tex") {
