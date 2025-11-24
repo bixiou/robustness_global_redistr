@@ -199,6 +199,7 @@ package("text") # text_classifier, NLP. /!\ Requires the last version of "topics
 # options(knitr.kable.NA = '')
 package("kableExtra") # add_header_above in representativeness_table
 package("WDI") # World Development Indicators, WDI()
+package("mirt") # Item Response Theory
 # package("wbstats") # World Bank
 # package("rootSolve")
 package("memisc")

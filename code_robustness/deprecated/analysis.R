@@ -93,6 +93,291 @@ cor(e$universalist, e$latent_support_global_redistr, use = "complete.obs") # 37%
 decrit(e$country[e$field_universalism != 0])
 
 
+##### IRT #####
+library(mirt)
+
+# Items should be categorical factors
+negative_variables_interest <- c("share_solidarity_opposed", "global_movement_no", "why_hic_help_lic_none", "nationalist", "individualist")
+for (v in negative_variables_interest) all[[paste0("minus_", v)]] <- -all[[v]]
+variables_interest_positive <- variables_interest
+for (v in negative_variables_interest) variables_interest_positive[v] <- paste0("minus_", v)
+all$irt_global_redistr <- fscores(mirt(all[, variables_interest_positive], 1, itemtype = "graded", weights = all$weight)) 
+irt <- multipleGroup(data = all[, variables_interest_positive], model = 1, group = all$country, weights = all$weight, itemtype = "graded", invariance = c("slopes", "intercepts"))
+all$irt2_global_redistr <- fscores(irt) 
+DIF(irt, which.items = 1:length(variables_interest_positive), which.par = c("a1", "d1")) 
+sort(sapply(countries, function(c) wtd.mean(all$irt_global_redistr, weights = all$weight * (all$country ==c))))
+sort(sapply(countries, function(c) wtd.mean(all$irt2_global_redistr, weights = all$weight * (all$country ==c))))
+sort(sapply(countries, function(c) wtd.mean(all$latent_support_global_redistr, weights = d(c)$weight * (all$country ==c))))
+# > DIF(irt, which.items = 1:length(variables_interest_positive), which.par = c("a1", "d1"))
+# NOTE: No hyper-parameters were estimated in the DIF model. 
+# For effective DIF testing, freeing the focal group hyper-parameters is recommended.
+# |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=02h 21m 19s
+# groups
+# solidarity_support_billionaire_tax            CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_corporate_tax              CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_expanding_security_council CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_foreign_aid                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_debt_relief                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_bridgetown                 CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_loss_damage                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_ncqg_300bn                 CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_shipping_levy              CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# solidarity_support_aviation_levy              CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# wealth_tax_support                            CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# top_tax_support                               CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# reparations_support                           CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# ncs_support                                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# gcs_support                                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# ics_support                                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# convergence_support                           CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# global_movement_no                            CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# global_movement_spread                        CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# global_movement_demonstrate                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# global_movement_strike                        CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# global_movement_donate                        CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# why_hic_help_lic_responsibility               CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# why_hic_help_lic_interest                     CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# why_hic_help_lic_duty                         CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# why_hic_help_lic_none                         CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# revenue_split_few_global                      CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_agencies                         CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_govt_conditional                 CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_govt_unconditional               CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_local_authorities                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_ngo                              CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_social_protection                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# transfer_how_cash_unconditional               CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# sustainable_future                            CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# humanist                                      CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# universalist                                  CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# individualist                                 CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# nationalist                                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# ncqg                                          CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# vote_intl_coalition                           CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# my_tax_global_nation                          CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# ncqg_fusion                                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# share_solidarity_supported                    CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# share_solidarity_opposed                      CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# share_solidarity_diff                         CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# share_solidarity_ratio                        CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# minus_share_solidarity_opposed                CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# minus_global_movement_no                      CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# minus_why_hic_help_lic_none                   CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# minus_nationalist                             CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# minus_individualist                           CH,DE,ES,FR,GB,IT,JP,PL,RU,SA,US
+# converged
+# solidarity_support_billionaire_tax                 TRUE
+# solidarity_support_corporate_tax                   TRUE
+# solidarity_support_expanding_security_council      TRUE
+# solidarity_support_foreign_aid                     TRUE
+# solidarity_support_debt_relief                     TRUE
+# solidarity_support_bridgetown                      TRUE
+# solidarity_support_loss_damage                     TRUE
+# solidarity_support_ncqg_300bn                      TRUE
+# solidarity_support_shipping_levy                   TRUE
+# solidarity_support_aviation_levy                   TRUE
+# wealth_tax_support                                 TRUE
+# top_tax_support                                    TRUE
+# reparations_support                                TRUE
+# ncs_support                                        TRUE
+# gcs_support                                        TRUE
+# ics_support                                        TRUE
+# convergence_support                                TRUE
+# global_movement_no                                 TRUE
+# global_movement_spread                             TRUE
+# global_movement_demonstrate                        TRUE
+# global_movement_strike                             TRUE
+# global_movement_donate                             TRUE
+# why_hic_help_lic_responsibility                    TRUE
+# why_hic_help_lic_interest                          TRUE
+# why_hic_help_lic_duty                              TRUE
+# why_hic_help_lic_none                              TRUE
+# revenue_split_few_global                           TRUE
+# transfer_how_agencies                              TRUE
+# transfer_how_govt_conditional                      TRUE
+# transfer_how_govt_unconditional                    TRUE
+# transfer_how_local_authorities                     TRUE
+# transfer_how_ngo                                   TRUE
+# transfer_how_social_protection                     TRUE
+# transfer_how_cash_unconditional                    TRUE
+# sustainable_future                                 TRUE
+# humanist                                           TRUE
+# universalist                                       TRUE
+# individualist                                      TRUE
+# nationalist                                        TRUE
+# ncqg                                               TRUE
+# vote_intl_coalition                                TRUE
+# my_tax_global_nation                               TRUE
+# ncqg_fusion                                        TRUE
+# share_solidarity_supported                         TRUE
+# share_solidarity_opposed                           TRUE
+# share_solidarity_diff                              TRUE
+# share_solidarity_ratio                             TRUE
+# minus_share_solidarity_opposed                     TRUE
+# minus_global_movement_no                           TRUE
+# minus_why_hic_help_lic_none                        TRUE
+# minus_nationalist                                  TRUE
+# minus_individualist                                TRUE
+# AIC SABIC
+# solidarity_support_billionaire_tax              0     0
+# solidarity_support_corporate_tax                0     0
+# solidarity_support_expanding_security_council   0     0
+# solidarity_support_foreign_aid                  0     0
+# solidarity_support_debt_relief                  0     0
+# solidarity_support_bridgetown                   0     0
+# solidarity_support_loss_damage                  0     0
+# solidarity_support_ncqg_300bn                   0     0
+# solidarity_support_shipping_levy                0     0
+# solidarity_support_aviation_levy                0     0
+# wealth_tax_support                              0     0
+# top_tax_support                                 0     0
+# reparations_support                             0     0
+# ncs_support                                     0     0
+# gcs_support                                     0     0
+# ics_support                                     0     0
+# convergence_support                             0     0
+# global_movement_no                              0     0
+# global_movement_spread                          0     0
+# global_movement_demonstrate                     0     0
+# global_movement_strike                          0     0
+# global_movement_donate                          0     0
+# why_hic_help_lic_responsibility                 0     0
+# why_hic_help_lic_interest                       0     0
+# why_hic_help_lic_duty                           0     0
+# why_hic_help_lic_none                           0     0
+# revenue_split_few_global                        0     0
+# transfer_how_agencies                           0     0
+# transfer_how_govt_conditional                   0     0
+# transfer_how_govt_unconditional                 0     0
+# transfer_how_local_authorities                  0     0
+# transfer_how_ngo                                0     0
+# transfer_how_social_protection                  0     0
+# transfer_how_cash_unconditional                 0     0
+# sustainable_future                              0     0
+# humanist                                        0     0
+# universalist                                    0     0
+# individualist                                   0     0
+# nationalist                                     0     0
+# ncqg                                            0     0
+# vote_intl_coalition                             0     0
+# my_tax_global_nation                            0     0
+# ncqg_fusion                                     0     0
+# share_solidarity_supported                      0     0
+# share_solidarity_opposed                        0     0
+# share_solidarity_diff                           0     0
+# share_solidarity_ratio                          0     0
+# minus_share_solidarity_opposed                  0     0
+# minus_global_movement_no                        0     0
+# minus_why_hic_help_lic_none                     0     0
+# minus_nationalist                               0     0
+# minus_individualist                             0     0
+# HQ BIC X2
+# solidarity_support_billionaire_tax             0   0  0
+# solidarity_support_corporate_tax               0   0  0
+# solidarity_support_expanding_security_council  0   0  0
+# solidarity_support_foreign_aid                 0   0  0
+# solidarity_support_debt_relief                 0   0  0
+# solidarity_support_bridgetown                  0   0  0
+# solidarity_support_loss_damage                 0   0  0
+# solidarity_support_ncqg_300bn                  0   0  0
+# solidarity_support_shipping_levy               0   0  0
+# solidarity_support_aviation_levy               0   0  0
+# wealth_tax_support                             0   0  0
+# top_tax_support                                0   0  0
+# reparations_support                            0   0  0
+# ncs_support                                    0   0  0
+# gcs_support                                    0   0  0
+# ics_support                                    0   0  0
+# convergence_support                            0   0  0
+# global_movement_no                             0   0  0
+# global_movement_spread                         0   0  0
+# global_movement_demonstrate                    0   0  0
+# global_movement_strike                         0   0  0
+# global_movement_donate                         0   0  0
+# why_hic_help_lic_responsibility                0   0  0
+# why_hic_help_lic_interest                      0   0  0
+# why_hic_help_lic_duty                          0   0  0
+# why_hic_help_lic_none                          0   0  0
+# revenue_split_few_global                       0   0  0
+# transfer_how_agencies                          0   0  0
+# transfer_how_govt_conditional                  0   0  0
+# transfer_how_govt_unconditional                0   0  0
+# transfer_how_local_authorities                 0   0  0
+# transfer_how_ngo                               0   0  0
+# transfer_how_social_protection                 0   0  0
+# transfer_how_cash_unconditional                0   0  0
+# sustainable_future                             0   0  0
+# humanist                                       0   0  0
+# universalist                                   0   0  0
+# individualist                                  0   0  0
+# nationalist                                    0   0  0
+# ncqg                                           0   0  0
+# vote_intl_coalition                            0   0  0
+# my_tax_global_nation                           0   0  0
+# ncqg_fusion                                    0   0  0
+# share_solidarity_supported                     0   0  0
+# share_solidarity_opposed                       0   0  0
+# share_solidarity_diff                          0   0  0
+# share_solidarity_ratio                         0   0  0
+# minus_share_solidarity_opposed                 0   0  0
+# minus_global_movement_no                       0   0  0
+# minus_why_hic_help_lic_none                    0   0  0
+# minus_nationalist                              0   0  0
+# minus_individualist                            0   0  0
+# df   p
+# solidarity_support_billionaire_tax             0 NaN
+# solidarity_support_corporate_tax               0 NaN
+# solidarity_support_expanding_security_council  0 NaN
+# solidarity_support_foreign_aid                 0 NaN
+# solidarity_support_debt_relief                 0 NaN
+# solidarity_support_bridgetown                  0 NaN
+# solidarity_support_loss_damage                 0 NaN
+# solidarity_support_ncqg_300bn                  0 NaN
+# solidarity_support_shipping_levy               0 NaN
+# solidarity_support_aviation_levy               0 NaN
+# wealth_tax_support                             0 NaN
+# top_tax_support                                0 NaN
+# reparations_support                            0 NaN
+# ncs_support                                    0 NaN
+# gcs_support                                    0 NaN
+# ics_support                                    0 NaN
+# convergence_support                            0 NaN
+# global_movement_no                             0 NaN
+# global_movement_spread                         0 NaN
+# global_movement_demonstrate                    0 NaN
+# global_movement_strike                         0 NaN
+# global_movement_donate                         0 NaN
+# why_hic_help_lic_responsibility                0 NaN
+# why_hic_help_lic_interest                      0 NaN
+# why_hic_help_lic_duty                          0 NaN
+# why_hic_help_lic_none                          0 NaN
+# revenue_split_few_global                       0 NaN
+# transfer_how_agencies                          0 NaN
+# transfer_how_govt_conditional                  0 NaN
+# transfer_how_govt_unconditional                0 NaN
+# transfer_how_local_authorities                 0 NaN
+# transfer_how_ngo                               0 NaN
+# transfer_how_social_protection                 0 NaN
+# transfer_how_cash_unconditional                0 NaN
+# sustainable_future                             0 NaN
+# humanist                                       0 NaN
+# universalist                                   0 NaN
+# individualist                                  0 NaN
+# nationalist                                    0 NaN
+# ncqg                                           0 NaN
+# vote_intl_coalition                            0 NaN
+# my_tax_global_nation                           0 NaN
+# ncqg_fusion                                    0 NaN
+# share_solidarity_supported                     0 NaN
+# share_solidarity_opposed                       0 NaN
+# share_solidarity_diff                          0 NaN
+# share_solidarity_ratio                         0 NaN
+# minus_share_solidarity_opposed                 0 NaN
+# minus_global_movement_no                       0 NaN
+# minus_why_hic_help_lic_none                    0 NaN
+# minus_nationalist                              0 NaN
+# minus_individualist                            0 NaN
+
 # => Either keep as is or change "in the world" => "of all" for injustice; or have two versions of injustice and take out concerns.
 # -> test "of all" for last 188 US respondents; concerns changed to open question on global tax revenue use. 
 e$issue_field[!is.na(e$issue_field) & !e$country %in% "PL"] # Short political answers. Main topics: cost of living; immigration; climate; (homelessness; healthcare; animal).

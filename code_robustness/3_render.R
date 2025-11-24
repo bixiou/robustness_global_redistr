@@ -327,6 +327,7 @@ heatmaps_defs <- list(
   "comment_keyword" = list(vars = variables_comment_keyword, conditions = ">= 1", sort = T, width = 850, height = 300),
   # "comment_gpt" = list(vars = variables_comment_gpt, conditions = ">= 1", sort = T, width = 850, height = 610),
   "synthetic_indicators" = list(vars = c("latent_support_global_redistr", "share_solidarity_supported_true", "share_solidarity_opposed_true", "share_solidarity_diff", "share_solidarity_ratio"), conditions = c("", "median"), sort = F, width = 950, height = 500, nb_digits = 2),
+  "irt" = list(vars = c("latent_support_global_redistr", "irt_global_redistr", "share_solidarity_supported_true", "share_solidarity_opposed_true", "share_solidarity_diff", "share_solidarity_ratio"), conditions = c("", "median"), sort = F, width = 950, height = 500, nb_digits = 2),
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
   "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
 )
@@ -545,6 +546,7 @@ heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_pos
 ## Country ranking
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["irt_pol"], name = "irt_pol", levels = levels_pol)
 
 ## Likely solidarity
 barres_multiple(barres_defs["likely_solidarity"], df = all[all$info_solidarity == F,])
