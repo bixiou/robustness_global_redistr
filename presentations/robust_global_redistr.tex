@@ -48,7 +48,7 @@ CNRS, CIRED \\ \quad \\ \quad \\
 \ip \blue{Andre et al. (NCC, 2024)}: \rose{69\% willing to contribute 1\% of income for climate action} (125 countries).
 \ip \blue{Ghassim \& Pauli (2024)}: \rose{Majority} in 16 out of 17 countries \rose{for a global democratic government}.
 \ip \blue{Fabre et al. (NHB, 2025)}: \rose{Genuine} majority \rose{support} for global redistribution (20 countries):
-\bbvsp \ip \rose{Consensus for a global tax on millionaires; median preferred allocationof revenue: 30\%  to LICs}.
+\bbvsp \ip \rose{Consensus for a global tax on millionaires; median preferred allocation of revenue: 30\%  to LICs}.
 \ip Majorities support increased foreign aid if it really helps the poorest.
 \ip Majorities support a ``Global Climate Scheme'' (GCS), i.e. a cap-and-trade with equal pc emission rights.
 \ip No social desirability bias (list experiment). Similar support in a real-stake petition.
@@ -73,7 +73,7 @@ CNRS, CIRED \\ \quad \\ \quad \\
 
 \begin{frame}{Data\label{data}}
   \vspace{.1cm}
-\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage.png}} \vspace{-.5cm}
+\makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/maps_participation/country_coverage_curtailed.png}} \vspace{-.5cm}
 \bbvs
 \ip \blue{12,000 respondents} (Europe: 5,000; USA: 3,000; Japan: 2,000; Saudi Arabia, Russia: 1,000).
 \ip Data collected from April 15 to July 3, 2025; except in Russia: Sep 19 to Oct 9.
@@ -112,6 +112,7 @@ CNRS, CIRED \\ \quad \\ \quad \\
 % % \ip 
 % % \ee
 % \end{frame}
+\section{Prioritization}
 \begin{frame}{Open-ended fields}
     \begin{figure}
 \vspace{-.3cm}
@@ -197,6 +198,7 @@ CNRS, CIRED \\ \quad \\ \quad \\
 \includegraphics[width=\textwidth]{../figures/all/split_few.pdf}}}
 \end{frame}
 
+\section{Country coverage}
 \begin{frame}{International wealth tax}
 \centering Support for a 2\% wealth tax above [\$1 million] with 30\% financing public services in LICs,\\depending on which countries adopt it (random variant).
 %     {\centering Imagine an international tax on individuals with net worth above [wealth_threshold: \$1 million]. \\
@@ -263,6 +265,9 @@ CNRS, CIRED \\ \quad \\ \quad \\
 \ee
 \end{frame}
 
+
+\section{Robustness}
+
 \begin{frame}{Plausible gobal policies\label{solidarity_support_relative}}
 \centering Share of (somewhat or strong) \textit{support} among non-\textit{indifferent} answers. \quad \green{\checkmark H3} \hyperlink{solidarity_support_absolute}{\beamergotobutton{Absolute support}} \\
 \makebox[\textwidth][c]{ \includegraphics[height=.89\textheight]{../figures/country_comparison/solidarity_support_share}}
@@ -271,51 +276,103 @@ CNRS, CIRED \\ \quad \\ \quad \\
 % \ee
 \end{frame}
 
-\begin{frame}{Testing warm glow} 
-  \centering If \textit{warm glow}, support might dissipate when...
-  \vspace{-.35cm}
+
+
+\begin{frame}{No evidence of warm glow} 
+  % \centering If \textit{warm glow}, support might dissipate when...
+  \vspace{-.3cm}
     \begin{figure}
-% \caption{}
-\begin{subfigure}{.38\textwidth}
-  \caption[]{\normalsize \blue{Moral substitute}: ...the policy is replaced a substitute with the same moral appeal}
-  \bbvs \ip \textit{Donation lottery} treatment: Choose share of \$100 prize to donate to plant trees.
-  \ip H5a: Support for GCS no lower in the treated group.
-  \ee
-  \vspace{4.3cm}
-  % \includegraphics[width=\textwidth]{}
-\end{subfigure} \quad \pause
-\begin{subfigure}{.59\textwidth}
-  \caption[]{\normalsize \blue{Realism}: ...the policy materializes} \vspace{-.5cm}
+\caption{If \textit{warm glow}, support might dissipate when the policy materializes}\vspace{-.4cm}
+\begin{subfigure}{.5\textwidth} 
+  % \caption[]{\normalsize If \textit{warm glow}, support might dissipate when the policy materializes}
   \bbvs \ip \textit{Information} treatment: ``countries have agreed to demonstrate some degree of solidarity in addressing global challenges.  Negotiations are ongoing to implement specific mechanisms for sustainable development.'' Examples:
   \bbvs \ip IMO shipping levy
-  \ip 0.7\% ODA commitment
+  \ip 0.7\% of GNI in ODA commitment
   \ip Climate finance commitment
   \ip Minimum corporate tax
   \ip Brazil proposal at G20 of taxing billionaires
-  \ip UN Pact for the Future foreseeing Security Council reform
-  \ip Bridgetown initiative to finance sustainable development
+  \ip 143 (\textit{vs.} 7) countries %Pact for the Future 
+  for Security Council reform
+  \ip Bridgetown initiative to finance sust. dvlpt.
   \ee
   \ip H5b: Info increases belief in likelihood of global redistribution but does not reduce support for plausible global policies
   \ee
-  \vspace{1.2cm}
+\end{subfigure} \quad \pause
+\begin{subfigure}{.47\textwidth} 
+  \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of plausible \rose{global policies} supported: +1p.p.* \quad \hyperlink{2SLS}{\beamergotobutton{2SLS}}}
+  \includegraphics[width=.9\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+  \\ \quad 
 \end{subfigure}
 \end{figure}
 \end{frame}
 
-\begin{frame}{No evidence of warm glow\label{warm_glow}} 
+\begin{frame}{No evidence of warm glow} 
+  % \centering If \textit{warm glow}, support might dissipate when...
   \vspace{-.3cm}
     \begin{figure}
-% \caption{}
-\begin{subfigure}{.47\textwidth}
+\caption{If \textit{warm glow}, support might dissipate when the policy is replaced a substitute with the same moral appeal}\vspace{-.4cm}
+\begin{subfigure}{.5\textwidth} 
+  \caption[]{\normalsize \blue{Moral substitute}}
+  \bbvs \ip \textit{Donation lottery} treatment: Choose share of \$100 prize to donate to plant trees.
+  \ip H5a: Support for GCS no lower in the treated group.
+  \ee
+\end{subfigure} \quad \pause
+\begin{subfigure}{.47\textwidth} 
   \caption[]{Effect of a \blue{\textit{Donation lottery} treatment} on support for the \rose{Global Climate Scheme}: +3p.p.*** \quad \green{\checkmark H5a}}
   \includegraphics[width=.97\textwidth]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
-\end{subfigure} \quad \pause
-\begin{subfigure}{.47\textwidth}
-  \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of plausible \rose{global policies} supported: +1p.p.* \quad \green{\checkmark H5b} \hyperlink{2SLS}{\beamergotobutton{2SLS}}}
-  \includegraphics[width=.97\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+  \\ \quad 
 \end{subfigure}
 \end{figure}
 \end{frame}
+
+% \begin{frame}{Testing warm glow} 
+%   \centering If \textit{warm glow}, support might dissipate when...
+%   \vspace{-.35cm}
+%     \begin{figure}
+% % \caption{}
+% \begin{subfigure}{.38\textwidth}
+%   \caption[]{\normalsize \blue{Moral substitute}: ...the policy is replaced a substitute with the same moral appeal}
+%   \bbvs \ip \textit{Donation lottery} treatment: Choose share of \$100 prize to donate to plant trees.
+%   \ip H5a: Support for GCS no lower in the treated group.
+%   \ee
+%   \vspace{4.3cm}
+%   % \includegraphics[width=\textwidth]{}
+% \end{subfigure} \quad \pause
+% \begin{subfigure}{.59\textwidth}
+%   \caption[]{\normalsize \blue{Realism}: ...the policy materializes} \vspace{-.5cm}
+%   \bbvs \ip \textit{Information} treatment: ``countries have agreed to demonstrate some degree of solidarity in addressing global challenges.  Negotiations are ongoing to implement specific mechanisms for sustainable development.'' Examples:
+%   \bbvs \ip IMO shipping levy
+%   \ip 0.7\% ODA commitment
+%   \ip Climate finance commitment
+%   \ip Minimum corporate tax
+%   \ip Brazil proposal at G20 of taxing billionaires
+%   \ip UN Pact for the Future foreseeing Security Council reform
+%   \ip Bridgetown initiative to finance sustainable development
+%   \ee
+%   \ip H5b: Info increases belief in likelihood of global redistribution but does not reduce support for plausible global policies
+%   \ee
+%   \vspace{1.2cm}
+% \end{subfigure}
+% \end{figure}
+% \end{frame}
+
+% \begin{frame}{No evidence of warm glow\label{warm_glow}} 
+%   \vspace{-.3cm}
+%     \begin{figure}
+% % \caption{}
+% \begin{subfigure}{.47\textwidth}
+%   \caption[]{Effect of a \blue{\textit{Donation lottery} treatment} on support for the \rose{Global Climate Scheme}: +3p.p.*** \quad \green{\checkmark H5a}}
+%   \includegraphics[width=.97\textwidth]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
+% \end{subfigure} \quad \pause
+% \begin{subfigure}{.47\textwidth}
+%   \caption[]{Effect of \blue{information about ongoing global redistribution} initiatives on the share of plausible \rose{global policies} supported: +1p.p.* \quad \green{\checkmark H5b} \hyperlink{2SLS}{\beamergotobutton{2SLS}}}
+%   \includegraphics[width=.97\textwidth]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+% \end{subfigure}
+% \end{figure}
+% \end{frame}
+
+
+\section{Values}
 
 \begin{frame}{NCQG}
 \centering
@@ -394,6 +451,9 @@ $\Rightarrow$ 52\% of millionaires support the global movement.
 % \ee
 \end{frame}
 
+
+\section{Radical proposals}
+
 \begin{frame}{Radical redistribution}
 \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_few_share}}
 % \bbvs
@@ -433,13 +493,13 @@ $\Rightarrow$ 52\% of millionaires support the global movement.
 % \makebox[\textwidth][c]{ \includegraphics[width=\textwidth]{../figures/country_comparison/}}
 \bbsp
 \ip Global poverty seen as big injustice but not a salient concern.
-\ip Strong majority support for globally redistributive policies.
+\ip Strong majority acceptance of globally redistributive policies.
 \ip Support reduces (only) slightly when fewer countries participate.
-\ip Support is genuine. No evidence of warm glow.
+\ip Acceptance is genuine. No evidence of warm glow.
 \ip Global redistribution is a vote-determining issue for many people. % Majority on the left? What about abstentionnist?
 \ip Most agree global sustainability is a duty.
 \ip Most agree they should contribute themselves.
-\ip \begin{center} \textbf{Thank you for your attention!} \\   Work-in-progress at \blue{\href{https://bit.ly/support_global_redistr}{bit.ly/support\_global\_redistr}} \end{center}
+\ip \begin{center} \textbf{Thank you for your attention!} \\   Working paper at \blue{\href{https://bit.ly/support_global_redistr}{bit.ly/support\_global\_redistr}} \end{center}
 \ee
 \end{frame}
 
