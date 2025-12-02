@@ -101,6 +101,7 @@ package("quantreg")
 # package("segmented")
 #' package("rcompanion")
 package("DescTools") # Gini, %[]%
+package("lme4") # lmer: multi-level regressions
 #' # package("VCA")
 #' package("glmnet")
 #' # package("installr") # not for linux

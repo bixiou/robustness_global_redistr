@@ -13,6 +13,7 @@ special_levels <- list("All" = list("var" = "country_name", "value" = countries_
                        "European Union" = list("var" = "country_name", "value" = countries_EU), "$ bold('European Union')" = list("var" = "country_name", "value" = countries_EU), "EU" = list("var" = "country_name", "value" = countries_EU), 
                        "Saudi citizens" = list("var" = "saudi", "value" = T), "Millionaires" = list("var" = "millionaire_agg", "value" = "Already"),
                        "U.S. Harris" = list("var" = "vote_voters", "value" = "Harris"), "U.S. Trump" = list("var" = "vote_voters", "value" = "Trump"), "U.S. Non-voters" = list("var" = "vote_voters", "value" = "Non-voter or PNR"),
+                       "U.S. Democratic State" = list("var" = "democratic_state", "value" = TRUE), "U.S. Swing State" = list("var" = "swing_state", "value" = TRUE),
                        "Europe Left" = list("var" = "vote_Eu", "value" = "Left"), "Europe Center/Right" = list("var" = "vote_Eu", "value" = "Center-right or Right"), "Europe Far right" = list("var" = "vote_Eu", "value" = "Far right"), "Europe Non-voters" = list("var" = "vote_Eu", "value" = "Non-voter, PNR or Other"),
                        "Japan Left" = list("var" = "vote_JP", "value" = 0), "Japan Center/Right" = list("var" = "vote_JP", "value" = 1), "Japan Non-voters" = list("var" = "vote_JP", "value" = -1), "Saudi Arabia" = list("var" = "country_name", "value" = "Saudi Arabia"))
 levels_default <- c("$ bold('All')", "$ bold('Europe')", countries_names)
@@ -26,6 +27,7 @@ levels_saudi <- c("$ bold('All')", "$ bold('Europe')", countries_names[1:10], "S
 levels_merge_EU <- c("$ bold('All')", "$ bold('European Union')", countries_names[!countries_names %in% countries_EU])
 levels_pol <- c("$ bold('All')", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
 levels.pol <- c("All", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
+levels_pol_US <- c("All", "Millionaires", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "U.S. Democratic State", "U.S. Swing State", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
 
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 main_languages <- sapply(countries, function(c) languages_country[[c]][1])

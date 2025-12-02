@@ -1,8 +1,14 @@
-\clearpage
+% \\ref(.*)\}\. => $1}%.%%\n 
 \section{Raw Results% from the complementary surveys
 }\label{app:raw_results}
 \subsection{Figures}
 % Country-specific raw results are also available as supplementary material files:  \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_US.pdf}{US}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_EU.pdf}{EU}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_FR.pdf}{FR}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_DE.pdf}{DE}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_ES.pdf}{ES}, \href{https://github.com/bixiou/international_attitudes_toward_global_policies/raw/main/paper/app_desc_stats_UK.pdf}{UK}.
+
+\begin{figure}[h!]
+    \caption[Average synthetic indicators of support for global redistribution]{Average synthetic indicators of support for global redistribution. (Question~\ref{q:solidarity_support}). \hfill (Back~to~Section~\ref{par:ranking}.)
+    }\label{fig:synthetic_indicators_mean}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/synthetic_indicators_mean.pdf}} 
+\end{figure}
 
 \begin{figure}[h!]
     \caption[Keyword classification of open-ended fields]{Keyword classification of open-ended fields (matches with at least one keyword in a list). (Questions~\ref{q:concerns_field}-\ref{q:injustice_field}). \hfill (Back~to~Section~\ref{subsec:considerations}.)
@@ -208,11 +214,11 @@
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_positive.pdf}} 
 \end{figure}
 
-\begin{figure}[h!]
-    \caption[Average synthetic indicators of support for global redistribution]{Average synthetic indicators of support for global redistribution. (Question~\ref{q:solidarity_support}). \hfill (Back~to~Section~\ref{par:ranking}.)
-    }\label{fig:synthetic_indicators_mean}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/synthetic_indicators_mean.pdf}} 
-\end{figure}
+% \begin{figure}[h!]
+%     \caption[Average synthetic indicators of support for global redistribution]{Average synthetic indicators of support for global redistribution. (Question~\ref{q:solidarity_support}). \hfill (Back~to~Section~\ref{par:ranking}.)
+%     }\label{fig:synthetic_indicators_mean}
+%     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/synthetic_indicators_mean.pdf}} 
+% \end{figure}
 
 
 \begin{figure}[h!]
@@ -816,7 +822,7 @@ Once the custom redistribution has been determined, it is straightforward to com
 \end{figure}
     \hfill (Back~to~Section~\ref{subsec:custom_redistr}.)
 
-% \clearpage
+% \clearpage % AER
 % \section{Comparison with Other Surveys}\label{app:comparison}
 % \begin{figure}[h!]
 % \caption[Comparison with other surveys]{Comparison with similar questions in other surveys.} \label{fig:comparison}
@@ -1065,7 +1071,7 @@ Figures \ref{fig:main_radical_redistr_pol} and \ref{fig:solidarity_support_pol_s
 
 \begin{table}[!htbp] 
   \caption[Warm glow: IV without control]{Effect on support for global redistribution of believing that it is likely, without control\hfill (Back~to~Section~\ref{subsec:warm_glow}.)}\label{tab:iv_wo_control} 
-  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow_wo_control.tex}} % AER _no_star
+  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow_wo_control_no_star.tex}} % AER _no_star
   {\small \textit{Note: Robust standard errors (HC1) are reported in parentheses. \hfill $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01. 
   }}
 \end{table}

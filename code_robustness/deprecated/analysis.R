@@ -881,6 +881,20 @@ for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v,
 for (v in c("gcs_support", "wealth_tax_support", "universalist")) print(paste(v, round(100*(wtd.mean(all[[v]] > 0, all$weight * (all$vote > 0) * all$country %in% c("US"))))))
 
 
+##### Multi-level determinants #####
+summary(lmer(paste("share_solidarity_supported ~", paste(control_variables[1:10], collapse = " + "), "+ (1 | country_name)"), data = all, weights = weight))
+
+
+##### Gini #####
+# Gini redistr: from .67 (current) to .58 (top 3%, median custom), .59 (mean custom) or .63 (top 1%)
+Gini(mean_custom_redistr$all_satisfied) # .5852
+Gini(current) # .6655
+median_custom <- algo_dis_av(49*10, 1000 - 18*10, 5, verbose = F)
+Gini(median_custom) # .582
+Gini(pmax(250*12, thousandile_world_disposable_inc - pmax(0, .15 * (thousandile_world_disposable_inc - 120e3)))) # .627 global top 1%
+Gini(pmax(400*12, thousandile_world_disposable_inc - pmax(0, .15 * (thousandile_world_disposable_inc - 120e3)) - pmax(0, .15 * (thousandile_world_disposable_inc - 80e3)) - pmax(0, .15 * (thousandile_world_disposable_inc - 1e6)))) # .577 global top 3%
+
+
 ##### Remove fast RU #####
 # all_gpt <- all_gpt[!all_gpt$n %in% paste0("RU", c(18, 557, 867, 880, 892, 942)),] # S UK AGH AGT AHE AMI
 # all_gpt$nb <- n(sub("[A-Z]+", "", all_gpt$n))

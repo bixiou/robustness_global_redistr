@@ -547,6 +547,7 @@ heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_pos
 ## Country ranking
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol_US", levels = levels_pol_US)
 heatmap_multiple(heatmaps_defs["irt"], name = "irt_pol", levels = levels_pol)
 
 ## Likely solidarity
@@ -554,6 +555,15 @@ barres_multiple(barres_defs["likely_solidarity"], df = all[all$info_solidarity =
 barres_multiple(barres_defs_nolabel["likely_solidarity"], nolabel = T, df = all[all$info_solidarity == F,])
 barres_multiple(barresN_defs["likely_solidarity"], df = all[all$info_solidarity == F,])
 barres_multiple(barresN_defs_nolabel["likely_solidarity"], nolabel = T, df = all[all$info_solidarity == F,])
+
+# levels_pol
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol_US", levels = levels_pol_US)
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol_US", levels = levels_pol_US)
+heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_pol_US", levels = levels_pol_US)
+
 
 ## Conjoint by vote x country
 plot_along(along = "millionaire_tax_in_program", vars = c("program_preferred", "program_preferred_left", "program_preferred_right", "program_preferred_pnr"), subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 700, height = 600, weight_non_na = F, 
