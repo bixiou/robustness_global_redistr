@@ -10,7 +10,15 @@
 \usepackage{appendixnumberbeamer} % this package does not count the appendix pages. /!\ Inconstant behavior, sometimes bug.
 \mode<presentation>
 {
-  \usetheme{Boadilla}
+  \usetheme{Boadilla} % Boadilla / metropolis (nice orange one)
+  % \setbeamertemplate{frame footer}{My custom footer} % for metropolis at least
+  % \begin{itemize}[<+- | alert@+>] % display and emphasize items one by one (for metropolis at least). To \alert{add orange color}.
+  % References (at least for metropolis):
+  % \cite{example1992} % in any frame
+  % \begin{frame}[allowframebreaks]{References}
+  %   \bibliography{global_tax_attitudes}
+  %   \bibliographystyle{abbrv}
+  % \end{frame}
   \usecolortheme{lily} % lily is nice or orchid but not for definition
   \setbeamercovered{invisible}
   \setbeamertemplate{footline}{\raggedleft\insertframenumber~/~\inserttotalframenumber\hspace*{3pt}\vskip3pt} %this command shows frame number, not page number at bottom (means if using overlays, % frame number does not change)
