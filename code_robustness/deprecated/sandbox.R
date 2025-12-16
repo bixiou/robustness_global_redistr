@@ -483,8 +483,9 @@ sum(df$emissions_maritime_mean * df$code %in% LIC, na.rm = T)/sum(df$emissions_m
 all_id <- read.csv("../Adrien's/all_id.csv")
 all_id <- merge(all[,!names(all) %in% c("interview", "country")], all_id, by = "n")
 nrow(all_id)
-for (c in c("IT", "US", "GB", "FR", "PL")) write.csv(all_id[all_id$country == c & grepl("@", all_id$interview), names(all_id) %in% c(variables_sociodemos, "vote_original", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported")], paste0("../Adrien's/", c, "_id.csv"), quote = F, row.names = F)
-
+for (c in c("IT", "US", "GB", "FR", "PL")) write.csv2(all_id[all_id$country == c & grepl("@", all_id$interview), names(all_id) %in% c("n", variables_sociodemos, "country", "vote_original", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview")], 
+                                                      paste0("../Adrien's/", c, "_id.csv"), quote = F, row.names = F)
+rm(all_id)
 
 
 
