@@ -101,7 +101,6 @@ package("quantreg")
 # package("segmented")
 #' package("rcompanion")
 package("DescTools") # Gini, %[]%
-package("lme4") # lmer: multi-level regressions
 #' # package("VCA")
 #' package("glmnet")
 #' # package("installr") # not for linux
@@ -236,7 +235,7 @@ library(magick) # image_write
 #' # install_github(repo = "MatthieuStigler/RCompAngrist", subdir = "RCompAngrist")
 #' # package("RCompAngrist")
 #'
-#' # package("psych") # library(psych, exclude = "describe")
+package("psych") # KMO library(psych, exclude = "describe")
 #' # package("semTools")
 #' # package("interplot")
 #' # package("jtools")

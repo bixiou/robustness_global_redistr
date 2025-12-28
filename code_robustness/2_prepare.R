@@ -1927,6 +1927,8 @@ loadings <- setNames(as.numeric(factanal(zscores_data, 1)$loadings), variables_i
 e$latent_support_global_redistr <- 0
 for (i in 1:length(variables_interest)) e$latent_support_global_redistr <- e$latent_support_global_redistr + loadings[i]*zscores_data[, i]
 e$latent_support_global_redistr <- (e$latent_support_global_redistr - wtd.mean(e$latent_support_global_redistr, e$weight))/sqrt(wtd.var(e$latent_support_global_redistr, e$weight))
+names(zscores_data) <- variables_interest
+(kmo <- KMO(cor(zscores_data, use = "pairwise.complete.obs"))) # Overall MSA = .92, lowest MSAi: individualist (.39), nationalist (.53), universalist (.66)
 rm(zscores_data)
 
 e$gcs_lost <- setNames(c(17, 48, 18, 39, 13, 24, 14, 48, 30, 101, 88), countries)[e$country] # features["amount_lost", main_languages[e$country]]
