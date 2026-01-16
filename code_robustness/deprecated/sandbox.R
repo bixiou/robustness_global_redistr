@@ -482,12 +482,31 @@ sum(df$emissions_maritime_mean * df$code %in% LIC, na.rm = T)/sum(df$emissions_m
 ##### ID #####
 all_id <- read.csv("../Adrien's/all_id.csv")
 all_id <- merge(all[,!names(all) %in% c("interview", "country")], all_id, by = "n")
+all_id$volunteer <- grepl("@", all_id$interview)
 nrow(all_id)
-for (c in c("IT", "US", "GB", "FR", "PL")) write.csv2(all_id[all_id$country == c & grepl("@", all_id$interview), names(all_id) %in% c("n", variables_sociodemos, "country", "vote_original", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview")], 
+for (c in c("IT", "US", "GB", "FR", "PL")) write.csv2(all_id[all_id$country == c & all_id$volunteer, names(all_id) %in% c("n", variables_sociodemos, "country", 
+         "vote_original", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview", "weight")], 
                                                       paste0("../Adrien's/", c, "_id.csv"), quote = F, row.names = F)
+for (c in c("IT", "US", "GB", "FR", "PL")) saveRDS(all_id[all_id$country == c, names(all_id) %in% c("n", variables_sociodemos, "country", 
+         "vote_original", "vote", "vote_agg", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote")], 
+                                                      paste0("../Adrien's/", c, "_full.rds"))
+for (c in c("IT", "US", "GB", "FR", "PL")) {
+  print(c)
+  temp <- wtd.mean(d(c)$gcs_support, d(c)$weight)
+  pop_freq[[c]]$gcs_support <- c(temp/100, 1-temp/100)
+  temp <- all_id[all_id$country == c & all_id$volunteer,]
+  temp$weight <- weighting(temp, c, trim = FALSE)
+  temp$weight_gcs <- weighting(temp, c, variant = "gcs", trim = FALSE)
+  temp$weight_vote <- weighting(temp, c, variant = "vote", trim = FALSE)
+  temp$weight_vote_gcs <- weighting(temp, c, variant = "vote_gcs", trim = FALSE)
+  temp$weight_vote_gcs_simple <- weighting(temp, c, variant = "vote_gcs_simple", trim = FALSE)
+  saveRDS(temp[, names(temp) %in% c("n", variables_sociodemos, "country", "vote_original", "vote", "vote_agg", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote", "weight_gcs", "weight_vote_gcs", "weight_vote_gcs_simple")], 
+          paste0("../Adrien's/", c, "_full.rds"))
+} 
 rm(all_id)
 
-
-
-
-
+c <- "FR"
+temp <- all_id[all_id$country == c & all_id$volunteer,]
+temp$weight_vote_gcs_simple <- weighting(temp, c, variant = "vote_gcs_simple", trim = FALSE)
+temp$weight_gcs <- weighting(temp, c, variant = "vote_gcs", trim = FALSE)
+wtd.mean(temp$gcs_support, temp$weight_gcs)

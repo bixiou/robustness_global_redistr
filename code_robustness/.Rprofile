@@ -184,7 +184,7 @@ package("tm") # must be loaded before memisc; used for wordcloud
 package("wordcloud")
 package("wordcloud2")
 package("xfun") # required by Hmisc, knitr
-package("Hmisc") # describe, decrit
+package("Hmisc") # describe, decrit, wtd.mean
 # package("readxl")
 #' package("ggpubr")
 #' package("RStata")
