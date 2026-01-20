@@ -500,7 +500,7 @@ for (c in c("IT", "US", "GB", "FR", "PL")) {
   temp$weight_vote <- weighting(temp, c, variant = "vote", trim = FALSE)
   temp$weight_vote_gcs <- weighting(temp, c, variant = "vote_gcs", trim = FALSE)
   temp$weight_vote_gcs_simple <- weighting(temp, c, variant = "vote_gcs_simple", trim = FALSE)
-  saveRDS(temp[, names(temp) %in% c("n", variables_sociodemos, "country", "vote_original", "vote", "vote_agg", "voted", "group_defended", "gcs_support", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote", "weight_gcs", "weight_vote_gcs", "weight_vote_gcs_simple")], 
+  saveRDS(temp[, names(temp) %in% c("n", variables_sociodemos, "country", "vote_original", "vote", "vote_agg", "voted", "group_defended", "gcs_support", "gcs_understood", "latent_support_global_redistr", "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote", "weight_gcs", "weight_vote_gcs", "weight_vote_gcs_simple")], 
           paste0("../Adrien's/", c, "_full.rds"))
 } 
 rm(all_id)
