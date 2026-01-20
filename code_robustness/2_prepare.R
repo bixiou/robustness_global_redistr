@@ -1116,7 +1116,7 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
     label(e$foreign_origin) <- "foreign_origin: T/F. At least one parent (or self) born abroad (foreign > 0)."
   }
   
-  e <- create_item("employment_status", new_var = "employment_agg", labels = c("Not working", "Student", "Working", "Retired"), grep = T, values = c("Inactive|Unemployed", "Student", "Retired", "employed$"), df = e, 
+  e <- create_item("employment_status", new_var = "employment_agg", labels = c("Not working", "Student", "Working", "Retired"), grep = T, values = c("Inactive|Unemployed", "Student", "employed$", "Retired"), df = e, 
                    annotation = "employment_agg: Not working (Inactive or Unemployed) / Student / Retired / Employed (full-time, part-time, or self-employed). Built from employment_status.")
   e$retired_or_not_working <- e$employment_agg %in% c("Retired", "Not working")
   e$working <- e$employment_agg == "Working"
