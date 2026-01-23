@@ -483,9 +483,10 @@ sum(df$emissions_maritime_mean * df$code %in% LIC, na.rm = T)/sum(df$emissions_m
 all_id <- read.csv("../Adrien's/all_id.csv")
 all_id <- merge(all[,!names(all) %in% c("interview", "country")], all_id, by = "n")
 all_id$volunteer <- grepl("@", all_id$interview)
+all_id$education_quota_factor <- as.factor(include.missings(all_id$education_quota))
 nrow(all_id)
-variables_export <- c("n", variables_sociodemos, "zipcode", "income_decile", "uc", "country", "vote_original", "vote", "voted", "vote_agg", "group_defended", "gcs_support", "gcs_understood", "field", "latent_support_global_redistr", 
-                      "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote", "weight_vote_gcs", "weight_gcs", "weight_vote_gcs", "weight_vote_gcs_simple")
+variables_export <- c("n", variables_sociodemos, "zipcode", "income_decile", "uc", "country", "vote_original", "vote", "voted", "vote_agg", "group_defended", "gcs_support", "gcs_understood", "field", "latent_support_global_redistr", "education_quota_factor", 
+                      "share_solidarity_diff", "share_solidarity_supported", "interview", "volunteer", "weight", "weight_vote", "weight_vote_gcs", "weight_gcs", "weight_vote_gcs", "weight_vote_gcs_simple", "weight_all_gcs")
 for (c in c("IT", "US", "GB", "FR", "PL")) write.csv2(all_id[all_id$country == c & all_id$volunteer, names(all_id) %in% variables_export], paste0("../Adrien's/", c, "_id.csv"), quote = F, row.names = F)
 for (c in c("IT", "US", "GB", "FR", "PL")) saveRDS(all_id[all_id$country == c, names(all_id) %in% variables_export], paste0("../Adrien's/", c, "_full.rds"))
 
@@ -493,16 +494,19 @@ write.table(all_id[all_id$country %in% c("IT", "US", "GB", "FR") & all_id$volunt
              mutate(across(where(is.character), ~ str_replace_all(.x, "[\r\n]", "\\\\n"))) %>% mutate(across(where(is.character), ~ str_replace_all(.x, ";", ","))), "../Adrien's/id.csv", quote = F, row.names = F, sep = ";", dec = ".")
 saveRDS(all_id[all_id$country %in% c("IT", "US", "GB", "FR") & all_id$volunteer, names(all_id) %in% variables_export], "../Adrien's/id.rds")
 
-for (c in c("IT", "US", "GB", "FR", "PL")) {
+for (c in c("IT", "US", "GB", "FR")) {
   print(c)
   temp <- wtd.mean(d(c)$gcs_support, d(c)$weight)
   pop_freq[[c]]$gcs_support <- c(temp/100, 1-temp/100)
+  temp <- wtd.mean(d(c)$gcs_understood, d(c)$weight)
+  pop_freq[[c]]$gcs_understood <- c(temp, 1-temp)
   temp <- all_id[all_id$country == c & all_id$volunteer,]
   temp$weight <- weighting(temp, c, trim = FALSE)
   temp$weight_gcs <- weighting(temp, c, variant = "gcs", trim = FALSE)
   temp$weight_vote <- weighting(temp, c, variant = "vote", trim = FALSE)
   temp$weight_vote_gcs <- weighting(temp, c, variant = "vote_gcs", trim = FALSE)
-  temp$weight_vote_gcs_simple <- weighting(temp, c, variant = "vote_gcs_simple", trim = FALSE)
+  temp$weight_all_gcs <- weighting(temp, c, variant = "all_gcs", trim = FALSE)
+  # temp$weight_vote_gcs_simple <- weighting(temp, c, variant = "vote_gcs_simple", trim = FALSE)
   saveRDS(temp[, names(temp) %in% variables_export], paste0("../Adrien's/", c, "_full.rds"))
 } 
 rm(all_id)

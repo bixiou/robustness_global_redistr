@@ -93,7 +93,8 @@ growth_2018_2024 <- setNames(setNames(growth$growth_2018_2024[growth$isoname %in
     "race" = c("White only", "Hispanic", "Black", "Other"),
     "vote_US" = c("Harris", "Trump", "Other/Non-voter", "PNR/no right"), # TODO? vote_autres
     "urban" = c(TRUE, FALSE),
-    "gcs_support" = c("Yes", "No")
+    "gcs_support" = c("Yes", "No"),
+    "gcs_understood" = c(TRUE, FALSE)
   )
   
   # TODO? automatic _vote in quotas, nb_regions automatic
@@ -116,6 +117,7 @@ growth_2018_2024 <- setNames(setNames(growth$growth_2018_2024[growth$isoname %in
   for (q in names(quotas)) quotas[[paste0(q, "_gcs")]] <- c(quotas[[q]], "gcs_support")
   # for (q in names(quotas)) quotas[[paste0(q, "_gcs_simple")]] <- c("gcs_support")
   for (q in names(quotas)) quotas[[paste0(q, "_vote_gcs")]] <- c(quotas[[q]], "vote", "gcs_support")
+  for (q in names(quotas)) quotas[[paste0(q, "_all_gcs")]] <- c(quotas[[q]], "vote", "gcs_support", "gcs_understood")
   # for (q in names(quotas)) quotas[[paste0(q, "_vote_gcs_simple")]] <- c("gender", "income_quartile", "age", "education_quota", "vote", "gcs_support")
   # for (c in countries_EU) quotas[[paste0(c, "_all")]] <- c(quotas[[c]], "employment_18_64", "vote")
   
