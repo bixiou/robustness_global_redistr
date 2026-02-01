@@ -426,6 +426,21 @@ decrit(all$custom_redistr_winners * all$custom_redistr_degree * all$custom_redis
 (max_winners <- min(which(mean_custom_redistr[["all_satisfied"]] < current_inc)))/10 # 73%
 (1000 - max(which(mean_custom_redistr[["all_satisfied"]] > current_inc)))/10 # 27%
 round(mean_custom_redistr$all_satisfied[1]/12) # 247
+Gini(current) # .67
+Gini(mean_custom_redistr$all_satisfied) # .59
+Gini(median_redistr <- algo_dis_av(49*10, 1000 - 18*10, 5)) # .58
+# Top 10% share
+sum(current[901:1001])/sum(current) # 52%
+sum(mean_custom_redistr$all_satisfied[901:1001])/sum(mean_custom_redistr$all_satisfied) # 47%
+sum(median_redistr[901:1001])/sum(median_redistr) # 47%
+# Bottom 50%
+sum(current[1:501])/sum(current) # 8%
+sum(mean_custom_redistr$all_satisfied[1:501])/sum(mean_custom_redistr$all_satisfied) # 13%
+sum(median_redistr[1:501])/sum(median_redistr) # 13%
+# Interdecile ratio
+current[901]/current[101] # 42
+mean_custom_redistr$all_satisfied[901]/mean_custom_redistr$all_satisfied[101] # 11
+median_redistr[901]/median_redistr[101] # 10
 
 # Figure tax rates: all/tax_radical_redistr
 # Figures by country: country_comparison/custom_redistr_satisfied_mean, country_comparison/custom_redistr_satisfied_median
