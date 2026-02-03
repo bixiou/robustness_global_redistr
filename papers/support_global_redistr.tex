@@ -1,10 +1,11 @@
 % free: APSR; BJPS; AJPS; JoP; Comparative Political Studies; JIE $190; JPubE $165; JEEA membership + $100; Perspectives on Politics
 % 11700 words
+% TODO! revision: add split_many_global_mean and field_manual to _pol / selected demographics; and add variant of selected demographic heatmaps with decomposition by age, income, education
 % TODO: check AER, revision
 % TODO: add field, etc. figures on main sociodemos rather than countries (poor/rich; education levels; vote; age...)
 % TODO cite Drupp et al 25 revision
 % TODO? no: cite Noel & Thérien: 80\% are in favor of international redistribution in 10 European countries in 95
-% TODO revision cite Smith et al. 25, Gregersen et al. 25
+% TODO revision cite Smith et al. 25
 % TODO? reparations cite Ogunbode?
 % TODO past or present when describing the survey?
 % TODO!? q-values (multiple hypotheses testing); multi-level modeling (explaining country-level support); Gini before/after income redistr; Dem/swing states (cf. pol_US figs)
@@ -100,6 +101,7 @@
 % \newcommand\citeRalp[1]{\citeauthor{#1} \citeyear{#1}}
 % \defaultbibliographystyle{aea} %  AER
 \defaultbibliographystyle{plainnaturl_clean} % 
+% \defaultbibliographystyle{chicago} % APSR
 \defaultbibliography{global_tax_attitudes}
 % \sloppy
 
@@ -136,14 +138,14 @@ in High-Income Countries
 }
 % \author{Adrien Fabre$^{1,2}$, Thomas Douenne$^3$ and Linus Mattauch$^{4,5,6}$} % WPcomment
 \author{Adrien Fabre\footnote{CNRS; CIRED. E-mail: adrien.fabre@cnrs.fr. 
-% \\ I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). The randomized controlled trials were registered in the American Economic Association's registry for randomized controlled trials under ID \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. % AER 
+% \\ I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). The randomized controlled trials were registered in the US-American Economic Association's registry for randomized controlled trials under ID \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. % AER 
 % I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution. %, Gerhard Toews for Russian census. 
 % I am grateful to Armon Rezai and Wien Universität for helping me use Qualtrics. I thank Romain Espinosa for his attentive reading and useful feedback. I am grateful to the translators and the numerous people who graciously tested the survey, proofread the translations, and gave feedback, including Gianluca Drappo, Valeria Glebova, Anne Guillemot, Marya Kayyal, Lu Li, Lilian Leupold, Guadalupe Manzo, Rintaro Matsuda. % Pauline? Samuel? Davide Pace? Mari Mohamad?
 % I am grateful to Erwan Akrour, Marius Le Hénaff, and Raquel Oliveira %and Alina Timoshkina 
 % for research assistance on the quotas and the pools of policies. I thank seminar, workshop or conference participants for useful feedback, at: the University of Brasília, Unicamp, the University of São Paulo, WZB Berlin, Paris-Saclay, the World Inequality Lab, MSE-Sorbonne, SKEMA, In-sted, the Bundesbank, FSR Climate Conference, the New Economic School, CIRED, Fürth. 
 }
 % ~~\thanks{The project is approved by Economics \& Business Ethics Committee (EBEC) at the University of Amsterdam (EB-1113) and %is approved by IRB at Harvard University (IRB21-0137), and 
-} % NCCcomment
+} % NCCcomment APSR
 
 \date{\today} % NCCcomment
 
@@ -155,7 +157,7 @@ in High-Income Countries
 {\textbf{\href{
   %https://github.com/bixiou/robustness_global_redistr/raw/main/papers/aer.pdf}{Link to clickable 
 https://github.com/bixiou/robustness_global_redistr/raw/main/papers/support_global_redistr.pdf}{Link to most recent 
-version}}} % AER
+version}}} % AER APSR
 \end{center}
 
 
@@ -172,7 +174,7 @@ version}}} % AER
 % \begin{small} % NCCcomment
 \begin{abstract}
 
-  % 166 words
+  % 149 words
 Using an original survey of 12,000 respondents representative of eleven high-income countries (the United States, Japan, Russia, Saudi Arabia, and seven European countries), I examine public support for international redistribution and climate policies, as well as its sensitivity to key policy features such as the size of transfers and country coverage. Although global inequality is not a salient concern, it is perceived as a significant injustice. There is majority acceptance in every country for nearly all global policies tested, including those that would redistribute 5 percent of global income or entail personal costs for respondents. An information treatment shows that support for global policies causally increases among respondents who perceive them as likely; an effect opposite to warm glow. Support for international policies decreases only slightly as country coverage shrinks. Overall, the results reinforce previous findings and suggest that a broad coalition of countries could feasibly advance sustainable development. 
 
 % Global inequality is a vote-determining issue for many people, and political programs that address it are more likely to be preferred. I find no evidence of warm glow: % evidence for a status quo bias rather than warm glow?
@@ -190,7 +192,7 @@ Using an original survey of 12,000 respondents representative of eleven high-inc
 
 % Acceptance increases following a treatment that boosts the belief that global redistribution is likely. 
 
-% AI: I am a researcher and am drafting an academic paper intended for publication in the American Economic Review. I want you to help me improve the English style of that paper, paragraph by paragraph. Keep your responses concise: no need to comment on your editing suggestions, just give the suggested edited paragraph. Highlight (e.g. in bold or strikes) the changes you make. 
+% AI: I am a researcher and am drafting an academic paper intended for publication in the US-American Economic Review. I want you to help me improve the English style of that paper, paragraph by paragraph. Keep your responses concise: no need to comment on your editing suggestions, just give the suggested edited paragraph. Highlight (e.g. in bold or strikes) the changes you make. 
 % I want to stress that global policies would be *accepted* rather than supported, in the sense that the public is unlikely to mobilize against such policies should they be implemented, but is also unlikely to actively demand them. Keep that in mind while editing (i.e. prefer the use of "acceptance" over "support").
 
 % Through an original survey on 12,000 respondents representative of eleven high-income countries (U.S., Japan, Russia, Saudi Arabia, and seven European countries), I study the extent of support for global redistribution and climate policies, and their sensitivity to policy features such as the magnitude of the transfers or country coverage. Though not a salient concern, global inequality is seen as a big injustice. There is majority support for almost all global policies in almost all countries, including for policies that would redistribute 5% of the world income, or that would be costly to the respondents. Global inequality is a vote-determining issue for many people; a political program is more likely to be preferred if it addresses it. Support for international policies decreases only slightly when the country coverage shrinks. These results confirm previous findings and suggest that a broad set of countries could work together for sustainable development. 
@@ -212,6 +214,7 @@ Using an original survey of 12,000 respondents representative of eleven high-inc
 \tableofcontents % AER
 
 \onehalfspacing % NCCcomment
+% \doublespacing
 
 %\clearpage
 \begin{bibunit}
@@ -283,7 +286,7 @@ who responded) state they could actively participate in such a movement (either 
 
 What if a sustainable development policy is international but not global? Acceptance decreases only slightly. In the case of a wealth tax with 30\% of revenue financing LICs, acceptance is reduced from 74\% to 68\% when the policy is implemented only by some countries (e.g. the EU, the UK, and Brazil) rather than all countries. Likewise, acceptance of an International Climate Scheme (ICS), defined as a cap-and-trade with equal per capita allocation of emissions rights, decreases from 68\% to 65\% when participating countries shrink from a group covering 72\% of world emissions to one covering 33\% of emissions.
 
-I identify pluralistic ignorance through an incentivized question that asks respondents for their belief regarding support for the Global (version of the) Climate Scheme, either among their compatriots or in the U.S. In Japan and in European countries, there is majority support for the GCS, yet most people believe there is not. Overall, the median respondent underestimates support in their own country by 16~p.p. and non-American respondents underestimate support in the U.S. by 22~p.p. Pluralistic ignorance may be an important reason why global solidarity solutions are neglected.
+I identify pluralistic ignorance through an incentivized question that asks respondents for their belief regarding support for the Global (version of the) Climate Scheme, either among their compatriots or in the U.S. In Japan and in European countries, there is majority support for the GCS, yet most people believe there is not. Overall, the median respondent underestimates support in their own country by 16~p.p. and non-US-American respondents underestimate support in the U.S. by 22~p.p. Pluralistic ignorance may be an important reason why global solidarity solutions are neglected.
 
 To test whether support might drop if the prospect of global policies materializes (a form of \textit{warm glow}), I manipulate the belief that large international transfers are likely in the next fifteen years. More specifically, I inform a random half of the respondents that ``countries have agreed to demonstrate some
 degree of solidarity in addressing global challenges'', providing diverse examples including the % recent % revision
@@ -327,7 +330,7 @@ Previous cross-country surveys consistently find strong public support for globa
 
 % Beyond papers closest to it, this paper contributes to other strands of literature. In political science, issue salience has 
 
-The first questions on respondents' considerations contribute to an extensive literature in political science on ``issue salience'' ---the priority attributed to a given issue. Issue salience is now widely acknowledged as a key factor in determining voting behavior \citep{repass_issue_1971,egan_partisan_2013,krosnick_role_1988,dennison_review_2019,edwards_explaining_1995}. Furthermore, according to open-ended responses, the ``most important issues'' relate to the economy and healthcare \citep{wlezien_salience_2005}. Although climate change and hunger appear in the top five problems when the question is framed at the global rather than national level \citep{yeager_measuring_2011}, public acceptance of sustainable development policies may be overshadowed by more pressing concerns in voters' choices. % revision cite Fastenrath & Marx
+The first questions on respondents' considerations contribute to an extensive literature in political science on ``issue salience'' ---the priority attributed to a given issue. Issue salience is now widely acknowledged as a key factor in determining voting behavior \citep{repass_issue_1971,egan_partisan_2013,krosnick_role_1988,dennison_review_2019,edwards_explaining_1995}. Furthermore, according to open-ended responses, the ``most important issues'' relate to the economy and healthcare \citep{wlezien_salience_2005}. Although climate change and hunger appear in the top five problems when the question is framed at the global rather than national level \citep{yeager_measuring_2011}, public acceptance of sustainable development policies may be overshadowed by more pressing concerns in voters' choices. Meanwhile, 40\% of Norwegian respondents cite the international distribution of costs in an open-ended question about climate change injustice, by far the most cited category \citep{gregersen_poor_2025}. % revision cite Fastenrath & Marx
 % For example, \cite{dennison_how_2020} explains the rise of the far right in Europe with increased issue salience of immigration, while attitudes on immigration have remained stable or even improved in the last 15 years. 
 % Similarly, the support for global redistribution might be outshined by more prioritized concerns.
 
@@ -346,7 +349,7 @@ more likely to be preferred. In Germany and the U.S., \cite{gampfer_obtaining_20
 % \cite{dannenberg_equity_2010} elicit climate negotiators' equity preferences and find that regional differences in addressing climate change are driven more by national interests than by different equity concerns. 
 
 % literature:
-% By employing a theoretical model and examining correlations between lobbying and actual aid (controling for desired aid), they argue that the gap between actual and desired aid stems from the political influence of the rich who defend their vested interests. \cite{gilens_political_2001} shows that even Americans with high political knowledge misperceive actual aid, and finds that 17\% fewer of them want to cut aid when we provide them specific information about the amount of aid. % same for Hurst et al
+% By employing a theoretical model and examining correlations between lobbying and actual aid (controling for desired aid), they argue that the gap between actual and desired aid stems from the political influence of the rich who defend their vested interests. \cite{gilens_political_2001} shows that even US-Americans with high political knowledge misperceive actual aid, and finds that 17\% fewer of them want to cut aid when we provide them specific information about the amount of aid. % same for Hurst et al
 % \cite{hudson_mile_2012} provide a critical review of the literature and show that the strong support for poverty alleviation largely stems from intrinsic altruism. \cite{bauhr_does_2013} find that support for aid is reduced by the perception of corruption in recipient countries. However, this effect is mitigated by the aid-corruption paradox: countries with higher levels of corruption often need more help. %TD: `` most corrupt countries need more help.'' does not sound right to me, because ``most->more'' should be ``more->more''.
 % Using a 2002 Gallup survey and the 2006 World Values Survey, and in line with \cite{heinrich_voters_2018} in the U.S., \cite{paxton_individual_2012} show that the main determinants for wanting more aid are trust, left-wing ideology, interest in politics, and being a woman (all positively associated). 
 
@@ -388,7 +391,7 @@ The survey was fielded online in 2025 using the companies \textit{Yandex} (for R
 
 In Russia, I could not administer the same questionnaire as in the other countries.\footnote{To the best of my knowledge, \cite{toews_learning_2025} were the first to manage surveying the Russian public on climate attitudes.} I had to curtail it for two reasons. First, I could not use the platform \textit{Qualtrics}, which prevented me from using certain question formats (such as constant sum scales) or embedding Javascript (used to design the interactive question). Second, I had to cut or reword some questions due to preventive censorship by the survey company. In the other countries, the questionnaires are almost identical, though the figures in the questions are adapted to the country-specific context (e.g. respondents are informed about the cost of the Global Climate Scheme to the average person in their country).\footnote{Appendix \ref{subsec:country_features} lists the unique features of the questionnaire in each country.}
 % TODO! create a README https://social-science-data-editors.github.io/template_README/
-% TODO! AER Romans for Section followed by capital letters for subsections; aea.bst (three authors max); equation number on the left; remove asterisks from table.
+% TODO!! AER Romans for Section followed by capital letters for subsections; aea.bst (three authors max); equation number on the left; remove asterisks from table.
 
 % # 1? coverage map
 \begin{figure}[h!]
@@ -425,7 +428,7 @@ The order of question items is randomized whenever possible.
 % Appendix \ref{app:order} examines the effect of item order on answers. 
 Item order generally has a significant but small effect on answers (2 to 14~p.p.), as shown in Appendix \ref{app:order}. The size of this effect helps identify questions for which opinions are strongly held (e.g. a preference for a sustainable scenario over the status quo) versus weakly held (e.g. the preferred amount of climate finance). % crystallized, well-formed, consolidated, stable, ambivalent
 
-% Appendix \ref{app:comparison} compares the responses to two attitudinal questions borrowed from other surveys. The overall averages differ by 2 to 4~p.p. and the cross-country correlations are high: .70 \citep{global_nation_global_2023} to .86 \citep{cappelen_majority_2025}. % TODO AER revision
+Appendix \ref{app:comparison} compares the responses to two attitudinal questions borrowed from other surveys. The overall averages differ by 2 to 4~p.p. and the cross-country correlations are high: .70 \citep{global_nation_global_2023} to .86 \citep{cappelen_majority_2025}. % TODO AER revision
 
 \paragraph{Incentives.}
 The questionnaire includes three incentivized questions, each awarding a \$100 prize to one randomly selected winner. First, a comprehension question about the Global Climate Scheme (GCS) checks whether respondents understand the policy's cost. 
@@ -454,7 +457,7 @@ The survey concludes with a comprehension question, synthetic questions (e.g. re
 % Throughout the paper, I make a distinction between \textit{support} and \textit{acceptance}. I use the term \textit{support} to refer to the absolute share of \textit{Somewhat} or \textit{Strong support} on Likert scales, and \textit{acceptance} to refer to relative support --- specifically, the support share among non-\textit{Indifferent} responses. Although binary (\textit{Yes}/\textit{No}) questions are typically worded in terms of ``support'', I generally report their results using the term \textit{acceptance}. This approach avoids mistaking passive consent for active support among respondents who could not choose a neutral option.
 
 \paragraph{Pre-registered Hypotheses and Data Availability.}
-The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and %is approved by IRB at Harvard University (IRB21-0137), and 
+The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and %is approved by IRB at Harvard University (IRB21-0137), and APSR/AER
 preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). The study did not deviate from the registration; the questionnaires and hypotheses tests used are the ones \href{https://osf.io/j5scn}{specified \textit{ex ante}}. All data, code, and figures from the paper are available at \href{https://github.com/bixiou/robustness_global_redistr}{github.com/bixiou/robustness\_global\_redistr}. 
 
 
@@ -555,12 +558,12 @@ In summary, the low salience of global solidarity may explain why this topic fai
 
 \subsection{Prioritization of Public Spending Items}\label{subsec:revenue_split}
 
-% revision: American -> US-American TODO: AER
+% revision: American -> US-US-American TODO: AER
 \cite{fabre_majority_2025} find that 58\% of US-Americans and 71\% of Western Europeans would support a global tax on millionaires funding low-income countries (LICs), with only 26\% and 14\% opposing it, respectively. Meanwhile, around half of them would prefer to allocate half (rather than none) of the revenue from a global wealth tax to LICs.  
 It seems that the more leeway respondents are granted to allocate the revenue from such a tax, the less they would allocate to LICs. 
 %; and, on average, respondents prefer to allocate 33.4\% of the revenue to LICs (versus domestic healthcare and education). 
 % \cite{fabre_majority_2025} uses two random variants to study the preferred use of revenue from a global wealth tax between infrastructure and public services \textit{in
-% low-income countries} versus \textit{domestic} healthcare and education. The ``binary'' variant shows that around half of Americans and Western Europeans prefer to allocate half (rather than none) of the revenue to low-income countries. The ``continuous'' variant shows that the median respondent prefers to allocate 30\% of the revenue to low-income countries (LICs).
+% low-income countries} versus \textit{domestic} healthcare and education. The ``binary'' variant shows that around half of US-Americans and Western Europeans prefer to allocate half (rather than none) of the revenue to low-income countries. The ``continuous'' variant shows that the median respondent prefers to allocate 30\% of the revenue to low-income countries (LICs).
 % In other words, while most people would prefer a globally redistributive tax to the status quo, the more leeway they are granted to allocate the revenue from such a tax, the less they would allocate to LICs. 
 The greatest leeway tested by \cite{fabre_majority_2025} let the respondents select their preferred share for LICs versus domestic healthcare and education, %one alternative spending item, 
 and the average preference was 33.4\% ---that is, 66.8\% of an equal split. % \footnote{The greatest leeway possible would be an open-ended field, but its interpretation would be challenging as answers that do not specify the geographical scope would be equivocal.}
@@ -812,7 +815,7 @@ To test the hypothesis that some people express support for global redistributio
 Then, respondents are asked ``how likely [it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before their support for ten plausible global policies is tested.\footnote{Section \ref{subsec:debated} reports acceptance of these policies and Appendix~\ref{subsec:plausible_policies_sources} describes the corresponding international negotiations.}  Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased support for global policies. %(as respondents would fear that such policies may materialize).
 
 The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy. The exclusion restriction states that the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results. Although the treatment is randomly assigned, the preferred specification includes the sociodemographic variables as controls to improve accuracy.\footnote{See Table~\ref{tab:iv_wo_control} for results without controls.
-In fact, some effects are no longer significant in the specification without controls, with $p$-values for the IV and the direct effect at .11 and .12, respectively (Table~\ref{tab:iv_wo_control}). % AER
+In fact, some effects are no longer significant in the specification without controls, with $p$-values for the IV and the direct effect at .11 and .12, respectively (Table~\ref{tab:iv_wo_control}). % AER revision
 } 
 Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this highly significant effect provides a strong first stage for the IV estimation. Assuming that the exclusion restriction holds, the IV is well identified. The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with both the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment on policy support, estimated at 1~p.p. (see Figure \ref{fig:warm_glow_realism} and Table~\ref{tab:warm_glow_realism}).
 
@@ -930,7 +933,7 @@ Two questions asked the respondents how they would react to a ``worldwide moveme
 
 % TODO compare this to Cappelen_sostad.dta, variables Protest, SocialMedia, VotePref
 In a multiple-choice question (censored in Russia), 29\% report they could participate in the movement by either attending a demonstration (19\%), going on strike (7\%), or donating \$100 to a strike fund (10\%). This share rises to 68\% in favor of the movement when including the 52\% of respondents who ``could sign a petition and spread ideas'' (Figure \ref{fig:global_movement}). 
-Taken at face value, these results would mean that a successful global solidarity movement could collect up to \$10~billion and organize some of the largest demonstrations in history, matching Earth Day mobilizations.\footnote{On April 22, 1970, 20 million US-Americans (10\% of the population) demonstrated for the environment. Since then, Earth Day events regularly mobilize hundreds of millions of people worldwide.} % TODO cut for AER
+Taken at face value, these results would mean that a successful global solidarity movement could collect up to \$10~billion and organize some of the largest demonstrations in history, matching Earth Day mobilizations.\footnote{On April 22, 1970, 20 million US-Americans (10\% of the population) demonstrated for the environment. Since then, Earth Day events regularly mobilize hundreds of millions of people worldwide.} % TODO cut for AER revision
 Interestingly, 52\% of the 584 millionaires\footnote{In the weighted subsample of millionaires, 60\% are US-Americans and 26\% Europeans.} who answered the survey would be in favor of such a movement.
 
 When asked whether they would be more or less likely to vote for the political party they feel closest to if it were part of such a movement, 36\% of the respondents state they would be more likely versus 17\% less likely (Figure \ref{fig:vote_intl_coalition}). Among the 5\% of respondents who did not vote in the last election and feel closest to a left-wing party, the share more likely to vote in that case increases to 46\% (versus 10\% who are less likely). 
@@ -943,15 +946,16 @@ In a multiple-choice question, I asked respondents which reasons for HICs suppor
 
 In former colonial or slave States,\footnote{I did not ask this question in Japan or Russia, because these countries' historiographies do not present their past as colonial but rather  as an empire% larger ``empire''
 .} 
-I asked respondents whether they would support ``reparations for colonization and slavery to former colonies and descendants of slaves'', specifying that the reparations ``could take the form of funding education and facilitating technology transfers''. Consistent with the general disagreement that HICs have a \textit{historical} responsibility to support LICs, only a minority of 35\% of respondents support reparations (except in Italy where 56\% do), while 42\% oppose them (Figure~\ref{fig:reparations_support}). This suggests that framing global solidarity as a decolonial struggle might be counterproductive.  
-% for its advocates. % TODO add for AER
+I asked respondents whether they would support ``reparations for colonization and slavery to former colonies and descendants of slaves'', specifying that the reparations ``could take the form of funding education and facilitating technology transfers''. Consistent with the general disagreement that HICs have a \textit{historical} responsibility to support LICs, only a minority of 35\% of respondents support reparations (except in Italy where 56\% do), while 42\% oppose them (Figure~\ref{fig:reparations_support}). This suggests that framing global solidarity as a decolonial struggle might be counterproductive.   
+% for its advocates. % TODO add for AER revision
 
 \paragraph{Agreement That Own Taxes Should Solve Global Problems.}\label{par:my_tax}
 
 % To crosscheck the findings and analyze the extent to which they could be affected by time, framing, or sampling, I reproduced a question asked in a previous study, the ``Global Solidarity Report'' \citep{global_nation_global_2023}. 
 Overall, 41\% agree and 28\% disagree that ``[their] taxes should go towards solving global problems''. With 60\% relative agreement, there is a relative majority in favor of one's own taxes financing global solidarity, though a lower one than for specific proposals that would make the richest contribute.\footnote{This confirms that the willingness to pay for global solidarity, even through taxes, does not equate to acceptance of global redistribution proposals.%Mmeasure the same disposition as the support for global redistribution proposals. 
 } 
-As explained in Section \ref{sec:data}% and shown in Appendix \ref{app:comparison}% TODO AER revision
+As explained in Section \ref{sec:data}  
+and shown in Appendix \ref{app:comparison}% TODO AER revision
 , the present results replicate well the ``Global Solidarity Report'' that first asked this question \citep{global_nation_global_2023}
 
 % \paragraph{Comparison with existing surveys}
@@ -987,8 +991,9 @@ Although latent support for global redistribution is significantly correlated wi
 
 \subsection{Preferred Channels for Transferring Resources to LICs}\label{subsec:transfer_how}
 
-% TODO! aer revision cite Carson et al 24, Hoy et al 25 on attitudes in MICs (they prefer public services)
-Asked to evaluate ways of transferring resources to reduce poverty in LICs on a 4-point Likert scale, the most preferred option in every country is ``Cash transfers to parents (child allowances), to the disabled and to the elderly'', with 16\% selecting it as the \textit{Best way} overall, and 49\% as a \textit{Right way} or \textit{Best way} (Figures \ref{fig:transfer_how}, \ref{fig:transfer_how_above_one}-\ref{fig:transfer_how_negative}). ``Unconditional transfers to the national government'' is the only option seen as a \textit{Wrong way} by the majority, but this share falls from 51\% down to 21\% (becoming the third most supported option out of seven) when ``transfers to the national government [are] conditioned on the use of funds for poverty reduction programs''. Interestingly, ``unconditional cash transfers to each household'' are controversial: they are the second most chosen \textit{Best way}, yet 33\% view them as a \textit{Wrong way}. Conversely, ``transfers to public development aid agencies which then finance suitable projects'' is uncontroversial, with only 16\% considering it a \textit{Wrong way}, while 37\% rate it as a \textit{Right} or \textit{Best way}.
+Asked to evaluate ways of transferring resources to reduce poverty in LICs on a 4-point Likert scale, the most preferred option in every country is ``Cash transfers to parents (child allowances), to the disabled and to the elderly'', with 16\% selecting it as the \textit{Best way} overall, and 49\% as a \textit{Right way} or \textit{Best way} (Figures \ref{fig:transfer_how}, \ref{fig:transfer_how_above_one}-\ref{fig:transfer_how_negative}).\footnote{Admittedly, it would be more relevant to ask this question to the population of LICs. \cite{carson_publics_2025} survey seven Global South countries and find that 
+people favor using carbon tax revenues for public services rather than cash
+transfers.} ``Unconditional transfers to the national government'' is the only option seen as a \textit{Wrong way} by the majority, but this share falls from 51\% down to 21\% (becoming the third most supported option out of seven) when ``transfers to the national government [are] conditioned on the use of funds for poverty reduction programs''. Interestingly, ``unconditional cash transfers to each household'' are controversial: they are the second most chosen \textit{Best way}, yet 33\% view them as a \textit{Wrong way}. Conversely, ``transfers to public development aid agencies which then finance suitable projects'' is uncontroversial, with only 16\% considering it a \textit{Wrong way}, while 37\% rate it as a \textit{Right} or \textit{Best way}.
 
 % # 11. transfer_how: heatmap (maybe just one row grouping all countries and options in columns) \includegraphics[width=\textwidth]{../figures/country_comparison/transfer_how_positive}
 \begin{figure}[h!]
@@ -1226,11 +1231,12 @@ Since public attitudes do not appear to be a limiting factor, further research i
 
 % \begin{bibunit}[aea] %  AER
 \begin{bibunit}[plainnaturl_clean] % !AER
+% \begin{bibunit}[chicago] % APSR
 
 \clearpage % AER
 % \begin{small}
-\section*{\normalsize Acknowledgements}
-I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). %The randomized controlled trials were registered in the American Economic Association's registry for randomized controlled trials under ID \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. %This RCT was registered as \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. 
+\section*{\normalsize Acknowledgements} % APSR
+I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). %The randomized controlled trials were registered in the US-American Economic Association's registry for randomized controlled trials under ID \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. %This RCT was registered as \href{https://www.socialscienceregistry.org/trials/17248}{AEARCTR-0017248}. 
 The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and %is approved by IRB at Harvard University (IRB21-0137), and 
 preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). 
 I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution. %, Gerhard Toews for Russian census. 
@@ -1244,6 +1250,7 @@ for research assistance on the quotas and the pools of policies. I thank seminar
 % \end{small}  % NCCcomment
 
 \appendix % NCCcomment
+% \pagenumbering{arabic} % APSR
 \clearpage
 % \begin{center}
 %     {\LARGE \bfseries Online Appendix}
