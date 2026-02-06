@@ -624,6 +624,7 @@ plot_along(along = "country_name", weight = "weight", name = "variables_ncs_gcs_
 
 plot_along(along = "country_name", weight = "weight", name = "variables_wealth_tax_support_by_country_pol",  vars = variables_wealth_tax_support, labels = legend_wealth_tax, levels_along = c("All", levels_pol[-1]), save = T, return_mean_ci = F, df = all, width = 820, height = 380, origin = 50, plot_origin_line = T, weight_non_na = F)
 
+# TODO!
 plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
            weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,

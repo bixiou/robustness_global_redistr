@@ -458,10 +458,24 @@ plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", sub
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
 plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program"), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
-plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+
+plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, name = "program_preferred_by_millionaire_tax_in_program_controls",
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
-plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, 
+plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370, name = "program_preferred_by_cut_in_aid_in_program_controls",
            covariates = c("millionaire_tax_in_program", "cut_aid_in_program", "foreign3_in_program", control_variables[-11]), levels_subsamples = levels_default_list[-c(11,12)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T) 
+
+# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_pol", covariates = "millionaire_tax_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_cut_aid_in_program_pol", covariates = "cut_aid_in_program", levels_subsamples = levels.pol[-c(10,11)], colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_pol_US", covariates = "millionaire_tax_in_program", levels_subsamples = levels_pol_US, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_cut_aid_in_program_pol_US", covariates = "cut_aid_in_program", levels_subsamples = levels_pol_US, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "millionaire_tax_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_millionaire_tax_in_program_dem", covariates = "millionaire_tax_in_program", levels_subsamples = levels.dem, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
+# plot_along(along = "cut_aid_in_program", vars = "program_preferred", subsamples = "country_name", save = T, plotly = T, return_mean_ci = F, df = call[!call$country %in% c("SA", "RU"),], width = 400, height = 370,
+#            weight = "weight", name = "program_preferred_by_cut_aid_in_program_dem", covariates = "cut_aid_in_program", levels_subsamples = levels.dem, colors = "black", origin = 0, plot_origin_line = T, no_legend = T)
 
 # 7. Warm glow 
 plot_along(along = "variant_warm_glow", vars = "gcs_support", subsamples = "country_name", save = T, plotly = F, return_mean_ci = F, df = all[all$variant_warm_glow != "NCS" & !all$country %in% c("SA", "RU") ,], width = 400, height = 370, 
@@ -521,17 +535,29 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 
 ## Revenue split
 split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list)[-11])))
+split_few_pol <- array(NA, dim = c(5, 13), dimnames = list(variables_split_few, levels_pol))
+split_few_pol_US <- array(NA, dim = c(5, 13), dimnames = list(variables_split_few, levels_pol_US))
+split_few_dem <- array(NA, dim = c(5, 14), dimnames = list(variables_split_few, levels_dem))
 for (c in names(levels_default_list)[-11]) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
+for (c in levels_pol) for (v in variables_split_few) split_few_pol[v, c] <- with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(eval(str2expression(v)), weight))/100
+for (c in levels_pol_US) for (v in variables_split_few) split_few_pol_US[v, c] <- with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(eval(str2expression(v)), weight))/100
+for (c in levels_dem) for (v in variables_split_few) split_few_dem[v, c] <- with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(eval(str2expression(v)), weight))/100
 split_many <- array(NA, dim = c(13, 12), dimnames = list(variables_split_many, (names(levels_default_list)[-11])))
 for (c in names(levels_default_list)[-11]) for (v in variables_split_many) split_many[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))
 split_many <- sweep(split_many, 2, colSums(split_many), "/")
 split_few_global_nb0 <- sapply(rev(names(levels_default_list)[-11]), function(c) with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(revenue_split_few_global > 0, weight)))
+split_few_global_nb0_pol <- sapply(rev(levels_pol), function(c) with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(revenue_split_few_global > 0, weight)))
+split_few_global_nb0_pol_US <- sapply(rev(levels_pol_US), function(c) with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(revenue_split_few_global > 0, weight)))
+split_few_global_nb0_dem <- sapply(rev(levels_dem), function(c) with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(revenue_split_few_global > 0, weight)))
 # dimnames(split_few) <- list(labels_vars[variables_split_few], names(levels_default_list))
 # dimnames(split_many) <- list(labels_vars[variables_split_many], names(levels_default_list))
 
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list)[-11], width = 1200, height = 550)
 barres(data = split_few, file = "../figures/country_comparison/split_few_bars_nb0", add_means = split_few_global_nb0, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = names(levels_default_list)[-11], width = 1200, height = 600)
 barres(data = split_many, file = "../figures/country_comparison/split_many_bars", save = T, export_xls = T, color = color(19)[c(1:4,11:19)], sort = F, miss = F, legend = labels_vars[variables_split_many], labels = names(levels_default_list)[-11], width = 1200, height = 800)
+barres(data = split_few_pol, file = "../figures/country_comparison/split_few_pol", add_means = split_few_global_nb0_pol, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = levels.pol, width = 1200, height = 600)
+barres(data = split_few_pol_US, file = "../figures/country_comparison/split_few_pol_US", add_means = split_few_global_nb0_pol_US, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = levels_pol_US, width = 1200, height = 600)
+barres(data = split_few_dem, file = "../figures/country_comparison/split_few_dem", add_means = split_few_global_nb0_dem, name_mean = "Share allocating at least 5% to Global", save = T, export_xls = T, color = color(9)[c(1,6:9)], sort = F, miss = F, legend = labels_vars[variables_split_few], labels = levels.dem, width = 1200, height = 600)
 
 
 ## Custom redistr
@@ -549,6 +575,7 @@ heatmap_multiple(heatmaps_defs[c("top_tax_affected_share", "top_tax_affected_pos
 ## Country ranking
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], levels = c(levels_default[1:2], countries_names[names(sort(-sapply(countries, function(c) round(wtd.mean(all$latent_support_global_redistr, all$weight * (if (c != "all") all$country %in% c), na.rm = T), 3))))]))
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_dem", levels = levels_dem)
 heatmap_multiple(heatmaps_defs["synthetic_indicators"], name = "synthetic_indicators_pol_US", levels = levels_pol_US)
 heatmap_multiple(heatmaps_defs["irt"], name = "irt_pol", levels = levels_pol)
 
@@ -565,6 +592,14 @@ heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_red
 heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_pol_US", levels = levels_pol_US)
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_pol_US", levels = levels_pol_US)
 heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_pol_US", levels = levels_pol_US)
+heatmap_multiple(heatmaps_defs["field_manual"], name = "field_manual_pol", levels = levels_pol)
+heatmap_multiple(heatmaps_defs["field_manual"], name = "field_manual_pol_US", levels = levels_pol_US)
+
+# levels_dem
+heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support_dem", levels = levels_dem)
+heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_dem", levels = levels_dem)
+heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_dem", levels = levels_dem)
+heatmap_multiple(heatmaps_defs["field_manual"], name = "field_manual_dem", levels = levels_dem)
 
 
 ## Conjoint by vote x country
