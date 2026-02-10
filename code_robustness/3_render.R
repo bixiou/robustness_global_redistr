@@ -540,7 +540,7 @@ barres(vote_pnr_out, file="country_comparison/vote_pnr_out", labels = colnames(v
 split_few <- array(NA, dim = c(5, 12), dimnames = list(variables_split_few, (names(levels_default_list)[-11])))
 split_few_pol <- array(NA, dim = c(5, 13), dimnames = list(variables_split_few, levels_pol))
 split_few_pol_US <- array(NA, dim = c(5, 13), dimnames = list(variables_split_few, levels_pol_US))
-split_few_dem <- array(NA, dim = c(5, 14), dimnames = list(variables_split_few, levels_dem))
+split_few_dem <- array(NA, dim = c(5, 13), dimnames = list(variables_split_few, levels_dem))
 for (c in names(levels_default_list)[-11]) for (v in variables_split_few) split_few[v, c] <- with(all[all$country_name %in% levels_default_list[[c]],], wtd.mean(eval(str2expression(v)), weight))/100
 for (c in levels_pol) for (v in variables_split_few) split_few_pol[v, c] <- with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(eval(str2expression(v)), weight))/100
 for (c in levels_pol_US) for (v in variables_split_few) split_few_pol_US[v, c] <- with(all[all[[special_levels[[c]]$var]] %in% special_levels[[c]]$value,], wtd.mean(eval(str2expression(v)), weight))/100

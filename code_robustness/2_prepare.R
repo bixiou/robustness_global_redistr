@@ -34,8 +34,8 @@ levels_pol_US <- c("All", "Europe Non-voters", "Europe Left", "Europe Center/Rig
 levels_pol_old <- c("$ bold('All')", "Millionaire", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
 levels.pol_old <- c("All", "Millionaire", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "Saudi Arabia", "Saudi citizens", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
 levels_pol_US_old <- c("All", "Millionaire", "Europe Non-voters", "Europe Left", "Europe Center/Right", "Europe Far right", "Japan Non-voters", "Japan Left", "Japan Center/Right", "U.S. Democratic State", "U.S. Swing State", "U.S. Non-voters", "U.S. Harris", "U.S. Trump")
-levels_dem <- c("$ bold('All')", "Bottom 50% income", "Top 50% income", "Top 20% income", "Millionaire", "Self/parent born abroad", "Non-tertiary diploma", "Tertiary diploma", "Rural urbanicity", "Cities urbanicity", "Age < 35", "Age 35-49", "Age > 50", "Man") 
-levels.dem <- c("All", "Bottom 50% income", "Top 50% income", "Top 20% income", "Millionaire", "Self/parent born abroad", "Non-tertiary diploma", "Tertiary diploma", "Rural urbanicity", "Cities urbanicity", "Age < 35", "Age 35-49", "Age > 50", "Man")
+levels_dem <- c("$ bold('All')", "Bottom 50% income", "Top 50% income", "Top 20% income", "Millionaire", "Self/parent born abroad", "Non-tertiary diploma", "Tertiary diploma", "Cities urbanicity", "Age < 35", "Age 35-49", "Age > 50", "Man") 
+levels.dem <- c("All", "Bottom 50% income", "Top 50% income", "Top 20% income", "Millionaire", "Self/parent born abroad", "Non-tertiary diploma", "Tertiary diploma", "Cities urbanicity", "Age < 35", "Age 35-49", "Age > 50", "Man")
 
 languages_country <- list(FR = "FR", DE = "DE", IT = "IT", PL = "PL", ES = "ES-ES", GB = "EN-GB", CH = c("EN-CH", "DE-CH", "FR-CH", "IT-CH"), JP = "JA", RU = "RU", SA = c("AR", "EN-SA"), US = c("EN", "ES-US")) 
 main_languages <- sapply(countries, function(c) languages_country[[c]][1])
@@ -989,6 +989,10 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   label(e$country_name) <- "country_name: Country."
   e$country <- country
   label(e$country) <- "country: ISO-2 country code."
+  e$continent <- "Other"
+  e$continent[e$country == "US"] <- "US"
+  e$continent[e$country == "JP"] <- "Japan"
+  e$continent[e$country_name %in% countries_Eu] <- "Europe"
   
   if (country == "RU") {
     e <- create_item("income", keep_original = T, labels = c("less than $100" = 1, "between $100 and $200" = 2, "between $201 and $250" = 2.5, "between $251 and $300" = 3, "between $301 and $400" = 4, "between $401 and $500" = 5, "between $501 and $600" = 6, "between $601 and $700" = 7, "between $701 and $750" = 7.5, "between $751 and $800" = 8, "between $801 and $900" = 9, "more than $900" = 10, "PNR" = 0), 

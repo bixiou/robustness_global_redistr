@@ -1,3 +1,38 @@
+summary(lm(latent_support_global_redistr ~ age_factor, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ age_factor, data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ age_factor, data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ age_factor, data = all, weights = weight, subset = continent == "Japan")) # ! Support not decreasing with age
+summary(lm(latent_support_global_redistr ~ age_factor, data = all, weights = weight, subset = continent == "Other"))
+summary(lm(latent_support_global_redistr ~ factor(income_quartile), data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ factor(income_quartile), data = all, weights = weight, subset = continent == "US")) # ! Top 50% are WAY less supportive
+summary(lm(latent_support_global_redistr ~ factor(income_quartile), data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ factor(income_quartile), data = all, weights = weight, subset = continent == "Japan"))
+summary(lm(latent_support_global_redistr ~ factor(income_quartile), data = all, weights = weight, subset = continent == "Other"))
+summary(lm(latent_support_global_redistr ~ foreign_origin, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ foreign_origin, data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ foreign_origin, data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ foreign_origin, data = all, weights = weight, subset = continent == "Japan"))
+summary(lm(latent_support_global_redistr ~ foreign_origin, data = all, weights = weight, subset = continent == "Other"))
+summary(lm(latent_support_global_redistr ~ (millionaire_agg == "Already"), data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ (millionaire_agg == "Already"), data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ (millionaire_agg == "Already"), data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ (millionaire_agg == "Already"), data = all, weights = weight, subset = continent == "Japan"))
+summary(lm(latent_support_global_redistr ~ (millionaire_agg == "Already"), data = all, weights = weight, subset = continent == "Other")) # ! Millionaires are more supportive
+summary(lm(latent_support_global_redistr ~ education_factor, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ education_factor, data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ education_factor, data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ education_factor, data = all, weights = weight, subset = continent == "Japan"))
+summary(lm(latent_support_global_redistr ~ education_factor, data = all, weights = weight, subset = continent == "Other"))
+summary(lm(latent_support_global_redistr ~ gender, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ gender, data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ gender, data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ gender, data = all, weights = weight, subset = continent == "Japan")) # ! Women are less supportive
+summary(lm(latent_support_global_redistr ~ gender, data = all, weights = weight, subset = continent == "Other"))
+summary(lm(latent_support_global_redistr ~ urbanity_factor, data = all, weights = weight))
+summary(lm(latent_support_global_redistr ~ urbanity_factor, data = all, weights = weight, subset = continent == "US"))
+summary(lm(latent_support_global_redistr ~ urbanity_factor, data = all, weights = weight, subset = continent == "Europe"))
+summary(lm(latent_support_global_redistr ~ urbanity_factor, data = all, weights = weight, subset = continent == "Japan"))
+
 world <- read.csv2("../data_ext/WID/WID_data_WO.csv") # There is also WO-MER
 
 world_thousandile <- as.numeric(c(quadratic_interpolations(as.numeric(sapply(1:99, function(i) world$value[world$percentile == paste0("p", i-1, "p", i) & world$variable == "aptincj992" & world$country == "WO" & world$year == 2023])), 
