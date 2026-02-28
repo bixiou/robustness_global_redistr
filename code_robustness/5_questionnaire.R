@@ -25,7 +25,7 @@ world_population <- 8231613070 # UN, 2025, Accessed 12/21/2024, https://populati
 (xppp_us <- sapply(countries, function(c) mean(gethin$xppp_us[gethin$iso == c], na.rm = T)))
 usd_lcu <- xppp_us * inflation_2023_2024 / inflation_2023_2024["US"]
 
-# Income is expressed in PPP $ 2024 (we inflate all 2019 LCU quantiles using country growth, add inflation up to 2022 with defl, convert to 2022 $ PPP with xppp_us, add U.S. inflation up to 2024)
+# Income is expressed in PPP $ 2024 equal-split (we inflate all 2019 LCU quantiles using country growth, add inflation up to 2022 with defl, convert to 2022 $ PPP with xppp_us, add U.S. inflation up to 2024)
 gethin$lcu19_growth_ppp24 <- gethin$growth_2020_2024 * mean(gethin$inflation_2023_2024[gethin$iso == "US"], na.rm = T) / (gethin$xppp_us * gethin$defl) 
 gethin$disposable_inc <- gethin$a_pdi * gethin$lcu19_growth_ppp24 # a: average, pdi: disposable (pretax - direct taxes + gov_soc: social assistance transfers)
 
