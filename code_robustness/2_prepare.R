@@ -1083,8 +1083,8 @@ convert <- function(e, country = e$country[1], pilot = FALSE, weighting = TRUE) 
   e <- create_item("income", new_var = "income_decile", labels = c("d1" = 1, "d2" = 2, "d3" = 3, "d4" = 4, "d5" = 5, "d6" = 6, "d7" = 7, "d8" = 8, "d9" = 9, "d10" = 10, "PNR" = 0), values = c("less", "100 and", "201|300", "301", "401", "501", "601", "701|800", "801", "more", "not"), grep = T, missing.values = c("PNR"), df = e)  
   if (country == "JP") e$income_exact_misinterpreted <- e$income_exact > 8e3
   if (country == "JP") e$income_exact[e$income_exact_misinterpreted %in% T] <- e$income_exact[e$income_exact_misinterpreted %in% T]/1e4 # Correct income_exact for 620 respondents who answered in Yen instead of 10k Yen.
-  e$uc <- 1 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
-  label(e$uc) <- "uc: Consumption units (1 + .5*pmax(0, hh_size - Nb_children__14) + .3*Nb_children__14)."
+  e$uc <- .5 + .5*pmax(0, e$hh_size - e$Nb_children__14) + .3*e$Nb_children__14
+  label(e$uc) <- "uc: Consumption units (.5 + .5*pmax(0, hh_size - Nb_children__14) + .3*Nb_children__14)."
   if ("income_exact" %in% names(e)) {
     e$income_exact_individualized <- e$income_exact * income_deciles["periodicity", languages_country[[country]][1]] / e$uc
     label(e$income_exact_individualized) <- "income_exact_individualized: Individualized income (income_exact/uc, except for US, RU: household income_exact) (LCU/year)."
