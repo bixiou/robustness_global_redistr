@@ -183,7 +183,8 @@ package("dplR") # latexify, used in table_mean_lines_save hence in desc_table
 package("tm") # must be loaded before memisc; used for wordcloud
 package("wordcloud")
 package("wordcloud2")
-package("xfun") # required by Hmisc, knitr
+# package("xfun") # required by Hmisc, knitr
+# attr <- base::attr # Restore base::attr so attr(..., exact = TRUE) works (xfun::attr masks it and causes "exact matched by multiple actual arguments")
 package("Hmisc") # describe, decrit, wtd.mean
 # package("readxl")
 #' package("ggpubr")
