@@ -330,7 +330,8 @@ heatmaps_defs <- list(
   "synthetic_indicators" = list(vars = c("latent_support_global_redistr", "share_solidarity_supported_true", "share_solidarity_opposed_true", "share_solidarity_diff", "share_solidarity_ratio"), conditions = c("", "median"), sort = F, width = 950, height = 500, nb_digits = 2),
   "irt" = list(vars = c("latent_support_global_redistr", "irt_global_redistr", "share_solidarity_supported_true", "share_solidarity_opposed_true", "share_solidarity_diff", "share_solidarity_ratio"), conditions = c("", "median"), sort = F, width = 950, height = 500, nb_digits = 2),
   "sustainable_future" = list(vars = "sustainable_future", conditions = ">= 1", width = 900, height = 150), 
-  "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270)
+  "sustainable_futures" = list(vars = c("sustainable_future", "sustainable_future_A", "sustainable_future_B"), conditions = ">= 1", width = 1000, height = 270),
+  "main_support" = list(vars = c("gcs_support_control", "wealth_tax_support", "top1_tax_support", "sustainable_future", "convergence_support", "global_movement_support"), conditions = "/", width = 1150, height = 400)
 )
 
 
@@ -340,6 +341,7 @@ vars_heatmaps <- c() # c("convergence_support", "my_tax_global_nation", "reparat
 
 heatmaps_defs <- fill_heatmaps(vars_heatmaps, heatmaps_defs)
 }
+
 
 ##### barres_defs #####
 {
@@ -603,6 +605,16 @@ heatmap_multiple(heatmaps_defs["solidarity_support"], name = "solidarity_support
 heatmap_multiple(heatmaps_defs["radical_redistr"], name = "radical_redistr_dem", levels = levels_dem)
 heatmap_multiple(heatmaps_defs["main_radical_redistr"], name = "main_radical_redistr_dem", levels = levels_dem)
 heatmap_multiple(heatmaps_defs["field_manual"], name = "field_manual_dem", levels = levels_dem)
+
+# main fr
+heatmaps_defs["main_support_fr"] <- heatmaps_defs["main_support"]
+heatmaps_defs[["main_support_fr"]]$width <- 1200
+heatmaps_defs[["main_support_fr"]]$name <- "main_support_fr"
+heatmaps_defs[["main_support_fr"]]$labels <- c("gcs_support_control" = "Soutient le Plan Mondial pour le Climat", "wealth_tax_support" = "Soutient une taxe mondiale sur les millionaires (2% > 1M)\navec 30% finançant les pays à bas revenus", 
+                                               "top1_tax_support" = "Accepte une taxe sur le top 1% mondial pour réduire la pauvreté mondiale\n(Taxe additionnelle de 15% sur les revenus > [7500€/mois])", 
+                                               "sustainable_future" = "Préfère un futur soutenable plutôt que le statu quo", "convergence_support" = 'D\'accord que "les gouvernements devraient coopérer activement pour que\ntous les pays convergent en PIB par habitant d\'ici 2100"', 
+                                               "global_movement_support" = "Soutiendrait un mouvement mondial pour décarboner, taxer les millionnaires et\nfinancer les pays à bas revenus (par pétition, manifestation, grève ou donation)")
+heatmap_multiple(heatmaps_defs["main_support_fr"])
 
 
 ## Conjoint by vote x country
