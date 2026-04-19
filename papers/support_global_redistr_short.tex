@@ -3,6 +3,35 @@
 % 8870 words (incl. 350 in abstract + acknowl) + 1400 outside text + ~1200 references
 % AJPS, BJPS count: 9.9k, WD: 8.6k
 
+% ● Three AJPS submission files have been created. Here's a summary of what was done:
+
+%   Files created:
+%   - papers/support_global_redistr_short_AJPS.tex — anonymous main paper                                                   - papers/app_AJPS.tex — anonymous appendix (SI)
+%   - papers/app_questionnaire_AJPS.tex — anonymous questionnaire appendix                                                
+%   Key changes made:
+
+%   Anonymization:
+%   - Removed author name, affiliation (CNRS/CIRED), and email
+%   - Removed entire Acknowledgements section (funding, named collaborators, ANR grant number)
+%   - Replaced IRB-CIRED-2025-2 → "the institutional review board"
+%   - Replaced all github.com/bixiou/... URLs → "[anonymized repository]" / "[available upon acceptance]"
+%   - Replaced all preferences-pol.fr URLs → "[anonymized for review]"
+%   - Replaced OSF pre-registration links → "details anonymized for review"
+%   - Self-citations to published work (fabre_majority_2025 etc.) were already in third-person ✓
+
+%   Formatting:
+%   - Changed \onehalfspacing → \doublespacing (AJPS requires double-spacing)
+%   - Margins remain at 1in (meets ≥1in requirement)
+
+%   SI separation and reference trimming (keeping ~25 referenced pages):
+%   - Added \section*{Supporting Information} header before the appendix
+%   - Removed references to peripheral SI sections: subsec:slant, subsec:keywords, per-country conjoint figures,
+%   per-vote/per-demographic breakdown figures, fig:transfer_how_above_one–fig:transfer_how_negative, secondary
+%   custom-redistribution figures, fig:top_tax_affected_share
+%   - Removed personal URLs (bit.ly/fields2025, YouTube explainer)
+%   - Kept all regression table references, representativeness tables, policy sources appendix, questionnaire, algorithm,
+%   attrition/balance/placebo robustness sections
+
 \documentclass[12pt,english]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{tgpagella} % Palatino text only
