@@ -184,7 +184,7 @@ The samples are stratified to be representative of the country's adult populatio
 
 Sociodemographic variables explain 10\% to 15\% of the variance in the main attitudinal outcomes, dropping to 5\% after accounting for country and vote (Figure \ref{fig:lmg}). In contrast, our measure of universalism is a stronger predictor than any sociodemographic variable. Support is highest among left-wing voters and lowest among far-right voters, with non-voters exhibiting attitudes close to the center of the political spectrum (S.I. \ref{app:pol}). Besides, attitudes are much less polarized in Japan compared to Europe and the U.S. Figure \ref{fig:vote_pnr_out} shows voting patterns similar to the actual distribution, although the proportion of self-reported non-voters is lower than in reality.
 % S.I. \ref{app:vote} shows that
-Additionally, the main results are robust to reweighting by vote (S.I. \ref{app:vote}).
+Additionally, the main results are robust to reweighting by vote. % (S.I. \ref{app:vote}).
 
 \paragraph{Data Quality.}\label{par:data_quality}
 The median survey duration is 17 minutes (13 min in Russia).
@@ -195,7 +195,7 @@ The questionnaire was carefully worded in a neutral and informative way;\footnot
 Of all respondents allowed to continue (as their quotas were not full), 17\% dropped out (including 10\% who dropped out after the socio-demographic questions). The final sample excludes 16\% for suspicion of low quality: 9\% for failing an attention test and 13\% for completing the questionnaire in less than 6 minutes\footnote{%6 minutes corresponds to 30\% of the expected median duration of 20 min.
 In Russia, the questionnaire is shorter and the cutoff is 200 seconds. %, or 30\% of the expected median duration of 11 minutes.
 } (including 5\% for both reasons).
-There is no correlation of treatment arms with attrition (S.I. \ref{app:attrition}), and the main results replicate in the extended sample (S.I. \ref{app:extended}).
+There is no correlation of treatment arms with attrition (S.I. \ref{app:attrition}), and the main results replicate in the extended sample. % (S.I. \ref{app:extended}).
 
 The order of question items is randomized whenever possible. Item order generally has a significant but small effect on answers (2 to 14~p.p.), as shown in S.I. \ref{app:order}. The size of this effect helps identify questions for which opinions are strongly held (e.g. a preference for a sustainable scenario over the status quo) versus weakly held (e.g. the preferred amount of climate finance).
 
@@ -230,7 +230,8 @@ In this section, I analyze the salience of global solidarity in undirected open-
 
 At the beginning of the survey, respondents are randomly assigned one of four open-ended questions: their main concerns, their needs or wishes, an issue important to them but neglected in public debate, or the greatest injustice of all. The questions are deliberately broad and vague to let respondents express their top-of-mind considerations without any priming.
 
-To analyze the answers, I automatically translated each field into English, then used AI and my own reading of a few hundred answers to identify the most common concepts, from which I selected 27 categories. I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI (Figure \ref{fig:field_gpt}) and keyword matching (Figure \ref{fig:field_keyword}, S.I. \ref{subsec:keywords}).
+To analyze the answers, I automatically translated each field into English, then used AI and my own reading of a few hundred answers to identify the most common concepts, from which I selected 27 categories. I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI %(Figure \ref{fig:field_gpt}) 
+and keyword matching. % (Figure \ref{fig:field_keyword}, S.I. \ref{subsec:keywords}).
 % I classified each answer into one or more of these categories, both manually (Figures \ref{fig:field_manual}-\ref{fig:injustice_field}) and automatically using AI (Figure \ref{fig:field_gpt}). Finally, I manually defined a list of 47 (disjunctions of) keywords and used it to automatically classify all responses.\footnote{The list of keywords is provided in S.I. \ref{subsec:keywords}.} Figure \ref{fig:field_keyword} reports the 24 most common keyword matches.
 The three classification methods yield consistent results but differ in accuracy. While the keyword classification allows for an exact and reproducible search, the AI search is not limited to specific words and captures more matching responses. Overall, manual classification provides the most accurate results, with the number of matches generally falling between those of the other two methods.
 % For example, to the \textit{injustice} question, 1.2\% of answers match the keywords for \textit{global inequality} and ChatGPT identifies this category in 7.5\% of answers, versus 3.2\% according to my manual coding.\footnote{The keyword matching searches the regular expression \texttt{global poverty\allowbreak|global inequal\allowbreak|hunger|drinking water|starv}, ignoring case. The automatic and manual classifications are based on the category definition ``Inequality at the international % inetrnational AER revision
@@ -311,7 +312,8 @@ In the \textit{Many} variant, five items are selected at random from a pool of f
 and education (22\%)
 are the most prioritized items, the average allocation for global items ranges from 16\%
 for ``Forestation and biodiversity projects'' to 19\%
-for ``Education and Healthcare in LICs'' (Figures \ref{fig:split}, \ref{fig:split_many}-\ref{fig:split_many_global_mean}). On average, tasks include 1.5 global items, which together receive 26.9\% of the revenue---again, equivalent to 17.5\% per global item. Interestingly, there is no significant correlation between the number of global items and the average allocation per global item.\footnote{In Russia, the question could not be asked in the same way due to different software. Instead, respondents had to choose what share of the global tax revenue to allocate to sustainable development in low-income countries. On average, Russians allocate 12.2\% to LICs, with a median allocation of just 5\%, but only 12\% allocate nothing to LICs.} % TODO!? put footnote in appendix?
+for ``Education and Healthcare in LICs'' (Figures \ref{fig:split}, %\ref{fig:split_many}-
+\ref{fig:split_many_global_mean}). On average, tasks include 1.5 global items, which together receive 26.9\% of the revenue---again, equivalent to 17.5\% per global item. Interestingly, there is no significant correlation between the number of global items and the average allocation per global item.\footnote{In Russia, the question could not be asked in the same way due to different software. Instead, respondents had to choose what share of the global tax revenue to allocate to sustainable development in low-income countries. On average, Russians allocate 12.2\% to LICs, with a median allocation of just 5\%, but only 12\% allocate nothing to LICs.} % TODO!? put footnote in appendix?
 
 Overall, the revenue allocation tasks validate and confirm the findings from \cite{fabre_majority_2025}. Most people would favor using a substantial share of the revenue from a global wealth tax to finance sustainable development in LICs, even though global spending is somewhat less prioritized than domestic spending.
 
@@ -402,7 +404,9 @@ Skeptics about the public's support for global redistribution would argue that t
 I conduct a conjoint experiment in all countries except Russia and Saudi Arabia. This question is positioned at the beginning of the survey, before respondents know the survey's topic. Respondents are presented with two random political programs, framed as the fictitious programs of the leading candidates in the next election, and are asked which candidate they would vote for (27\% of the respondents choose the outside option \textit{Neither of them}). Each program contains a policy or an absence of policy, chosen at random, for each of five policy domains (the order of which is also randomized). Our domain of interest is \textit{Foreign policy}, whose pool contains three policies: \textit{Cut development aid}, \textit{International tax on millionaires with 30\% financing healthcare and education in low-income countries}, and a country-specific policy. The other policies have been selected from the programs of the main candidates in the country's most recent election.
 
 Figure \ref{fig:conjoint} shows the effect of including our policies of interest in a program on the likelihood that it is preferred. % (see Figures \ref{fig:conjoint_FR}-\ref{fig:conjoint_ES_original} for full country-by-country results). 
-More specifically, following \cite{hainmueller_causal_2014}, Figure \ref{fig:conjoint} and Table \ref{tab:conjoint} present the results %estimates of coefficients $\beta_1$ and $\beta_2$
+More specifically, following \cite{hainmueller_causal_2014}, Figure \ref{fig:conjoint} %and Table \ref{tab:conjoint} 
+presents 
+the results %estimates of coefficients $\beta_1$ and $\beta_2$
 of the following regression, estimated by simple OLS with standard errors clustered by respondent:\footnote{The AMCE is the change in the probability that a program is chosen if a policy is present rather than not, averaged across all possible values in the other policy domains. I verify that the results are similar when using a conditional logit: the average marginal effects of \textit{Int'l tax} and \textit{Cut aid} are 6~p.p. and $-$3~p.p., respectively.}
 \begin{equation}\label{eq:conjoint}
 \text{Preferred}_{pi} = \beta_0 + \beta_1 \text{Cut\_aid}_{pi} + \beta_2 \text{Intl\_tax}_{pi} + \beta_3 \text{Foreign3}_{pi} + \varepsilon_{pi}
@@ -410,7 +414,8 @@ of the following regression, estimated by simple OLS with standard errors cluste
 where $pi$ denotes the program $p$ faced by respondent $i$, and each variable is a dummy.
 
 \begin{figure}[h!]
-\caption[Conjoint analysis: effect of development aid and millionaire tax]{Effect on the likelihood that a political program is preferred of containing the following policies (compared to no foreign policy in the program). No control is included, 95\% confidence intervals are shown. (See Figure \ref{fig:conjoint_vote} for effects by vote.) \hfill (Question~\ref{q:conjoint})} \label{fig:conjoint}
+\caption[Conjoint analysis: effect of development aid and millionaire tax]{Effect on the likelihood that a political program is preferred of containing the following policies (compared to no foreign policy in the program). No control is included, 95\% confidence intervals are shown. %(See Figure \ref{fig:conjoint_vote} for effects by vote.) 
+\hfill (Question~\ref{q:conjoint})} \label{fig:conjoint}
 \begin{subfigure}{.49\textwidth}
   \caption[]{Cut development aid}
   \includegraphics[height=.36\textheight]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
@@ -449,17 +454,20 @@ In the \textit{Donation} branch, respondents must decide how much they would don
 \end{subfigure}
 \end{figure}
 
-On the contrary, support for the GCS is 3~p.p. higher in the \textit{Donation} branch compared to the control group, and the coefficient is positive in every country, though often not significant (Figure \ref{fig:warm_glow_substitute}, Table~\ref{tab:warm_glow_substitute}).
+On the contrary, support for the GCS is 3~p.p. higher in the \textit{Donation} branch compared to the control group, and the coefficient is positive in every country, though often not significant (Figure \ref{fig:warm_glow_substitute}%, Table~\ref{tab:warm_glow_substitute}
+).
 The results show no evidence of warm glow.
 
 \paragraph{Realism Treatment.}
 
 To test the hypothesis that some people express support for global redistribution only as long as its implementation seems unlikely, I randomly assign half of the respondents to receive information about ongoing negotiations on globally redistributive policies. Among other things, treated respondents are informed that the International Maritime Organization recently adopted a levy on maritime carbon emissions that should partly finance LICs; that the G20 considered introducing a global tax on billionaires; that the UN General Assembly recently agreed on the principle of expanding the UN Security Council to new members; and that the UN Secretary-General supports financial system reforms that would drive resources towards sustainable development (see Question~\ref{q:info_solidarity}).
-Then, respondents are asked ``how likely [it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before their support for ten plausible global policies is tested.\footnote{Section \ref{subsec:debated} reports acceptance of these policies and S.I.~\ref{subsec:plausible_policies_sources} describes the corresponding international negotiations.}  Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased support for global policies.
+Then, respondents are asked ``how likely [it is] that international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'', right before their support for ten plausible global policies is tested.\footnote{Section \ref{subsec:debated} reports acceptance of these policies and the pre-registration plan %S.I.~\ref{subsec:plausible_policies_sources} 
+describes the corresponding international negotiations.}  Here, warm glow would be revealed if the information treatment increased the belief that global redistribution is likely but decreased support for global policies.
 
-The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy: that the the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results with sociodemographic controls.\footnote{See Table~\ref{tab:iv_wo_control} for results without controls.}
+The treatment was designed to satisfy the exclusion restriction required for the instrumental variables (IV) strategy: that the the treatment affects support for global policies only through its impact on beliefs that global redistribution is likely. Table \ref{tab:iv} reports the corresponding regression results with sociodemographic controls. %\footnote{See Table~\ref{tab:iv_wo_control} for results without controls.}
 Informed respondents are 7~p.p. more likely to believe that global redistribution is likely, from a baseline of 33\% in the control group. With an effective F-statistic of 67, this provides a strong first stage for the IV estimation. % Assuming that the exclusion restriction holds, the IV is well identified. % TODO? put back?
-The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment of 1~p.p. (see Figure \ref{fig:warm_glow_realism} and Table~\ref{tab:warm_glow_realism}).
+The local average treatment effect estimated by 2SLS is 18~p.p., indicating that believing global redistribution is likely causally \textit{increases} the share of global policies supported. This estimate is consistent with the non-causal OLS coefficient of 15~p.p. and the direct effect of the treatment of 1~p.p. (see Figure \ref{fig:warm_glow_realism}% and Table~\ref{tab:warm_glow_realism}
+).
 
 \begin{table}[!htbp]
   \caption[Effect on support for global redistribution of believing that it is likely]{Effect on support for global redistribution of believing that it is likely.}\label{tab:iv}
@@ -482,7 +490,8 @@ Knowing that some internationally redistributive policies are sincerely supporte
 \paragraph{Plausible Global Policies.}
 
 Figure \ref{fig:solidarity_support_share} reveals the acceptance of plausible global policies (see Figure \ref{fig:solidarity_support_positive} for absolute support).
-These policies are deemed ``plausible'' because they are debated in international organizations, as detailed in S.I.~\ref{subsec:plausible_policies_sources}. Almost every policy garners majority acceptance
+These policies are deemed ``plausible'' because they are debated in international organizations, as detailed in the pre-registration plan. %S.I.~\ref{subsec:plausible_policies_sources}. 
+Almost every policy garners majority acceptance
 in each country. The only exception is the acceptance among Japanese respondents of a globally redistributive tax on carbon emissions from aviation, at 46\%.
 This proposal has the most salient cost: a 30\% increase in flight prices.
 The most supported policies, with over two-thirds acceptance in every country and a majority of absolute support in the pooled sample, are the 2\% minimum tax on billionaires' wealth proposed by \cite{zucman_blueprint_2024}, the expansion of low-interest-rate sustainable investments in LICs \citep{bridgetown_initiative_bridgetown_2025}, and developed countries contributing to the climate loss and damage fund. Figure~\ref{fig:solidarity_support_pol_share} shows that most policies garner majority support across the political spectrum in Europe and Japan, whereas Trump voters oppose more policies than they support (see also Figures \ref{fig:main_radical_redistr_pol}-\ref{fig:synthetic_indicators_pol_mean} for a breakdown of the main variables by political leaning and other selected sociodemographics).
@@ -572,17 +581,24 @@ As explained in Section \ref{sec:data}%
 % and shown in S.I. \ref{app:comparison}% TODO AER revision
 , the present results replicate well the ``Global Solidarity Report'' that first asked this question \citep{global_nation_global_2023}
 
-\paragraph{Moral Circle.}\label{par:group_defended}
-
-Asked ``Which group of people do you advocate for when you vote?'',\footnote{In Russia and Saudi Arabia, the question was asked differently: ``Which group do you advocate for? For example, if you were the richest person on Earth, which group would you predominantly help with your money?''\label{fn:group_defended}}
-45\% select a universalist answer (``Humans'' or ``Sentient beings (humans and animals)''), which is more than the most common answer, referring to one's fellow citizens (32\%). Universalists are fewer in Japan (30\%)
-but constitute a majority in Europe (50\%) and Saudi Arabia (57\%), as shown in Figures \ref{fig:group_defended} and \ref{fig:group_defended_all}.
-Among those who lean to the left, 59\% are universalists, compared to 32\% on the center-right or far-right.
-
 \begin{figure}[h!]
     \caption[Acceptance of broad or radical global redistribution]{Acceptance of broad action or radical proposals of global redistribution. \hfill (Questions~\ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
     }\label{fig:radical_redistr_share}
     \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_all_share.pdf}}
+\end{figure}
+
+\paragraph{Moral Circle.}\label{par:group_defended}
+
+Asked ``Which group of people do you advocate for when you vote?'',\footnote{In Russia and Saudi Arabia, the question was asked differently: ``Which group do you advocate for? For example, if you were the richest person on Earth, which group would you predominantly help with your money?''\label{fn:group_defended}}
+45\% select a universalist answer (``Humans'' or ``Sentient beings (humans and animals)''), which is more than the most common answer, referring to one's fellow citizens (32\%). Universalists are fewer in Japan (30\%)
+but constitute a majority in Europe (50\%) and Saudi Arabia (57\%), as shown in Figures \ref{fig:group_defended} and 
+\ref{fig:group_defended_all}.
+Among those who lean to the left, 59\% are universalists, compared to 32\% on the center-right or far-right.
+
+\begin{figure}[h!]
+    \caption[Moral circle]{``Which group of people do you advocate for when you vote?''\footref{fn:group_defended} (Question~\ref{q:group_defended}).
+    }\label{fig:group_defended}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/all/group_defended_nolabel.pdf}} 
 \end{figure}
 
 \subsection{Preferred Channels for Transferring Resources to LICs}\label{subsec:transfer_how}
@@ -601,7 +617,8 @@ The last task of the questionnaire allowed respondents to manipulate the shape o
 \begin{quote}``Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green. The first two sliders control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest.
 If you do not want new policies to reduce global inequality, you can set the third slider to zero.''\end{quote}
 The interactive question is available at [anonymized for review] %\href{http://preferences-pol.fr/custom_global_redistr.html}{bit.ly/custom\_global\_redistr}, an explainer video at \href{https://youtu.be/gSfsQwczT7w}{youtu.be/gSfsQwczT7w}, 
-and the algorithm translating slider positions into a redistribution is described in S.I. \ref{app:algo}. Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions. 
+and the algorithm translating slider positions into a redistribution is described in the pre-registration plan. % S.I. \ref{app:algo}. 
+Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions. 
 % The interactive question is available at \href{http://preferences-pol.fr/custom_global_redistr.html}{bit.ly/custom\_global\_redistr}, an explainer video at \href{https://youtu.be/gSfsQwczT7w}{youtu.be/gSfsQwczT7w}, and the algorithm translating slider positions into a redistribution is described in S.I. \ref{app:algo}. Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions. % TODO put back
 % To mitigate potential anchoring, sliders are initialized in one of two random positions.\footnote{The anchoring effect is significant (36\% to 57\% of the difference between starting positions) but responses converge towards a middle point towards the anchors.}
 Given the complexity of the task and its inconvenience on mobile devices, respondents are given the explicit option to skip it.
@@ -681,15 +698,16 @@ Since public attitudes do not appear to be a limiting factor, further research i
 \setcounter{figure}{0}
 \setcounter{table}{0}
 
+\nolinenumbers
 \input{app_AJPS}
 
 \clearpage
+\renewcommand{\backref}[1]{}
+\renewcommand{\backrefalt}[4]{}
 \renewcommand{\url}[1]{\href{#1}{Link}}
 \putbib
 \end{bibunit}
 
-\listoftables
-\listoffigures
 
 
 \end{document}
