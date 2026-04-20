@@ -23,12 +23,12 @@
 \hypersetup{
   colorlinks=true,
   urlcolor=purple,
-  linkcolor=blue,
+  linkcolor=black, % TODO?
   citecolor=violet,
 }
 \usepackage{bm}
 \usepackage{indentfirst}
-\usepackage{tocbibind}
+\usepackage[nottoc,notbib]{tocbibind}
 \setcitestyle{aysep={}}
 \usepackage[leqno]{amsmath}
 \usepackage{tcolorbox}
@@ -220,7 +220,8 @@ The final part of the questionnaire explores attitudes towards more radical glob
 
 \paragraph{Pre-registered Hypotheses and Data Availability.}
 % The project has been approved by the institutional review board and preregistered in the Open Science Foundation registry [anonymized for review]. The study did not deviate from the pre-registered design; the questionnaires and hypotheses tests were specified \textit{ex ante}. All data, code, and figures will be made available upon acceptance.
-The project has been approved by the institutional review board and preregistered in the Open Science Foundation registry [anonymized for review]. The study did not deviate from the registration; the questionnaires and hypotheses tests used are the ones specified \textit{ex ante}. All data, code, and figures are available at [anonymized for review].
+The project has been approved by the institutional review board and preregistered. %in the Open Science Foundation registry [anonymized for review]. 
+The study did not deviate from the registration; the questionnaires and hypotheses tests used are the ones specified \textit{ex ante}. All data, code, and figures are available at [anonymized for review].
 
 \section{Salience and Prioritization of Global Solidarity\label{sec:salience}}
 
@@ -707,7 +708,7 @@ Since public attitudes do not appear to be a limiting factor, further research i
 \renewcommand{\url}[1]{\href{#1}{Link}}
 \putbib
 \end{bibunit}
-
+\thispagestyle{empty}
 
 
 \end{document}
