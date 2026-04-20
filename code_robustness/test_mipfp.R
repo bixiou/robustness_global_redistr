@@ -1,0 +1,5 @@
+library(mipfp)
+cat("plyr loaded:", "plyr" %in% loadedNamespaces(), "\n")
+seed <- array(1, dim=c(2,3), dimnames=list(a=c("A","B"), b=c("X","Y","Z")))
+r <- Ipfp(seed, list(1L, 2L), list(c(0.4,0.6), c(0.3,0.5,0.2)))
+cat("Ipfp works:", !is.null(r$p.hat), "\n")

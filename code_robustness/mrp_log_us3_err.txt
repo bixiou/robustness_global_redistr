@@ -1,0 +1,151 @@
+
+=== US: PUMS census frames ===
+
+  Building US PUMS frame (memory-efficient)...
+  Downloading PUMA urbanicity crosswalk...
+  Crosswalk failed: cannot open the connection to 'https://www2.census.gov/geo/docs/maps-data/data/rel2020/ua_puma_rel_2020.txt'
+  Downloading state PUMS (51 states)...
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+  TX attempt 1: cannot allocate vector of size 94.9 Mb
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+  Computing national income quartile breaks...
+  Income quartile breaks: 15000, 32700, 60000
+  Recoding and aggregating per state...
+  US PUMS frame: 2816 cells, N=255,512,313
+There were 50 or more warnings (use warnings() to see the first 50)
+  Building US PUMS frame (memory-efficient)...
+  Downloading PUMA urbanicity crosswalk...
+  Crosswalk failed: cannot open the connection to 'https://www2.census.gov/geo/docs/maps-data/data/rel2020/ua_puma_rel_2020.txt'
+  Downloading state PUMS (51 states)...
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+Getting data from the 2017-2021 5-year ACS Public Use Microdata Sample
+  Computing national income quartile breaks...
+  Income quartile breaks: 15000, 32700, 60000
+  Recoding and aggregating per state...
+  US PUMS frame: 7832 cells, N=255,512,313
+There were 50 or more warnings (use warnings() to see the first 50)
+
+=== US: MRP (4 outcome × predictor combinations) ===
+
+  Fitting US/gcs_support  n=2999  preds=gender,age,education_quota,income_quartile,urbanity,region,race
+boundary (singular) fit: see help('isSingular')
+  >> US | gcs_support  MRP=0.475  raw=0.475
+  Fitting US/gcs_support  n=2999  preds=gender,age,education_quota,income_quartile,urbanity,region,race,employment_18_64
+boundary (singular) fit: see help('isSingular')
+  >> US | gcs_support  MRP=0.473  raw=0.475
+  Fitting US/gcs_support_control  n=989  preds=gender,age,education_quota,income_quartile,urbanity,region,race
+boundary (singular) fit: see help('isSingular')
+  >> US | gcs_support_control  MRP=0.491  raw=0.482
+  Fitting US/gcs_support_control  n=989  preds=gender,age,education_quota,income_quartile,urbanity,region,race,employment_18_64
+boundary (singular) fit: see help('isSingular')
+  >> US | gcs_support_control  MRP=0.492  raw=0.482
+Warning message:
+Values from `estimate_mrp` are not uniquely identified; output will contain
+list-cols.
+• Use `values_fn = list` to suppress this warning.
+• Use `values_fn = {summary_fun}` to summarise duplicates.
+• Use the following dplyr code to identify duplicates.
+  {data} |>
+  dplyr::summarise(n = dplyr::n(), .by = c(country, outcome)) |>
+  dplyr::filter(n > 1L) 
+
+Done. mrp_results.rds, mrp_census_frames.rds and mrp_summary.csv updated.
