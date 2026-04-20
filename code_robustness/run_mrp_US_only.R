@@ -27,7 +27,7 @@ pums_educ_n <- function(schl_n, agep_n) {
   dplyr::case_when(
     agep_n < 25 | agep_n >= 65 ~ "Not 25-64",
     schl_n <= 15               ~ "Below upper secondary",
-    schl_n <= 17               ~ "Upper secondary",
+    schl_n <= 19               ~ "Upper secondary",   # includes HS, GED, some college/vocational (no degree)
     TRUE                       ~ "Post secondary"
   )
 }

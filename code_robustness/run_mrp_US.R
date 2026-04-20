@@ -1,6 +1,0 @@
-setwd("C:/Users/fabre/Documents/www/robustness_global_redistr/code_robustness")
-readRenviron("~/.Renviron")
-cat("Census key found:", Sys.getenv("CENSUS_API_KEY") != "", "\n")
-load(".RData")
-cat("Workspace loaded. nrow(all):", nrow(all), "\n")
-source("6_mrp.R")

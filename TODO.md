@@ -1,22 +1,15 @@
-In /questionnaire/codebook.csv, check how variables are defined, in particular sociodemographic variables.
+You need to improve the MRP computations.
 
-Create code_robustness/mrp.R and work in it.
+For the U.S.:
+- are you using the latest date available?
+- inflate money amounts to 2025 values using inflation. For income thresholds, use 36205, 72097, 129899
+- check that urbanity is defined in the same way using the Census and in the survey; if it's not the case, create and use a new survey's urbanity variable consistently with the Census
 
-Using the package tidycensus, find the joint distribution of default predictor variables: age,  gender, family income, highest diploma (3 categories), race, US region, and size of agglomeration. 
+For non-US: 
+- don't assume independence between margins
+- download census (or equivalent) data to get the joint distribution of quota variables
+- re-compute the MRP using this
 
-Define a function that takes a dataset (with US as default), a variable of interest, a list of predictor variables (with the above list as the default value), and population distributions (with distribution from the US Census as the default), and returns the mean of the variable of interest estimated through Multilevel Regression and Poststratification.
-
-Also find an extended list of predictor variables by adding to the default ones sociodemographic variables that are present both in the codebook and the Census/PUMS. Find the joint distribution for this extended list.
-
-Apply the above function to:
-- gcs_support
-- gcs_support_control
-- gcs_support with the extended list of predictor variables
-- gcs_support_control with the extended list of predictor variables
-
-NB: when you compute a joint distribution, weigh individuals using PWGTP from PUMS.
-
-
-
-When you are done with this, download official (generally census) data and compute joint distribution for the default list of predictor variables for the following countries: FR, DE, IT, PL, SP, CH, GB, RU, SA, JP. Apply the MRP function to gcs_support and gcs_support_control on respective dataframes: FR, DE, IT, PL, SP, CH, GB, RU, SA, JP.
-
+For each country:
+- export a table that compares the one-dimensional margins according to pop_freq and the official data fetched for this exercise; flag any deviation by more than 5%
+- based on the joint distributions, find the sociodemographics that are over- or under-represented in the sample (e.g. by looking at the intersections of each pair of quota variables)
