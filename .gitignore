@@ -18,3 +18,4 @@ papers/build/*
 figures/split_few_average.pdf
 */build/*
 *.bib
+data_ext/pums_cache/

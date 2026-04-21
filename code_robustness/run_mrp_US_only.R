@@ -1,8 +1,13 @@
 setwd("C:/Users/fabre/Documents/www/robustness_global_redistr/code_robustness")
-# ~ in R on Windows resolves to Documents, not USERPROFILE — use explicit path
-Sys.setenv(CENSUS_API_KEY = "41ce5e4af1638d177e5a897492f565d75b895237")
-cat("Census key:", Sys.getenv("CENSUS_API_KEY"), "\n")
+readRenviron("~/.Renviron")   # loads CENSUS_API_KEY (stored in Documents/.Renviron)
+if (Sys.getenv("CENSUS_API_KEY") == "") stop("CENSUS_API_KEY not found in ~/.Renviron")
 load(".RData")
+
+# Compute absolute cache path once, so it works regardless of how R is invoked.
+# normalizePath resolves relative paths against getwd() at script start time.
+CACHE_DIR <- normalizePath(file.path("..", "data_ext", "pums_cache"), mustWork=FALSE)
+message("Cache directory: ", CACHE_DIR)
+dir.create(CACHE_DIR, showWarnings=TRUE, recursive=TRUE)
 
 suppressPackageStartupMessages({
   library(lme4); library(dplyr); library(tidyr); library(Hmisc); library(tidycensus)
@@ -60,90 +65,126 @@ pums_region_us_int <- function(st_int) {
   )
 }
 
+# US income quartile thresholds (2025 USD, inflated).
+# Scaled to the ACS survey year using approximate CPI factors.
+us_income_q_breaks_2025 <- c(Q1Q2 = 36205, Q2Q3 = 72097, Q3Q4 = 129899)
+us_cpi_scale <- c("2019"=0.874,"2020"=0.875,"2021"=0.899,"2022"=0.930,
+                   "2023"=0.955,"2024"=0.978,"2025"=1.000)
+
 # ── Memory-efficient PUMS frame builder ────────────────────────────────────────
 # Processes each state individually to avoid OOM from binding 50 states at once.
 # Strategy:
 #   1. Download PUMA urbanicity crosswalk (small, once).
-#   2. For each state: download PUMS, select only 10 needed columns, filter adults,
+#   2. For each state: download PUMS, select needed columns, filter adults,
 #      convert to numeric — then release raw download.
-#   3. Compute national income quartile breaks from the combined minimal data.
+#   3. Compute year-adjusted income quartile thresholds (fixed 2025 values × CPI scale).
 #   4. For each state: recode predictors, aggregate to cell counts, release state data.
 #   5. Combine cell count tables (tiny) and return.
-build_us_pums_frame <- function(predictors, year=2021, survey="acs5") {
-  message("  Building US PUMS frame (memory-efficient)...")
-  pums_vars <- c("PWGTP","SEX","AGEP","SCHL","PINCP","ST","RAC1P","HISP","ESR","PUMA")
+#
+# Urbanity note: PUMA crosswalk and survey zipcode_US.csv both use Census 2020 Urban Area
+# boundaries and the same three-category scheme (Cities/Towns&suburbs/Rural), so they
+# are consistent.  Minor residual differences arise from zip vs PUMA granularity only.
+build_us_pums_frame <- function(predictors, year=2023, survey="acs5",
+                               cache_dir=CACHE_DIR) {
+  message("  Building US PUMS frame (memory-efficient), cache: ", cache_dir)
+  dir.create(cache_dir, showWarnings=FALSE, recursive=TRUE)
+
+  # ST removed: ACS 2023 rejects it as a GET variable on per-state endpoints.
+  # Region is derived from the loop variable instead (state abbr → FIPS → region).
+  pums_vars <- c("PWGTP","SEX","AGEP","SCHL","PINCP","RAC1P","HISP","ESR","PUMA")
+
+  # State abbreviation → FIPS integer (used to assign region without ST in PUMS data)
+  state_fips <- c(AL=1,AK=2,AZ=4,AR=5,CA=6,CO=8,CT=9,DE=10,DC=11,FL=12,GA=13,
+                  HI=15,ID=16,IL=17,IN=18,IA=19,KS=20,KY=21,LA=22,ME=23,MD=24,
+                  MA=25,MI=26,MN=27,MS=28,MO=29,MT=30,NE=31,NV=32,NH=33,NJ=34,
+                  NM=35,NY=36,NC=37,ND=38,OH=39,OK=40,OR=41,PA=42,RI=44,SC=45,
+                  SD=46,TN=47,TX=48,UT=49,VT=50,VA=51,WA=53,WV=54,WI=55,WY=56)
   all_states <- c("AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
                   "KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
                   "NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT",
                   "VA","WA","WV","WI","WY","DC")
 
-  # Step 1: PUMA-to-urbanicity crosswalk (done once, small)
-  puma_urban <- tryCatch({
-    message("  Downloading PUMA urbanicity crosswalk...")
-    url <- "https://www2.census.gov/geo/docs/maps-data/data/rel2020/ua_puma_rel_2020.txt"
-    xw  <- read.csv(url(url), stringsAsFactors=FALSE)
-    xw %>%
-      dplyr::mutate(is_ua = !is.na(UANAME) & UATYPE == "UA") %>%
-      dplyr::group_by(STATEFP, PUMACE) %>%
-      dplyr::summarize(
-        pop_ua    = sum(ifelse(is_ua, POPPT, 0), na.rm=TRUE),
-        pop_uc    = sum(ifelse(!is_ua & !is.na(UANAME), POPPT, 0), na.rm=TRUE),
-        pop_total = sum(POPPT, na.rm=TRUE), .groups="drop") %>%
-      dplyr::mutate(
-        pct_ua   = pop_ua / pmax(pop_total, 1),
-        pct_uc   = pop_uc / pmax(pop_total, 1),
-        urbanity = dplyr::case_when(
-          pct_ua >= 0.5              ~ "Cities",
-          (pct_ua + pct_uc) >= 0.25 ~ "Towns and suburbs",
-          TRUE                       ~ "Rural"),
-        ST_int   = as.integer(STATEFP),
-        PUMA_int = as.integer(PUMACE)) %>%
-      dplyr::select(ST_int, PUMA_int, urbanity)
-  }, error=function(e){ message("  Crosswalk failed: ", conditionMessage(e)); NULL })
+  # Step 1: PUMA-to-urbanicity crosswalk — cached across runs
+  xwalk_cache <- file.path(cache_dir, "puma_urban_2020.rds")
+  puma_urban <- if (file.exists(xwalk_cache)) {
+    message("  Loading PUMA urbanicity crosswalk from cache...")
+    readRDS(xwalk_cache)
+  } else {
+    tryCatch({
+      message("  Downloading PUMA urbanicity crosswalk...")
+      url <- "https://www2.census.gov/geo/docs/maps-data/data/rel2020/ua_puma_rel_2020.txt"
+      xw  <- read.csv(url(url), stringsAsFactors=FALSE)
+      result <- xw %>%
+        dplyr::mutate(is_ua = !is.na(UANAME) & UATYPE == "UA") %>%
+        dplyr::group_by(STATEFP, PUMACE) %>%
+        dplyr::summarize(
+          pop_ua    = sum(ifelse(is_ua, POPPT, 0), na.rm=TRUE),
+          pop_uc    = sum(ifelse(!is_ua & !is.na(UANAME), POPPT, 0), na.rm=TRUE),
+          pop_total = sum(POPPT, na.rm=TRUE), .groups="drop") %>%
+        dplyr::mutate(
+          pct_ua   = pop_ua / pmax(pop_total, 1),
+          pct_uc   = pop_uc / pmax(pop_total, 1),
+          urbanity = dplyr::case_when(
+            pct_ua >= 0.5              ~ "Cities",
+            (pct_ua + pct_uc) >= 0.25 ~ "Towns and suburbs",
+            TRUE                       ~ "Rural"),
+          ST_int   = as.integer(STATEFP),
+          PUMA_int = as.integer(PUMACE)) %>%
+        dplyr::select(ST_int, PUMA_int, urbanity)
+      tryCatch(saveRDS(result, xwalk_cache),
+               error=function(e) message("  Crosswalk cache write failed: ", conditionMessage(e)))
+      result
+    }, error=function(e){ message("  Crosswalk failed: ", conditionMessage(e)); NULL })
+  }
 
-  # Step 2: Download each state, keep only minimal columns
+  # Step 2: Download each state, keep only minimal columns — cached per state × year
   message("  Downloading state PUMS (", length(all_states), " states)...")
   state_mini <- vector("list", length(all_states))
   names(state_mini) <- all_states
   for (st in all_states) {
+    st_cache <- file.path(cache_dir, paste0("pums_", st, "_", year, "_", survey, ".rds"))
+    if (file.exists(st_cache)) {
+      state_mini[[st]] <- readRDS(st_cache)
+      next
+    }
     for (attempt in 1:3) {
       result <- tryCatch({
         raw <- get_pums(variables=pums_vars, state=st, year=year, survey=survey, recode=FALSE)
         raw %>%
-          dplyr::select(dplyr::all_of(pums_vars)) %>%
           dplyr::filter(as.numeric(AGEP) >= 18) %>%
           dplyr::transmute(
-            PWGTP_n  = as.numeric(PWGTP),
-            PINCP_n  = as.numeric(PINCP),
-            AGEP_n   = as.numeric(AGEP),
-            SCHL_n   = as.numeric(SCHL),
-            SEX      = SEX,
-            RAC1P    = RAC1P,
-            HISP     = HISP,
-            ESR      = ESR,
-            ST_int   = as.integer(ST),
-            PUMA_int = as.integer(PUMA)
+            PWGTP_n   = as.numeric(PWGTP),
+            PINCP_adj = as.numeric(PINCP),
+            AGEP_n    = as.numeric(AGEP),
+            SCHL_n    = as.numeric(SCHL),
+            SEX       = SEX,
+            RAC1P     = RAC1P,
+            HISP      = HISP,
+            ESR       = ESR,
+            ST_int    = as.integer(state_fips[st]),
+            PUMA_int  = as.integer(PUMA)
           )
       }, error=function(e){ message("  ",st," attempt ",attempt,": ",conditionMessage(e)); NULL })
-      if (!is.null(result)) { state_mini[[st]] <- result; break }
+      if (!is.null(result)) {
+        tryCatch(saveRDS(result, st_cache),
+                 error=function(e) message("  Cache write failed for ", st, ": ", conditionMessage(e)))
+        state_mini[[st]] <- result
+        break
+      }
       Sys.sleep(5)
     }
     if (is.null(state_mini[[st]])) message("  Skipping ", st, " after 3 failed attempts.")
   }
   gc()
 
-  # Step 3: National income quartile breaks from combined income columns only
-  message("  Computing national income quartile breaks...")
-  income_combined <- dplyr::bind_rows(lapply(state_mini, function(d) {
-    if (is.null(d)) return(NULL)
-    d[, c("PINCP_n","PWGTP_n")]
-  }))
-  pos <- !is.na(income_combined$PINCP_n) & income_combined$PINCP_n > 0
-  qb  <- Hmisc::wtd.quantile(income_combined$PINCP_n[pos],
-                              weights=income_combined$PWGTP_n[pos],
-                              probs=c(0.25, 0.5, 0.75))
-  rm(income_combined); gc()
-  message("  Income quartile breaks: ", paste(round(qb), collapse=", "))
+  # Step 3: Income quartile thresholds — fixed 2025 values scaled to ACS survey year.
+  # Using fixed thresholds ensures PUMS cells align with the income brackets
+  # shown to survey respondents (which were calibrated to the same 2025 thresholds).
+  scale <- as.numeric(us_cpi_scale[as.character(year)])
+  if (is.na(scale)) scale <- 1.0
+  qb <- us_income_q_breaks_2025 * scale
+  message("  Income quartile thresholds (", year, " USD, CPI scale=", round(scale,3), "): ",
+          paste(round(qb), collapse=", "))
 
   preds_avail <- intersect(predictors,
     c("gender","age","education_quota","income_quartile",
@@ -163,11 +204,11 @@ build_us_pums_frame <- function(predictors, year=2021, survey="acs5") {
         region           = pums_region_us_int(ST_int),
         employment_18_64 = pums_empl_n(ESR, AGEP_n),
         income_quartile  = dplyr::case_when(
-          is.na(PINCP_n) | PINCP_n <= 0 ~ "Q1",
-          PINCP_n <= qb[1]              ~ "Q1",
-          PINCP_n <= qb[2]              ~ "Q2",
-          PINCP_n <= qb[3]              ~ "Q3",
-          TRUE                          ~ "Q4"
+          is.na(PINCP_adj) | PINCP_adj <= 0 ~ "Q1",
+          PINCP_adj <= qb["Q1Q2"]           ~ "Q1",
+          PINCP_adj <= qb["Q2Q3"]           ~ "Q2",
+          PINCP_adj <= qb["Q3Q4"]           ~ "Q3",
+          TRUE                              ~ "Q4"
         )
       )
     if (!is.null(puma_urban)) {
@@ -245,10 +286,10 @@ apply_mrp <- function(survey_df, outcome, predictors, census_frame, country="") 
 # ── Build US census frames ─────────────────────────────────────────────────────
 message("\n=== US: PUMS census frames ===\n")
 us_default_frame <- tryCatch(
-  build_us_pums_frame(preds_US_default,  year=2021),
+  build_us_pums_frame(preds_US_default,  year=2023),
   error=function(e){ message("US default PUMS failed: ",conditionMessage(e)); NULL })
 us_extended_frame <- tryCatch(
-  build_us_pums_frame(preds_US_extended, year=2021),
+  build_us_pums_frame(preds_US_extended, year=2023),
   error=function(e){ message("US extended PUMS failed: ",conditionMessage(e)); NULL })
 
 # ── Fit US MRP models (4 combinations per TODO) ────────────────────────────────
