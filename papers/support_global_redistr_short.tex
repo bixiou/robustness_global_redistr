@@ -110,10 +110,9 @@
 \defaultbibliographystyle{plainnaturl_clean}
 \defaultbibliography{global_tax_attitudes}
 
-\title{Public Acceptance of
-International Redistribution\\
+\title{Public Acceptance of International Redistribution\\
 in High-Income Countries}
-\author{Adrien Fabre\footnote{CNRS; CIRED. E-mail: adrien.fabre@cnrs.fr.}}
+% \author{Adrien Fabre\footnote{CNRS; CIRED. E-mail: adrien.fabre@cnrs.fr.}} % BJPS
 
 \date{\today}
 
@@ -246,7 +245,12 @@ Then follow attitudinal questions about the main policies studied: a \textit{Cli
 The final part of the questionnaire explores attitudes towards more radical global redistribution scenarios and includes an interactive task in which respondents choose their preferred custom redistribution of global incomes by manipulating sliders. The survey concludes with a comprehension question, synthetic questions (e.g. regarding one's moral circle), and a feedback field.
 
 \paragraph{Pre-registered Hypotheses and Data Availability.}
-The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). The study did not deviate from the registration; the questionnaires and hypotheses tests used are the ones \href{https://osf.io/j5scn}{specified \textit{ex ante}}. All data, code, and figures are available at \href{https://github.com/bixiou/robustness_global_redistr}{github.com/bixiou/robustness\_global\_redistr}.
+The project has been approved an %by the CIRED 
+institutional review board %(IRB-CIRED-2025-2) % BJPS
+and preregistered in [anonymized for review]. 
+% the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}). 
+The study did not deviate from the registration; the questionnaires and hypotheses tests used are the ones specified \textit{ex ante}. % \href{https://osf.io/j5scn}{specified \textit{ex ante}}. 
+All data, code, and figures are available at [anonymized for review].% \href{https://github.com/bixiou/robustness_global_redistr}{github.com/bixiou/robustness\_global\_redistr}.
 
 
 \section{Salience and Prioritization of Global Solidarity\label{sec:salience}}
@@ -297,7 +301,8 @@ The next most common answers relate to ``discrimination'' (based on gender, race
 Asking people about ``an issue important to them but neglected in the public debate'' fails to uncover unusual topics: 21\% of respondents are unable to identify such an issue. The most frequently mentioned concepts are ``public services'' (12\%), the ``cost of living'' (10\%), ``health'' (9\%), ``ageing'' (6\%), the ``environment'' (6\%), and ``immigration'' (5\%). The fact that the most frequently mentioned topics are already publicized suggests that public debate reflects or shapes what people have in mind.
 
 Reading and coding each field not only results in an arguably more accurate classification, but also offers insight into how people think. For example, most people reason from their own perspective (e.g. ``my pension is too low'', ``I want to buy a house'') and do not refer to the broader picture or to political reforms. %To get a sense of respondents' own words, r
-Random selections of responses are displayed at \href{http://preferences-pol.fr/fields2025.html}{bit.ly/fields2025}, and %  also https://www.centre-cired.fr/random_fields/
+Random selections of responses are displayed at [anonymized for review], %\href{http://preferences-pol.fr/fields2025.html}{bit.ly/fields2025}, 
+and %  also https://www.centre-cired.fr/random_fields/
  I report a list of topics that uniquely prevalent in each country in Appendix~\ref{subsec:slant}. 
 
 The topics mentioned vary according to sociodemographic characteristics. For example, a respondent who mentions \textit{immigration} is 3.5 times more likely to vote for the far right (correlation of .17). %; one who mentions \textit{old age} is twice as likely to be 65 or older (correlation of .13). 
@@ -597,7 +602,13 @@ Overall, 41\% agree and 28\% disagree that ``[their] taxes should go towards sol
 % } 
 As explained in Section \ref{sec:data}%
 % and shown in Appendix \ref{app:comparison}% TODO AER revision
-, the present results replicate well the ``Global Solidarity Report'' that first asked this question \citep{global_nation_global_2023}
+, the present results replicate well the ``Global Solidarity Report'' that first asked this question \citep{global_nation_global_2023}.
+
+\begin{figure}[h!]
+    \caption[Acceptance of broad or radical global redistribution]{Acceptance of broad action or radical proposals of global redistribution. \hfill (Questions~\ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
+    }\label{fig:radical_redistr_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_all_share.pdf}}
+\end{figure}
 
 \paragraph{Moral Circle.}\label{par:group_defended}
 
@@ -607,10 +618,11 @@ but constitute a majority in Europe (50\%) and Saudi Arabia (57\%), as shown in 
 Among those who lean to the left, 59\% are universalists, compared to 32\% on the center-right or far-right.
 
 \begin{figure}[h!]
-    \caption[Acceptance of broad or radical global redistribution]{Acceptance of broad action or radical proposals of global redistribution. \hfill (Questions~\ref{q:sustainable_future}-\ref{q:top3_tax_support}, \ref{q:convergence_support}-\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}).
-    }\label{fig:radical_redistr_share}
-    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_all_share.pdf}}
+    \caption[Moral circle]{``Which group of people do you advocate for when you vote?''\footref{fn:group_defended} (Question~\ref{q:group_defended}).
+    }\label{fig:group_defended}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/all/group_defended_nolabel.pdf}} 
 \end{figure}
+
 
 \subsection{Preferred Channels for Transferring Resources to LICs}\label{subsec:transfer_how}
 
@@ -627,7 +639,9 @@ Asked to evaluate ways of transferring resources to reduce poverty in LICs, the 
 The last task of the questionnaire allowed respondents to manipulate the shape of the global income distribution.\footnote{Appendix \ref{subsec:country_features} details how I obtained the world distribution of PPP incomes.} The question text included the following instructions:
 \begin{quote}``Below you will find a graph of the world distribution of after-tax income and three sliders that vary it. The current distribution is in red, and your custom one is in green. The first two sliders control the proportion of winners and the proportion of losers, among all humans. The third slider controls the degree of redistribution from the richest to the poorest.
 If you do not want new policies to reduce global inequality, you can set the third slider to zero.''\end{quote}
-The interactive question is available at \href{http://preferences-pol.fr/custom_global_redistr.html}{bit.ly/custom\_global\_redistr}, an explainer video at \href{https://youtu.be/gSfsQwczT7w}{youtu.be/gSfsQwczT7w}, and the algorithm translating slider positions into a redistribution is described in Appendix \ref{app:algo}. Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions.
+The interactive question is available at [anonymized for review] %\href{http://preferences-pol.fr/custom_global_redistr.html}{bit.ly/custom\_global\_redistr}, 
+an explainer video at [anonymized for review], %\href{https://youtu.be/gSfsQwczT7w}{youtu.be/gSfsQwczT7w}, %BJPS
+and the algorithm translating slider positions into a redistribution is described in Appendix \ref{app:algo}. Figure \ref{fig:custom_redistr_question} displays what respondents see below the instructions.
 % To mitigate potential anchoring, sliders are initialized in one of two random positions.\footnote{The anchoring effect is significant (36\% to 57\% of the difference between starting positions) but responses converge towards a middle point towards the anchors.}
 Given the complexity of the task and its inconvenience on mobile devices, respondents are given the explicit option to skip it. 
 
@@ -691,11 +705,11 @@ Since public attitudes do not appear to be a limiting factor, further research i
 \begin{bibunit}[plainnaturl_clean]
 
 \clearpage
-\section*{\normalsize Acknowledgements}
-I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}).
-I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution.
-I am grateful to Armon Rezai and Wien Universität for helping me use Qualtrics. I thank Romain Espinosa for his attentive reading and useful feedback. I am grateful to the translators and the numerous people who graciously tested the survey, proofread the translations, and gave feedback, including Gianluca Drappo, Valeria Glebova, Anne Guillemot, Marya Kayyal, Lu Li, Lilian Leupold, Guadalupe Manzo, Rintaro Matsuda.
-I am grateful to Erwan Akrour, Marius Le Hénaff, and Raquel Oliveira for research assistance on the quotas and the pools of policies. I thank seminar, workshop or conference participants for useful feedback, at: the University of Brasília, Unicamp, the University of São Paulo, WZB Berlin, Paris-Saclay, the World Inequality Lab, MSE-Sorbonne, the Bundesbank, FSR Climate Conference, the New Economic School, CIRED, Fürth.
+% \section*{\normalsize Acknowledgements}
+% I received funding from the Agence Nationale de la Recherche for this research (ANR-24-CE03-7110). The project has been approved by the CIRED institutional review board (IRB-CIRED-2025-2) and preregistered in the Open Science Foundation registry (\href{https://osf.io/7mzn4}{osf.io/7mzn4}).
+% I am grateful to Alina Timoshkina and Gerhard Toews for helping me launch the survey in Russia. I thank researchers who kindly gave me access to their data: Félix Bajard for wealth distribution and Amory Gethin for income distribution.
+% I am grateful to Armon Rezai and Wien Universität for helping me use Qualtrics. I thank Romain Espinosa for his attentive reading and useful feedback. I am grateful to the translators and the numerous people who graciously tested the survey, proofread the translations, and gave feedback, including Gianluca Drappo, Valeria Glebova, Anne Guillemot, Marya Kayyal, Lu Li, Lilian Leupold, Guadalupe Manzo, Rintaro Matsuda.
+% I am grateful to Erwan Akrour, Marius Le Hénaff, and Raquel Oliveira for research assistance on the quotas and the pools of policies. I thank seminar, workshop or conference participants for useful feedback, at: the University of Brasília, Unicamp, the University of São Paulo, WZB Berlin, Paris-Saclay, the World Inequality Lab, MSE-Sorbonne, the Bundesbank, FSR Climate Conference, the New Economic School, CIRED, Fürth.
 
 \appendix
 \clearpage
