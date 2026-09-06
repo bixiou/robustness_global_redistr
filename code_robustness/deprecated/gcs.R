@@ -168,8 +168,8 @@ compute_gain_given_parties <- function(parties = df$code, df = sm, return = "df"
   # Uses large_footprint_, optout_right_, revenues_pa_, adult_, gdp_pc_, pop_, pop_, emissions_pa_, carbon_price[[ssp_name]]
   max_gain_as_fraction <- max_gain
   if ("Dem USA" %in% parties & !"USA" %in% parties) parties <- c(parties, "USA")
+  if (!any(df[[paste0("large_footprint_", start)]] * (df[[paste0("optout_right_", start)]] < 1) * (df$code %in% parties))) warning("/!\\ Error: All countries opt out, there is no international transfer.")
   basic_income <- basic_income_adj <- c()
-  if (!any(df[[paste0("large_footprint_", start)]] * (df[[paste0("optout_right_", y)]] < 1) * (df$code %in% parties))) warning("/!\\ Error: All countries opt out, there is no international transfer.")
   for (y in start:end) { 
     if (max_gain_as_fraction < 1) max_gain <- max_gain_as_fraction*df[[paste0("gdp_pb_", y)]]
     else max_gain <- rep(max_gain_as_fraction, nrow(df))
@@ -272,7 +272,7 @@ create_var_ssp <- function(ssp = NULL, df = sm, CC_convergence = 2040, discount 
     df[[paste0("gain_pa_", y)]] <- df[[paste0("gain_pb_", y)]] * df[[paste0(beneficiary, y)]]/df[[paste0("adult_", y)]] 
     df[[paste0("gain_over_gdp_", y)]] <- df[[paste0("gain_pb_", y)]]/df[[paste0("gdp_pb_", y)]]    
     # Adjusted for opt out
-    df[[paste0("optout_right_", y)]] <- (full_part_threshold - pmax(opt_out_threshold, pmin(full_part_threshold, df[[paste0("gdp_pc_", y)]] / wtd.mean(df[[paste0("gdp_pc_", y)]], df[[paste0("pop_", y)]]))))/(full_part_threshold - opt_out_threshold)
+    df[[paste0("optout_right_", y)]] <- if (full_part_threshold == opt_out_threshold) FALSE else (full_part_threshold - pmax(opt_out_threshold, pmin(full_part_threshold, df[[paste0("gdp_pc_", y)]] / wtd.mean(df[[paste0("gdp_pc_", y)]], df[[paste0("pop_", y)]]))))/(full_part_threshold - opt_out_threshold)
     # Accounts for non-universal participation
     average_revenues[[ssp_name]][yr] <- wtd.mean(df[[paste0("revenues_pb_", y)]], df[[paste0(beneficiary, y)]])
     df[[paste0("large_footprint_", y)]] <- (df[[paste0("revenues_pb_", y)]] > average_revenues[[ssp_name]][yr])
@@ -349,7 +349,7 @@ df$gain_euro_2030 <- df$gain_adj_2030*euro_per_dollar/12
 
 
 ##### Features #####
-countries_new <- c("FRA", "DEU", "ITA", "POL", "ESP", "GBR", "CHE", "JPN", "RUS", "SAU", "USA")
+countries_new <- c("FRA", "DEU", "ITA", "POL", "ESP", "GBR", "CHE", "JPN", "RUS", "SAU", "USA") # , "CHN"
 union_mid <- union(setdiff(df$code[df$gain_euro_2030 >= 0], c("UKR", "MDA", "CYP", "HRV")), c("CHL", "URY", "TUN", "UGA", "SDN", "MYS"))
 # union_mid <- setdiff(union(df$code[df$gain_euro_2030 >= 0], c("CHL", "MYS", "TKM")), c("UKR", "MDA", "CYP")) # , "BLR", "SLB", "MNE", "HRV", "BFA"
 union_low <- union(setdiff(union_mid, c("CHN")), EU27_countries)
@@ -376,13 +376,33 @@ sum(df$emissions_2025[df$code == "JPN"])/sum(df$emissions_2025) # 3%
 sum(df$emissions_2025[df$code == "SAU"])/sum(df$emissions_2025) # 2%
 sum(df$emissions_2025[df$code == "USA"])/sum(df$emissions_2025) # 15%
 
+
+##### Scenarios #####
+# 1. All: Whole World
+all_countries <- setNames(df$code, df$country)
+# # 2. All against OPEC+: World except OPEC+ losers
+# all_but_OPEC <- all_countries[!df$code %in% c("RUS", "KAZ", "SAU", "QAT", "KWT", "ARE", "OMN", "BHR", "MYS")] # NB: Qatar has left OPEC
+# # 3. Optimistic scenario: not losers + EU28 + Norway + Switzerland + Canada + Japan + Korea + NZ + U.S. Democratic states 
+# optimistic <- c(all_countries[df$npv_pa_gcs_adj >= 0 | df$code %in% c("CHN", EU28_countries, "NOR", "CHE", "CAN", "JPN", "KOR", "NZL")], "Dem USA" = "Dem USA")
+# # 4. Central scenario: winners + China + EU28 + Norway + Switzerland + Japan + NZ 
+# central <- all_countries[df$npv_over_gdp_gcs_adj >= 0 | df$code %in% c("CHN", EU28_countries, "NOR", "CHE", "JPN", "NZL")]
+# # 5. Cautious scenario: EU27 + non-losers. 
+# prudent <- all_countries[(df$npv_over_gdp_gcs_adj >= 0) | df$code %in% c("CHN", EU27_countries)]
+# # 6. Africa-EU partnership: EU27 + African winners 
+# africa_EU <- all_countries[(df$npv_over_gdp_gcs_adj >= 0 & df$code %in% African_countries) | df$code %in% EU27_countries] # image_region_by_code[df$code] %in% c("WAF", "SAF", "RSAF", "NAF", "EAF")
+# # South <- all_countries[!df$contributing & df$npv_over_gdp_gcs_adj > 0]
+# scenarios_names <- c("all_countries", "all_but_OPEC", "optimistic", "central", "prudent", "africa_EU") # manage , "South"
+# scenarios_parties <- setNames(lapply(scenarios_names, function(name) eval(str2expression(name))), scenarios_names) 
+
+for (s in scenarios_names) df <- create_var_ssp(df = df, scenario = s)
+
 low <- all_countries[df$code %in% union_low]
 mid <- all_countries[df$code %in% union_mid]
 high <- all_countries[df$code %in% union_high]
 high_SAU <- all_countries[df$code %in% c(union_high, "SAU")]
 high_USA <- all_countries[df$code %in% c(union_high, "USA")]
 high_RUS <- all_countries[df$code %in% c(union_high, "RUS")]
-scenarios_names <- c("all_countries", "all_but_OPEC", "optimistic", "central", "prudent", "africa_EU", "high", "mid", "low", "high_SAU", "high_USA", "high_RUS", "custom") # manage , "South"
+scenarios_names <- c("all_countries", "high", "mid", "low", "high_SAU", "high_USA", "high_RUS") # manage , "South", "custom"
 scenarios_parties <- setNames(lapply(scenarios_names, function(name) eval(str2expression(name))), scenarios_names) 
 
 for (s in c("low", "mid", "high")) for (c in c(list(EU27_countries), lapply(countries_new[6:11], function(l) l))) {
@@ -394,10 +414,11 @@ for (s in c("low", "mid", "high")) for (c in c(list(EU27_countries), lapply(coun
 
 for (s in c("low", "mid", "high", paste0("high_", c("SAU", "USA", "RUS")))) df <- create_var_ssp(df = df, scenario = s)
 
-plot_world_map("Shigh_gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
-               labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = paste0("GCS_high_color"),
-               legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), #fill_na = T, \n(with 3% discount rate)
-               save = T, parties = scenarios_parties[["high"]])
+# /!\ Run the plot_world_map from global_tax_attitudes
+# plot_world_map("Shigh_gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
+#                labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = paste0("GCS_high_color"),
+#                legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), #fill_na = T, \n(with 3% discount rate)
+#                save = F, parties = scenarios_parties[["high"]])
 
 features <- as.matrix(read.xlsx("../../robustness_global_redistr/questionnaire/sources.xlsx", sheet = "features", rowNames = T))
 features["gcs_high_legend", "AR"] <- stri_reverse(features["gcs_high_legend", "AR"])
@@ -408,25 +429,25 @@ gcs_high_stripe[c("FR", "DE", "IT", "PL", "ES-ES")] <- list(EU27_countries)
 gcs_high_stripe[c("IT-CH", "DE-CH", "FR-CH", "CH")] <- "CHE"
 legendx <- c("FR" = .073, "FR-CH" = .073, "DE" = .073, "DE-CH" = .073, "IT" = .083, "IT-CH" = .083, "PL" = .06,"ES-ES" = .065,"EN-GB" = .062,"EN-SA" = .062,"CH" = .062,"JA" = .065, "RU" = .057,"AR" = .94,"EN" = .062, "ES-US" = .065) 
 
-for (l in "EN-SA") { # languages[languages %in% c("AR", "JA", "RU", "EN", "EN-GB")] 823x417 for PNG; 1123x563 for PDF  languages[!languages %in% c("JA", "EN", "EN-GB", "PL", RU)]
-  s <- if (any(gcs_high_stripe[[l]] %in% c("SAU", "USA", "RUS"))) paste0("high_", gcs_high_stripe[[l]]) else "high"
-  plot_world_map(paste0("S", s, "_gain_adj_over_gdp_2030"), df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c("pdf"), legend_x = legendx[l], trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
-                 labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = features["to", l], return = "levels", RTL = (l == "AR"))), colors = color(11)[2:10], base_family = ifelse(l %in% c("AR", "JA"), ifelse(l == "AR", "Arial", "MS Gothic"), ""),
-                 legend = gsub("\\\\n", "\n", features["gcs_high_legend", l]), filename = paste0("GCS_high_color_", l), na_label = features["na_label", l], width = 825, height = 420, RTL = (l == "AR"),
-                 save = T, parties = scenarios_parties[[s]], stripe_codes = gcs_high_stripe[[l]])
-  print(l)
-}
-
-# EU
-plot_world_map("Shigh_gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
-               labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = "GCS_high_color_EU",
-               legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), 
-               save = T, parties = scenarios_parties[["high"]], stripe_codes = EU27_countries)
-
-plot_world_map("gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
-               labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = "GCS_global_color",
-               legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), 
-               save = F)
+# for (l in "EN-SA") { # languages[languages %in% c("AR", "JA", "RU", "EN", "EN-GB")] 823x417 for PNG; 1123x563 for PDF  languages[!languages %in% c("JA", "EN", "EN-GB", "PL", RU)]
+#   s <- if (any(gcs_high_stripe[[l]] %in% c("SAU", "USA", "RUS"))) paste0("high_", gcs_high_stripe[[l]]) else "high"
+#   plot_world_map(paste0("S", s, "_gain_adj_over_gdp_2030"), df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c("pdf"), legend_x = legendx[l], trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
+#                  labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = features["to", l], return = "levels", RTL = (l == "AR"))), colors = color(11)[2:10], base_family = ifelse(l %in% c("AR", "JA"), ifelse(l == "AR", "Arial", "MS Gothic"), ""),
+#                  legend = gsub("\\\\n", "\n", features["gcs_high_legend", l]), filename = paste0("GCS_high_color_", l), na_label = features["na_label", l], width = 825, height = 420, RTL = (l == "AR"),
+#                  save = F, parties = scenarios_parties[[s]], stripe_codes = gcs_high_stripe[[l]])
+#   print(l)
+# }
+# 
+# # EU
+# plot_world_map("Shigh_gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
+#                labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = "GCS_high_color_EU",
+#                legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), 
+#                save = F, parties = scenarios_parties[["high"]], stripe_codes = EU27_countries)
+# 
+# plot_world_map("gain_adj_over_gdp_2030", df = df, breaks = c(-Inf, -.02, -.005, -1e-10, 0, .005, .02, .05, Inf), format = c('png', 'pdf'), legend_x = .073, trim = T, folder = "../../robustness_global_redistr/figures/maps_participation/",
+#                labels = sub("≤", "<", agg_thresholds(c(0), c(-Inf, -.02, -.005, 0, 0, .005, .02, .05, Inf)*100, sep = " to ", return = "levels")), colors = color(11)[2:10], filename = "GCS_global_color",
+#                legend = paste0("Net gain per adult\nfollowing the\nGlobal Climate Scheme\nin 2030\n(in % of GDP)"), 
+#                save = F)
 
 # basic income 
 carbon_price$ssp2_26["2025"]*sum(df$emissions_2025)/sum(df$adult_2025)/12 # $45 Cap & Share basic income
@@ -442,7 +463,7 @@ round(amount_expenses <- net_cost + sapply(countries_new, function(i) if (i %in%
 # price increase
 sapply(countries_new, function(i) round(100*12*amount_expenses[[i]]/df$gdp_pc_2025[df$code %in% i]))
 
-gains_countries_new <- basic_income_new <- matrix(NA, nrow = 11, ncol = 4, dimnames = list(countries_new, c("low", "mid", "high", "all")))
+gains_countries_new <- basic_income_new <- matrix(NA, nrow = length(countries_new), ncol = 4, dimnames = list(countries_new, c("low", "mid", "high", "all")))
 for (c in countries_new) for (s in c("low", "mid", "high", "all")) {
   if (s == "all") {
     gains_countries_new[c, s] <- (df$gain_adj_2025*df$adult_2025/df$pop_2025)[df$code == c]/12
@@ -458,3 +479,17 @@ for (c in countries_new) for (s in c("low", "mid", "high", "all")) {
 round(gains_countries_new)
 round(basic_income_new/12)
 write.csv(round(gains_countries_new), "../../robustness_global_redistr/data_ext/gains_countries.csv", quote = F)
+
+# # CN CHN China computations assume no opt-out right /!\ This modifies basic_income_adj
+# cn <- create_var_ssp(df = df, opt_out_threshold = 1, full_part_threshold = 1)
+# 
+# cn$gain_euro_2030 <- cn$gain_adj_2030*euro_per_dollar/12
+# cn <- create_var_ssp(df = cn, scenario = "high", full_part_threshold = 1, opt_out_threshold = 1)
+# 
+# carbon_price$ssp2_26["2025"]*sum(df$emissions_2025)/sum(df$adult_2025)/12 # $45 Cap & Share basic income
+# basic_income_adj$all_countries["2025"]/12 # $46
+# basic_income_adj$high["2025"]/12 # $37
+# round(net_cost_cn <- -(cn$Shigh_gain_adj_2025 * cn$adult_2025/df$pop_2025)[cn$code %in% "CHN"]/12) # 27
+# round(amount_expenses_cn <- net_cost_cn + basic_income_adj$high["2025"]/12) # 64
+# # price increase
+# round(100*12*amount_expenses_cn/cn$gdp_pc_2025[cn$code %in% "CHN"]) # 4
