@@ -1,0 +1,414 @@
+% Version prepared for submission to the American Economic Journal: Economic Policy (AEJ:EP).
+% Anonymized manuscript (AEA double-blind review): title and abstract on page 1; author, acknowledgments,
+% and RCT registry ID are in title_page_AEJEP.tex. The Online Appendix is support_global_redistr_AEJEP_appendix.tex.
+% Compilation (from papers/): pdflatex appendix, pdflatex main, bibtex both, then pdflatex each twice (xr cross-references).
+% All figures and tables are those of support_global_redistr.tex; numbers in the text are taken from that version,
+% from app.tex, and from ../tables/*.tex. Derived statistics (confidence bounds, Holm-adjusted p-values, exclusion-restriction
+% breakdown point) are computed from the coefficients and standard errors reported in ../tables/.
+
+\documentclass[12pt,english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tgpagella}
+\usepackage{mathpazo}
+\usepackage[margin=1in]{geometry}
+\usepackage[round,sort&compress]{natbib}
+\usepackage{url}
+\usepackage{xr-hyper}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=purple, linkcolor=blue, citecolor=violet}
+\externaldocument{support_global_redistr_AEJEP_appendix}
+\usepackage{bm}
+\usepackage{indentfirst}
+\setcitestyle{aysep={}}
+\usepackage[leqno]{amsmath}
+\usepackage{amssymb}
+\usepackage{eurosym}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{threeparttable}
+\usepackage{morefloats}
+\usepackage[export]{adjustbox}
+\usepackage{lineno}
+\modulolinenumbers[5]
+\linenumbers
+\renewcommand{\floatpagefraction}{.6}
+
+% AEA style: Roman numerals for sections, capital letters for subsections
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+
+\captionsetup{font=small}
+
+\title{Public Acceptance of International Redistribution\\in High-Income Countries}
+\author{}
+\date{\vspace{-3em}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent Are policies transferring resources from high- to low-income countries politically feasible? In a pre-registered survey of 12,000 respondents in eleven high-income countries, majorities accept nearly all international redistribution policies tested, including some costly to respondents. In a conjoint experiment fielded before respondents learn the survey topic, adding a globally redistributive millionaire tax to a political program raises its probability of being chosen by 5 percentage points. Acceptance declines only slightly when country coverage is partial. Raising the perceived likelihood of reform does not reduce support, contrary to warm glow. Low salience and underestimated public support help explain political neglect.
+\end{abstract}
+
+\medskip
+\noindent \textbf{JEL codes:} D72, F35, F53, H23, H87, Q58.
+
+\noindent \textbf{Keywords:} International redistribution, global taxation, foreign aid, climate policy, survey experiments, warm glow, pluralistic ignorance.
+
+\clearpage
+\onehalfspacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The transfer of resources from high-income countries (HICs) to low-income countries (LICs) is at the center of several ongoing international negotiations: on debt restructuring, development assistance, the reform of multilateral development banks, international tax cooperation, and climate finance.\footnote{These issues are debated, among others, at the G20, in the OECD's Base Erosion and Profit Shifting project, at the Fourth Conference on Financing for Development, at the International Maritime Organization, in the Global Solidarity Levies Task Force, in the negotiations of the UN Framework Convention on International Tax Cooperation, and at the UN Framework Convention on Climate Change. Online Appendix~\ref{subsec:plausible_policies_sources} provides references.} The stakes are large: because the GDP per capita of HICs is 28 times that of LICs at purchasing power parity (PPP), redirecting 1\% of HICs' GDP to LICs would increase LICs' national income by 60\% in PPP terms and more than double it in nominal terms.\footnote{From World Bank data for 2024: 1.42 billion people live in HICs and 625 million in the 25 LICs; HICs' GDP per capita is 28 times that of LICs at PPP and 68 times in nominal terms. 1\% of HICs' GDP thus corresponds to 60\% of LICs' GDP at PPP and 153\% in nominal terms.}
+
+Whether such transfers are politically feasible depends in large part on public opinion in HICs, whose governments would finance them. Recent large-scale surveys find majority support for a globally coordinated tax on billionaires \citep{cappelen_majority_2025}, for global rather than national climate action \citep{dechezlepretre_fighting_2025}, for a democratic world government on global issues \citep{ghassim_who_2024}, and for globally redistributive climate and tax policies in the United States and Western Europe \citep{fabre_majority_2025}. Yet international redistribution is seldom championed by electoral candidates, and actual transfers remain small: applying optimal tax theory, \cite{kopczuk_limitations_2005} show that the level of US foreign aid can be rationalized only if the US government values the welfare of an American 2,000 times more than that of a foreigner. This paper studies the resulting \textit{preference--prominence gap}.
+
+There are two broad explanations for the gap. The first is that survey support is overstated. Respondents may express support to feel good about themselves as long as the policies seem unlikely to be implemented (\textit{warm glow}, \citealp{andreoni_impure_1990,nunes_identifying_2003}); surveys focused on global issues may make them artificially salient; and surveys have tested truly global policies, whereas any realistic policy would be implemented by a subset of countries, which raises concerns about free riding and competitiveness. The second explanation is that support is genuine but fails to translate into political supply, because the issue has low salience in voters' choices, because politicians and citizens underestimate public support, or because policy is biased against majority preferences more generally \citep{gilens_testing_2014,broockman_bias_2018}.
+
+I test these explanations using an original survey of 12,001 respondents representative of eleven HICs: the United States, Japan, Russia, Saudi Arabia, France, Germany, Italy, Poland, Spain, the United Kingdom, and Switzerland. Several of these countries, such as Japan, Poland, Russia, Saudi Arabia, and Switzerland, are considered conservative and had not been surveyed on most of these policies. The survey embeds five pre-registered tests, which I organize with a simple conceptual framework (Section~\ref{sec:framework}). Three design features are central. First, the opening block elicits priorities \textit{before} respondents can infer the survey topic, through open-ended questions, a conjoint experiment between political programs, and a budget allocation task. Second, random variation in the set of participating countries identifies how acceptance depends on country coverage. Third, two experiments test for warm glow: one offers a moral substitute (a donation decision), and the other provides information that raises the perceived likelihood of international transfers, which I also use as an instrument for that belief.
+
+The first result is that global redistribution affects vote choice even when respondents are not primed to think about it. In the conjoint experiment, a program that includes an \textit{international tax on millionaires with 30\% of the revenue financing low-income countries} is 5.1 percentage points (p.p.) more likely to be chosen, and a program that includes \textit{cutting development aid} is 2.9~p.p.\ less likely to be chosen. The first effect is statistically indistinguishable from the average effect of the policies that feature most prominently in national electoral programs, and both effects survive restricting the comparison to ideologically consistent programs.
+
+Second, global spending retains substantial priority when it competes with domestic items. Asked to allocate the revenue from a global wealth tax among five spending items, respondents allocate on average 17.5\% to public services in LICs, above the pre-registered threshold of 13.3\%, and 87\% allocate a positive amount.
+
+Third, majorities accept nearly all international policies tested, in nearly all countries. Policies currently discussed in international fora (such as a 2\% minimum tax on billionaires' wealth, debt relief, or developed countries contributing 0.7\% of their GDP in foreign aid) garner between 70\% and 81\% acceptance in the pooled sample. More radical proposals are also accepted, including a global tax on the top 3\% of incomes that would transfer 5\% of world income to finance poverty reduction (64\% acceptance). The main exception is the Global Climate Scheme, a global cap-and-dividend whose personal cost is made salient, which falls just short of a majority in the US and Russia (49\%).
+
+Fourth, acceptance depends only mildly on country coverage. Relative to a coalition of all HICs, acceptance of a wealth tax funding LICs is 4.6~p.p.\ higher with global coverage and statistically indistinguishable (by 1.0~p.p.) with a narrow coalition excluding China and the US; I can rule out a decline larger than 3.2~p.p. Acceptance of an International Climate Scheme falls by 3.8~p.p.\ when the coalition shrinks from 72\% to 33\% of world emissions.
+
+Fifth, I find no evidence of warm glow. The information treatment raises the share of respondents who believe international transfers are likely by 7.4~p.p.\ (from 33\%), and it \textit{increases} the share of plausible global policies supported by 1.3~p.p. The one-sided 95\% confidence bound excludes any negative effect, and the 2SLS estimate implies that believing transfers are likely increases support. Being offered a donation opportunity, a potential moral substitute, also increases rather than decreases support for the Global Climate Scheme. The framework clarifies what these results identify: the net effect of perceived likelihood on stated support, so warm glow, if present, is dominated by opposite forces such as credibility. For policy, this is the relevant quantity. Support measured while international transfers seem unlikely understates rather than overstates the support they would receive once on the agenda. I discuss threats to the exclusion restriction and show that warm glow could be rationalized only if the treatment had a direct positive effect at least as large as its entire reduced-form effect.
+
+Finally, in exploratory analyses, I document two features that can reconcile widespread acceptance with political neglect. Global inequality is rarely mentioned spontaneously: respondents' top-of-mind concerns are their purchasing power, health, and national public services. And support is underestimated: the median respondent underestimates support for the Global Climate Scheme in their own country by 16~p.p.\ and in the US by 22~p.p., so that in Japan and Europe, most people wrongly believe that the policy lacks majority support. Responses to questions on motives indicate that support stems from a sense of duty rather than self-interest or historical responsibility: there is no majority support for reparations for colonization and slavery.
+
+Taken together, the results suggest that public opinion in HICs is not the binding constraint on the international redistribution policies currently being negotiated. They also bear on policy design. Coalitions of willing countries need not wait for universal participation. Instruments that make the richest contribute are more popular than those that make costs salient for the average taxpayer. And conditioning transfers on poverty-reduction programs makes government-to-government transfers acceptable.
+
+\paragraph{Related literature.} This paper contributes, first, to the economics literature that uses large-scale surveys and embedded experiments to study preferences for redistribution and for public policies \citep{kuziemko_how_2015,alesina_intergenerational_2018,stantcheva_how_2023}, and in particular preferences for international redistribution and climate policy \citep{nair_misperceptions_2018,fehr_your_2022,kaufmann_foreign_2019,douenne_yellow_2022,dechezlepretre_fighting_2025}. The closest papers are \cite{fabre_majority_2025}, who document majority support for a global climate scheme and a global millionaire tax in the US and four Western European countries, and \cite{cappelen_majority_2025}, who document support for a coordinated billionaire tax in 40 countries. Relative to these papers, I (\textit{i}) extend the evidence to more conservative HICs, (\textit{ii}) test how acceptance depends on the coalition of participating countries, (\textit{iii}) elicit priorities before the topic is revealed, with a conjoint experiment whose attribute pools are drawn from the platforms of the main parties and include an anti-aid policy, and with a budget allocation task with several domestic items, (\textit{iv}) test two forms of warm glow, and (\textit{v}) study a broader range of policies, up to transfers of 5\% of world income.
+
+Second, the paper relates to work on the sincerity of stated preferences and on survey artifacts: warm glow \citep{andreoni_impure_1990,nunes_identifying_2003}, experimenter demand \citep{de_quidt_measuring_2018,mummolo_demand_2019}, and the stability of policy attitudes \citep{ansolabehere_strength_2008}. I test a prediction of warm glow that is directly relevant for political feasibility: whether support for a policy falls when its implementation is made to appear more likely.
+
+Third, the coverage experiments contribute to the literature on free riding and conditional cooperation in climate agreements. Conjoint studies show that broader coverage increases support \citep{beiser-mcgrath_could_2019,gampfer_obtaining_2014}, yet people also support unilateral action \citep{bernauer_how_2015,mcgrath_how_2017,beiser-mcgrath_commitment_2019} and the evidence for free riding is weak \citep{aklin_prisoners_2020}. Evidence of conditional cooperation is mixed \citep{carlsson_importance_2025,tam_they_2025}. I extend this evidence to a redistributive wealth tax and quantify the decline in acceptance as coverage shrinks.
+
+Fourth, the paper speaks to the political economy of the gap between policy and preferences. Issue salience shapes vote choice \citep{repass_issue_1971,krosnick_role_1988,egan_partisan_2013,dennison_review_2019}, and open-ended questions reveal what is top of mind \citep{wlezien_salience_2005,haaland_measuring_2024}. Policy outcomes can deviate from majority preferences because of the influence of affluent citizens \citep{gilens_testing_2014}, because politicians misperceive their constituents' preferences \citep{broockman_bias_2018,pilet_politicians_2024}, or because citizens misperceive one another's views \citep{bursztyn_misperceived_2020,mildenberger_beliefs_2019,andre_globally_2024}. I document low salience and pluralistic ignorance regarding international redistribution, two mechanisms that are particularly plausible for an issue whose beneficiaries do not vote in the countries that would finance it.
+
+The remainder of the paper is organized as follows. Section~\ref{sec:framework} presents the conceptual framework. Section~\ref{sec:data} describes the survey. Section~\ref{sec:priorities} reports the priorities elicited before the topic is revealed. Section~\ref{sec:breadth} documents the levels of acceptance. Sections~\ref{sec:coverage} and \ref{sec:sincerity} test the robustness of acceptance to country coverage and to warm glow. Section~\ref{sec:gap} presents exploratory evidence on salience and pluralistic ignorance. Section~\ref{sec:validity} discusses threats to validity, and Section~\ref{sec:conclusion} concludes with policy implications.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conceptual Framework}\label{sec:framework}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section presents a deliberately simple framework that organizes the explanations for the preference--prominence gap and maps them to the empirical tests.
+
+\paragraph{Political supply.} Consider an office-seeking party deciding whether to add an internationally redistributive policy $G$ to its platform. Let $a$ denote the share of voters who prefer the platform with $G$ to the same platform without it (\textit{acceptance}), and let $s \in [0,1]$ denote the \textit{salience} of $G$, that is, the weight voters place on $G$ relative to other issues when choosing between parties. In a probabilistic voting model \citep{lindbeck_balanced-budget_1987}, adding $G$ changes the party's expected vote share by approximately
+\begin{equation}\label{eq:vote_gain}
+\Delta V = \phi \, s \, (2a - 1),
+\end{equation}
+where $\phi > 0$ is the density of swing voters. The party does not observe $a$ but holds a belief $\hat{a}$, and it adopts $G$ if $\phi \, s \, (2\hat{a} - 1) > c$, where $c \geq 0$ captures the costs of championing $G$ (for instance, opposition from organized interests, or the difficulty of committing to an international agreement). Equation~\eqref{eq:vote_gain} implies that a policy that commands majority acceptance ($a > 1/2$) may nonetheless be absent from political platforms for four reasons:
+\begin{enumerate}[label=(E\arabic*), itemsep=0pt]
+  \item \textit{Overstated acceptance}: true acceptance $a$ is below the stated acceptance measured in surveys.
+  \item \textit{Partial coverage}: acceptance $a(\theta)$ depends on the coverage $\theta$ of the international coalition, and realistic coalitions are smaller than the universal coverage tested in previous surveys.
+  \item \textit{Low salience}: $s$ is small, so that the vote gain $\phi s (2a-1)$ does not exceed $c$.
+  \item \textit{Misperceived acceptance}: $\hat{a} < a$, so that parties underestimate the vote gain.
+\end{enumerate}
+The pre-registered tests address (E1) and (E2). The conjoint experiment estimates the effect of $G$ on the probability that a program is chosen in a forced choice in which $G$ is displayed, that is, the vote gain in~\eqref{eq:vote_gain} when salience is induced by design. The budget allocation measures the priority given to global spending when it competes with domestic spending. The coverage experiments estimate $a(\theta)$. The exploratory analyses provide evidence on (E3), through spontaneous mentions in open-ended questions, and on (E4), through respondents' incentivized beliefs about other people's support. I measure misperceptions among citizens rather than politicians, but citizens' beliefs plausibly shape the perceived returns to campaigning on, or mobilizing for, international redistribution.
+
+\paragraph{Warm glow and the perceived likelihood of implementation.} Let $p$ denote the perceived probability that international transfers will be implemented, and let stated acceptance be
+\begin{equation}\label{eq:warm_glow}
+\tilde{a}(p) = a_0 + w\,(1-p) + \kappa\, p,
+\end{equation}
+where $a_0$ is the acceptance that would prevail in the absence of the two following channels. The warm-glow term $w \geq 0$ captures respondents who express support because doing so is costless as long as implementation is unlikely; this term vanishes as $p \to 1$. The term $\kappa$ captures channels through which a more likely policy gains support, such as credibility, status quo bias, or conditional cooperation. The warm-glow hypothesis states that $d\tilde{a}/dp = \kappa - w < 0$. An exogenous shift in $p$ identifies the sign of $\kappa - w$, but not $w$ and $\kappa$ separately. However, the sign is what matters for political feasibility. The support a policy would receive once it is on the agenda ($p \to 1$) differs from the support measured at the current belief $p_0$ by
+\begin{equation}\label{eq:feasibility}
+\tilde{a}(1) - \tilde{a}(p_0) = (\kappa - w)(1-p_0).
+\end{equation}
+A positive effect of $p$ on stated support thus implies that surveys conducted while international transfers seem unlikely understate rather than overstate the support these transfers would receive if they were put on the agenda, at least within the range where~\eqref{eq:warm_glow} is a good approximation. Section~\ref{sec:sincerity} estimates $d\tilde{a}/dp$ using a randomized information treatment as an instrument for $p$, and discusses violations of the exclusion restriction.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Survey Design and Data}\label{sec:data}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Samples.} I surveyed 12,001 respondents representative of the adult population of eleven HICs (see the coverage map in Online Appendix Figure~\ref{fig:country_coverage}). The countries were chosen to span the diversity of HICs, and sample sizes are commensurate with population sizes.\footnote{The sample sizes are as follows: US: 3,000; Japan: 2,000; Russia: 1,001; Saudi Arabia: 1,000; Europe: 5,000, split in proportion to the countries' adult population (except for Switzerland), i.e., France: 798; Germany: 1,048; Italy: 756; Spain: 603; UK: 826; Poland: 500; Switzerland: 469. The maximum margins of error at the 5\% level range from $\pm$1.8~p.p.\ in the US to $\pm$4.5~p.p.\ in Switzerland.} The survey was fielded online by \textit{Bilendi} (in all countries except Russia and Saudi Arabia), \textit{Kantar} (Saudi Arabia), and \textit{Yandex} (Russia), between April 15 and July 3, 2025, and between September 19 and October 9, 2025 in Russia. Each complete response was rewarded with approximately \euro{}3 in gift points. In Russia, the questionnaire was curtailed: the survey platform did not allow certain question formats (such as sliders or the interactive task), and the survey company required that some questions be cut or reworded.\footnote{To the best of my knowledge, \cite{toews_learning_2025} were the first to survey the Russian public on climate attitudes.} In the other countries, questionnaires are almost identical, though figures are adapted to the country-specific context, for example to report the cost of a policy to the average person in the respondent's country (Online Appendix~\ref{subsec:country_features}).
+
+\paragraph{Representativeness.}\label{par:representativeness} The samples are stratified using quotas on gender, age (5 brackets), income (4), education (3), region (2 to 5), and urbanicity (2 or 3).\footnote{In the US, I also use race (4 categories). In Saudi Arabia, I use citizenship (Saudi vs.\ non-Saudi) instead of urbanicity. In Russia, I use neither region nor urbanicity.} The samples closely match population frequencies, except in Russia and Saudi Arabia, where respondents without a high school diploma are underrepresented, as are low-income respondents in Russia and non-Saudis in Saudi Arabia (Online Appendix Tables~\ref{tab:representativeness_0}--\ref{tab:representativeness_3}). All results are reweighted to match population frequencies along the quota variables, with weights trimmed between 0.25 and 4, as pre-registered. Pooled results weight each country in proportion to its adult population. Self-reported voting patterns across the three main political leanings match actual election results, although self-reported non-voters are fewer than actual non-voters (Online Appendix Figure~\ref{fig:vote_pnr_out}), and the main results are robust to reweighting by vote (Online Appendix~\ref{app:vote}). Online opt-in panels with quotas cannot guarantee representativeness on unobserved characteristics, a limitation I return to in Section~\ref{sec:validity}.
+
+\paragraph{Data quality.}\label{par:data_quality} The questionnaire follows the best practices described in \cite{stantcheva_how_2023}. It was worded neutrally, pre-tested on members of the public, translated by professional translators, and checked by native speakers. The median duration is 17 minutes (13 in Russia). As pre-registered, I exclude respondents who fail an attention check (9\%) or complete the survey in less than 6 minutes (13\%), for a total of 16\% of the extended sample. There is no differential attrition across treatment arms (Online Appendix~\ref{app:attrition}), treatment arms are balanced (Online Appendix~\ref{app:balance}), placebo tests show no effect of earlier treatments on unrelated later outcomes (Online Appendix~\ref{app:placebo}), and the main results replicate on the extended sample (Online Appendix~\ref{app:extended}). Answer items are presented in random order whenever possible; item order has small effects (2 to 14~p.p., Online Appendix~\ref{app:order}). At the end of the survey, 70\% of respondents find it politically unbiased (Online Appendix Figure~\ref{fig:survey_biased}). Three questions are incentivized with \$100 lottery prizes: a comprehension question on the cost of the Global Climate Scheme, a donation decision, and a question on beliefs about others' support.
+
+\paragraph{Survey structure.}\label{par:flow} Figure~\ref{fig:flow} depicts the survey flow. After sociodemographic questions, the survey begins with a block designed to measure priorities before respondents can infer the survey topic: an open-ended question (one of four, at random), a conjoint experiment, and a budget allocation task. Then come questions on the main policies, embedding the coverage and warm-glow experiments; questions on more radical proposals and on political action; an interactive task in which respondents design their preferred global income redistribution; and questions on values. All random assignments are independent and uniform. When a question follows a treatment, the levels I report are computed on the control group. The full questionnaire is in Online Appendix~\ref{app:questionnaire}.
+
+\begin{figure}[htbp]
+    \caption{Survey Flow}\label{fig:flow}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/questionnaire/survey_flow.pdf}}
+    {\footnotesize \textit{Notes:} Rectangles stacked below each other represent random branches. Randomizations are independent and uniform.}
+\end{figure}
+
+\paragraph{Measurement of acceptance.} I distinguish \textit{support}, the share of \textit{Somewhat} or \textit{Strongly support} answers on a Likert scale, from \textit{acceptance}, the share of support among non-\textit{Indifferent} answers, which is the pre-registered measure of majority support. For binary \textit{Yes}/\textit{No} questions, I report the share of \textit{Yes} and conservatively refer to it as acceptance, to avoid equating a forced choice with active support. The Online Appendix reports absolute support for all Likert questions.
+
+\paragraph{Pre-registration.} The design, hypotheses, and tests were pre-registered before data collection on the Open Science Framework (link withheld for anonymized review); the study was also registered in the AEA RCT Registry. The pre-analysis plan specifies five hypotheses, H1 to H5, each tested with one-sided $t$-tests at the 5\% level in five regions (the US, Europe, Japan, Russia, and Saudi Arabia), with Europe treated as a block. Table~\ref{tab:prereg} lists the hypotheses and summarizes the results. The analyses of salience, beliefs about others' support, motives, and the custom redistribution task were listed as secondary, and I present them as exploratory. The conjoint experiment was not fielded in Russia and Saudi Arabia, where vote was not asked.
+
+\begin{table}[!tbp]
+\centering
+\caption{Pre-registered Hypotheses and Results}\label{tab:prereg}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Hypothesis & Measure & Pooled estimate & Result by region \\
+\midrule
+H1a: \textit{Cut development aid} has no positive effect on program choice & Conjoint AMCE & $-$2.9 p.p.\ (1.0) & Confirmed in Europe, Japan, US: no positive effect; negative and significant in Europe and US \\[2pt]
+H1b: \textit{International millionaire tax funding LICs} has a positive effect on program choice & Conjoint AMCE & $+$5.1 p.p.\ (1.0) & Confirmed in Europe, Japan, US; Holm-adjusted one-sided $p \leq .01$ in each region \\[2pt]
+H2: Allocation to each global item $\geq$ 13.3\% & Mean share of revenue (\textit{Few} variant) & 17.5\% & Confirmed in every country (at the 1\% level, 10\% in Japan) \\[2pt]
+H3a: Majority acceptance of each of 10 plausible global policies & Acceptance & 51\% of policies supported, 21\% opposed (mean) & Confirmed for all policies in all countries, except an aviation levy in Japan (46\%) \\[2pt]
+H3b: Majority acceptance of the Global Climate Scheme & \textit{Yes} share & 55\% & Confirmed in Europe, Japan, Saudi Arabia; rejected in US and Russia (49\%) \\[2pt]
+H3c: Majority acceptance of broader or radical proposals & Acceptance & See Figure~\ref{fig:radical_redistr_share} & Confirmed in the pooled sample for all proposals; by country, see Figure~\ref{fig:radical_redistr_share} (e.g., top~3\% income tax not accepted in Switzerland) \\[2pt]
+H4a: Majority acceptance of non-global wealth tax (2 scenarios) and climate scheme (4) & \textit{Yes} share & 61\% to 70\% & Confirmed in the pooled sample for all six scenarios \\[2pt]
+H4b: Lower acceptance under partial coverage & Difference with broader coverage & Wealth tax: $-$4.6 to $-$5.6 p.p.; climate scheme: $-$3.8 p.p.\ (\textit{Low} vs.\ \textit{High}) & Partly confirmed: declines are small and not significant for some scenarios; the climate scheme is more accepted with partial coverage than in its global version \\[2pt]
+H5a: Information raises belief that transfers are likely but does not reduce support & First stage; reduced form & $+$7.4 p.p.\ (0.9); $+$1.3 p.p.\ (0.7) & Confirmed: no significantly negative effect in any region; positive point estimates in Europe, Japan, US \\[2pt]
+H5b: Donation opportunity does not reduce support for the Global Climate Scheme & Treatment effect & $+$2.8 p.p.\ (1.2) & Confirmed in Europe, Japan, US: no negative effect \\
+\bottomrule
+\end{tabularx}
+\begin{minipage}{\textwidth}
+\vspace{3pt}
+\footnotesize \textit{Notes:} Robust standard errors in parentheses (clustered by respondent for the conjoint). AMCE: average marginal component effect. H1 is not tested in Russia and Saudi Arabia, where the conjoint experiment was not fielded. H4b: wealth tax differences are relative to the \textit{Global} variant (for the \textit{All HICs} and \textit{International} variants, respectively); climate scheme difference is between coalitions covering 33\% and 72\% of world emissions. Sources: Online Appendix Tables~\ref{tab:conjoint}, \ref{tab:ics}, \ref{tab:wealth_tax}, \ref{tab:warm_glow_substitute}, \ref{tab:warm_glow_realism}, and Table~\ref{tab:iv}.
+\end{minipage}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Priorities Elicited Before the Topic Is Revealed}\label{sec:priorities}\label{sec:salience}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A common objection to surveys on global issues is that, by making these issues salient, they elicit universalist answers that respondents would not give in real choices, where global redistribution competes with other goals. The opening block of the survey addresses this objection: respondents answered the following questions before any mention of international redistribution or climate policy.
+
+\subsection{Conjoint Analysis of Political Programs}\label{subsec:conjoint}
+
+\paragraph{Design.} Respondents in nine countries (all but Russia and Saudi Arabia) choose between two political programs, framed as those of the leading candidates in the next election, or abstain (27\% choose \textit{Neither of them}). Each program contains one policy, or no policy, in each of five domains (\textit{Economic issues}, \textit{Social issues}, \textit{Climate policy}, \textit{Tax system}, and \textit{Foreign policy}), drawn at random and displayed in random order. Except for the two policies of interest, the policies are taken from the platforms of the main parties in the country's most recent national election, so that they span the political spectrum and include the most prominent proposals in each national debate. The \textit{Foreign policy} pool contains three policies: \textit{Cut development aid}, \textit{International tax on millionaires with 30\% financing healthcare and education in low-income countries}, and a country-specific policy (e.g., military and financial support to Ukraine in Germany). Including an anti-aid policy allows me to test whether foreign aid is valued in itself, beyond the appeal of taxing the rich.
+
+\paragraph{Estimation.} Following \cite{hainmueller_causal_2014}, I estimate average marginal component effects (AMCEs) by OLS with standard errors clustered by respondent:
+\begin{equation}\label{eq:conjoint}
+\text{Preferred}_{pi} = \beta_0 + \beta_1 \text{Cut\_aid}_{pi} + \beta_2 \text{Intl\_tax}_{pi} + \beta_3 \text{Foreign3}_{pi} + \varepsilon_{pi},
+\end{equation}
+where $\text{Preferred}_{pi}$ indicates whether program $p$ is chosen by respondent $i$, and the regressors are dummies for the foreign policy in program $p$, with \textit{no foreign policy} as the omitted category. Under uniform and independent randomization of attributes, the linear model is an unbiased estimator of the AMCE.
+
+\begin{figure}[htbp]
+\caption{Effect of Foreign Policies on the Probability That a Program Is Chosen (Conjoint Experiment)} \label{fig:conjoint}
+\begin{subfigure}{.49\textwidth}
+  \caption{Cut development aid}
+  \includegraphics[height=.34\textheight]{../figures/country_comparison/program_preferred_by_cut_aid_in_program.pdf}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+  \caption{International tax on millionaires with 30\% financing health and education in LICs}
+  \includegraphics[height=.34\textheight]{../figures/country_comparison/program_preferred_by_millionaire_tax_in_program.pdf}
+\end{subfigure}
+{\footnotesize \textit{Notes:} AMCEs relative to a program without foreign policy, estimated from equation~\eqref{eq:conjoint} without controls; 95\% confidence intervals based on standard errors clustered by respondent. Online Appendix Table~\ref{tab:conjoint} reports the estimates and Figure~\ref{fig:conjoint_vote} the effects by vote. Question~\ref{q:conjoint}.}
+\end{figure}
+
+\paragraph{Results.} Both policies significantly affect program choice (Figure~\ref{fig:conjoint}). The millionaire tax funding LICs raises the probability that a program is chosen by 5.1~p.p.\ (s.e.\ 1.0), and cutting development aid reduces it by 2.9~p.p.\ (s.e.\ 1.0). The effect of the tax is nearly identical in Europe (5.0~p.p.), Japan (5.2), and the US (5.2), and it remains significant in each region after a Holm correction for multiple testing \citep{holm_simple_1979}. The effect of cutting aid is negative in Europe ($-$3.0~p.p.) and the US ($-$4.6~p.p.), and small and insignificant in Japan. Country-level estimates are imprecise but, when significant, have the same sign as the pooled estimates. A conditional logit yields average marginal effects of 6~p.p.\ and $-$3~p.p.
+
+To benchmark these magnitudes, I compare them to the effects of the other policies in the pools, which were selected for their prominence in national campaigns.\footnote{With a few exceptions, \textit{raising the minimum wage} is among the most popular policies, along with \textit{redistributive taxes or transfers}, \textit{anti-immigration regulations}, and \textit{abortion rights}; \textit{a ban on new combustion-engine cars} is among the least popular (Online Appendix Figures~\ref{fig:conjoint_FR}--\ref{fig:conjoint_ES_original}).} The absolute effect of the millionaire tax is only 4\% smaller than the average absolute effect of all policies, a difference that is not significant in a permutation test ($p = .48$), whereas the effect of cutting aid is significantly smaller ($p = .01$). In the vocabulary of the framework, once salience is induced by design, the vote gain from a globally redistributive tax is comparable to that from policies that dominate national campaigns.
+
+\paragraph{Robustness to unrealistic programs.} Uniform randomization generates programs that combine policies from the left and the far right, which voters do not face in practice. Following \cite{de_la_cuesta_improving_2022}, I bound the AMCEs by re-weighting program pairs at the opposite extreme: I classify each policy by the party that proposed it and drop the 29\% of pairs in which a program combines left and far-right policies. The estimates are unchanged ($+$5~p.p.\ for the tax, $-$3~p.p.\ for cutting aid). Classifying the tax as a left-wing policy and the aid cut as a far-right policy, which retains 43\% of observations, yields $+$5 and $-$4~p.p.
+
+\paragraph{Interpretation.} The conjoint experiment has two advantages over direct questions. Respondents do not know the survey topic, which limits experimenter demand, and they trade off global redistribution against other policies. Its main limitation is that it imposes salience: every respondent sees the foreign policy attribute. The estimates therefore measure the electoral potential of the policy once it is on the agenda, not its current effect on vote choice, which also depends on whether voters are aware of parties' positions.
+
+\subsection{Budget Allocation}\label{subsec:revenue_split}
+
+In \cite{fabre_majority_2025}, respondents allocating the revenue of a global wealth tax between LICs and domestic healthcare and education give LICs 33.4\% on average, that is, 67\% of an equal split. A natural concern is that this share is inflated by offering a single domestic alternative. I therefore ask respondents to allocate the revenue of a hypothetical global tax of 2\% on wealth above \$5 million among five items, after informing them of the revenue it would collect in their country (from \$1 billion in Poland to \$514 billion in the US) and in all LICs combined (\$1 billion). In the \textit{Few} variant, one global item (\textit{Education, healthcare and renewable energy in LICs}) competes with four domestic items. In the \textit{Many} variant, five items are drawn at random from a pool of four global and nine domestic items. The pre-registered hypothesis (H2) is that each global item receives at least 13.3\% of the revenue, i.e., two-thirds of an equal split.
+
+\begin{figure}[htbp]
+  \caption{Preferred Allocation of the Revenue from a Global Wealth Tax} \label{fig:split}
+  \begin{subfigure}{.62\textwidth}
+    \caption{Average preferred allocation (percent)}
+    \includegraphics[height=.36\textheight]{../figures/country_comparison/split_main_means_nolegend.pdf}
+  \end{subfigure}
+  \begin{subfigure}{.38\textwidth}
+    \caption{Share allocating zero revenue (percent)}
+    \includegraphics[height=.36\textheight]{../figures/country_comparison/split_main_nb0_nolabel.pdf}
+  \end{subfigure}
+  {\footnotesize \textit{Notes:} The first two items are from the \textit{Few} variant with five fixed items (the global item and the most preferred item are displayed); the last four items are from the \textit{Many} variant with five items drawn from 13 (the four global items are displayed). Questions~\ref{q:revenue_split_few}--\ref{q:revenue_split_many}.}
+\end{figure}
+
+In every country, the most prioritized item in the \textit{Few} variant is domestic education and healthcare, with an average share of 26\% (Figure~\ref{fig:split}). The global item receives 17.5\% on average, ranging from 14\% in Japan to 21\% in Saudi Arabia and Spain. It is the least prioritized item in the pooled sample but the second most prioritized in Europe (19\%) and Saudi Arabia, and only 13\% of respondents allocate nothing to it. The allocation exceeds the pre-registered threshold of 13.3\% in every country (one-sided tests at the 1\% level, and at the 10\% level in Japan). In the \textit{Many} variant, the average allocation to global items ranges from 16\% (forestation and biodiversity) to 19\% (education and healthcare in LICs); a task contains 1.5 global items on average, which together receive 26.9\% of the revenue, again 17.5\% per global item. The allocation per global item is uncorrelated with the number of global items in the task, which suggests that respondents value global items individually rather than as a single category.\footnote{In Russia, respondents chose the share of revenue allocated to LICs instead. The average share is 12.2\% (median: 5\%), and 12\% allocate nothing.} These results confirm the priority found by \cite{fabre_majority_2025}: global spending is less prioritized than the most-preferred domestic spending, but most respondents consider it worthwhile.
+
+\subsection{Top-of-Mind Considerations}\label{subsec:considerations}
+
+At the very start of the survey, each respondent is randomly assigned one of four open-ended questions: their main concerns, their needs or wishes, an issue important to them but neglected in public debate, or the greatest injustice of all. I classify answers manually into 27 categories, and use AI-based and keyword-based classifications as robustness checks (Online Appendix~\ref{app:fields} details the procedure and Figure~\ref{fig:wordcloud} shows word clouds).
+
+Global inequality is rarely top of mind. The most frequent concerns and wishes relate to purchasing power (31\% of answers), with shares decreasing with income from 35\% in the bottom decile to 22\% in the top decile, followed by health and, for concerns, far-right governments and war. Political considerations are mostly framed at the national level, around public services, pensions, or taxes. Global inequality almost never appears as a wish, and rarely as a neglected issue or a concern, in contrast to other international issues such as war or climate change. It is, however, prominent among injustices: 19\% of answers to the injustice question mention inequality or poverty (28\% in Europe, 9\% in the US), and among the few answers that specify a geographic scope, the global level (including Global South issues such as clean water or starvation) is mentioned five times as often as one's own country. My manual coding classifies 3.2\% of injustice answers as referring to international inequality or poverty in poor countries (versus 1.2\% for the keyword search and 7.5\% for the AI classification). Respondents thus see global inequality as unjust but do not consider it a priority, which corresponds to low salience in the framework.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Acceptance of International Policies}\label{sec:breadth}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Policies Under International Negotiation}\label{subsec:debated}
+
+Respondents report their support for ten ``plausible'' policies, so called because they are currently discussed in international fora (Online Appendix~\ref{subsec:plausible_policies_sources}). Figure~\ref{fig:solidarity_support_share} shows that every policy garners majority acceptance in every country, with one exception: a globally redistributive levy on aviation emissions, which would raise flight prices by 30\%, is accepted by 46\% in Japan. This policy, which has the most salient cost, is the least supported in every country. The most popular policies, with over two-thirds acceptance in every country and an absolute majority of support in the pooled sample, are the 2\% minimum tax on billionaires' wealth proposed by \cite{zucman_blueprint_2024} (81\% acceptance), the expansion of low-interest sustainable investment in LICs \citep{bridgetown_initiative_bridgetown_2025}, and contributions to the climate loss and damage fund. Debt relief for vulnerable countries, foreign aid at 0.7\% of GDP, and an expansion of the UN Security Council all reach at least 70\% acceptance.
+
+\begin{figure}[htbp]
+    \caption{Acceptance of Plausible Global Policies}\label{fig:solidarity_support_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/solidarity_support_share.pdf}}
+    {\footnotesize \textit{Notes:} Share of \textit{Somewhat} or \textit{Strongly support} among non-\textit{Indifferent} answers, control group of the information treatment. Online Appendix Figure~\ref{fig:solidarity_support_positive} reports absolute support. Question~\ref{q:solidarity_support}.}
+\end{figure}
+
+\paragraph{Heterogeneity.}\label{par:ranking} On average, respondents support 51\% of the plausible policies and oppose 21\%. Net support (support minus opposition) is highest in Saudi Arabia ($+$50~p.p.), Italy ($+$49), and Spain ($+$39), and lowest in Japan ($+$20), Switzerland ($+$24), Poland, and the US ($+$25). The ranking is the same when using a latent index of support built from all attitudinal questions (Online Appendix~\ref{subsec:efa} and Figure~\ref{fig:synthetic_indicators_mean}). Sociodemographic characteristics explain only 10\% to 15\% of the variance in the main outcomes, and 5\% once country and vote are accounted for (Online Appendix Figure~\ref{fig:lmg}). Support is highest among left-wing voters and lowest among far-right voters, while non-voters are close to the center; polarization is much lower in Japan than in Europe and the US (Online Appendix~\ref{app:pol}). Most plausible policies are accepted by majorities across the political spectrum in Europe and Japan, whereas Trump voters oppose more plausible policies than they support (Online Appendix Figure~\ref{fig:solidarity_support_pol_share}).% TODO verify before adding: author's note reports that 50.3% of Trump voters support the millionaire tax with 30% funding LICs.
+
+\paragraph{Climate finance.}\label{par:ncqg} In 2024, countries agreed on a ``New Collective Quantified Goal'' (NCQG) of \$300 billion per year of climate finance by 2035, without specifying the share of grants; currently, \$26 billion are provided as grants \citep{oecd_climate_2024}. Informed of these amounts, the median respondent prefers \$100 billion per year in grant-equivalent terms, roughly in line with the agreed goal, and 19\% choose \$600 billion or more (Online Appendix Figures~\ref{fig:ncqg}--\ref{fig:ncqg_full}). Two differently framed variants give the same median. This alignment could reflect that negotiators represent the preferences of their median citizen, or that respondents anchor on existing agreements. The latter interpretation is more consistent with the acceptance of much larger transfers documented below.
+
+\subsection{Radical Proposals and Political Action}\label{subsec:radical}
+
+Figure~\ref{fig:radical_redistr_share} reports the acceptance of broader proposals.
+
+\begin{figure}[htbp]
+    \caption{Acceptance of Broad Action and Radical Proposals}\label{fig:radical_redistr_share}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/radical_redistr_all_share.pdf}}
+    {\footnotesize \textit{Notes:} Share of positive answers among non-neutral answers. Questions~\ref{q:sustainable_future}--\ref{q:top3_tax_support}, \ref{q:convergence_support}--\ref{q:vote_intl_coalition}, \ref{q:reparations_support}, \ref{q:my_tax_global_nation}.}
+\end{figure}
+
+\paragraph{Global income tax.}\label{par:global_income_redistr} A random half of respondents evaluate an additional 15\% tax on individual after-tax income above \$120,000 per year (PPP), which would affect the global top~1\%, and the other half a tax at rates of 15\%, 30\%, and 45\% above \$80,000, \$120,000, and \$1~million, which would affect the global top~3\%. The taxes are calibrated to fill the poverty gap below \$250 and \$400 per month, respectively, implying transfers of 2\% and 5\% of world income. Respondents are told the share of taxpayers affected and the share of their country's GDP that would be transferred; in the US, for example, the top~3\% tax would affect 18\% of the population and transfer 8\% of GDP (Online Appendix Figure~\ref{fig:top_tax_share}). Support reaches 56\% for the top~1\% tax and 50\% for the top~3\% tax, against 25\% and 28\% opposition (Online Appendix Figure~\ref{fig:top_tax_positive}). Both are accepted by majorities in every country, except the top~3\% tax in Switzerland, where 18\% of the population would be affected. The taxes are accepted by a majority of the 6\% of respondents who would pay them, although not in every country for the top~3\% variant (Online Appendix Figure~\ref{fig:top_tax_affected_share}).
+
+\paragraph{Sustainable future.}\label{par:sustainable_future} Asked to choose between two unlabeled scenarios for the next twenty years, 68\% prefer a sustainable future, in which most countries cooperate to tax millionaires and keep warming below 2\textdegree{}C through car electrification and a doubling of the prices of heating fuel, flights, and beef (with purchasing power preserved through lower sales taxes), to a status quo with warming reaching 3\textdegree{}C by 2100.
+
+\paragraph{Convergence and own taxes.}\label{par:convergence}\label{par:my_tax} 61\% (versus 26\%) agree that ``governments should actively cooperate to have all countries converge in terms of GDP per capita by the end of the century'', with the lowest relative agreement in the US (56\%). Fewer respondents agree that ``[their] taxes should go towards solving global problems'' (41\% versus 28\% who disagree), in line with the Global Solidarity Report that first asked this question \citep{global_nation_global_2023}. Acceptance is thus higher for proposals in which the richest pay than for a general commitment of one's own taxes.
+
+\paragraph{Willingness to act.}\label{par:willingness_act} Respondents were asked how they would react to a ``worldwide movement in favor of a global program to tackle climate change, implement taxes on millionaires and fund poverty reduction in [LICs]''. 29\% report that they could attend a demonstration, go on strike, or donate to a strike fund, and 68\% are in favor of the movement when including those who could sign a petition (Online Appendix Figure~\ref{fig:global_movement}). A majority (52\%) of the self-reported millionaires in the sample are in favor. Asked about the party they feel closest to, 36\% say they would be more likely to vote for it if it took part in such a movement, against 17\% who would be less likely (Online Appendix Figure~\ref{fig:vote_intl_coalition}). These self-reports are subject to the usual caveats of stated intentions, but they are consistent with the conjoint estimates.
+
+\paragraph{Motives and reparations.}\label{par:why_help_lic}\label{par:reparations} Asked why HICs should support LICs, 54\% agree that ``helping countries in need is the right thing to do'', the most chosen reason in every country except France, while 38\% agree that it is in HICs' long-term interest and 25\% that it is their historical responsibility (Online Appendix Figure~\ref{fig:why_hic_help_lic}). Consistent with the minority support for the historical-responsibility argument, only 35\% support (and 42\% oppose) reparations for colonization and slavery in former colonial or slave-holding states, with Italy as the only exception (56\% support; Online Appendix Figure~\ref{fig:reparations_support}). Support for global redistribution thus seems to stem from a sense of duty rather than from self-interest or guilt, which suggests that a reparations framing would not broaden support.
+
+\paragraph{Moral circle.}\label{par:group_defended} Asked which group they advocate for when they vote,\footnote{In Russia and Saudi Arabia, the question read: ``Which group do you advocate for? For example, if you were the richest person on Earth, which group would you predominantly help with your money?''\label{fn:group_defended}} 45\% choose a universalist answer (``Humans'' or ``Sentient beings''), against 32\% who choose their fellow citizens (Online Appendix Figure~\ref{fig:group_defended}). Universalists form a majority in Europe (50\%) and Saudi Arabia (57\%), and among left-wing voters (59\%). Universalism is a stronger predictor of policy attitudes than any sociodemographic characteristic, consistent with \cite{enke_moral_2023}: its correlation with latent support for global redistribution is .37 (Online Appendix Figure~\ref{fig:lmg}).
+
+\paragraph{Custom global redistribution.} In an interactive task, respondents choose their preferred global income distribution by moving three sliders, which control the share of winners, the share of losers, and the extent of redistribution (Online Appendix~\ref{subsec:custom_redistr} describes the task and its limitations, including anchoring on initial slider positions and a 43\% skip rate). Among the 56\% of respondents who complete the task, the median preferred redistribution transfers 5.4\% of world income and guarantees a minimum income of \$287 per month (PPP). Nearly half (48\%) choose a redistribution that would make them worse off, against 9\% who choose one that would make them better off. While this task is less suited to measure majority acceptance than the binary questions above, it indicates that the preferred extent of global redistribution is an order of magnitude larger than current transfers.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Does Acceptance Survive Partial Coverage?}\label{sec:coverage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Any international redistribution policy would likely be implemented by a coalition of countries, without some major economies. Partial coverage could reduce acceptance, because of concerns about competitiveness, tax flight to non-participating jurisdictions, or an unfair sharing of the burden. This section estimates acceptance as a function of coverage, $a(\theta)$ in the framework, for a climate policy and a wealth tax.
+
+\subsection{Climate Schemes}\label{subsec:ics}
+
+\paragraph{Policies.} I study three versions of a cap-and-dividend policy (``Climate Scheme''), a reference climate policy \citep{grubb_greenhouse_1990,bertram_tradeable_1992,baer_equity_2000,barnes_creating_2008,blanchard_major_2021} in which fossil fuel producers buy emission permits and the revenue is returned as an equal cash transfer to each adult. Those with an above-average carbon footprint lose and those with a below-average footprint gain. At the national level, the average consumer is unaffected; at the global or international level, the average HIC consumer loses, because their footprint exceeds the coalition average. One-third of respondents first evaluate the National Climate Scheme, which 68\% accept (from 56\% in Poland to 88\% in Saudi Arabia).\footnote{This is higher than the support for tax-and-dividend policies in other surveys \citep{douenne_yellow_2022,mildenberger_limited_2022,dechezlepretre_fighting_2025}, consistent with the preference for emissions trading over carbon taxes \citep{funke_prices_2025}.}
+
+\paragraph{Global Climate Scheme.} Before the Global Climate Scheme (GCS) question, respondents are told that they could win \$100 if they correctly answer a comprehension question later. They are informed that the cash transfer would lift 600 million people out of extreme poverty, and of the price increases and the net cost for the average person in their country (for instance, price increases of 2\% and a net cost of \$90 per month in the US, or \euro{}45 per month in Germany).\footnote{The computations use a carbon price of \$95/tCO$_2$. For Russia, Saudi Arabia, and the US, they assume universal participation and a cash transfer of \$35 per month. For Europe and Japan, they assume the \textit{High} participation scenario described below, which implies a lower transfer (\euro{}20 per month) and a higher net cost. Online Appendix~\ref{subsec:country_features} reports country-specific figures.} The GCS is accepted by 55\% of respondents, from 49\% in the US and Russia to 85\% in Saudi Arabia, about 10~p.p.\ less than in \cite{fabre_majority_2025}, perhaps because respondents are now also informed of price increases, or because attitudes have changed in the two-year interval.
+
+\paragraph{International Climate Scheme.} Respondents are then randomly assigned one of four versions of an International Climate Scheme (ICS), which differ in the coalition of participating countries. Respondents see a map of the coalition (Online Appendix Figure~\ref{fig:ics_maps}), the list of countries or regions, and their share of world emissions. The \textit{Mid} coalition covers 56\% of world emissions and includes China and Global South countries. The \textit{Low} coalition replaces China with the EU and covers 33\%. The \textit{High} coalition adds the EU, the UK, Japan, Canada, South Korea, and other HICs to the \textit{Mid} coalition and covers 72\%. The \textit{High color} variant uses the \textit{High} coalition but colors the map according to each country's net gain or loss.
+
+\begin{figure}[htbp]
+    \caption{Acceptance of the National, Global, and International Climate Schemes}\label{fig:ics}
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{../figures/country_comparison/variables_ncs_gcs_ics_control_by_country.pdf}}
+    {\footnotesize \textit{Notes:} Share of \textit{Yes} answers. Online Appendix Table~\ref{tab:ics} reports the treatment effects. Questions~\ref{q:ncs_support}--\ref{q:ics_support}.}
+\end{figure}
+
+\paragraph{Results.} Acceptance increases with coverage, but only slightly (Figure~\ref{fig:ics}). Relative to the \textit{High} coalition (68\%), acceptance is 3.8~p.p.\ lower with the \textit{Low} coalition (s.e.\ 1.3; 95\% CI: $[-6.4, -1.2]$) and 1.4~p.p.\ lower, not significantly, with the \textit{Mid} coalition. Europeans' acceptance rises when China joins the coalition, but not further when other HICs join; for Americans and Japanese, acceptance increases only when China, the EU, and other HICs all participate. The coverage effect is driven by the 74\% of respondents who correctly understand that the GCS would increase gasoline prices. Displaying net gains and losses on the map lowers acceptance by 6.6~p.p., perhaps because it makes costs salient, reveals that China would neither gain nor lose, or shows how the respondent's country fares relative to others; the effect is insignificant (and of opposite sign) in Spain and Switzerland, whose losses appear smallest. Acceptance of the ICS in the \textit{Low} coalition is similar to that of the National Climate Scheme, which suggests that the average respondent is willing to bear the additional cost of the international version in exchange for poverty reduction and decarbonization in the Global South.\footnote{Acceptance of the ICS exceeds that of the GCS, even in the \textit{High color} variant where costs are visible. A list of participating countries may make the proposal more concrete or credible than a ``global'' scheme; the data do not allow me to distinguish between such explanations.}
+
+\subsection{Wealth Tax Funding LICs}\label{subsec:wealth_tax}
+
+A second experiment randomizes the coverage of a 2\% tax on wealth above \$1 million, with 30\% of its revenue financing public services in LICs. In the \textit{Global} variant, all other countries participate; in the \textit{All HICs} variant, all other HICs; and in the \textit{International} variant, a narrower coalition that always includes Brazil and European countries (or the EU) and excludes China and the US.\footnote{In the US, the excluded countries are China, Japan, and Canada. The included countries are, in addition to Brazil: the EU and the UK for Switzerland, Saudi Arabia, and the US; the EU for Russia and the UK; and France, Germany, Spain, and the UK (except one's own country) for EU countries.}
+
+\begin{figure}[htbp]
+    \caption{Acceptance of an International Wealth Tax by Country Coverage}\label{fig:wealth_tax}
+    \makebox[\textwidth][c]{\includegraphics[width=.9\textwidth]{../figures/country_comparison/variables_wealth_tax_support_by_country.pdf}}
+    {\footnotesize \textit{Notes:} Share of \textit{Yes} answers. Online Appendix Table~\ref{tab:wealth_tax} reports the treatment effects. Questions~\ref{q:global_tax_support}--\ref{q:intl_tax_support}.}
+\end{figure}
+
+The \textit{All HICs} variant is accepted by 70\% (from 58\% in Switzerland to 81\% in Saudi Arabia; Figure~\ref{fig:wealth_tax}). Relative to this variant, acceptance is 4.6~p.p.\ higher with global coverage (s.e.\ 1.1) and 1.0~p.p.\ lower, insignificantly, with the narrower coalition (s.e.\ 1.1); the 95\% confidence interval rules out a decline larger than 3.2~p.p. Whether the US and China participate thus matters less to respondents than whether the policy is global.
+
+Overall, acceptance of internationally redistributive policies depends only mildly on coverage. In the framework, $a(\theta)$ is increasing but flat, and the policies remain accepted by large majorities for realistic coalitions. This is consistent with the weak evidence of free riding in climate policy \citep{aklin_prisoners_2020}. It also implies that concerns about domestic opinion are not a reason for willing countries to delay until participation is universal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Is Stated Support Sincere? Testing Warm Glow}\label{sec:sincerity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Two Experiments}\label{subsec:warm_glow}
+
+If support were driven by warm glow, it would decline when respondents can obtain moral satisfaction through a substitute, or when the prospect of implementation becomes more concrete. I test both predictions.
+
+\paragraph{Moral substitute.} Following \cite{nunes_identifying_2003}, right before the GCS question, a random subset of respondents decides how much of a potential \$100 lottery prize they would donate to a reforestation NGO, while the control group faces no question.\footnote{Right before the GCS question, the sample is split into three branches: the donation question, the National Climate Scheme question, and a control group. I exclude the National Climate Scheme branch from this analysis.} Under warm glow (or moral licensing), support for the GCS would be lower among respondents who have just had the opportunity to act generously. Instead, support is 2.8~p.p.\ \textit{higher} in the donation branch (s.e.\ 1.2), and the coefficient is positive in every country (Figure~\ref{fig:warm_glow_substitute}).\footnote{The donation question may prompt the thought that individual action is insufficient to address climate change, which would favor support for a global policy.}
+
+\paragraph{Information treatment.} A random half of respondents read a short text about ongoing international initiatives involving transfers to LICs: the adoption at the International Maritime Organization of a levy on shipping emissions that should partly finance LICs, the G20's consideration of a coordinated tax on billionaires, the UN General Assembly's agreement in principle to expand the Security Council, and the UN Secretary-General's support for reforms of the international financial system (Question~\ref{q:info_solidarity}). All respondents then report how likely they think it is that ``international policies involving significant transfers from HICs to LICs will be introduced in the next 15 years'' and their support for the ten plausible policies. The outcome is the share of these ten policies that the respondent supports.
+
+\begin{figure}[htbp]
+\caption{Tests of Warm Glow}\label{fig:warm_glow}
+\begin{subfigure}{.45\textwidth}
+  \caption{Effect of the donation treatment on support for the Global Climate Scheme\label{fig:warm_glow_substitute}}
+  \includegraphics[height=.34\textheight]{../figures/country_comparison/gcs_support_by_variant_warm_glow.pdf}
+\end{subfigure} \quad
+\begin{subfigure}{.49\textwidth}
+  \caption{Effect of the information treatment on the share of plausible policies supported\label{fig:warm_glow_realism}}
+  \includegraphics[height=.34\textheight]{../figures/country_comparison/share_solidarity_supported_by_info_solidarity.pdf}
+\end{subfigure}
+{\footnotesize \textit{Notes:} Negative effects would indicate warm glow. Regressions include the control variables listed in Table~\ref{tab:iv}; 95\% confidence intervals. Online Appendix Tables~\ref{tab:warm_glow_substitute} and~\ref{tab:warm_glow_realism} report the estimates. Questions~\ref{q:donation}--\ref{q:gcs_support} and~\ref{q:info_solidarity}--\ref{q:solidarity_support}.}
+\end{figure}
+
+\subsection{Results of the Information Treatment}
+
+Table~\ref{tab:iv} reports the results. The treatment raises the share of respondents who believe that international transfers are likely by 7.4~p.p.\ (s.e.\ 0.9), from 33\% in the control group, with an effective $F$-statistic of 67 (columns 1--2). The reduced-form effect on the share of policies supported is $+$1.3~p.p.\ (s.e.\ 0.7, column 5): the information does not reduce support, as pre-registered (H5a). The one-sided 95\% confidence bound is above zero in the pooled sample, and no regional estimate is significantly negative; the point estimates are positive in Europe (1.8~p.p.), Japan (1.3), and the US (2.0), and negative but imprecise in Russia and Saudi Arabia (Online Appendix Table~\ref{tab:warm_glow_realism}).
+
+\begin{table}[htbp]
+  \centering
+  \caption{Effect of Believing That International Transfers Are Likely on Support for Global Policies}\label{tab:iv}
+  \footnotesize
+  \makebox[\textwidth][c]{\input{../tables/IV_warm_glow_no_star.tex}}
+  \begin{minipage}{\textwidth}
+  \vspace{3pt}
+  \footnotesize \textit{Notes:} Robust standard errors (HC1) in parentheses. The dependent variable in columns 1--2 is an indicator for believing that international policies involving significant transfers from HICs to LICs are likely to be introduced in the next 15 years; in columns 3--5, the share of the ten plausible global policies supported. Column 3 instruments the belief with the information treatment. Control variables: vote, gender, age, income, education, urbanicity, perceived likelihood of becoming a millionaire, living with a partner, employment status, foreign born, and region of the country. Online Appendix Table~\ref{tab:iv_wo_control} reports estimates without controls.
+  \end{minipage}
+\end{table}
+
+The 2SLS estimate in column 3 implies that, for respondents whose belief is moved by the information, believing that international transfers are likely increases the share of policies supported by 18~p.p.\ (s.e.\ 8.6; 95\% CI: $[1, 35]$), or about two additional policies out of ten. The estimate is imprecise, but its sign is the opposite of what warm glow predicts, and it is close to the OLS estimate (14.5~p.p., column 4). Without controls, the point estimate is similar (14~p.p.) but no longer significant ($p = .11$; Online Appendix Table~\ref{tab:iv_wo_control}). The reduced form, which does not depend on the exclusion restriction, is the pre-registered test of H5a; I view the 2SLS estimate as a quantification of the same result under additional assumptions.
+
+\paragraph{Exclusion restriction.} The information was designed to affect support only through the perceived likelihood of international transfers, but it could also have direct effects. It could raise the salience of global issues, signal that elites support these policies (a social norm or bandwagon effect), or make the policies seem better designed. Let $\delta$ denote this direct effect on the share of policies supported. The IV estimand then equals $(\kappa - w) + \delta/\pi$, where $\pi$ is the first stage, so the estimate of $\kappa - w$ is approximately $(0.013 - \delta)/0.074$, in the spirit of \cite{conley_plausibly_2012}. For the data to be consistent with a net warm glow ($\kappa - w < 0$), the direct effect $\delta$ would have to exceed 1.3~p.p., the entire reduced-form effect. In other words, the direct channels would have to account for more than the total effect of the treatment and offset a negative effect of perceived likelihood. Moreover, the direct channels that would bias the IV upward (elite cues, salience, credibility) are channels through which support would also rise if international transfers actually advanced. For the policy question of equation~\eqref{eq:feasibility} (whether support would hold once transfers are on the agenda), the reduced form is informative regardless of which channel operates.
+
+\paragraph{Interpretation.} Neither experiment provides evidence of warm glow, and both point estimates go in the opposite direction. The design cannot rule out that some respondents experience warm glow, but it shows that, on net, support does not fall when the opportunity for moral satisfaction is offered elsewhere, nor when the prospect of implementation becomes more concrete. The positive effect of perceived likelihood is consistent with a status quo bias, whereby proposals seen as utopian are discounted, or with conditional cooperation. Either mechanism implies that support would strengthen, rather than erode, as international policies advance.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Why Is Global Redistribution Not More Prominent? Exploratory Evidence}\label{sec:gap}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The pre-registered tests reject the explanations that attribute the preference--prominence gap to overstated support (E1) or to partial coverage (E2). This section presents exploratory evidence on the two remaining explanations of the framework.
+
+\paragraph{Low salience (E3).} As shown in Section~\ref{subsec:considerations}, global inequality is rarely top of mind, even though it is seen as unjust. Respondents' concerns relate overwhelmingly to issues that directly affect them or their families, and political demands are framed at the national level. In the framework, low salience $s$ implies a small electoral payoff from championing international redistribution in normal times, even though the conjoint experiment shows that the payoff is substantial once the issue is put on the agenda. This configuration can explain why the issue rarely enters campaigns, and why it is not raised by challengers who could benefit from it: the gain materializes only if voters learn about parties' positions, which requires the issue to be salient in the first place.
+
+\paragraph{Pluralistic ignorance (E4).}\label{subsec:pluralistic} After the GCS question, respondents guess the share of support for the GCS in their country or, in a random variant, in the US; correct guesses are rewarded.\footnote{Americans are asked about their country or the EU. In Russia, the survey company did not permit questions about beliefs regarding a foreign country.} In every country and in every variant, support is underestimated (Online Appendix Figure~\ref{fig:ncs_gcs_ics}). The median respondent underestimates support in their own country by 16~p.p.\ and in the US by 22~p.p. In Japan and in European countries, a majority supports the GCS, but most people believe that it does not. Beliefs about others' support are also correlated with one's own support: 51\% of GCS supporters believe that a majority of their compatriots support it, versus 24\% of non-supporters, a pattern consistent with a false-consensus effect. This pluralistic ignorance echoes findings for climate policies \citep{mildenberger_beliefs_2019,andre_globally_2024} and the billionaire tax \citep{cappelen_majority_2025}. If politicians and activists share these misperceptions, which is plausible given that politicians misperceive their constituents' preferences \citep{broockman_bias_2018,pilet_politicians_2024}, they underestimate the returns to championing global redistribution.
+
+\paragraph{Discussion.} Low salience and pluralistic ignorance reinforce each other. An issue that is rarely discussed provides few signals of others' support, and an issue that is believed to be unpopular is less likely to be raised. The information experiment suggests a third, related, mechanism: perceived infeasibility depresses support, so the absence of international institutions capable of implementing transfers may itself discourage demands for them. These exploratory results do not establish that low salience and pluralistic ignorance cause the preference--prominence gap, and other explanations, such as the influence of affluent interest groups \citep{gilens_testing_2014} or the difficulty of making credible international commitments, are not tested here. But they show that the gap can coexist with genuine and robust majority acceptance.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Threats to Validity}\label{sec:validity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Stated versus revealed preferences.} The outcomes are stated attitudes toward hypothetical policies, without real stakes. Several features mitigate this concern. The conjoint and budget allocation tasks force trade-offs and were completed before respondents knew the topic. The policies' costs are quantified for the average person in the respondent's country, and the comprehension question on the GCS is incentivized. Acceptance falls when costs are more salient (for the aviation levy, the GCS, and the colored map of net gains), which shows that respondents respond to costs. And policy attitudes measured with multiple items have been shown to be about as stable and predictive of vote choice as party identification \citep{ansolabehere_strength_2008}.
+
+\paragraph{Social desirability and experimenter demand.} Social desirability bias could inflate support for generous policies. \cite{fabre_majority_2025} find no such bias for the GCS in a list experiment. In the present survey, the opening block hides the topic, the questionnaire was found politically unbiased by 70\% of respondents, and the evidence on experimenter demand in online surveys suggests that it is small \citep{de_quidt_measuring_2018,mummolo_demand_2019}. The information treatment could induce demand, but this would bias the warm-glow test toward finding higher support only if respondents inferred that the researcher wanted it; the reduced form is small (1.3~p.p.) and would leave the levels of acceptance essentially unchanged.
+
+\paragraph{Acquiescence and measurement.} Binary questions do not allow a neutral answer, which could inflate the share of \textit{Yes}. Likert questions allow indifference, and I report both absolute support and acceptance; the conclusions on majority acceptance are robust to the measure for the most popular policies, which also garner an absolute majority of support. Item order has small effects (Online Appendix~\ref{app:order}). Acceptance is higher among the minority of respondents who misunderstand the GCS (by 5~p.p.), but the coverage effects are driven by those who understand it.
+
+\paragraph{Sample selection.} Online panels with quotas may over-represent respondents who are more educated or more interested in politics within quota cells. Reweighting by vote leaves the results unchanged (Online Appendix~\ref{app:vote}), and attitudes are only weakly correlated with sociodemographic characteristics, which limits the scope for bias through observable selection. In Russia and Saudi Arabia, where the samples are less representative and political expression is constrained, the results should be interpreted with caution. All results are reported separately by country, and the conjoint experiment was fielded only in the nine democracies of the sample.
+
+\paragraph{Multiple hypotheses.} The pre-analysis plan specifies one-sided tests by region. The main conclusions do not hinge on marginal $p$-values: the effect of the millionaire tax in the conjoint remains significant in each region after a Holm correction; the levels of acceptance for most policies exceed 50\% by margins far larger than their sampling error; and the warm-glow hypotheses are rejected by point estimates of the opposite sign.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion and Policy Implications}\label{sec:conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This paper shows that majorities in eleven HICs, including conservative countries not surveyed before, accept international redistribution policies ranging from those currently negotiated to transfers of several percent of world income. This acceptance does not appear to be an artifact of survey design. Global redistribution affects program choice before respondents know the survey topic, it retains substantial priority when competing with domestic spending, it depends only mildly on whether all countries participate, and it rises rather than falls when its implementation appears more likely. The gap between widespread acceptance and the political marginalization of global redistribution is better explained by the low salience of the issue and by the underestimation of public support.
+
+These results have four implications for policy. First, public opinion in HICs does not appear to be the binding constraint on the reforms currently negotiated, such as a minimum tax on billionaires, debt relief, the expansion of multilateral development bank lending, and contributions to the loss and damage fund, which are accepted by large majorities. This is all the more true for balance-sheet operations whose costs are indirect \citep{bridgetown_initiative_bridgetown_2025,ffd4_outcome_2025}. Second, coalitions of willing countries need not wait for universal participation: relative to a coalition of all HICs, acceptance of a wealth tax funding LICs is essentially unchanged when China and the US do not participate. Third, design matters. Instruments under which the richest contribute (wealth and top-income taxes) are more popular than those that make costs salient for the average taxpayer, such as an aviation levy. Government-to-government transfers become acceptable when conditioned on poverty-reduction programs, with cash transfers to children, the elderly, and the disabled being the most preferred channel (Online Appendix~\ref{subsec:transfer_how}). Fourth, because support is underestimated and grows with perceived feasibility, communicating actual levels of support and the progress of international negotiations could help close the gap between preferences and policy.
+
+Several questions remain open. The survey measures misperceptions among citizens, not among politicians and negotiators, whose beliefs and constraints deserve direct study. The salience of global inequality may be endogenous to political supply, and how it responds to campaigns or international events is an important question for future research. Finally, testing the acceptance of the redistributions designed by respondents in the custom redistribution task on separate samples, as \cite{fabre_french_2022} did for national redistribution in France, would provide a more demanding test of the preferred extent of global redistribution.
+
+\clearpage
+\singlespacing
+\bibliographystyle{aea}
+\bibliography{global_tax_attitudes,aejep_extra}
+
+\end{document}
