@@ -130,9 +130,10 @@
 \usepackage[round,sort&compress]{natbib} % NCCcomment
 \usepackage{url} % [hyphens]
 \usepackage{xcolor}
-\usepackage{xr-hyper} % cross-references to the Online Appendix
-\usepackage{hyperref}
-\externaldocument{support_global_redistr_AEJ_appendix}
+\usepackage{xr} % cross-references to the Online Appendix (plain xr, not xr-hyper: links stay internal, so they work once the two PDFs are concatenated)
+\usepackage[hyperfootnotes=false]{hyperref} % footnote anchors are not created (as in support_global_redistr.tex), so footnote links would be dead
+% Appendix .aux in the current directory, else in build/ (compile the appendix first)
+\IfFileExists{support_global_redistr_AEJ_appendix.aux}{\externaldocument{support_global_redistr_AEJ_appendix}}{\IfFileExists{build/support_global_redistr_AEJ_appendix.aux}{\externaldocument{build/support_global_redistr_AEJ_appendix}}{\externaldocument{support_global_redistr_AEJ_appendix}}}
 
 
 % \usepackage{hyperref}
