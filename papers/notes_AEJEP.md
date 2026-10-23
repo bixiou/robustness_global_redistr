@@ -7,8 +7,11 @@ Current version (same structure as support_global_redistr.tex; AEA formatting + 
   export TEXINPUTS=.:build: BIBINPUTS=.:..: BSTINPUTS=.:..:
   for f in support_global_redistr_AEJ_appendix support_global_redistr_AEJ; do pdflatex -output-directory=build $f; done
   (cd build; bibtex support_global_redistr_AEJ_appendix; bibtex support_global_redistr_AEJ)
-  # then the two pdflatex runs twice more (xr-hyper cross-references), and pdflatex -output-directory=build title_page_AEJ
+  # then the two pdflatex runs twice more (xr cross-references), and pdflatex -output-directory=build title_page_AEJ
+  python3 merge_AEJ.py   # -> build/support_global_redistr_AEJ_with_appendix.pdf (requires pip install pikepdf)
   ```
+- Cross-references between the two files use plain `xr`, which reads the other file's .aux from the current directory or from build/; "??" means the other file was not compiled first.
+- Links between the files are internal, and appendix anchors are prefixed "app-". They therefore work in the PDF merged by `merge_AEJ.py`, but not in the separate PDFs. pdfunite, gs and mutool drop them.
 - Abstract shortened to 100 words; previous abstract kept as a comment.
 
 Earlier restructured draft (now in deprecated/): support_global_redistr_AEJEP*.tex, title_page_AEJEP.tex. Notes below refer to it.

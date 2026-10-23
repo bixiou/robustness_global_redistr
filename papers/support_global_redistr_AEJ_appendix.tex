@@ -11,10 +11,23 @@
 \setcitestyle{aysep={}}
 \usepackage{url}
 \usepackage{xcolor}
-\usepackage{xr-hyper}
-\usepackage{hyperref}
+\usepackage{xr} % cross-references to the main text (plain xr: links stay internal, so they work once the two PDFs are concatenated)
+\usepackage[hyperfootnotes=false]{hyperref}
 \hypersetup{colorlinks=true, urlcolor=purple, linkcolor=blue, citecolor=violet}
-\externaldocument{support_global_redistr_AEJ}
+% Main .aux in the current directory, else in build/
+\IfFileExists{support_global_redistr_AEJ.aux}{\externaldocument{support_global_redistr_AEJ}}{\IfFileExists{build/support_global_redistr_AEJ.aux}{\externaldocument{build/support_global_redistr_AEJ}}{\externaldocument{support_global_redistr_AEJ}}}
+% Prefix the appendix's link targets with "app-", so they don't clash with the main text's in the concatenated PDF
+\makeatletter
+\def\Hy@AppPrefixHref{%
+  \xdef\HyperGlobalCurrentHref{app-\HyperGlobalCurrentHref}%
+  \let\HyperLocalCurrentHref\HyperGlobalCurrentHref
+  \ifHy@localanchorname\let\@currentHref\HyperLocalCurrentHref\else\global\let\@currentHref\HyperGlobalCurrentHref\fi}
+\AtBeginDocument{%
+  \let\Hy@MakeCurrentHrefOrig\Hy@MakeCurrentHref
+  \def\Hy@MakeCurrentHref#1{\Hy@MakeCurrentHrefOrig{#1}\Hy@AppPrefixHref}%
+  \let\hyper@makecurrentOrig\hyper@makecurrent
+  \def\hyper@makecurrent#1{\hyper@makecurrentOrig{#1}\Hy@AppPrefixHref}}
+\makeatother
 \usepackage{bm}
 \usepackage{indentfirst}
 \usepackage[leqno]{amsmath}
